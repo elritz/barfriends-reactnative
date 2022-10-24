@@ -1,0 +1,18 @@
+overwrite: true
+schema: "http://192.168.86.38:4000/graphql"
+documents: "src/graphql/DM/**/*.*.ts"
+generates:
+  ./src/graphql/generated/index.ts:
+    schema: ./schema.graphql
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./src/graphql/generated/schema.graphql:
+    plugins:
+      - schema-ast
+  ./src/graphql/generated/schema.graphql.json:
+    plugins:
+      - "introspection"
+    config:
+      minify: true

@@ -1,0 +1,68 @@
+import { View, Text, Pressable } from 'react-native'
+import React, { useContext } from 'react'
+import { useReactiveVar } from '@apollo/client'
+import { DeviceNetworkInfoReactiveVar } from '@reactive'
+import { ThemeContext } from 'styled-components/native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
+import { useNavigation } from '@react-navigation/native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { isNetworkRequestInFlight } from '@apollo/client/core/networkStatus'
+import { Icon } from '@rneui/themed'
+
+const NetworkConnectivityTop = () => {
+  const themeContext = useContext(ThemeContext)
+  const inset = useSafeAreaInsets()
+  const rDeviceNetworkVar = useReactiveVar(DeviceNetworkInfoReactiveVar)
+
+  return (
+    <View>
+      {rDeviceNetworkVar.isInternetReachable &&
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0, right: 0,
+            backgroundColor: themeContext.palette.quaternary.background,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: inset.top,
+            paddingBottom: 5,
+          }}
+        >
+          <Icon
+            type='material-community'
+            name="wifi-strength-off"
+            size={18}
+            color={themeContext.palette.tertiary.color.tertiary}
+            style={{ paddingHorizontal: 5 }}
+          />
+          <RNEText500
+            style={{
+              textAlign: 'center',
+              color: themeContext.palette.tertiary.color.tertiary
+            }}
+          >
+            No internet connection
+          </RNEText500>
+          <Pressable
+            onPress={() => console.log('get a bunch of stuff')}
+          >
+            <RNEText500
+              style={{
+                textAlign: 'center',
+                // color: themeContext.palette.highlight.color.tertiary
+              }}
+            >
+              &nbsp;
+              Refresh
+            </RNEText500>
+          </Pressable>
+        </View>
+      }
+    </View>
+  )
+}
+
+export default NetworkConnectivityTop;

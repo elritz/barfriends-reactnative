@@ -1,0 +1,136 @@
+import { useReactiveVar } from '@apollo/client'
+import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
+import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
+import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600'
+import { Feather } from '@expo/vector-icons'
+import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
+import { useNavigation } from '@react-navigation/native'
+import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
+import { Button, Icon } from 'native-base'
+import { Box, Center, Text, VStack } from 'native-base'
+import React, { useContext } from 'react'
+import { Pressable, View } from 'react-native'
+import styled, { ThemeContext } from 'styled-components/native'
+
+const GetStartedScreen = () => {
+	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const rProfilesBottomSheetVar = useReactiveVar(ProfilesBottomSheetRefReactiveVar)
+	const navigation = useNavigation()
+	const themeContext = useContext(ThemeContext)
+	const hightlightColor = themeContext.palette.bfscompany.primary
+
+	if (rProfilesBottomSheetVar) {
+		rProfilesBottomSheetVar.current.close()
+	}
+
+	const {
+		data: PTSData,
+		loading: PTSLoading,
+		error: PTSError,
+	} = useDocumentsQuery({
+		variables: {
+			where: {
+				TypeOfDocument: {
+					equals: TypeOfDocument.ProfileTermsOfService,
+				},
+			},
+			orderBy: {
+				createdAt: SortOrder.Desc,
+			},
+			first: 1,
+		},
+	})
+
+	const {
+		data: PPPData,
+		loading: PPPLoading,
+		error: PPPError,
+	} = useDocumentsQuery({
+		variables: {
+			where: {
+				TypeOfDocument: {
+					equals: TypeOfDocument.ProfilePrivacyPolicy,
+				},
+			},
+			orderBy: {
+				createdAt: SortOrder.Desc,
+			},
+			first: 1,
+		},
+	})
+
+	if (PTSLoading && PPPLoading && PPPData) {
+		return null
+	}
+
+	const navigateToNextScreen = () => {
+		CredentialPersonalProfileReactiveVar({
+			...credentialPersonalProfileVar,
+			PrivacyId: String(PPPData.documents[0].id),
+			ServiceId: String(PTSData.documents[0].id),
+		})
+
+		navigation.navigate('CredentialNavigator', {
+			screen: 'PersonalCredentialStack',
+			params: {
+				screen: 'EmailPhoneTabStack',
+				params: {
+					screen: 'PhoneScreen',
+				},
+			},
+		})
+	}
+
+	return (
+		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={'5%'}>
+			<Box justifyContent={'center'} height={'lg'}>
+				<CompanyCoasterLogoDynamic />
+				<Text mt={4} fontWeight={'black'} lineHeight={35} fontSize={'4xl'}>
+					Let's Fucking Gooooooo out tonight!
+				</Text>
+				<Pressable
+					onPress={() =>
+						navigation.navigate('CredentialNavigator', {
+							screen: 'PersonalCredentialStack',
+							params: {
+								screen: 'TermsServicePrivacyTabStack',
+								params: {
+									screen: 'ServiceScreen',
+								},
+							},
+						})
+					}
+				>
+					<RNEText600 h4>
+						By continuing, you agree to the
+						<RNEText600 h4 style={{ color: hightlightColor }}>
+							{' '}
+							Term of the Services
+						</RNEText600>
+						<RNEText600 h4> and</RNEText600>
+						<RNEText600 h4 style={{ color: hightlightColor }}>
+							{' '}
+							Privacy Policies.
+						</RNEText600>
+					</RNEText600>
+				</Pressable>
+			</Box>
+			<Box>
+				<Button
+					bg={'tertiary.500'}
+					onPress={navigateToNextScreen}
+					type='solid'
+					px={10}
+					iconPosition='right'
+					rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={30} />}
+					size={'lg'}
+					fontSize={'lg'}
+				>
+					Continue
+				</Button>
+			</Box>
+		</VStack>
+	)
+}
+
+export default GetStartedScreen

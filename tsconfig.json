@@ -1,0 +1,57 @@
+{
+	"extends": "expo/tsconfig.base",
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"allowJs": true,
+		"isolatedModules": true,
+		"noImplicitAny": false,
+		"rootDirs": ["src", "stories"],
+		"declaration": true,
+		"typeRoots": ["node_modules/@types", "./src/types/navigation", "./src/types/*"],
+		"jsx": "react-native",
+		"lib": ["dom", "esnext"],
+		"moduleResolution": "node",
+		"noEmit": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"strict": false,
+		"baseUrl": "./",
+		"paths": {
+			"@types": ["./src/types/app.d"],
+			"@util/*": ["./src/util/*"],
+			"@helpers/*": ["./src/helpers/*"],
+			"@navigation/*": ["./src/navigation/*"],
+			"@assets/*": ["./src/assets/*"],
+			"@components/*": ["./src/components/*"],
+			"@graphql/*": ["./src/graphql/*"],
+			"@library/*": ["./src/library/*"],
+			"@context/*": ["./src/context/*"],
+			"@constants/*": ["./src/constants/*"],
+			"@reactive": ["src/reactive/index.tsx"]
+		},
+		"plugins": [
+			{
+				"name": "typescript-styled-plugin",
+				"lint": {
+					"validProperties": [
+						"aspect-ratio",
+						"elevation",
+						"margin-vertical",
+						"margin-horizontal",
+						"padding-horizontal",
+						"padding-vertical",
+						"resize-mode",
+						"shadow-color",
+						"shadow-opacity",
+						"shadow-offset",
+						"shadow-radius",
+						"text-align-vertical",
+						"tint-color"
+					]
+				}
+			}
+		],
+		"types": ["jest", "styled-components-react-native"]
+	}
+}

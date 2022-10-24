@@ -1,0 +1,5871 @@
+directive @defer(if: Boolean! = true, label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+type Address {
+  AddressComponents(after: AddressComponentWhereUniqueInput, before: AddressComponentWhereUniqueInput, first: Int, last: Int): [AddressComponent!]!
+  createdAt: DateTime!
+  formattedAddress: String!
+  id: String!
+  updatedAt: DateTime!
+}
+
+type AddressComponent {
+  addressId: String
+  h3Index15: String
+  id: Int!
+  long_name: String!
+  short_name: String!
+  types: [String!]!
+}
+
+input AddressComponentCreateManyAddressInput {
+  h3Index15: String
+  id: Int
+  long_name: String!
+  short_name: String!
+  types: AddressComponentCreateManytypesInput
+}
+
+input AddressComponentCreateManyAddressInputEnvelope {
+  data: [AddressComponentCreateManyAddressInput!]
+  skipDuplicates: Boolean
+}
+
+input AddressComponentCreateManytypesInput {
+  set: [String!]
+}
+
+input AddressComponentCreateNestedManyWithoutAddressInput {
+  connect: [AddressComponentWhereUniqueInput!]
+  connectOrCreate: [AddressComponentCreateOrConnectWithoutAddressInput!]
+  create: [AddressComponentCreateWithoutAddressInput!]
+  createMany: AddressComponentCreateManyAddressInputEnvelope
+}
+
+input AddressComponentCreateOrConnectWithoutAddressInput {
+  create: AddressComponentCreateWithoutAddressInput!
+  where: AddressComponentWhereUniqueInput!
+}
+
+input AddressComponentCreatetypesInput {
+  set: [String!]
+}
+
+input AddressComponentCreateWithoutAddressInput {
+  h3Index15: String
+  long_name: String!
+  short_name: String!
+  types: AddressComponentCreatetypesInput
+}
+
+input AddressComponentListRelationFilter {
+  every: AddressComponentWhereInput
+  none: AddressComponentWhereInput
+  some: AddressComponentWhereInput
+}
+
+input AddressComponentOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input AddressComponentScalarWhereInput {
+  addressId: StringNullableFilter
+  AND: [AddressComponentScalarWhereInput!]
+  h3Index15: StringNullableFilter
+  id: IntFilter
+  long_name: StringFilter
+  NOT: [AddressComponentScalarWhereInput!]
+  OR: [AddressComponentScalarWhereInput!]
+  short_name: StringFilter
+  types: StringNullableListFilter
+}
+
+input AddressComponentUpdateManyMutationInput {
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  long_name: StringFieldUpdateOperationsInput
+  short_name: StringFieldUpdateOperationsInput
+  types: AddressComponentUpdatetypesInput
+}
+
+input AddressComponentUpdateManyWithoutAddressInput {
+  connect: [AddressComponentWhereUniqueInput!]
+  connectOrCreate: [AddressComponentCreateOrConnectWithoutAddressInput!]
+  create: [AddressComponentCreateWithoutAddressInput!]
+  createMany: AddressComponentCreateManyAddressInputEnvelope
+  delete: [AddressComponentWhereUniqueInput!]
+  deleteMany: [AddressComponentScalarWhereInput!]
+  disconnect: [AddressComponentWhereUniqueInput!]
+  set: [AddressComponentWhereUniqueInput!]
+  update: [AddressComponentUpdateWithWhereUniqueWithoutAddressInput!]
+  updateMany: [AddressComponentUpdateManyWithWhereWithoutAddressInput!]
+  upsert: [AddressComponentUpsertWithWhereUniqueWithoutAddressInput!]
+}
+
+input AddressComponentUpdateManyWithWhereWithoutAddressInput {
+  data: AddressComponentUpdateManyMutationInput!
+  where: AddressComponentScalarWhereInput!
+}
+
+input AddressComponentUpdatetypesInput {
+  push: String
+  set: [String!]
+}
+
+input AddressComponentUpdateWithoutAddressInput {
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  long_name: StringFieldUpdateOperationsInput
+  short_name: StringFieldUpdateOperationsInput
+  types: AddressComponentUpdatetypesInput
+}
+
+input AddressComponentUpdateWithWhereUniqueWithoutAddressInput {
+  data: AddressComponentUpdateWithoutAddressInput!
+  where: AddressComponentWhereUniqueInput!
+}
+
+input AddressComponentUpsertWithWhereUniqueWithoutAddressInput {
+  create: AddressComponentCreateWithoutAddressInput!
+  update: AddressComponentUpdateWithoutAddressInput!
+  where: AddressComponentWhereUniqueInput!
+}
+
+input AddressComponentWhereInput {
+  Address: AddressWhereInput
+  addressId: StringNullableFilter
+  AND: [AddressComponentWhereInput!]
+  h3Index15: StringNullableFilter
+  id: IntFilter
+  long_name: StringFilter
+  NOT: [AddressComponentWhereInput!]
+  OR: [AddressComponentWhereInput!]
+  short_name: StringFilter
+  types: StringNullableListFilter
+}
+
+input AddressComponentWhereUniqueInput {
+  id: Int
+}
+
+input AddressCreateNestedOneWithoutLocationInput {
+  connect: AddressWhereUniqueInput
+  connectOrCreate: AddressCreateOrConnectWithoutLocationInput
+  create: AddressCreateWithoutLocationInput
+}
+
+input AddressCreateOrConnectWithoutLocationInput {
+  create: AddressCreateWithoutLocationInput!
+  where: AddressWhereUniqueInput!
+}
+
+input AddressCreateWithoutLocationInput {
+  AddressComponents: AddressComponentCreateNestedManyWithoutAddressInput
+  createdAt: DateTime
+  formattedAddress: String!
+  id: String
+  updatedAt: DateTime
+}
+
+input AddressOrderByWithRelationInput {
+  AddressComponents: AddressComponentOrderByRelationAggregateInput
+  createdAt: SortOrder
+  formattedAddress: SortOrder
+  id: SortOrder
+  Location: LocationOrderByRelationAggregateInput
+  updatedAt: SortOrder
+}
+
+input AddressUpdateOneWithoutLocationInput {
+  connect: AddressWhereUniqueInput
+  connectOrCreate: AddressCreateOrConnectWithoutLocationInput
+  create: AddressCreateWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AddressUpdateWithoutLocationInput
+  upsert: AddressUpsertWithoutLocationInput
+}
+
+input AddressUpdateWithoutLocationInput {
+  AddressComponents: AddressComponentUpdateManyWithoutAddressInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  formattedAddress: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input AddressUpsertWithoutLocationInput {
+  create: AddressCreateWithoutLocationInput!
+  update: AddressUpdateWithoutLocationInput!
+}
+
+input AddressWhereInput {
+  AddressComponents: AddressComponentListRelationFilter
+  AND: [AddressWhereInput!]
+  createdAt: DateTimeFilter
+  formattedAddress: StringFilter
+  id: StringFilter
+  Location: LocationListRelationFilter
+  NOT: [AddressWhereInput!]
+  OR: [AddressWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input AddressWhereUniqueInput {
+  id: String
+}
+
+enum AppType {
+  BARFRIENDS
+  PETFRIENDS
+}
+
+type AuthenticationProvider {
+  emails(after: EmailWhereUniqueInput, before: EmailWhereUniqueInput, first: Int, last: Int): [Email!]!
+  id: String!
+  Password: Password
+  phones(after: PhoneWhereUniqueInput, before: PhoneWhereUniqueInput, first: Int, last: Int): [Phone!]!
+}
+
+input AuthenticationProviderCreateNestedOneWithoutCredentialsInput {
+  connect: AuthenticationProviderWhereUniqueInput
+  connectOrCreate: AuthenticationProviderCreateOrConnectWithoutCredentialsInput
+  create: AuthenticationProviderCreateWithoutCredentialsInput
+}
+
+input AuthenticationProviderCreateOrConnectWithoutCredentialsInput {
+  create: AuthenticationProviderCreateWithoutCredentialsInput!
+  where: AuthenticationProviderWhereUniqueInput!
+}
+
+input AuthenticationProviderCreateWithoutCredentialsInput {
+  codepassword: CodeCreateNestedOneWithoutAuthenticationProviderInput
+  emails: EmailCreateNestedManyWithoutAuthenticationProviderInput
+  id: String
+  Password: PasswordCreateNestedOneWithoutAuthenticationProviderInput
+  phones: PhoneCreateNestedManyWithoutAuthenticationProviderInput
+}
+
+input AuthenticationProviderListRelationFilter {
+  every: AuthenticationProviderWhereInput
+  none: AuthenticationProviderWhereInput
+  some: AuthenticationProviderWhereInput
+}
+
+input AuthenticationProviderOrderByWithRelationInput {
+  codepassword: CodeOrderByWithRelationInput
+  Credentials: CredentialsOrderByWithRelationInput
+  emails: EmailOrderByRelationAggregateInput
+  id: SortOrder
+  Password: PasswordOrderByWithRelationInput
+  phones: PhoneOrderByRelationAggregateInput
+}
+
+input AuthenticationProviderUpdateOneWithoutCredentialsInput {
+  connect: AuthenticationProviderWhereUniqueInput
+  connectOrCreate: AuthenticationProviderCreateOrConnectWithoutCredentialsInput
+  create: AuthenticationProviderCreateWithoutCredentialsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AuthenticationProviderUpdateWithoutCredentialsInput
+  upsert: AuthenticationProviderUpsertWithoutCredentialsInput
+}
+
+input AuthenticationProviderUpdateWithoutCredentialsInput {
+  codepassword: CodeUpdateOneWithoutAuthenticationProviderInput
+  emails: EmailUpdateManyWithoutAuthenticationProviderInput
+  id: StringFieldUpdateOperationsInput
+  Password: PasswordUpdateOneWithoutAuthenticationProviderInput
+  phones: PhoneUpdateManyWithoutAuthenticationProviderInput
+}
+
+input AuthenticationProviderUpsertWithoutCredentialsInput {
+  create: AuthenticationProviderCreateWithoutCredentialsInput!
+  update: AuthenticationProviderUpdateWithoutCredentialsInput!
+}
+
+input AuthenticationProviderWhereInput {
+  AND: [AuthenticationProviderWhereInput!]
+  codepassword: CodeWhereInput
+  Credentials: CredentialsWhereInput
+  emails: EmailListRelationFilter
+  id: StringFilter
+  NOT: [AuthenticationProviderWhereInput!]
+  OR: [AuthenticationProviderWhereInput!]
+  Password: PasswordWhereInput
+  phones: PhoneListRelationFilter
+}
+
+input AuthenticationProviderWhereUniqueInput {
+  id: String
+}
+
+input Authenticators {
+  EmailInput: EmailInput
+  PhoneInput: PhoneInput
+  username: String
+}
+
+union AuthorizedProfilesResponseUnion = ErrorProfiling | ProfileTypesResponse
+
+input AuthorizedProfilesWhereInput {
+  Profiles: [ProfileArgs]
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input BoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
+input ChatroomCreateNestedOneWithoutMessagesInput {
+  connect: ChatroomWhereUniqueInput
+  connectOrCreate: ChatroomCreateOrConnectWithoutMessagesInput
+  create: ChatroomCreateWithoutMessagesInput
+}
+
+input ChatroomCreateNestedOneWithoutProfilesInput {
+  connect: ChatroomWhereUniqueInput
+  connectOrCreate: ChatroomCreateOrConnectWithoutProfilesInput
+  create: ChatroomCreateWithoutProfilesInput
+}
+
+input ChatroomCreateOrConnectWithoutMessagesInput {
+  create: ChatroomCreateWithoutMessagesInput!
+  where: ChatroomWhereUniqueInput!
+}
+
+input ChatroomCreateOrConnectWithoutProfilesInput {
+  create: ChatroomCreateWithoutProfilesInput!
+  where: ChatroomWhereUniqueInput!
+}
+
+input ChatroomCreateWithoutMessagesInput {
+  id: String
+  profiles: ProfileCreateNestedManyWithoutChatroomInput
+}
+
+input ChatroomCreateWithoutProfilesInput {
+  id: String
+  messages: MessageCreateNestedManyWithoutChatroomInput
+}
+
+input ChatroomOrderByWithRelationInput {
+  id: SortOrder
+  messages: MessageOrderByRelationAggregateInput
+  profiles: ProfileOrderByRelationAggregateInput
+}
+
+input ChatroomUpdateOneWithoutMessagesInput {
+  connect: ChatroomWhereUniqueInput
+  connectOrCreate: ChatroomCreateOrConnectWithoutMessagesInput
+  create: ChatroomCreateWithoutMessagesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ChatroomUpdateWithoutMessagesInput
+  upsert: ChatroomUpsertWithoutMessagesInput
+}
+
+input ChatroomUpdateOneWithoutProfilesInput {
+  connect: ChatroomWhereUniqueInput
+  connectOrCreate: ChatroomCreateOrConnectWithoutProfilesInput
+  create: ChatroomCreateWithoutProfilesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ChatroomUpdateWithoutProfilesInput
+  upsert: ChatroomUpsertWithoutProfilesInput
+}
+
+input ChatroomUpdateWithoutMessagesInput {
+  id: StringFieldUpdateOperationsInput
+  profiles: ProfileUpdateManyWithoutChatroomInput
+}
+
+input ChatroomUpdateWithoutProfilesInput {
+  id: StringFieldUpdateOperationsInput
+  messages: MessageUpdateManyWithoutChatroomInput
+}
+
+input ChatroomUpsertWithoutMessagesInput {
+  create: ChatroomCreateWithoutMessagesInput!
+  update: ChatroomUpdateWithoutMessagesInput!
+}
+
+input ChatroomUpsertWithoutProfilesInput {
+  create: ChatroomCreateWithoutProfilesInput!
+  update: ChatroomUpdateWithoutProfilesInput!
+}
+
+input ChatroomWhereInput {
+  AND: [ChatroomWhereInput!]
+  id: StringFilter
+  messages: MessageListRelationFilter
+  NOT: [ChatroomWhereInput!]
+  OR: [ChatroomWhereInput!]
+  profiles: ProfileListRelationFilter
+}
+
+input ChatroomWhereUniqueInput {
+  id: String
+}
+
+type Code {
+  code: String
+  createdAt: String
+  id: String
+  updatedAt: String
+}
+
+input CodeCreateNestedOneWithoutAuthenticationProviderInput {
+  connect: CodeWhereUniqueInput
+  connectOrCreate: CodeCreateOrConnectWithoutAuthenticationProviderInput
+  create: CodeCreateWithoutAuthenticationProviderInput
+}
+
+input CodeCreateOrConnectWithoutAuthenticationProviderInput {
+  create: CodeCreateWithoutAuthenticationProviderInput!
+  where: CodeWhereUniqueInput!
+}
+
+input CodeCreateWithoutAuthenticationProviderInput {
+  canUseAsRecovery: Boolean
+  code: String!
+  createdAt: DateTime
+  id: String
+  updatedAt: DateTime
+}
+
+input CodeData {
+  """Length is the total numbers that you want the code to be."""
+  length: Int = 4
+}
+
+input CodeOrderByWithRelationInput {
+  authenitcationProviderId: SortOrder
+  AuthenticationProvider: AuthenticationProviderOrderByWithRelationInput
+  canUseAsRecovery: SortOrder
+  code: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+"""Any posibilities to a code response you will get from here"""
+union CodeResponse = Code | ErrorProfiling
+
+input CodeUpdateOneWithoutAuthenticationProviderInput {
+  connect: CodeWhereUniqueInput
+  connectOrCreate: CodeCreateOrConnectWithoutAuthenticationProviderInput
+  create: CodeCreateWithoutAuthenticationProviderInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CodeUpdateWithoutAuthenticationProviderInput
+  upsert: CodeUpsertWithoutAuthenticationProviderInput
+}
+
+input CodeUpdateWithoutAuthenticationProviderInput {
+  canUseAsRecovery: NullableBoolFieldUpdateOperationsInput
+  code: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CodeUpsertWithoutAuthenticationProviderInput {
+  create: CodeCreateWithoutAuthenticationProviderInput!
+  update: CodeUpdateWithoutAuthenticationProviderInput!
+}
+
+input CodeWhere {
+  Authenticators: Authenticators
+}
+
+input CodeWhereInput {
+  AND: [CodeWhereInput!]
+  authenitcationProviderId: StringNullableFilter
+  AuthenticationProvider: AuthenticationProviderWhereInput
+  canUseAsRecovery: BoolNullableFilter
+  code: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [CodeWhereInput!]
+  OR: [CodeWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input CodeWhereUniqueInput {
+  authenitcationProviderId: String
+  id: String
+}
+
+input ContactInput {
+  type: String
+  value: String
+}
+
+input CreatePersonalProfileDataInput {
+  birthday: DateTime!
+  EmailInput: EmailInput
+  emojimood: Int
+  fullname: String
+  password: String!
+  PhoneInput: PhoneInput
+  photos: PhotoCreateManyProfileInputEnvelope
+  PrivacyPolicyId: ID!
+  ServicesId: ID!
+  username: String!
+}
+
+type CreateProfileResponse {
+  Profile: Profile
+}
+
+union CreateProfileResponseUnion = CreateProfileResponse | ErrorProfiling
+
+input CreateVenueProfileDataInput {
+  address: String!
+  birthday: DateTime!
+  capacity: String!
+  contacts: [ContactInput]
+  description: String
+  EmailInput: EmailInput
+  established: String!
+  ownername: String
+  password: String!
+  PhoneInput: PhoneInput
+  photos: PhotoCreateManyProfileInputEnvelope
+  PrivacyPolicyId: ID!
+  ServicesId: ID!
+  venuelocalname: String
+  venuename: String!
+  venuetypes: [String]
+  venueusername: String!
+}
+
+type CreateVenueStorageResponse {
+  profilingId: String
+  storageId: String
+}
+
+type Credentials {
+  AuthenticationProvider: AuthenticationProvider
+  id: String!
+}
+
+input CredentialsCreateNestedOneWithoutProfileInput {
+  connect: CredentialsWhereUniqueInput
+  connectOrCreate: CredentialsCreateOrConnectWithoutProfileInput
+  create: CredentialsCreateWithoutProfileInput
+}
+
+input CredentialsCreateOrConnectWithoutProfileInput {
+  create: CredentialsCreateWithoutProfileInput!
+  where: CredentialsWhereUniqueInput!
+}
+
+input CredentialsCreateWithoutProfileInput {
+  AuthenticationProvider: AuthenticationProviderCreateNestedOneWithoutCredentialsInput
+  createdtAt: DateTime
+  id: String
+  LegalAgreement: LegalAgreementCreateNestedManyWithoutCredentialsInput
+  updatedAt: DateTime
+}
+
+input CredentialsOrderByWithRelationInput {
+  AuthenticationProvider: AuthenticationProviderOrderByWithRelationInput
+  authenticationProviderId: SortOrder
+  createdtAt: SortOrder
+  id: SortOrder
+  LegalAgreement: LegalAgreementOrderByRelationAggregateInput
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  updatedAt: SortOrder
+}
+
+input CredentialsUpdateOneWithoutProfileInput {
+  connect: CredentialsWhereUniqueInput
+  connectOrCreate: CredentialsCreateOrConnectWithoutProfileInput
+  create: CredentialsCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CredentialsUpdateWithoutProfileInput
+  upsert: CredentialsUpsertWithoutProfileInput
+}
+
+input CredentialsUpdateWithoutProfileInput {
+  AuthenticationProvider: AuthenticationProviderUpdateOneWithoutCredentialsInput
+  createdtAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  LegalAgreement: LegalAgreementUpdateManyWithoutCredentialsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input CredentialsUpsertWithoutProfileInput {
+  create: CredentialsCreateWithoutProfileInput!
+  update: CredentialsUpdateWithoutProfileInput!
+}
+
+input CredentialsWhereInput {
+  AND: [CredentialsWhereInput!]
+  AuthenticationProvider: AuthenticationProviderWhereInput
+  authenticationProviderId: StringNullableFilter
+  createdtAt: DateTimeFilter
+  id: StringFilter
+  LegalAgreement: LegalAgreementListRelationFilter
+  NOT: [CredentialsWhereInput!]
+  OR: [CredentialsWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input CredentialsWhereUniqueInput {
+  authenticationProviderId: String
+  id: String
+  profileId: String
+}
+
+scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+type DetailInformation {
+  description: String
+  established: DateTime
+  id: String!
+  Profile: Profile!
+  profileId: String!
+  Tags(after: TagWhereUniqueInput, before: TagWhereUniqueInput, first: Int, last: Int): [Tag!]!
+}
+
+input DetailInformationCreateNestedOneWithoutProfileInput {
+  connect: DetailInformationWhereUniqueInput
+  connectOrCreate: DetailInformationCreateOrConnectWithoutProfileInput
+  create: DetailInformationCreateWithoutProfileInput
+}
+
+input DetailInformationCreateOrConnectWithoutProfileInput {
+  create: DetailInformationCreateWithoutProfileInput!
+  where: DetailInformationWhereUniqueInput!
+}
+
+input DetailInformationCreateWithoutProfileInput {
+  capacity: Int
+  description: String
+  established: DateTime
+  id: String
+  Tags: TagCreateNestedManyWithoutDetailInformationInput
+}
+
+input DetailInformationListRelationFilter {
+  every: DetailInformationWhereInput
+  none: DetailInformationWhereInput
+  some: DetailInformationWhereInput
+}
+
+input DetailInformationOrderByWithRelationInput {
+  capacity: SortOrder
+  description: SortOrder
+  established: SortOrder
+  id: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  Tags: TagOrderByRelationAggregateInput
+}
+
+input DetailInformationUpdateOneWithoutProfileInput {
+  connect: DetailInformationWhereUniqueInput
+  connectOrCreate: DetailInformationCreateOrConnectWithoutProfileInput
+  create: DetailInformationCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: DetailInformationUpdateWithoutProfileInput
+  upsert: DetailInformationUpsertWithoutProfileInput
+}
+
+input DetailInformationUpdateWithoutProfileInput {
+  capacity: NullableIntFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  established: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Tags: TagUpdateManyWithoutDetailInformationInput
+}
+
+input DetailInformationUpsertWithoutProfileInput {
+  create: DetailInformationCreateWithoutProfileInput!
+  update: DetailInformationUpdateWithoutProfileInput!
+}
+
+input DetailInformationWhereInput {
+  AND: [DetailInformationWhereInput!]
+  capacity: IntNullableFilter
+  description: StringNullableFilter
+  established: DateTimeNullableFilter
+  id: StringFilter
+  NOT: [DetailInformationWhereInput!]
+  OR: [DetailInformationWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  Tags: TagListRelationFilter
+}
+
+input DetailInformationWhereUniqueInput {
+  id: String
+  profileId: String
+}
+
+type Device {
+  deviceType: String
+}
+
+input DeviceCreateInput {
+  createdAt: DateTime
+  DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceInput!
+  deviceType: String
+  id: String
+  updatedAt: DateTime
+}
+
+type DeviceManager implements Node {
+  Device: Device
+  DeviceProfile: DeviceProfile
+  id: String!
+}
+
+input DeviceManagerCreateNestedOneWithoutDeviceInput {
+  connect: DeviceManagerWhereUniqueInput
+  connectOrCreate: DeviceManagerCreateOrConnectWithoutDeviceInput
+  create: DeviceManagerCreateWithoutDeviceInput
+}
+
+input DeviceManagerCreateOrConnectWithoutDeviceInput {
+  create: DeviceManagerCreateWithoutDeviceInput!
+  where: DeviceManagerWhereUniqueInput!
+}
+
+input DeviceManagerCreateWithoutDeviceInput {
+  createdAt: DateTime
+  DeviceProfile: DeviceProfileCreateNestedManyWithoutDeviceManagerInput
+  id: String
+  updatedAt: DateTime
+}
+
+type DeviceManagerDeviceProfiles {
+  DeviceProfiles: [DeviceProfile]
+}
+
+union DeviceManagerDeviceProfilesResponseUnion = DeviceManagerDeviceProfiles | Error
+
+input DeviceManagerWhereUniqueInput {
+  id: String
+}
+
+type DeviceProfile {
+  accesstoken: String
+  AppType: AppType
+  DeviceManager: DeviceManager!
+  deviceManagerId: String!
+  id: Int!
+  isActive: Boolean!
+  Profile: Profile
+  refreshtoken: String
+}
+
+input DeviceProfileCreateManyDeviceManagerInput {
+  accesstoken: String
+  AppType: AppType
+  id: Int
+  isActive: Boolean!
+  profileId: String
+}
+
+input DeviceProfileCreateManyDeviceManagerInputEnvelope {
+  data: [DeviceProfileCreateManyDeviceManagerInput!]
+  skipDuplicates: Boolean
+}
+
+input DeviceProfileCreateNestedManyWithoutDeviceManagerInput {
+  connect: [DeviceProfileWhereUniqueInput!]
+  connectOrCreate: [DeviceProfileCreateOrConnectWithoutDeviceManagerInput!]
+  create: [DeviceProfileCreateWithoutDeviceManagerInput!]
+  createMany: DeviceProfileCreateManyDeviceManagerInputEnvelope
+}
+
+input DeviceProfileCreateOrConnectWithoutDeviceManagerInput {
+  create: DeviceProfileCreateWithoutDeviceManagerInput!
+  where: DeviceProfileWhereUniqueInput!
+}
+
+input DeviceProfileCreateWithoutDeviceManagerInput {
+  accesstoken: String
+  AppType: AppType
+  isActive: Boolean!
+  profileId: String
+  RefreshToken: RefreshTokenCreateNestedOneWithoutDeviceProfileInput
+}
+
+input DeviceProfileWhereUniqueInput {
+  id: Int
+}
+
+input DeviceWhereUniqueInput {
+  deviceManagerId: String
+  id: String
+}
+
+type Document {
+  content: String!
+  createdAt: DateTime!
+  id: Int!
+  TypeOfDocument: TypeOfDocument!
+  updatedAt: DateTime!
+}
+
+input DocumentCreateNestedOneWithoutLegalAgreementInput {
+  connect: DocumentWhereUniqueInput
+  connectOrCreate: DocumentCreateOrConnectWithoutLegalAgreementInput
+  create: DocumentCreateWithoutLegalAgreementInput
+}
+
+input DocumentCreateOrConnectWithoutLegalAgreementInput {
+  create: DocumentCreateWithoutLegalAgreementInput!
+  where: DocumentWhereUniqueInput!
+}
+
+input DocumentCreateWithoutLegalAgreementInput {
+  content: String!
+  createdAt: DateTime
+  TypeOfDocument: TypeOfDocument!
+  updatedAt: DateTime
+}
+
+input DocumentOrderByWithRelationInput {
+  content: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  LegalAgreement: LegalAgreementOrderByRelationAggregateInput
+  TypeOfDocument: SortOrder
+  updatedAt: SortOrder
+}
+
+input DocumentUpdateOneRequiredWithoutLegalAgreementInput {
+  connect: DocumentWhereUniqueInput
+  connectOrCreate: DocumentCreateOrConnectWithoutLegalAgreementInput
+  create: DocumentCreateWithoutLegalAgreementInput
+  update: DocumentUpdateWithoutLegalAgreementInput
+  upsert: DocumentUpsertWithoutLegalAgreementInput
+}
+
+input DocumentUpdateWithoutLegalAgreementInput {
+  content: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  TypeOfDocument: EnumTypeOfDocumentFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input DocumentUpsertWithoutLegalAgreementInput {
+  create: DocumentCreateWithoutLegalAgreementInput!
+  update: DocumentUpdateWithoutLegalAgreementInput!
+}
+
+input DocumentWhereInput {
+  AND: [DocumentWhereInput!]
+  content: StringFilter
+  createdAt: DateTimeFilter
+  id: IntFilter
+  LegalAgreement: LegalAgreementListRelationFilter
+  NOT: [DocumentWhereInput!]
+  OR: [DocumentWhereInput!]
+  TypeOfDocument: EnumTypeOfDocumentFilter
+  updatedAt: DateTimeFilter
+}
+
+input DocumentWhereUniqueInput {
+  id: Int
+}
+
+type Email {
+  canUseAsRecovery: Boolean
+  createdAt: DateTime!
+  email: String!
+  id: Int!
+  updatedAt: DateTime!
+}
+
+input EmailCreateNestedManyWithoutAuthenticationProviderInput {
+  connect: [EmailWhereUniqueInput!]
+  connectOrCreate: [EmailCreateOrConnectWithoutAuthenticationProviderInput!]
+  create: [EmailCreateWithoutAuthenticationProviderInput!]
+}
+
+input EmailCreateOrConnectWithoutAuthenticationProviderInput {
+  create: EmailCreateWithoutAuthenticationProviderInput!
+  where: EmailWhereUniqueInput!
+}
+
+input EmailCreateWithoutAuthenticationProviderInput {
+  canUseAsRecovery: Boolean
+  createdAt: DateTime
+  email: String!
+  updatedAt: DateTime
+}
+
+input EmailInput {
+  """Example: christian@barfriends.com"""
+  email: String
+}
+
+input EmailListRelationFilter {
+  every: EmailWhereInput
+  none: EmailWhereInput
+  some: EmailWhereInput
+}
+
+input EmailOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input EmailScalarWhereInput {
+  AND: [EmailScalarWhereInput!]
+  canUseAsRecovery: BoolNullableFilter
+  createdAt: DateTimeFilter
+  email: StringFilter
+  id: IntFilter
+  NOT: [EmailScalarWhereInput!]
+  OR: [EmailScalarWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input EmailUpdateManyMutationInput {
+  canUseAsRecovery: NullableBoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input EmailUpdateManyWithoutAuthenticationProviderInput {
+  connect: [EmailWhereUniqueInput!]
+  connectOrCreate: [EmailCreateOrConnectWithoutAuthenticationProviderInput!]
+  create: [EmailCreateWithoutAuthenticationProviderInput!]
+  delete: [EmailWhereUniqueInput!]
+  deleteMany: [EmailScalarWhereInput!]
+  disconnect: [EmailWhereUniqueInput!]
+  set: [EmailWhereUniqueInput!]
+  update: [EmailUpdateWithWhereUniqueWithoutAuthenticationProviderInput!]
+  updateMany: [EmailUpdateManyWithWhereWithoutAuthenticationProviderInput!]
+  upsert: [EmailUpsertWithWhereUniqueWithoutAuthenticationProviderInput!]
+}
+
+input EmailUpdateManyWithWhereWithoutAuthenticationProviderInput {
+  data: EmailUpdateManyMutationInput!
+  where: EmailScalarWhereInput!
+}
+
+input EmailUpdateWithoutAuthenticationProviderInput {
+  canUseAsRecovery: NullableBoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input EmailUpdateWithWhereUniqueWithoutAuthenticationProviderInput {
+  data: EmailUpdateWithoutAuthenticationProviderInput!
+  where: EmailWhereUniqueInput!
+}
+
+input EmailUpsertWithWhereUniqueWithoutAuthenticationProviderInput {
+  create: EmailCreateWithoutAuthenticationProviderInput!
+  update: EmailUpdateWithoutAuthenticationProviderInput!
+  where: EmailWhereUniqueInput!
+}
+
+input EmailWhereInput {
+  AND: [EmailWhereInput!]
+  AuthenticationProvider: AuthenticationProviderListRelationFilter
+  canUseAsRecovery: BoolNullableFilter
+  createdAt: DateTimeFilter
+  email: StringFilter
+  id: IntFilter
+  NOT: [EmailWhereInput!]
+  OR: [EmailWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input EmailWhereUniqueInput {
+  id: Int
+}
+
+type Emojimood {
+  colors: [String!]!
+  emoji: String
+  emojiname: String
+  id: Int!
+  Story(after: StoryWhereUniqueInput, before: StoryWhereUniqueInput, first: Int, last: Int): [Story!]!
+}
+
+input EmojimoodCreatecolorsInput {
+  set: [String!]
+}
+
+input EmojimoodCreateInput {
+  colors: [String]!
+  emoji: String!
+  emojiname: String!
+}
+
+input EmojimoodCreateNestedOneWithoutStoryInput {
+  connect: EmojimoodWhereUniqueInput
+  connectOrCreate: EmojimoodCreateOrConnectWithoutStoryInput
+  create: EmojimoodCreateWithoutStoryInput
+}
+
+input EmojimoodCreateOrConnectWithoutStoryInput {
+  create: EmojimoodCreateWithoutStoryInput!
+  where: EmojimoodWhereUniqueInput!
+}
+
+input EmojimoodCreateWithoutStoryInput {
+  colors: EmojimoodCreatecolorsInput
+  emoji: String
+  emojiname: String
+}
+
+input EmojimoodOrderByWithRelationInput {
+  colors: SortOrder
+  emoji: SortOrder
+  emojiname: SortOrder
+  id: SortOrder
+  Story: StoryOrderByRelationAggregateInput
+}
+
+input EmojimoodUpdatecolorsInput {
+  push: String
+  set: [String!]
+}
+
+input EmojimoodUpdateOneWithoutStoryInput {
+  connect: EmojimoodWhereUniqueInput
+  connectOrCreate: EmojimoodCreateOrConnectWithoutStoryInput
+  create: EmojimoodCreateWithoutStoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: EmojimoodUpdateWithoutStoryInput
+  upsert: EmojimoodUpsertWithoutStoryInput
+}
+
+input EmojimoodUpdateWithoutStoryInput {
+  colors: EmojimoodUpdatecolorsInput
+  emoji: NullableStringFieldUpdateOperationsInput
+  emojiname: NullableStringFieldUpdateOperationsInput
+}
+
+input EmojimoodUpsertWithoutStoryInput {
+  create: EmojimoodCreateWithoutStoryInput!
+  update: EmojimoodUpdateWithoutStoryInput!
+}
+
+input EmojimoodWhereInput {
+  AND: [EmojimoodWhereInput!]
+  colors: StringNullableListFilter
+  emoji: StringNullableFilter
+  emojiname: StringNullableFilter
+  id: IntFilter
+  NOT: [EmojimoodWhereInput!]
+  OR: [EmojimoodWhereInput!]
+  Story: StoryListRelationFilter
+}
+
+input EmojimoodWhereUniqueInput {
+  id: Int
+}
+
+input EnumPhotoTypeNullableFilter {
+  equals: PhotoType
+  in: [PhotoType!]
+  not: NestedEnumPhotoTypeNullableFilter
+  notIn: [PhotoType!]
+}
+
+input EnumProfileTypeFieldUpdateOperationsInput {
+  set: ProfileType
+}
+
+input EnumProfileTypeFilter {
+  equals: ProfileType
+  in: [ProfileType!]
+  not: NestedEnumProfileTypeFilter
+  notIn: [ProfileType!]
+}
+
+input EnumStatusNullableListFilter {
+  equals: [Status!]
+  has: Status
+  hasEvery: [Status!]
+  hasSome: [Status!]
+  isEmpty: Boolean
+}
+
+input EnumTagTypeFieldUpdateOperationsInput {
+  set: TagType
+}
+
+input EnumTagTypeFilter {
+  equals: TagType
+  in: [TagType!]
+  not: NestedEnumTagTypeFilter
+  notIn: [TagType!]
+}
+
+input EnumTypeOfDocumentFieldUpdateOperationsInput {
+  set: TypeOfDocument
+}
+
+input EnumTypeOfDocumentFilter {
+  equals: TypeOfDocument
+  in: [TypeOfDocument!]
+  not: NestedEnumTypeOfDocumentFilter
+  notIn: [TypeOfDocument!]
+}
+
+type Error {
+  errorCode: String
+  message: String
+  type: String
+}
+
+type ErrorProfiling {
+  errorCode: String
+  message: String
+}
+
+input FloatFieldUpdateOperationsInput {
+  decrement: Float
+  divide: Float
+  increment: Float
+  multiply: Float
+  set: Float
+}
+
+input FloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
+type Geometry {
+  h3Index15: String
+  id: Int!
+  latitude: Float!
+  longitude: Float!
+  type: String!
+}
+
+input GeometryCreateNestedOneWithoutLocationInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutLocationInput
+  create: GeometryCreateWithoutLocationInput
+}
+
+input GeometryCreateOrConnectWithoutLocationInput {
+  create: GeometryCreateWithoutLocationInput!
+  where: GeometryWhereUniqueInput!
+}
+
+input GeometryCreateWithoutLocationInput {
+  h3Index15: String
+  latitude: Float!
+  longitude: Float!
+  type: String!
+}
+
+input GeometryOrderByWithRelationInput {
+  h3Index15: SortOrder
+  id: SortOrder
+  latitude: SortOrder
+  Location: LocationOrderByWithRelationInput
+  longitude: SortOrder
+  type: SortOrder
+}
+
+input GeometryUpdateOneWithoutLocationInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutLocationInput
+  create: GeometryCreateWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  update: GeometryUpdateWithoutLocationInput
+  upsert: GeometryUpsertWithoutLocationInput
+}
+
+input GeometryUpdateWithoutLocationInput {
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  latitude: FloatFieldUpdateOperationsInput
+  longitude: FloatFieldUpdateOperationsInput
+  type: StringFieldUpdateOperationsInput
+}
+
+input GeometryUpsertWithoutLocationInput {
+  create: GeometryCreateWithoutLocationInput!
+  update: GeometryUpdateWithoutLocationInput!
+}
+
+input GeometryWhereInput {
+  AND: [GeometryWhereInput!]
+  h3Index15: StringNullableFilter
+  id: IntFilter
+  latitude: FloatFilter
+  Location: LocationWhereInput
+  longitude: FloatFilter
+  NOT: [GeometryWhereInput!]
+  OR: [GeometryWhereInput!]
+  type: StringFilter
+}
+
+input GeometryWhereUniqueInput {
+  id: Int
+}
+
+input GooglePlaceAutocompleteInput {
+  """
+  supported languages: https://developers.google.com/maps/faq#languagesupport
+  """
+  language: [String]
+  latitude: Float
+  longitude: Float
+
+  """
+  offset The position, in the input term, of the last character that the service uses to match predictions. For example, if the input is Google and the offset is 3, the service will match on Goo. The string determined by the offset is matched against the first word in the input term only. For example, if the input term is Google abc and the offset is 3, the service will attempt to match against Goo abc. If no offset is supplied, the service will use the whole term. The offset should generally be set to the position of the text caret.
+  """
+  offset: Int
+
+  """
+  Defines the distance (in meters) within which to return place results. You may bias results to a specified circle by passing a location and a radius parameter. Autocomplete: 50,000 meters
+  """
+  radius: Int
+
+  """ ISO 3166-1"""
+  region: [String]
+
+  """
+  A random string which identifies an autocomplete.
+         This value also is returned and should be passed back through this input. 
+         Default value provided.
+  """
+  sessiontoken: String = "0f373ebd-956f-4822-a4cb-9b592159f3c6"
+  textinput: String!
+
+  """
+  For the value of the types parameter you can specify either:
+  
+        Up to five values from Table 1 or Table 2. For multiple values, separate each value with a | (vertical bar). For example:
+        
+        types=book_store|cafe
+        
+        Any supported filter in Table 3. You can safely mix the geocode and establishment types. You cannot mix type collections (address, (cities) or (regions)) with any other type, or an error occurs.
+        supported types: https://developers.google.com/maps/documentation/places/web-service/supported_types
+  """
+  types: [String]
+}
+
+type GooglePlaceAutocompleteReturn {
+  data: Json
+  sessiontoken: String!
+}
+
+input GroupCreateNestedManyWithoutProfileInput {
+  connect: [GroupWhereUniqueInput!]
+  connectOrCreate: [GroupCreateOrConnectWithoutProfileInput!]
+  create: [GroupCreateWithoutProfileInput!]
+}
+
+input GroupCreateNestedOneWithoutPhotosInput {
+  connect: GroupWhereUniqueInput
+  connectOrCreate: GroupCreateOrConnectWithoutPhotosInput
+  create: GroupCreateWithoutPhotosInput
+}
+
+input GroupCreateOrConnectWithoutPhotosInput {
+  create: GroupCreateWithoutPhotosInput!
+  where: GroupWhereUniqueInput!
+}
+
+input GroupCreateOrConnectWithoutProfileInput {
+  create: GroupCreateWithoutProfileInput!
+  where: GroupWhereUniqueInput!
+}
+
+input GroupCreateWithoutPhotosInput {
+  createdAt: DateTime
+  id: String
+  name: String!
+  Profile: ProfileCreateNestedManyWithoutGroupInput
+  updatedAt: DateTime
+}
+
+input GroupCreateWithoutProfileInput {
+  createdAt: DateTime
+  id: String
+  name: String!
+  photos: PhotoCreateNestedManyWithoutGroupInput
+  updatedAt: DateTime
+}
+
+input GroupListRelationFilter {
+  every: GroupWhereInput
+  none: GroupWhereInput
+  some: GroupWhereInput
+}
+
+input GroupOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input GroupScalarWhereInput {
+  AND: [GroupScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [GroupScalarWhereInput!]
+  OR: [GroupScalarWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input GroupUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input GroupUpdateManyWithoutProfileInput {
+  connect: [GroupWhereUniqueInput!]
+  connectOrCreate: [GroupCreateOrConnectWithoutProfileInput!]
+  create: [GroupCreateWithoutProfileInput!]
+  delete: [GroupWhereUniqueInput!]
+  deleteMany: [GroupScalarWhereInput!]
+  disconnect: [GroupWhereUniqueInput!]
+  set: [GroupWhereUniqueInput!]
+  update: [GroupUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [GroupUpdateManyWithWhereWithoutProfileInput!]
+  upsert: [GroupUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input GroupUpdateManyWithWhereWithoutProfileInput {
+  data: GroupUpdateManyMutationInput!
+  where: GroupScalarWhereInput!
+}
+
+input GroupUpdateOneWithoutPhotosInput {
+  connect: GroupWhereUniqueInput
+  connectOrCreate: GroupCreateOrConnectWithoutPhotosInput
+  create: GroupCreateWithoutPhotosInput
+  delete: Boolean
+  disconnect: Boolean
+  update: GroupUpdateWithoutPhotosInput
+  upsert: GroupUpsertWithoutPhotosInput
+}
+
+input GroupUpdateWithoutPhotosInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateManyWithoutGroupInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input GroupUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  photos: PhotoUpdateManyWithoutGroupInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input GroupUpdateWithWhereUniqueWithoutProfileInput {
+  data: GroupUpdateWithoutProfileInput!
+  where: GroupWhereUniqueInput!
+}
+
+input GroupUpsertWithoutPhotosInput {
+  create: GroupCreateWithoutPhotosInput!
+  update: GroupUpdateWithoutPhotosInput!
+}
+
+input GroupUpsertWithWhereUniqueWithoutProfileInput {
+  create: GroupCreateWithoutProfileInput!
+  update: GroupUpdateWithoutProfileInput!
+  where: GroupWhereUniqueInput!
+}
+
+input GroupWhereInput {
+  AND: [GroupWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [GroupWhereInput!]
+  OR: [GroupWhereInput!]
+  photos: PhotoListRelationFilter
+  Profile: ProfileListRelationFilter
+  updatedAt: DateTimeFilter
+}
+
+input GroupWhereUniqueInput {
+  id: String
+}
+
+type IdentifiableInformation {
+  birthday: DateTime
+  currenttown: String
+  firstname: String
+  fullname: String
+  gender: String
+  hometown: String
+  id: String!
+  lastname: String
+  lookfor: String
+  nickname: String
+  username: String!
+}
+
+input IdentifiableInformationCreateNestedOneWithoutProfileInput {
+  connect: IdentifiableInformationWhereUniqueInput
+  connectOrCreate: IdentifiableInformationCreateOrConnectWithoutProfileInput
+  create: IdentifiableInformationCreateWithoutProfileInput
+}
+
+input IdentifiableInformationCreateOrConnectWithoutProfileInput {
+  create: IdentifiableInformationCreateWithoutProfileInput!
+  where: IdentifiableInformationWhereUniqueInput!
+}
+
+input IdentifiableInformationCreateWithoutProfileInput {
+  birthday: DateTime
+  createdAt: DateTime
+  currenttown: String
+  firstname: String
+  fullname: String
+  gender: String
+  hometown: String
+  id: String
+  lastname: String
+  lookfor: String
+  nickname: String
+  storageId: String
+  surname: String
+  updatedAt: DateTime
+  username: String!
+}
+
+input IdentifiableInformationOrderByWithRelationInput {
+  birthday: SortOrder
+  createdAt: SortOrder
+  currenttown: SortOrder
+  firstname: SortOrder
+  fullname: SortOrder
+  gender: SortOrder
+  hometown: SortOrder
+  id: SortOrder
+  lastname: SortOrder
+  lookfor: SortOrder
+  nickname: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  storageId: SortOrder
+  surname: SortOrder
+  updatedAt: SortOrder
+  username: SortOrder
+}
+
+input IdentifiableInformationUpdateOneWithoutProfileInput {
+  connect: IdentifiableInformationWhereUniqueInput
+  connectOrCreate: IdentifiableInformationCreateOrConnectWithoutProfileInput
+  create: IdentifiableInformationCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: IdentifiableInformationUpdateWithoutProfileInput
+  upsert: IdentifiableInformationUpsertWithoutProfileInput
+}
+
+input IdentifiableInformationUpdateWithoutProfileInput {
+  birthday: NullableDateTimeFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  currenttown: NullableStringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  fullname: NullableStringFieldUpdateOperationsInput
+  gender: NullableStringFieldUpdateOperationsInput
+  hometown: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
+  lookfor: NullableStringFieldUpdateOperationsInput
+  nickname: NullableStringFieldUpdateOperationsInput
+  storageId: NullableStringFieldUpdateOperationsInput
+  surname: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
+}
+
+input IdentifiableInformationUpsertWithoutProfileInput {
+  create: IdentifiableInformationCreateWithoutProfileInput!
+  update: IdentifiableInformationUpdateWithoutProfileInput!
+}
+
+input IdentifiableInformationWhereInput {
+  AND: [IdentifiableInformationWhereInput!]
+  birthday: DateTimeNullableFilter
+  createdAt: DateTimeFilter
+  currenttown: StringNullableFilter
+  firstname: StringNullableFilter
+  fullname: StringNullableFilter
+  gender: StringNullableFilter
+  hometown: StringNullableFilter
+  id: StringFilter
+  lastname: StringNullableFilter
+  lookfor: StringNullableFilter
+  nickname: StringNullableFilter
+  NOT: [IdentifiableInformationWhereInput!]
+  OR: [IdentifiableInformationWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  storageId: StringNullableFilter
+  surname: StringNullableFilter
+  updatedAt: DateTimeFilter
+  username: StringFilter
+}
+
+input IdentifiableInformationWhereUniqueInput {
+  id: String
+  profileId: String
+  username: String
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+type JoinedOut {
+  createdAt: DateTime!
+  id: String!
+  liveOutPersonalId: String
+  LiveOutVenue: LiveOutVenue
+  liveOutVenueId: String
+  personalProfileId: String
+  PersonalStats: PersonalStats
+  updatedAt: DateTime!
+  venueProfileId: String!
+  VenueStats: VenueStats
+  venueStatsId: String
+}
+
+input JoinedOutCreateManyLiveOutPersonalInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutVenueId: String
+  personalProfileId: String
+  personalStatsId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+  venueStatsId: String
+}
+
+input JoinedOutCreateManyLiveOutPersonalInputEnvelope {
+  data: [JoinedOutCreateManyLiveOutPersonalInput!]
+  skipDuplicates: Boolean
+}
+
+input JoinedOutCreateManyLiveOutVenueInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutPersonalId: String
+  personalProfileId: String
+  personalStatsId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+  venueStatsId: String
+}
+
+input JoinedOutCreateManyLiveOutVenueInputEnvelope {
+  data: [JoinedOutCreateManyLiveOutVenueInput!]
+  skipDuplicates: Boolean
+}
+
+input JoinedOutCreateManyPersonalStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutPersonalId: String
+  liveOutVenueId: String
+  personalProfileId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+  venueStatsId: String
+}
+
+input JoinedOutCreateManyPersonalStatsInputEnvelope {
+  data: [JoinedOutCreateManyPersonalStatsInput!]
+  skipDuplicates: Boolean
+}
+
+input JoinedOutCreateManyVenueStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutPersonalId: String
+  liveOutVenueId: String
+  personalProfileId: String
+  personalStatsId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+}
+
+input JoinedOutCreateManyVenueStatsInputEnvelope {
+  data: [JoinedOutCreateManyVenueStatsInput!]
+  skipDuplicates: Boolean
+}
+
+input JoinedOutCreateNestedManyWithoutLiveOutPersonalInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutLiveOutPersonalInput!]
+  create: [JoinedOutCreateWithoutLiveOutPersonalInput!]
+  createMany: JoinedOutCreateManyLiveOutPersonalInputEnvelope
+}
+
+input JoinedOutCreateNestedManyWithoutLiveOutVenueInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutLiveOutVenueInput!]
+  create: [JoinedOutCreateWithoutLiveOutVenueInput!]
+  createMany: JoinedOutCreateManyLiveOutVenueInputEnvelope
+}
+
+input JoinedOutCreateNestedManyWithoutPersonalStatsInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutPersonalStatsInput!]
+  create: [JoinedOutCreateWithoutPersonalStatsInput!]
+  createMany: JoinedOutCreateManyPersonalStatsInputEnvelope
+}
+
+input JoinedOutCreateNestedManyWithoutVenueStatsInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutVenueStatsInput!]
+  create: [JoinedOutCreateWithoutVenueStatsInput!]
+  createMany: JoinedOutCreateManyVenueStatsInputEnvelope
+}
+
+input JoinedOutCreateOrConnectWithoutLiveOutPersonalInput {
+  create: JoinedOutCreateWithoutLiveOutPersonalInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutCreateOrConnectWithoutLiveOutVenueInput {
+  create: JoinedOutCreateWithoutLiveOutVenueInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutCreateOrConnectWithoutPersonalStatsInput {
+  create: JoinedOutCreateWithoutPersonalStatsInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutCreateOrConnectWithoutVenueStatsInput {
+  create: JoinedOutCreateWithoutVenueStatsInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutCreateWithoutLiveOutPersonalInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutJoinedInput
+  personalProfileId: String
+  PersonalStats: PersonalStatsCreateNestedOneWithoutJoinedVenueHistoryInput
+  updatedAt: DateTime
+  venueProfileId: String!
+  VenueStats: VenueStatsCreateNestedOneWithoutJoinedVenueHistoryInput
+}
+
+input JoinedOutCreateWithoutLiveOutVenueInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutJoinedInput
+  personalProfileId: String
+  PersonalStats: PersonalStatsCreateNestedOneWithoutJoinedVenueHistoryInput
+  updatedAt: DateTime
+  venueProfileId: String!
+  VenueStats: VenueStatsCreateNestedOneWithoutJoinedVenueHistoryInput
+}
+
+input JoinedOutCreateWithoutPersonalStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutJoinedInput
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutJoinedInput
+  personalProfileId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+  VenueStats: VenueStatsCreateNestedOneWithoutJoinedVenueHistoryInput
+}
+
+input JoinedOutCreateWithoutVenueStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutJoinedInput
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutJoinedInput
+  personalProfileId: String
+  PersonalStats: PersonalStatsCreateNestedOneWithoutJoinedVenueHistoryInput
+  updatedAt: DateTime
+  venueProfileId: String!
+}
+
+input JoinedOutListRelationFilter {
+  every: JoinedOutWhereInput
+  none: JoinedOutWhereInput
+  some: JoinedOutWhereInput
+}
+
+input JoinedOutOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input JoinedOutScalarWhereInput {
+  AND: [JoinedOutScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  leftAt: DateTimeNullableFilter
+  liveOutPersonalId: StringNullableFilter
+  liveOutVenueId: StringNullableFilter
+  NOT: [JoinedOutScalarWhereInput!]
+  OR: [JoinedOutScalarWhereInput!]
+  personalProfileId: StringNullableFilter
+  personalStatsId: StringNullableFilter
+  updatedAt: DateTimeFilter
+  venueProfileId: StringFilter
+  venueStatsId: StringNullableFilter
+}
+
+input JoinedOutUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  personalProfileId: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+}
+
+input JoinedOutUpdateManyWithoutLiveOutPersonalInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutLiveOutPersonalInput!]
+  create: [JoinedOutCreateWithoutLiveOutPersonalInput!]
+  createMany: JoinedOutCreateManyLiveOutPersonalInputEnvelope
+  delete: [JoinedOutWhereUniqueInput!]
+  deleteMany: [JoinedOutScalarWhereInput!]
+  disconnect: [JoinedOutWhereUniqueInput!]
+  set: [JoinedOutWhereUniqueInput!]
+  update: [JoinedOutUpdateWithWhereUniqueWithoutLiveOutPersonalInput!]
+  updateMany: [JoinedOutUpdateManyWithWhereWithoutLiveOutPersonalInput!]
+  upsert: [JoinedOutUpsertWithWhereUniqueWithoutLiveOutPersonalInput!]
+}
+
+input JoinedOutUpdateManyWithoutLiveOutVenueInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutLiveOutVenueInput!]
+  create: [JoinedOutCreateWithoutLiveOutVenueInput!]
+  createMany: JoinedOutCreateManyLiveOutVenueInputEnvelope
+  delete: [JoinedOutWhereUniqueInput!]
+  deleteMany: [JoinedOutScalarWhereInput!]
+  disconnect: [JoinedOutWhereUniqueInput!]
+  set: [JoinedOutWhereUniqueInput!]
+  update: [JoinedOutUpdateWithWhereUniqueWithoutLiveOutVenueInput!]
+  updateMany: [JoinedOutUpdateManyWithWhereWithoutLiveOutVenueInput!]
+  upsert: [JoinedOutUpsertWithWhereUniqueWithoutLiveOutVenueInput!]
+}
+
+input JoinedOutUpdateManyWithoutPersonalStatsInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutPersonalStatsInput!]
+  create: [JoinedOutCreateWithoutPersonalStatsInput!]
+  createMany: JoinedOutCreateManyPersonalStatsInputEnvelope
+  delete: [JoinedOutWhereUniqueInput!]
+  deleteMany: [JoinedOutScalarWhereInput!]
+  disconnect: [JoinedOutWhereUniqueInput!]
+  set: [JoinedOutWhereUniqueInput!]
+  update: [JoinedOutUpdateWithWhereUniqueWithoutPersonalStatsInput!]
+  updateMany: [JoinedOutUpdateManyWithWhereWithoutPersonalStatsInput!]
+  upsert: [JoinedOutUpsertWithWhereUniqueWithoutPersonalStatsInput!]
+}
+
+input JoinedOutUpdateManyWithoutVenueStatsInput {
+  connect: [JoinedOutWhereUniqueInput!]
+  connectOrCreate: [JoinedOutCreateOrConnectWithoutVenueStatsInput!]
+  create: [JoinedOutCreateWithoutVenueStatsInput!]
+  createMany: JoinedOutCreateManyVenueStatsInputEnvelope
+  delete: [JoinedOutWhereUniqueInput!]
+  deleteMany: [JoinedOutScalarWhereInput!]
+  disconnect: [JoinedOutWhereUniqueInput!]
+  set: [JoinedOutWhereUniqueInput!]
+  update: [JoinedOutUpdateWithWhereUniqueWithoutVenueStatsInput!]
+  updateMany: [JoinedOutUpdateManyWithWhereWithoutVenueStatsInput!]
+  upsert: [JoinedOutUpsertWithWhereUniqueWithoutVenueStatsInput!]
+}
+
+input JoinedOutUpdateManyWithWhereWithoutLiveOutPersonalInput {
+  data: JoinedOutUpdateManyMutationInput!
+  where: JoinedOutScalarWhereInput!
+}
+
+input JoinedOutUpdateManyWithWhereWithoutLiveOutVenueInput {
+  data: JoinedOutUpdateManyMutationInput!
+  where: JoinedOutScalarWhereInput!
+}
+
+input JoinedOutUpdateManyWithWhereWithoutPersonalStatsInput {
+  data: JoinedOutUpdateManyMutationInput!
+  where: JoinedOutScalarWhereInput!
+}
+
+input JoinedOutUpdateManyWithWhereWithoutVenueStatsInput {
+  data: JoinedOutUpdateManyMutationInput!
+  where: JoinedOutScalarWhereInput!
+}
+
+input JoinedOutUpdateWithoutLiveOutPersonalInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutJoinedInput
+  personalProfileId: NullableStringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutJoinedVenueHistoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneWithoutJoinedVenueHistoryInput
+}
+
+input JoinedOutUpdateWithoutLiveOutVenueInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutJoinedInput
+  personalProfileId: NullableStringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutJoinedVenueHistoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneWithoutJoinedVenueHistoryInput
+}
+
+input JoinedOutUpdateWithoutPersonalStatsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutJoinedInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutJoinedInput
+  personalProfileId: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneWithoutJoinedVenueHistoryInput
+}
+
+input JoinedOutUpdateWithoutVenueStatsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutJoinedInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutJoinedInput
+  personalProfileId: NullableStringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutJoinedVenueHistoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+}
+
+input JoinedOutUpdateWithWhereUniqueWithoutLiveOutPersonalInput {
+  data: JoinedOutUpdateWithoutLiveOutPersonalInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpdateWithWhereUniqueWithoutLiveOutVenueInput {
+  data: JoinedOutUpdateWithoutLiveOutVenueInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpdateWithWhereUniqueWithoutPersonalStatsInput {
+  data: JoinedOutUpdateWithoutPersonalStatsInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpdateWithWhereUniqueWithoutVenueStatsInput {
+  data: JoinedOutUpdateWithoutVenueStatsInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpsertWithWhereUniqueWithoutLiveOutPersonalInput {
+  create: JoinedOutCreateWithoutLiveOutPersonalInput!
+  update: JoinedOutUpdateWithoutLiveOutPersonalInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpsertWithWhereUniqueWithoutLiveOutVenueInput {
+  create: JoinedOutCreateWithoutLiveOutVenueInput!
+  update: JoinedOutUpdateWithoutLiveOutVenueInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpsertWithWhereUniqueWithoutPersonalStatsInput {
+  create: JoinedOutCreateWithoutPersonalStatsInput!
+  update: JoinedOutUpdateWithoutPersonalStatsInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutUpsertWithWhereUniqueWithoutVenueStatsInput {
+  create: JoinedOutCreateWithoutVenueStatsInput!
+  update: JoinedOutUpdateWithoutVenueStatsInput!
+  where: JoinedOutWhereUniqueInput!
+}
+
+input JoinedOutWhereInput {
+  AND: [JoinedOutWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  leftAt: DateTimeNullableFilter
+  LiveOutPersonal: LiveOutPersonalWhereInput
+  liveOutPersonalId: StringNullableFilter
+  LiveOutVenue: LiveOutVenueWhereInput
+  liveOutVenueId: StringNullableFilter
+  NOT: [JoinedOutWhereInput!]
+  OR: [JoinedOutWhereInput!]
+  personalProfileId: StringNullableFilter
+  PersonalStats: PersonalStatsWhereInput
+  personalStatsId: StringNullableFilter
+  updatedAt: DateTimeFilter
+  venueProfileId: StringFilter
+  VenueStats: VenueStatsWhereInput
+  venueStatsId: StringNullableFilter
+}
+
+input JoinedOutWhereUniqueInput {
+  id: String
+}
+
+scalar Json
+
+input JsonNullableListFilter {
+  equals: [Json!]
+  has: Json
+  hasEvery: [Json!]
+  hasSome: [Json!]
+  isEmpty: Boolean
+}
+
+type LegalAgreement {
+  aggreed: Boolean!
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+}
+
+input LegalAgreementCreateManyCredentialsInput {
+  aggreed: Boolean
+  createdAt: DateTime
+  documentId: Int!
+  id: String
+  updatedAt: DateTime
+}
+
+input LegalAgreementCreateManyCredentialsInputEnvelope {
+  data: [LegalAgreementCreateManyCredentialsInput!]
+  skipDuplicates: Boolean
+}
+
+input LegalAgreementCreateNestedManyWithoutCredentialsInput {
+  connect: [LegalAgreementWhereUniqueInput!]
+  connectOrCreate: [LegalAgreementCreateOrConnectWithoutCredentialsInput!]
+  create: [LegalAgreementCreateWithoutCredentialsInput!]
+  createMany: LegalAgreementCreateManyCredentialsInputEnvelope
+}
+
+input LegalAgreementCreateOrConnectWithoutCredentialsInput {
+  create: LegalAgreementCreateWithoutCredentialsInput!
+  where: LegalAgreementWhereUniqueInput!
+}
+
+input LegalAgreementCreateWithoutCredentialsInput {
+  aggreed: Boolean
+  createdAt: DateTime
+  Document: DocumentCreateNestedOneWithoutLegalAgreementInput!
+  id: String
+  updatedAt: DateTime
+}
+
+input LegalAgreementListRelationFilter {
+  every: LegalAgreementWhereInput
+  none: LegalAgreementWhereInput
+  some: LegalAgreementWhereInput
+}
+
+input LegalAgreementOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input LegalAgreementScalarWhereInput {
+  aggreed: BoolFilter
+  AND: [LegalAgreementScalarWhereInput!]
+  createdAt: DateTimeFilter
+  credentialsId: StringNullableFilter
+  documentId: IntFilter
+  id: StringFilter
+  NOT: [LegalAgreementScalarWhereInput!]
+  OR: [LegalAgreementScalarWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input LegalAgreementUpdateManyMutationInput {
+  aggreed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LegalAgreementUpdateManyWithoutCredentialsInput {
+  connect: [LegalAgreementWhereUniqueInput!]
+  connectOrCreate: [LegalAgreementCreateOrConnectWithoutCredentialsInput!]
+  create: [LegalAgreementCreateWithoutCredentialsInput!]
+  createMany: LegalAgreementCreateManyCredentialsInputEnvelope
+  delete: [LegalAgreementWhereUniqueInput!]
+  deleteMany: [LegalAgreementScalarWhereInput!]
+  disconnect: [LegalAgreementWhereUniqueInput!]
+  set: [LegalAgreementWhereUniqueInput!]
+  update: [LegalAgreementUpdateWithWhereUniqueWithoutCredentialsInput!]
+  updateMany: [LegalAgreementUpdateManyWithWhereWithoutCredentialsInput!]
+  upsert: [LegalAgreementUpsertWithWhereUniqueWithoutCredentialsInput!]
+}
+
+input LegalAgreementUpdateManyWithWhereWithoutCredentialsInput {
+  data: LegalAgreementUpdateManyMutationInput!
+  where: LegalAgreementScalarWhereInput!
+}
+
+input LegalAgreementUpdateWithoutCredentialsInput {
+  aggreed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Document: DocumentUpdateOneRequiredWithoutLegalAgreementInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LegalAgreementUpdateWithWhereUniqueWithoutCredentialsInput {
+  data: LegalAgreementUpdateWithoutCredentialsInput!
+  where: LegalAgreementWhereUniqueInput!
+}
+
+input LegalAgreementUpsertWithWhereUniqueWithoutCredentialsInput {
+  create: LegalAgreementCreateWithoutCredentialsInput!
+  update: LegalAgreementUpdateWithoutCredentialsInput!
+  where: LegalAgreementWhereUniqueInput!
+}
+
+input LegalAgreementWhereInput {
+  aggreed: BoolFilter
+  AND: [LegalAgreementWhereInput!]
+  createdAt: DateTimeFilter
+  Credentials: CredentialsWhereInput
+  credentialsId: StringNullableFilter
+  Document: DocumentWhereInput
+  documentId: IntFilter
+  id: StringFilter
+  NOT: [LegalAgreementWhereInput!]
+  OR: [LegalAgreementWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input LegalAgreementWhereUniqueInput {
+  id: String
+}
+
+type LiveOutPersonal {
+  createdAt: DateTime!
+  id: String!
+  joined(after: JoinedOutWhereUniqueInput, before: JoinedOutWhereUniqueInput, first: Int, last: Int): [JoinedOut!]!
+  Personal: Personal!
+  totaled(after: TotaledOutWhereUniqueInput, before: TotaledOutWhereUniqueInput, first: Int, last: Int): [TotaledOut!]!
+  updatedAt: DateTime!
+}
+
+input LiveOutPersonalCreateNestedOneWithoutJoinedInput {
+  connect: LiveOutPersonalWhereUniqueInput
+  connectOrCreate: LiveOutPersonalCreateOrConnectWithoutJoinedInput
+  create: LiveOutPersonalCreateWithoutJoinedInput
+}
+
+input LiveOutPersonalCreateNestedOneWithoutPersonalInput {
+  connect: LiveOutPersonalWhereUniqueInput
+  connectOrCreate: LiveOutPersonalCreateOrConnectWithoutPersonalInput
+  create: LiveOutPersonalCreateWithoutPersonalInput
+}
+
+input LiveOutPersonalCreateNestedOneWithoutTotaledInput {
+  connect: LiveOutPersonalWhereUniqueInput
+  connectOrCreate: LiveOutPersonalCreateOrConnectWithoutTotaledInput
+  create: LiveOutPersonalCreateWithoutTotaledInput
+}
+
+input LiveOutPersonalCreateOrConnectWithoutJoinedInput {
+  create: LiveOutPersonalCreateWithoutJoinedInput!
+  where: LiveOutPersonalWhereUniqueInput!
+}
+
+input LiveOutPersonalCreateOrConnectWithoutPersonalInput {
+  create: LiveOutPersonalCreateWithoutPersonalInput!
+  where: LiveOutPersonalWhereUniqueInput!
+}
+
+input LiveOutPersonalCreateOrConnectWithoutTotaledInput {
+  create: LiveOutPersonalCreateWithoutTotaledInput!
+  where: LiveOutPersonalWhereUniqueInput!
+}
+
+input LiveOutPersonalCreateWithoutJoinedInput {
+  createdAt: DateTime
+  id: String
+  Personal: PersonalCreateNestedOneWithoutLiveOutPersonalInput!
+  totaled: TotaledOutCreateNestedManyWithoutLiveOutPersonalInput
+  updatedAt: DateTime
+}
+
+input LiveOutPersonalCreateWithoutPersonalInput {
+  createdAt: DateTime
+  id: String
+  joined: JoinedOutCreateNestedManyWithoutLiveOutPersonalInput
+  totaled: TotaledOutCreateNestedManyWithoutLiveOutPersonalInput
+  updatedAt: DateTime
+}
+
+input LiveOutPersonalCreateWithoutTotaledInput {
+  createdAt: DateTime
+  id: String
+  joined: JoinedOutCreateNestedManyWithoutLiveOutPersonalInput
+  Personal: PersonalCreateNestedOneWithoutLiveOutPersonalInput!
+  updatedAt: DateTime
+}
+
+input LiveOutPersonalOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  joined: JoinedOutOrderByRelationAggregateInput
+  Personal: PersonalOrderByWithRelationInput
+  personalId: SortOrder
+  totaled: TotaledOutOrderByRelationAggregateInput
+  updatedAt: SortOrder
+}
+
+input LiveOutPersonalUpdateOneWithoutJoinedInput {
+  connect: LiveOutPersonalWhereUniqueInput
+  connectOrCreate: LiveOutPersonalCreateOrConnectWithoutJoinedInput
+  create: LiveOutPersonalCreateWithoutJoinedInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LiveOutPersonalUpdateWithoutJoinedInput
+  upsert: LiveOutPersonalUpsertWithoutJoinedInput
+}
+
+input LiveOutPersonalUpdateOneWithoutPersonalInput {
+  connect: LiveOutPersonalWhereUniqueInput
+  connectOrCreate: LiveOutPersonalCreateOrConnectWithoutPersonalInput
+  create: LiveOutPersonalCreateWithoutPersonalInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LiveOutPersonalUpdateWithoutPersonalInput
+  upsert: LiveOutPersonalUpsertWithoutPersonalInput
+}
+
+input LiveOutPersonalUpdateOneWithoutTotaledInput {
+  connect: LiveOutPersonalWhereUniqueInput
+  connectOrCreate: LiveOutPersonalCreateOrConnectWithoutTotaledInput
+  create: LiveOutPersonalCreateWithoutTotaledInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LiveOutPersonalUpdateWithoutTotaledInput
+  upsert: LiveOutPersonalUpsertWithoutTotaledInput
+}
+
+input LiveOutPersonalUpdateWithoutJoinedInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Personal: PersonalUpdateOneRequiredWithoutLiveOutPersonalInput
+  totaled: TotaledOutUpdateManyWithoutLiveOutPersonalInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LiveOutPersonalUpdateWithoutPersonalInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joined: JoinedOutUpdateManyWithoutLiveOutPersonalInput
+  totaled: TotaledOutUpdateManyWithoutLiveOutPersonalInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LiveOutPersonalUpdateWithoutTotaledInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joined: JoinedOutUpdateManyWithoutLiveOutPersonalInput
+  Personal: PersonalUpdateOneRequiredWithoutLiveOutPersonalInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LiveOutPersonalUpsertWithoutJoinedInput {
+  create: LiveOutPersonalCreateWithoutJoinedInput!
+  update: LiveOutPersonalUpdateWithoutJoinedInput!
+}
+
+input LiveOutPersonalUpsertWithoutPersonalInput {
+  create: LiveOutPersonalCreateWithoutPersonalInput!
+  update: LiveOutPersonalUpdateWithoutPersonalInput!
+}
+
+input LiveOutPersonalUpsertWithoutTotaledInput {
+  create: LiveOutPersonalCreateWithoutTotaledInput!
+  update: LiveOutPersonalUpdateWithoutTotaledInput!
+}
+
+input LiveOutPersonalWhereInput {
+  AND: [LiveOutPersonalWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  joined: JoinedOutListRelationFilter
+  NOT: [LiveOutPersonalWhereInput!]
+  OR: [LiveOutPersonalWhereInput!]
+  Personal: PersonalWhereInput
+  personalId: StringFilter
+  totaled: TotaledOutListRelationFilter
+  updatedAt: DateTimeFilter
+}
+
+input LiveOutPersonalWhereUniqueInput {
+  id: String
+  personalId: String
+}
+
+type LiveOutVenue {
+  createdAt: DateTime!
+  id: String!
+  joined(after: JoinedOutWhereUniqueInput, before: JoinedOutWhereUniqueInput, first: Int, last: Int): [JoinedOut!]!
+  totaled(after: TotaledOutWhereUniqueInput, before: TotaledOutWhereUniqueInput, first: Int, last: Int): [TotaledOut!]!
+  updatedAt: DateTime!
+  venueId: String!
+}
+
+input LiveOutVenueCreateNestedOneWithoutJoinedInput {
+  connect: LiveOutVenueWhereUniqueInput
+  connectOrCreate: LiveOutVenueCreateOrConnectWithoutJoinedInput
+  create: LiveOutVenueCreateWithoutJoinedInput
+}
+
+input LiveOutVenueCreateNestedOneWithoutTotaledInput {
+  connect: LiveOutVenueWhereUniqueInput
+  connectOrCreate: LiveOutVenueCreateOrConnectWithoutTotaledInput
+  create: LiveOutVenueCreateWithoutTotaledInput
+}
+
+input LiveOutVenueCreateNestedOneWithoutVenueInput {
+  connect: LiveOutVenueWhereUniqueInput
+  connectOrCreate: LiveOutVenueCreateOrConnectWithoutVenueInput
+  create: LiveOutVenueCreateWithoutVenueInput
+}
+
+input LiveOutVenueCreateOrConnectWithoutJoinedInput {
+  create: LiveOutVenueCreateWithoutJoinedInput!
+  where: LiveOutVenueWhereUniqueInput!
+}
+
+input LiveOutVenueCreateOrConnectWithoutTotaledInput {
+  create: LiveOutVenueCreateWithoutTotaledInput!
+  where: LiveOutVenueWhereUniqueInput!
+}
+
+input LiveOutVenueCreateOrConnectWithoutVenueInput {
+  create: LiveOutVenueCreateWithoutVenueInput!
+  where: LiveOutVenueWhereUniqueInput!
+}
+
+input LiveOutVenueCreateWithoutJoinedInput {
+  createdAt: DateTime
+  id: String
+  totaled: TotaledOutCreateNestedManyWithoutLiveOutVenueInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutLiveOutVenueInput!
+}
+
+input LiveOutVenueCreateWithoutTotaledInput {
+  createdAt: DateTime
+  id: String
+  joined: JoinedOutCreateNestedManyWithoutLiveOutVenueInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutLiveOutVenueInput!
+}
+
+input LiveOutVenueCreateWithoutVenueInput {
+  createdAt: DateTime
+  id: String
+  joined: JoinedOutCreateNestedManyWithoutLiveOutVenueInput
+  totaled: TotaledOutCreateNestedManyWithoutLiveOutVenueInput
+  updatedAt: DateTime
+}
+
+input LiveOutVenueOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  joined: JoinedOutOrderByRelationAggregateInput
+  totaled: TotaledOutOrderByRelationAggregateInput
+  updatedAt: SortOrder
+  Venue: VenueOrderByWithRelationInput
+  venueId: SortOrder
+}
+
+input LiveOutVenueUpdateOneWithoutJoinedInput {
+  connect: LiveOutVenueWhereUniqueInput
+  connectOrCreate: LiveOutVenueCreateOrConnectWithoutJoinedInput
+  create: LiveOutVenueCreateWithoutJoinedInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LiveOutVenueUpdateWithoutJoinedInput
+  upsert: LiveOutVenueUpsertWithoutJoinedInput
+}
+
+input LiveOutVenueUpdateOneWithoutTotaledInput {
+  connect: LiveOutVenueWhereUniqueInput
+  connectOrCreate: LiveOutVenueCreateOrConnectWithoutTotaledInput
+  create: LiveOutVenueCreateWithoutTotaledInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LiveOutVenueUpdateWithoutTotaledInput
+  upsert: LiveOutVenueUpsertWithoutTotaledInput
+}
+
+input LiveOutVenueUpdateOneWithoutVenueInput {
+  connect: LiveOutVenueWhereUniqueInput
+  connectOrCreate: LiveOutVenueCreateOrConnectWithoutVenueInput
+  create: LiveOutVenueCreateWithoutVenueInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LiveOutVenueUpdateWithoutVenueInput
+  upsert: LiveOutVenueUpsertWithoutVenueInput
+}
+
+input LiveOutVenueUpdateWithoutJoinedInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  totaled: TotaledOutUpdateManyWithoutLiveOutVenueInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneRequiredWithoutLiveOutVenueInput
+}
+
+input LiveOutVenueUpdateWithoutTotaledInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joined: JoinedOutUpdateManyWithoutLiveOutVenueInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneRequiredWithoutLiveOutVenueInput
+}
+
+input LiveOutVenueUpdateWithoutVenueInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joined: JoinedOutUpdateManyWithoutLiveOutVenueInput
+  totaled: TotaledOutUpdateManyWithoutLiveOutVenueInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LiveOutVenueUpsertWithoutJoinedInput {
+  create: LiveOutVenueCreateWithoutJoinedInput!
+  update: LiveOutVenueUpdateWithoutJoinedInput!
+}
+
+input LiveOutVenueUpsertWithoutTotaledInput {
+  create: LiveOutVenueCreateWithoutTotaledInput!
+  update: LiveOutVenueUpdateWithoutTotaledInput!
+}
+
+input LiveOutVenueUpsertWithoutVenueInput {
+  create: LiveOutVenueCreateWithoutVenueInput!
+  update: LiveOutVenueUpdateWithoutVenueInput!
+}
+
+input LiveOutVenueWhereInput {
+  AND: [LiveOutVenueWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  joined: JoinedOutListRelationFilter
+  NOT: [LiveOutVenueWhereInput!]
+  OR: [LiveOutVenueWhereInput!]
+  totaled: TotaledOutListRelationFilter
+  updatedAt: DateTimeFilter
+  Venue: VenueWhereInput
+  venueId: StringFilter
+}
+
+input LiveOutVenueWhereUniqueInput {
+  id: String
+  venueId: String
+}
+
+type LiveVenueTotals {
+  joined: [JoinedOut!]
+  totaled: [TotaledOut!]
+}
+
+type Location {
+  Address: Address
+  createdAt: DateTime!
+  Geometry: Geometry
+  h3Index: String!
+  id: String!
+  plusCode: PluseCode
+  updatedAt: DateTime!
+}
+
+input LocationCreateNestedOneWithoutVenueInput {
+  connect: LocationWhereUniqueInput
+  connectOrCreate: LocationCreateOrConnectWithoutVenueInput
+  create: LocationCreateWithoutVenueInput
+}
+
+input LocationCreateOrConnectWithoutVenueInput {
+  create: LocationCreateWithoutVenueInput!
+  where: LocationWhereUniqueInput!
+}
+
+input LocationCreateWithoutVenueInput {
+  Address: AddressCreateNestedOneWithoutLocationInput
+  createdAt: DateTime
+  Geometry: GeometryCreateNestedOneWithoutLocationInput
+  h3Index: String!
+  id: String
+  plusCode: PluseCodeCreateNestedOneWithoutLocationInput
+  updatedAt: DateTime
+}
+
+input LocationListRelationFilter {
+  every: LocationWhereInput
+  none: LocationWhereInput
+  some: LocationWhereInput
+}
+
+input LocationOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input LocationOrderByWithRelationInput {
+  Address: AddressOrderByWithRelationInput
+  addressId: SortOrder
+  createdAt: SortOrder
+  Geometry: GeometryOrderByWithRelationInput
+  geometryId: SortOrder
+  h3Index: SortOrder
+  id: SortOrder
+  plusCode: PluseCodeOrderByWithRelationInput
+  pluseCodeId: SortOrder
+  updatedAt: SortOrder
+  Venue: VenueOrderByWithRelationInput
+  venueId: SortOrder
+}
+
+input LocationUpdateOneWithoutVenueInput {
+  connect: LocationWhereUniqueInput
+  connectOrCreate: LocationCreateOrConnectWithoutVenueInput
+  create: LocationCreateWithoutVenueInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LocationUpdateWithoutVenueInput
+  upsert: LocationUpsertWithoutVenueInput
+}
+
+input LocationUpdateWithoutVenueInput {
+  Address: AddressUpdateOneWithoutLocationInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Geometry: GeometryUpdateOneWithoutLocationInput
+  h3Index: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  plusCode: PluseCodeUpdateOneWithoutLocationInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input LocationUpsertWithoutVenueInput {
+  create: LocationCreateWithoutVenueInput!
+  update: LocationUpdateWithoutVenueInput!
+}
+
+input LocationWhereInput {
+  Address: AddressWhereInput
+  addressId: StringNullableFilter
+  AND: [LocationWhereInput!]
+  createdAt: DateTimeFilter
+  Geometry: GeometryWhereInput
+  geometryId: IntNullableFilter
+  h3Index: StringFilter
+  id: StringFilter
+  NOT: [LocationWhereInput!]
+  OR: [LocationWhereInput!]
+  plusCode: PluseCodeWhereInput
+  pluseCodeId: StringNullableFilter
+  updatedAt: DateTimeFilter
+  Venue: VenueWhereInput
+  venueId: StringNullableFilter
+}
+
+input LocationWhereUniqueInput {
+  geometryId: Int
+  id: String
+  pluseCodeId: String
+  venueId: String
+}
+
+input MessageCreateManyChatroomInput {
+  id: String
+  message: String!
+  responseId: String
+  senderId: String!
+}
+
+input MessageCreateManyChatroomInputEnvelope {
+  data: [MessageCreateManyChatroomInput!]
+  skipDuplicates: Boolean
+}
+
+input MessageCreateManyResponseInput {
+  chatroomId: String
+  id: String
+  message: String!
+  senderId: String!
+}
+
+input MessageCreateManyResponseInputEnvelope {
+  data: [MessageCreateManyResponseInput!]
+  skipDuplicates: Boolean
+}
+
+input MessageCreateNestedManyWithoutChatroomInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutChatroomInput!]
+  create: [MessageCreateWithoutChatroomInput!]
+  createMany: MessageCreateManyChatroomInputEnvelope
+}
+
+input MessageCreateNestedManyWithoutResponseInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutResponseInput!]
+  create: [MessageCreateWithoutResponseInput!]
+  createMany: MessageCreateManyResponseInputEnvelope
+}
+
+input MessageCreateNestedOneWithoutResponsesInput {
+  connect: MessageWhereUniqueInput
+  connectOrCreate: MessageCreateOrConnectWithoutResponsesInput
+  create: MessageCreateWithoutResponsesInput
+}
+
+input MessageCreateOrConnectWithoutChatroomInput {
+  create: MessageCreateWithoutChatroomInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageCreateOrConnectWithoutResponseInput {
+  create: MessageCreateWithoutResponseInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageCreateOrConnectWithoutResponsesInput {
+  create: MessageCreateWithoutResponsesInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageCreateWithoutChatroomInput {
+  id: String
+  message: String!
+  response: MessageCreateNestedOneWithoutResponsesInput
+  responses: MessageCreateNestedManyWithoutResponseInput
+  senderId: String!
+}
+
+input MessageCreateWithoutResponseInput {
+  Chatroom: ChatroomCreateNestedOneWithoutMessagesInput
+  id: String
+  message: String!
+  responses: MessageCreateNestedManyWithoutResponseInput
+  senderId: String!
+}
+
+input MessageCreateWithoutResponsesInput {
+  Chatroom: ChatroomCreateNestedOneWithoutMessagesInput
+  id: String
+  message: String!
+  response: MessageCreateNestedOneWithoutResponsesInput
+  senderId: String!
+}
+
+input MessageListRelationFilter {
+  every: MessageWhereInput
+  none: MessageWhereInput
+  some: MessageWhereInput
+}
+
+input MessageOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input MessageScalarWhereInput {
+  AND: [MessageScalarWhereInput!]
+  chatroomId: StringNullableFilter
+  id: StringFilter
+  message: StringFilter
+  NOT: [MessageScalarWhereInput!]
+  OR: [MessageScalarWhereInput!]
+  responseId: StringNullableFilter
+  senderId: StringFilter
+}
+
+input MessageUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  message: StringFieldUpdateOperationsInput
+  senderId: StringFieldUpdateOperationsInput
+}
+
+input MessageUpdateManyWithoutChatroomInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutChatroomInput!]
+  create: [MessageCreateWithoutChatroomInput!]
+  createMany: MessageCreateManyChatroomInputEnvelope
+  delete: [MessageWhereUniqueInput!]
+  deleteMany: [MessageScalarWhereInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  set: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutChatroomInput!]
+  updateMany: [MessageUpdateManyWithWhereWithoutChatroomInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutChatroomInput!]
+}
+
+input MessageUpdateManyWithoutResponseInput {
+  connect: [MessageWhereUniqueInput!]
+  connectOrCreate: [MessageCreateOrConnectWithoutResponseInput!]
+  create: [MessageCreateWithoutResponseInput!]
+  createMany: MessageCreateManyResponseInputEnvelope
+  delete: [MessageWhereUniqueInput!]
+  deleteMany: [MessageScalarWhereInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  set: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutResponseInput!]
+  updateMany: [MessageUpdateManyWithWhereWithoutResponseInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutResponseInput!]
+}
+
+input MessageUpdateManyWithWhereWithoutChatroomInput {
+  data: MessageUpdateManyMutationInput!
+  where: MessageScalarWhereInput!
+}
+
+input MessageUpdateManyWithWhereWithoutResponseInput {
+  data: MessageUpdateManyMutationInput!
+  where: MessageScalarWhereInput!
+}
+
+input MessageUpdateOneWithoutResponsesInput {
+  connect: MessageWhereUniqueInput
+  connectOrCreate: MessageCreateOrConnectWithoutResponsesInput
+  create: MessageCreateWithoutResponsesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: MessageUpdateWithoutResponsesInput
+  upsert: MessageUpsertWithoutResponsesInput
+}
+
+input MessageUpdateWithoutChatroomInput {
+  id: StringFieldUpdateOperationsInput
+  message: StringFieldUpdateOperationsInput
+  response: MessageUpdateOneWithoutResponsesInput
+  responses: MessageUpdateManyWithoutResponseInput
+  senderId: StringFieldUpdateOperationsInput
+}
+
+input MessageUpdateWithoutResponseInput {
+  Chatroom: ChatroomUpdateOneWithoutMessagesInput
+  id: StringFieldUpdateOperationsInput
+  message: StringFieldUpdateOperationsInput
+  responses: MessageUpdateManyWithoutResponseInput
+  senderId: StringFieldUpdateOperationsInput
+}
+
+input MessageUpdateWithoutResponsesInput {
+  Chatroom: ChatroomUpdateOneWithoutMessagesInput
+  id: StringFieldUpdateOperationsInput
+  message: StringFieldUpdateOperationsInput
+  response: MessageUpdateOneWithoutResponsesInput
+  senderId: StringFieldUpdateOperationsInput
+}
+
+input MessageUpdateWithWhereUniqueWithoutChatroomInput {
+  data: MessageUpdateWithoutChatroomInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageUpdateWithWhereUniqueWithoutResponseInput {
+  data: MessageUpdateWithoutResponseInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageUpsertWithoutResponsesInput {
+  create: MessageCreateWithoutResponsesInput!
+  update: MessageUpdateWithoutResponsesInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutChatroomInput {
+  create: MessageCreateWithoutChatroomInput!
+  update: MessageUpdateWithoutChatroomInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutResponseInput {
+  create: MessageCreateWithoutResponseInput!
+  update: MessageUpdateWithoutResponseInput!
+  where: MessageWhereUniqueInput!
+}
+
+input MessageWhereInput {
+  AND: [MessageWhereInput!]
+  Chatroom: ChatroomWhereInput
+  chatroomId: StringNullableFilter
+  id: StringFilter
+  message: StringFilter
+  NOT: [MessageWhereInput!]
+  OR: [MessageWhereInput!]
+  response: MessageWhereInput
+  responseId: StringNullableFilter
+  responses: MessageListRelationFilter
+  senderId: StringFilter
+}
+
+input MessageWhereUniqueInput {
+  id: String
+}
+
+type Mutation {
+  addPersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
+  addPersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
+  checkThePink: Boolean
+  createADeviceManager(profileId: String): RefreshDeviceManagerResponseUnion
+  createAVenue(data: CreateVenueProfileDataInput!): CreateProfileResponseUnion
+  createGuestProfile: CreateProfileResponseUnion
+  createOneDevice(data: DeviceCreateInput!): Device!
+  createOneEmojimood(data: EmojimoodCreateInput!): Emojimood!
+  createPersonalProfile(data: CreatePersonalProfileDataInput): CreateProfileResponseUnion
+  refreshDeviceManager: RefreshDeviceManagerResponseUnion
+  removeDeviceProfileToDeviceManager(profileId: String!): Boolean
+  removePersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
+  removePersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
+  sendAuthenticatorDeviceOwnerCode(data: CodeData, where: CodeWhere): CodeResponse
+  sendAuthenticatorForgotPasswordCode(data: CodeData, where: CodeWhere): CodeResponse
+  storageCreateVenues(data: [Json]): [CreateVenueStorageResponse]
+  switchDeviceProfile(profileId: String): RefreshDeviceManagerResponseUnion
+  updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
+  updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateWithoutProfileInput!, where: IdentifiableInformationWhereUniqueInput!): UpdateProfileResponse
+  upsertProfileStory(data: ProfileUpdateInput!): Boolean
+  upsertTonightPathOrPath(latitude: Float!, longitude: Float!, profileIdPersonal: String!, tonightPathId: String): Boolean
+}
+
+enum MutationType {
+  CREATED
+  DELETED
+  UPDATED
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedBoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input NestedEnumPhotoTypeNullableFilter {
+  equals: PhotoType
+  in: [PhotoType!]
+  not: NestedEnumPhotoTypeNullableFilter
+  notIn: [PhotoType!]
+}
+
+input NestedEnumProfileTypeFilter {
+  equals: ProfileType
+  in: [ProfileType!]
+  not: NestedEnumProfileTypeFilter
+  notIn: [ProfileType!]
+}
+
+input NestedEnumTagTypeFilter {
+  equals: TagType
+  in: [TagType!]
+  not: NestedEnumTagTypeFilter
+  notIn: [TagType!]
+}
+
+input NestedEnumTypeOfDocumentFilter {
+  equals: TypeOfDocument
+  in: [TypeOfDocument!]
+  not: NestedEnumTypeOfDocumentFilter
+  notIn: [TypeOfDocument!]
+}
+
+input NestedFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+interface Node {
+  id: String
+}
+
+input NullableBoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input NullableEnumPhotoTypeFieldUpdateOperationsInput {
+  set: PhotoType
+}
+
+input NullableIntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+type Password {
+  createdAt: DateTime!
+  id: String!
+  password: String!
+  updatedAt: DateTime!
+}
+
+input PasswordCreateNestedOneWithoutAuthenticationProviderInput {
+  connect: PasswordWhereUniqueInput
+  connectOrCreate: PasswordCreateOrConnectWithoutAuthenticationProviderInput
+  create: PasswordCreateWithoutAuthenticationProviderInput
+}
+
+input PasswordCreateOrConnectWithoutAuthenticationProviderInput {
+  create: PasswordCreateWithoutAuthenticationProviderInput!
+  where: PasswordWhereUniqueInput!
+}
+
+input PasswordCreateWithoutAuthenticationProviderInput {
+  createdAt: DateTime
+  id: String
+  password: String!
+  updatedAt: DateTime
+}
+
+input PasswordOrderByWithRelationInput {
+  authenitcationProviderId: SortOrder
+  AuthenticationProvider: AuthenticationProviderOrderByWithRelationInput
+  createdAt: SortOrder
+  id: SortOrder
+  password: SortOrder
+  updatedAt: SortOrder
+}
+
+input PasswordUpdateOneWithoutAuthenticationProviderInput {
+  connect: PasswordWhereUniqueInput
+  connectOrCreate: PasswordCreateOrConnectWithoutAuthenticationProviderInput
+  create: PasswordCreateWithoutAuthenticationProviderInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PasswordUpdateWithoutAuthenticationProviderInput
+  upsert: PasswordUpsertWithoutAuthenticationProviderInput
+}
+
+input PasswordUpdateWithoutAuthenticationProviderInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PasswordUpsertWithoutAuthenticationProviderInput {
+  create: PasswordCreateWithoutAuthenticationProviderInput!
+  update: PasswordUpdateWithoutAuthenticationProviderInput!
+}
+
+input PasswordWhereInput {
+  AND: [PasswordWhereInput!]
+  authenitcationProviderId: StringFilter
+  AuthenticationProvider: AuthenticationProviderWhereInput
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [PasswordWhereInput!]
+  OR: [PasswordWhereInput!]
+  password: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input PasswordWhereUniqueInput {
+  authenitcationProviderId: String
+  id: String
+}
+
+type Personal {
+  createdAt: DateTime!
+  id: String!
+  LiveOutPersonal: LiveOutPersonal
+  PersonalStats: PersonalStats
+  Profile: Profile!
+  profileId: String!
+  updatedAt: DateTime!
+}
+
+input PersonalCreateNestedOneWithoutLiveOutPersonalInput {
+  connect: PersonalWhereUniqueInput
+  connectOrCreate: PersonalCreateOrConnectWithoutLiveOutPersonalInput
+  create: PersonalCreateWithoutLiveOutPersonalInput
+}
+
+input PersonalCreateNestedOneWithoutPersonalStatsInput {
+  connect: PersonalWhereUniqueInput
+  connectOrCreate: PersonalCreateOrConnectWithoutPersonalStatsInput
+  create: PersonalCreateWithoutPersonalStatsInput
+}
+
+input PersonalCreateNestedOneWithoutProfileInput {
+  connect: PersonalWhereUniqueInput
+  connectOrCreate: PersonalCreateOrConnectWithoutProfileInput
+  create: PersonalCreateWithoutProfileInput
+}
+
+input PersonalCreateOrConnectWithoutLiveOutPersonalInput {
+  create: PersonalCreateWithoutLiveOutPersonalInput!
+  where: PersonalWhereUniqueInput!
+}
+
+input PersonalCreateOrConnectWithoutPersonalStatsInput {
+  create: PersonalCreateWithoutPersonalStatsInput!
+  where: PersonalWhereUniqueInput!
+}
+
+input PersonalCreateOrConnectWithoutProfileInput {
+  create: PersonalCreateWithoutProfileInput!
+  where: PersonalWhereUniqueInput!
+}
+
+input PersonalCreateWithoutLiveOutPersonalInput {
+  createdAt: DateTime
+  id: String
+  PersonalStats: PersonalStatsCreateNestedOneWithoutPersonalInput
+  Profile: ProfileCreateNestedOneWithoutPersonalInput!
+  updatedAt: DateTime
+}
+
+input PersonalCreateWithoutPersonalStatsInput {
+  createdAt: DateTime
+  id: String
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutPersonalInput
+  Profile: ProfileCreateNestedOneWithoutPersonalInput!
+  updatedAt: DateTime
+}
+
+input PersonalCreateWithoutProfileInput {
+  createdAt: DateTime
+  id: String
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutPersonalInput
+  PersonalStats: PersonalStatsCreateNestedOneWithoutPersonalInput
+  updatedAt: DateTime
+}
+
+input PersonalOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  LiveOutPersonal: LiveOutPersonalOrderByWithRelationInput
+  PersonalStats: PersonalStatsOrderByWithRelationInput
+  personalStatsId: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  updatedAt: SortOrder
+}
+
+type PersonalStats {
+  createdAt: DateTime!
+  id: String!
+  joinedVenueHistory(after: JoinedOutWhereUniqueInput, before: JoinedOutWhereUniqueInput, first: Int, last: Int): [JoinedOut!]!
+  Personal: Personal
+  totaledVenueHistory(after: TotaledOutWhereUniqueInput, before: TotaledOutWhereUniqueInput, first: Int, last: Int): [TotaledOut!]!
+  updatedAt: DateTime!
+}
+
+input PersonalStatsCreateNestedOneWithoutJoinedVenueHistoryInput {
+  connect: PersonalStatsWhereUniqueInput
+  connectOrCreate: PersonalStatsCreateOrConnectWithoutJoinedVenueHistoryInput
+  create: PersonalStatsCreateWithoutJoinedVenueHistoryInput
+}
+
+input PersonalStatsCreateNestedOneWithoutPersonalInput {
+  connect: PersonalStatsWhereUniqueInput
+  connectOrCreate: PersonalStatsCreateOrConnectWithoutPersonalInput
+  create: PersonalStatsCreateWithoutPersonalInput
+}
+
+input PersonalStatsCreateNestedOneWithoutTotaledVenueHistoryInput {
+  connect: PersonalStatsWhereUniqueInput
+  connectOrCreate: PersonalStatsCreateOrConnectWithoutTotaledVenueHistoryInput
+  create: PersonalStatsCreateWithoutTotaledVenueHistoryInput
+}
+
+input PersonalStatsCreateOrConnectWithoutJoinedVenueHistoryInput {
+  create: PersonalStatsCreateWithoutJoinedVenueHistoryInput!
+  where: PersonalStatsWhereUniqueInput!
+}
+
+input PersonalStatsCreateOrConnectWithoutPersonalInput {
+  create: PersonalStatsCreateWithoutPersonalInput!
+  where: PersonalStatsWhereUniqueInput!
+}
+
+input PersonalStatsCreateOrConnectWithoutTotaledVenueHistoryInput {
+  create: PersonalStatsCreateWithoutTotaledVenueHistoryInput!
+  where: PersonalStatsWhereUniqueInput!
+}
+
+input PersonalStatsCreateWithoutJoinedVenueHistoryInput {
+  createdAt: DateTime
+  id: String
+  Personal: PersonalCreateNestedOneWithoutPersonalStatsInput
+  totaledVenueHistory: TotaledOutCreateNestedManyWithoutPersonalStatsInput
+  updatedAt: DateTime
+}
+
+input PersonalStatsCreateWithoutPersonalInput {
+  createdAt: DateTime
+  id: String
+  joinedVenueHistory: JoinedOutCreateNestedManyWithoutPersonalStatsInput
+  totaledVenueHistory: TotaledOutCreateNestedManyWithoutPersonalStatsInput
+  updatedAt: DateTime
+}
+
+input PersonalStatsCreateWithoutTotaledVenueHistoryInput {
+  createdAt: DateTime
+  id: String
+  joinedVenueHistory: JoinedOutCreateNestedManyWithoutPersonalStatsInput
+  Personal: PersonalCreateNestedOneWithoutPersonalStatsInput
+  updatedAt: DateTime
+}
+
+input PersonalStatsOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  joinedVenueHistory: JoinedOutOrderByRelationAggregateInput
+  Personal: PersonalOrderByWithRelationInput
+  totaledVenueHistory: TotaledOutOrderByRelationAggregateInput
+  updatedAt: SortOrder
+}
+
+input PersonalStatsUpdateOneWithoutJoinedVenueHistoryInput {
+  connect: PersonalStatsWhereUniqueInput
+  connectOrCreate: PersonalStatsCreateOrConnectWithoutJoinedVenueHistoryInput
+  create: PersonalStatsCreateWithoutJoinedVenueHistoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonalStatsUpdateWithoutJoinedVenueHistoryInput
+  upsert: PersonalStatsUpsertWithoutJoinedVenueHistoryInput
+}
+
+input PersonalStatsUpdateOneWithoutPersonalInput {
+  connect: PersonalStatsWhereUniqueInput
+  connectOrCreate: PersonalStatsCreateOrConnectWithoutPersonalInput
+  create: PersonalStatsCreateWithoutPersonalInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonalStatsUpdateWithoutPersonalInput
+  upsert: PersonalStatsUpsertWithoutPersonalInput
+}
+
+input PersonalStatsUpdateOneWithoutTotaledVenueHistoryInput {
+  connect: PersonalStatsWhereUniqueInput
+  connectOrCreate: PersonalStatsCreateOrConnectWithoutTotaledVenueHistoryInput
+  create: PersonalStatsCreateWithoutTotaledVenueHistoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonalStatsUpdateWithoutTotaledVenueHistoryInput
+  upsert: PersonalStatsUpsertWithoutTotaledVenueHistoryInput
+}
+
+input PersonalStatsUpdateWithoutJoinedVenueHistoryInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Personal: PersonalUpdateOneWithoutPersonalStatsInput
+  totaledVenueHistory: TotaledOutUpdateManyWithoutPersonalStatsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PersonalStatsUpdateWithoutPersonalInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joinedVenueHistory: JoinedOutUpdateManyWithoutPersonalStatsInput
+  totaledVenueHistory: TotaledOutUpdateManyWithoutPersonalStatsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PersonalStatsUpdateWithoutTotaledVenueHistoryInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joinedVenueHistory: JoinedOutUpdateManyWithoutPersonalStatsInput
+  Personal: PersonalUpdateOneWithoutPersonalStatsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PersonalStatsUpsertWithoutJoinedVenueHistoryInput {
+  create: PersonalStatsCreateWithoutJoinedVenueHistoryInput!
+  update: PersonalStatsUpdateWithoutJoinedVenueHistoryInput!
+}
+
+input PersonalStatsUpsertWithoutPersonalInput {
+  create: PersonalStatsCreateWithoutPersonalInput!
+  update: PersonalStatsUpdateWithoutPersonalInput!
+}
+
+input PersonalStatsUpsertWithoutTotaledVenueHistoryInput {
+  create: PersonalStatsCreateWithoutTotaledVenueHistoryInput!
+  update: PersonalStatsUpdateWithoutTotaledVenueHistoryInput!
+}
+
+input PersonalStatsWhereInput {
+  AND: [PersonalStatsWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  joinedVenueHistory: JoinedOutListRelationFilter
+  NOT: [PersonalStatsWhereInput!]
+  OR: [PersonalStatsWhereInput!]
+  Personal: PersonalWhereInput
+  totaledVenueHistory: TotaledOutListRelationFilter
+  updatedAt: DateTimeFilter
+}
+
+input PersonalStatsWhereUniqueInput {
+  id: String
+}
+
+input PersonalUpdateOneRequiredWithoutLiveOutPersonalInput {
+  connect: PersonalWhereUniqueInput
+  connectOrCreate: PersonalCreateOrConnectWithoutLiveOutPersonalInput
+  create: PersonalCreateWithoutLiveOutPersonalInput
+  update: PersonalUpdateWithoutLiveOutPersonalInput
+  upsert: PersonalUpsertWithoutLiveOutPersonalInput
+}
+
+input PersonalUpdateOneWithoutPersonalStatsInput {
+  connect: PersonalWhereUniqueInput
+  connectOrCreate: PersonalCreateOrConnectWithoutPersonalStatsInput
+  create: PersonalCreateWithoutPersonalStatsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonalUpdateWithoutPersonalStatsInput
+  upsert: PersonalUpsertWithoutPersonalStatsInput
+}
+
+input PersonalUpdateOneWithoutProfileInput {
+  connect: PersonalWhereUniqueInput
+  connectOrCreate: PersonalCreateOrConnectWithoutProfileInput
+  create: PersonalCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PersonalUpdateWithoutProfileInput
+  upsert: PersonalUpsertWithoutProfileInput
+}
+
+input PersonalUpdateWithoutLiveOutPersonalInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutPersonalInput
+  Profile: ProfileUpdateOneRequiredWithoutPersonalInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PersonalUpdateWithoutPersonalStatsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutPersonalInput
+  Profile: ProfileUpdateOneRequiredWithoutPersonalInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PersonalUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutPersonalInput
+  PersonalStats: PersonalStatsUpdateOneWithoutPersonalInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PersonalUpsertWithoutLiveOutPersonalInput {
+  create: PersonalCreateWithoutLiveOutPersonalInput!
+  update: PersonalUpdateWithoutLiveOutPersonalInput!
+}
+
+input PersonalUpsertWithoutPersonalStatsInput {
+  create: PersonalCreateWithoutPersonalStatsInput!
+  update: PersonalUpdateWithoutPersonalStatsInput!
+}
+
+input PersonalUpsertWithoutProfileInput {
+  create: PersonalCreateWithoutProfileInput!
+  update: PersonalUpdateWithoutProfileInput!
+}
+
+input PersonalWhereInput {
+  AND: [PersonalWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  LiveOutPersonal: LiveOutPersonalWhereInput
+  NOT: [PersonalWhereInput!]
+  OR: [PersonalWhereInput!]
+  PersonalStats: PersonalStatsWhereInput
+  personalStatsId: StringNullableFilter
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input PersonalWhereUniqueInput {
+  id: String
+  personalStatsId: String
+  profileId: String
+}
+
+type Phone {
+  canUseAsRecovery: Boolean
+  completeNumber: String
+  countryCallingCode: String
+  countryCode: String
+  createdAt: DateTime!
+  id: Int!
+  number: String!
+  updatedAt: DateTime!
+}
+
+input PhoneCreateNestedManyWithoutAuthenticationProviderInput {
+  connect: [PhoneWhereUniqueInput!]
+  connectOrCreate: [PhoneCreateOrConnectWithoutAuthenticationProviderInput!]
+  create: [PhoneCreateWithoutAuthenticationProviderInput!]
+}
+
+input PhoneCreateOrConnectWithoutAuthenticationProviderInput {
+  create: PhoneCreateWithoutAuthenticationProviderInput!
+  where: PhoneWhereUniqueInput!
+}
+
+input PhoneCreateWithoutAuthenticationProviderInput {
+  canUseAsRecovery: Boolean
+  completeNumber: String
+  countryCallingCode: String
+  countryCode: String
+  createdAt: DateTime
+  number: String!
+  updatedAt: DateTime
+}
+
+input PhoneInput {
+  completeNumber: String
+  countryCallingCode: String
+  countryCode: String
+
+  """Example: 5193334444 or +15193334444"""
+  number: String
+}
+
+input PhoneListRelationFilter {
+  every: PhoneWhereInput
+  none: PhoneWhereInput
+  some: PhoneWhereInput
+}
+
+input PhoneOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PhoneScalarWhereInput {
+  AND: [PhoneScalarWhereInput!]
+  canUseAsRecovery: BoolNullableFilter
+  completeNumber: StringNullableFilter
+  countryCallingCode: StringNullableFilter
+  countryCode: StringNullableFilter
+  createdAt: DateTimeFilter
+  id: IntFilter
+  NOT: [PhoneScalarWhereInput!]
+  number: StringFilter
+  OR: [PhoneScalarWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input PhoneUpdateManyMutationInput {
+  canUseAsRecovery: NullableBoolFieldUpdateOperationsInput
+  completeNumber: NullableStringFieldUpdateOperationsInput
+  countryCallingCode: NullableStringFieldUpdateOperationsInput
+  countryCode: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  number: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PhoneUpdateManyWithoutAuthenticationProviderInput {
+  connect: [PhoneWhereUniqueInput!]
+  connectOrCreate: [PhoneCreateOrConnectWithoutAuthenticationProviderInput!]
+  create: [PhoneCreateWithoutAuthenticationProviderInput!]
+  delete: [PhoneWhereUniqueInput!]
+  deleteMany: [PhoneScalarWhereInput!]
+  disconnect: [PhoneWhereUniqueInput!]
+  set: [PhoneWhereUniqueInput!]
+  update: [PhoneUpdateWithWhereUniqueWithoutAuthenticationProviderInput!]
+  updateMany: [PhoneUpdateManyWithWhereWithoutAuthenticationProviderInput!]
+  upsert: [PhoneUpsertWithWhereUniqueWithoutAuthenticationProviderInput!]
+}
+
+input PhoneUpdateManyWithWhereWithoutAuthenticationProviderInput {
+  data: PhoneUpdateManyMutationInput!
+  where: PhoneScalarWhereInput!
+}
+
+input PhoneUpdateWithoutAuthenticationProviderInput {
+  canUseAsRecovery: NullableBoolFieldUpdateOperationsInput
+  completeNumber: NullableStringFieldUpdateOperationsInput
+  countryCallingCode: NullableStringFieldUpdateOperationsInput
+  countryCode: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  number: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input PhoneUpdateWithWhereUniqueWithoutAuthenticationProviderInput {
+  data: PhoneUpdateWithoutAuthenticationProviderInput!
+  where: PhoneWhereUniqueInput!
+}
+
+input PhoneUpsertWithWhereUniqueWithoutAuthenticationProviderInput {
+  create: PhoneCreateWithoutAuthenticationProviderInput!
+  update: PhoneUpdateWithoutAuthenticationProviderInput!
+  where: PhoneWhereUniqueInput!
+}
+
+input PhoneWhereInput {
+  AND: [PhoneWhereInput!]
+  AuthenticationProvider: AuthenticationProviderListRelationFilter
+  canUseAsRecovery: BoolNullableFilter
+  completeNumber: StringNullableFilter
+  countryCallingCode: StringNullableFilter
+  countryCode: StringNullableFilter
+  createdAt: DateTimeFilter
+  id: IntFilter
+  NOT: [PhoneWhereInput!]
+  number: StringFilter
+  OR: [PhoneWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input PhoneWhereUniqueInput {
+  id: Int
+}
+
+type Photo {
+  active: Boolean!
+  blurhash: String
+  createdAt: DateTime!
+  id: String!
+  ratio: String
+  type: PhotoType
+  updatedAt: DateTime!
+  url: String!
+}
+
+input PhotoCreateManyGroupInput {
+  active: Boolean
+  blurhash: String
+  createdAt: DateTime
+  height: Int
+  id: String
+  profileId: String
+  ratio: String
+  type: PhotoType
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+input PhotoCreateManyGroupInputEnvelope {
+  data: [PhotoCreateManyGroupInput!]
+  skipDuplicates: Boolean
+}
+
+input PhotoCreateManyProfileInput {
+  active: Boolean
+  blurhash: String
+  createdAt: DateTime
+  groupId: String
+  height: Int
+  id: String
+  ratio: String
+  type: PhotoType
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+input PhotoCreateManyProfileInputEnvelope {
+  data: [PhotoCreateManyProfileInput!]
+  skipDuplicates: Boolean
+}
+
+input PhotoCreateNestedManyWithoutGroupInput {
+  connect: [PhotoWhereUniqueInput!]
+  connectOrCreate: [PhotoCreateOrConnectWithoutGroupInput!]
+  create: [PhotoCreateWithoutGroupInput!]
+  createMany: PhotoCreateManyGroupInputEnvelope
+}
+
+input PhotoCreateNestedManyWithoutProfileInput {
+  connect: [PhotoWhereUniqueInput!]
+  connectOrCreate: [PhotoCreateOrConnectWithoutProfileInput!]
+  create: [PhotoCreateWithoutProfileInput!]
+  createMany: PhotoCreateManyProfileInputEnvelope
+}
+
+input PhotoCreateNestedManyWithoutStoryInput {
+  connect: [PhotoWhereUniqueInput!]
+  connectOrCreate: [PhotoCreateOrConnectWithoutStoryInput!]
+  create: [PhotoCreateWithoutStoryInput!]
+}
+
+input PhotoCreateOrConnectWithoutGroupInput {
+  create: PhotoCreateWithoutGroupInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoCreateOrConnectWithoutProfileInput {
+  create: PhotoCreateWithoutProfileInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoCreateOrConnectWithoutStoryInput {
+  create: PhotoCreateWithoutStoryInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoCreateWithoutGroupInput {
+  active: Boolean
+  blurhash: String
+  createdAt: DateTime
+  height: Int
+  id: String
+  Profile: ProfileCreateNestedOneWithoutPhotosInput
+  ratio: String
+  Story: StoryCreateNestedManyWithoutPhotosInput
+  type: PhotoType
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+input PhotoCreateWithoutProfileInput {
+  active: Boolean
+  blurhash: String
+  createdAt: DateTime
+  Group: GroupCreateNestedOneWithoutPhotosInput
+  height: Int
+  id: String
+  ratio: String
+  Story: StoryCreateNestedManyWithoutPhotosInput
+  type: PhotoType
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+input PhotoCreateWithoutStoryInput {
+  active: Boolean
+  blurhash: String
+  createdAt: DateTime
+  Group: GroupCreateNestedOneWithoutPhotosInput
+  height: Int
+  id: String
+  Profile: ProfileCreateNestedOneWithoutPhotosInput
+  ratio: String
+  type: PhotoType
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+input PhotoListRelationFilter {
+  every: PhotoWhereInput
+  none: PhotoWhereInput
+  some: PhotoWhereInput
+}
+
+input PhotoOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PhotoScalarWhereInput {
+  active: BoolFilter
+  AND: [PhotoScalarWhereInput!]
+  blurhash: StringNullableFilter
+  createdAt: DateTimeFilter
+  groupId: StringNullableFilter
+  height: IntNullableFilter
+  id: StringFilter
+  NOT: [PhotoScalarWhereInput!]
+  OR: [PhotoScalarWhereInput!]
+  profileId: StringNullableFilter
+  ratio: StringNullableFilter
+  type: EnumPhotoTypeNullableFilter
+  updatedAt: DateTimeFilter
+  url: StringFilter
+  width: IntNullableFilter
+}
+
+enum PhotoType {
+  BANNER
+  LOGO
+}
+
+input PhotoUpdateManyMutationInput {
+  active: BoolFieldUpdateOperationsInput
+  blurhash: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  height: NullableIntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  ratio: NullableStringFieldUpdateOperationsInput
+  type: NullableEnumPhotoTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  url: StringFieldUpdateOperationsInput
+  width: NullableIntFieldUpdateOperationsInput
+}
+
+input PhotoUpdateManyWithoutGroupInput {
+  connect: [PhotoWhereUniqueInput!]
+  connectOrCreate: [PhotoCreateOrConnectWithoutGroupInput!]
+  create: [PhotoCreateWithoutGroupInput!]
+  createMany: PhotoCreateManyGroupInputEnvelope
+  delete: [PhotoWhereUniqueInput!]
+  deleteMany: [PhotoScalarWhereInput!]
+  disconnect: [PhotoWhereUniqueInput!]
+  set: [PhotoWhereUniqueInput!]
+  update: [PhotoUpdateWithWhereUniqueWithoutGroupInput!]
+  updateMany: [PhotoUpdateManyWithWhereWithoutGroupInput!]
+  upsert: [PhotoUpsertWithWhereUniqueWithoutGroupInput!]
+}
+
+input PhotoUpdateManyWithoutProfileInput {
+  connect: [PhotoWhereUniqueInput!]
+  connectOrCreate: [PhotoCreateOrConnectWithoutProfileInput!]
+  create: [PhotoCreateWithoutProfileInput!]
+  createMany: PhotoCreateManyProfileInputEnvelope
+  delete: [PhotoWhereUniqueInput!]
+  deleteMany: [PhotoScalarWhereInput!]
+  disconnect: [PhotoWhereUniqueInput!]
+  set: [PhotoWhereUniqueInput!]
+  update: [PhotoUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [PhotoUpdateManyWithWhereWithoutProfileInput!]
+  upsert: [PhotoUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input PhotoUpdateManyWithoutStoryInput {
+  connect: [PhotoWhereUniqueInput!]
+  connectOrCreate: [PhotoCreateOrConnectWithoutStoryInput!]
+  create: [PhotoCreateWithoutStoryInput!]
+  delete: [PhotoWhereUniqueInput!]
+  deleteMany: [PhotoScalarWhereInput!]
+  disconnect: [PhotoWhereUniqueInput!]
+  set: [PhotoWhereUniqueInput!]
+  update: [PhotoUpdateWithWhereUniqueWithoutStoryInput!]
+  updateMany: [PhotoUpdateManyWithWhereWithoutStoryInput!]
+  upsert: [PhotoUpsertWithWhereUniqueWithoutStoryInput!]
+}
+
+input PhotoUpdateManyWithWhereWithoutGroupInput {
+  data: PhotoUpdateManyMutationInput!
+  where: PhotoScalarWhereInput!
+}
+
+input PhotoUpdateManyWithWhereWithoutProfileInput {
+  data: PhotoUpdateManyMutationInput!
+  where: PhotoScalarWhereInput!
+}
+
+input PhotoUpdateManyWithWhereWithoutStoryInput {
+  data: PhotoUpdateManyMutationInput!
+  where: PhotoScalarWhereInput!
+}
+
+input PhotoUpdateWithoutGroupInput {
+  active: BoolFieldUpdateOperationsInput
+  blurhash: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  height: NullableIntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneWithoutPhotosInput
+  ratio: NullableStringFieldUpdateOperationsInput
+  Story: StoryUpdateManyWithoutPhotosInput
+  type: NullableEnumPhotoTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  url: StringFieldUpdateOperationsInput
+  width: NullableIntFieldUpdateOperationsInput
+}
+
+input PhotoUpdateWithoutProfileInput {
+  active: BoolFieldUpdateOperationsInput
+  blurhash: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Group: GroupUpdateOneWithoutPhotosInput
+  height: NullableIntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  ratio: NullableStringFieldUpdateOperationsInput
+  Story: StoryUpdateManyWithoutPhotosInput
+  type: NullableEnumPhotoTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  url: StringFieldUpdateOperationsInput
+  width: NullableIntFieldUpdateOperationsInput
+}
+
+input PhotoUpdateWithoutStoryInput {
+  active: BoolFieldUpdateOperationsInput
+  blurhash: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Group: GroupUpdateOneWithoutPhotosInput
+  height: NullableIntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneWithoutPhotosInput
+  ratio: NullableStringFieldUpdateOperationsInput
+  type: NullableEnumPhotoTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  url: StringFieldUpdateOperationsInput
+  width: NullableIntFieldUpdateOperationsInput
+}
+
+input PhotoUpdateWithWhereUniqueWithoutGroupInput {
+  data: PhotoUpdateWithoutGroupInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoUpdateWithWhereUniqueWithoutProfileInput {
+  data: PhotoUpdateWithoutProfileInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoUpdateWithWhereUniqueWithoutStoryInput {
+  data: PhotoUpdateWithoutStoryInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoUpsertWithWhereUniqueWithoutGroupInput {
+  create: PhotoCreateWithoutGroupInput!
+  update: PhotoUpdateWithoutGroupInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoUpsertWithWhereUniqueWithoutProfileInput {
+  create: PhotoCreateWithoutProfileInput!
+  update: PhotoUpdateWithoutProfileInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoUpsertWithWhereUniqueWithoutStoryInput {
+  create: PhotoCreateWithoutStoryInput!
+  update: PhotoUpdateWithoutStoryInput!
+  where: PhotoWhereUniqueInput!
+}
+
+input PhotoWhereInput {
+  active: BoolFilter
+  AND: [PhotoWhereInput!]
+  blurhash: StringNullableFilter
+  createdAt: DateTimeFilter
+  Group: GroupWhereInput
+  groupId: StringNullableFilter
+  height: IntNullableFilter
+  id: StringFilter
+  NOT: [PhotoWhereInput!]
+  OR: [PhotoWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringNullableFilter
+  ratio: StringNullableFilter
+  Story: StoryListRelationFilter
+  type: EnumPhotoTypeNullableFilter
+  updatedAt: DateTimeFilter
+  url: StringFilter
+  width: IntNullableFilter
+}
+
+input PhotoWhereUniqueInput {
+  id: String
+}
+
+type PluseCode {
+  compoundCode: String
+  globalCode: String!
+  id: String!
+}
+
+input PluseCodeCreateNestedOneWithoutLocationInput {
+  connect: PluseCodeWhereUniqueInput
+  connectOrCreate: PluseCodeCreateOrConnectWithoutLocationInput
+  create: PluseCodeCreateWithoutLocationInput
+}
+
+input PluseCodeCreateOrConnectWithoutLocationInput {
+  create: PluseCodeCreateWithoutLocationInput!
+  where: PluseCodeWhereUniqueInput!
+}
+
+input PluseCodeCreateWithoutLocationInput {
+  compoundCode: String
+  globalCode: String!
+  id: String
+}
+
+input PluseCodeOrderByWithRelationInput {
+  compoundCode: SortOrder
+  globalCode: SortOrder
+  id: SortOrder
+  Location: LocationOrderByWithRelationInput
+}
+
+input PluseCodeUpdateOneWithoutLocationInput {
+  connect: PluseCodeWhereUniqueInput
+  connectOrCreate: PluseCodeCreateOrConnectWithoutLocationInput
+  create: PluseCodeCreateWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PluseCodeUpdateWithoutLocationInput
+  upsert: PluseCodeUpsertWithoutLocationInput
+}
+
+input PluseCodeUpdateWithoutLocationInput {
+  compoundCode: NullableStringFieldUpdateOperationsInput
+  globalCode: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+}
+
+input PluseCodeUpsertWithoutLocationInput {
+  create: PluseCodeCreateWithoutLocationInput!
+  update: PluseCodeUpdateWithoutLocationInput!
+}
+
+input PluseCodeWhereInput {
+  AND: [PluseCodeWhereInput!]
+  compoundCode: StringNullableFilter
+  globalCode: StringFilter
+  id: StringFilter
+  Location: LocationWhereInput
+  NOT: [PluseCodeWhereInput!]
+  OR: [PluseCodeWhereInput!]
+}
+
+input PluseCodeWhereUniqueInput {
+  id: String
+}
+
+type Profile implements Node {
+  createdAt: DateTime!
+  Credentials: Credentials
+  DetailInformation: DetailInformation
+  id: String!
+  IdentifiableInformation: IdentifiableInformation
+  Personal: Personal
+  photos(after: PhotoWhereUniqueInput, before: PhotoWhereUniqueInput, first: Int, last: Int): [Photo!]!
+  ProfileSearchesService: ProfileSearchesService
+  ProfileType: ProfileType!
+  Relationships(after: RelationshipWhereUniqueInput, before: RelationshipWhereUniqueInput, first: Int, last: Int): [Relationship!]!
+  Story(after: StoryWhereUniqueInput, before: StoryWhereUniqueInput, first: Int, last: Int): [Story!]!
+  updatedAt: DateTime!
+  Venue: Venue
+}
+
+input ProfileArgs {
+  email: String
+  Phone: PhoneInput
+  username: String
+}
+
+input ProfileCreateDeviceManagerInput {
+  set: [String!]
+}
+
+input ProfileCreateManyChatroomInput {
+  bfsprofileid: String
+  createdAt: DateTime
+  DeviceManager: ProfileCreateManyDeviceManagerInput
+  id: String
+  ProfileType: ProfileType
+  updatedAt: DateTime
+}
+
+input ProfileCreateManyChatroomInputEnvelope {
+  data: [ProfileCreateManyChatroomInput!]
+  skipDuplicates: Boolean
+}
+
+input ProfileCreateManyDeviceManagerInput {
+  set: [String!]
+}
+
+input ProfileCreateNestedManyWithoutChatroomInput {
+  connect: [ProfileWhereUniqueInput!]
+  connectOrCreate: [ProfileCreateOrConnectWithoutChatroomInput!]
+  create: [ProfileCreateWithoutChatroomInput!]
+  createMany: ProfileCreateManyChatroomInputEnvelope
+}
+
+input ProfileCreateNestedManyWithoutGroupInput {
+  connect: [ProfileWhereUniqueInput!]
+  connectOrCreate: [ProfileCreateOrConnectWithoutGroupInput!]
+  create: [ProfileCreateWithoutGroupInput!]
+}
+
+input ProfileCreateNestedOneWithoutPersonalInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutPersonalInput
+  create: ProfileCreateWithoutPersonalInput
+}
+
+input ProfileCreateNestedOneWithoutPhotosInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutPhotosInput
+  create: ProfileCreateWithoutPhotosInput
+}
+
+input ProfileCreateNestedOneWithoutStoryInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutStoryInput
+  create: ProfileCreateWithoutStoryInput
+}
+
+input ProfileCreateNestedOneWithoutVenueInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutVenueInput
+  create: ProfileCreateWithoutVenueInput
+}
+
+input ProfileCreateOrConnectWithoutChatroomInput {
+  create: ProfileCreateWithoutChatroomInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateOrConnectWithoutGroupInput {
+  create: ProfileCreateWithoutGroupInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateOrConnectWithoutPersonalInput {
+  create: ProfileCreateWithoutPersonalInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateOrConnectWithoutPhotosInput {
+  create: ProfileCreateWithoutPhotosInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateOrConnectWithoutStoryInput {
+  create: ProfileCreateWithoutStoryInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateOrConnectWithoutVenueInput {
+  create: ProfileCreateWithoutVenueInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateWithoutChatroomInput {
+  bfsprofileid: String
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  Group: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  Story: StoryCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutGroupInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  Story: StoryCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutPersonalInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  Group: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  Story: StoryCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutPhotosInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  Group: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  Story: StoryCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutStoryInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  Group: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutVenueInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  Group: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  Story: StoryCreateNestedManyWithoutProfileInput
+  updatedAt: DateTime
+}
+
+input ProfileListRelationFilter {
+  every: ProfileWhereInput
+  none: ProfileWhereInput
+  some: ProfileWhereInput
+}
+
+input ProfileOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProfileOrderByWithRelationInput {
+  bfsprofileid: SortOrder
+  Chatroom: ChatroomOrderByWithRelationInput
+  chatroomId: SortOrder
+  createdAt: SortOrder
+  Credentials: CredentialsOrderByWithRelationInput
+  DetailInformation: DetailInformationOrderByWithRelationInput
+  DeviceManager: SortOrder
+  Group: GroupOrderByRelationAggregateInput
+  id: SortOrder
+  IdentifiableInformation: IdentifiableInformationOrderByWithRelationInput
+  Personal: PersonalOrderByWithRelationInput
+  photos: PhotoOrderByRelationAggregateInput
+  ProfileSearchesService: ProfileSearchesServiceOrderByWithRelationInput
+  ProfileType: SortOrder
+  Relationships: RelationshipOrderByRelationAggregateInput
+  Story: StoryOrderByRelationAggregateInput
+  updatedAt: SortOrder
+  Venue: VenueOrderByWithRelationInput
+}
+
+type Profiles {
+  Profiles: [Profile]
+}
+
+input ProfileScalarWhereInput {
+  AND: [ProfileScalarWhereInput!]
+  bfsprofileid: StringFilter
+  chatroomId: StringNullableFilter
+  createdAt: DateTimeFilter
+  DeviceManager: StringNullableListFilter
+  id: StringFilter
+  NOT: [ProfileScalarWhereInput!]
+  OR: [ProfileScalarWhereInput!]
+  ProfileType: EnumProfileTypeFilter
+  updatedAt: DateTimeFilter
+}
+
+type ProfileSearchesService {
+  id: String!
+  searches: [Json!]!
+}
+
+input ProfileSearchesServiceCreateNestedOneWithoutProfileInput {
+  connect: ProfileSearchesServiceWhereUniqueInput
+  connectOrCreate: ProfileSearchesServiceCreateOrConnectWithoutProfileInput
+  create: ProfileSearchesServiceCreateWithoutProfileInput
+}
+
+input ProfileSearchesServiceCreateOrConnectWithoutProfileInput {
+  create: ProfileSearchesServiceCreateWithoutProfileInput!
+  where: ProfileSearchesServiceWhereUniqueInput!
+}
+
+input ProfileSearchesServiceCreatesearchesInput {
+  set: [Json!]
+}
+
+input ProfileSearchesServiceCreateWithoutProfileInput {
+  id: String
+  searches: ProfileSearchesServiceCreatesearchesInput
+}
+
+input ProfileSearchesServiceOrderByWithRelationInput {
+  id: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  searches: SortOrder
+}
+
+input ProfileSearchesServiceUpdateOneWithoutProfileInput {
+  connect: ProfileSearchesServiceWhereUniqueInput
+  connectOrCreate: ProfileSearchesServiceCreateOrConnectWithoutProfileInput
+  create: ProfileSearchesServiceCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ProfileSearchesServiceUpdateWithoutProfileInput
+  upsert: ProfileSearchesServiceUpsertWithoutProfileInput
+}
+
+input ProfileSearchesServiceUpdatesearchesInput {
+  push: Json
+  set: [Json!]
+}
+
+input ProfileSearchesServiceUpdateWithoutProfileInput {
+  id: StringFieldUpdateOperationsInput
+  searches: ProfileSearchesServiceUpdatesearchesInput
+}
+
+input ProfileSearchesServiceUpsertWithoutProfileInput {
+  create: ProfileSearchesServiceCreateWithoutProfileInput!
+  update: ProfileSearchesServiceUpdateWithoutProfileInput!
+}
+
+input ProfileSearchesServiceWhereInput {
+  AND: [ProfileSearchesServiceWhereInput!]
+  id: StringFilter
+  NOT: [ProfileSearchesServiceWhereInput!]
+  OR: [ProfileSearchesServiceWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  searches: JsonNullableListFilter
+}
+
+input ProfileSearchesServiceWhereUniqueInput {
+  id: String
+  profileId: String
+}
+
+enum ProfileType {
+  GUEST
+  PERSONAL
+  VENUE
+}
+
+type ProfileTypesResponse {
+  email: [Profile]
+  phone: [Profile]
+  username: [Profile]
+}
+
+input ProfileUpdateDeviceManagerInput {
+  push: String
+  set: [String!]
+}
+
+input ProfileUpdateInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  Group: GroupUpdateManyWithoutProfileInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  Personal: PersonalUpdateOneWithoutProfileInput
+  photos: PhotoUpdateManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  Story: StoryUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateManyMutationInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  id: StringFieldUpdateOperationsInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProfileUpdateManyWithoutChatroomInput {
+  connect: [ProfileWhereUniqueInput!]
+  connectOrCreate: [ProfileCreateOrConnectWithoutChatroomInput!]
+  create: [ProfileCreateWithoutChatroomInput!]
+  createMany: ProfileCreateManyChatroomInputEnvelope
+  delete: [ProfileWhereUniqueInput!]
+  deleteMany: [ProfileScalarWhereInput!]
+  disconnect: [ProfileWhereUniqueInput!]
+  set: [ProfileWhereUniqueInput!]
+  update: [ProfileUpdateWithWhereUniqueWithoutChatroomInput!]
+  updateMany: [ProfileUpdateManyWithWhereWithoutChatroomInput!]
+  upsert: [ProfileUpsertWithWhereUniqueWithoutChatroomInput!]
+}
+
+input ProfileUpdateManyWithoutGroupInput {
+  connect: [ProfileWhereUniqueInput!]
+  connectOrCreate: [ProfileCreateOrConnectWithoutGroupInput!]
+  create: [ProfileCreateWithoutGroupInput!]
+  delete: [ProfileWhereUniqueInput!]
+  deleteMany: [ProfileScalarWhereInput!]
+  disconnect: [ProfileWhereUniqueInput!]
+  set: [ProfileWhereUniqueInput!]
+  update: [ProfileUpdateWithWhereUniqueWithoutGroupInput!]
+  updateMany: [ProfileUpdateManyWithWhereWithoutGroupInput!]
+  upsert: [ProfileUpsertWithWhereUniqueWithoutGroupInput!]
+}
+
+input ProfileUpdateManyWithWhereWithoutChatroomInput {
+  data: ProfileUpdateManyMutationInput!
+  where: ProfileScalarWhereInput!
+}
+
+input ProfileUpdateManyWithWhereWithoutGroupInput {
+  data: ProfileUpdateManyMutationInput!
+  where: ProfileScalarWhereInput!
+}
+
+input ProfileUpdateOneRequiredWithoutPersonalInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutPersonalInput
+  create: ProfileCreateWithoutPersonalInput
+  update: ProfileUpdateWithoutPersonalInput
+  upsert: ProfileUpsertWithoutPersonalInput
+}
+
+input ProfileUpdateOneRequiredWithoutVenueInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutVenueInput
+  create: ProfileCreateWithoutVenueInput
+  update: ProfileUpdateWithoutVenueInput
+  upsert: ProfileUpsertWithoutVenueInput
+}
+
+input ProfileUpdateOneWithoutPhotosInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutPhotosInput
+  create: ProfileCreateWithoutPhotosInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ProfileUpdateWithoutPhotosInput
+  upsert: ProfileUpsertWithoutPhotosInput
+}
+
+input ProfileUpdateOneWithoutStoryInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutStoryInput
+  create: ProfileCreateWithoutStoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ProfileUpdateWithoutStoryInput
+  upsert: ProfileUpsertWithoutStoryInput
+}
+
+input ProfileUpdateWithoutChatroomInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  Group: GroupUpdateManyWithoutProfileInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  Personal: PersonalUpdateOneWithoutProfileInput
+  photos: PhotoUpdateManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  Story: StoryUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutGroupInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  Personal: PersonalUpdateOneWithoutProfileInput
+  photos: PhotoUpdateManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  Story: StoryUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutPersonalInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  Group: GroupUpdateManyWithoutProfileInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  photos: PhotoUpdateManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  Story: StoryUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutPhotosInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  Group: GroupUpdateManyWithoutProfileInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  Personal: PersonalUpdateOneWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  Story: StoryUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutStoryInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  Group: GroupUpdateManyWithoutProfileInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  Personal: PersonalUpdateOneWithoutProfileInput
+  photos: PhotoUpdateManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutVenueInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileInput
+  DeviceManager: ProfileUpdateDeviceManagerInput
+  Group: GroupUpdateManyWithoutProfileInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileInput
+  Personal: PersonalUpdateOneWithoutProfileInput
+  photos: PhotoUpdateManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileInput
+  Story: StoryUpdateManyWithoutProfileInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProfileUpdateWithWhereUniqueWithoutChatroomInput {
+  data: ProfileUpdateWithoutChatroomInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileUpdateWithWhereUniqueWithoutGroupInput {
+  data: ProfileUpdateWithoutGroupInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileUpsertWithoutPersonalInput {
+  create: ProfileCreateWithoutPersonalInput!
+  update: ProfileUpdateWithoutPersonalInput!
+}
+
+input ProfileUpsertWithoutPhotosInput {
+  create: ProfileCreateWithoutPhotosInput!
+  update: ProfileUpdateWithoutPhotosInput!
+}
+
+input ProfileUpsertWithoutStoryInput {
+  create: ProfileCreateWithoutStoryInput!
+  update: ProfileUpdateWithoutStoryInput!
+}
+
+input ProfileUpsertWithoutVenueInput {
+  create: ProfileCreateWithoutVenueInput!
+  update: ProfileUpdateWithoutVenueInput!
+}
+
+input ProfileUpsertWithWhereUniqueWithoutChatroomInput {
+  create: ProfileCreateWithoutChatroomInput!
+  update: ProfileUpdateWithoutChatroomInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileUpsertWithWhereUniqueWithoutGroupInput {
+  create: ProfileCreateWithoutGroupInput!
+  update: ProfileUpdateWithoutGroupInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileWhereInput {
+  AND: [ProfileWhereInput!]
+  bfsprofileid: StringFilter
+  Chatroom: ChatroomWhereInput
+  chatroomId: StringNullableFilter
+  createdAt: DateTimeFilter
+  Credentials: CredentialsWhereInput
+  DetailInformation: DetailInformationWhereInput
+  DeviceManager: StringNullableListFilter
+  Group: GroupListRelationFilter
+  id: StringFilter
+  IdentifiableInformation: IdentifiableInformationWhereInput
+  NOT: [ProfileWhereInput!]
+  OR: [ProfileWhereInput!]
+  Personal: PersonalWhereInput
+  photos: PhotoListRelationFilter
+  ProfileSearchesService: ProfileSearchesServiceWhereInput
+  ProfileType: EnumProfileTypeFilter
+  Relationships: RelationshipListRelationFilter
+  Story: StoryListRelationFilter
+  updatedAt: DateTimeFilter
+  Venue: VenueWhereInput
+}
+
+input ProfileWhereUniqueInput {
+  bfsprofileid: String
+  id: String
+}
+
+type Query {
+  authorizedProfiles(where: AuthorizedProfilesWhereInput): AuthorizedProfilesResponseUnion
+  checkEmailAvailable(email: String): Int
+  checkPhoneNumberAvailable(number: String): Int
+  checkUsername(username: String!): Boolean
+  device(where: DeviceWhereUniqueInput!): Device
+  documents(after: DocumentWhereUniqueInput, before: DocumentWhereUniqueInput, first: Int, last: Int, orderBy: [DocumentOrderByWithRelationInput!], where: DocumentWhereInput): [Document!]!
+  Emails(after: EmailWhereUniqueInput, before: EmailWhereUniqueInput, first: Int, last: Int, where: EmailWhereInput): [Email!]!
+  emojimood(where: EmojimoodWhereUniqueInput!): Emojimood
+  emojimoods(after: EmojimoodWhereUniqueInput, before: EmojimoodWhereUniqueInput, first: Int, last: Int, orderBy: [EmojimoodOrderByWithRelationInput!], where: EmojimoodWhereInput): [Emojimood!]!
+  getADeviceManager: DeviceManagerDeviceProfilesResponseUnion
+  getAllCitiesByState(country: String!, state: String!): [Json]
+  getAllCountries: [Json]
+  getAllStatesByCountry(country: String!): [Json]
+  getLiveVenueTotals(profileIdVenue: String!): LiveVenueTotals
+  H3IndexGrid(cell: String!, ringSize: Int = 1): [String]
+  H3IndexLatLng(cell: String!): [Float]
+  IdentifiableInformations(after: IdentifiableInformationWhereUniqueInput, before: IdentifiableInformationWhereUniqueInput, first: Int, last: Int, where: IdentifiableInformationWhereInput): [IdentifiableInformation!]!
+  loginPassword(password: String!, username: String!): Boolean
+  Personals(after: PersonalWhereUniqueInput, before: PersonalWhereUniqueInput, first: Int, last: Int, where: PersonalWhereInput): [Personal!]!
+  Phones(after: PhoneWhereUniqueInput, before: PhoneWhereUniqueInput, first: Int, last: Int, where: PhoneWhereInput): [Phone!]!
+  profile(where: ProfileWhereUniqueInput!): Profile
+  profiles(after: ProfileWhereUniqueInput, before: ProfileWhereUniqueInput, first: Int, last: Int, orderBy: [ProfileOrderByWithRelationInput!], where: ProfileWhereInput): [Profile!]!
+  searchAddressGoogleAutocomplete(where: GooglePlaceAutocompleteInput!): GooglePlaceAutocompleteReturn
+  searchAreaCity(country: String!, search: String!): Json
+  sendDynamicTempalteDataEmail: Boolean
+  story(where: StoryWhereUniqueInput!): Story
+  venue(where: VenueWhereUniqueInput!): Venue
+  venues(after: VenueWhereUniqueInput, before: VenueWhereUniqueInput, first: Int, last: Int, orderBy: [VenueOrderByWithRelationInput!], where: VenueWhereInput): [Venue!]!
+  venuesNearby(kRing: Int, latitude: Float!, longitude: Float!): [Profile]
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+union RefreshDeviceManagerResponseUnion = DeviceManager | Error | Success
+
+input RefreshTokenCreateNestedOneWithoutDeviceProfileInput {
+  connect: RefreshTokenWhereUniqueInput
+  connectOrCreate: RefreshTokenCreateOrConnectWithoutDeviceProfileInput
+  create: RefreshTokenCreateWithoutDeviceProfileInput
+}
+
+input RefreshTokenCreateOrConnectWithoutDeviceProfileInput {
+  create: RefreshTokenCreateWithoutDeviceProfileInput!
+  where: RefreshTokenWhereUniqueInput!
+}
+
+input RefreshTokenCreateWithoutDeviceProfileInput {
+  createdAt: DateTime
+  token: String!
+  updatedAt: DateTime
+}
+
+input RefreshTokenWhereUniqueInput {
+  DeviceProfileId: Int
+  id: Int
+  token: String
+}
+
+type Relationship {
+  createdAt: DateTime!
+  id: String!
+  Profile: Profile
+  status: [Status!]!
+  updatedAt: DateTime!
+  venueMetAt: String
+}
+
+input RelationshipCreateManyProfileInput {
+  createdAt: DateTime
+  friend: String!
+  id: String
+  status: RelationshipCreateManystatusInput
+  updatedAt: DateTime
+  venueMetAt: String
+}
+
+input RelationshipCreateManyProfileInputEnvelope {
+  data: [RelationshipCreateManyProfileInput!]
+  skipDuplicates: Boolean
+}
+
+input RelationshipCreateManystatusInput {
+  set: [Status!]
+}
+
+input RelationshipCreateNestedManyWithoutProfileInput {
+  connect: [RelationshipWhereUniqueInput!]
+  connectOrCreate: [RelationshipCreateOrConnectWithoutProfileInput!]
+  create: [RelationshipCreateWithoutProfileInput!]
+  createMany: RelationshipCreateManyProfileInputEnvelope
+}
+
+input RelationshipCreateOrConnectWithoutProfileInput {
+  create: RelationshipCreateWithoutProfileInput!
+  where: RelationshipWhereUniqueInput!
+}
+
+input RelationshipCreatestatusInput {
+  set: [Status!]
+}
+
+input RelationshipCreateWithoutProfileInput {
+  createdAt: DateTime
+  friend: String!
+  id: String
+  status: RelationshipCreatestatusInput
+  updatedAt: DateTime
+  venueMetAt: String
+}
+
+input RelationshipListRelationFilter {
+  every: RelationshipWhereInput
+  none: RelationshipWhereInput
+  some: RelationshipWhereInput
+}
+
+input RelationshipOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input RelationshipScalarWhereInput {
+  AND: [RelationshipScalarWhereInput!]
+  createdAt: DateTimeFilter
+  friend: StringFilter
+  id: StringFilter
+  NOT: [RelationshipScalarWhereInput!]
+  OR: [RelationshipScalarWhereInput!]
+  profileId: StringNullableFilter
+  status: EnumStatusNullableListFilter
+  updatedAt: DateTimeFilter
+  venueMetAt: StringNullableFilter
+}
+
+input RelationshipUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  friend: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  status: RelationshipUpdatestatusInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueMetAt: NullableStringFieldUpdateOperationsInput
+}
+
+input RelationshipUpdateManyWithoutProfileInput {
+  connect: [RelationshipWhereUniqueInput!]
+  connectOrCreate: [RelationshipCreateOrConnectWithoutProfileInput!]
+  create: [RelationshipCreateWithoutProfileInput!]
+  createMany: RelationshipCreateManyProfileInputEnvelope
+  delete: [RelationshipWhereUniqueInput!]
+  deleteMany: [RelationshipScalarWhereInput!]
+  disconnect: [RelationshipWhereUniqueInput!]
+  set: [RelationshipWhereUniqueInput!]
+  update: [RelationshipUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [RelationshipUpdateManyWithWhereWithoutProfileInput!]
+  upsert: [RelationshipUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input RelationshipUpdateManyWithWhereWithoutProfileInput {
+  data: RelationshipUpdateManyMutationInput!
+  where: RelationshipScalarWhereInput!
+}
+
+input RelationshipUpdatestatusInput {
+  push: Status
+  set: [Status!]
+}
+
+input RelationshipUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  friend: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  status: RelationshipUpdatestatusInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueMetAt: NullableStringFieldUpdateOperationsInput
+}
+
+input RelationshipUpdateWithWhereUniqueWithoutProfileInput {
+  data: RelationshipUpdateWithoutProfileInput!
+  where: RelationshipWhereUniqueInput!
+}
+
+input RelationshipUpsertWithWhereUniqueWithoutProfileInput {
+  create: RelationshipCreateWithoutProfileInput!
+  update: RelationshipUpdateWithoutProfileInput!
+  where: RelationshipWhereUniqueInput!
+}
+
+input RelationshipWhereInput {
+  AND: [RelationshipWhereInput!]
+  createdAt: DateTimeFilter
+  friend: StringFilter
+  id: StringFilter
+  NOT: [RelationshipWhereInput!]
+  OR: [RelationshipWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringNullableFilter
+  status: EnumStatusNullableListFilter
+  updatedAt: DateTimeFilter
+  venueMetAt: StringNullableFilter
+}
+
+input RelationshipWhereUniqueInput {
+  id: String
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+enum Status {
+  DATING
+  FRIENDS
+}
+
+type Story {
+  createdAt: DateTime!
+  emojimood: Emojimood
+  id: String!
+  photos(after: PhotoWhereUniqueInput, before: PhotoWhereUniqueInput, first: Int, last: Int): [Photo!]!
+  updatedAt: DateTime!
+}
+
+input StoryCreateManyProfileInput {
+  createdAt: DateTime
+  emojimoodId: Int
+  id: String
+  updatedAt: DateTime
+}
+
+input StoryCreateManyProfileInputEnvelope {
+  data: [StoryCreateManyProfileInput!]
+  skipDuplicates: Boolean
+}
+
+input StoryCreateNestedManyWithoutPhotosInput {
+  connect: [StoryWhereUniqueInput!]
+  connectOrCreate: [StoryCreateOrConnectWithoutPhotosInput!]
+  create: [StoryCreateWithoutPhotosInput!]
+}
+
+input StoryCreateNestedManyWithoutProfileInput {
+  connect: [StoryWhereUniqueInput!]
+  connectOrCreate: [StoryCreateOrConnectWithoutProfileInput!]
+  create: [StoryCreateWithoutProfileInput!]
+  createMany: StoryCreateManyProfileInputEnvelope
+}
+
+input StoryCreateOrConnectWithoutPhotosInput {
+  create: StoryCreateWithoutPhotosInput!
+  where: StoryWhereUniqueInput!
+}
+
+input StoryCreateOrConnectWithoutProfileInput {
+  create: StoryCreateWithoutProfileInput!
+  where: StoryWhereUniqueInput!
+}
+
+input StoryCreateWithoutPhotosInput {
+  createdAt: DateTime
+  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
+  id: String
+  Profile: ProfileCreateNestedOneWithoutStoryInput
+  updatedAt: DateTime
+}
+
+input StoryCreateWithoutProfileInput {
+  createdAt: DateTime
+  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
+  id: String
+  photos: PhotoCreateNestedManyWithoutStoryInput
+  updatedAt: DateTime
+}
+
+input StoryListRelationFilter {
+  every: StoryWhereInput
+  none: StoryWhereInput
+  some: StoryWhereInput
+}
+
+input StoryOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input StoryScalarWhereInput {
+  AND: [StoryScalarWhereInput!]
+  createdAt: DateTimeFilter
+  emojimoodId: IntNullableFilter
+  id: StringFilter
+  NOT: [StoryScalarWhereInput!]
+  OR: [StoryScalarWhereInput!]
+  profileId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input StoryUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StoryUpdateManyWithoutPhotosInput {
+  connect: [StoryWhereUniqueInput!]
+  connectOrCreate: [StoryCreateOrConnectWithoutPhotosInput!]
+  create: [StoryCreateWithoutPhotosInput!]
+  delete: [StoryWhereUniqueInput!]
+  deleteMany: [StoryScalarWhereInput!]
+  disconnect: [StoryWhereUniqueInput!]
+  set: [StoryWhereUniqueInput!]
+  update: [StoryUpdateWithWhereUniqueWithoutPhotosInput!]
+  updateMany: [StoryUpdateManyWithWhereWithoutPhotosInput!]
+  upsert: [StoryUpsertWithWhereUniqueWithoutPhotosInput!]
+}
+
+input StoryUpdateManyWithoutProfileInput {
+  connect: [StoryWhereUniqueInput!]
+  connectOrCreate: [StoryCreateOrConnectWithoutProfileInput!]
+  create: [StoryCreateWithoutProfileInput!]
+  createMany: StoryCreateManyProfileInputEnvelope
+  delete: [StoryWhereUniqueInput!]
+  deleteMany: [StoryScalarWhereInput!]
+  disconnect: [StoryWhereUniqueInput!]
+  set: [StoryWhereUniqueInput!]
+  update: [StoryUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [StoryUpdateManyWithWhereWithoutProfileInput!]
+  upsert: [StoryUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input StoryUpdateManyWithWhereWithoutPhotosInput {
+  data: StoryUpdateManyMutationInput!
+  where: StoryScalarWhereInput!
+}
+
+input StoryUpdateManyWithWhereWithoutProfileInput {
+  data: StoryUpdateManyMutationInput!
+  where: StoryScalarWhereInput!
+}
+
+input StoryUpdateWithoutPhotosInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  emojimood: EmojimoodUpdateOneWithoutStoryInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneWithoutStoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StoryUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  emojimood: EmojimoodUpdateOneWithoutStoryInput
+  id: StringFieldUpdateOperationsInput
+  photos: PhotoUpdateManyWithoutStoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StoryUpdateWithWhereUniqueWithoutPhotosInput {
+  data: StoryUpdateWithoutPhotosInput!
+  where: StoryWhereUniqueInput!
+}
+
+input StoryUpdateWithWhereUniqueWithoutProfileInput {
+  data: StoryUpdateWithoutProfileInput!
+  where: StoryWhereUniqueInput!
+}
+
+input StoryUpsertWithWhereUniqueWithoutPhotosInput {
+  create: StoryCreateWithoutPhotosInput!
+  update: StoryUpdateWithoutPhotosInput!
+  where: StoryWhereUniqueInput!
+}
+
+input StoryUpsertWithWhereUniqueWithoutProfileInput {
+  create: StoryCreateWithoutProfileInput!
+  update: StoryUpdateWithoutProfileInput!
+  where: StoryWhereUniqueInput!
+}
+
+input StoryWhereInput {
+  AND: [StoryWhereInput!]
+  createdAt: DateTimeFilter
+  emojimood: EmojimoodWhereInput
+  emojimoodId: IntNullableFilter
+  id: StringFilter
+  NOT: [StoryWhereInput!]
+  OR: [StoryWhereInput!]
+  photos: PhotoListRelationFilter
+  Profile: ProfileWhereInput
+  profileId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input StoryWhereUniqueInput {
+  id: String
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
+}
+
+type Success {
+  message: String
+  successCode: String
+  type: String
+}
+
+type SwitchLoginResponse {
+  authorization: String
+  Profile: Profile
+  refreshToken: String
+}
+
+type Tag {
+  emoji: String
+  id: Int!
+  name: String!
+}
+
+input TagCreateNestedManyWithoutDetailInformationInput {
+  connect: [TagWhereUniqueInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutDetailInformationInput!]
+  create: [TagCreateWithoutDetailInformationInput!]
+}
+
+input TagCreateOrConnectWithoutDetailInformationInput {
+  create: TagCreateWithoutDetailInformationInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagCreateWithoutDetailInformationInput {
+  emoji: String
+  name: String!
+  type: TagType!
+}
+
+input TagListRelationFilter {
+  every: TagWhereInput
+  none: TagWhereInput
+  some: TagWhereInput
+}
+
+input TagOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input TagScalarWhereInput {
+  AND: [TagScalarWhereInput!]
+  emoji: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  NOT: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  type: EnumTagTypeFilter
+}
+
+enum TagType {
+  ACTIVITY
+  TYPE
+}
+
+input TagUpdateManyMutationInput {
+  emoji: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  type: EnumTagTypeFieldUpdateOperationsInput
+}
+
+input TagUpdateManyWithoutDetailInformationInput {
+  connect: [TagWhereUniqueInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutDetailInformationInput!]
+  create: [TagCreateWithoutDetailInformationInput!]
+  delete: [TagWhereUniqueInput!]
+  deleteMany: [TagScalarWhereInput!]
+  disconnect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutDetailInformationInput!]
+  updateMany: [TagUpdateManyWithWhereWithoutDetailInformationInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutDetailInformationInput!]
+}
+
+input TagUpdateManyWithWhereWithoutDetailInformationInput {
+  data: TagUpdateManyMutationInput!
+  where: TagScalarWhereInput!
+}
+
+input TagUpdateWithoutDetailInformationInput {
+  emoji: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  type: EnumTagTypeFieldUpdateOperationsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutDetailInformationInput {
+  data: TagUpdateWithoutDetailInformationInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutDetailInformationInput {
+  create: TagCreateWithoutDetailInformationInput!
+  update: TagUpdateWithoutDetailInformationInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagWhereInput {
+  AND: [TagWhereInput!]
+  DetailInformation: DetailInformationListRelationFilter
+  emoji: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  NOT: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  type: EnumTagTypeFilter
+}
+
+input TagWhereUniqueInput {
+  id: Int
+}
+
+type TotaledOut {
+  createdAt: DateTime!
+  id: String!
+  LiveOutPersonal: LiveOutPersonal
+  liveOutPersonalId: String
+  LiveOutVenue: LiveOutVenue
+  liveOutVenueId: String
+  personalProfileId: String!
+  PersonalStats: PersonalStats
+  personalStatsId: String
+  updatedAt: DateTime!
+  venueProfileId: String!
+  VenueStats: VenueStats
+  venueStatsId: String
+}
+
+input TotaledOutCreateManyLiveOutPersonalInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutVenueId: String
+  personalProfileId: String!
+  personalStatsId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+  venueStatsId: String
+}
+
+input TotaledOutCreateManyLiveOutPersonalInputEnvelope {
+  data: [TotaledOutCreateManyLiveOutPersonalInput!]
+  skipDuplicates: Boolean
+}
+
+input TotaledOutCreateManyLiveOutVenueInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutPersonalId: String
+  personalProfileId: String!
+  personalStatsId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+  venueStatsId: String
+}
+
+input TotaledOutCreateManyLiveOutVenueInputEnvelope {
+  data: [TotaledOutCreateManyLiveOutVenueInput!]
+  skipDuplicates: Boolean
+}
+
+input TotaledOutCreateManyPersonalStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutPersonalId: String
+  liveOutVenueId: String
+  personalProfileId: String!
+  updatedAt: DateTime
+  venueProfileId: String!
+  venueStatsId: String
+}
+
+input TotaledOutCreateManyPersonalStatsInputEnvelope {
+  data: [TotaledOutCreateManyPersonalStatsInput!]
+  skipDuplicates: Boolean
+}
+
+input TotaledOutCreateManyVenueStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  liveOutPersonalId: String
+  liveOutVenueId: String
+  personalProfileId: String!
+  personalStatsId: String
+  updatedAt: DateTime
+  venueProfileId: String!
+}
+
+input TotaledOutCreateManyVenueStatsInputEnvelope {
+  data: [TotaledOutCreateManyVenueStatsInput!]
+  skipDuplicates: Boolean
+}
+
+input TotaledOutCreateNestedManyWithoutLiveOutPersonalInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutLiveOutPersonalInput!]
+  create: [TotaledOutCreateWithoutLiveOutPersonalInput!]
+  createMany: TotaledOutCreateManyLiveOutPersonalInputEnvelope
+}
+
+input TotaledOutCreateNestedManyWithoutLiveOutVenueInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutLiveOutVenueInput!]
+  create: [TotaledOutCreateWithoutLiveOutVenueInput!]
+  createMany: TotaledOutCreateManyLiveOutVenueInputEnvelope
+}
+
+input TotaledOutCreateNestedManyWithoutPersonalStatsInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutPersonalStatsInput!]
+  create: [TotaledOutCreateWithoutPersonalStatsInput!]
+  createMany: TotaledOutCreateManyPersonalStatsInputEnvelope
+}
+
+input TotaledOutCreateNestedManyWithoutVenueStatsInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutVenueStatsInput!]
+  create: [TotaledOutCreateWithoutVenueStatsInput!]
+  createMany: TotaledOutCreateManyVenueStatsInputEnvelope
+}
+
+input TotaledOutCreateOrConnectWithoutLiveOutPersonalInput {
+  create: TotaledOutCreateWithoutLiveOutPersonalInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutCreateOrConnectWithoutLiveOutVenueInput {
+  create: TotaledOutCreateWithoutLiveOutVenueInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutCreateOrConnectWithoutPersonalStatsInput {
+  create: TotaledOutCreateWithoutPersonalStatsInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutCreateOrConnectWithoutVenueStatsInput {
+  create: TotaledOutCreateWithoutVenueStatsInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutCreateWithoutLiveOutPersonalInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutTotaledInput
+  personalProfileId: String!
+  PersonalStats: PersonalStatsCreateNestedOneWithoutTotaledVenueHistoryInput
+  updatedAt: DateTime
+  venueProfileId: String!
+  VenueStats: VenueStatsCreateNestedOneWithoutTotaledVenueHistoryInput
+}
+
+input TotaledOutCreateWithoutLiveOutVenueInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutTotaledInput
+  personalProfileId: String!
+  PersonalStats: PersonalStatsCreateNestedOneWithoutTotaledVenueHistoryInput
+  updatedAt: DateTime
+  venueProfileId: String!
+  VenueStats: VenueStatsCreateNestedOneWithoutTotaledVenueHistoryInput
+}
+
+input TotaledOutCreateWithoutPersonalStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutTotaledInput
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutTotaledInput
+  personalProfileId: String!
+  updatedAt: DateTime
+  venueProfileId: String!
+  VenueStats: VenueStatsCreateNestedOneWithoutTotaledVenueHistoryInput
+}
+
+input TotaledOutCreateWithoutVenueStatsInput {
+  createdAt: DateTime
+  id: String
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonalCreateNestedOneWithoutTotaledInput
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutTotaledInput
+  personalProfileId: String!
+  PersonalStats: PersonalStatsCreateNestedOneWithoutTotaledVenueHistoryInput
+  updatedAt: DateTime
+  venueProfileId: String!
+}
+
+input TotaledOutListRelationFilter {
+  every: TotaledOutWhereInput
+  none: TotaledOutWhereInput
+  some: TotaledOutWhereInput
+}
+
+input TotaledOutOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input TotaledOutScalarWhereInput {
+  AND: [TotaledOutScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  leftAt: DateTimeNullableFilter
+  liveOutPersonalId: StringNullableFilter
+  liveOutVenueId: StringNullableFilter
+  NOT: [TotaledOutScalarWhereInput!]
+  OR: [TotaledOutScalarWhereInput!]
+  personalProfileId: StringFilter
+  personalStatsId: StringNullableFilter
+  updatedAt: DateTimeFilter
+  venueProfileId: StringFilter
+  venueStatsId: StringNullableFilter
+}
+
+input TotaledOutUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  personalProfileId: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+}
+
+input TotaledOutUpdateManyWithoutLiveOutPersonalInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutLiveOutPersonalInput!]
+  create: [TotaledOutCreateWithoutLiveOutPersonalInput!]
+  createMany: TotaledOutCreateManyLiveOutPersonalInputEnvelope
+  delete: [TotaledOutWhereUniqueInput!]
+  deleteMany: [TotaledOutScalarWhereInput!]
+  disconnect: [TotaledOutWhereUniqueInput!]
+  set: [TotaledOutWhereUniqueInput!]
+  update: [TotaledOutUpdateWithWhereUniqueWithoutLiveOutPersonalInput!]
+  updateMany: [TotaledOutUpdateManyWithWhereWithoutLiveOutPersonalInput!]
+  upsert: [TotaledOutUpsertWithWhereUniqueWithoutLiveOutPersonalInput!]
+}
+
+input TotaledOutUpdateManyWithoutLiveOutVenueInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutLiveOutVenueInput!]
+  create: [TotaledOutCreateWithoutLiveOutVenueInput!]
+  createMany: TotaledOutCreateManyLiveOutVenueInputEnvelope
+  delete: [TotaledOutWhereUniqueInput!]
+  deleteMany: [TotaledOutScalarWhereInput!]
+  disconnect: [TotaledOutWhereUniqueInput!]
+  set: [TotaledOutWhereUniqueInput!]
+  update: [TotaledOutUpdateWithWhereUniqueWithoutLiveOutVenueInput!]
+  updateMany: [TotaledOutUpdateManyWithWhereWithoutLiveOutVenueInput!]
+  upsert: [TotaledOutUpsertWithWhereUniqueWithoutLiveOutVenueInput!]
+}
+
+input TotaledOutUpdateManyWithoutPersonalStatsInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutPersonalStatsInput!]
+  create: [TotaledOutCreateWithoutPersonalStatsInput!]
+  createMany: TotaledOutCreateManyPersonalStatsInputEnvelope
+  delete: [TotaledOutWhereUniqueInput!]
+  deleteMany: [TotaledOutScalarWhereInput!]
+  disconnect: [TotaledOutWhereUniqueInput!]
+  set: [TotaledOutWhereUniqueInput!]
+  update: [TotaledOutUpdateWithWhereUniqueWithoutPersonalStatsInput!]
+  updateMany: [TotaledOutUpdateManyWithWhereWithoutPersonalStatsInput!]
+  upsert: [TotaledOutUpsertWithWhereUniqueWithoutPersonalStatsInput!]
+}
+
+input TotaledOutUpdateManyWithoutVenueStatsInput {
+  connect: [TotaledOutWhereUniqueInput!]
+  connectOrCreate: [TotaledOutCreateOrConnectWithoutVenueStatsInput!]
+  create: [TotaledOutCreateWithoutVenueStatsInput!]
+  createMany: TotaledOutCreateManyVenueStatsInputEnvelope
+  delete: [TotaledOutWhereUniqueInput!]
+  deleteMany: [TotaledOutScalarWhereInput!]
+  disconnect: [TotaledOutWhereUniqueInput!]
+  set: [TotaledOutWhereUniqueInput!]
+  update: [TotaledOutUpdateWithWhereUniqueWithoutVenueStatsInput!]
+  updateMany: [TotaledOutUpdateManyWithWhereWithoutVenueStatsInput!]
+  upsert: [TotaledOutUpsertWithWhereUniqueWithoutVenueStatsInput!]
+}
+
+input TotaledOutUpdateManyWithWhereWithoutLiveOutPersonalInput {
+  data: TotaledOutUpdateManyMutationInput!
+  where: TotaledOutScalarWhereInput!
+}
+
+input TotaledOutUpdateManyWithWhereWithoutLiveOutVenueInput {
+  data: TotaledOutUpdateManyMutationInput!
+  where: TotaledOutScalarWhereInput!
+}
+
+input TotaledOutUpdateManyWithWhereWithoutPersonalStatsInput {
+  data: TotaledOutUpdateManyMutationInput!
+  where: TotaledOutScalarWhereInput!
+}
+
+input TotaledOutUpdateManyWithWhereWithoutVenueStatsInput {
+  data: TotaledOutUpdateManyMutationInput!
+  where: TotaledOutScalarWhereInput!
+}
+
+input TotaledOutUpdateWithoutLiveOutPersonalInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutTotaledInput
+  personalProfileId: StringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutTotaledVenueHistoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneWithoutTotaledVenueHistoryInput
+}
+
+input TotaledOutUpdateWithoutLiveOutVenueInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutTotaledInput
+  personalProfileId: StringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutTotaledVenueHistoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneWithoutTotaledVenueHistoryInput
+}
+
+input TotaledOutUpdateWithoutPersonalStatsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutTotaledInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutTotaledInput
+  personalProfileId: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneWithoutTotaledVenueHistoryInput
+}
+
+input TotaledOutUpdateWithoutVenueStatsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  leftAt: NullableDateTimeFieldUpdateOperationsInput
+  LiveOutPersonal: LiveOutPersonalUpdateOneWithoutTotaledInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutTotaledInput
+  personalProfileId: StringFieldUpdateOperationsInput
+  PersonalStats: PersonalStatsUpdateOneWithoutTotaledVenueHistoryInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  venueProfileId: StringFieldUpdateOperationsInput
+}
+
+input TotaledOutUpdateWithWhereUniqueWithoutLiveOutPersonalInput {
+  data: TotaledOutUpdateWithoutLiveOutPersonalInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpdateWithWhereUniqueWithoutLiveOutVenueInput {
+  data: TotaledOutUpdateWithoutLiveOutVenueInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpdateWithWhereUniqueWithoutPersonalStatsInput {
+  data: TotaledOutUpdateWithoutPersonalStatsInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpdateWithWhereUniqueWithoutVenueStatsInput {
+  data: TotaledOutUpdateWithoutVenueStatsInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpsertWithWhereUniqueWithoutLiveOutPersonalInput {
+  create: TotaledOutCreateWithoutLiveOutPersonalInput!
+  update: TotaledOutUpdateWithoutLiveOutPersonalInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpsertWithWhereUniqueWithoutLiveOutVenueInput {
+  create: TotaledOutCreateWithoutLiveOutVenueInput!
+  update: TotaledOutUpdateWithoutLiveOutVenueInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpsertWithWhereUniqueWithoutPersonalStatsInput {
+  create: TotaledOutCreateWithoutPersonalStatsInput!
+  update: TotaledOutUpdateWithoutPersonalStatsInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutUpsertWithWhereUniqueWithoutVenueStatsInput {
+  create: TotaledOutCreateWithoutVenueStatsInput!
+  update: TotaledOutUpdateWithoutVenueStatsInput!
+  where: TotaledOutWhereUniqueInput!
+}
+
+input TotaledOutWhereInput {
+  AND: [TotaledOutWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  leftAt: DateTimeNullableFilter
+  LiveOutPersonal: LiveOutPersonalWhereInput
+  liveOutPersonalId: StringNullableFilter
+  LiveOutVenue: LiveOutVenueWhereInput
+  liveOutVenueId: StringNullableFilter
+  NOT: [TotaledOutWhereInput!]
+  OR: [TotaledOutWhereInput!]
+  personalProfileId: StringFilter
+  PersonalStats: PersonalStatsWhereInput
+  personalStatsId: StringNullableFilter
+  updatedAt: DateTimeFilter
+  venueProfileId: StringFilter
+  VenueStats: VenueStatsWhereInput
+  venueStatsId: StringNullableFilter
+}
+
+input TotaledOutWhereUniqueInput {
+  id: String
+}
+
+enum TypeOfDocument {
+  PROFILE_PRIVACY_POLICY
+  PROFILE_TERMS_OF_SERVICE
+}
+
+union UpdateProfileResponse = ErrorProfiling | Profile
+
+type Venue {
+  createdAt: DateTime!
+  id: String!
+  LiveOutVenue: LiveOutVenue
+  Location: Location
+  Profile: Profile!
+  profileId: String!
+  updatedAt: DateTime!
+  VenueStats: VenueStats!
+}
+
+input VenueCreateNestedOneWithoutLiveOutVenueInput {
+  connect: VenueWhereUniqueInput
+  connectOrCreate: VenueCreateOrConnectWithoutLiveOutVenueInput
+  create: VenueCreateWithoutLiveOutVenueInput
+}
+
+input VenueCreateNestedOneWithoutProfileInput {
+  connect: VenueWhereUniqueInput
+  connectOrCreate: VenueCreateOrConnectWithoutProfileInput
+  create: VenueCreateWithoutProfileInput
+}
+
+input VenueCreateNestedOneWithoutVenueStatsInput {
+  connect: VenueWhereUniqueInput
+  connectOrCreate: VenueCreateOrConnectWithoutVenueStatsInput
+  create: VenueCreateWithoutVenueStatsInput
+}
+
+input VenueCreateOrConnectWithoutLiveOutVenueInput {
+  create: VenueCreateWithoutLiveOutVenueInput!
+  where: VenueWhereUniqueInput!
+}
+
+input VenueCreateOrConnectWithoutProfileInput {
+  create: VenueCreateWithoutProfileInput!
+  where: VenueWhereUniqueInput!
+}
+
+input VenueCreateOrConnectWithoutVenueStatsInput {
+  create: VenueCreateWithoutVenueStatsInput!
+  where: VenueWhereUniqueInput!
+}
+
+input VenueCreateWithoutLiveOutVenueInput {
+  createdAt: DateTime
+  id: String
+  Location: LocationCreateNestedOneWithoutVenueInput
+  name: String
+  Profile: ProfileCreateNestedOneWithoutVenueInput!
+  updatedAt: DateTime
+  VenueStats: VenueStatsCreateNestedOneWithoutVenueInput!
+}
+
+input VenueCreateWithoutProfileInput {
+  createdAt: DateTime
+  id: String
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutVenueInput
+  Location: LocationCreateNestedOneWithoutVenueInput
+  name: String
+  updatedAt: DateTime
+  VenueStats: VenueStatsCreateNestedOneWithoutVenueInput!
+}
+
+input VenueCreateWithoutVenueStatsInput {
+  createdAt: DateTime
+  id: String
+  LiveOutVenue: LiveOutVenueCreateNestedOneWithoutVenueInput
+  Location: LocationCreateNestedOneWithoutVenueInput
+  name: String
+  Profile: ProfileCreateNestedOneWithoutVenueInput!
+  updatedAt: DateTime
+}
+
+input VenueOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  LiveOutVenue: LiveOutVenueOrderByWithRelationInput
+  Location: LocationOrderByWithRelationInput
+  name: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  updatedAt: SortOrder
+  VenueStats: VenueStatsOrderByWithRelationInput
+  venueStatsId: SortOrder
+}
+
+type VenueStats {
+  createdAt: DateTime!
+  id: String!
+  joinedVenueHistory(after: JoinedOutWhereUniqueInput, before: JoinedOutWhereUniqueInput, first: Int, last: Int): [JoinedOut!]!
+  totaledVenueHistory(after: TotaledOutWhereUniqueInput, before: TotaledOutWhereUniqueInput, first: Int, last: Int): [TotaledOut!]!
+  updatedAt: DateTime!
+}
+
+input VenueStatsCreateNestedOneWithoutJoinedVenueHistoryInput {
+  connect: VenueStatsWhereUniqueInput
+  connectOrCreate: VenueStatsCreateOrConnectWithoutJoinedVenueHistoryInput
+  create: VenueStatsCreateWithoutJoinedVenueHistoryInput
+}
+
+input VenueStatsCreateNestedOneWithoutTotaledVenueHistoryInput {
+  connect: VenueStatsWhereUniqueInput
+  connectOrCreate: VenueStatsCreateOrConnectWithoutTotaledVenueHistoryInput
+  create: VenueStatsCreateWithoutTotaledVenueHistoryInput
+}
+
+input VenueStatsCreateNestedOneWithoutVenueInput {
+  connect: VenueStatsWhereUniqueInput
+  connectOrCreate: VenueStatsCreateOrConnectWithoutVenueInput
+  create: VenueStatsCreateWithoutVenueInput
+}
+
+input VenueStatsCreateOrConnectWithoutJoinedVenueHistoryInput {
+  create: VenueStatsCreateWithoutJoinedVenueHistoryInput!
+  where: VenueStatsWhereUniqueInput!
+}
+
+input VenueStatsCreateOrConnectWithoutTotaledVenueHistoryInput {
+  create: VenueStatsCreateWithoutTotaledVenueHistoryInput!
+  where: VenueStatsWhereUniqueInput!
+}
+
+input VenueStatsCreateOrConnectWithoutVenueInput {
+  create: VenueStatsCreateWithoutVenueInput!
+  where: VenueStatsWhereUniqueInput!
+}
+
+input VenueStatsCreateWithoutJoinedVenueHistoryInput {
+  createdAt: DateTime
+  id: String
+  totaledVenueHistory: TotaledOutCreateNestedManyWithoutVenueStatsInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutVenueStatsInput
+}
+
+input VenueStatsCreateWithoutTotaledVenueHistoryInput {
+  createdAt: DateTime
+  id: String
+  joinedVenueHistory: JoinedOutCreateNestedManyWithoutVenueStatsInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutVenueStatsInput
+}
+
+input VenueStatsCreateWithoutVenueInput {
+  createdAt: DateTime
+  id: String
+  joinedVenueHistory: JoinedOutCreateNestedManyWithoutVenueStatsInput
+  totaledVenueHistory: TotaledOutCreateNestedManyWithoutVenueStatsInput
+  updatedAt: DateTime
+}
+
+input VenueStatsOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  joinedVenueHistory: JoinedOutOrderByRelationAggregateInput
+  totaledVenueHistory: TotaledOutOrderByRelationAggregateInput
+  updatedAt: SortOrder
+  Venue: VenueOrderByWithRelationInput
+}
+
+input VenueStatsUpdateOneRequiredWithoutVenueInput {
+  connect: VenueStatsWhereUniqueInput
+  connectOrCreate: VenueStatsCreateOrConnectWithoutVenueInput
+  create: VenueStatsCreateWithoutVenueInput
+  update: VenueStatsUpdateWithoutVenueInput
+  upsert: VenueStatsUpsertWithoutVenueInput
+}
+
+input VenueStatsUpdateOneWithoutJoinedVenueHistoryInput {
+  connect: VenueStatsWhereUniqueInput
+  connectOrCreate: VenueStatsCreateOrConnectWithoutJoinedVenueHistoryInput
+  create: VenueStatsCreateWithoutJoinedVenueHistoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: VenueStatsUpdateWithoutJoinedVenueHistoryInput
+  upsert: VenueStatsUpsertWithoutJoinedVenueHistoryInput
+}
+
+input VenueStatsUpdateOneWithoutTotaledVenueHistoryInput {
+  connect: VenueStatsWhereUniqueInput
+  connectOrCreate: VenueStatsCreateOrConnectWithoutTotaledVenueHistoryInput
+  create: VenueStatsCreateWithoutTotaledVenueHistoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: VenueStatsUpdateWithoutTotaledVenueHistoryInput
+  upsert: VenueStatsUpsertWithoutTotaledVenueHistoryInput
+}
+
+input VenueStatsUpdateWithoutJoinedVenueHistoryInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  totaledVenueHistory: TotaledOutUpdateManyWithoutVenueStatsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutVenueStatsInput
+}
+
+input VenueStatsUpdateWithoutTotaledVenueHistoryInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joinedVenueHistory: JoinedOutUpdateManyWithoutVenueStatsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutVenueStatsInput
+}
+
+input VenueStatsUpdateWithoutVenueInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  joinedVenueHistory: JoinedOutUpdateManyWithoutVenueStatsInput
+  totaledVenueHistory: TotaledOutUpdateManyWithoutVenueStatsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input VenueStatsUpsertWithoutJoinedVenueHistoryInput {
+  create: VenueStatsCreateWithoutJoinedVenueHistoryInput!
+  update: VenueStatsUpdateWithoutJoinedVenueHistoryInput!
+}
+
+input VenueStatsUpsertWithoutTotaledVenueHistoryInput {
+  create: VenueStatsCreateWithoutTotaledVenueHistoryInput!
+  update: VenueStatsUpdateWithoutTotaledVenueHistoryInput!
+}
+
+input VenueStatsUpsertWithoutVenueInput {
+  create: VenueStatsCreateWithoutVenueInput!
+  update: VenueStatsUpdateWithoutVenueInput!
+}
+
+input VenueStatsWhereInput {
+  AND: [VenueStatsWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  joinedVenueHistory: JoinedOutListRelationFilter
+  NOT: [VenueStatsWhereInput!]
+  OR: [VenueStatsWhereInput!]
+  totaledVenueHistory: TotaledOutListRelationFilter
+  updatedAt: DateTimeFilter
+  Venue: VenueWhereInput
+}
+
+input VenueStatsWhereUniqueInput {
+  id: String
+}
+
+input VenueUpdateOneRequiredWithoutLiveOutVenueInput {
+  connect: VenueWhereUniqueInput
+  connectOrCreate: VenueCreateOrConnectWithoutLiveOutVenueInput
+  create: VenueCreateWithoutLiveOutVenueInput
+  update: VenueUpdateWithoutLiveOutVenueInput
+  upsert: VenueUpsertWithoutLiveOutVenueInput
+}
+
+input VenueUpdateOneWithoutProfileInput {
+  connect: VenueWhereUniqueInput
+  connectOrCreate: VenueCreateOrConnectWithoutProfileInput
+  create: VenueCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: VenueUpdateWithoutProfileInput
+  upsert: VenueUpsertWithoutProfileInput
+}
+
+input VenueUpdateOneWithoutVenueStatsInput {
+  connect: VenueWhereUniqueInput
+  connectOrCreate: VenueCreateOrConnectWithoutVenueStatsInput
+  create: VenueCreateWithoutVenueStatsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: VenueUpdateWithoutVenueStatsInput
+  upsert: VenueUpsertWithoutVenueStatsInput
+}
+
+input VenueUpdateWithoutLiveOutVenueInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutVenueInput
+  name: NullableStringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutVenueInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneRequiredWithoutVenueInput
+}
+
+input VenueUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutVenueInput
+  Location: LocationUpdateOneWithoutVenueInput
+  name: NullableStringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  VenueStats: VenueStatsUpdateOneRequiredWithoutVenueInput
+}
+
+input VenueUpdateWithoutVenueStatsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  LiveOutVenue: LiveOutVenueUpdateOneWithoutVenueInput
+  Location: LocationUpdateOneWithoutVenueInput
+  name: NullableStringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutVenueInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input VenueUpsertWithoutLiveOutVenueInput {
+  create: VenueCreateWithoutLiveOutVenueInput!
+  update: VenueUpdateWithoutLiveOutVenueInput!
+}
+
+input VenueUpsertWithoutProfileInput {
+  create: VenueCreateWithoutProfileInput!
+  update: VenueUpdateWithoutProfileInput!
+}
+
+input VenueUpsertWithoutVenueStatsInput {
+  create: VenueCreateWithoutVenueStatsInput!
+  update: VenueUpdateWithoutVenueStatsInput!
+}
+
+input VenueWhereInput {
+  AND: [VenueWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  LiveOutVenue: LiveOutVenueWhereInput
+  Location: LocationWhereInput
+  name: StringNullableFilter
+  NOT: [VenueWhereInput!]
+  OR: [VenueWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  updatedAt: DateTimeFilter
+  VenueStats: VenueStatsWhereInput
+  venueStatsId: StringFilter
+}
+
+input VenueWhereUniqueInput {
+  id: String
+  profileId: String
+  venueStatsId: String
+}

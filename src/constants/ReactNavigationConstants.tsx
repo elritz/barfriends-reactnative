@@ -1,0 +1,1 @@
+export const TAB_NAVIGATION_HEIGHT = 50

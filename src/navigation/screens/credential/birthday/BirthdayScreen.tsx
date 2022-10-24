@@ -1,0 +1,203 @@
+import { useReactiveVar } from '@apollo/client'
+import DatePicker from '@components/atoms/inputs/DatePicker'
+import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
+import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
+import diffNow from '@library/luxon'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import { Button } from '@rneui/base'
+import { Icon } from '@rneui/themed'
+import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
+import { Text } from 'native-base'
+import React, { useContext, useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import styled, { ThemeContext } from 'styled-components/native'
+
+const BirthdayScreen = () => {
+	const insets = useSafeAreaInsets()
+	const themeContext = useContext(ThemeContext)
+	const isFocused = useIsFocused()
+	const navigation = useNavigation()
+	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const [legalAge] = useState<number>(19)
+	const {
+		control,
+		setError,
+		clearErrors,
+		setValue,
+		getValues,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: {
+			date: new Date(),
+		},
+		mode: 'onChange',
+		reValidateMode: 'onChange',
+		resolver: undefined,
+		context: undefined,
+		criteriaMode: 'firstError',
+		shouldFocusError: true,
+		shouldUnregister: true,
+	})
+
+	const onDateChange = async (selectedDate: Date | undefined): Promise<boolean> => {
+		setValue('date', selectedDate)
+		if (selectedDate) {
+			const { days, months, years } = diffNow(selectedDate)
+			clearErrors('date')
+			if (years === 0) {
+				setError('date', {
+					type: 'validate',
+					message: 'You must exsist to sign up.',
+				})
+				return false
+			} else if (years + 1 === legalAge && months >= 11 && days >= 27) {
+				const { success } = await createDeviceTokenInSecureStorage({
+					birthday: selectedDate,
+				})
+				if (success) {
+					setValue('date', selectedDate)
+					return true
+				}
+			} else if (years < legalAge) {
+				setError('date', {
+					type: 'validate',
+					message: `Must be closer to ${legalAge} to join.`,
+				})
+				return false
+			}
+			setValue('date', selectedDate)
+			return true
+		}
+	}
+
+	const onSubmit = async (): Promise<void | null> => {
+		try {
+			if (errors.date) {
+				setError('date', {
+					type: 'validate',
+					message: 'Enter a valid birthday',
+				})
+			}
+			const birthday = getValues('date')
+			CredentialPersonalProfileReactiveVar({
+				...credentialPersonalProfileVar,
+				birthday: String(birthday),
+			})
+			navigation.navigate('CredentialNavigator', {
+				screen: 'PersonalCredentialStack',
+				params: {
+					screen: 'NameScreen',
+				},
+			})
+		} catch (e) {
+			return setError('date', {
+				type: 'validate',
+				message: 'Something went wrong',
+			})
+		}
+	}
+
+	useEffect(() => {
+		if (!credentialPersonalProfileVar.birthday) {
+			setError('date', { type: 'validate' })
+		} else {
+			setValue('date', new Date(credentialPersonalProfileVar.birthday))
+		}
+	}, [isFocused])
+
+	const RightIcon = () => (
+		<Icon
+			type='feather'
+			name='arrow-right'
+			size={35}
+			color={
+				errors.date ? themeContext.palette.disabled.color : themeContext.palette.bfscompany.accent
+			}
+		/>
+	)
+
+	return (
+		<OuterView>
+			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+				What's your birthday
+			</Text>
+			<>
+				<Controller
+					control={control}
+					name='date'
+					render={({ field: { value } }) => (
+						<View style={{ width: '100%', height: '70%' }}>
+							<DatePicker
+								display='spinner'
+								mode='date'
+								value={value}
+								maxDate={new Date()}
+								onChange={(e, selectedDate) => onDateChange(selectedDate)}
+								style={{
+									width: '100%',
+									height: '100%',
+								}}
+							/>
+						</View>
+					)}
+					rules={{
+						required: {
+							value: true,
+							message: 'Hey this is required 🤷‍♂️.',
+						},
+						validate: {
+							isOldEnough: value => onDateChange(value) || 'Must be less young to join.',
+						},
+					}}
+				/>
+				<Text color={'error.500'}>
+					{errors.date && errors.date.type ? errors?.date?.message : null}
+				</Text>
+			</>
+			<FormButtonView style={{ marginBottom: insets.bottom }}>
+				<Button
+					onPress={handleSubmit(onSubmit)}
+					disabled={!!errors.date}
+					containerStyle={{
+						justifyContent: 'center',
+					}}
+					buttonStyle={{
+						backgroundColor: errors.date
+							? themeContext.palette.disabled.background
+							: themeContext.palette.bfscompany.primary,
+						borderRadius: 50,
+						height: 70,
+						width: 70,
+						paddingHorizontal: 20,
+						justifyContent: 'center',
+					}}
+					iconPosition='right'
+					icon={<RightIcon />}
+				/>
+			</FormButtonView>
+		</OuterView>
+	)
+}
+
+export default BirthdayScreen
+
+const OuterView = styled.SafeAreaView`
+	flex: 1;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-horizontal: 5%;
+	margin-top: 20px;
+`
+
+const FormButtonView = styled.View`
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	padding-vertical: 15px;
+	width: 100%;
+`

@@ -1,0 +1,25 @@
+import { lightCompanyColors, darkCompanyColors } from '@constants/theme/default'
+import { createTheme } from '@rneui/themed'
+
+const ReactNativeElementsTheme = createTheme({
+	lightColors: {
+		primary: lightCompanyColors.primary,
+		secondary: lightCompanyColors.secondary,
+	},
+	darkColors: {
+		primary: darkCompanyColors.primary,
+		secondary: darkCompanyColors.secondary,
+	},
+	Button: {
+		buttonStyle: {
+			borderRadius: 13,
+			height: 45,
+		},
+		containerStyle: {
+			borderRadius: 13,
+		},
+	},
+	mode: 'light',
+})
+
+export default ReactNativeElementsTheme
