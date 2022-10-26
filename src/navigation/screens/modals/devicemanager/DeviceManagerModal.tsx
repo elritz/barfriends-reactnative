@@ -62,7 +62,9 @@ export default function DeviceManagerModal() {
 				<View style={{ flex: 1 }}>
 					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
 						{deviceProfiles.map(item => {
-							if (!item.Profile?.id) return null
+							if (!item.Profile?.Personal || !item.Profile?.Venue) {
+								return null
+							}
 							return (
 								<Pressable
 									key={item.id}
