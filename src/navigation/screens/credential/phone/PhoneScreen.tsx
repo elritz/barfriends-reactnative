@@ -28,15 +28,16 @@ export type CountrySelector = {
 }
 
 const PhoneScreen = () => {
+	const phonenumberRef = useRef<TextInput | null>(null)
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
 	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+
 	const keyboardVerticalOffset =
 		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 	const inputAccessoryViewID = 'phonenumberAccessoryID'
-	const phonenumberRef = useRef<TextInput | null>(null)
 
 	const {
 		control,
@@ -93,7 +94,7 @@ const PhoneScreen = () => {
 	useEffect(() => {
 		phonenumberRef.current?.focus()
 		setValue('countrySelector', { countryCode: 'CA', countryCallingCode: '+1' })
-	}, [])
+	}, [isFocused])
 
 	useEffect(() => {
 		if (phonenumberRef.current) {
@@ -103,8 +104,6 @@ const PhoneScreen = () => {
 		}
 	}, [phonenumberRef, phonenumberRef.current])
 
-	useEffect(() => {}, [errors])
-
 	useEffect(() => {
 		const phonenumber = getValues('mobileNumber')
 		if (!phonenumber) {
@@ -113,7 +112,7 @@ const PhoneScreen = () => {
 				message: '',
 			})
 		}
-	}, [setError])
+	}, [setError, errors])
 
 	const onSubmit = data => {
 		CredentialPersonalProfileReactiveVar({
@@ -156,43 +155,41 @@ const PhoneScreen = () => {
 			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				Enter your mobile number
 			</Text>
-			{isFocused ? (
-				<View style={{ marginVertical: 20, width: '100%' }}>
-					<Controller
-						name='mobileNumber.completeNumber'
-						control={control}
-						render={({ field: { onChange, onBlur, value } }) => (
-							<RNETextInput
-								refChild={phonenumberRef}
-								keyProp='mobileNumber.completeNumber'
-								value={value}
-								onChange={value => {
-									onChange(value)
-									const replaced = value.replace(/\D/g, '')
-									setValue('mobileNumber.number', replaced)
-								}}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								textContentType='telephoneNumber'
-								blurOnSubmit={false}
-								autoFocus
-								placeholder='Mobile Number'
-								returnKeyType='done'
-								inputAccessoryViewID={inputAccessoryViewID}
-								autoCompleteType='tel'
-								keyboardType='phone-pad'
-								errorMessage={errors?.mobileNumber?.number?.message}
-							/>
-						)}
-						rules={{
-							required: {
-								value: true,
-								message: 'Hey this is required 🤷‍♂️.',
-							},
-						}}
-					/>
-				</View>
-			) : null}
+			<View style={{ marginVertical: 20, width: '100%' }}>
+				<Controller
+					name='mobileNumber.completeNumber'
+					control={control}
+					render={({ field: { onChange, onBlur, value } }) => (
+						<RNETextInput
+							refChild={phonenumberRef}
+							keyProp='mobileNumber.completeNumber'
+							value={value}
+							onChange={value => {
+								onChange(value)
+								const replaced = value.replace(/\D/g, '')
+								setValue('mobileNumber.number', replaced)
+							}}
+							onSubmitEditing={handleSubmit(onSubmit)}
+							onBlur={onBlur}
+							textContentType='telephoneNumber'
+							blurOnSubmit={false}
+							autoFocus
+							placeholder='Mobile Number'
+							returnKeyType='done'
+							inputAccessoryViewID={inputAccessoryViewID}
+							autoCompleteType='tel'
+							keyboardType='phone-pad'
+							errorMessage={errors?.mobileNumber?.number?.message}
+						/>
+					)}
+					rules={{
+						required: {
+							value: true,
+							message: 'Hey this is required 🤷‍♂️.',
+						},
+					}}
+				/>
+			</View>
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>

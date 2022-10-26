@@ -139,10 +139,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 					data.refreshDeviceManager.__typename === 'Success'
 				) {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
-					console.log(
-						'🚀 ~ file: Navigator.tsx ~ line 142 ~ deviceManager',
-						deviceManager.DeviceProfile.Profile.ProfileType,
-					)
 					AuthorizationReactiveVar(deviceManager)
 				}
 

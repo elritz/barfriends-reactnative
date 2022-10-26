@@ -20,6 +20,11 @@ export default function DeviceManagerModal() {
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
+		onCompleted: data => {
+			if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
+				console.log(data.getADeviceManager.DeviceProfiles)
+			}
+		},
 	})
 
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
@@ -56,23 +61,21 @@ export default function DeviceManagerModal() {
 		})
 
 		const logoutProfile = item => {
-			setSelectedProfileId(item.id)
 			const filteredDeviceProfiles = deviceProfiles.filter(item => {
-				if (!item.Profile?.Personal && !item.Profile?.Venue) {
+				if (!item.Profile) {
+					return null
+				}
+				if (!item.Profile.Personal && !item.Profile.Venue) {
 					return item
 				}
 				return null
 			})
-			console.log(
-				'🚀 ~ file: DeviceManagerModal.tsx ~ line 66 ~ filteredDeviceProfiles ~ filteredDeviceProfiles',
-				filteredDeviceProfiles,
-			)
 
-			// switchDeviceProfileMutation({
-			// 	variables: {
-			// 		profileId: filteredDeviceProfiles[0].Profile.id,
-			// 	},
-			// })
+			switchDeviceProfileMutation({
+				variables: {
+					profileId: filteredDeviceProfiles[0].Profile.id,
+				},
+			})
 		}
 
 		return (
