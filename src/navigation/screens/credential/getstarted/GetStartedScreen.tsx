@@ -1,6 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
 import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600'
 import { Feather } from '@expo/vector-icons'
 import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
@@ -10,7 +9,7 @@ import { Button, Icon } from 'native-base'
 import { Box, Center, Text, VStack } from 'native-base'
 import React, { useContext } from 'react'
 import { Pressable, View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const GetStartedScreen = () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
@@ -63,24 +62,6 @@ const GetStartedScreen = () => {
 		return null
 	}
 
-	const navigateToNextScreen = () => {
-		CredentialPersonalProfileReactiveVar({
-			...credentialPersonalProfileVar,
-			PrivacyId: String(PPPData.documents[0].id),
-			ServiceId: String(PTSData.documents[0].id),
-		})
-
-		navigation.navigate('CredentialNavigator', {
-			screen: 'PersonalCredentialStack',
-			params: {
-				screen: 'EmailPhoneTabStack',
-				params: {
-					screen: 'PhoneScreen',
-				},
-			},
-		})
-	}
-
 	return (
 		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={'5%'}>
 			<Box justifyContent={'center'} height={'lg'}>
@@ -118,10 +99,25 @@ const GetStartedScreen = () => {
 			<Box>
 				<Button
 					bg={'tertiary.500'}
-					onPress={navigateToNextScreen}
-					type='solid'
+					onPress={() => {
+						CredentialPersonalProfileReactiveVar({
+							...credentialPersonalProfileVar,
+							PrivacyId: String(PPPData.documents[0].id),
+							ServiceId: String(PTSData.documents[0].id),
+						})
+
+						navigation.navigate('CredentialNavigator', {
+							screen: 'PersonalCredentialStack',
+							params: {
+								screen: 'EmailPhoneTabStack',
+								params: {
+									screen: 'PhoneScreen',
+								},
+							},
+						})
+					}}
+					variant={'solid'}
 					px={10}
-					iconPosition='right'
 					rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={30} />}
 					size={'lg'}
 					fontSize={'lg'}

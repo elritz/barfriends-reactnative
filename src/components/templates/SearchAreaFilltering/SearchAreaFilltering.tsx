@@ -2,10 +2,12 @@ import HorizontalCountryItem from './HorizontalCountryItem'
 import LocationPermissionItem from './LocationPermissionItem'
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
+import { Feather } from '@expo/vector-icons'
 import GenerateCountryData from '@helpers/generate/placeholder/GenerateCountryData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
 import { Box, Heading, Text, HStack, Button, Center } from 'native-base'
+import { Icon } from 'native-base'
 import { FlatList } from 'react-native'
 
 // TODO: FN(Flatlist with data of recent SearchArea with onPress to switch to it)
@@ -81,9 +83,39 @@ const SearchAreaFilltering = () => {
 				</HStack>
 				<ListheaderComponent />
 			</Box>
-			<Center>
+			<Button
+				_stack={{
+					paddingY: 0,
+					paddingX: 2,
+					marginY: 1,
+					marginX: 2,
+					w: '100%',
+					justifyContent: 'space-between',
+				}}
+				my={1}
+				_light={{
+					bg: 'light.200',
+				}}
+				_dark={{
+					bg: 'dark.100',
+				}}
+				rounded={'full'}
+				endIcon={<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />}
+			>
+				<Text
+					mt={-0.5}
+					textAlign={'center'}
+					fontWeight={'medium'}
+					fontSize={'lg'}
+					numberOfLines={1}
+					ellipsizeMode={'tail'}
+				>
+					{rSearchAreaVar.country}, {rSearchAreaVar.state}, {rSearchAreaVar.city}
+				</Text>
+			</Button>
+			{/* <Center>
 				<Text fontSize={'lg'}>No Recent Searched areas</Text>
-			</Center>
+			</Center> */}
 			{/* <FlatList
 				showsVerticalScrollIndicator={false}
 				// ListHeaderComponent={ListheaderComponent}

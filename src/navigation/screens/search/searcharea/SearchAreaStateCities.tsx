@@ -106,7 +106,12 @@ export default function SearchAreaStateCities() {
 						}}
 						mx={3}
 						my={1}
-						bg={themeContext.palette.secondary.background}
+						_light={{
+							bg: 'light.200',
+						}}
+						_dark={{
+							bg: 'dark.100',
+						}}
 						rounded={'full'}
 						endIcon={
 							watch('city') === item.name ? (
@@ -140,6 +145,7 @@ export default function SearchAreaStateCities() {
 									latitude: Number(latitude),
 									longitude: Number(longitude),
 								},
+								useCurrentLocation: false,
 							})
 							navigation.dispatch(StackActions.popToTop())
 						}}

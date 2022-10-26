@@ -134,12 +134,15 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
-				console.log('🚀 ~ file: Navigator.tsx ~ line 139 ~ data', data)
 				if (
 					data.refreshDeviceManager.__typename === 'DeviceManager' ||
 					data.refreshDeviceManager.__typename === 'Success'
 				) {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
+					console.log(
+						'🚀 ~ file: Navigator.tsx ~ line 142 ~ deviceManager',
+						deviceManager.DeviceProfile.Profile.ProfileType,
+					)
 					AuthorizationReactiveVar(deviceManager)
 				}
 
@@ -178,10 +181,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
-		// console.log(
-		// 	'🚀 ~ file: Navigator.tsx ~ line 181 ~ applicationAuthorization ~ getAuthorization',
-		// 	getAuthorization,
-		// )
 
 		if (!getAuthorization) {
 			createADeviceManagerMutation()

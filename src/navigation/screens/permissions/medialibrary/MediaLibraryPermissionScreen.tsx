@@ -3,13 +3,12 @@ import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
 import { useNavigation } from '@react-navigation/native'
 import { PermissionMediaReactiveVar, PermissionMicrophoneReactiveVar } from '@reactive'
-import { Text } from '@rneui/themed'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as MediaLibrary from 'expo-media-library'
 import { Button, Divider } from 'native-base'
-import { Box, VStack } from 'native-base'
+import { Box, VStack, Text, Heading } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
 import { Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -70,9 +69,9 @@ const MediaLibraryPermissionScreen = () => {
 				<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 					<IllustrationDynamicMedia width={60} height={60} />
 					<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
-					<Text
-						h3
-						h3Style={{ fontWeight: '900' }}
+					<Heading
+						fontWeight={900}
+						fontSize={'3xl'}
 						style={{
 							width: wp(95),
 							maxWidth: 300,
@@ -83,7 +82,7 @@ const MediaLibraryPermissionScreen = () => {
 						numberOfLines={3}
 					>
 						Allow Barfriends to access your photos and videos
-					</Text>
+					</Heading>
 				</Box>
 				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
@@ -108,7 +107,9 @@ const MediaLibraryPermissionScreen = () => {
 						? 'Continue'
 						: 'Go to Phone Settings'}
 				</Button>
-				<Box h={'20px'}>{started && <Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+				<Button variant={'ghost'} size={'lg'} width={'95%'} onPress={() => navigation.goBack()}>
+					<Box h={'20px'}>{started && <Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+				</Button>
 			</VStack>
 		</Box>
 	)

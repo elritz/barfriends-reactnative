@@ -32,25 +32,7 @@ export default function WithDeviceProfiles() {
 	}
 
 	const handleSigninNavigation = () => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'LoginCredentialStack',
-			params: {
-				screen: 'AuthenticatorScreen',
-			},
-		})
-	}
-
-	const onPressSignup = () => {
-		navigation.dispatch(StackActions.pop())
-		navigation.navigate('CredentialNavigator', {
-			screen: 'PersonalCredentialStack',
-			params: {
-				screen: 'GetStartedScreen',
-			},
-		})
-	}
-	const onPressSignin = () => {
-		navigation.dispatch(StackActions.pop())
+		// navigation.dispatch(StackActions.pop())
 		navigation.navigate('CredentialNavigator', {
 			screen: 'LoginCredentialStack',
 			params: {
@@ -64,8 +46,6 @@ export default function WithDeviceProfiles() {
 	}
 
 	if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
-		const deviceProfiles = data.getADeviceManager.DeviceProfiles
-
 		const text = GetSignInUpText()
 
 		return (

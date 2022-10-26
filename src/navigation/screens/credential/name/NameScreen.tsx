@@ -75,7 +75,7 @@ const NameScreen = () => {
 				Enter your name
 			</Text>
 			{isFocused ? (
-				<View style={{ marginVertical: 20, width: '100%' }}>
+				<View style={{ marginVertical: '10%', width: '100%' }}>
 					<Controller
 						name='name'
 						control={control}
@@ -143,7 +143,7 @@ const OuterView = styled.KeyboardAvoidingView`
 	flex: 1;
 	height: auto;
 	flex-direction: column;
-	margin-horizontal: 2%;
+	margin-horizontal: 5%;
 `
 
 const InputAccessoryInnerView = styled.View`

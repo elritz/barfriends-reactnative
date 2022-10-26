@@ -209,35 +209,36 @@ const VenueFeedScreen = () => {
 							)}
 						</>
 					)}
-					{!rAuthorizationVar?.DeviceProfile?.Profile?.id && (
-						<AnimatePresence>
-							<MotiView
-								from={{
-									opacity: 0,
-									scale: 1,
-								}}
-								animate={{
-									opacity: 1,
-									scale: 1,
-								}}
-								exit={{
-									opacity: 0,
-									scale: 0.9,
-								}}
-							>
-								<Box
-									bgColor={themeContext.palette.secondary.background}
-									px={5}
-									pb={15}
-									pt={35}
-									mx={scrollViewMarginX}
-									borderRadius={13}
+					{!rAuthorizationVar?.DeviceProfile?.Profile?.Personal &&
+						!rAuthorizationVar?.DeviceProfile?.Profile?.Venue && (
+							<AnimatePresence>
+								<MotiView
+									from={{
+										opacity: 0,
+										scale: 1,
+									}}
+									animate={{
+										opacity: 1,
+										scale: 1,
+									}}
+									exit={{
+										opacity: 0,
+										scale: 0.9,
+									}}
 								>
-									<CardPleaseSignup signupTextId={1} />
-								</Box>
-							</MotiView>
-						</AnimatePresence>
-					)}
+									<Box
+										bgColor={themeContext.palette.secondary.background}
+										px={5}
+										pb={15}
+										pt={35}
+										mx={scrollViewMarginX}
+										borderRadius={13}
+									>
+										<CardPleaseSignup signupTextId={1} />
+									</Box>
+								</MotiView>
+							</AnimatePresence>
+						)}
 					{!loading && data && data?.venuesNearby && (
 						<VStack mx={scrollViewMarginX} alignItems={'flex-start'} mb={3}>
 							<Heading lineHeight={'xs'} size={'md'} fontWeight={'bold'}>

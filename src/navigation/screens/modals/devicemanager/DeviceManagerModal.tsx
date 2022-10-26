@@ -33,11 +33,6 @@ export default function DeviceManagerModal() {
 			},
 		})
 
-	const logoutProfile = item => {
-		setSelectedProfileId(item.id)
-		switchDeviceProfileMutation()
-	}
-
 	const switchProfile = item => {
 		setSelectedProfileId(item.id)
 		switchDeviceProfileMutation({
@@ -50,9 +45,35 @@ export default function DeviceManagerModal() {
 	if (!rAuthorizationVar || loading) {
 		return null
 	}
-
 	if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
 		const deviceProfiles = data.getADeviceManager.DeviceProfiles
+
+		const filteredDeviceProfiles = deviceProfiles.filter(item => {
+			if (!item.Profile?.Personal && !item.Profile?.Venue) {
+				return null
+			}
+			return item
+		})
+
+		const logoutProfile = item => {
+			setSelectedProfileId(item.id)
+			const filteredDeviceProfiles = deviceProfiles.filter(item => {
+				if (!item.Profile?.Personal && !item.Profile?.Venue) {
+					return item
+				}
+				return null
+			})
+			console.log(
+				'🚀 ~ file: DeviceManagerModal.tsx ~ line 66 ~ filteredDeviceProfiles ~ filteredDeviceProfiles',
+				filteredDeviceProfiles,
+			)
+
+			// switchDeviceProfileMutation({
+			// 	variables: {
+			// 		profileId: filteredDeviceProfiles[0].Profile.id,
+			// 	},
+			// })
+		}
 
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
@@ -61,10 +82,7 @@ export default function DeviceManagerModal() {
 				</View>
 				<View style={{ flex: 1 }}>
 					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-						{deviceProfiles.map(item => {
-							if (!item.Profile?.Personal || !item.Profile?.Venue) {
-								return null
-							}
+						{filteredDeviceProfiles.map(item => {
 							return (
 								<Pressable
 									key={item.id}

@@ -1289,7 +1289,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "ed6b79ea-0486-4fa8-926b-7524f1cac97e"
+  sessiontoken: String = "ed4c1f5f-84a2-4c48-8489-2c2b04594b74"
   textinput: String!
 
   """

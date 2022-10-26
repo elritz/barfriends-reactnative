@@ -20,10 +20,6 @@ export default function SearchAreaCountryStates() {
 
 	const { watch, getValues, setValue } = formContext
 
-	console.log(
-		"🚀 ~ file: SearchAreaCountryStates.tsx ~ line 25 ~ SearchAreaCountryStates ~ getValues('country')",
-		getValues('country'),
-	)
 	const { data, loading, error } = useGetAllStatesByCountryQuery({
 		skip: !getValues('country'),
 		variables: {
@@ -38,14 +34,6 @@ export default function SearchAreaCountryStates() {
 			}
 		},
 	})
-	console.log(
-		'🚀 ~ file: SearchAreaCountryStates.tsx ~ line 37 ~ SearchAreaCountryStates ~ error',
-		error,
-	)
-	console.log(
-		'🚀 ~ file: SearchAreaCountryStates.tsx ~ line 37 ~ SearchAreaCountryStates ~ data',
-		data,
-	)
 
 	const filterList = text => {
 		if (!watch('searchtext').length && data.getAllStatesByCountry.length) {
@@ -102,7 +90,12 @@ export default function SearchAreaCountryStates() {
 						}}
 						mx={3}
 						my={1}
-						bg={themeContext.palette.secondary.background}
+						_light={{
+							bg: 'light.200',
+						}}
+						_dark={{
+							bg: 'dark.100',
+						}}
 						rounded={'full'}
 						endIcon={
 							watch('state') === item.isoCode ? (

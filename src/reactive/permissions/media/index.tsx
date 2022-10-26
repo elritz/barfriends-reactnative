@@ -2,7 +2,7 @@ import { makeVar } from '@apollo/client'
 import { PermissionResponse } from 'expo-media-library'
 import { PermissionStatus } from 'expo-permissions'
 
-export const permissionLocationInitialState: PermissionResponse = {
+export const permissionMediaInitialState: PermissionResponse = {
 	canAskAgain: false,
 	expires: 'never',
 	granted: false,
@@ -10,5 +10,5 @@ export const permissionLocationInitialState: PermissionResponse = {
 }
 
 export const PermissionMediaReactiveVar = makeVar<PermissionResponse | null>(
-	permissionLocationInitialState,
+	permissionMediaInitialState,
 )

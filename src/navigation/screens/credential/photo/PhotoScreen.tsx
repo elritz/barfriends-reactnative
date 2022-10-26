@@ -1,15 +1,32 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Image } from '@rneui/themed'
+import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import * as ImagePicker from 'expo-image-picker'
 import * as MediaLibrary from 'expo-media-library'
-import { Box, Button, Center, HStack, Icon, IconButton, Skeleton, Text, VStack } from 'native-base'
-import React, { useContext, useEffect, useState, memo } from 'react'
+import {
+	Box,
+	Button,
+	Center,
+	HStack,
+	Icon,
+	IconButton,
+	Skeleton,
+	Text,
+	VStack,
+	Image,
+} from 'native-base'
+import React, { useContext, useEffect, useState, memo, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import { FlatList, Pressable, SafeAreaView, useWindowDimensions, View } from 'react-native'
+import {
+	AppState,
+	FlatList,
+	Pressable,
+	SafeAreaView,
+	useWindowDimensions,
+	View,
+} from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg'
 import { ThemeContext } from 'styled-components/native'
@@ -19,15 +36,17 @@ const UserFemaleIllustration = require('@assets/images/illustration/user_female_
 // TODO: FN()
 
 const PhotoScreen = () => {
+	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const window = useWindowDimensions()
 	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const permissionMediaReactiveVar = useReactiveVar(PermissionMediaReactiveVar)
 	const [status] = MediaLibrary.usePermissions()
 	const [mediaLoading, setMediaLoading] = useState(false)
-	const [loading, setLoading] = useState(false)
+	const [imageUploading, setImageUploading] = useState(false)
 	const [numberOfPhotos] = useState(100)
 	const [photoLibrary, setPhotoLibrary] = useState([])
 	const [lastPhotoID, setLastPhotoID] = useState<string>('')
@@ -63,22 +82,20 @@ const PhotoScreen = () => {
 	const watchValues = watch()
 
 	const loadMediaAsync = async () => {
-		if (status && status.granted) {
-			setMediaLoading(true)
-			const assets = await MediaLibrary.getAssetsAsync({
-				first: numberOfPhotos,
-				mediaType: 'photo',
-			})
-			const id = assets.endCursor
-			setLastPhotoID(id)
-			setHasNextPage(assets.hasNextPage)
-			setPhotoLibrary(assets.assets)
-			setMediaLoading(false)
-		}
+		setMediaLoading(true)
+		const assets = await MediaLibrary.getAssetsAsync({
+			first: numberOfPhotos,
+			mediaType: 'photo',
+		})
+		const id = assets.endCursor
+		setLastPhotoID(id)
+		setHasNextPage(assets.hasNextPage)
+		setPhotoLibrary(assets.assets)
+		setMediaLoading(false)
 	}
 
 	const _pickMediaPicker = async () => {
-		if (!status.granted) {
+		if (!permissionMediaReactiveVar.granted) {
 			navigation.navigate('PermissionNavigator', {
 				screen: 'MediaLibraryPermissionScreen',
 			})
@@ -96,7 +113,7 @@ const PhotoScreen = () => {
 	}
 
 	const onSubmit = async data => {
-		setLoading(true)
+		setImageUploading(true)
 		const { secure_url } = await useCloudinaryImageUploading(data.photo.uri)
 		if (secure_url) {
 			CredentialPersonalProfileReactiveVar({
@@ -106,7 +123,7 @@ const PhotoScreen = () => {
 					url: secure_url,
 				},
 			})
-			setLoading(false)
+			setImageUploading(false)
 			navigation.navigate('CredentialNavigator', {
 				screen: 'PersonalCredentialStack',
 				params: {
@@ -135,18 +152,77 @@ const PhotoScreen = () => {
 	}
 
 	useEffect(() => {
-		if (status?.granted) {
+		const subscription = AppState.addEventListener('change', handleAppStateChange)
+		return () => {
+			subscription.remove()
+		}
+	}, [])
+
+	const handleAppStateChange = async (nextAppState: any) => {
+		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
+			const mediapermission = await MediaLibrary.getPermissionsAsync()
+			PermissionMediaReactiveVar(mediapermission)
+
+			if (mediapermission.granted && mediapermission.status === 'granted') {
+			}
+		}
+		appStateRef.current = nextAppState
+	}
+
+	useEffect(() => {
+		if (permissionMediaReactiveVar.granted) {
+			console.log(
+				'🚀 ~ file: PhotoScreen.tsx ~ line 177 ~ useEffect ~ photoLibrary.length',
+				photoLibrary.length,
+			)
 			if (!photoLibrary.length) {
 				loadMediaAsync()
 			}
 		} else {
-			if (status?.canAskAgain) {
+			if (permissionMediaReactiveVar.canAskAgain) {
 				navigation.navigate('PermissionNavigator', {
 					screen: 'MediaLibraryPermissionScreen',
 				})
 			}
 		}
-	}, [status, isFocused])
+	}, [permissionMediaReactiveVar, mediaLoading, photoLibrary])
+
+	if (!photoLibrary.length || mediaLoading) {
+		return (
+			<Box>
+				<VStack alignItems={'center'}>
+					<Image
+						style={{
+							height: window.width / 1.55,
+							width: window.width / 1.75,
+							margin: 10,
+							borderRadius: 20,
+						}}
+						alt={'loading image'}
+						source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
+					/>
+					{[...Array(6)].map((item, index) => {
+						return (
+							<HStack key={index} space={0} overflow='hidden'>
+								{[...Array(3)].map((item, index) => {
+									return (
+										<Skeleton
+											m={0.27}
+											key={index}
+											startColor='secondary.900'
+											endColor={'secondary.800'}
+											h={window.width / 3}
+											w={window.width / 3}
+										/>
+									)
+								})}
+							</HStack>
+						)
+					})}
+				</VStack>
+			</Box>
+		)
+	}
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
@@ -170,76 +246,63 @@ const PhotoScreen = () => {
 					style={{
 						height: window.width / 1.55,
 						width: window.width / 1.75,
+						margin: 10,
+						borderRadius: 20,
 					}}
-					containerStyle={{ margin: 10, borderRadius: 20 }}
+					alt={'loading image'}
 					source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 				/>
 			</Center>
-			{!photoLibrary && (
-				<VStack alignItems={'center'}>
-					{[...Array(6)].map((item, index) => {
-						return (
-							<HStack key={index} space={0} overflow='hidden'>
-								{[...Array(3)].map((item, index) => {
-									return (
-										<Skeleton
-											startColor='secondary.900'
-											endColor={'secondary.800'}
-											h={window.width / 3}
-											w={window.width / 3}
-										/>
-									)
-								})}
-							</HStack>
-						)
-					})}
-				</VStack>
-			)}
-			{photoLibrary && (
-				<FlatList
-					style={{
-						width: '100%',
-						height: '100%',
-					}}
-					keyExtractor={item => item.id}
-					onEndReachedThreshold={0.4}
-					onEndReached={_loadMoreMedia}
-					numColumns={3}
-					data={photoLibrary}
-					scrollEnabled={!loading}
-					renderItem={({ item }: any) => {
-						return (
-							<Pressable
-								onPress={() => {
-									!loading && setValue('photo.uri', item.uri)
+			<FlatList
+				style={{
+					width: '100%',
+					height: '100%',
+				}}
+				keyExtractor={item => item.id}
+				onEndReachedThreshold={0.4}
+				onEndReached={_loadMoreMedia}
+				numColumns={3}
+				data={photoLibrary}
+				scrollEnabled={!imageUploading}
+				renderItem={({ item }: any) => {
+					return (
+						<Pressable
+							onPress={() => {
+								!imageUploading && setValue('photo.uri', item.uri)
+							}}
+						>
+							<Image
+								style={{
+									height: window.width / 3,
+									width: window.width / 3,
+									justifyContent: 'center',
+									// borderWidth: 3,
+									// borderRadius: 5,
 								}}
-							>
-								<Image
-									containerStyle={{
-										height: window.width / 3,
-										width: window.width / 3,
-										justifyContent: 'center',
-										borderColor: 'black',
-										borderWidth: 1,
-									}}
-									source={{ uri: item.uri }}
+								alt={'Image'}
+								// _light={{
+								// 	borderColor: watchValues?.photo?.uri === item.uri ? 'black' : 'light.300',
+								// }}
+								// _dark={{
+								// 	borderColor: watchValues?.photo?.uri === item.uri ? 'white' : 'black.300',
+								// }}
+								source={{ uri: item.uri }}
+							/>
+							{watchValues?.photo?.uri === item.uri && (
+								<Icon
+									as={Ionicons}
+									name='checkmark-circle'
+									size={'3xl'}
+									color={'success.500'}
+									position='absolute'
+									bottom={1}
+									right={1}
 								/>
-								{watchValues?.photo?.uri === item.uri && (
-									<Icon
-										as={Ionicons}
-										name='checkmark-circle'
-										size={'3xl'}
-										color={'success.500'}
-										position='absolute'
-										bottom={1}
-										right={1}
-									/>
-								)}
-							</Pressable>
-						)
-					}}
-				/>
-			)}
+							)}
+						</Pressable>
+					)
+				}}
+			/>
 			<View
 				style={{
 					position: 'absolute',
@@ -259,7 +322,7 @@ const PhotoScreen = () => {
 					mx={'10%'}
 					onPress={_pickMediaPicker}
 					variant={'ghost'}
-					isDisabled={loading}
+					isDisabled={imageUploading}
 					icon={
 						<Icon
 							as={MaterialIcons}
@@ -274,7 +337,7 @@ const PhotoScreen = () => {
 					mx={'10%'}
 					onPress={handleSubmit(onSubmit)}
 					variant={'ghost'}
-					isLoading={loading}
+					isLoading={imageUploading}
 					endIcon={
 						<Icon
 							name='arrow-right'

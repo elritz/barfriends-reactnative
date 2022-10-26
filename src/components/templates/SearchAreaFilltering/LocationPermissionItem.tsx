@@ -58,14 +58,24 @@ const LocationPermissionItem = () => {
 					  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
 			}}
 			rounded={'xl'}
-			bg={!rSearchAreaVar.useCurrentLocation ? 'secondary.800' : 'success.300'}
+			_light={{
+				bg: !rSearchAreaVar.useCurrentLocation ? 'light.100' : 'success.900',
+			}}
+			_dark={{
+				bg: !rSearchAreaVar.useCurrentLocation ? 'light.900' : 'success.900',
+			}}
 			_pressed={{
 				bg: 'primary.500',
 			}}
 		>
 			<HStack p={3} justifyContent={'space-between'}>
 				<Text
-					color={!rSearchAreaVar.useCurrentLocation ? 'white' : 'black'}
+					_light={{
+						color: rSearchAreaVar.useCurrentLocation ? 'white' : 'black',
+					}}
+					_dark={{
+						color: 'white',
+					}}
 					textAlign={'left'}
 					fontWeight={'semibold'}
 					fontSize={'lg'}
@@ -82,10 +92,20 @@ const LocationPermissionItem = () => {
 							as={FontAwesome5}
 							rounded={'full'}
 							name={'location-arrow'}
-							color={rSearchAreaVar.useCurrentLocation ? 'white' : 'blue.400'}
+							_light={{
+								color: rSearchAreaVar.useCurrentLocation ? 'white' : 'blue.400',
+							}}
+							_dark={{
+								color: rSearchAreaVar.useCurrentLocation ? 'white' : 'blue.400',
+							}}
 						/>
 					}
-					bg={rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'secondary.700'}
+					_light={{
+						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.300',
+					}}
+					_dark={{
+						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.800',
+					}}
 					rounded={'full'}
 				/>
 			</HStack>

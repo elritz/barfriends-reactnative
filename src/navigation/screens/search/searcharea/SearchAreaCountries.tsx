@@ -78,7 +78,12 @@ export default function SearchAreaCountries() {
 						}}
 						mx={3}
 						my={1}
-						bg={themeContext.palette.secondary.background}
+						_light={{
+							bg: 'light.200',
+						}}
+						_dark={{
+							bg: 'dark.100',
+						}}
 						rounded={'full'}
 						endIcon={
 							rSearchAreaVar.country === item.isoCode ? (

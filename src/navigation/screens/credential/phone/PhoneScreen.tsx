@@ -1,16 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
-import RNEText300 from '@components/atoms/typography/RNETypography/text/RNEText300'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
-import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
+import { CountryCode } from 'libphonenumber-js'
 import { Text } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -200,9 +197,9 @@ const PhoneScreen = () => {
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>
 					<InputAccessoryInnerView>
-						<RNEText300>
+						<Text>
 							By continuing you may receive an SMS for verification. Message and data rates may apply.
-						</RNEText300>
+						</Text>
 					</InputAccessoryInnerView>
 					<Button
 						disabled={!!errors.mobileNumber}
