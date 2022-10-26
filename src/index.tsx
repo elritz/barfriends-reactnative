@@ -116,7 +116,7 @@ export default function App() {
 
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			console.log(notification)
+			// console.log(notification)
 			// ============> Object {
 			// 	"date": 1666290510.895539,
 			// 	"request": Object {
@@ -169,7 +169,7 @@ export default function App() {
 
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			console.log('============>', notification)
+			// console.log('============>', notification)
 		})
 		return () => subscription.remove()
 	}, [])

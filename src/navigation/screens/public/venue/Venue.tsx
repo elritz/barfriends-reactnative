@@ -5,9 +5,13 @@ import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import GenerateUserData from '@helpers/generate/placeholder/GenerateUserData'
+import { RouteProp } from '@react-navigation/native'
 // import { FlashList } from '@shopify/flash-list'
 import { Text, FlatList } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { VenueProfileStackParamList } from 'src/types/app'
+
+export type VenueScreenRouteProp = RouteProp<VenueProfileStackParamList, 'PublicVenueScreen'>
 
 const VenueScreen = (props: any) => {
 	const users = GenerateUserData(3)

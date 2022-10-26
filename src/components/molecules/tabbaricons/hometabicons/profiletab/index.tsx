@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { ProfileType, useGetADeviceManagerQuery } from '@graphql/generated'
+import { useGetADeviceManagerQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Image } from '@rneui/base'
@@ -18,7 +18,7 @@ const ProfileTab = (props: TabProps) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
-		skip: !rAuthorizationVar.id,
+		skip: !rAuthorizationVar,
 		fetchPolicy: 'network-only',
 	})
 
@@ -36,6 +36,31 @@ const ProfileTab = (props: TabProps) => {
 				},
 			})
 		}
+	}
+
+	if (loading || !rAuthorizationVar) {
+		return (
+			<Pressable
+				delayLongPress={200}
+				style={{ zIndex: 100 }}
+				onPress={() =>
+					navigation.navigate('HomeTabNavigator', {
+						screen: 'ProfileStack',
+						params: {
+							screen: 'UserProfileScreen',
+						},
+					})
+				}
+				onLongPress={() => !loading && onLongPressProfileIcon()}
+			>
+				<CompanyCoasterLogoDynamic
+					width={HEIGHT}
+					height={HEIGHT}
+					iconColor={themeContext.palette.primary.background}
+					backgroundColor={props.color}
+				/>
+			</Pressable>
+		)
 	}
 
 	return (
@@ -57,8 +82,7 @@ const ProfileTab = (props: TabProps) => {
 						onLongPress={() => !loading && onLongPressProfileIcon()}
 					>
 						<>
-							{rAuthorizationVar?.DeviceProfile?.Profile &&
-							rAuthorizationVar?.DeviceProfile?.Profile?.photos.length ? (
+							{rAuthorizationVar.DeviceProfile.Profile?.photos?.length ? (
 								<Image
 									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
 									style={{

@@ -1,3 +1,4 @@
+import { VenueScreenRouteProp } from '../../Venue'
 import ActionCard from './ActionCard'
 import DistanceCard from './actioncards/distancecard/DistanceCard'
 import InviteCard from './actioncards/invitecard/InviteCard'
@@ -14,10 +15,9 @@ import { Box, HStack } from 'native-base'
 
 // TODO: UX() Item need to be updated for messageboard route
 // TODO: UX() Item need to be updated for Personal data, loading, error
-
 const VenueActions = () => {
 	const numColumns = 2
-	const route: any = useRoute()
+	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const {
@@ -53,8 +53,7 @@ const VenueActions = () => {
 				</ActionCard>
 			</HStack>
 
-			{rAuthorizationVar.DeviceProfile?.Profile?.Personal.LiveOutPersonal.joined[0]?.venueProfileId ===
-				route.params.profileId && (
+			{rAuthorizationVar.DeviceProfile.Profile.Personal && (
 				<ActionCard numColumns={1}>
 					<LeaveCard />
 				</ActionCard>

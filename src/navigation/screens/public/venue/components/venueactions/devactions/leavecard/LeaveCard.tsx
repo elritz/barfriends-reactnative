@@ -58,12 +58,14 @@ export default function LeaveCard() {
 	})
 
 	useEffect(() => {
-		const joinedToVenue =
-			rAuthorizationVar.DeviceProfile.Profile?.Personal.LiveOutPersonal.joined.map(item => {
-				return item.venueProfileId
-			})
+		if (rAuthorizationVar.DeviceProfile.Profile.Personal) {
+			const joinedToVenue =
+				rAuthorizationVar.DeviceProfile.Profile?.Personal.LiveOutPersonal.joined.map(item => {
+					return item.venueProfileId
+				})
 
-		setIsJoined(joinedToVenue.includes(route.params.profileId))
+			setIsJoined(joinedToVenue.includes(route.params.profileId))
+		}
 	}, [rAuthorizationVar, isJoined])
 
 	return (

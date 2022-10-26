@@ -59,8 +59,15 @@ const PersonalScreen = () => {
 	}
 
 	const profile = rAuthorizationVar.DeviceProfile.Profile
+	console.log(
+		'🚀 ~ file: PersonalProfile.tsx ~ line 62 ~ PersonalScreen ~ profile',
+		!rAuthorizationVar.DeviceProfile.Profile.Personal,
+	)
 
-	if (rAuthorizationVar.DeviceProfile.Profile.Personal.Profile.ProfileType === ProfileType.Guest) {
+	if (
+		!rAuthorizationVar.DeviceProfile.Profile.Personal &&
+		!rAuthorizationVar.DeviceProfile.Profile.Venue
+	) {
 		return (
 			<SafeAreaView style={{ flex: 1, marginBottom: 60, marginHorizontal: 10 }}>
 				<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
@@ -70,6 +77,7 @@ const PersonalScreen = () => {
 			</SafeAreaView>
 		)
 	}
+
 	if (!rAuthorizationVar.DeviceProfile.Profile.id && !loading) {
 		if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
 			const deviceProfiles = data.getADeviceManager.DeviceProfiles

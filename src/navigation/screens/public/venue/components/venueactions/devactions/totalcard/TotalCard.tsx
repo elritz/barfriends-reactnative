@@ -110,12 +110,14 @@ export default function TotalCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery()
 
 	useEffect(() => {
-		const totaledToVenue =
-			rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
-				return item.venueProfileId
-			})
+		if (rAuthorizationVar.DeviceProfile.Profile.Personal) {
+			const totaledToVenue =
+				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
+					return item.venueProfileId
+				})
 
-		setIsTotaled(totaledToVenue.includes(route.params.profileId))
+			setIsTotaled(totaledToVenue.includes(route.params.profileId))
+		}
 	}, [])
 
 	return (

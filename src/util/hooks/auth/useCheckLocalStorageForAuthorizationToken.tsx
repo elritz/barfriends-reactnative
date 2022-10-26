@@ -18,10 +18,7 @@ const useCheckLocalStorageForAuthorizationToken = async (): Promise<boolean> => 
 		}
 
 		const parsedAuthorization = JSON.parse(getAuthorization.devicemanager) as DeviceManager
-		console.log(
-			'🚀 ~ file: useCheckLocalStorageForAuthorizationToken.tsx ~ line 21 ~ useCheckLocalStorageForAuthorizationToken ~ parsedAuthorization',
-			parsedAuthorization,
-		)
+
 		AuthorizationReactiveVar(parsedAuthorization)
 		return true
 	} catch (e) {

@@ -12,7 +12,6 @@ export const PROFILE_FRAGMENT = gql`
 	fragment PROFILE_FRAGMENT on Profile {
 		__typename
 		id
-		# ProfileType
 		IdentifiableInformation {
 			...INDETIFIABLE_INFORMATION_FRAGMENT
 		}
@@ -43,7 +42,7 @@ export const PROFILE_FRAGMENT = gql`
 			id
 			Profile {
 				id
-				# ProfileType
+				ProfileType
 				createdAt
 				updatedAt
 			}
@@ -87,7 +86,7 @@ export const PROFILE_FRAGMENT = gql`
 			id
 			Profile {
 				id
-				# ProfileType
+				ProfileType
 				createdAt
 				updatedAt
 			}

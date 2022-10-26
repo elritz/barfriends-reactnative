@@ -55,32 +55,36 @@ export default function LeaveCard() {
 			}
 		},
 	})
-
-	return (
-		<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
-			<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
-				You've joined here{'\n'}
-				<Heading fontWeight={'900'} color={'red.600'} textAlign={'center'} textTransform={'uppercase'}>
-					Leave now
+	if (
+		rAuthorizationVar.DeviceProfile.Profile?.Personal.LiveOutPersonal.joined[0]?.venueProfileId ===
+		route.params.profileId
+	) {
+		return (
+			<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
+				<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
+					You've joined here{'\n'}
+					<Heading fontWeight={'900'} color={'red.600'} textAlign={'center'} textTransform={'uppercase'}>
+						Leave now
+					</Heading>
 				</Heading>
-			</Heading>
-			<Box>
-				<Button
-					onPress={() => {
-						removePersonalJoinsVenueMutation()
-					}}
-					textAlign={'center'}
-					colorScheme={'error'}
-					borderRadius={'lg'}
-					_text={{
-						fontWeight: '700',
-						fontSize: 'md',
-					}}
-					w={'100'}
-				>
-					Leave
-				</Button>
-			</Box>
-		</VStack>
-	)
+				<Box>
+					<Button
+						onPress={() => {
+							removePersonalJoinsVenueMutation()
+						}}
+						textAlign={'center'}
+						colorScheme={'error'}
+						borderRadius={'lg'}
+						_text={{
+							fontWeight: '700',
+							fontSize: 'md',
+						}}
+						w={'100'}
+					>
+						Leave
+					</Button>
+				</Box>
+			</VStack>
+		)
+	}
 }

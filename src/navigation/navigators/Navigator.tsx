@@ -124,7 +124,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			onCompleted: data => {
 				if (data.switchDeviceProfile.__typename === 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
-
+					console.log('🚀 ~ file: Navigator.tsx ~ line 143 ~ deviceManager', deviceManager)
 					AuthorizationReactiveVar(deviceManager)
 				}
 			},
@@ -134,6 +134,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
+				console.log('🚀 ~ file: Navigator.tsx ~ line 139 ~ data', data)
 				if (
 					data.refreshDeviceManager.__typename === 'DeviceManager' ||
 					data.refreshDeviceManager.__typename === 'Success'
@@ -151,7 +152,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
 		onCompleted: data => {
 			if (data.createGuestProfile.__typename === 'CreateProfileResponse') {
-				console.log('===========+>HERE', data.createGuestProfile.Profile)
 				switchDeviceProfileMutation({
 					variables: {
 						profileId: data.createGuestProfile.Profile.id,
@@ -178,6 +178,10 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+		// console.log(
+		// 	'🚀 ~ file: Navigator.tsx ~ line 181 ~ applicationAuthorization ~ getAuthorization',
+		// 	getAuthorization,
+		// )
 
 		if (!getAuthorization) {
 			createADeviceManagerMutation()
@@ -194,7 +198,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 
 	useEffect(() => {
 		const subscription = Notifications.addPushTokenListener(e => {
-			console.log('HELLO)', e)
+			// console.log('HELLO)', e)
 		})
 		return () => subscription.remove()
 	}, [])

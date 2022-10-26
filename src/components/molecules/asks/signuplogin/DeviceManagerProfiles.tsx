@@ -59,7 +59,6 @@ const DeviceManagerProfiles = () => {
 		return (
 			<Center>
 				{deviceProfiles.map((item, index) => {
-					console.log('========+>', item.Profile)
 					// if (item.Profile?.Personal.Profile.ProfileType === ProfileType.Guest) return null
 					return (
 						<Pressable

@@ -1,8 +1,6 @@
-directive @defer(if: Boolean! = true, label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
-
-"""Exposes a URL that specifies the behavior of this scalar."""
+"""Exposes a URL that specifies the behaviour of this scalar."""
 directive @specifiedBy(
-  """The URL that specifies the behavior of this scalar."""
+  """The URL that specifies the behaviour of this scalar."""
   url: String!
 ) on SCALAR
 
@@ -1291,7 +1289,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "0f373ebd-956f-4822-a4cb-9b592159f3c6"
+  sessiontoken: String = "ed6b79ea-0486-4fa8-926b-7524f1cac97e"
   textinput: String!
 
   """
