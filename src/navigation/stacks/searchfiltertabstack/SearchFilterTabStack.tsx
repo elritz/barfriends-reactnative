@@ -2,8 +2,8 @@ import SearchAccounts from '@navigation/screens/search/textsearchtabs/SearchAcco
 import SearchTop from '@navigation/screens/search/textsearchtabs/SearchTop'
 import SearchVenues from '@navigation/screens/search/textsearchtabs/SearchVenues'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { useRoute } from '@react-navigation/native'
-import { SearchResultTabStackParamList } from '@types'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { ExploreFilterTabParamList, SearchResultTabStackParamList } from '@types'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
@@ -12,10 +12,14 @@ const ScreenStack = createMaterialTopTabNavigator<SearchResultTabStackParamList>
 interface IColor {
 	color: string
 }
+export type SearchFilterTabStackRouteProp = RouteProp<
+	ExploreFilterTabParamList,
+	'SearchResultTabStack'
+>
 
 function SearchFilterTabStack() {
 	const themeContext = useContext(ThemeContext)
-	const route: any = useRoute()
+	const route = useRoute<SearchFilterTabStackRouteProp>()
 
 	return (
 		<ScreenStack.Navigator

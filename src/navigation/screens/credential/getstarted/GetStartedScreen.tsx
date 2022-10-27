@@ -3,7 +3,7 @@ import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogo
 import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600'
 import { Feather } from '@expo/vector-icons'
 import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
 import { Button, Icon } from 'native-base'
 import { Box, Center, Text, VStack } from 'native-base'
@@ -58,10 +58,6 @@ const GetStartedScreen = () => {
 		},
 	})
 
-	if (PTSLoading && PPPLoading && PPPData) {
-		return null
-	}
-
 	return (
 		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={'5%'}>
 			<Box justifyContent={'center'} height={'lg'}>
@@ -82,48 +78,49 @@ const GetStartedScreen = () => {
 						})
 					}
 				>
-					<RNEText600 h4>
+					<Text fontSize={'lg'}>
 						By continuing, you agree to the
-						<RNEText600 h4 style={{ color: hightlightColor }}>
+						<Text fontSize={'lg'} fontWeight={'bold'} style={{ color: hightlightColor }}>
 							{' '}
 							Term of the Services
-						</RNEText600>
-						<RNEText600 h4> and</RNEText600>
-						<RNEText600 h4 style={{ color: hightlightColor }}>
+						</Text>
+						<Text fontSize={'lg'}> and</Text>
+						<Text fontSize={'lg'} fontWeight={'bold'} style={{ color: hightlightColor }}>
 							{' '}
 							Privacy Policies.
-						</RNEText600>
-					</RNEText600>
+						</Text>
+					</Text>
 				</Pressable>
 			</Box>
 			<Box>
-				<Button
-					bg={'tertiary.500'}
-					onPress={() => {
-						CredentialPersonalProfileReactiveVar({
-							...credentialPersonalProfileVar,
-							PrivacyId: String(PPPData.documents[0].id),
-							ServiceId: String(PTSData.documents[0].id),
-						})
-
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'EmailPhoneTabStack',
+				{!PTSLoading && !PPPLoading && PPPData ? (
+					<Button
+						bg={'tertiary.500'}
+						onPress={() => {
+							CredentialPersonalProfileReactiveVar({
+								...credentialPersonalProfileVar,
+								PrivacyId: String(PPPData.documents[0].id),
+								ServiceId: String(PTSData.documents[0].id),
+							})
+							navigation.navigate('CredentialNavigator', {
+								screen: 'PersonalCredentialStack',
 								params: {
-									screen: 'PhoneScreen',
+									screen: 'EmailPhoneTabStack',
+									params: {
+										screen: 'PhoneScreen',
+									},
 								},
-							},
-						})
-					}}
-					variant={'solid'}
-					px={10}
-					rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={30} />}
-					size={'lg'}
-					fontSize={'lg'}
-				>
-					Continue
-				</Button>
+							})
+						}}
+						variant={'solid'}
+						px={10}
+						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={30} />}
+						size={'lg'}
+						fontSize={'lg'}
+					>
+						Continue
+					</Button>
+				) : null}
 			</Box>
 		</VStack>
 	)

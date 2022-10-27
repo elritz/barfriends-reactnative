@@ -171,10 +171,6 @@ const PhotoScreen = () => {
 
 	useEffect(() => {
 		if (permissionMediaReactiveVar.granted) {
-			console.log(
-				'🚀 ~ file: PhotoScreen.tsx ~ line 177 ~ useEffect ~ photoLibrary.length',
-				photoLibrary.length,
-			)
 			if (!photoLibrary.length) {
 				loadMediaAsync()
 			}

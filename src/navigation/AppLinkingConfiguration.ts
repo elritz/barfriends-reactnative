@@ -3,6 +3,8 @@ import { LinkingOptions } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
 
+// TODO: FN(What to do with the last notification Action)
+
 // Published app in Expo Go: exp://exp.host/@community/with-webbrowser-redirect
 // Published app in standalone: myapp://
 // Development in Expo Go: exp://127.0.0.1:19000
@@ -120,10 +122,7 @@ const linking: LinkingOptions<RootNavigatorParamList> = {
 
 		// Handle URL from expo push notifications
 		const response = await Notifications.getLastNotificationResponseAsync()
-		console.log(
-			'🚀 ~ file: AppLinkingConfiguration.ts ~ line 123 ~ getInitialURL ~ response',
-			response,
-		) // const url = response?.notification.request.content.data.url;
+		// const url = response?.notification.request.content.data.url;
 
 		return url
 	},

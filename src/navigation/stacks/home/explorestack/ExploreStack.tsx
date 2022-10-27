@@ -5,7 +5,7 @@ import SearchInputDisabled from '@components/molecules/search/explore/ExploreSea
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
 import ExploreScreen from '@navigation/screens/hometabs/explore/ExploreScreen'
 import SearchTextScreen from '@navigation/screens/search/searchtext/SearchTextScreen'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { ThemeReactiveVar } from '@reactive'
 import { ExploreFilterTabParamList } from '@types'
@@ -22,6 +22,7 @@ function ExploreStack() {
 	const themeContext = useContext(ThemeContext)
 	const theme = useReactiveVar(ThemeReactiveVar)
 	const insets = useSafeAreaInsets()
+
 	const handleNavigationToExploreSearchText = () => {
 		navigation.navigate('HomeTabNavigator', {
 			screen: 'ExploreStack',
@@ -31,7 +32,6 @@ function ExploreStack() {
 		})
 	}
 
-	const route: any = useRoute()
 	return (
 		<ScreenStack.Navigator>
 			<ScreenStack.Screen

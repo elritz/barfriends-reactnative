@@ -1,15 +1,18 @@
 import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import ProfilingProfileItemLarge from '@components/molecules/authorization/profilingprofileitem/ProfilingProfileItem'
 import { useAuthorizedProfilesQuery } from '@graphql/generated'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { Text } from 'native-base'
 import React, { useContext } from 'react'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
+import { LoginStackParamList } from 'src/types/app'
 import styled, { ThemeContext } from 'styled-components/native'
+
+export type DeviceManagerScreenRouteProp = RouteProp<LoginStackParamList, 'DeviceManagerScreen'>
 
 export default function DeviceManagerScreen() {
 	const navigation = useNavigation()
-	const route = useRoute()
+	const route = useRoute<DeviceManagerScreenRouteProp>()
 	const themeContext = useContext(ThemeContext)
 
 	const { data, loading, error } = useAuthorizedProfilesQuery({

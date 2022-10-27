@@ -1,6 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
@@ -15,16 +14,22 @@ import {
 	useBlurOnFulfill,
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
+import { PersonalCredentialStackParamList } from 'src/types/app'
 import styled, { ThemeContext } from 'styled-components/native'
 
 type CodeInputCellViewType = {
 	isFocused: boolean
 }
 
-// TODO: FN(Resend code functionality )
+// TODO: FN(Resend code functionality) - ln:172
+
+export type ConfirmationCodeScreenRouteProp = RouteProp<
+	PersonalCredentialStackParamList,
+	'ConfirmationCodeScreen'
+>
 
 const ConfirmationCodeScreen = () => {
-	const route = useRoute()
+	const route = useRoute<ConfirmationCodeScreenRouteProp>()
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
@@ -163,29 +168,29 @@ const ConfirmationCodeScreen = () => {
 						},
 					}}
 				/>
-				<RNEText500>{errors?.code?.message}</RNEText500>
+				<Text color={'error.500'}>{errors?.code?.message}</Text>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<InputAccessoryContainer>
 					<CodeInputOptionsView>
 						{complete ? (
 							<>
-								<Pressable onPress={() => console.log('Resend code functionality still needed!')}>
-									<RNEText500 style={{ color: themeContext.palette.highlight.color.primary }}>
+								<Pressable onPress={() => null}>
+									<Text style={{ color: themeContext.palette.highlight.color.primary }}>
 										Confirm resend code
-									</RNEText500>
+									</Text>
 								</Pressable>
 								<Pressable onPress={() => navigateToUpdatePhoneNumber()}>
-									<RNEText500 style={{ color: themeContext.palette.highlight.color.primary }}>
+									<Text style={{ color: themeContext.palette.highlight.color.primary }}>
 										Update phone number
-									</RNEText500>
+									</Text>
 								</Pressable>
 							</>
 						) : (
-							<RNEText500>
+							<Text>
 								Resend code in 0:0
 								{num}
-							</RNEText500>
+							</Text>
 						)}
 					</CodeInputOptionsView>
 					<View

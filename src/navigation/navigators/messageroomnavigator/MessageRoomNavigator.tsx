@@ -1,8 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { Entypo, Ionicons } from '@expo/vector-icons'
-import MessageRoom from '@navigation/screens/messageroom/messageroom/MessageRoom'
 import MessageRoomAniamted from '@navigation/screens/messageroom/messageroom/MessageRoomAniamted'
-import MessageRoomGiftedChat from '@navigation/screens/messageroomgiftedchat/MessageRoomGiftedChat'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { ThemeReactiveVar } from '@reactive'
@@ -13,6 +11,9 @@ import { useContext } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
+
+// TODO: FN(Create messaging settings for Blocking etc...)
+// TODO: UX(Setup Navigator with settingsstack)
 
 const ScreenStack = createStackNavigator<MessageRoomNavigatorParamList>()
 
@@ -31,8 +32,6 @@ function MessageRoomNavigator() {
 			<ScreenStack.Screen
 				name='MessagingRoomScreen'
 				component={MessageRoomAniamted}
-				// component={MessageRoom}
-				// component={MessageRoomGiftedChat}
 				options={{
 					headerShown: true,
 					headerTransparent: true,
@@ -43,7 +42,6 @@ function MessageRoomNavigator() {
 						return (
 							<View
 								style={{
-									// position: 'absolute',
 									paddingTop: insets.top,
 									left: 0,
 									right: 0,

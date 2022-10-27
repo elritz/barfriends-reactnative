@@ -10,15 +10,13 @@ import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-rean
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { MessageRoomNavigatorParamList } from 'src/types/app'
 
+// TODO: FN() - line 83 -- MessageRoomAniamted ~ onPressIn'
+
 type MessageRoomScreenRouteProp = RouteProp<MessageRoomNavigatorParamList, 'MessagingRoomScreen'>
 
 const MessageRoomAniamted = () => {
 	const navigation = useNavigation()
 	const route = useRoute<MessageRoomScreenRouteProp>()
-	console.log(
-		'🚀 ~ file: MessageRoomAniamted.tsx ~ line 19 ~ MessageRoomAniamted ~ route',
-		route.params.messageroomId,
-	)
 	const INPUT_CONTAINER_HEIGHT = 80
 	const { bottom } = useSafeAreaInsets()
 	const _nbMode = useColorMode()
@@ -79,7 +77,7 @@ const MessageRoomAniamted = () => {
 							bg: _nbMode.colorMode === 'light' ? 'light.100' : 'dark.100',
 							borderColor: 'transparent',
 						}}
-						onPressIn={() => console.log('hello')}
+						onPressIn={() => null}
 						variant={'filled'}
 						size={'2xl'}
 						mx={2}

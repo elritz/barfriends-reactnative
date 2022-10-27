@@ -6,16 +6,18 @@ import SearchAreaModal from '@navigation/screens/modals/searcharea/SearchAreaMod
 import SearchAreaCountries from '@navigation/screens/search/searcharea/SearchAreaCountries'
 import SearchAreaCountryStates from '@navigation/screens/search/searcharea/SearchAreaCountryStates'
 import SearchAreaStateCities from '@navigation/screens/search/searcharea/SearchAreaStateCities'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
-import { SearchAreaStackParamList } from '@types'
+import { ModalNavigatorParamList, SearchAreaStackParamList } from '@types'
 import { BlurView } from 'expo-blur'
 import { VStack } from 'native-base'
 import { useContext, useEffect } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { Platform, View, StyleSheet } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
+
+// TODO: FN(SearchArea complete) ln:95 --  get the initial state for these values to also be able to tell which is checked
 
 const ScreenStack = createStackNavigator<SearchAreaStackParamList>()
 
@@ -52,10 +54,11 @@ type Timezone = {
 	tzName: string
 	zoneName: string
 }
+export type SearchAreaStackRouteProp = RouteProp<ModalNavigatorParamList, 'SearchAreaModalStack'>
 
 function SearchAreaStackNavigation() {
 	const navigation = useNavigation()
-	const route = useRoute()
+	const route = useRoute<SearchAreaStackRouteProp>()
 	const themeContext = useContext(ThemeContext)
 	const theme = useReactiveVar(ThemeReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
@@ -90,7 +93,6 @@ function SearchAreaStackNavigation() {
 		getData()
 	}, [])
 
-	// get the initial state for these values to also be able to tell which is checked
 	const onSubmit = data => console.log(data)
 
 	const handleNavigationToExploreText = () => {
@@ -103,7 +105,7 @@ function SearchAreaStackNavigation() {
 	}
 
 	const getTitle = () => {
-		switch (route.params?.screen) {
+		switch (route.params.screen) {
 			case 'SearchCountryTextScreen':
 				return 'Search country'
 			case 'SearchCountryStatesTextScreen':

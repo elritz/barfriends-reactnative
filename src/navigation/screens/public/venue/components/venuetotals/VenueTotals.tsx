@@ -1,3 +1,4 @@
+import { VenueScreenRouteProp } from '../../Venue'
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
 import { Box, Heading, HStack, Text } from 'native-base'
@@ -17,7 +18,7 @@ type Totals = {
 }
 
 export default function VenueTotals() {
-	const route: any = useRoute()
+	const route = useRoute<VenueScreenRouteProp>()
 	const themeContext = useContext(ThemeContext)
 	const { width } = useWindowDimensions()
 	const numColumns = 3

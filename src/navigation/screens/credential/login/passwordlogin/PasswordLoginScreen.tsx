@@ -6,7 +6,7 @@ import {
 	useProfileQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { useRoute, useIsFocused, useNavigation } from '@react-navigation/native'
+import { useRoute, useIsFocused, useNavigation, RouteProp } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Input, Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
@@ -14,7 +14,10 @@ import { LinearGradient } from 'expo-linear-gradient'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
+import { LoginStackParamList } from 'src/types/app'
 import styled, { ThemeContext } from 'styled-components/native'
+
+export type PasswordLoginScreenRouteProp = RouteProp<LoginStackParamList, 'PasswordLoginScreen'>
 
 const IMAGE_SIZE = 75
 const IMAGE_BACKGROUND_SIZE = 85
@@ -24,7 +27,7 @@ const PasswordLoginScreen = () => {
 	const passwordRef = useRef(null)
 	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
 	const navigation = useNavigation()
-	const route = useRoute()
+	const route = useRoute<PasswordLoginScreenRouteProp>()
 	const isFocused = useIsFocused()
 	const themeContext = useContext(ThemeContext)
 

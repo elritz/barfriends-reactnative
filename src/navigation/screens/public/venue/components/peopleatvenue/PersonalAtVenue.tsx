@@ -14,19 +14,16 @@ type PersonalAtVenueProps = {
 const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 	const { width } = useWindowDimensions()
 	const navigation = useNavigation()
-	// const numColumns = 2.5 // if numColumns from flatlist is 3
-	const numColumns = 2
+	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
 	const height = width * (1.25 / numColumns)
 
 	return (
-		// <Center>
 		<Pressable
 			maxW={'1/2'}
 			flexGrow={1}
 			mx={1}
 			alignSelf={''}
 			onPress={() => {
-				console.log('item ==========>', item)
 				navigation.navigate('PublicNavigator', {
 					screen: 'PersonalStack',
 					params: {
@@ -55,7 +52,6 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 				<Text fontSize={'xs'}>{item.name}</Text>
 			</View>
 		</Pressable>
-		// </Center>
 	)
 }
 

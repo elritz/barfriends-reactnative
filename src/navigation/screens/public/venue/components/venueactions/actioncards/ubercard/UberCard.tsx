@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { UBER_CLIENT_ID_KEY } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
+import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as Linking from 'expo-linking'
@@ -9,7 +10,7 @@ import { useCallback } from 'react'
 import { Alert } from 'react-native'
 
 export default function UberCard() {
-	const route: any = useRoute()
+	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const {
 		data: PData,

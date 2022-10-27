@@ -1,27 +1,24 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
+import { Feather } from '@expo/vector-icons'
 import diffNow from '@library/luxon'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button } from '@rneui/base'
-import { Icon } from '@rneui/themed'
 import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
-import { Text } from 'native-base'
-import React, { useContext, useEffect, useState } from 'react'
+import { IconButton, Text, Icon } from 'native-base'
+import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { ThemeContext } from 'styled-components/native'
 
 const BirthdayScreen = () => {
 	const insets = useSafeAreaInsets()
-	const themeContext = useContext(ThemeContext)
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const [legalAge] = useState<number>(19)
+
 	const {
 		control,
 		setError,
@@ -109,19 +106,17 @@ const BirthdayScreen = () => {
 		}
 	}, [isFocused])
 
-	const RightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={
-				errors.date ? themeContext.palette.disabled.color : themeContext.palette.bfscompany.accent
-			}
-		/>
-	)
-
 	return (
-		<OuterView>
+		<SafeAreaView
+			style={{
+				flex: 1,
+				alignItems: 'center',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				marginHorizontal: '5%',
+				marginTop: '20',
+			}}
+		>
 			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				What's your birthday
 			</Text>
@@ -159,40 +154,35 @@ const BirthdayScreen = () => {
 				</Text>
 			</>
 			<FormButtonView style={{ marginBottom: insets.bottom }}>
-				<Button
-					onPress={handleSubmit(onSubmit)}
+				<IconButton
 					disabled={!!errors.date}
-					containerStyle={{
+					onPress={handleSubmit(onSubmit)}
+					variant={'solid'}
+					color={'primary.500'}
+					isDisabled={!!errors.date}
+					style={{
 						justifyContent: 'center',
-					}}
-					buttonStyle={{
-						backgroundColor: errors.date
-							? themeContext.palette.disabled.background
-							: themeContext.palette.bfscompany.primary,
 						borderRadius: 50,
 						height: 70,
 						width: 70,
 						paddingHorizontal: 20,
-						justifyContent: 'center',
+						alignSelf: 'center',
 					}}
-					iconPosition='right'
-					icon={<RightIcon />}
+					icon={
+						<Icon
+							as={Feather}
+							name='arrow-right'
+							size={'2xl'}
+							color={errors.date ? 'light.800' : 'white'}
+						/>
+					}
 				/>
 			</FormButtonView>
-		</OuterView>
+		</SafeAreaView>
 	)
 }
 
 export default BirthdayScreen
-
-const OuterView = styled.SafeAreaView`
-	flex: 1;
-	align-items: center;
-	flex-direction: column;
-	justify-content: space-between;
-	margin-horizontal: 5%;
-	margin-top: 20px;
-`
 
 const FormButtonView = styled.View`
 	display: flex;

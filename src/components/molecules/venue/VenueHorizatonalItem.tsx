@@ -1,7 +1,7 @@
 import { Venue } from '@graphql/generated'
 import { Avatar, ListItem } from '@rneui/base'
 import { ItemRenderType } from '@types'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
 const VenueHorizatonalItem = (props: ItemRenderType<Venue>) => {
@@ -14,7 +14,7 @@ const VenueHorizatonalItem = (props: ItemRenderType<Venue>) => {
 	return (
 		<ListItem
 			disabled={profileDisabled}
-			onPress={() => console.log('TDO')}
+			onPress={() => null}
 			// ViewComponent={LinearGradient}
 			// linearGradientProps={{
 			// 	colors: [

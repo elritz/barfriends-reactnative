@@ -12,6 +12,8 @@ import React, { useContext, useState } from 'react'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
 
+// TODO: FN(What functionality was suppose to be here)
+
 export default function DeviceManagerModal() {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
@@ -22,7 +24,7 @@ export default function DeviceManagerModal() {
 		fetchPolicy: 'network-only',
 		onCompleted: data => {
 			if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
-				console.log(data.getADeviceManager.DeviceProfiles)
+				// What was meant to go here!!
 			}
 		},
 	})

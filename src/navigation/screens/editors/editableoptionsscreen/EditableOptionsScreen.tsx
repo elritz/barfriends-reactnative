@@ -44,7 +44,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				alignItems: 'flex-start',
 			}}
 		>
-			<Heading size={'md'}>{props.title}</Heading>
+			<Heading size={'md'} pb={3}>
+				{props.title}
+			</Heading>
 			{children}
 		</ListItem>
 	)
@@ -70,7 +72,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				<ListItem.Title>{rIdentifiableInformation.fullname}</ListItem.Title>
 				{rIdentifiableInformation.nickname && (
 					<>
-						<RNEHeading500 style={{ paddingVertical: 5 }}>Nick name</RNEHeading500>
+						<Heading py={2}>Nick name</Heading>
 						<ListItem.Title>{rIdentifiableInformation.nickname}</ListItem.Title>
 					</>
 				)}
@@ -126,7 +128,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 						: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description}
 				</ListItem.Title>
 			</RoundedListItem>
-			<RNEHeading500 style={{ marginTop: 10 }}>MY INTERESTS</RNEHeading500>
+			<Heading fontSize={'lg'} py={2}>
+				MY INTERESTS
+			</Heading>
 			<RoundedListItem
 				onPress={() =>
 					navigation.navigate('ProfileEditorNavigator', {
@@ -142,7 +146,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 							})
 						}
 					>
-						<VStack flexWrap={'wrap'}>
+						<VStack flexDir={'row'} flexWrap={'wrap'}>
 							{interests.map((interest, index) => (
 								<Chip
 									key={interest}
@@ -163,7 +167,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 					</Pressable>
 				</ListItem.Content>
 			</RoundedListItem>
-			<RNEHeading500 style={{ marginTop: 10 }}>MY BASIC INFO</RNEHeading500>
+			<Heading fontSize={'lg'} py={2}>
+				MY BASIC INFO
+			</Heading>
 			<RoundedListItem
 				onPress={() =>
 					navigation.navigate('ProfileEditorNavigator', {

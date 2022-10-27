@@ -1,39 +1,45 @@
 import { useReactiveVar } from '@apollo/client'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
+import { useHeaderHeight } from '@react-navigation/elements'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button } from '@rneui/base'
-import { Icon } from '@rneui/themed'
 import Countdown from '@util/hooks/useTimer'
-import { Box, Text, VStack } from 'native-base'
-import { useContext, useState } from 'react'
+import { IconButton, Icon, Box, Text, VStack, KeyboardAvoidingView, Heading } from 'native-base'
+import { useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { InputAccessoryView, Pressable, View } from 'react-native'
+import { InputAccessoryView, Platform, Pressable, View } from 'react-native'
 import {
 	CodeField,
 	Cursor,
 	useBlurOnFulfill,
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
-import styled, { ThemeContext } from 'styled-components/native'
+import { PersonalCredentialStackParamList } from 'src/types/app'
+import styled from 'styled-components/native'
+
+// TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 
 type CodeInputCellViewType = {
 	isFocused: boolean
 }
 
-// TODO: FN(Resend Code) - when the user presses resend code need to resend and keep track of how many times
-
+export type CodeScreenRouteProp = RouteProp<
+	PersonalCredentialStackParamList,
+	'ConfirmationCodeScreen'
+>
 const CodeScreen = () => {
 	const navigation = useNavigation()
-	const route = useRoute()
-	const themeContext = useContext(ThemeContext)
+	const route = useRoute<CodeScreenRouteProp>()
+	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const inputAccessoryViewID = 'codeAccessoryViewID'
 	const CELL_COUNT = 4
 	const { num, complete } = Countdown(9)
 	const [codeValue, setCodeValue] = useState('')
+	const keyboardVerticalOffset =
+		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 	const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -86,24 +92,24 @@ const CodeScreen = () => {
 		checkFinalCode(code)
 	}
 
-	const RightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={errors.code ? themeContext.palette.disabled.color.primary : 'white'}
-		/>
-	)
-
 	return (
-		<OuterView>
-			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			keyboardVerticalOffset={keyboardVerticalOffset}
+			style={{
+				flex: 1,
+				height: 'auto',
+				flexDirection: 'column',
+				marginHorizontal: '5%',
+			}}
+		>
+			<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				{`Enter the 4-diget code sent to you at ${
 					credentialPersonalProfileVar.email
 						? credentialPersonalProfileVar.email
 						: credentialPersonalProfileVar.phone.completeNumber
 				}`}
-			</Text>
+			</Heading>
 			<View style={{ marginVertical: '10%', width: '100%' }}>
 				<Controller
 					name='code'
@@ -150,14 +156,14 @@ const CodeScreen = () => {
 						},
 					}}
 				/>
-				<RNEText500>{errors?.code?.message}</RNEText500>
+				<Text style={{ color: 'red' }}>{errors?.code?.message}</Text>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<InputAccessoryContainer>
 					<Box justifyContent={'space-around'}>
 						{complete ? (
 							<VStack space={2} justifyContent={'space-around'}>
-								<Pressable onPress={() => console.log('TDO: resend code')}>
+								<Pressable onPress={() => null}>
 									<Text fontSize={'lg'}>Resend code</Text>
 								</Pressable>
 								<Pressable
@@ -184,41 +190,37 @@ const CodeScreen = () => {
 						)}
 					</Box>
 					<VStack justifyContent={'space-around'}>
-						<Button
+						<IconButton
 							disabled={!!errors.code}
 							onPress={handleSubmit(onSubmit)}
-							containerStyle={{
+							variant={'solid'}
+							color={'primary.500'}
+							isDisabled={!!errors.code}
+							style={{
 								justifyContent: 'center',
-							}}
-							buttonStyle={{
-								backgroundColor: errors.code
-									? themeContext.palette.disabled.background
-									: themeContext.palette.bfscompany.primary,
-								justifyContent: 'center',
+								borderRadius: 50,
 								height: 70,
 								width: 70,
 								paddingHorizontal: 20,
-								borderRadius: 50,
+								alignSelf: 'center',
 							}}
-							iconPosition='right'
-							icon={<RightIcon />}
+							icon={
+								<Icon
+									as={Feather}
+									name='arrow-right'
+									size={'2xl'}
+									color={errors.code ? 'light.800' : 'white'}
+								/>
+							}
 						/>
 					</VStack>
 				</InputAccessoryContainer>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default CodeScreen
-
-const OuterView = styled.View`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-	margin-top: 20px;
-`
 
 const InputAccessoryContainer = styled.View`
 	background-color: ${props => props.theme.palette.background.paper};

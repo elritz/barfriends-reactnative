@@ -1,18 +1,16 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button } from '@rneui/base'
-import { Icon } from '@rneui/themed'
 import { CountryCode } from 'libphonenumber-js'
-import { Text } from 'native-base'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { Input, Text, Icon, IconButton, KeyboardAvoidingView } from 'native-base'
+import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, InteractionManager, Platform, TextInput, View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { InputAccessoryView, Platform, TextInput, View, InteractionManager } from 'react-native'
+import styled from 'styled-components/native'
 
 export type FormType = {
 	countrySelector: CountrySelector
@@ -28,16 +26,14 @@ export type CountrySelector = {
 }
 
 const PhoneScreen = () => {
-	const phonenumberRef = useRef<TextInput | null>(null)
+	const inputAccessoryViewID = 'phonenumberAccessoryID2122'
+	const phonenumberRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
-	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-
 	const keyboardVerticalOffset =
 		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
-	const inputAccessoryViewID = 'phonenumberAccessoryID'
 
 	const {
 		control,
@@ -67,7 +63,7 @@ const PhoneScreen = () => {
 		shouldUnregister: true,
 	})
 
-	const [sendCode] = useSendAuthenticatorDeviceOwnerCodeMutation({
+	const [sendCode, { data, loading, error }] = useSendAuthenticatorDeviceOwnerCodeMutation({
 		onCompleted: data => {
 			switch (data.sendAuthenticatorDeviceOwnerCode?.__typename) {
 				case 'ErrorProfiling':
@@ -90,29 +86,6 @@ const PhoneScreen = () => {
 			}
 		},
 	})
-
-	useEffect(() => {
-		phonenumberRef.current?.focus()
-		setValue('countrySelector', { countryCode: 'CA', countryCallingCode: '+1' })
-	}, [isFocused])
-
-	useEffect(() => {
-		if (phonenumberRef.current) {
-			InteractionManager.runAfterInteractions(() => {
-				phonenumberRef.current?.focus()
-			})
-		}
-	}, [phonenumberRef, phonenumberRef.current])
-
-	useEffect(() => {
-		const phonenumber = getValues('mobileNumber')
-		if (!phonenumber) {
-			setError('mobileNumber', {
-				type: 'validate',
-				message: '',
-			})
-		}
-	}, [setError, errors])
 
 	const onSubmit = data => {
 		CredentialPersonalProfileReactiveVar({
@@ -138,57 +111,77 @@ const PhoneScreen = () => {
 		})
 	}
 
-	const RightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={errors.mobileNumber ? themeContext.palette.disabled.color.primary : 'white'}
-		/>
-	)
+	useEffect(() => {
+		setValue('countrySelector', { countryCode: 'CA', countryCallingCode: '+1' })
+	}, [])
+
+	useEffect(() => {
+		if (isFocused && phonenumberRef.current) {
+			InteractionManager.runAfterInteractions(() => {
+				phonenumberRef.current?.focus()
+			})
+		} else {
+			InteractionManager.runAfterInteractions(() => {
+				phonenumberRef.current?.blur()
+			})
+		}
+	}, [isFocused])
 
 	return (
-		<OuterView
+		<KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
+			style={{
+				flex: 1,
+				height: 'auto',
+				flexDirection: 'column',
+				marginHorizontal: '5%',
+			}}
 		>
 			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				Enter your mobile number
 			</Text>
 			<View style={{ marginVertical: 20, width: '100%' }}>
-				<Controller
-					name='mobileNumber.completeNumber'
-					control={control}
-					render={({ field: { onChange, onBlur, value } }) => (
-						<RNETextInput
-							refChild={phonenumberRef}
-							keyProp='mobileNumber.completeNumber'
-							value={value}
-							onChange={value => {
-								onChange(value)
-								const replaced = value.replace(/\D/g, '')
-								setValue('mobileNumber.number', replaced)
-							}}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							textContentType='telephoneNumber'
-							blurOnSubmit={false}
-							autoFocus
-							placeholder='Mobile Number'
-							returnKeyType='done'
-							inputAccessoryViewID={inputAccessoryViewID}
-							autoCompleteType='tel'
-							keyboardType='phone-pad'
-							errorMessage={errors?.mobileNumber?.number?.message}
-						/>
-					)}
-					rules={{
-						required: {
-							value: true,
-							message: 'Hey this is required 🤷‍♂️.',
-						},
-					}}
-				/>
+				{isFocused && (
+					<Controller
+						name='mobileNumber.completeNumber'
+						control={control}
+						render={({ field: { onChange, onBlur, value } }) => (
+							<Input
+								ref={phonenumberRef}
+								key={'mobileNumber.completeNumber'}
+								variant={'underlined'}
+								returnKeyType='done'
+								textContentType='telephoneNumber'
+								autoComplete='tel'
+								keyboardType='phone-pad'
+								numberOfLines={1}
+								placeholder='Mobile Number'
+								inputAccessoryViewID={inputAccessoryViewID}
+								py={4}
+								_input={{
+									fontSize: '2xl',
+									fontWeight: 'medium',
+								}}
+								onSubmitEditing={handleSubmit(onSubmit)}
+								onBlur={onBlur}
+								onChangeText={value => {
+									onChange(value)
+									const replaced = value.replace(/\D/g, '')
+									setValue('mobileNumber.number', replaced)
+								}}
+							/>
+							// <Input placeholder='Hello' />
+						)}
+						rules={{
+							required: {
+								value: true,
+								message: 'Hey this is required 🤷‍♂️.',
+							},
+						}}
+					/>
+				)}
+				<Text style={{ color: 'red' }}>{errors?.mobileNumber?.number?.message}</Text>
 			</View>
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
@@ -198,39 +191,36 @@ const PhoneScreen = () => {
 							By continuing you may receive an SMS for verification. Message and data rates may apply.
 						</Text>
 					</InputAccessoryInnerView>
-					<Button
+					<IconButton
 						disabled={!!errors.mobileNumber}
 						onPress={handleSubmit(onSubmit)}
-						containerStyle={{
+						variant={'solid'}
+						color={'primary.500'}
+						isDisabled={!!errors.mobileNumber?.completeNumber || loading}
+						style={{
 							justifyContent: 'center',
-						}}
-						buttonStyle={{
-							backgroundColor: errors.mobileNumber?.completeNumber
-								? themeContext.palette.disabled.background
-								: themeContext.palette.bfscompany.primary,
 							borderRadius: 50,
 							height: 70,
 							width: 70,
 							paddingHorizontal: 20,
-							justifyContent: 'center',
+							alignSelf: 'center',
 						}}
-						iconPosition='right'
-						icon={<RightIcon />}
+						icon={
+							<Icon
+								as={Feather}
+								name='arrow-right'
+								size={'2xl'}
+								color={errors.mobileNumber ? 'light.800' : 'white'}
+							/>
+						}
 					/>
 				</InputAccessoryContainer>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default PhoneScreen
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-`
 
 const InputAccessoryContainer = styled.View`
 	background-color: ${props => props.theme.palette.background.paper};

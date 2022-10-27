@@ -1,26 +1,22 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Input } from '@rneui/base'
-import { Button, Icon } from '@rneui/themed'
-import { Text } from 'native-base'
-import React, { useContext, useRef } from 'react'
+import { Text, Icon, IconButton, Input, KeyboardAvoidingView } from 'native-base'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, View } from 'react-native'
+import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
 import styled, { ThemeContext } from 'styled-components/native'
 
 const EmailScreen = () => {
+	const emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
 	const headerHeight = useHeaderHeight()
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const emailRef = useRef<Input | null>(null)
 
 	const inputAccessoryViewID = 'uniqueID2'
 	const keyboardVerticalOffset =
@@ -68,17 +64,6 @@ const EmailScreen = () => {
 		},
 	})
 
-	const RightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={
-				errors.email ? themeContext.palette.disabled.color : themeContext.palette.bfscompany.accent
-			}
-		/>
-	)
-
 	const onSubmit = (data: any) => {
 		CredentialPersonalProfileReactiveVar({
 			...credentialPersonalProfileVar,
@@ -103,88 +88,105 @@ const EmailScreen = () => {
 		})
 	}
 
+	useEffect(() => {
+		if (isFocused) {
+			InteractionManager.runAfterInteractions(() => {
+				emailRef.current?.focus()
+			})
+		} else {
+			InteractionManager.runAfterInteractions(() => {
+				emailRef.current?.blur()
+			})
+		}
+	}, [isFocused])
+
 	return (
-		<OuterView
+		<KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
+			style={{
+				flex: 1,
+				height: 'auto',
+				flexDirection: 'column',
+				marginHorizontal: '5%',
+			}}
 		>
 			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				Enter your email
 			</Text>
-			{isFocused ? (
-				<View style={{ marginVertical: 20, width: '100%' }}>
-					<Controller
-						name='email'
-						control={control}
-						render={({ field: { onChange, onBlur, value } }) => (
-							<RNETextInput
-								refChild={emailRef}
-								keyProp='email'
-								onChange={onChange}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								textContentType='emailAddress'
-								value={value.toLowerCase()}
-								autoFocus
-								blurOnSubmit={false}
-								placeholder='Email'
-								returnKeyType='done'
-								autoCompleteType='email'
-								autoCapitalize='none'
-								keyboardType='email-address'
-								inputAccessoryViewID={inputAccessoryViewID}
-								numberOfLines={1}
-								errorMessage={errors?.email?.message}
-							/>
-						)}
-						rules={{
-							required: {
-								value: true,
-								message: 'Hey this is required 🤷‍♂️.',
-							},
-							pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-						}}
-					/>
-				</View>
-			) : null}
+			<View style={{ marginVertical: 20, width: '100%' }}>
+				<Controller
+					name='email'
+					control={control}
+					render={({ field: { onChange, onBlur, value } }) => (
+						<Input
+							ref={emailRef}
+							key={'email'}
+							variant={'underlined'}
+							autoFocus
+							returnKeyType='done'
+							autoComplete='email'
+							autoCapitalize='none'
+							keyboardType='email-address'
+							numberOfLines={1}
+							placeholder='Email'
+							inputAccessoryViewID={inputAccessoryViewID}
+							py={4}
+							_input={{
+								fontSize: '2xl',
+								fontWeight: 'medium',
+							}}
+							blurOnSubmit={false}
+							onSubmitEditing={handleSubmit(onSubmit)}
+							onBlur={onBlur}
+							value={value.toLowerCase()}
+							onChangeText={onChange}
+						/>
+					)}
+					rules={{
+						required: {
+							value: true,
+							message: 'Hey this is required 🤷‍♂️.',
+						},
+						pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+					}}
+				/>
+			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>
 					<InputAccessoryInnerView>
 						<Text>Check your email for your verification code that we sent you</Text>
 					</InputAccessoryInnerView>
-					<Button
-						onPress={handleSubmit(onSubmit)}
+					<IconButton
 						disabled={!!errors.email}
-						buttonStyle={{
-							backgroundColor: errors.email
-								? themeContext.palette.disabled.background
-								: themeContext.palette.bfscompany.primary,
+						onPress={handleSubmit(onSubmit)}
+						variant={'solid'}
+						color={'primary.500'}
+						isDisabled={!!errors.email}
+						style={{
+							justifyContent: 'center',
 							borderRadius: 50,
 							height: 70,
 							width: 70,
 							paddingHorizontal: 20,
-							justifyContent: 'center',
+							alignSelf: 'center',
 						}}
-						containerStyle={{
-							justifyContent: 'center',
-						}}
-						iconPosition='right'
-						icon={<RightIcon />}
+						icon={
+							<Icon
+								as={Feather}
+								name='arrow-right'
+								size={'2xl'}
+								color={errors.email ? 'light.800' : 'white'}
+							/>
+						}
 					/>
 				</InputAccessoryContainer>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default EmailScreen
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 2%;
-`
 
 const InputAccessoryInnerView = styled.View`
 	flex: 2;

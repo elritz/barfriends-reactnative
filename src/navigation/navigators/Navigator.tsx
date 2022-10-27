@@ -39,6 +39,7 @@ import { ColorSchemeName, View } from 'react-native'
 import { AuthorizationDecoded } from 'src/types/app'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
+// TODO: FN(Listen to notifications) ln: ... Notifications.addPushTokenListener
 interface NavigationProps {
 	colorScheme: ColorSchemeName
 }
@@ -124,7 +125,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			onCompleted: data => {
 				if (data.switchDeviceProfile.__typename === 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
-					console.log('🚀 ~ file: Navigator.tsx ~ line 143 ~ deviceManager', deviceManager)
 					AuthorizationReactiveVar(deviceManager)
 				}
 			},
@@ -192,9 +192,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 	}, [])
 
 	useEffect(() => {
-		const subscription = Notifications.addPushTokenListener(e => {
-			// console.log('HELLO)', e)
-		})
+		const subscription = Notifications.addPushTokenListener(e => {})
 		return () => subscription.remove()
 	}, [])
 

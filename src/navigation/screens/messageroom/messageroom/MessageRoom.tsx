@@ -43,9 +43,6 @@ export default function MessageRoom(props) {
 	const insets = useSafeAreaInsets()
 	const _keyboard = useKeyboard()
 	const { height, progress } = useReanimatedKeyboardAnimation()
-	// const { height, progress } = useKeyboardAnimation()
-	console.log('🚀 ~ file: MessageRoom.tsx ~ line 47 ~ MessageRoom ~ progress', progress)
-	console.log('🚀 ~ file: MessageRoom.tsx ~ line 47 ~ MessageRoom ~ height', height)
 	const flatListRef = useAnimatedRef<FlatList>()
 	const positionBottom = useSharedValue(0)
 	const keyboardOffset = useSharedValue(0)
@@ -60,7 +57,6 @@ export default function MessageRoom(props) {
 
 		return {
 			transform: [{ translateY: keyboardOffset.value }],
-			// bottom: keyboardOffset.value,
 		}
 	})
 
@@ -75,16 +71,10 @@ export default function MessageRoom(props) {
 			const inputRange = [insets.bottom, _keyboard.keyboardHeight]
 			if (e.contentOffset.y < -95) {
 				if (positionBottom.value > insets.bottom) {
-					console.log(
-						'🚀 ~ file: MessageRoom.tsx ~ line 53 ~ MessageRoom ~ positionBottom.value',
-						e.contentOffset.y,
-					)
 					const transformY = interpolate(positionBottom.value, inputRange, [
 						_keyboard.keyboardHeight,
 						insets.bottom,
 					])
-					console.log('🚀 ~ file: MessageRoom.tsx ~ line 62 ~ MessageRoom ~ transformY', transformY)
-
 					positionBottom.value = withTiming(transformY)
 				}
 			}
@@ -101,10 +91,6 @@ export default function MessageRoom(props) {
 	useEffect(() => {
 		// start the animation when the keyboard appears
 		// Keyboard.addListener('keyboardWillShow', e => {
-		// 	console.log(
-		// 		'🚀 ~ file: MessageRoom.tsx ~ line 86 ~ useEffect ~ -e.endCoordinates?.height',
-		// 		-e.endCoordinates?.height,
-		// 	)
 		// 	// use the height of the keyboard (negative because the translateY moves upward)
 		// 	keyboardOffset.value = withTiming(-_keyboard.keyboardHeight + insets.bottom, { duration: 250 })
 		// })
@@ -122,7 +108,6 @@ export default function MessageRoom(props) {
 	useEffect(() => {
 		flatListRef.current?.scrollToEnd()
 		// 	const willShowSubscription = Keyboard.addListener('keyboardWillShow', e => {
-		// 		console.log('🚀 ~ file: MessageRoom.tsx ~ line 51 ~ useEffect ~ e', e)
 		// 		// positionBottom.value = withTiming(_keyboard.keyboardHeight)
 		// 		positionBottom.value = withTiming(_keyboard.keyboardHeight)
 		// 	})
@@ -130,11 +115,9 @@ export default function MessageRoom(props) {
 			positionBottom.value = withTiming(-_keyboard.keyboardHeight)
 		})
 		// const willHideSubscription = Keyboard.addListener('keyboardWillHide', e => {
-		// 	console.log('🚀 ~ file: MessageRoom.tsx ~ line 60 ~ hideSubscription ~ e', e)
 		// 	positionBottom.value = withTiming(insets.bottom)
 		// })
 		// const hideSubscription = Keyboard.addListener('keyboardDidHide', e => {
-		// 	console.log('🚀 ~ file: MessageRoom.tsx ~ line 60 ~ hideSubscription ~ e', e)
 		// 	keyboardShowing.value = false
 		// 	positionBottom.value = withTiming(insets.bottom)
 		// })
@@ -146,17 +129,6 @@ export default function MessageRoom(props) {
 			// hideSubscription.remove()
 		}
 	}, [flatListRef])
-
-	// const PanGesture = Gesture.Pan()
-	// 	.onStart(e => {
-	// 		console.log(e.translationY)
-	// 	})
-	// 	.onUpdate(e => {
-	// 		console.log(e.translationY)
-	// 	})
-	// 	.onEnd(e => {
-	// 		console.log(e.translationY)
-	// 	})
 
 	return (
 		<Box bg={'orange.500'} flex={1}>

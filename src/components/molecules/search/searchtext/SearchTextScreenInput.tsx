@@ -1,17 +1,24 @@
-import { CommonActions, StackActions, useNavigation, useRoute } from '@react-navigation/native'
+import {
+	CommonActions,
+	RouteProp,
+	StackActions,
+	useNavigation,
+	useRoute,
+} from '@react-navigation/native'
 import { SearchBar } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import { Box } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { ExploreFilterTabParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
 
+export type SearchTextScreenRouteProp = RouteProp<ExploreFilterTabParamList, 'SearchTextScreen'>
 // TODO: UX() get the navigation route here as well default values from form
-
 const SearchTextScreenInput = () => {
 	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
-	const route: any = useRoute()
+	const route = useRoute<SearchTextScreenRouteProp>()
 
 	const {
 		control,

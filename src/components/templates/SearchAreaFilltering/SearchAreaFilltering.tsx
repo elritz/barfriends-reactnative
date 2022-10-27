@@ -45,7 +45,6 @@ const SearchAreaFilltering = () => {
 			</Box>
 		)
 	}
-	console.log('🚀 ~ file: SearchAreaFilltering.tsx ~ line 87 ~ SearchAreaFilltering ~ data', data)
 
 	return (
 		<Box mx={scrollViewMarginX}>

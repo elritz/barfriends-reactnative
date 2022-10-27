@@ -2,7 +2,8 @@ import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
 import { useAddPersonalTotalsVenueMutation, useProfileQuery } from '@graphql/generated'
-import { useRoute } from '@react-navigation/native'
+import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Icon } from '@rneui/base'
 import * as Location from 'expo-location'
@@ -10,6 +11,7 @@ import { LocationAccuracy, LocationObjectCoords } from 'expo-location'
 import { getDistance } from 'geolib'
 import { Box, Heading } from 'native-base'
 import { useContext, useEffect, useState } from 'react'
+import { VenueProfileStackParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
 
 // TODO: FN(When a useris joined to a venue action must be different)
@@ -17,7 +19,7 @@ import { ThemeContext } from 'styled-components/native'
 const CurrentLocationFromVenueDistance = () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const themeContext = useContext(ThemeContext)
-	const route: any = useRoute()
+	const route = useRoute<VenueScreenRouteProp>()
 	const [distance, setDistance] = useState<number | undefined>()
 	const [metric, setMetric] = useState<'km' | 'm' | undefined>('km')
 	const [coords, setCoords] = useState<LocationObjectCoords | undefined>()
@@ -96,10 +98,6 @@ const CurrentLocationFromVenueDistance = () => {
 					longitude: data.profile.Venue.Location.Geometry.longitude,
 				},
 			)
-			// console.log(
-			// 	'🚀 ~ file: CurrentLocationFromVenueDistance.tsx ~ line 103 ~ useEffect ~ distance',
-			// 	distance,
-			// )
 			if (dist > 1000) {
 				setDistance(parseInt((dist / 1000).toFixed(1)))
 				setMetric('km')

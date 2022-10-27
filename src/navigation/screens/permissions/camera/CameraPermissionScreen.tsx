@@ -2,21 +2,19 @@ import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { PermissionCameraReactiveVar, PermissionMediaReactiveVar } from '@reactive'
+import { PermissionCameraReactiveVar } from '@reactive'
 import { Button, Divider } from '@rneui/themed'
 import { Text } from '@rneui/themed'
-import { Camera, CameraType } from 'expo-camera'
+import { Camera } from 'expo-camera'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
-import * as MediaLibrary from 'expo-media-library'
 import { Box } from 'native-base'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import styled from 'styled-components/native'
 import { ThemeContext } from 'styled-components/native'
 
-// TODO: FN(Open camera app)
+// TODO: FN(Open camera app) ln:66
 
 const details = [
 	{
@@ -68,6 +66,7 @@ const CameraPermissionScreen = () => {
 	const openCameraApp = async () => {
 		console.log('opencamera')
 	}
+
 	const openPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {
 			Linking.openURL('app-settings://')
@@ -137,7 +136,7 @@ const CameraPermissionScreen = () => {
 					}
 					onPress={() =>
 						rPermissionCamera.canAskAgain && !rPermissionCamera.granted
-							? console.log('hi')
+							? console.log('TODO')
 							: openPhoneSettings()
 					}
 					containerStyle={{

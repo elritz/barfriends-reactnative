@@ -1,19 +1,30 @@
-import { CommonActions, StackActions, useNavigation, useRoute } from '@react-navigation/native'
+import {
+	CommonActions,
+	RouteProp,
+	StackActions,
+	useNavigation,
+	useRoute,
+} from '@react-navigation/native'
 import { Icon, SearchBar } from '@rneui/themed'
 import React, { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, View, TextInput } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { ExploreFilterTabParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
+
+export type ExploreFilterTabSearchResultRouteProp = RouteProp<
+	ExploreFilterTabParamList,
+	'SearchResultTabStack'
+>
 
 const SearchTopTabStackInput = () => {
 	const _searchInputRef = useRef<TextInput>(null)
 	const inset = useSafeAreaInsets()
 	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
-	const route = useRoute()
-
-	const params: any = route.params
+	const route = useRoute<ExploreFilterTabSearchResultRouteProp>()
+	const params = route.params
 
 	const {
 		control,

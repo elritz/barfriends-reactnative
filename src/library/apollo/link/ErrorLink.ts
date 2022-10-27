@@ -1,11 +1,12 @@
 import { onError } from '@apollo/client/link/error'
 
+// TODO: FN(Errorlink should resetted by UI func)
+
 // const errorLink = onError(({ graphQLErrors, networkError }) => {
 //   if (graphQLErrors)
 //     graphQLErrors.forEach(({ message, locations, path }) =>
 //     );
 
-//   if (networkError) console.log(`[Network error]: ${networkError}`);
 // });
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {

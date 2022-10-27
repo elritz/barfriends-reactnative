@@ -1,17 +1,12 @@
-
 import { Path, Svg, Ellipse } from 'react-native-svg'
 
 interface LogoTransparentProps {
 	width?: number
 	height?: number
 }
-const LogoTransparent = ({
-	width,
-	height,
-}: LogoTransparentProps) => {
-
+const LogoTransparent = ({ width, height }: LogoTransparentProps) => {
 	return (
-		<Svg width={width ? width : height * 1.482} height={height} viewBox='0 0 283 192'>
+		<Svg width={width ? width : height * 1.482} height={height} viewBox='0 0 283 195'>
 			<Ellipse cx='103.963' cy='44.6583' rx='25.5641' ry='44.6583' fill='#F87000' />
 			<Ellipse rx='25.5641' ry='44.6583' transform='matrix(-1 0 0 1 177.082 44.6583)' fill='#F87000' />
 			<Path

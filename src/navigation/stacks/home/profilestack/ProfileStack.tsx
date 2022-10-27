@@ -38,7 +38,7 @@ function PublicPersonalStackNavigation() {
 							icon={<Icon as={MaterialCommunityIcons} name={'account-multiple'} size={30} />}
 						/>
 						<IconButton
-							onPress={() => console.log('Settings still need to be done')}
+							onPress={() => console.log('TODO')}
 							icon={<Icon as={Ionicons} name={'settings-sharp'} size={27} />}
 						/>
 					</View>

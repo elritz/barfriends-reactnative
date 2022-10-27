@@ -6,6 +6,7 @@ import {
 	useProfileLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
+import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Button, VStack, Box, CheckCircleIcon } from 'native-base'
@@ -14,7 +15,7 @@ import { useEffect, useState } from 'react'
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function JoinCard() {
-	const route: any = useRoute()
+	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isJoined, setIsJoined] = useState(false)
 

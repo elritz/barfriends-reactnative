@@ -68,7 +68,10 @@ const TonightImages = () => {
 
 	return (
 		<SafeAreaView style={{ paddingHorizontal: MARGIN }}>
-			<SortableList editing onDragEnd={positions => console.log(JSON.stringify(positions, null, 2))}>
+			<SortableList
+				editing
+				onDragEnd={positions => console.log('TODO:', JSON.stringify(positions, null, 2))}
+			>
 				{[...tiles].map((tile, index) => (
 					<Item
 						onPress={pickImage}
