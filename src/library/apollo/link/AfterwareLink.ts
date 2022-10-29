@@ -1,7 +1,10 @@
 import { ApolloLink } from '@apollo/client'
 import { asyncMap } from '@apollo/client/utilities'
 import { AUTHORIZATION } from '@constants/StorageConstants'
-import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
+import { DeviceManager } from '@graphql/generated'
+import { AuthorizationReactiveVar } from '@reactive'
+import { secureStorageItemCreate, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
+import { AuthorizationDecoded } from 'src/types/app'
 
 const afterwareLink = new ApolloLink((operation, forward) =>
 	asyncMap(forward(operation), async response => {
@@ -16,6 +19,13 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 					value: authorization,
 					key: AUTHORIZATION,
 				})
+				const getAuthorization = (await secureStorageItemRead({
+					key: AUTHORIZATION,
+					decode: true,
+				})) as AuthorizationDecoded
+
+				const deviceManager = getAuthorization as unknown as DeviceManager
+				AuthorizationReactiveVar(deviceManager)
 			}
 		}
 		return response

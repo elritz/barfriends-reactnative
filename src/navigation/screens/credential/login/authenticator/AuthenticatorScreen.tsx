@@ -1,28 +1,30 @@
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
+import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
 import {
 	useAuthorizedProfilesLazyQuery,
 	useSendAuthenticatorDeviceOwnerCodeMutation,
 } from '@graphql/generated'
+import { useHeaderHeight } from '@react-navigation/elements'
 import { useNavigation } from '@react-navigation/native'
-import { Icon } from '@rneui/themed'
-import { KeyboardAvoidingView, Button, IconButton } from 'native-base'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { KeyboardAvoidingView, Button, IconButton, Icon, Box, Input } from 'native-base'
+import React, { useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View, InputAccessoryView, TextInput } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { View, InputAccessoryView, TextInput, Platform } from 'react-native'
+import styled from 'styled-components/native'
 
 export type FormType = {
 	authenticator: string
 }
 
 export default function AuthenticatorScreen() {
-	const inputRef = useRef<TextInput | null>(null)
+	// const inputRef = useRef<TextInput | null>(null)
 	const inputAccessoryViewID = 'phonenumberAccessoryID'
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
+	const headerHeight = useHeaderHeight()
 	const [keyboardType, setKeyboardType] = useState('number-pad')
 	const [focusKeyboard, setFocusKeybaord] = useState(false)
+	const keyboardVerticalOffset =
+		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 
 	const {
 		control,
@@ -144,19 +146,6 @@ export default function AuthenticatorScreen() {
 		}
 	}
 
-	const SubmitRightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={
-				errors?.authenticator?.message
-					? themeContext.palette.disabled.color.primary
-					: themeContext.palette.bfscompany.accent
-			}
-		/>
-	)
-
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setFocusKeybaord(true)
@@ -166,23 +155,47 @@ export default function AuthenticatorScreen() {
 
 	return (
 		<KeyboardAvoidingView
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			keyboardVerticalOffset={keyboardVerticalOffset}
 			flex={1}
 			height={'auto'}
 			flexDirection={'column'}
-			style={{ marginHorizontal: '5%' }}
+			style={{
+				flex: 1,
+				height: 'auto',
+				flexDirection: 'column',
+				marginHorizontal: '5%',
+			}}
 		>
 			{focusKeyboard && (
 				<Controller
 					name='authenticator'
 					control={control}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<RNETextInput
-							containerStyle={{ marginTop: 40 }}
-							refChild={inputRef}
-							keyProp='authenticator'
-							value={value.toLowerCase()}
+						<Input
+							// ref={inputRef}
+							key='authenticator'
+							variant={'underlined'}
+							returnKeyType='done'
+							textContentType='telephoneNumber'
+							autoComplete={keyboardType === 'number-pad' ? 'tel' : 'email'}
+							keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
+							numberOfLines={1}
+							placeholder='Email, number or username '
+							inputAccessoryViewID={inputAccessoryViewID}
+							rightElement={<RightIcon />}
+							autoCapitalize='none'
 							autoFocus={focusKeyboard}
-							onChange={value => {
+							mt={4}
+							py={4}
+							_input={{
+								fontSize: '2xl',
+								fontWeight: 'medium',
+							}}
+							onSubmitEditing={handleSubmit(onSubmit)}
+							onBlur={onBlur}
+							value={value.toLowerCase()}
+							onChangeText={value => {
 								if (keyboardType === 'number-pad') {
 									onChange(value.toLowerCase())
 									setValue('authenticator', value)
@@ -191,19 +204,6 @@ export default function AuthenticatorScreen() {
 									setValue('authenticator', value.trim())
 								}
 							}}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
-							blurOnSubmit={false}
-							rightIcon={<RightIcon />}
-							placeholder='Email, number or username '
-							returnKeyType='done'
-							autoCapitalize='none'
-							numberOfLines={1}
-							inputAccessoryViewID={inputAccessoryViewID}
-							autoCompleteType={keyboardType === 'number-pad' ? 'tel' : 'email'}
-							keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
-							errorMessage={errors?.authenticator?.message}
 						/>
 					)}
 					rules={{
@@ -214,7 +214,21 @@ export default function AuthenticatorScreen() {
 					}}
 				/>
 			)}
-			{errors?.authenticator?.message ? <Button my={3}>Sign up</Button> : null}
+			{errors?.authenticator?.message ? (
+				<Button
+					onPress={() => {
+						navigation.navigate('CredentialNavigator', {
+							screen: 'PersonalCredentialStack',
+							params: {
+								screen: 'GetStartedScreen',
+							},
+						})
+					}}
+					my={3}
+				>
+					Sign up
+				</Button>
+			) : null}
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<InputAccessoryContainer style={{ justifyContent: 'flex-end' }}>
 					<View
@@ -225,21 +239,27 @@ export default function AuthenticatorScreen() {
 						}}
 					>
 						<IconButton
+							disabled={!!errors.authenticator || loading}
 							onPress={handleSubmit(onSubmit)}
-							disabled={!!errors.authenticator}
-							backgroundColor={
-								errors?.authenticator
-									? themeContext.palette.disabled.background
-									: themeContext.palette.bfscompany.primary
-							}
+							variant={'solid'}
+							color={'primary.500'}
+							isDisabled={!!errors.authenticator || loading}
 							style={{
-								width: 70,
-								height: 70,
-								paddingHorizontal: 20,
 								justifyContent: 'center',
 								borderRadius: 50,
+								height: 70,
+								width: 70,
+								paddingHorizontal: 20,
+								alignSelf: 'center',
 							}}
-							icon={<SubmitRightIcon />}
+							icon={
+								<Icon
+									as={Feather}
+									name='arrow-right'
+									size={'2xl'}
+									color={errors?.authenticator ? 'light.800' : 'white'}
+								/>
+							}
 						/>
 					</View>
 				</InputAccessoryContainer>

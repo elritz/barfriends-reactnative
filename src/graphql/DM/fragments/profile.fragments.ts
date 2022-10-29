@@ -30,6 +30,7 @@ export const PROFILE_FRAGMENT = gql`
 			id
 			url
 			type
+			position
 			active
 			ratio
 			blurhash
@@ -127,6 +128,11 @@ export const PROFILE_FRAGMENT = gql`
 		}
 		Story {
 			id
+			photos {
+				id
+				position
+				url
+			}
 			emojimood {
 				__typename
 				id

@@ -7,6 +7,7 @@ import {
 	useCreateGuestProfileMutation,
 	useRefreshDeviceManagerMutation,
 	useSwitchDeviceProfileMutation,
+	useUpdateOneProfileMutation,
 } from '@graphql/generated'
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
@@ -46,6 +47,7 @@ interface NavigationProps {
 
 const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const themesObject = setDefaultTheme()
 
 	const setLocalStorageData = async () => {
@@ -149,9 +151,9 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		})
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
-		onCompleted: data => {
+		onCompleted: async data => {
 			if (data.createGuestProfile.__typename === 'CreateProfileResponse') {
-				switchDeviceProfileMutation({
+				createADeviceManagerMutation({
 					variables: {
 						profileId: data.createGuestProfile.Profile.id,
 					},
@@ -162,15 +164,32 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
-			errorPolicy: 'all',
 			onCompleted: async data => {
-				const value = await useCheckLocalStorageForAuthorizationToken()
-				createGuestProfileMutation()
+				if (
+					data.createADeviceManager.__typename === 'Success' ||
+					data.createADeviceManager.__typename === 'DeviceManager'
+				) {
+					updateOneProfileMutation({
+						variables: {
+							where: {
+								id: rAuthorizationVar.DeviceProfile.Profile.id,
+							},
+							data: {
+								DeviceManager: {
+									push: rAuthorizationVar.id,
+								},
+							},
+						},
+					})
+				}
 			},
 		})
 
+	const [updateOneProfileMutation, { data: UOPData, loading: UOPLoading, error: UOPError }] =
+		useUpdateOneProfileMutation()
+
 	const applicationAuthorization = async () => {
-		// const removeToken = await secureStorageItemDelete({
+		// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
 		// 	key: AUTHORIZATION,
 		// })
 		const getAuthorization = (await secureStorageItemRead({
@@ -179,7 +198,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
-			createADeviceManagerMutation()
+			createGuestProfileMutation()
 		} else {
 			refreshDeviceManagerMutation()
 		}

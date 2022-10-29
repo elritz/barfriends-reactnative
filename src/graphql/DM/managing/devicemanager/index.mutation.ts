@@ -3,7 +3,7 @@ import { INDETIFIABLE_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/identif
 import { PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
 
 export const CREATE_DEVICE_MANAGER_MUTATION = gql`
-	mutation createADeviceManager($profileId: String) {
+	mutation createADeviceManager($profileId: String!) {
 		createADeviceManager(profileId: $profileId) {
 			... on Success {
 				type
@@ -22,7 +22,7 @@ export const CREATE_DEVICE_MANAGER_MUTATION = gql`
 export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 	${PROFILE_FRAGMENT}
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
-	mutation switchDeviceProfile($profileId: String) {
+	mutation switchDeviceProfile($profileId: String!) {
 		switchDeviceProfile(profileId: $profileId) {
 			... on Success {
 				type

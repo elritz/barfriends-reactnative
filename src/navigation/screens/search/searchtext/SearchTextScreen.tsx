@@ -15,7 +15,7 @@ const SearchTextScreen = () => {
 				style={{ backgroundColor: 'orange', paddingTop: 90, paddingHorizontal: 10 }}
 			>
 				<Heading style={{ textAlign: 'center' }}>searchTextScreen</Heading>
-				<Heading style={{ textAlign: 'center' }}>{params.searchText}</Heading>
+				<Heading style={{ textAlign: 'center' }}>{params?.searchText}</Heading>
 			</ScrollView>
 		</Box>
 	)

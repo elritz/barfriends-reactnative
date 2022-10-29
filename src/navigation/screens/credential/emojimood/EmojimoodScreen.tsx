@@ -44,12 +44,11 @@ const EmojimoodScreen = () => {
 							screen: 'TonightScreen',
 						},
 					})
-					AuthorizationReactiveVar(deviceManager)
 				}
 			},
 		})
 
-	const [createAccount, { loading }] = useCreatePersonalProfileMutation({
+	const [createProfilePersonal, { loading }] = useCreatePersonalProfileMutation({
 		variables: {
 			data: {
 				PrivacyPolicyId: credentialPersonalProfileVar.PrivacyId,
@@ -96,7 +95,7 @@ const EmojimoodScreen = () => {
 	}
 
 	const onSubmit = async () => {
-		createAccount()
+		createProfilePersonal()
 	}
 
 	const { data: emojiData, loading: emojiLoading, error: emojiError } = useEmojimoodsQuery()

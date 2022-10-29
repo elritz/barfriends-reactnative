@@ -810,6 +810,7 @@ input DeviceProfileCreateManyDeviceManagerInput {
   id: Int
   isActive: Boolean!
   profileId: String
+  ProfileType: ProfileType
 }
 
 input DeviceProfileCreateManyDeviceManagerInputEnvelope {
@@ -834,6 +835,7 @@ input DeviceProfileCreateWithoutDeviceManagerInput {
   AppType: AppType
   isActive: Boolean!
   profileId: String
+  ProfileType: ProfileType
   RefreshToken: RefreshTokenCreateNestedOneWithoutDeviceProfileInput
 }
 
@@ -1046,10 +1048,10 @@ input EmojimoodCreateInput {
   emojiname: String!
 }
 
-input EmojimoodCreateNestedOneWithoutStoryInput {
-  connect: EmojimoodWhereUniqueInput
-  connectOrCreate: EmojimoodCreateOrConnectWithoutStoryInput
-  create: EmojimoodCreateWithoutStoryInput
+input EmojimoodCreateNestedManyWithoutStoryInput {
+  connect: [EmojimoodWhereUniqueInput!]
+  connectOrCreate: [EmojimoodCreateOrConnectWithoutStoryInput!]
+  create: [EmojimoodCreateWithoutStoryInput!]
 }
 
 input EmojimoodCreateOrConnectWithoutStoryInput {
@@ -1063,6 +1065,12 @@ input EmojimoodCreateWithoutStoryInput {
   emojiname: String
 }
 
+input EmojimoodListRelationFilter {
+  every: EmojimoodWhereInput
+  none: EmojimoodWhereInput
+  some: EmojimoodWhereInput
+}
+
 input EmojimoodOrderByWithRelationInput {
   colors: SortOrder
   emoji: SortOrder
@@ -1071,19 +1079,43 @@ input EmojimoodOrderByWithRelationInput {
   Story: StoryOrderByRelationAggregateInput
 }
 
+input EmojimoodScalarWhereInput {
+  AND: [EmojimoodScalarWhereInput!]
+  colors: StringNullableListFilter
+  emoji: StringNullableFilter
+  emojiname: StringNullableFilter
+  id: IntFilter
+  NOT: [EmojimoodScalarWhereInput!]
+  OR: [EmojimoodScalarWhereInput!]
+}
+
 input EmojimoodUpdatecolorsInput {
   push: String
   set: [String!]
 }
 
-input EmojimoodUpdateOneWithoutStoryInput {
-  connect: EmojimoodWhereUniqueInput
-  connectOrCreate: EmojimoodCreateOrConnectWithoutStoryInput
-  create: EmojimoodCreateWithoutStoryInput
-  delete: Boolean
-  disconnect: Boolean
-  update: EmojimoodUpdateWithoutStoryInput
-  upsert: EmojimoodUpsertWithoutStoryInput
+input EmojimoodUpdateManyMutationInput {
+  colors: EmojimoodUpdatecolorsInput
+  emoji: NullableStringFieldUpdateOperationsInput
+  emojiname: NullableStringFieldUpdateOperationsInput
+}
+
+input EmojimoodUpdateManyWithoutStoryInput {
+  connect: [EmojimoodWhereUniqueInput!]
+  connectOrCreate: [EmojimoodCreateOrConnectWithoutStoryInput!]
+  create: [EmojimoodCreateWithoutStoryInput!]
+  delete: [EmojimoodWhereUniqueInput!]
+  deleteMany: [EmojimoodScalarWhereInput!]
+  disconnect: [EmojimoodWhereUniqueInput!]
+  set: [EmojimoodWhereUniqueInput!]
+  update: [EmojimoodUpdateWithWhereUniqueWithoutStoryInput!]
+  updateMany: [EmojimoodUpdateManyWithWhereWithoutStoryInput!]
+  upsert: [EmojimoodUpsertWithWhereUniqueWithoutStoryInput!]
+}
+
+input EmojimoodUpdateManyWithWhereWithoutStoryInput {
+  data: EmojimoodUpdateManyMutationInput!
+  where: EmojimoodScalarWhereInput!
 }
 
 input EmojimoodUpdateWithoutStoryInput {
@@ -1092,9 +1124,15 @@ input EmojimoodUpdateWithoutStoryInput {
   emojiname: NullableStringFieldUpdateOperationsInput
 }
 
-input EmojimoodUpsertWithoutStoryInput {
+input EmojimoodUpdateWithWhereUniqueWithoutStoryInput {
+  data: EmojimoodUpdateWithoutStoryInput!
+  where: EmojimoodWhereUniqueInput!
+}
+
+input EmojimoodUpsertWithWhereUniqueWithoutStoryInput {
   create: EmojimoodCreateWithoutStoryInput!
   update: EmojimoodUpdateWithoutStoryInput!
+  where: EmojimoodWhereUniqueInput!
 }
 
 input EmojimoodWhereInput {
@@ -1289,7 +1327,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "ed4c1f5f-84a2-4c48-8489-2c2b04594b74"
+  sessiontoken: String = "d9c6b664-ba1c-44f2-9283-90672240ec2c"
   textinput: String!
 
   """
@@ -2806,23 +2844,24 @@ type Mutation {
   addPersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   addPersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   checkThePink: Boolean
-  createADeviceManager(profileId: String): RefreshDeviceManagerResponseUnion
+  createADeviceManager(profileId: String!): RefreshDeviceManagerResponseUnion
   createAVenue(data: CreateVenueProfileDataInput!): CreateProfileResponseUnion
   createGuestProfile: CreateProfileResponseUnion
   createOneDevice(data: DeviceCreateInput!): Device!
   createOneEmojimood(data: EmojimoodCreateInput!): Emojimood!
   createPersonalProfile(data: CreatePersonalProfileDataInput): CreateProfileResponseUnion
   refreshDeviceManager: RefreshDeviceManagerResponseUnion
-  removeDeviceProfileToDeviceManager(profileId: String!): Boolean
+  removeDeviceProfileFromDeviceManager(profileId: String!): Boolean
   removePersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   removePersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   sendAuthenticatorDeviceOwnerCode(data: CodeData, where: CodeWhere): CodeResponse
   sendAuthenticatorForgotPasswordCode(data: CodeData, where: CodeWhere): CodeResponse
   storageCreateVenues(data: [Json]): [CreateVenueStorageResponse]
-  switchDeviceProfile(profileId: String): RefreshDeviceManagerResponseUnion
+  switchDeviceProfile(profileId: String!): RefreshDeviceManagerResponseUnion
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateWithoutProfileInput!, where: IdentifiableInformationWhereUniqueInput!): UpdateProfileResponse
-  upsertProfileStory(data: ProfileUpdateInput!): Boolean
+  updateStoryEmojimood(emojimoodId: Int!): Boolean
+  updateStoryPhotos(disconnectId: String!, photos: PhotoCreateManyProfileInputEnvelope): Boolean
   upsertTonightPathOrPath(latitude: Float!, longitude: Float!, profileIdPersonal: String!, tonightPathId: String): Boolean
 }
 
@@ -3517,6 +3556,7 @@ type Photo {
   blurhash: String
   createdAt: DateTime!
   id: String!
+  position: Int
   ratio: String
   type: PhotoType
   updatedAt: DateTime!
@@ -3529,8 +3569,10 @@ input PhotoCreateManyGroupInput {
   createdAt: DateTime
   height: Int
   id: String
+  position: Int
   profileId: String
   ratio: String
+  storyId: String
   type: PhotoType
   updatedAt: DateTime
   url: String!
@@ -3549,7 +3591,9 @@ input PhotoCreateManyProfileInput {
   groupId: String
   height: Int
   id: String
+  position: Int
   ratio: String
+  storyId: String
   type: PhotoType
   updatedAt: DateTime
   url: String!
@@ -3558,6 +3602,27 @@ input PhotoCreateManyProfileInput {
 
 input PhotoCreateManyProfileInputEnvelope {
   data: [PhotoCreateManyProfileInput!]
+  skipDuplicates: Boolean
+}
+
+input PhotoCreateManyStoryInput {
+  active: Boolean
+  blurhash: String
+  createdAt: DateTime
+  groupId: String
+  height: Int
+  id: String
+  position: Int
+  profileId: String
+  ratio: String
+  type: PhotoType
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+input PhotoCreateManyStoryInputEnvelope {
+  data: [PhotoCreateManyStoryInput!]
   skipDuplicates: Boolean
 }
 
@@ -3579,6 +3644,7 @@ input PhotoCreateNestedManyWithoutStoryInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutStoryInput!]
   create: [PhotoCreateWithoutStoryInput!]
+  createMany: PhotoCreateManyStoryInputEnvelope
 }
 
 input PhotoCreateOrConnectWithoutGroupInput {
@@ -3602,9 +3668,10 @@ input PhotoCreateWithoutGroupInput {
   createdAt: DateTime
   height: Int
   id: String
+  position: Int
   Profile: ProfileCreateNestedOneWithoutPhotosInput
   ratio: String
-  Story: StoryCreateNestedManyWithoutPhotosInput
+  Story: StoryCreateNestedOneWithoutPhotosInput
   type: PhotoType
   updatedAt: DateTime
   url: String!
@@ -3618,8 +3685,9 @@ input PhotoCreateWithoutProfileInput {
   Group: GroupCreateNestedOneWithoutPhotosInput
   height: Int
   id: String
+  position: Int
   ratio: String
-  Story: StoryCreateNestedManyWithoutPhotosInput
+  Story: StoryCreateNestedOneWithoutPhotosInput
   type: PhotoType
   updatedAt: DateTime
   url: String!
@@ -3633,6 +3701,7 @@ input PhotoCreateWithoutStoryInput {
   Group: GroupCreateNestedOneWithoutPhotosInput
   height: Int
   id: String
+  position: Int
   Profile: ProfileCreateNestedOneWithoutPhotosInput
   ratio: String
   type: PhotoType
@@ -3661,8 +3730,10 @@ input PhotoScalarWhereInput {
   id: StringFilter
   NOT: [PhotoScalarWhereInput!]
   OR: [PhotoScalarWhereInput!]
+  position: IntNullableFilter
   profileId: StringNullableFilter
   ratio: StringNullableFilter
+  storyId: StringNullableFilter
   type: EnumPhotoTypeNullableFilter
   updatedAt: DateTimeFilter
   url: StringFilter
@@ -3680,6 +3751,7 @@ input PhotoUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   height: NullableIntFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  position: NullableIntFieldUpdateOperationsInput
   ratio: NullableStringFieldUpdateOperationsInput
   type: NullableEnumPhotoTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -3719,6 +3791,7 @@ input PhotoUpdateManyWithoutStoryInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutStoryInput!]
   create: [PhotoCreateWithoutStoryInput!]
+  createMany: PhotoCreateManyStoryInputEnvelope
   delete: [PhotoWhereUniqueInput!]
   deleteMany: [PhotoScalarWhereInput!]
   disconnect: [PhotoWhereUniqueInput!]
@@ -3749,9 +3822,10 @@ input PhotoUpdateWithoutGroupInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   height: NullableIntFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  position: NullableIntFieldUpdateOperationsInput
   Profile: ProfileUpdateOneWithoutPhotosInput
   ratio: NullableStringFieldUpdateOperationsInput
-  Story: StoryUpdateManyWithoutPhotosInput
+  Story: StoryUpdateOneWithoutPhotosInput
   type: NullableEnumPhotoTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   url: StringFieldUpdateOperationsInput
@@ -3765,8 +3839,9 @@ input PhotoUpdateWithoutProfileInput {
   Group: GroupUpdateOneWithoutPhotosInput
   height: NullableIntFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  position: NullableIntFieldUpdateOperationsInput
   ratio: NullableStringFieldUpdateOperationsInput
-  Story: StoryUpdateManyWithoutPhotosInput
+  Story: StoryUpdateOneWithoutPhotosInput
   type: NullableEnumPhotoTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   url: StringFieldUpdateOperationsInput
@@ -3780,6 +3855,7 @@ input PhotoUpdateWithoutStoryInput {
   Group: GroupUpdateOneWithoutPhotosInput
   height: NullableIntFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  position: NullableIntFieldUpdateOperationsInput
   Profile: ProfileUpdateOneWithoutPhotosInput
   ratio: NullableStringFieldUpdateOperationsInput
   type: NullableEnumPhotoTypeFieldUpdateOperationsInput
@@ -3832,10 +3908,12 @@ input PhotoWhereInput {
   id: StringFilter
   NOT: [PhotoWhereInput!]
   OR: [PhotoWhereInput!]
+  position: IntNullableFilter
   Profile: ProfileWhereInput
   profileId: StringNullableFilter
   ratio: StringNullableFilter
-  Story: StoryListRelationFilter
+  Story: StoryWhereInput
+  storyId: StringNullableFilter
   type: EnumPhotoTypeNullableFilter
   updatedAt: DateTimeFilter
   url: StringFilter
@@ -3920,7 +3998,7 @@ type Profile implements Node {
   Personal: Personal
   photos(after: PhotoWhereUniqueInput, before: PhotoWhereUniqueInput, first: Int, last: Int): [Photo!]!
   ProfileSearchesService: ProfileSearchesService
-  ProfileType: ProfileType!
+  ProfileType: ProfileType
   Relationships(after: RelationshipWhereUniqueInput, before: RelationshipWhereUniqueInput, first: Int, last: Int): [Relationship!]!
   Story(after: StoryWhereUniqueInput, before: StoryWhereUniqueInput, first: Int, last: Int): [Story!]!
   updatedAt: DateTime!
@@ -4780,7 +4858,7 @@ enum Status {
 
 type Story {
   createdAt: DateTime!
-  emojimood: Emojimood
+  emojimood(after: EmojimoodWhereUniqueInput, before: EmojimoodWhereUniqueInput, first: Int, last: Int): [Emojimood!]!
   id: String!
   photos(after: PhotoWhereUniqueInput, before: PhotoWhereUniqueInput, first: Int, last: Int): [Photo!]!
   updatedAt: DateTime!
@@ -4788,7 +4866,7 @@ type Story {
 
 input StoryCreateManyProfileInput {
   createdAt: DateTime
-  emojimoodId: Int
+  date: DateTime!
   id: String
   updatedAt: DateTime
 }
@@ -4798,17 +4876,17 @@ input StoryCreateManyProfileInputEnvelope {
   skipDuplicates: Boolean
 }
 
-input StoryCreateNestedManyWithoutPhotosInput {
-  connect: [StoryWhereUniqueInput!]
-  connectOrCreate: [StoryCreateOrConnectWithoutPhotosInput!]
-  create: [StoryCreateWithoutPhotosInput!]
-}
-
 input StoryCreateNestedManyWithoutProfileInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutProfileInput!]
   create: [StoryCreateWithoutProfileInput!]
   createMany: StoryCreateManyProfileInputEnvelope
+}
+
+input StoryCreateNestedOneWithoutPhotosInput {
+  connect: StoryWhereUniqueInput
+  connectOrCreate: StoryCreateOrConnectWithoutPhotosInput
+  create: StoryCreateWithoutPhotosInput
 }
 
 input StoryCreateOrConnectWithoutPhotosInput {
@@ -4823,7 +4901,8 @@ input StoryCreateOrConnectWithoutProfileInput {
 
 input StoryCreateWithoutPhotosInput {
   createdAt: DateTime
-  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
+  date: DateTime!
+  emojimood: EmojimoodCreateNestedManyWithoutStoryInput
   id: String
   Profile: ProfileCreateNestedOneWithoutStoryInput
   updatedAt: DateTime
@@ -4831,7 +4910,8 @@ input StoryCreateWithoutPhotosInput {
 
 input StoryCreateWithoutProfileInput {
   createdAt: DateTime
-  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
+  date: DateTime!
+  emojimood: EmojimoodCreateNestedManyWithoutStoryInput
   id: String
   photos: PhotoCreateNestedManyWithoutStoryInput
   updatedAt: DateTime
@@ -4850,7 +4930,7 @@ input StoryOrderByRelationAggregateInput {
 input StoryScalarWhereInput {
   AND: [StoryScalarWhereInput!]
   createdAt: DateTimeFilter
-  emojimoodId: IntNullableFilter
+  date: DateTimeFilter
   id: StringFilter
   NOT: [StoryScalarWhereInput!]
   OR: [StoryScalarWhereInput!]
@@ -4860,21 +4940,9 @@ input StoryScalarWhereInput {
 
 input StoryUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
+  date: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input StoryUpdateManyWithoutPhotosInput {
-  connect: [StoryWhereUniqueInput!]
-  connectOrCreate: [StoryCreateOrConnectWithoutPhotosInput!]
-  create: [StoryCreateWithoutPhotosInput!]
-  delete: [StoryWhereUniqueInput!]
-  deleteMany: [StoryScalarWhereInput!]
-  disconnect: [StoryWhereUniqueInput!]
-  set: [StoryWhereUniqueInput!]
-  update: [StoryUpdateWithWhereUniqueWithoutPhotosInput!]
-  updateMany: [StoryUpdateManyWithWhereWithoutPhotosInput!]
-  upsert: [StoryUpsertWithWhereUniqueWithoutPhotosInput!]
 }
 
 input StoryUpdateManyWithoutProfileInput {
@@ -4891,19 +4959,25 @@ input StoryUpdateManyWithoutProfileInput {
   upsert: [StoryUpsertWithWhereUniqueWithoutProfileInput!]
 }
 
-input StoryUpdateManyWithWhereWithoutPhotosInput {
-  data: StoryUpdateManyMutationInput!
-  where: StoryScalarWhereInput!
-}
-
 input StoryUpdateManyWithWhereWithoutProfileInput {
   data: StoryUpdateManyMutationInput!
   where: StoryScalarWhereInput!
 }
 
+input StoryUpdateOneWithoutPhotosInput {
+  connect: StoryWhereUniqueInput
+  connectOrCreate: StoryCreateOrConnectWithoutPhotosInput
+  create: StoryCreateWithoutPhotosInput
+  delete: Boolean
+  disconnect: Boolean
+  update: StoryUpdateWithoutPhotosInput
+  upsert: StoryUpsertWithoutPhotosInput
+}
+
 input StoryUpdateWithoutPhotosInput {
   createdAt: DateTimeFieldUpdateOperationsInput
-  emojimood: EmojimoodUpdateOneWithoutStoryInput
+  date: DateTimeFieldUpdateOperationsInput
+  emojimood: EmojimoodUpdateManyWithoutStoryInput
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneWithoutStoryInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -4911,15 +4985,11 @@ input StoryUpdateWithoutPhotosInput {
 
 input StoryUpdateWithoutProfileInput {
   createdAt: DateTimeFieldUpdateOperationsInput
-  emojimood: EmojimoodUpdateOneWithoutStoryInput
+  date: DateTimeFieldUpdateOperationsInput
+  emojimood: EmojimoodUpdateManyWithoutStoryInput
   id: StringFieldUpdateOperationsInput
   photos: PhotoUpdateManyWithoutStoryInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input StoryUpdateWithWhereUniqueWithoutPhotosInput {
-  data: StoryUpdateWithoutPhotosInput!
-  where: StoryWhereUniqueInput!
 }
 
 input StoryUpdateWithWhereUniqueWithoutProfileInput {
@@ -4927,10 +4997,9 @@ input StoryUpdateWithWhereUniqueWithoutProfileInput {
   where: StoryWhereUniqueInput!
 }
 
-input StoryUpsertWithWhereUniqueWithoutPhotosInput {
+input StoryUpsertWithoutPhotosInput {
   create: StoryCreateWithoutPhotosInput!
   update: StoryUpdateWithoutPhotosInput!
-  where: StoryWhereUniqueInput!
 }
 
 input StoryUpsertWithWhereUniqueWithoutProfileInput {
@@ -4942,8 +5011,8 @@ input StoryUpsertWithWhereUniqueWithoutProfileInput {
 input StoryWhereInput {
   AND: [StoryWhereInput!]
   createdAt: DateTimeFilter
-  emojimood: EmojimoodWhereInput
-  emojimoodId: IntNullableFilter
+  date: DateTimeFilter
+  emojimood: EmojimoodListRelationFilter
   id: StringFilter
   NOT: [StoryWhereInput!]
   OR: [StoryWhereInput!]

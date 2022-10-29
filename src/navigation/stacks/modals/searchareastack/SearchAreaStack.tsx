@@ -82,7 +82,7 @@ function SearchAreaStackNavigation() {
 				methods.setValue('country', rSearchAreaVar.country)
 				methods.setValue('state', rSearchAreaVar.state)
 			} else {
-				console.log('do nothing')
+				console.log('TODO')
 			}
 		} catch (e) {
 			// error reading value

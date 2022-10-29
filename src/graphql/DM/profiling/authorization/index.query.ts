@@ -11,13 +11,16 @@ export const authorizedProfiles = gql`
 			}
 			... on ProfileTypesResponse {
 				email {
-					...PROFILE_FRAGMENT
+					id
+					ProfileType
 				}
 				phone {
-					...PROFILE_FRAGMENT
+					id
+					ProfileType
 				}
 				username {
-					...PROFILE_FRAGMENT
+					id
+					ProfileType
 				}
 			}
 		}
