@@ -20,7 +20,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				plugins: [
-					['expo-community-flipper'],
+					'expo-community-flipper',
 					[
 						'expo-camera',
 						{
