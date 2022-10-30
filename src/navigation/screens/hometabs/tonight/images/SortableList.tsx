@@ -1,13 +1,11 @@
+import { COL, Positions, SIZE } from './Config'
+import Item from './GestureItem'
 import React, { ReactElement } from 'react'
-
 import Animated, {
 	useAnimatedRef,
 	useAnimatedScrollHandler,
 	useSharedValue,
 } from 'react-native-reanimated'
-
-import { COL, Positions, SIZE } from './Config'
-import Item from './GestureItem'
 
 interface ListProps {
 	children: ReactElement<{ id: string }>[]
@@ -28,10 +26,10 @@ const List = ({ children, editing, onDragEnd }: ListProps) => {
 	})
 
 	return (
-  <Animated.View
+		<Animated.View
 			// onScroll={onScroll}
-  ref={scrollView}
-  style={{
+			ref={scrollView}
+			style={{
 				height: Math.ceil(children.length / COL) * SIZE,
 			}}
 			// contentContainerStyle={{
@@ -41,7 +39,7 @@ const List = ({ children, editing, onDragEnd }: ListProps) => {
 			// bounces={false}
 			// scrollEventThrottle={16}
 		>
-  {children.map(child => (
+			{children.map(child => (
 				<Item
 					key={child.props.id}
 					positions={positions}
@@ -52,7 +50,7 @@ const List = ({ children, editing, onDragEnd }: ListProps) => {
 					scrollY={scrollY}
 				>
 					{child}
-    </Item>
+				</Item>
 			))}
 		</Animated.View>
 	)

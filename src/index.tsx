@@ -2,11 +2,13 @@ import { ApolloProvider, useReactiveVar } from '@apollo/client'
 import { LOCATION_TASK_NAME, BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import gateaWayClient from '@library/gateway-apollo-server'
 import Navigator from '@navigation/navigators/Navigator'
+import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
 import { ThemeReactiveVar } from '@reactive'
 import useDeviceNetwork from '@util/hooks/device/useDeviceNetwork'
 import usePermission from '@util/hooks/device/usePermission'
 import useCachedResources from '@util/hooks/local/useCachedResources'
 import { setDefaultTheme } from '@util/hooks/theme/useDefaultTheme'
+import Constants from 'expo-constants'
 import 'expo-dev-client'
 import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'
@@ -93,7 +95,7 @@ export default function App() {
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const isDeviceNetworkComplete = useDeviceNetwork()
 	const isPermissionComplete = usePermission()
-	const isCacheComplete = useCachedResources()
+
 	ThemeReactiveVar(useColorScheme())
 	const themesObject = setDefaultTheme()
 
@@ -173,21 +175,18 @@ export default function App() {
 		})
 		return () => subscription.remove()
 	}, [])
-	const onLayoutRootView = useCallback(async () => {
-		// if (isCacheComplete) {
-		// 	await SplashScreen.hideAsync()
-		// }
-	}, [isCacheComplete])
 
 	return (
-		<SafeAreaProvider onLayout={onLayoutRootView}>
-			<KeyboardProvider statusBarTranslucent>
-				<ApolloProvider client={gateaWayClient}>
-					<Navigator colorScheme={rThemeVar} />
-					<StatusBar style='auto' />
-				</ApolloProvider>
-			</KeyboardProvider>
-		</SafeAreaProvider>
+		<AnimatedAppLoader image={{ uri: Constants.manifest.splash.image }}>
+			<SafeAreaProvider>
+				<KeyboardProvider statusBarTranslucent>
+					<ApolloProvider client={gateaWayClient}>
+						<Navigator colorScheme={rThemeVar} />
+						<StatusBar style='auto' />
+					</ApolloProvider>
+				</KeyboardProvider>
+			</SafeAreaProvider>
+		</AnimatedAppLoader>
 	)
 }
 

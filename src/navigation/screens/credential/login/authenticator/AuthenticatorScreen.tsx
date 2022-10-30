@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { KeyboardAvoidingView, Button, IconButton, Icon, Box, Input } from 'native-base'
 import React, { useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View, InputAccessoryView, TextInput, Platform } from 'react-native'
+import { View, InputAccessoryView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 export type FormType = {

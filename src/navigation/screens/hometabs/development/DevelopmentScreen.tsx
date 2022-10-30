@@ -14,9 +14,10 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
+import * as Updates from 'expo-updates'
 import { Spacer } from 'native-base'
 import { ScrollView, Button, Text, Divider, VStack } from 'native-base'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Platform, Linking } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
@@ -115,6 +116,14 @@ const DevelopmentScreen = () => {
 		}
 	}
 
+	const onReloadPress = useCallback(() => {
+		if (Platform.OS === 'web') {
+			location.reload()
+		} else {
+			Updates.reloadAsync()
+		}
+	}, [])
+
 	return (
 		<OuterView>
 			<ScrollView flex={1} mx={3} contentInset={{ bottom: insets.bottom + 50 }}>
@@ -128,6 +137,15 @@ const DevelopmentScreen = () => {
 				>
 					{ENVIRONMENT}
 				</Text>
+				<Button
+					marginX={10}
+					onPress={onReloadPress}
+					variant={'solid'}
+					colorScheme={'tertiary'}
+					color={'white'}
+				>
+					Refresh
+				</Button>
 				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
 					Authentication
 				</Text>

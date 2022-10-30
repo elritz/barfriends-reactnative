@@ -1327,7 +1327,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "d9c6b664-ba1c-44f2-9283-90672240ec2c"
+  sessiontoken: String = "e1fac505-f3b2-445e-b178-8e8d08509cc3"
   textinput: String!
 
   """
@@ -2860,8 +2860,8 @@ type Mutation {
   switchDeviceProfile(profileId: String!): RefreshDeviceManagerResponseUnion
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateWithoutProfileInput!, where: IdentifiableInformationWhereUniqueInput!): UpdateProfileResponse
-  updateStoryEmojimood(emojimoodId: Int!): Boolean
-  updateStoryPhotos(disconnectId: String!, photos: PhotoCreateManyProfileInputEnvelope): Boolean
+  updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean
+  updateStoryPhotos(disconnectId: String!, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Boolean
   upsertTonightPathOrPath(latitude: Float!, longitude: Float!, profileIdPersonal: String!, tonightPathId: String): Boolean
 }
 
@@ -4000,7 +4000,7 @@ type Profile implements Node {
   ProfileSearchesService: ProfileSearchesService
   ProfileType: ProfileType
   Relationships(after: RelationshipWhereUniqueInput, before: RelationshipWhereUniqueInput, first: Int, last: Int): [Relationship!]!
-  Story(after: StoryWhereUniqueInput, before: StoryWhereUniqueInput, first: Int, last: Int): [Story!]!
+  Story: Story
   updatedAt: DateTime!
   Venue: Venue
 }

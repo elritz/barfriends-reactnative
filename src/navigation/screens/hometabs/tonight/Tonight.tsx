@@ -3,7 +3,6 @@ import ProfileActivityAndStatusCards from '@components/organisms/ProfileActivity
 import { useContext } from 'react'
 import { ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import styled from 'styled-components/native'
 import { ThemeContext } from 'styled-components/native'
 
 const Tonight = () => {
@@ -30,7 +29,3 @@ const Tonight = () => {
 }
 
 export default Tonight
-
-const TabContentScroll = styled.ScrollView`
-	flex: 1;
-`

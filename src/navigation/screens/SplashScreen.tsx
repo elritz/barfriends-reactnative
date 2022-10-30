@@ -21,6 +21,8 @@ export default function SplashScreen() {
 						paddingTop: '40%',
 						paddingBottom: 40,
 						width: '100%',
+						backgroundColor: '#1d1d1d',
+						borderRadius: 10,
 					}}
 				>
 					<LogoTransparent height={75} />
