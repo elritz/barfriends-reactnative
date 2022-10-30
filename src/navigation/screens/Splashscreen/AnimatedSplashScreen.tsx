@@ -1,6 +1,9 @@
+import VectorFonts from '@helpers/VectorFonts'
+import { cacheFonts, cacheImages } from '@util/hooks/local/useCacheImages'
 import useCachedResources from '@util/hooks/local/useCachedResources'
 import { Asset } from 'expo-asset'
 import Constants from 'expo-constants'
+import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { View, Animated, StyleSheet } from 'react-native'
@@ -16,29 +19,42 @@ function AnimatedSplashScreen({ children, image }) {
 		if (isAppReady) {
 			Animated.timing(animation, {
 				toValue: 0,
-				duration: 1000,
+				duration: 500,
 				useNativeDriver: true,
 			}).start(() => setAnimationComplete(true))
 		}
 	}, [isAppReady])
 
+	async function loadResourcesAndDataAsync() {
+		try {
+			const imageAssets = cacheImages([])
+			const fontAssets = cacheFonts([...VectorFonts])
+
+			// Load fonts
+			await Font.loadAsync({
+				// eslint-disable-next-line global-require
+				'space-mono': require('../../../assets/fonts/SpaceMono-Regular.ttf'),
+			})
+
+			await Promise.all([...imageAssets, ...fontAssets])
+			// await new Promise(resolve => setTimeout(resolve, 2000))
+		} catch (e) {
+			console.warn(e)
+		} finally {
+		}
+	}
+
 	const onImageLoaded = useCallback(async () => {
 		try {
 			await SplashScreen.hideAsync()
 			// Load stuff
-			await Promise.all([])
+			await Promise.all([loadResourcesAndDataAsync])
 		} catch (e) {
 			// handle errors
 		} finally {
 			setAppReady(true)
 		}
 	}, [])
-
-	console.log(
-		'🚀 ~ file: AnimatedSplashScreen.tsx ~ line 71 ~ AnimatedSplashScreen ~ isAppReady',
-		isAppReady,
-		isSplashAnimationComplete,
-	)
 
 	return (
 		<View style={{ flex: 1 }}>
@@ -49,7 +65,7 @@ function AnimatedSplashScreen({ children, image }) {
 					style={[
 						StyleSheet.absoluteFill,
 						{
-							backgroundColor: Constants.manifest.splash.backgroundColor,
+							backgroundColor: '#1d1d1d',
 							opacity: animation,
 						},
 					]}

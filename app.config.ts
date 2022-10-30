@@ -54,6 +54,12 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				],
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
+				icon: './src/assets/images/icon/icon.png',
+				splash: {
+					image: './src/assets/images/splash/splash.png',
+					resizeMode: 'contain',
+					backgroundColor: '#ffffff',
+				},
 				ios: {
 					buildNumber: '2.1.6',
 					bundleIdentifier: 'com.barfriends.christian',
@@ -154,6 +160,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				plugins: [
+					'expo-community-flipper',
 					[
 						'expo-camera',
 						{
@@ -300,6 +307,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				plugins: [
+					'expo-community-flipper',
 					[
 						'expo-camera',
 						{
@@ -317,6 +325,12 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				],
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
+				icon: './src/assets/images/icon/icon.png',
+				splash: {
+					image: './src/assets/images/splash/splash.png',
+					resizeMode: 'contain',
+					backgroundColor: '#ffffff',
+				},
 				ios: {
 					buildNumber: '2.1.6',
 					bundleIdentifier: 'com.barfriends.christian',

@@ -8,8 +8,7 @@ function AnimatedAppLoader({ children, image }) {
 
 	useEffect(() => {
 		async function prepare() {
-			const [{ localUri }] = await Asset.loadAsync(image.uri)
-			console.log('🚀 ~ file: AnimatedAppLoader.tsx ~ line 12 ~ prepare ~ localUri', localUri)
+			await Asset.fromURI(image.uri).downloadAsync()
 			setSplashReady(true)
 		}
 

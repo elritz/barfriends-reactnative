@@ -176,8 +176,13 @@ export default function App() {
 		return () => subscription.remove()
 	}, [])
 
+	console.log('Consttants', Constants.manifest)
 	return (
-		<AnimatedAppLoader image={{ uri: Constants.manifest.splash.image }}>
+		<AnimatedAppLoader
+			image={{
+				uri: 'https://github.com/expo/expo/blob/master/templates/expo-template-blank/assets/icon.png?raw=true',
+			}}
+		>
 			<SafeAreaProvider>
 				<KeyboardProvider statusBarTranslucent>
 					<ApolloProvider client={gateaWayClient}>
