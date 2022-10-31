@@ -11,7 +11,7 @@ import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } fro
 import { Button, Text } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
-import { Box, KeyboardAvoidingView } from 'native-base'
+import { Box, Heading, KeyboardAvoidingView } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, InteractionManager, Platform, TextInput, View } from 'react-native'
@@ -243,7 +243,7 @@ const PhoneScreen = () => {
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
-			<RNEHeading800>Enter your mobile number</RNEHeading800>
+			<Heading>Enter your mobile number</Heading>
 			{isFocused ? (
 				<View style={{ marginVertical: 20, width: '100%' }}>
 					<Controller

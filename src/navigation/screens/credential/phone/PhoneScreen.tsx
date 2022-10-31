@@ -6,11 +6,10 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { CountryCode } from 'libphonenumber-js'
-import { Input, Text, Icon, IconButton, KeyboardAvoidingView, Box } from 'native-base'
+import { Input, Text, Icon, IconButton, KeyboardAvoidingView, Box, Heading } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View, InteractionManager } from 'react-native'
-import styled from 'styled-components/native'
 
 export type FormType = {
 	countrySelector: CountrySelector
@@ -138,9 +137,9 @@ const PhoneScreen = () => {
 				marginHorizontal: '5%',
 			}}
 		>
-			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+			<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				Enter your mobile number
-			</Text>
+			</Heading>
 			<View style={{ marginVertical: 20, width: '100%' }}>
 				{isFocused && (
 					<Controller
@@ -186,6 +185,12 @@ const PhoneScreen = () => {
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
+					_light={{
+						bg: 'light.50',
+					}}
+					_dark={{
+						bg: 'dark.50',
+					}}
 					flexDir={'row'}
 					justifyContent={'flex-end'}
 					alignContent={'space-around'}

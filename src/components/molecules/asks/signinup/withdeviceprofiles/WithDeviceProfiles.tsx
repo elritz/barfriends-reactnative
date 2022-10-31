@@ -1,11 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import RNEButtonPrimary from '@components/atoms/buttons/rnebutton/barfriends/RNEButtonPrimary'
 import { useGetADeviceManagerQuery } from '@graphql/generated'
 import GetSignInUpText from '@helpers/data/SignupinText'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Divider, Button } from '@rneui/themed'
-import { Box, Text, Center } from 'native-base'
+import { Box, Text, Center, Button, Divider } from 'native-base'
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
@@ -66,36 +64,34 @@ export default function WithDeviceProfiles() {
 					>
 						{text[1].subTitle}
 					</Text>
-					<RNEButtonPrimary
-						onPressIn={handleSignupNavigation}
-						title={'sign up'}
-						onPress={handleSignupNavigation}
-						containerStyle={{
-							width: '95%',
-							marginVertical: 5,
-						}}
-						titleStyle={{
-							fontWeight: 'bold',
-							textTransform: 'uppercase',
-						}}
-					/>
 					<Button
-						type='clear'
-						title={'log in'}
+						onPressIn={handleSignupNavigation}
+						onPress={handleSignupNavigation}
+						width={'95%'}
+						my={4}
+						_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
+						borderRadius={'xl'}
+					>
+						Sign up
+					</Button>
+					<Button
+						variant={'ghost'}
 						onPress={handleSigninNavigation}
-						containerStyle={{
-							marginVertical: 5,
-						}}
-						buttonStyle={{
-							width: '100%',
-						}}
-						titleStyle={{
-							color: themeContext.palette.primary.color.primary,
-							fontWeight: 'bold',
+						_text={{
 							textTransform: 'uppercase',
-							textDecorationLine: 'underline',
+							fontWeight: '700',
+							fontSize: 'lg',
+							_dark: {
+								color: 'light.50',
+							},
+							_light: {
+								color: 'light.900',
+							},
+							lineHeight: 'lg',
 						}}
-					/>
+					>
+						Log in
+					</Button>
 				</Center>
 				<Divider style={{ marginVertical: 10 }} />
 			</Box>

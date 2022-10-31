@@ -2,8 +2,7 @@ import ActionCard from '../../ActionCard'
 import RNEButtonPrimary from '@components/atoms/buttons/rnebutton/barfriends/RNEButtonPrimary'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { useNavigation } from '@react-navigation/native'
-import { Button } from '@rneui/themed'
-import { Center, Heading, Text } from 'native-base'
+import { Center, Heading, Button } from 'native-base'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
@@ -29,7 +28,7 @@ export default function SignupCard() {
 					marginTop: 15,
 				}}
 			>
-				<RNEButtonPrimary
+				<Button
 					onPressIn={() => {
 						navigation.navigate('CredentialNavigator', {
 							screen: 'PersonalCredentialStack',
@@ -38,7 +37,6 @@ export default function SignupCard() {
 							},
 						})
 					}}
-					title={'sign up'}
 					onPress={() => {
 						navigation.navigate('CredentialNavigator', {
 							screen: 'PersonalCredentialStack',
@@ -47,18 +45,20 @@ export default function SignupCard() {
 							},
 						})
 					}}
-					containerStyle={{
-						width: '95%',
-						marginVertical: 5,
-					}}
-					titleStyle={{
+					w={'95%'}
+					my={5}
+					_text={{
 						fontWeight: 'bold',
 						textTransform: 'uppercase',
 					}}
-				/>
+				>
+					Log in
+				</Button>
 				<Button
-					type='clear'
-					title={'log in'}
+					variant={'ghost'}
+					w={'95%'}
+					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
+					borderRadius={'xl'}
 					onPress={() =>
 						navigation.navigate('CredentialNavigator', {
 							screen: 'LoginCredentialStack',
@@ -67,19 +67,10 @@ export default function SignupCard() {
 							},
 						})
 					}
-					containerStyle={{
-						marginVertical: 5,
-					}}
-					buttonStyle={{
-						width: '100%',
-					}}
-					titleStyle={{
-						color: themeContext.palette.primary.color.primary,
-						fontWeight: 'bold',
-						textTransform: 'uppercase',
-						textDecorationLine: 'underline',
-					}}
-				/>
+					my={2}
+				>
+					log in
+				</Button>
 			</Center>
 		</>
 	)

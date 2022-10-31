@@ -1,10 +1,5 @@
 import DeviceManagerProfiles from './DeviceManagerProfiles'
 import { useReactiveVar } from '@apollo/client'
-import {
-	DeviceManager,
-	useGetADeviceManagerQuery,
-	useSwitchDeviceProfileMutation,
-} from '@graphql/generated'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -20,7 +15,6 @@ type Props = {
 const CardPleaseSignup = (props: Props) => {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const handleSignupNavigation = () => {
 		navigation.navigate('CredentialNavigator', {
@@ -86,6 +80,7 @@ const CardPleaseSignup = (props: Props) => {
 					onPress={handleSignupNavigation}
 					w={'95%'}
 					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
+					borderRadius={'xl'}
 				>
 					Sign up
 				</Button>
