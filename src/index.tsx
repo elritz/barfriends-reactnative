@@ -11,6 +11,7 @@ import { setDefaultTheme } from '@util/hooks/theme/useDefaultTheme'
 import Constants from 'expo-constants'
 import 'expo-dev-client'
 import * as Device from 'expo-device'
+import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
@@ -176,22 +177,15 @@ export default function App() {
 		return () => subscription.remove()
 	}, [])
 
-	console.log('Consttants', Constants.manifest)
 	return (
-		<AnimatedAppLoader
-			image={{
-				uri: 'https://github.com/expo/expo/blob/master/templates/expo-template-blank/assets/icon.png?raw=true',
-			}}
-		>
-			<SafeAreaProvider>
-				<KeyboardProvider statusBarTranslucent>
-					<ApolloProvider client={gateaWayClient}>
-						<Navigator colorScheme={rThemeVar} />
-						<StatusBar style='auto' />
-					</ApolloProvider>
-				</KeyboardProvider>
-			</SafeAreaProvider>
-		</AnimatedAppLoader>
+		<SafeAreaProvider>
+			<KeyboardProvider statusBarTranslucent>
+				<ApolloProvider client={gateaWayClient}>
+					<Navigator colorScheme={rThemeVar} />
+					<StatusBar style='auto' />
+				</ApolloProvider>
+			</KeyboardProvider>
+		</SafeAreaProvider>
 	)
 }
 

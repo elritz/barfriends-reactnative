@@ -47,7 +47,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 						'expo-notifications',
 						{
 							icon: './local/assets/notification-icon.png',
-							color: '#ffffff',
+							color: '#0d0d0d',
 							sounds: [],
 						},
 					],
@@ -58,7 +58,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				splash: {
 					image: './src/assets/images/splash/splash.png',
 					resizeMode: 'contain',
-					backgroundColor: '#ffffff',
+					backgroundColor: '#0d0d0d',
 				},
 				ios: {
 					buildNumber: '2.1.6',
@@ -187,7 +187,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 						'expo-notifications',
 						{
 							icon: './local/assets/notification-icon.png',
-							color: '#ffffff',
+							color: '#0d0d0d',
 							sounds: [],
 						},
 					],
@@ -198,7 +198,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				splash: {
 					image: './src/assets/images/splash/splash.png',
 					resizeMode: 'contain',
-					backgroundColor: '#ffffff',
+					backgroundColor: '#0d0d0d',
 				},
 				ios: {
 					buildNumber: '2.1.6',
@@ -329,7 +329,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				splash: {
 					image: './src/assets/images/splash/splash.png',
 					resizeMode: 'contain',
-					backgroundColor: '#ffffff',
+					backgroundColor: '#0d0d0d',
 				},
 				ios: {
 					buildNumber: '2.1.6',
@@ -337,7 +337,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					supportsTablet: false,
 					icon: `./src/assets/images/icon/icon.png`,
 					splash: {
-						image: `./src/assets/images/splash/splash.png`,
+						image: `https://res.cloudinary.com/ritz/image/upload/v1667169720/barfriends/app/splash.png`,
 						resizeMode: 'contain',
 						backgroundColor: '#0D0D0D',
 					},

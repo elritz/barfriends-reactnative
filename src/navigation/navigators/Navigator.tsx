@@ -12,6 +12,7 @@ import {
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
 import SplashScreen from '@navigation/screens/SplashScreen'
+import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native'
 import {
@@ -227,7 +228,9 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 				<NativeBaseProvider theme={themesObject.themes.nativebase}>
 					<RNEThemeProvider theme={themesObject.themes.rne}>
 						<BottomSheetModalProvider>
-							<RootNavigator />
+							<AnimatedAppLoader>
+								<RootNavigator />
+							</AnimatedAppLoader>
 						</BottomSheetModalProvider>
 					</RNEThemeProvider>
 				</NativeBaseProvider>

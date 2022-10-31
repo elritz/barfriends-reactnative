@@ -6,20 +6,19 @@ import Constants from 'expo-constants'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { View, Animated, StyleSheet } from 'react-native'
+import { View, Animated, StyleSheet, useColorScheme } from 'react-native'
 
 function AnimatedSplashScreen({ children, image }) {
+	const colorScheme = useColorScheme()
 	const animation = useMemo(() => new Animated.Value(1), [])
 	const [isAppReady, setAppReady] = useState(false)
 	const [isSplashAnimationComplete, setAnimationComplete] = useState(false)
-	const isCacheComplete = useCachedResources()
-	const onLayoutRootView = useCallback(async () => {}, [isCacheComplete])
 
 	useEffect(() => {
 		if (isAppReady) {
 			Animated.timing(animation, {
 				toValue: 0,
-				duration: 500,
+				duration: 200,
 				useNativeDriver: true,
 			}).start(() => setAnimationComplete(true))
 		}
@@ -57,7 +56,18 @@ function AnimatedSplashScreen({ children, image }) {
 	}, [])
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View
+			style={{
+				position: 'absolute',
+				top: 0,
+				bottom: 0,
+				left: 0,
+				right: 0,
+				// backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
+				backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
+				flex: 1,
+			}}
+		>
 			{isAppReady && children}
 			{!isSplashAnimationComplete && (
 				<Animated.View
@@ -65,8 +75,7 @@ function AnimatedSplashScreen({ children, image }) {
 					style={[
 						StyleSheet.absoluteFill,
 						{
-							backgroundColor: '#1d1d1d',
-							opacity: animation,
+							backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
 						},
 					]}
 				>
@@ -75,11 +84,6 @@ function AnimatedSplashScreen({ children, image }) {
 							width: '100%',
 							height: '100%',
 							resizeMode: 'contain',
-							transform: [
-								{
-									scale: animation,
-								},
-							],
 						}}
 						source={image}
 						onLoadEnd={onImageLoaded}
