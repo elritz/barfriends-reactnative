@@ -1,16 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
 import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading500 from '@components/atoms/typography/RNETypography/heading/RNEHeading500'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { KeyboardAvoidingView, WarningOutlineIcon } from 'native-base'
-import { Heading, Button, Input, Box, FormControl } from 'native-base'
-import React, { useContext, useEffect, useRef } from 'react'
+import { KeyboardAvoidingView, Text } from 'native-base'
+import { Heading, Button, Box } from 'native-base'
+import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { ActivityIndicator, Pressable, TextInput } from 'react-native'
+import { ActivityIndicator, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const NamesScreen = () => {
 	const themeContext = useContext(ThemeContext)
@@ -127,7 +125,7 @@ const NamesScreen = () => {
 						required: true,
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<InputView>
+						<Box flexDirection={'column'} alignItems={'flex-start'} width={'100%'} my={3}>
 							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
 								Full name
 							</Heading>
@@ -158,7 +156,7 @@ const NamesScreen = () => {
 									) : (
 										dirtyFields.fullname && (
 											<Pressable onPress={() => resetInput('fullname')}>
-												<RNEText500>Reset</RNEText500>
+												<Text fontWeight={'bold'}>Reset</Text>
 											</Pressable>
 										)
 									)
@@ -172,7 +170,7 @@ const NamesScreen = () => {
 								inputContainerStyle={{ borderBottomColor: 'transparent', borderBottomWidth: 0 }}
 								errorMessage={errors?.fullname?.message}
 							/>
-						</InputView>
+						</Box>
 					)}
 				/>
 				<Controller
@@ -182,7 +180,7 @@ const NamesScreen = () => {
 						required: true,
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<InputView>
+						<Box flexDirection={'column'} alignItems={'flex-start'} width={'100%'} my={3}>
 							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
 								Nick name
 							</Heading>
@@ -218,7 +216,7 @@ const NamesScreen = () => {
 									) : (
 										dirtyFields.nickname && (
 											<Pressable onPress={() => resetInput('nickname')}>
-												<RNEText500>Reset</RNEText500>
+												<Text fontWeight={'bold'}>Reset</Text>
 											</Pressable>
 										)
 									)
@@ -226,7 +224,7 @@ const NamesScreen = () => {
 								inputContainerStyle={{ borderBottomColor: 'transparent', borderBottomWidth: 0 }}
 								errorMessage={errors?.nickname?.message}
 							/>
-						</InputView>
+						</Box>
 					)}
 				/>
 				{(dirtyFields.fullname || dirtyFields.nickname) && (
@@ -253,14 +251,3 @@ const NamesScreen = () => {
 }
 
 export default NamesScreen
-
-const InnerView = styled.KeyboardAvoidingView`
-	background-color: red;
-`
-
-const InputView = styled.View`
-	flex-direction: column;
-	align-items: flex-start;
-	width: 100%;
-	margin-vertical: 10px;
-`

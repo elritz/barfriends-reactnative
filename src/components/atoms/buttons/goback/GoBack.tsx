@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
+import { Pressable } from 'native-base'
 import * as React from 'react'
-import styled from 'styled-components/native'
 
 interface ButtonProps {
 	children: React.ReactNode
@@ -20,17 +20,16 @@ const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	}
 	const { width, height, children } = props
 	return (
-		<OuterView width={width} height={height} onPress={() => handleOnPress()}>
+		<Pressable
+			width={width || '100%'}
+			height={height || '100%'}
+			alignItems={'center'}
+			justifyContent={'center'}
+			onPress={() => handleOnPress()}
+		>
 			{children}
-		</OuterView>
+		</Pressable>
 	)
 }
 
 export default GoBack
-
-const OuterView = styled.Pressable<ButtonProps>`
-	height: ${props => (props.height ? props.height : '100%')};
-	width: ${props => (props.width ? props.width : '100%')};
-	align-items: center;
-	justify-content: center;
-`

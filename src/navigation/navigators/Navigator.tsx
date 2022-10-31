@@ -49,7 +49,7 @@ interface NavigationProps {
 const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const themesObject = setDefaultTheme()
+	const themes = setDefaultTheme()
 
 	const setLocalStorageData = async () => {
 		try {
@@ -114,12 +114,12 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		...DefaultTheme,
 		colors: {
 			...DefaultTheme.colors,
-			background: themesObject.themes.styled.palette.primary.background,
-			primary: themesObject.themes.styled.palette.company.primary,
-			card: themesObject.themes.styled.palette.secondary.background,
-			text: themesObject.themes.styled.palette.primary.color.primary,
-			border: themesObject.themes.styled.palette.primary.color.secondary,
-			notification: themesObject.themes.styled.palette.company.tertiary,
+			background: themes.themes.styled.palette.primary.background,
+			primary: themes.themes.styled.palette.company.primary,
+			card: themes.themes.styled.palette.secondary.background,
+			text: themes.themes.styled.palette.primary.color.primary,
+			border: themes.themes.styled.palette.primary.color.secondary,
+			notification: themes.themes.styled.palette.company.tertiary,
 		},
 	}
 
@@ -224,9 +224,9 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			linking={AppLinkingConfiguration}
 			// fallback={<SplashScreen />}
 		>
-			<StyledThemeProvider theme={themesObject.themes.styled}>
-				<NativeBaseProvider theme={themesObject.themes.nativebase}>
-					<RNEThemeProvider theme={themesObject.themes.rne}>
+			<StyledThemeProvider theme={themes.themes.styled}>
+				<NativeBaseProvider theme={themes.themes.nativebase}>
+					<RNEThemeProvider theme={themes.themes.rne}>
 						<BottomSheetModalProvider>
 							<AnimatedAppLoader>
 								<RootNavigator />

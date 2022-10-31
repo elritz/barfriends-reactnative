@@ -11,9 +11,9 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Image, Divider } from '@rneui/themed'
-import { Button, Heading } from 'native-base'
+import { Button, Heading, ScrollView } from 'native-base'
 import { useContext, useState } from 'react'
-import { Pressable, ScrollView, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { ThemeContext } from 'styled-components/native'
 
@@ -103,7 +103,7 @@ const PersonalScreen = () => {
 	}
 
 	return (
-		<OuterView contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}>
+		<ScrollView px={2} contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}>
 			<View style={{ alignItems: 'center' }}>
 				<Image
 					style={{ width: 165, height: 170, borderRadius: 15 }}
@@ -136,12 +136,8 @@ const PersonalScreen = () => {
 			<CondensedVerticalFriendsNotficationsList />
 			<Divider insetType='middle' style={{ marginVertical: 20 }} />
 			<FriendsList />
-		</OuterView>
+		</ScrollView>
 	)
 }
 
 export default PersonalScreen
-
-const OuterView = styled.ScrollView`
-	padding-horizontal: 5px;
-`

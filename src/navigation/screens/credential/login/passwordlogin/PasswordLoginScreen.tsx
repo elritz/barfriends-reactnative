@@ -11,6 +11,7 @@ import { AuthorizationReactiveVar } from '@reactive'
 import { Input, Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Box, Image, KeyboardAvoidingView } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
@@ -19,8 +20,11 @@ import styled, { ThemeContext } from 'styled-components/native'
 
 export type PasswordLoginScreenRouteProp = RouteProp<LoginStackParamList, 'PasswordLoginScreen'>
 
+type PasswordScreenProps = {
+	Profile?: Profile
+}
+
 const IMAGE_SIZE = 75
-const IMAGE_BACKGROUND_SIZE = 85
 
 const PasswordLoginScreen = () => {
 	const inputAccessoryViewID = 'uni2que123ID4'
@@ -148,7 +152,10 @@ const PasswordLoginScreen = () => {
 	}
 
 	return (
-		<OuterView
+		<KeyboardAvoidingView
+			height={'auto'}
+			flexDir={'column'}
+			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
@@ -162,7 +169,14 @@ const PasswordLoginScreen = () => {
 				}}
 				colors={[themeContext.palette.secondary.background, themeContext.palette.secondary.background]}
 			>
-				{!PQLoading && <ProfileImage source={{ uri: PQData.profile.photos[0].url }} />}
+				{!PQLoading && (
+					<Image
+						height={`${IMAGE_SIZE}px`}
+						width={`${IMAGE_SIZE}px`}
+						borderRadius={'lg'}
+						source={{ uri: PQData.profile.photos[0].url }}
+					/>
+				)}
 			</LinearGradient>
 			<View style={{ marginVertical: '10%', width: '100%' }}>
 				<Controller
@@ -194,7 +208,13 @@ const PasswordLoginScreen = () => {
 					)}
 				/>
 				<InputAccessoryView nativeID={inputAccessoryViewID}>
-					<InputAccessoryContainer style={{ justifyContent: 'flex-end' }}>
+					<Box
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						alignContent={'space-around'}
+						height={'90px'}
+						px={'2.5%'}
+					>
 						<View
 							style={{
 								display: 'flex',
@@ -219,45 +239,11 @@ const PasswordLoginScreen = () => {
 								icon={<RightIcon />}
 							/>
 						</View>
-					</InputAccessoryContainer>
+					</Box>
 				</InputAccessoryView>
 			</View>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default PasswordLoginScreen
-type PasswordScreenProps = {
-	Profile?: Profile
-}
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 2%;
-	align-items: center;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`
-
-const ProfileBackgroundView = styled.View`
-	padding: 5px;
-	border-radius: ${IMAGE_SIZE + 5 / 2}px;
-`
-
-const ProfileImage = styled.Image`
-	height: ${IMAGE_SIZE}px;
-	width: ${IMAGE_SIZE}px;
-	height: ${IMAGE_SIZE}px;
-	width: ${IMAGE_SIZE}px;
-	border-radius: 18px;
-`

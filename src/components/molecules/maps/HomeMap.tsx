@@ -1,16 +1,11 @@
-import { PropsWithChildren, useContext, useRef, useState } from 'react'
-
-import useColorScheme from '@context/device/hooks/useColorScheme'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { Dimensions, StyleSheet, View } from 'react-native'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
-import { useTheme } from 'styled-components/native'
-
-import BasicCircleMarker from '@components/atoms/markers/BasicCircleMarker'
-
-import SignupMap from '../asks/signupmap/SignupMapButtons'
 import DarkMapStyle from './GoogleMapsStyleDark'
 import LightMapStyle from './GoogleMapsStyleLight'
+import BasicCircleMarker from '@components/atoms/markers/BasicCircleMarker'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { PropsWithChildren, useRef, useState } from 'react'
+import { Dimensions, StyleSheet, View, useColorScheme } from 'react-native'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import { useTheme } from 'styled-components/native'
 
 const { width, height } = Dimensions.get('window')
 const ASPECT_RATIO = width / height
@@ -88,40 +83,35 @@ export default function index() {
 	})
 
 	return (
-  <>
-  <MapView
-  ref={map}
-  provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-  region={defaultInitialPosition}
+		<>
+			<MapView
+				ref={map}
+				provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+				region={defaultInitialPosition}
 				// showsUserCurrentLocation={true}
-  tracksInfoWindowChanges={false}
-  tracksViewChanges={false}
-  customMapStyle={colorScheme === 'light' ? LightMapStyle : DarkMapStyle}
-  style={styles.map}
+				tracksInfoWindowChanges={false}
+				tracksViewChanges={false}
+				customMapStyle={colorScheme === 'light' ? LightMapStyle : DarkMapStyle}
+				style={styles.map}
 			>
-  {isFocused ? (
-  <>
-  {MapItems.map(marker => (
-  <BasicCircleMarker
-  key={marker.id}
-  marker={marker}
-  main_navigation_screen='venue'
-  sub_navigation_screen='venuescreen'
+				{isFocused ? (
+					<>
+						{MapItems.map(marker => (
+							<BasicCircleMarker
+								key={marker.id}
+								marker={marker}
+								main_navigation_screen='venue'
+								sub_navigation_screen='venuescreen'
 							/>
 						))}
 					</>
 				) : null}
 			</MapView>
 
-  <View style={{ marginTop: 50 }} />
-  {true && <SignupMap />}
+			<View style={{ marginTop: 50 }} />
 		</>
 	)
 }
-
-// const View = styled.View`
-//   background: ${(props) => prop};
-// `;
 
 const styles = StyleSheet.create({
 	map: {

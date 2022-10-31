@@ -1,18 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicNetwork from '@assets/images/network/IllustrationDynamicNetwork'
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
-import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { DeviceNetworkInfoReactiveVar, ForegroundLocationPermissionReactiveVar } from '@reactive'
 import { Button, Divider } from '@rneui/base'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
-import * as React from 'react'
+import { Box, Heading, Text } from 'native-base'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { AppState, Platform, View, ScrollView } from 'react-native'
-import SimpleEmoji from 'simple-react-native-emoji'
-import styled from 'styled-components/native'
 import { ThemeContext } from 'styled-components/native'
 
 const NetworkPermissionScreen = () => {
@@ -66,23 +62,19 @@ const NetworkPermissionScreen = () => {
 	}, [appStateVisible])
 
 	return (
-		<OuterView>
+		<Box flex={1} flexDir={'column'} w={'95%'} justifyContent={'space-around'} alignSelf={'center'}>
 			<ScrollView contentContainerStyle={{ alignItems: 'center' }}>
 				<View style={{ alignItems: 'center', marginVertical: 40 }}>
 					<IllustrationDynamicNetwork width={200} />
-					<RNEHeading1000
-						style={{ marginVertical: 15, textTransform: 'uppercase', textAlign: 'center' }}
-					>
+					<Heading my={4} textTransform={'uppercase'} textAlign={'center'}>
 						Network Connection
-					</RNEHeading1000>
+					</Heading>
 					{rDeviceNetworkVar.isConnected ? (
-						<RNEText600 style={{ textAlign: 'center' }}>
+						<Text textAlign={'center'}>
 							Your mobile device is connected to our service using {rDeviceNetworkVar.type}.
-						</RNEText600>
+						</Text>
 					) : (
-						<RNEText600 style={{ textAlign: 'center' }}>
-							To update content check your device network connection.
-						</RNEText600>
+						<Text textAlign={'center'}>To update content check your device network connection.</Text>
 					)}
 				</View>
 				<View style={{ paddingVertical: 20, width: '90%', alignItems: 'center' }}>
@@ -127,16 +119,8 @@ const NetworkPermissionScreen = () => {
 					/>
 				</View>
 			</ScrollView>
-		</OuterView>
+		</Box>
 	)
 }
 
 export default NetworkPermissionScreen
-
-const OuterView = styled.SafeAreaView`
-	flex: 1;
-	flex-direction: column;
-	width: 95%;
-	justify-content: space-around;
-	align-self: center;
-`

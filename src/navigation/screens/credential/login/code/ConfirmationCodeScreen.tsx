@@ -1,21 +1,23 @@
 import { useReactiveVar } from '@apollo/client'
+import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { useHeaderHeight } from '@react-navigation/elements'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import Countdown from '@util/hooks/useTimer'
-import { Text } from 'native-base'
+import { Box, Heading, KeyboardAvoidingView, Text } from 'native-base'
 import { useContext, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { InputAccessoryView, Pressable, View } from 'react-native'
+import { InputAccessoryView, Platform, Pressable, View } from 'react-native'
 import {
 	CodeField,
 	Cursor,
 	useBlurOnFulfill,
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
-import { PersonalCredentialStackParamList } from 'src/types/app'
-import styled, { ThemeContext } from 'styled-components/native'
+import { LoginStackParamList } from 'src/types/app'
+import { ThemeContext } from 'styled-components/native'
 
 type CodeInputCellViewType = {
 	isFocused: boolean
@@ -24,7 +26,7 @@ type CodeInputCellViewType = {
 // TODO: FN(Resend code functionality) - ln:172
 
 export type ConfirmationCodeScreenRouteProp = RouteProp<
-	PersonalCredentialStackParamList,
+	LoginStackParamList,
 	'ConfirmationCodeScreen'
 >
 
@@ -32,13 +34,15 @@ const ConfirmationCodeScreen = () => {
 	const route = useRoute<ConfirmationCodeScreenRouteProp>()
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
+	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const inputAccessoryViewID = 'codeAccessoryViewID'
 	const CELL_COUNT = 4
 	const { num, complete } = Countdown(9)
 	const [codeValue, setCodeValue] = useState('')
-
+	const keyboardVerticalOffset =
+		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 
 	const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -117,7 +121,13 @@ const ConfirmationCodeScreen = () => {
 	)
 
 	return (
-		<OuterView>
+		<KeyboardAvoidingView
+			height={'auto'}
+			flexDir={'column'}
+			mx={'5%'}
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			keyboardVerticalOffset={keyboardVerticalOffset}
+		>
 			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				{`Enter the 4-diget code sent to you at ${route.params.authenticator}`}
 			</Text>
@@ -145,13 +155,24 @@ const ConfirmationCodeScreen = () => {
 							autoFocus
 							onEndEditing={handleSubmit(onSubmit)}
 							renderCell={({ index, symbol, isFocused }) => (
-								<CodeInputCellView
+								<Box
+									width={'50px'}
+									height={'60px'}
+									justifyContent={'center'}
+									alignItems={'center'}
+									borderBottomColor={isFocused ? '#ccc' : '#007AFF'}
+									borderBottomWidth={isFocused ? '2px' : '1px'}
 									onLayout={getCellOnLayoutHandler(index)}
 									key={index}
-									isFocused={isFocused}
 								>
-									<CellText>{symbol || (isFocused ? <Cursor /> : null)}</CellText>
-								</CodeInputCellView>
+									<Heading
+										style={{
+											color: themeContext.palette.active.color.primary,
+										}}
+									>
+										{symbol || (isFocused ? <Cursor /> : null)}
+									</Heading>
+								</Box>
 							)}
 						/>
 					)}
@@ -171,8 +192,14 @@ const ConfirmationCodeScreen = () => {
 				<Text color={'error.500'}>{errors?.code?.message}</Text>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer>
-					<CodeInputOptionsView>
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
+					<Box flexDir={'column'} justifyContent={'space-around'} my={2}>
 						{complete ? (
 							<>
 								<Pressable onPress={() => null}>
@@ -192,7 +219,7 @@ const ConfirmationCodeScreen = () => {
 								{num}
 							</Text>
 						)}
-					</CodeInputOptionsView>
+					</Box>
 					<View
 						style={{
 							display: 'flex',
@@ -220,47 +247,10 @@ const ConfirmationCodeScreen = () => {
 							icon={<RightIcon />}
 						/>
 					</View>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default ConfirmationCodeScreen
-
-const OuterView = styled.View`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-`
-
-const CodeInputOptionsView = styled.View`
-	flex-direction: column;
-	justify-content: space-around;
-	margin-vertical: 4px;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`
-const CodeInputCellView = styled.View<CodeInputCellViewType>`
-	width: 50px;
-	height: 60px;
-	justify-content: center;
-	align-items: center;
-	border-bottom-color: ${props => (!props.isFocused ? '#ccc' : '#007AFF')};
-	border-bottom-width: ${props => (props.isFocused ? '2px' : '1px')};
-`
-
-const CellText = styled.Text`
-	color: ${props => props.theme.palette.active.color.primary};
-	font-size: 38px;
-	text-align: center;
-`

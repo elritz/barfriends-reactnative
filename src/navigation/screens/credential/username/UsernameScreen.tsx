@@ -1,17 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
 import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Button } from '@rneui/base'
-import { Text, Icon } from 'native-base'
-import React, { useContext, useRef } from 'react'
+import { Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
+import { useContext, useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const UsernameScreen = () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
@@ -97,7 +95,10 @@ const UsernameScreen = () => {
 	}
 
 	return (
-		<OuterView
+		<KeyboardAvoidingView
+			height={'auto'}
+			flexDir={'column'}
+			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
@@ -146,7 +147,13 @@ const UsernameScreen = () => {
 				/>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer style={{ justifyContent: 'flex-end' }}>
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
 					<View
 						style={{
 							display: 'flex',
@@ -181,27 +188,10 @@ const UsernameScreen = () => {
 							}
 						/>
 					</View>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default UsernameScreen
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`

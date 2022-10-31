@@ -64,9 +64,6 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 
 	const FooterItems = () => (
 		<View style={{ flexDirection: 'row' }}>
-			{/* <View style={{ height: CARD_HEIGHT, width: CARD_WIDTH * 1.15 }}>
-          <MapCurrentArea />
-        </View> */}
 			<View style={{ height: CARD_HEIGHT, width: CARD_WIDTH * 1.05 }}>
 				<CardPleaseSignup />
 			</View>

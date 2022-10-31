@@ -4,7 +4,7 @@ import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText5
 import { Ionicons } from '@expo/vector-icons'
 import { Profile, useCheckUsernameLazyQuery, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Button, Heading } from 'native-base'
+import { Box, Button, Heading, KeyboardAvoidingView } from 'native-base'
 import React, { useContext } from 'react'
 import { useForm, Controller, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator, Pressable } from 'react-native'
@@ -126,7 +126,12 @@ const UsernameScreen = () => {
 			keyboardShouldPersistTaps={'always'}
 			extraScrollHeight={100}
 		>
-			<InnerView>
+			<KeyboardAvoidingView
+				flexDir={'column'}
+				justifyContent={'space-between'}
+				alignItems={'center'}
+				my={'20px'}
+			>
 				<Controller
 					name='username'
 					control={control}
@@ -140,7 +145,7 @@ const UsernameScreen = () => {
 						},
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<InputView>
+						<Box flexDir={'column'} alignItems={'flex-start'} width={'95%'}>
 							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
 								Username
 							</Heading>
@@ -177,10 +182,10 @@ const UsernameScreen = () => {
 								}
 								errorMessage={errors?.username?.message}
 							/>
-						</InputView>
+						</Box>
 					)}
 				/>
-			</InnerView>
+			</KeyboardAvoidingView>
 			{dirtyFields.username && (
 				<Button
 					disabled={UOPLoading}
@@ -203,16 +208,3 @@ const UsernameScreen = () => {
 }
 
 export default UsernameScreen
-
-const InnerView = styled.KeyboardAvoidingView`
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	margin-vertical: 20px;
-`
-
-const InputView = styled.View`
-	flex-direction: column;
-	align-items: flex-start;
-	width: 95%;
-`

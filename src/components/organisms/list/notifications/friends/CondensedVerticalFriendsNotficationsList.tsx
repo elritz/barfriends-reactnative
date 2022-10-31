@@ -1,16 +1,13 @@
-import { Divider } from '@rneui/base'
-import styled from 'styled-components/native'
-
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import GenerateUsers from '@helpers/generate/placeholder/GenerateUserData'
+import { Box } from 'native-base'
 
-interface CondensedVerticalFriendsNotficationsListProps { }
+interface CondensedVerticalFriendsNotficationsListProps {}
 
-const CondensedVerticalFriendsNotficationsList = ({ }) => {
-
+const CondensedVerticalFriendsNotficationsList = ({}) => {
 	const data = GenerateUsers(5)
 	return (
-		<OuterView>
+		<Box flex={1} w={'100%'} h={'100%'} flexDir={'column'} borderRadius={'lg'} overflow={'hidden'}>
 			{data.length ? (
 				<>
 					{data.map((item, index) => (
@@ -18,18 +15,8 @@ const CondensedVerticalFriendsNotficationsList = ({ }) => {
 					))}
 				</>
 			) : null}
-		</OuterView>
+		</Box>
 	)
 }
 
 export default CondensedVerticalFriendsNotficationsList
-
-const OuterView = styled.View`
-	background: ${props => props.theme.palette.background.paper};
-	flex: 1;
-	width: 100%;
-	height: 100%;
-	flex-direction: column;
-	border-radius: 15px;
-	overflow: hidden;
-`;

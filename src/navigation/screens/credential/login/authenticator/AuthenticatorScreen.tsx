@@ -230,7 +230,13 @@ export default function AuthenticatorScreen() {
 				</Button>
 			) : null}
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer style={{ justifyContent: 'flex-end' }}>
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
 					<View
 						style={{
 							display: 'flex',
@@ -262,18 +268,8 @@ export default function AuthenticatorScreen() {
 							}
 						/>
 					</View>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
 		</KeyboardAvoidingView>
 	)
 }
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`

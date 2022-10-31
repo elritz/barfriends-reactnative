@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
+import { Pressable, View } from 'native-base'
 import * as React from 'react'
-import styled from 'styled-components/native'
 
 interface OuterViewStyleProps {
 	height?: number
@@ -20,21 +19,16 @@ export interface TabProps {
 }
 
 const TabBarIcon = ({ icon, badge, containerStyle }: TabBarIconProps) => (
-	<OuterView
-		height={containerStyle?.height}
-		width={containerStyle?.width}
-		hitSlop={{ top: 10, bottom: 20, left: 20, right: 20 }}
+	<View
+		height={containerStyle?.height || '100%'}
+		width={containerStyle?.width || '100%'}
+		hitSlop={{ top: 20, bottom: 30, left: 20, right: 20 }}
+		alignItems={'center'}
+		justifyContent={'center'}
 	>
-		{badge}
+		{/* {badge} */}
 		{icon}
-	</OuterView>
+	</View>
 )
 
 export default TabBarIcon
-
-const OuterView = styled.View<OuterViewStyleProps>`
-	height: ${props => (props.height ? `${props.height}px` : '100%')};
-	width: ${props => (props.width ? `${props.width}px` : '100%')};
-	justify-content: center;
-	align-items: center;
-`

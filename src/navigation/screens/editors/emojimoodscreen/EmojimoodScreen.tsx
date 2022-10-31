@@ -1,23 +1,17 @@
 import { useReactiveVar } from '@apollo/client'
-import {
-	DeviceManager,
-	Profile,
-	useEmojimoodsQuery,
-	useSwitchDeviceProfileMutation,
-	useUpdateOneProfileMutation,
-} from '@graphql/generated'
+import { Profile, useEmojimoodsQuery, useUpdateOneProfileMutation } from '@graphql/generated'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Text } from '@rneui/base'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
-import { Button } from 'native-base'
+import { Box, Button } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { FlatList, Image, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, Ellipse, LinearGradient, Rect, Stop } from 'react-native-svg'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 interface EmojimoodScreenProps {}
 
@@ -89,7 +83,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 	if (emojiLoading) return null
 
 	return (
-		<OuterView>
+		<Box alignItems={'center'} flex={1}>
 			<Controller
 				name='emojimood'
 				control={control}
@@ -230,13 +224,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 					</>
 				)}
 			/>
-		</OuterView>
+		</Box>
 	)
 }
 export default EmojimoodScreen
-
-const OuterView = styled.View`
-	display: flex;
-	align-items: center;
-	flex: 1;
-`

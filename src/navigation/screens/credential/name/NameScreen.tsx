@@ -7,7 +7,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Input as InputDist } from '@rneui/base/dist/Input'
 import { Button, Icon } from '@rneui/themed'
-import { Text } from 'native-base'
+import { Box, KeyboardAvoidingView, Text } from 'native-base'
 import React, { useContext, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -67,7 +67,10 @@ const NameScreen = () => {
 	}
 
 	return (
-		<OuterView
+		<KeyboardAvoidingView
+			height={'auto'}
+			flexDir={'column'}
+			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
@@ -110,8 +113,13 @@ const NameScreen = () => {
 				</View>
 			) : null}
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>
-					<InputAccessoryInnerView />
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
 					<Button
 						onPress={handleSubmit(onSubmit)}
 						disabled={!!errors.name}
@@ -131,35 +139,10 @@ const NameScreen = () => {
 						iconPosition='right'
 						icon={<RightIcon />}
 					/>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default NameScreen
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-`
-
-const InputAccessoryInnerView = styled.View`
-	flex: 2;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	padding-horizontal: 5px;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`

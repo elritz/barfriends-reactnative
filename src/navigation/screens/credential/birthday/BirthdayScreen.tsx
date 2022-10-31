@@ -5,12 +5,11 @@ import diffNow from '@library/luxon'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
-import { IconButton, Text, Icon } from 'native-base'
-import React, { useEffect, useState } from 'react'
+import { IconButton, Text, Icon, Box } from 'native-base'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { SafeAreaView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled, { ThemeContext } from 'styled-components/native'
 
 const BirthdayScreen = () => {
 	const insets = useSafeAreaInsets()
@@ -153,7 +152,14 @@ const BirthdayScreen = () => {
 					{errors.date && errors.date.type ? errors?.date?.message : null}
 				</Text>
 			</>
-			<FormButtonView style={{ marginBottom: insets.bottom }}>
+			<Box
+				display={'flex'}
+				flexDir={'row-reverse'}
+				justifyContent={'space-between'}
+				w={'100%'}
+				py={4}
+				mb={insets.bottom}
+			>
 				<IconButton
 					disabled={!!errors.date}
 					onPress={handleSubmit(onSubmit)}
@@ -177,17 +183,9 @@ const BirthdayScreen = () => {
 						/>
 					}
 				/>
-			</FormButtonView>
+			</Box>
 		</SafeAreaView>
 	)
 }
 
 export default BirthdayScreen
-
-const FormButtonView = styled.View`
-	display: flex;
-	flex-direction: row-reverse;
-	justify-content: space-between;
-	padding-vertical: 15px;
-	width: 100%;
-`

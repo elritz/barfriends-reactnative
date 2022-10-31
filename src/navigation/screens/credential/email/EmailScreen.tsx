@@ -5,7 +5,7 @@ import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Text, Icon, IconButton, Input, KeyboardAvoidingView } from 'native-base'
+import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
 import React, { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
@@ -153,10 +153,17 @@ const EmailScreen = () => {
 				/>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>
-					<InputAccessoryInnerView>
+				<Box
+					bg={'white'}
+					flexDir={'row'}
+					justifyContent={'flex-start'}
+					alignContent={'space-around'}
+					h={'90px'}
+					px={'2.5%'}
+				>
+					<Box display={'flex'} flex={2} flexDir={'column'} justifyContent={'space-around'} px={'5px'}>
 						<Text>Check your email for your verification code that we sent you</Text>
-					</InputAccessoryInnerView>
+					</Box>
 					<IconButton
 						disabled={!!errors.email}
 						onPress={handleSubmit(onSubmit)}
@@ -180,28 +187,10 @@ const EmailScreen = () => {
 							/>
 						}
 					/>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
 		</KeyboardAvoidingView>
 	)
 }
 
 export default EmailScreen
-
-const InputAccessoryInnerView = styled.View`
-	flex: 2;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	padding-horizontal: 5px;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`

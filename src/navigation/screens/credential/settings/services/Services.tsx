@@ -1,16 +1,13 @@
 import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
-import * as React from 'react'
+import { Text } from 'native-base'
+import { useContext } from 'react'
 import { SafeAreaView, ScrollView, useWindowDimensions, View } from 'react-native'
 import RenderHTML from 'react-native-render-html'
-import styled, { ThemeContext } from 'styled-components/native'
-
-const Text = styled.Text`
-	color: ${props => props.theme.palette.primary.color.primary}; ;
-`
+import { ThemeContext } from 'styled-components/native'
 
 const TermsOfService = () => {
 	const { width } = useWindowDimensions()
-	const themeContext = React.useContext(ThemeContext)
+	const themeContext = useContext(ThemeContext)
 
 	const { data, loading, error } = useDocumentsQuery({
 		variables: {

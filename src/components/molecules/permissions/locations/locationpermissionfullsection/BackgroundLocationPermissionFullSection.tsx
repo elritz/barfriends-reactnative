@@ -59,15 +59,3 @@ export default function BackgroundLocationPermissionFullSection() {
 		</AnimatePresence>
 	)
 }
-
-const OuterView = styled.View<{ width: number }>(props => ({
-	background: props.theme.palette.secondary.background,
-	height: 200,
-	width: props.width / 2.1,
-	flexDirection: 'column',
-	justifyContent: 'center',
-	padding: 10,
-	margin: props.width * 0.01,
-	shadowRadius: 10,
-	borderRadius: 16,
-}))

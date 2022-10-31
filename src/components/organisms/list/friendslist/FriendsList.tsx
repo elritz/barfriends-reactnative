@@ -1,7 +1,7 @@
 import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import { CardFullImageNameEmoji } from '@components/molecules/personal/CardFullImageNameEmoji'
 import { EmptyStateFriendsList } from '@navigation/screens/hometabs/profile/EmptyStateFriendsList/EmptyStateFriendsList'
-import { VStack } from 'native-base'
+import { Box, VStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -14,7 +14,7 @@ export const FriendsList = ({}) => {
 	const cardWidth = width / numColumns
 
 	return (
-		<OuterView>
+		<Box flex={1} width={'100%'} height={'100%'} flexDirection={'column'} my={4}>
 			{friends.length ? (
 				<>
 					<RNEHeading800 style={{}}>FRIENDS</RNEHeading800>
@@ -27,14 +27,6 @@ export const FriendsList = ({}) => {
 			) : (
 				<EmptyStateFriendsList />
 			)}
-		</OuterView>
+		</Box>
 	)
 }
-
-const OuterView = styled.View`
-	flex: 1;
-	width: 100%;
-	height: 100%;
-	flex-direction: column;
-	margin-vertical: 15px;
-`

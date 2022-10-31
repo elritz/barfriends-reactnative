@@ -1,16 +1,16 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import diffNow from '@library/luxon'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
-import { Button } from 'native-base'
+import { Box, Button, Text } from 'native-base'
 import React, { useContext, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { ThemeContext } from 'styled-components/native'
 
 const BirthdayScreen = () => {
 	const navigation = useNavigation()
@@ -109,7 +109,16 @@ const BirthdayScreen = () => {
 	}
 
 	return (
-		<OuterView>
+		<SafeAreaView
+			style={{
+				flex: '1',
+				alignItems: 'center',
+				flexDir: 'column',
+				justifyContent: 'space-between',
+				marginHorizontal: '5%',
+				marginTop: '20px',
+			}}
+		>
 			<>
 				<Controller
 					control={control}
@@ -142,8 +151,8 @@ const BirthdayScreen = () => {
 					}}
 				/>
 			</>
-			<RNEText500>{errors.date && errors?.date.message}</RNEText500>
-			<FormButtonView>
+			<Text>{errors.date && errors?.date.message}</Text>
+			<Box justifyContent={'center'} py={'15px'} width={'100%'}>
 				{dirtyFields.date && (
 					<Button
 						disabled={UOPLoading}
@@ -162,25 +171,9 @@ const BirthdayScreen = () => {
 						Update
 					</Button>
 				)}
-			</FormButtonView>
-		</OuterView>
+			</Box>
+		</SafeAreaView>
 	)
 }
 
 export default BirthdayScreen
-
-const OuterView = styled.SafeAreaView`
-	flex: 1;
-	align-items: center;
-	flex-direction: column;
-	justify-content: space-between;
-	margin-horizontal: 5%;
-	margin-top: 20px;
-`
-
-const FormButtonView = styled.View`
-	display: flex;
-	justify-content: center;
-	padding-vertical: 15px;
-	width: 100%;
-`

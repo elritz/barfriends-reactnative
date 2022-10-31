@@ -1,13 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
 import { Profile, useUpdateProfileIdentifiableInformationMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Button, Icon } from '@rneui/themed'
+import { Text } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Pressable, View, ScrollView, SafeAreaView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 interface LookingForScreenProps {}
 
@@ -119,7 +119,7 @@ const LookingForScreen = ({}) => {
 												justifyContent: 'space-between',
 											}}
 										>
-											<RNEText500>{item}</RNEText500>
+											<Text>{item}</Text>
 											{(rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.lookfor === item ||
 												value === item) && <Icon type='ionicon' name='checkmark-sharp' size={25} />}
 										</Pressable>
@@ -131,8 +131,22 @@ const LookingForScreen = ({}) => {
 				</View>
 			</ScrollView>
 			{(dirtyFields.lookfor || !!errors.lookfor) && (
-				<FooterView style={{ paddingHorizontal: 10, paddingBottom: insets.bottom }}>
-					<RNEText500 style={{ alignSelf: 'center' }}></RNEText500>
+				<SafeAreaView
+					style={{
+						paddingHorizontal: 10,
+						paddingBottom: insets.bottom,
+						backgroundColor: themeContext.palette.secondary.background,
+						position: 'absolute',
+						bottom: 0,
+						flexDirection: 'row',
+						justifyContent: 'space-between',
+						padding: 10,
+						alignItems: 'center',
+						width: '100%',
+						minHeight: 90,
+					}}
+				>
+					<Text alignSelf={'center'}></Text>
 
 					<Button
 						disabled={false}
@@ -147,22 +161,10 @@ const LookingForScreen = ({}) => {
 						}}
 						title='Update'
 					/>
-				</FooterView>
+				</SafeAreaView>
 			)}
 		</SafeAreaView>
 	)
 }
 
 export default LookingForScreen
-
-const FooterView = styled.SafeAreaView`
-	background: ${props => props.theme.palette.secondary.background};
-	position: absolute;
-	bottom: 0px;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: 10px;
-	align-items: center;
-	width: 100%;
-	min-height: 90px;
-`

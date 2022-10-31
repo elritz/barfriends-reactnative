@@ -1,13 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
 import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Button } from 'native-base'
-import React, { useContext } from 'react'
+import { Box, Button, KeyboardAvoidingView, Text } from 'native-base'
+import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const DESCRIPTION_LENGTH = 250
 
@@ -90,7 +89,12 @@ const DescriptionScreen = () => {
 	}
 
 	return (
-		<InnerView>
+		<KeyboardAvoidingView
+			flexDir={'column'}
+			justifyContent={'space-between'}
+			alignItems={'center'}
+			my={'20px'}
+		>
 			<KeyboardAwareScrollView
 				keyboardDismissMode='none'
 				keyboardShouldPersistTaps={'always'}
@@ -108,7 +112,12 @@ const DescriptionScreen = () => {
 						},
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<InputView>
+						<KeyboardAvoidingView
+							flexDir={'column'}
+							alignItems={'flex-start'}
+							height={'100%'}
+							width={'100%'}
+						>
 							<RNETextInput
 								multiline={true}
 								maxLength={DESCRIPTION_LENGTH}
@@ -136,10 +145,17 @@ const DescriptionScreen = () => {
 								inputContainerStyle={{ borderBottomColor: 'transparent', borderBottomWidth: 0 }}
 								errorMessage={errors?.description?.message}
 							/>
-							<FooterView>
-								<RNEText500 style={{ alignSelf: 'center', marginHorizontal: 10 }}>
+							<Box
+								flexDir={'row'}
+								justifyContent={'space-between'}
+								alignItems={'center'}
+								width={'100%'}
+								padding={'10px'}
+								minHeight={'70px'}
+							>
+								<Text mx={3} alignSelf={'center'}>
 									{value.length} /{DESCRIPTION_LENGTH}
-								</RNEText500>
+								</Text>
 								{(dirtyFields.description || !!errors.description) && (
 									<Button
 										disabled={UOPLoading}
@@ -158,36 +174,13 @@ const DescriptionScreen = () => {
 										Update
 									</Button>
 								)}
-							</FooterView>
-						</InputView>
+							</Box>
+						</KeyboardAvoidingView>
 					)}
 				/>
 			</KeyboardAwareScrollView>
-		</InnerView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default DescriptionScreen
-
-const InnerView = styled.KeyboardAvoidingView`
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	margin-vertical: 20px;
-`
-
-const FooterView = styled.View`
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	padding: 10px;
-	min-height: 70px;
-`
-
-const InputView = styled.KeyboardAvoidingView`
-	flex-direction: column;
-	align-items: flex-start;
-	height: 100%;
-	width: 100%;
-`

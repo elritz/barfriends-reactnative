@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
-import { Text, Icon, Center, IconButton } from 'native-base'
+import { Text, Icon, Center, IconButton, Box } from 'native-base'
 import { useContext } from 'react'
 import { FlatList, Image, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -103,7 +103,7 @@ const EmojimoodScreen = () => {
 	if (emojiLoading) return null
 
 	return (
-		<OuterView>
+		<Box alignItems={'center'}>
 			<Svg
 				style={{
 					position: 'absolute',
@@ -250,14 +250,8 @@ const EmojimoodScreen = () => {
 					</Text>
 				</IconButton>
 			</SafeAreaView>
-		</OuterView>
+		</Box>
 	)
 }
 
 export default EmojimoodScreen
-
-const OuterView = styled.View`
-	display: flex;
-	align-items: center;
-	flex: 1;
-`

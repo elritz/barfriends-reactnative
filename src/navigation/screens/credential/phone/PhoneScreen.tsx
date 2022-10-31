@@ -6,7 +6,7 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { CountryCode } from 'libphonenumber-js'
-import { Input, Text, Icon, IconButton, KeyboardAvoidingView } from 'native-base'
+import { Input, Text, Icon, IconButton, KeyboardAvoidingView, Box } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View, InteractionManager } from 'react-native'
@@ -185,12 +185,18 @@ const PhoneScreen = () => {
 			</View>
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>
-					<InputAccessoryInnerView>
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
+					<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
 						<Text>
 							By continuing you may receive an SMS for verification. Message and data rates may apply.
 						</Text>
-					</InputAccessoryInnerView>
+					</Box>
 					<IconButton
 						disabled={!!errors.mobileNumber}
 						onPress={handleSubmit(onSubmit)}
@@ -214,28 +220,10 @@ const PhoneScreen = () => {
 							/>
 						}
 					/>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
 		</KeyboardAvoidingView>
 	)
 }
 
 export default PhoneScreen
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`
-
-const InputAccessoryInnerView = styled.View`
-	flex: 2;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	padding-horizontal: 5px;
-`

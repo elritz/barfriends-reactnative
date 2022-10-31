@@ -7,9 +7,6 @@ import {
 	TextInputProps,
 	ViewProps,
 } from 'react-native'
-import styled from 'styled-components/native'
-
-const TextInputStyle = styled.TextInput``
 
 export interface InputProps {
 	keyProp?: Key | null
@@ -67,7 +64,7 @@ const TextInput = ({
 	}
 
 	return (
-		<TextInputStyle
+		<TextInput
 			ref={ref}
 			key={keyProp}
 			style={style}
@@ -81,7 +78,7 @@ const TextInput = ({
 			numberOfLines={numberOfLines}
 			keyboardType={keyboardType}
 			autoCapitalize={autoCapitalize}
-			onChangeText={value => onChange(value)}
+			onChange={value => onChange(value)}
 			onSubmitEditing={() => onSubmitEditing}
 			onBlur={onBlur}
 			value={value}

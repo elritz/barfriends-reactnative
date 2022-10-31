@@ -1,13 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
 import { useUpdateProfileIdentifiableInformationMutation, Profile } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Icon, Button } from '@rneui/themed'
+import { Box, KeyboardAvoidingView, Text } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, Pressable, ActivityIndicator, ScrollView } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 interface GenderScreenProps {}
 
@@ -123,12 +123,17 @@ const GenderScreen = ({}: GenderScreenProps) => {
 										justifyContent: 'space-between',
 									}}
 								>
-									<RNEText500>{item.gender}</RNEText500>
+									<Text>{item.gender}</Text>
 									{value === item.gender && <Icon type='ionicon' name='checkmark-sharp' size={25} />}
 								</Pressable>
 							))}
 						</View>
-						<InputView>
+						<KeyboardAvoidingView
+							flexDirection={'column'}
+							alignItems={'flex-start'}
+							height={'100%'}
+							width={'100%'}
+						>
 							<RNETextInput
 								onBlur={onBlur}
 								onChange={onChange}
@@ -153,7 +158,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 									) : (
 										dirtyFields.gender && (
 											<Pressable onPress={reset()}>
-												<RNEText500>Reset</RNEText500>
+												<Text>Reset</Text>
 											</Pressable>
 										)
 									)
@@ -171,8 +176,15 @@ const GenderScreen = ({}: GenderScreenProps) => {
 								}}
 								errorMessage={errors?.gender?.message}
 							/>
-							<FooterView>
-								<RNEText500 style={{ alignSelf: 'center', marginHorizontal: 10 }}></RNEText500>
+							<Box
+								flexDir={'row'}
+								justifyContent={'space-between'}
+								alignItems={'center'}
+								width={'100%'}
+								padding={'10px'}
+								minHeight={'70px'}
+							>
+								<Text style={{ alignSelf: 'center', marginHorizontal: 10 }}>ERROR GOES HERE</Text>
 								{(dirtyFields.gender || !!errors.gender) && (
 									<Button
 										disabled={false}
@@ -188,8 +200,8 @@ const GenderScreen = ({}: GenderScreenProps) => {
 										title='Update'
 									/>
 								)}
-							</FooterView>
-						</InputView>
+							</Box>
+						</KeyboardAvoidingView>
 					</>
 				)}
 			/>
@@ -198,19 +210,3 @@ const GenderScreen = ({}: GenderScreenProps) => {
 }
 
 export default GenderScreen
-
-const FooterView = styled.View`
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	padding: 10px;
-	min-height: 70px;
-`
-
-const InputView = styled.KeyboardAvoidingView`
-	flex-direction: column;
-	align-items: flex-start;
-	height: 100%;
-	width: 100%;
-`

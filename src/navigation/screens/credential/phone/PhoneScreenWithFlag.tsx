@@ -11,6 +11,7 @@ import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } fro
 import { Button, Text } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
+import { Box, KeyboardAvoidingView } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, InteractionManager, Platform, TextInput, View } from 'react-native'
@@ -235,7 +236,10 @@ const PhoneScreen = () => {
 	)
 
 	return (
-		<OuterView
+		<KeyboardAvoidingView
+			height={'auto'}
+			flexDir={'column'}
+			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
@@ -282,12 +286,18 @@ const PhoneScreen = () => {
 			) : null}
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer style={{ justifyContent: 'flex-start' }}>
-					<InputAccessoryInnerView>
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
+					<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
 						<Text>
 							By continuing you may receive an SMS for verification. Message and data rates may apply.
 						</Text>
-					</InputAccessoryInnerView>
+					</Box>
 					<Button
 						disabled={!!errors.mobileNumber}
 						onPress={handleSubmit(onSubmit)}
@@ -307,36 +317,10 @@ const PhoneScreen = () => {
 						iconPosition='right'
 						icon={<RightIcon />}
 					/>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default PhoneScreen
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-	margin-top: 20px;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`
-
-const InputAccessoryInnerView = styled.View`
-	flex: 2;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	padding-horizontal: 5px;
-`

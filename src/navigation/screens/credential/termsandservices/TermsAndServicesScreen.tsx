@@ -1,12 +1,13 @@
 import { Feather } from '@expo/vector-icons'
-import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
-import { Button, Text } from '@rneui/base'
+import { Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useContext } from 'react'
+import { Box, Heading, KeyboardAvoidingView, Text } from 'native-base'
+import { useContext } from 'react'
 import { Pressable } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { ThemeContext } from 'styled-components/native'
 
 const TermsAndServices = () => {
@@ -61,11 +62,15 @@ const TermsAndServices = () => {
 	}
 
 	return (
-		<OuterView>
-			<Text h3>Discover what’s happening tonight </Text>
-			<TermsAndServicesView>
+		<KeyboardAvoidingView
+		height={'auto'}
+		flexDir={'column'}
+		mx={2%}
+		>
+			<Heading fontSize={'xl'}>Discover what’s happening tonight </Heading>
+			<Box alignSelf={'center'} mx={4}>
 				<Pressable onPress={() => navigateToNextScreen('TermsServicePrivacyFlow')}>
-					<TermsAndServicesText>
+					<Text>
 						By continuing up, you agree to thes
 						<Text style={{ color: themeContext.palette.highlight.color.primary }}> Term of Services</Text>
 						<Text style={{ color: themeContext.palette.primary.color.primary }}> and</Text>
@@ -73,10 +78,15 @@ const TermsAndServices = () => {
 							{' '}
 							Privacy Policies.
 						</Text>
-					</TermsAndServicesText>
+					</Text>
 				</Pressable>
-			</TermsAndServicesView>
-			<UserOptionsView>
+			</Box>
+			<SafeAreaView
+				style={{
+					marginVertical: 20,
+					alignItems: 'center',
+				}}
+			>
 				<Button
 					title='Create Profile'
 					onPress={() => navigateToNextScreen('CreateAccountProfileFlow')}
@@ -109,8 +119,17 @@ const TermsAndServices = () => {
 						marginVertical: 15,
 					}}
 				/>
-			</UserOptionsView>
-			<LoginView>
+			</SafeAreaView>
+			<SafeAreaView
+				style={{
+					position: 'absolute',
+					display: 'flex',
+					flexDirection: 'row-reverse',
+					bottom: 20,
+					width: '100%',
+					height: 'auto',
+				}}
+			>
 				<Button
 					title='Continue'
 					onPress={onSubmit}
@@ -123,42 +142,9 @@ const TermsAndServices = () => {
 					iconPosition='right'
 					icon={<RightIcon />}
 				/>
-			</LoginView>
-		</OuterView>
+			</SafeAreaView>
+		</KeyboardAvoid>
 	)
 }
 
 export default TermsAndServices
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 2%;
-`
-
-const LoginView = styled.SafeAreaView`
-	position: absolute;
-	display: flex;
-	flex-direction: row-reverse;
-	bottom: 20px;
-	width: 100%;
-	height: auto;
-`
-
-const TermsAndServicesView = styled.View`
-	width: 100%;
-	align-self: center;
-	margin: 15px 0px;
-`
-
-const TermsAndServicesText = styled.Text`
-	color: ${props => props.theme.palette.primary.color.primary};
-	font-weight: 600;
-`
-
-const UserOptionsView = styled.SafeAreaView`
-	width: 100%;
-	margin-vertical: 20px;
-	align-items: center;
-`

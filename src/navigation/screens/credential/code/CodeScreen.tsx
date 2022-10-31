@@ -134,13 +134,20 @@ const CodeScreen = () => {
 							autoFocus
 							onEndEditing={handleSubmit(onSubmit)}
 							renderCell={({ index, symbol, isFocused }) => (
-								<CodeInputCellView
-									onLayout={getCellOnLayoutHandler(index)}
+								<Box
 									key={index}
-									isFocused={isFocused}
+									w={'50px'}
+									h={'60px'}
+									justifyContent={'center'}
+									alignItems={'center'}
+									borderBottomColor={!isFocused ? '#ccc' : '#007AFF'}
+									borderBottomWidth={isFocused ? '2px' : '1px'}
+									onLayout={getCellOnLayoutHandler(index)}
 								>
-									<CellText>{symbol || (isFocused ? <Cursor /> : null)}</CellText>
-								</CodeInputCellView>
+									<Heading color={'primary.500'} fontSize={'lg'}>
+										{symbol || (isFocused ? <Cursor /> : null)}
+									</Heading>
+								</Box>
 							)}
 						/>
 					)}
@@ -159,7 +166,15 @@ const CodeScreen = () => {
 				<Text style={{ color: 'red' }}>{errors?.code?.message}</Text>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<InputAccessoryContainer>
+				<Box
+					bg={'white'}
+					display={'flex'}
+					flexDir={'row'}
+					justifyContent={'space-between'}
+					alignContent={'space-around'}
+					h={'90px'}
+					px={'2.5%'}
+				>
 					<Box justifyContent={'space-around'}>
 						{complete ? (
 							<VStack space={2} justifyContent={'space-around'}>
@@ -214,34 +229,10 @@ const CodeScreen = () => {
 							}
 						/>
 					</VStack>
-				</InputAccessoryContainer>
+				</Box>
 			</InputAccessoryView>
 		</KeyboardAvoidingView>
 	)
 }
 
 export default CodeScreen
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`
-const CodeInputCellView = styled.View<CodeInputCellViewType>`
-	width: 50px;
-	height: 60px;
-	justify-content: center;
-	align-items: center;
-	border-bottom-color: ${props => (!props.isFocused ? '#ccc' : '#007AFF')};
-	border-bottom-width: ${props => (props.isFocused ? '2px' : '1px')};
-`
-
-const CellText = styled.Text`
-	color: ${props => props.theme.palette.active.color.primary};
-	font-size: 38px;
-	text-align: center;
-`

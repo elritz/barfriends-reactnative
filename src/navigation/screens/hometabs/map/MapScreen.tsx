@@ -6,18 +6,13 @@ import LightMapStyle from '@components/molecules/maps/GoogleMapsStyleLight'
 import HorizontalVenuesNearRegionBottomSheet from '@components/organisms/bottomsheet/component/VenuesBottomSheet/HorizontalVenuesNearRegionBottomSheet'
 import MapLocationFillteringBottomSheet from '@components/organisms/bottomsheet/modal/MapLocationFilteringBottomSheet'
 import { useNavigation } from '@react-navigation/native'
-import {
-	CurrentLocationReactiveVar,
-	MapReactiveVar,
-	ThemeReactiveVar,
-	ForegroundLocationPermissionReactiveVar,
-} from '@reactive'
+import { CurrentLocationReactiveVar, MapReactiveVar, ThemeReactiveVar } from '@reactive'
 import { Text } from '@rneui/base'
 import * as Location from 'expo-location'
-import { createRef, useEffect, useRef, useState } from 'react'
+import { View } from 'native-base'
+import { useEffect, useRef, useState } from 'react'
 import { Animated, Dimensions, Platform, StyleSheet } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
-import styled from 'styled-components/native'
 
 const { width, height } = Dimensions.get('window')
 const ASPECT_RATIO = width / height
@@ -136,7 +131,7 @@ const MapScreen = () => {
 	}
 
 	return (
-		<OuterView>
+		<View flex={1}>
 			<MapView
 				ref={_map}
 				style={StyleSheet.absoluteFillObject}
@@ -196,40 +191,8 @@ const MapScreen = () => {
 				/>
 			)}
 			<MapLocationFillteringBottomSheet />
-		</OuterView>
+		</View>
 	)
 }
 
 export default MapScreen
-
-const OuterView = styled.View`
-	flex: 1;
-`
-
-// const setUpLocation = async () => {
-//   const { granted } = await Location.getForegroundPermissionsAsync();
-//   const lSerice = await Location.hasServicesEnabledAsync()
-//   if (lSerice && granted) {
-//     const lastKnown = await Location.getLastKnownPositionAsync({ requiredAccuracy: 100 })
-//     const currentLocation = Location.reverseGeocodeAsync({
-//       latitude: lastKnown.coords.latitude,
-//       longitude: lastKnown.coords.longitude
-//     })
-//     // MapReactiveVar({
-//     //   ...rMap,
-//     //   current: {
-//     //     ...rMap.current,
-//     //     coords: {
-//     //       ...rMap.current.coords,
-//     //       latitude: lastKnown.coords.latitude,
-//     //       longitude: lastKnown.coords.longitude,
-//     //     }
-//     //   },
-//     //   reverseGeocoded: { ...currentLocation[0] }
-//     // })
-//   } else {
-//     navigation.navigate('PermissionNavigator', {
-//       screen: 'ForegroundLocationPermissionScreen'
-//     })
-//   }
-// }

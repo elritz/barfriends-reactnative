@@ -15,12 +15,11 @@ import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
-import { Spacer } from 'native-base'
+import { Box } from 'native-base'
 import { ScrollView, Button, Text, Divider, VStack } from 'native-base'
 import { useCallback, useState } from 'react'
 import { Platform, Linking } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled from 'styled-components/native'
 
 // TODO: FN(Change theme functionality with database and local storage save)
 
@@ -28,8 +27,6 @@ let foregroundSubscription = null
 
 const DevelopmentScreen = () => {
 	const insets = useSafeAreaInsets()
-	const rForegroundLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
-	const rBackgroundLocationVar = useReactiveVar(BackgroundLocationPermissionReactiveVar)
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [venues, setVenues] = useState([])
 
@@ -125,7 +122,7 @@ const DevelopmentScreen = () => {
 	}, [])
 
 	return (
-		<OuterView>
+		<Box flex={1}>
 			<ScrollView flex={1} mx={3} contentInset={{ bottom: insets.bottom + 50 }}>
 				<Text
 					my={5}
@@ -243,11 +240,7 @@ const DevelopmentScreen = () => {
 						Stop Geofencing
 					</Button> */}
 			</ScrollView>
-		</OuterView>
+		</Box>
 	)
 }
 export default DevelopmentScreen
-
-const OuterView = styled.SafeAreaView`
-	flex: 1;
-`

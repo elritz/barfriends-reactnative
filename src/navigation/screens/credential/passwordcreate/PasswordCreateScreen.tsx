@@ -4,6 +4,7 @@ import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RN
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Button, Icon } from '@rneui/themed'
+import { Box, KeyboardAvoidingView } from 'native-base'
 import { Text } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -87,7 +88,10 @@ const PasswordCreateScreen = () => {
 	)
 
 	return (
-		<OuterView
+		<KeyboardAvoidingView
+			height={'auto'}
+			flexDir={'column'}
+			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
@@ -137,7 +141,13 @@ const PasswordCreateScreen = () => {
 					}}
 				/>
 				<InputAccessoryView nativeID={inputAccessoryViewID}>
-					<InputAccessoryContainer style={{ justifyContent: 'flex-end' }}>
+					<Box
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						alignContent={'space-around'}
+						height={'90px'}
+						px={'2.5%'}
+					>
 						<View
 							style={{
 								display: 'flex',
@@ -165,28 +175,11 @@ const PasswordCreateScreen = () => {
 								icon={<RightIcon />}
 							/>
 						</View>
-					</InputAccessoryContainer>
+					</Box>
 				</InputAccessoryView>
 			</View>
-		</OuterView>
+		</KeyboardAvoidingView>
 	)
 }
 
 export default PasswordCreateScreen
-
-const OuterView = styled.KeyboardAvoidingView`
-	flex: 1;
-	height: auto;
-	flex-direction: column;
-	margin-horizontal: 5%;
-`
-
-const InputAccessoryContainer = styled.View`
-	background-color: ${props => props.theme.palette.background.paper};
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: space-around;
-	height: 90px;
-	padding-horizontal: 2.5%;
-`

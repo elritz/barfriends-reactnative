@@ -1,7 +1,7 @@
-import darkTheme from '@constants/theme/default/dark'
-import lightTheme from '@constants/theme/default/light'
-// import darkTheme from '@constants/theme/barstool/dark'
-// import lightTheme from '@constants/theme/barstool/light'
+// import darkTheme from '@constants/theme/default/dark'
+// import lightTheme from '@constants/theme/default/light'
+import darkTheme from '@constants/theme/barstool/dark'
+import lightTheme from '@constants/theme/barstool/light'
 import useColorScheme from '@util/hooks/device/useColorScheme'
 import { ColorSchemeName, useColorScheme as _useColorScheme } from 'react-native'
 
@@ -17,17 +17,6 @@ export default function useDefaultTheme(): NonNullable<ColorSchemeName> {
 }
 
 const useCustomTheme = (): boolean => {
-	// if (localStorage.theme.length > 1) {
-	// delete the theme in first of the array use the second one
-	// setDefaultTheme(secindar theme in the array)
-	// } else {
-	// if(localStoreageTheme) {
-	// check db for same theme and compare updatedAt values
-	// query theme  {
-	//   updateAt
-	// }
-	// if db.theme is newer then local storage then query rest of the theme and save it to local storage and set theme to app theme
-	// }
 	return false
 }
 
