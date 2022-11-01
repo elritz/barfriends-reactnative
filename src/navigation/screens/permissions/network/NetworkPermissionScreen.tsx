@@ -2,10 +2,10 @@ import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicNetwork from '@assets/images/network/IllustrationDynamicNetwork'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { DeviceNetworkInfoReactiveVar, ForegroundLocationPermissionReactiveVar } from '@reactive'
-import { Button, Divider } from '@rneui/base'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
+import { Button, Divider } from 'native-base'
 import { Box, Heading, Text } from 'native-base'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { AppState, Platform, View, ScrollView } from 'react-native'
@@ -80,43 +80,36 @@ const NetworkPermissionScreen = () => {
 				<View style={{ paddingVertical: 20, width: '90%', alignItems: 'center' }}>
 					{!rDeviceNetworkVar.isConnected && (
 						<Button
-							type='solid'
-							title={'Phone settings'}
+							variant={'solid'}
 							onPress={() => openPhoneSettings()}
-							buttonStyle={{
-								backgroundColor: themeContext.palette.highlight.background.secondary,
-								borderRadius: 20,
-								paddingHorizontal: 20,
-							}}
-							titleStyle={{
+							borderRadius={'lg'}
+							px={'20px'}
+							_text={{
 								color: themeContext.palette.highlight.color.secondary,
 								fontSize: 20,
 							}}
-							containerStyle={{
-								width: '90%',
-							}}
-						/>
+							width={'90%'}
+						>
+							Phone settings
+						</Button>
 					)}
 					<Divider />
 					<Button
-						title={'Dismiss'}
-						type='clear'
+						variant={'ghost'}
 						onPress={() => navigation.goBack()}
-						buttonStyle={{
-							borderRadius: 50,
-							paddingHorizontal: 20,
-							justifyContent: 'center',
-						}}
-						titleStyle={{
+						borderRadius={'lg'}
+						px={20}
+						justifyContent={'center'}
+						_text={{
 							color: themeContext.palette.secondary.color.primary,
 							fontWeight: '600',
 							fontSize: 20,
 						}}
-						containerStyle={{
-							margin: 15,
-							width: 175,
-						}}
-					/>
+						margin={'15px'}
+						width={'175px'}
+					>
+						Dismiss
+					</Button>
 				</View>
 			</ScrollView>
 		</Box>

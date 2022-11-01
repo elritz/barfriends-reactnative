@@ -1,5 +1,5 @@
 import { useCurrentVenueQuery, useProfileQuery } from '@graphql/generated'
-import { Chip } from '@rneui/base'
+import { Badge } from 'native-base'
 import { Box, Button, Container, HStack, Text, VStack } from 'native-base'
 import { useContext, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components/native'
@@ -63,12 +63,9 @@ export default function Details(props: Props) {
 				<HStack flexWrap={'wrap'} justifyContent={'flex-start'}>
 					{['country', 'dance', 'live-music', 'sports'].map(item => {
 						return (
-							<Chip
-								key={item}
-								buttonStyle={{ backgroundColor: themeContext.palette.highlight.background.primary }}
-								containerStyle={{ marginVertical: 3, paddingHorizontal: 5 }}
-								title={item}
-							/>
+							<Badge key={item} mx={2} px={2} colorScheme='success' rounded={'full'}>
+								{item}
+							</Badge>
 						)
 					})}
 				</HStack>

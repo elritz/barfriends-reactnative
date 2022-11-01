@@ -1,17 +1,16 @@
 import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
+import { MaterialIcons } from '@expo/vector-icons'
 import { useAddPersonalTotalsVenueMutation, useProfileQuery } from '@graphql/generated'
 import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Icon } from '@rneui/base'
 import * as Location from 'expo-location'
 import { LocationAccuracy, LocationObjectCoords } from 'expo-location'
 import { getDistance } from 'geolib'
-import { Box, Heading } from 'native-base'
+import { Box, Heading, Icon } from 'native-base'
 import { useContext, useEffect, useState } from 'react'
-import { VenueProfileStackParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
 
 // TODO: FN(When a useris joined to a venue action must be different)
@@ -135,9 +134,9 @@ const CurrentLocationFromVenueDistance = () => {
 					<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'} alignItems={'center'}>
 						<Icon
 							color={themeContext.palette.highlight.background.primary}
-							size={30}
+							size={'xl'}
 							name='location-pin'
-							type='MaterialIcons'
+							as={MaterialIcons}
 						/>
 						<Heading fontWeight={'900'}>
 							{distance}&nbsp;{metric}

@@ -1,17 +1,11 @@
-import RNEHeading700 from '@components/atoms/typography/RNETypography/heading/RNEHeading700'
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Box, Heading, IconButton, Icon, Pressable, Spacer } from 'native-base'
-import * as React from 'react'
-import { useWindowDimensions } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
+import { Box, Heading, IconButton, Icon, Pressable } from 'native-base'
 
 interface AddEmojiProps {}
 
 const AddEmoji = ({}) => {
-	const { height, width } = useWindowDimensions()
-	const themeContext = React.useContext(ThemeContext)
 	const navigation = useNavigation()
 	return (
 		<Pressable

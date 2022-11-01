@@ -4,10 +4,10 @@ import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarI
 import { useGetADeviceManagerQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Image } from '@rneui/base'
 import * as Haptics from 'expo-haptics'
+import { Image, Pressable } from 'native-base'
 import { useContext } from 'react'
-import { Pressable, ActivityIndicator } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
 
 const HEIGHT = 27
@@ -92,6 +92,7 @@ const ProfileTab = (props: TabProps) => {
 										borderColor: props.color,
 										borderWidth: 1.5,
 									}}
+									alt={'Profile Photo'}
 									PlaceholderContent={<ActivityIndicator />}
 								/>
 							) : (

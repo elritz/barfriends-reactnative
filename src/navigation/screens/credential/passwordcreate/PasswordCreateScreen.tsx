@@ -1,10 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
 import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Button, Icon } from '@rneui/themed'
-import { Box, KeyboardAvoidingView } from 'native-base'
+import { Box, Input, KeyboardAvoidingView } from 'native-base'
 import { Text } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -103,30 +102,34 @@ const PasswordCreateScreen = () => {
 					name='password'
 					control={control}
 					defaultValue=''
-					render={({ field: { onChange, onBlur, value } }) => (
-						<RNETextInput
-							refChild={passwordRef}
-							keyProp='passwordname'
-							value={value}
-							secureTextEntry
-							onChange={value => onChange(value)}
-							onSubmitEditing={() => {
-								handleSubmit(onSubmit)
-								passwordRef?.current?.focus()
-							}}
-							onBlur={onBlur}
-							textContentType='password'
-							blurOnSubmit={false}
-							autoFocus
-							placeholder='Password'
-							returnKeyType='next'
-							autoCorrect={false}
-							inputAccessoryViewID={inputAccessoryViewID}
-							autoCapitalize='none'
-							numberOfLines={1}
-							errorMessage={errors?.password?.message}
-						/>
-					)}
+					render={({ field: { onChange, onBlur, value } }) => {
+						return (
+							<>
+								<Input
+									ref={passwordRef}
+									key='password'
+									value={value}
+									secureTextEntry
+									onChangeText={value => onChange(value)}
+									onSubmitEditing={() => {
+										handleSubmit(onSubmit)
+										passwordRef?.current?.focus()
+									}}
+									onBlur={onBlur}
+									textContentType='password'
+									blurOnSubmit={false}
+									autoFocus
+									placeholder='Password'
+									returnKeyType='next'
+									autoCorrect={false}
+									inputAccessoryViewID={inputAccessoryViewID}
+									autoCapitalize='none'
+									numberOfLines={1}
+								/>
+								<Text>{errors?.password?.message}</Text>
+							</>
+						)
+					}}
 					rules={{
 						required: {
 							value: true,

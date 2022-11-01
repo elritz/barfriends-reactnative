@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import RNEHeading500 from '@components/atoms/typography/RNETypography/heading/RNEHeading500'
 import { useProfileQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'

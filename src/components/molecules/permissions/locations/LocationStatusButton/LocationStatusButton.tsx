@@ -2,10 +2,10 @@ import { useReactiveVar } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { ForegroundLocationPermissionReactiveVar, MapReactiveVar } from '@reactive'
-import { Button, Icon } from '@rneui/base'
 import { setLocation } from '@util/hooks/permissions/location/setLocation'
 import * as Location from 'expo-location'
-import { useContext, useEffect } from 'react'
+import { Button, Icon } from 'native-base'
+import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
 const LocationStatusButton = () => {
@@ -73,15 +73,14 @@ const LocationStatusButton = () => {
 
 	return (
 		<Button
-			buttonStyle={{
-				width: 40,
-				borderRadius: 20,
-				backgroundColor: themeContext.palette.contrast.background.secondary,
-			}}
-			icon={
-				<MaterialIcons
+			w={'40px'}
+			borderRadius={20}
+			bg={themeContext.palette.contrast.background.secondary}
+			rightIcon={
+				<Icon
+					as={MaterialIcons}
 					name={rPermissionLocation.granted ? 'location-on' : 'not-listed-location'}
-					size={24}
+					size={'lg'}
 					color={iconColor()}
 					onPress={() => onPress()}
 				/>

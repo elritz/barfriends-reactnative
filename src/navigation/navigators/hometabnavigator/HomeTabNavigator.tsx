@@ -7,6 +7,7 @@ import TonightTab from '@components/molecules/tabbaricons/hometabicons/tonightta
 import VenueFeedTab from '@components/molecules/tabbaricons/hometabicons/venuefeedtab'
 import { ENVIRONMENT } from '@env'
 import DevelopmentScreen from '@navigation/screens/hometabs/development/DevelopmentScreen'
+import DevelopmentStack from '@navigation/stacks/development/DevelopmentStack'
 import ExploreStack from '@navigation/stacks/home/explorestack/ExploreStack'
 import MessagesStack from '@navigation/stacks/home/messagestack/MessagesStack'
 import ProfileStack from '@navigation/stacks/home/profilestack/ProfileStack'
@@ -121,8 +122,8 @@ function HomeTabNavigator() {
 			/>
 			{ENVIRONMENT === 'development' && (
 				<ScreenStack.Screen
-					name='DevelopmentScreen'
-					component={DevelopmentScreen}
+					name='DevelopmentStack'
+					component={DevelopmentStack}
 					options={{
 						headerShown: false,
 						tabBarIcon: ({ color }: IColor) => <DevelopmentTab color={color} />,

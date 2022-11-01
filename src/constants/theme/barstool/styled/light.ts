@@ -1,4 +1,3 @@
-import StyledLayout from './layout'
 import StyledPallete from './palette/light'
 
 const StyledTheme = {

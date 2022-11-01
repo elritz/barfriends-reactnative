@@ -139,12 +139,12 @@ const PersonalScreen = (props: any) => {
 												zIndex={10}
 											/>
 											<Image
-												height={'100%'}
-												width={'100%'}
-												rounded={'none'}
 												source={{
 													uri: item.image,
 												}}
+												height={'100%'}
+												width={'100%'}
+												rounded={'none'}
 												alt='Alternate Text'
 											/>
 										</Box>

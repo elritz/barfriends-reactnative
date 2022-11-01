@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import { useEffect, useState, useContext, useRef } from 'react'
-import { Image, Dimensions, StyleSheet } from 'react-native'
+import { useEffect, useState, useRef } from 'react'
+import { Image, Dimensions } from 'react-native'
 import { Marker } from 'react-native-maps'
 
 const { width, height } = Dimensions.get('window')

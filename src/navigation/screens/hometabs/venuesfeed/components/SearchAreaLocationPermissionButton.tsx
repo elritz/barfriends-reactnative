@@ -1,9 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
-import RNEButtonPrimary from '@components/atoms/buttons/rnebutton/barfriends/RNEButtonPrimary'
 import { useNavigation } from '@react-navigation/native'
 import { ForegroundLocationPermissionReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
-import * as Location from 'expo-location'
 import { Button } from 'native-base'
 
 export default function SearchAreaLocationPermissionButton() {

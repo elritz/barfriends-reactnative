@@ -2,9 +2,8 @@
 
 /* eslint-disable react/jsx-props-no-spreading */
 import { Ionicons } from '@expo/vector-icons'
-import { Icon, useColorMode } from 'native-base'
+import { Icon, useColorMode, Image } from 'native-base'
 import React from 'react'
-import { Image } from 'react-native'
 import { InputToolbar, Actions, Composer, Send } from 'react-native-gifted-chat'
 
 export const renderInputToolbar = props => (
@@ -32,10 +31,11 @@ export const renderActions = props => (
 		}}
 		icon={() => (
 			<Image
-				style={{ width: 32, height: 32 }}
 				source={{
 					uri: 'https://placeimg.com/32/32/any',
 				}}
+				style={{ width: 32, height: 32 }}
+				alt={'Profile Photo'}
 			/>
 		)}
 		options={{

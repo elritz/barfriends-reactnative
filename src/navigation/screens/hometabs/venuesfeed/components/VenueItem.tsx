@@ -1,8 +1,7 @@
-import { useReactiveVar } from '@apollo/client'
 import { Profile } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
-import { Image } from '@rneui/themed'
 import { BlurView } from 'expo-blur'
+import { Image } from 'native-base'
 import { Box, Heading, Text } from 'native-base'
 import { useContext, useEffect, useState } from 'react'
 import { Dimensions, Pressable, StyleSheet } from 'react-native'
@@ -74,13 +73,13 @@ const VenueItem = (props: Props) => {
 					<Image
 						source={{ uri: getActiveBannerPhotos[0]?.url }}
 						resizeMode='cover'
-						transitionDuration={100}
 						onLoadEnd={() => setHideBlur(true)}
-						containerStyle={{
+						style={{
 							...StyleSheet.absoluteFillObject,
 							width: undefined,
 							height: undefined,
 						}}
+						alt={'Profile Photo'}
 					/>
 				) : null}
 				{!hideBlur && (

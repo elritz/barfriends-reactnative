@@ -1,12 +1,9 @@
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
-import { View } from 'react-native'
+import { Heading } from 'native-base'
 
 interface SexualPreferenceScreenProps {}
 
 const SexualPreferenceScreen = ({}: SexualPreferenceScreenProps) => (
-	<View>
-		<RNEHeading1000>SexualPreferenceScreen</RNEHeading1000>
-	</View>
+	<Heading fontSize={'xl'}>SexualPreferenceScreen</Heading>
 )
 
 export default SexualPreferenceScreen

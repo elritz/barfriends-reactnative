@@ -1,10 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import { useCurrentVenueQuery, useProfileQuery } from '@graphql/generated'
+import { useCurrentVenueQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { BlurView } from 'expo-blur'
-import { Box, Heading } from 'native-base'
-import React from 'react'
-import { Image, useWindowDimensions } from 'react-native'
+import { Box, Heading, Image } from 'native-base'
+import { useWindowDimensions } from 'react-native'
 
 type Props = {
 	profileId: string
@@ -54,12 +53,13 @@ const VenueHeader = (props: Props) => {
 			}}
 		>
 			<Image
+				source={{ uri: venueData?.photos[0].url }}
 				style={{
 					position: 'absolute',
 					width: width,
 					height: HEADER_IMAGE_HEIGHT,
 				}}
-				source={{ uri: venueData?.photos[0].url }}
+				alt={'Profile Photo'}
 			/>
 			<BlurView tint={theme} intensity={40} style={{ padding: 5 }}>
 				<Heading size={'xl'} numberOfLines={1}>

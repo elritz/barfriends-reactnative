@@ -1,18 +1,14 @@
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
 import HorizontalMessageNotification from '@components/molecules/notifications/message/HorizontalMessageNotification'
 import { Ionicons } from '@expo/vector-icons'
 import GenerateMessageData from '@helpers/generate/placeholder/GenerateMessagesData'
 import { useNavigation } from '@react-navigation/native'
-import { HStack, Icon } from 'native-base'
-import React, { useContext, useRef } from 'react'
+import { Heading, HStack, Icon } from 'native-base'
+import { useRef } from 'react'
 import { FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import styled from 'styled-components/native'
-import { ThemeContext } from 'styled-components/native'
 
 const Messages = () => {
 	const _flatListView = useRef()
-	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 
 	const data = GenerateMessageData(5, 2)
@@ -20,7 +16,7 @@ const Messages = () => {
 	return (
 		<SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
 			<HStack alignItems={'center'} justifyContent={'space-between'} mb={5}>
-				<RNEHeading1000>Messages</RNEHeading1000>
+				<Heading fontSize={'3xl'}>Messages</Heading>
 				<Icon
 					as={Ionicons}
 					name={'ios-notifications'}

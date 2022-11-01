@@ -40,10 +40,7 @@ const BasicCircleMarker = ({
 	useEffect(() => {}, [])
 
 	const onPressMarker = () => {
-		navigation.navigate(main_navigation_screen, {
-			screen: sub_navigation_screen,
-			params: { item: marker },
-		})
+		//console.log("DOD NOT ")
 	}
 
 	return (
@@ -65,6 +62,7 @@ const BasicCircleMarker = ({
 				}}
 				onLoad={stopTrackViewChanges}
 				source={{ uri: marker.image_url }}
+				alt={'Profile Photo'}
 			/>
 		</Marker>
 	)

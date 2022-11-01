@@ -1,4 +1,3 @@
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
 import { SearchBar } from '@rneui/themed'
 import { useContext, useState } from 'react'
 import { View } from 'react-native'

@@ -1,5 +1,4 @@
-import { Text } from '@rneui/themed'
-import { Box } from 'native-base'
+import { Box, Text } from 'native-base'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

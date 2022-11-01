@@ -1,14 +1,13 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
+import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { PermissionCameraReactiveVar } from '@reactive'
-import { Button, Divider } from '@rneui/themed'
-import { Text } from '@rneui/themed'
 import { Camera } from 'expo-camera'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
-import { Box } from 'native-base'
+import { Box, Button, Divider, Heading } from 'native-base'
 import { useContext, useEffect, useRef } from 'react'
 import { AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -21,20 +20,20 @@ const details = [
 		title: 'How you’ll use this',
 		detail: 'To take photos, record videos from your device.',
 		iconName: 'camera',
-		iconType: 'ant-design',
+		iconType: AntDesign,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To show you captured content of visual and audio effects.',
 		iconName: 'android-messages',
-		iconType: 'material-community',
+		iconType: MaterialCommunityIcons,
 	},
 	{
 		title: 'How theses settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
 		iconName: 'ios-settings-sharp',
-		iconType: 'ionicon',
+		iconType: Ionicons,
 	},
 ]
 
@@ -81,9 +80,8 @@ const CameraPermissionScreen = () => {
 				<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 					<IllustrationDynamicMedia width={60} height={60} />
 					<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
-					<Text
-						h3
-						h3Style={{ fontWeight: '900' }}
+					<Heading
+						fontWeight={'900'}
 						style={{
 							width: wp(95),
 							maxWidth: 300,
@@ -94,7 +92,7 @@ const CameraPermissionScreen = () => {
 						numberOfLines={3}
 					>
 						Allow Barfriends to access your camera and microphone
-					</Text>
+					</Heading>
 				</Box>
 				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
@@ -116,42 +114,38 @@ const CameraPermissionScreen = () => {
 				<Divider width={0.5} />
 				{rPermissionCamera.granted && (
 					<Button
-						type='clear'
-						title={'Open camera'}
+						variant='ghost'
 						onPress={() => openCameraApp()}
-						titleStyle={{
+						_text={{
 							color: themeContext.palette.primary.color.primary,
 							fontWeight: 'bold',
 						}}
-						containerStyle={{
-							marginTop: 10,
-						}}
-					/>
+						mt={10}
+					>
+						Open camera
+					</Button>
 				)}
 				<Button
-					title={
-						rPermissionCamera.canAskAgain && !rPermissionCamera.granted
-							? 'Continue'
-							: 'Go to Phone Settings'
-					}
 					onPress={() =>
 						rPermissionCamera.canAskAgain && !rPermissionCamera.granted
 							? console.log('TODO')
 							: openPhoneSettings()
 					}
-					containerStyle={{
-						width: '100%',
-						marginVertical: 10,
-						paddingHorizontal: 20,
-					}}
-					buttonStyle={{
+					width={'100%'}
+					my={3}
+					px={20}
+					bg={themeContext.palette.bfscompany.tertiary}
+					style={{
 						justifyContent: 'center',
-						backgroundColor: themeContext.palette.bfscompany.tertiary,
 					}}
-					titleStyle={{
+					_text={{
 						fontWeight: 'bold',
 					}}
-				/>
+				>
+					{rPermissionCamera.canAskAgain && !rPermissionCamera.granted
+						? 'Continue'
+						: 'Go to Phone Settings'}
+				</Button>
 			</View>
 		</Box>
 	)

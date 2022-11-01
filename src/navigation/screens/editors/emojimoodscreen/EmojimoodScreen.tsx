@@ -1,11 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
 import { Profile, useEmojimoodsQuery, useUpdateOneProfileMutation } from '@graphql/generated'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Text } from '@rneui/base'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
-import { Box, Button } from 'native-base'
+import { Box, Button, Text } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { FlatList, Image, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
@@ -17,9 +15,7 @@ interface EmojimoodScreenProps {}
 
 const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 	const insets = useSafeAreaInsets()
-	const isFocused = useIsFocused()
 	const window = useWindowDimensions()
-	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
@@ -210,6 +206,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 							width={window.width / 2.3}
 							height={window.width / 2.2}
 							source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
+							alt={'Profile Photo'}
 						/>
 						<SafeAreaView
 							style={{

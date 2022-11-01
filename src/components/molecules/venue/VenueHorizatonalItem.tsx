@@ -20,10 +20,10 @@ const VenueHorizatonalItem = (props: ItemRenderType<Venue>) => {
 			// 	colors: [
 			// 		profile?.Story[0]?.emojimood?.colors[0]
 			// 			? profile?.Story[0]?.emojimood?.colors[0]
-			// 			: themeContext.palette.quaternary.background,
+			// 			: 'black',
 			// 		profile?.Story[0]?.emojimood?.colors[1]
 			// 			? profile?.Story[0].emojimood?.colors[1]
-			// 			: themeContext.palette.quaternary.background,
+			// 			: 'black',
 			// 	],
 			// 	start: { x: 0.2, y: 0 },
 			// 	end: { x: 0.7, y: 1 },

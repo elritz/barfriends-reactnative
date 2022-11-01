@@ -1,6 +1,5 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import RNEHeading500 from '@components/atoms/typography/RNETypography/heading/RNEHeading500'
 import BirthdayScreen from '@navigation/screens/editors/birthdayscreen/BirthdayScreen'
 import CurrentPlacceScreen from '@navigation/screens/editors/currentplacescreen/CurrentPlacceScreen'
 import DescriptionScreen from '@navigation/screens/editors/descriptionscreen/DescriptionScreen'
@@ -16,6 +15,7 @@ import StatusScreen from '@navigation/screens/editors/statusscreen/StatusScreen'
 import UsernameScreen from '@navigation/screens/editors/usernamescreen/UsernameScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ProfileEditorNavigatorParamList } from '@types'
+import { Heading } from 'native-base'
 import { View } from 'react-native'
 
 const ScreenStack = createNativeStackNavigator<ProfileEditorNavigatorParamList>()
@@ -23,7 +23,9 @@ const ScreenStack = createNativeStackNavigator<ProfileEditorNavigatorParamList>(
 const ScreenHeader = ({ title }: { title: string }) => (
 	<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 		<ChevronBackArrow />
-		<RNEHeading500 style={{ textTransform: 'uppercase' }}>{title}</RNEHeading500>
+		<Heading fontWeight={'bold'} style={{ textTransform: 'uppercase' }}>
+			{title}
+		</Heading>
 	</View>
 )
 

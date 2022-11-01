@@ -1,8 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, Button, KeyboardAvoidingView, Text } from 'native-base'
+import { Box, Button, Input, KeyboardAvoidingView, Text } from 'native-base'
 import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -118,7 +117,7 @@ const DescriptionScreen = () => {
 							height={'100%'}
 							width={'100%'}
 						>
-							<RNETextInput
+							<Input
 								multiline={true}
 								maxLength={DESCRIPTION_LENGTH}
 								onBlur={onBlur}
@@ -130,21 +129,18 @@ const DescriptionScreen = () => {
 								placeholder='Write a description about yourself'
 								returnKeyType='done'
 								autoCapitalize='none'
-								autoCompleteType='off'
+								autoComplete='off'
 								keyboardType='default'
-								containerStyle={{
+								style={{
 									alignSelf: 'center',
 									borderColor: 'black',
 									borderBottomWidth: 1,
-								}}
-								inputStyle={{
-									// backgroundColor: themeContext.palette.secondary.background,
 									padding: 5,
 									borderRadius: 13,
+									borderBottomColor: 'transparent',
 								}}
-								inputContainerStyle={{ borderBottomColor: 'transparent', borderBottomWidth: 0 }}
-								errorMessage={errors?.description?.message}
 							/>
+							<Text>{errors?.description?.message}</Text>
 							<Box
 								flexDir={'row'}
 								justifyContent={'space-between'}

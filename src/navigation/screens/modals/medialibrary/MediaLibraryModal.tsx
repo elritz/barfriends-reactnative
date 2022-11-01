@@ -1,15 +1,11 @@
-import RNEText1000 from '@components/atoms/typography/RNETypography/text/RNEText1000'
-import { useNavigation } from '@react-navigation/native'
-import Constants from 'expo-constants'
 import * as MediaLibrary from 'expo-media-library'
-import * as Permissions from 'expo-permissions'
-import { useEffect, useState } from 'react'
-import { View, FlatList, Pressable, Image } from 'react-native'
+import { Heading, Image } from 'native-base'
+import { useState } from 'react'
+import { View, FlatList, Pressable } from 'react-native'
 
 interface MediaLibraryProps {}
 
 export const MediaLibraryModal: React.FC<MediaLibraryProps> = ({}) => {
-	const navigation = useNavigation()
 	const [disabled, setDisabled] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [selectedPhoto, setSelectedPhoto] = useState([])
@@ -52,10 +48,12 @@ export const MediaLibraryModal: React.FC<MediaLibraryProps> = ({}) => {
 
 	return (
 		<View>
-			<RNEText1000 style={{ fontWeight: '800', textTransform: 'uppercase' }}>
+			<Heading fontSize={'2xl'} style={{ fontWeight: '800', textTransform: 'uppercase' }}>
 				Show Media Library
-			</RNEText1000>
-			<RNEText1000 style={{ fontWeight: '800' }}>Take Photo Options</RNEText1000>
+			</Heading>
+			<Heading fontSize={'2xl'} style={{ fontWeight: '800' }}>
+				Take Photo Options
+			</Heading>
 			<FlatList
 				style={{ flex: 1 }}
 				data={photos}
@@ -68,6 +66,7 @@ export const MediaLibraryModal: React.FC<MediaLibraryProps> = ({}) => {
 								height: 50,
 							}}
 							source={{ uri: item.uri }}
+							alt={'Profile Photo'}
 						/>
 					</Pressable>
 				)}

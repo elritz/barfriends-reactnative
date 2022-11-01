@@ -1,12 +1,11 @@
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import ProfilingProfileItemLarge from '@components/molecules/authorization/profilingprofileitem/ProfilingProfileItem'
 import { useAuthorizedProfilesQuery } from '@graphql/generated'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { Text } from 'native-base'
-import React, { useContext } from 'react'
+import { Heading, Text } from 'native-base'
+import { useContext } from 'react'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
 import { LoginStackParamList } from 'src/types/app'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 export type DeviceManagerScreenRouteProp = RouteProp<LoginStackParamList, 'DeviceManagerScreen'>
 
@@ -49,7 +48,7 @@ export default function DeviceManagerScreen() {
 	if (data.authorizedProfiles.__typename === 'ErrorProfiling') {
 		return (
 			<View style={[{ backgroundColor: themeContext.palette.primary.background, top: 0 }]}>
-				<RNEHeading800>Error finding profiles</RNEHeading800>
+				<Heading fontSize={'xl'}>Error finding profiles</Heading>
 			</View>
 		)
 	}

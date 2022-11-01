@@ -1,17 +1,15 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
-import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { ForegroundLocationPermissionReactiveVar, SearchAreaReactiveVar } from '@reactive'
-import { Text } from '@rneui/themed'
 import { capitalizeFirstLetter } from '@util/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
-import { Button, VStack } from 'native-base'
+import { Button, Heading, VStack } from 'native-base'
 import { Box } from 'native-base'
 import { Divider } from 'native-base'
 import React, { useEffect, useRef } from 'react'
@@ -23,20 +21,20 @@ const details = [
 		title: 'How you’ll use this',
 		detail: 'To find venues and event deals around you.',
 		iconName: 'ios-location-sharp',
-		iconType: 'ionicon',
+		iconType: Ionicons,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To create your own content and share. ',
 		iconName: 'android-messages',
-		iconType: 'material-community',
+		iconType: MaterialCommunityIcons,
 	},
 	{
 		title: 'How these settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
 		iconName: 'ios-settings-sharp',
-		iconType: 'ionicon',
+		iconType: Ionicons,
 	},
 ]
 
@@ -133,9 +131,8 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
-				<Text
-					h3
-					h3Style={{ fontWeight: '900' }}
+				<Heading
+					fontWeight={'900'}
 					style={{
 						width: wp(95),
 						maxWidth: 300,
@@ -146,7 +143,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 					numberOfLines={3}
 				>
 					Allow Barfriends to access your location
-				</Text>
+				</Heading>
 			</Box>
 			<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
 				{details.map((item, index) => {

@@ -1,9 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
+import { Ionicons } from '@expo/vector-icons'
 import { useUpdateProfileIdentifiableInformationMutation, Profile } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Icon, Button } from '@rneui/themed'
-import { Box, KeyboardAvoidingView, Text } from 'native-base'
+import { Box, Input, KeyboardAvoidingView, Text, Icon, Button } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, Pressable, ActivityIndicator, ScrollView } from 'react-native'
@@ -124,7 +123,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 									}}
 								>
 									<Text>{item.gender}</Text>
-									{value === item.gender && <Icon type='ionicon' name='checkmark-sharp' size={25} />}
+									{value === item.gender && <Icon as={Ionicons} name='checkmark-sharp' size={25} />}
 								</Pressable>
 							))}
 						</View>
@@ -134,9 +133,9 @@ const GenderScreen = ({}: GenderScreenProps) => {
 							height={'100%'}
 							width={'100%'}
 						>
-							<RNETextInput
+							<Input
 								onBlur={onBlur}
-								onChange={onChange}
+								onChangeText={onChange}
 								value={value}
 								blurOnSubmit={false}
 								onSubmitEditing={handleSubmit(onSubmit)}
@@ -144,38 +143,33 @@ const GenderScreen = ({}: GenderScreenProps) => {
 								placeholder='Gender....'
 								returnKeyType='done'
 								autoCapitalize='none'
-								autoCompleteType='off'
+								autoComplete='off'
 								keyboardType='default'
-								containerStyle={{
+								style={{
 									alignSelf: 'center',
-								}}
-								rightIconContainerStyle={{
-									marginLeft: 10,
-								}}
-								rightIcon={
-									UPIILoading && dirtyFields.gender ? (
-										<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
-									) : (
-										dirtyFields.gender && (
-											<Pressable onPress={reset()}>
-												<Text>Reset</Text>
-											</Pressable>
-										)
-									)
-								}
-								inputStyle={{
 									backgroundColor: themeContext.palette.secondary.background,
 									height: 55,
 									padding: 10,
 									borderRadius: 15,
-								}}
-								inputContainerStyle={{
 									borderBottomColor: 'transparent',
 									borderBottomWidth: 0,
 									marginVertical: 10,
 								}}
-								errorMessage={errors?.gender?.message}
+								rightElement={
+									<Box ml={3}>
+										{UPIILoading && dirtyFields.gender ? (
+											<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+										) : (
+											dirtyFields.gender && (
+												<Pressable onPress={() => reset()}>
+													<Text>Reset</Text>
+												</Pressable>
+											)
+										)}
+									</Box>
+								}
 							/>
+							<Text>{errors?.gender?.message}</Text>
 							<Box
 								flexDir={'row'}
 								justifyContent={'space-between'}
@@ -189,16 +183,15 @@ const GenderScreen = ({}: GenderScreenProps) => {
 									<Button
 										disabled={false}
 										onPress={handleSubmit(onSubmit)}
-										buttonStyle={{
-											borderRadius: 14,
-											backgroundColor: themeContext.palette.bfscompany.primary,
-											paddingHorizontal: 30,
-										}}
-										containerStyle={{
+										borderRadius={'lg'}
+										bg={themeContext.palette.bfscompany.primary}
+										px={'30px'}
+										style={{
 											alignSelf: 'center',
 										}}
-										title='Update'
-									/>
+									>
+										Update
+									</Button>
 								)}
 							</Box>
 						</KeyboardAvoidingView>

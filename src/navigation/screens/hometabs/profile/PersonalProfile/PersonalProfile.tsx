@@ -10,12 +10,11 @@ import {
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Image, Divider } from '@rneui/themed'
-import { Button, Heading, ScrollView } from 'native-base'
+import { Image, Button, Divider, Heading, ScrollView } from 'native-base'
 import { useContext, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const PersonalScreen = () => {
 	const themeContext = useContext(ThemeContext)
@@ -106,8 +105,11 @@ const PersonalScreen = () => {
 		<ScrollView px={2} contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}>
 			<View style={{ alignItems: 'center' }}>
 				<Image
-					style={{ width: 165, height: 170, borderRadius: 15 }}
+					width={165}
+					height={170}
+					borderRadius={15}
 					source={{ uri: profile.photos[0].url }}
+					alt={'Profile Photo'}
 				/>
 				<View style={{ marginVertical: 20 }}>
 					<Heading
@@ -132,9 +134,9 @@ const PersonalScreen = () => {
 					Edit Profile
 				</Button>
 			</View>
-			<Divider insetType='middle' style={{ marginVertical: 20 }} />
+			<Divider style={{ marginVertical: 20 }} />
 			<CondensedVerticalFriendsNotficationsList />
-			<Divider insetType='middle' style={{ marginVertical: 20 }} />
+			<Divider style={{ marginVertical: 20 }} />
 			<FriendsList />
 		</ScrollView>
 	)

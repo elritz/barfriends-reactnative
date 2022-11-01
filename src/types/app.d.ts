@@ -83,9 +83,14 @@ export type HomeTabNavigatorParamList = {
 	TonightStack: NavigatorScreenParams<TonightTabStackParamList> | undefined
 	MessagesStack: NavigatorScreenParams<MessagesTabStackParamList>
 	ProfileStack: NavigatorScreenParams<ProfileTabStackParamList> | undefined
-	DevelopmentScreen?: undefined
+	DevelopmentStack?: NavigatorScreenParams<DevelopmentStackParamList> | undefined
 }
 
+export type DevelopmentStackParamList = {
+	DevelopmentOptionsScreen: undefined
+	ChangeThemeScreen: undefined
+	NotFound: undefined
+}
 export type ProfileTabStackParamList = {
 	UserProfileScreen: undefined
 	VenueProfileScreen: undefined

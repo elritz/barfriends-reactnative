@@ -1,7 +1,7 @@
-import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Icon, Image, ListItem } from '@rneui/themed'
-import React, { useContext, useState } from 'react'
+import { Box, Heading, HStack, Icon, IconButton, Image, Text } from 'native-base'
+import { useContext } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
 
@@ -21,47 +21,44 @@ const DeviceManagerProfileItemLarge = ({
 	const themeContext = useContext(ThemeContext)
 
 	return (
-		<ListItem key={item.id} containerStyle={{ marginVertical: 5, borderRadius: 10 }}>
+		<Box key={item.id} my={2} borderRadius={'lg'}>
 			<Image
 				source={{ uri: item?.photos[0]?.url }}
 				style={{ width: 40, height: 40, borderRadius: 4 }}
+				alt={'Profile photo'}
 			/>
-			<ListItem.Content>
-				<RNEText600 style={{ textTransform: 'capitalize' }}>
+			<HStack>
+				<Heading style={{ textTransform: 'capitalize' }}>
 					{item?.IdentifiableInformation?.fullname}
-				</RNEText600>
-				<ListItem.Title style={{ fontWeight: 'bold' }}>
-					{item?.IdentifiableInformation?.username}
-				</ListItem.Title>
-			</ListItem.Content>
-			<ListItem.CheckBox
-				checked={isActive}
-				checkedIcon={
+				</Heading>
+				<Text style={{ fontWeight: 'bold' }}>{item?.IdentifiableInformation?.username}</Text>
+			</HStack>
+			<IconButton
+				icon={
 					!loading ? (
-						<Icon
-							name='ios-checkmark-circle'
-							type='ionicon'
-							color={themeContext.palette.active.background.primary}
-							size={25}
-						/>
+						<>
+							{isActive ? (
+								<Icon
+									name='ios-checkmark-circle'
+									as={Ionicons}
+									color={themeContext.palette.active.background.primary}
+									size={'xl'}
+								/>
+							) : (
+								<Icon
+									name='radio-button-unchecked'
+									as={MaterialIcons}
+									color={themeContext.palette.disabled.background}
+									size={'xl'}
+								/>
+							)}
+						</>
 					) : (
 						<ActivityIndicator />
-					)
-				}
-				uncheckedIcon={
-					selectedProfileId === item.id && loading ? (
-						<ActivityIndicator />
-					) : (
-						<Icon
-							name='radio-button-unchecked'
-							type='material'
-							color={themeContext.palette.disabled.background}
-							size={25}
-						/>
 					)
 				}
 			/>
-		</ListItem>
+		</Box>
 	)
 }
 

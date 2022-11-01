@@ -1,17 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { Input as InputDist } from '@rneui/base/dist/Input'
-import { Button, Icon } from '@rneui/themed'
-import { Box, KeyboardAvoidingView, Text } from 'native-base'
+import { Box, Input, KeyboardAvoidingView, Text, Button, Icon } from 'native-base'
 import React, { useContext, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const NameScreen = () => {
 	const isFocused = useIsFocused()
@@ -42,15 +40,6 @@ const NameScreen = () => {
 		shouldFocusError: true,
 		shouldUnregister: true,
 	})
-
-	const RightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={errors.name ? themeContext.palette.disabled.color.primary : 'white'}
-		/>
-	)
 
 	const onSubmit = (data: any) => {
 		CredentialPersonalProfileReactiveVar({
@@ -83,24 +72,28 @@ const NameScreen = () => {
 						name='name'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<RNETextInput
-								refChild={nameRef}
-								keyProp='name'
-								onChange={onChange}
+							<Input
+								ref={nameRef}
+								key={'name'}
+								variant={'underlined'}
+								returnKeyType='done'
+								textContentType='name'
+								autoComplete={'name'}
+								autoCapitalize={'none'}
+								keyboardType='default'
+								numberOfLines={1}
+								autoFocus
+								placeholder='Mobile Number'
+								inputAccessoryViewID={inputAccessoryViewID}
+								py={4}
+								_input={{
+									fontSize: '2xl',
+									fontWeight: 'medium',
+								}}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
-								textContentType='name'
+								onChangeText={onChange}
 								value={value.toLowerCase()}
-								autoFocus
-								blurOnSubmit={false}
-								placeholder='Name'
-								returnKeyType='done'
-								autoCompleteType='name'
-								autoCapitalize='none'
-								keyboardType='default'
-								inputAccessoryViewID={inputAccessoryViewID}
-								numberOfLines={1}
-								errorMessage={errors?.name?.message}
 							/>
 						)}
 						rules={{
@@ -110,6 +103,7 @@ const NameScreen = () => {
 							},
 						}}
 					/>
+					<Text>{errors?.name?.message}</Text>
 				</View>
 			) : null}
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
@@ -123,7 +117,7 @@ const NameScreen = () => {
 					<Button
 						onPress={handleSubmit(onSubmit)}
 						disabled={!!errors.name}
-						buttonStyle={{
+						style={{
 							backgroundColor: errors.name
 								? themeContext.palette.disabled.background
 								: themeContext.palette.highlight.background.primary,
@@ -133,11 +127,14 @@ const NameScreen = () => {
 							paddingHorizontal: 20,
 							justifyContent: 'center',
 						}}
-						containerStyle={{
-							justifyContent: 'center',
-						}}
-						iconPosition='right'
-						icon={<RightIcon />}
+						rightIcon={
+							<Icon
+								as={Feather}
+								name='arrow-right'
+								size={35}
+								color={errors.name ? themeContext.palette.disabled.color.primary : 'white'}
+							/>
+						}
 					/>
 				</Box>
 			</InputAccessoryView>

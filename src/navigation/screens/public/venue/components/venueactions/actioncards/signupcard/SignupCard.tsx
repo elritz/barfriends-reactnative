@@ -1,15 +1,10 @@
-import ActionCard from '../../ActionCard'
-import RNEButtonPrimary from '@components/atoms/buttons/rnebutton/barfriends/RNEButtonPrimary'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { useNavigation } from '@react-navigation/native'
 import { Center, Heading, Button } from 'native-base'
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
 
 const text = GetSignInUpText()
 
 export default function SignupCard() {
-	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 	return (
 		<>

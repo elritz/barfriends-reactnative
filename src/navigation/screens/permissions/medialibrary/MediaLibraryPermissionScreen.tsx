@@ -1,6 +1,7 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
+import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { PermissionMediaReactiveVar, PermissionMicrophoneReactiveVar } from '@reactive'
 import useTimer2 from '@util/hooks/useTimer2'
@@ -18,20 +19,20 @@ const details = [
 		title: 'How you’ll use this',
 		detail: 'To access photos, record videos from your device.',
 		iconName: 'photo-size-select-actual',
-		iconType: 'material',
+		iconType: MaterialIcons,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To create your content and share.',
 		iconName: 'android-messages',
-		iconType: 'material-community',
+		iconType: MaterialCommunityIcons,
 	},
 	{
 		title: 'How theses settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
 		iconName: 'ios-settings-sharp',
-		iconType: 'ionicon',
+		iconType: Ionicons,
 	},
 ]
 

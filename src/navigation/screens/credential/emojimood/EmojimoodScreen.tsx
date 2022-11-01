@@ -10,12 +10,12 @@ import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
-import { Text, Icon, Center, IconButton, Box } from 'native-base'
+import { Text, Icon, Center, IconButton, Box, Image } from 'native-base'
 import { useContext } from 'react'
-import { FlatList, Image, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
+import { FlatList, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, Ellipse, LinearGradient, Rect, Stop } from 'react-native-svg'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const EmojimoodScreen = () => {
 	const insets = useSafeAreaInsets()
@@ -219,6 +219,7 @@ const EmojimoodScreen = () => {
 				height={window.width / 1.2}
 				width={window.width / 1.3}
 				source={{ uri: credentialPersonalProfileVar.photo.uri }}
+				alt={'Profile Photo'}
 			/>
 			<SafeAreaView
 				style={{

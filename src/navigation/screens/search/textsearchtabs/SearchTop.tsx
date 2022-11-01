@@ -6,8 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 // TODO: FN(SearchPage) finish the searching ability on this page using route prop from params
 
 export default function SearchTop() {
-	const route = useRoute<ExploreFilterTabSearchResultRouteProp>()
-	const routeParams = route.params
+	const route = useRoute()
+	const routeParams: any = route.params
 
 	return (
 		<SafeAreaView style={{ backgroundColor: 'blue', flex: 1 }}>

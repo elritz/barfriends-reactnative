@@ -1,22 +1,17 @@
-import RNEHeading600 from '@components/atoms/typography/RNETypography/heading/RNEHeading600'
-import { Card } from '@rneui/base'
+import { Card, Heading } from 'native-base'
 import { useContext } from 'react'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 type Props = {
 	total: number
 	primary?: boolean
 }
 
-const CardStyled = styled(Card)(props => ({
-	// background: props.theme.palette.company.secondary,
-}))
-
 const Total = (props: Props) => {
 	const theme = useContext(ThemeContext)
 	return (
-		<CardStyled
-			containerStyle={{
+		<Card
+			style={{
 				backgroundColor: props.primary
 					? theme.palette.company.primary
 					: theme.palette.company.secondary,
@@ -31,8 +26,10 @@ const Total = (props: Props) => {
 				borderColor: 'transparent',
 			}}
 		>
-			<RNEHeading600 style={{ fontSize: 14, color: 'white' }}>{props.total}</RNEHeading600>
-		</CardStyled>
+			<Heading fontWeight={'black'} fontSize={14} color={'white'}>
+				{props.total}
+			</Heading>
+		</Card>
 	)
 }
 

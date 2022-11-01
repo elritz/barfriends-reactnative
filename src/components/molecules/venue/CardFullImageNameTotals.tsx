@@ -1,42 +1,50 @@
-import RNEHeading600 from '@components/atoms/typography/RNETypography/heading/RNEHeading600'
-import { Card } from '@rneui/base'
 import { BlurView } from 'expo-blur'
+import { AspectRatio, Box, Center, Heading, Image } from 'native-base'
 import { useColorScheme } from 'react-native'
 
 export default function CardFullImageNameTotals({ item, index, height, width }) {
 	const colorScheme = useColorScheme()
 	return (
-		<Card
-			key={index}
-			style={{
-				elevation: 4,
-				height,
-				width,
-				borderRadius: 10,
-				overflow: 'hidden',
-			}}
-		>
-			<Card.Cover
-				style={{ height: '100%', width: '100%' }}
-				resizeMode='cover'
-				source={{ uri: 'https://picsum.photos/700' }}
-			/>
-			<BlurView
-				style={{ position: 'absolute', bottom: 0, width: '100%' }}
-				tint={colorScheme === 'dark' ? 'dark' : 'light'}
-				intensity={100}
+		<Box key={index} alignItems='center'>
+			<Box
+				maxW='80'
+				rounded='lg'
+				overflow='hidden'
+				borderColor='coolGray.200'
+				borderWidth='1'
+				_dark={{
+					borderColor: 'coolGray.600',
+					backgroundColor: 'gray.700',
+				}}
+				_web={{
+					shadow: 2,
+					borderWidth: 0,
+				}}
+				_light={{
+					backgroundColor: 'gray.50',
+				}}
 			>
-				<RNEHeading600
-					numberOfLines={2}
-					style={{
-						width: '80%',
-						marginVertical: 5,
-						marginHorizontal: 10,
-					}}
+				<Box>
+					<AspectRatio w='100%' ratio={16 / 9}>
+						<Image
+							source={{
+								uri: 'https://picsum.photos/700',
+							}}
+							alt='image'
+							borderRadius={'lg'}
+						/>
+					</AspectRatio>
+				</Box>
+				<BlurView
+					style={{ position: 'absolute', bottom: 0, width: '100%' }}
+					tint={colorScheme === 'dark' ? 'dark' : 'light'}
+					intensity={100}
 				>
-					{item.title}
-				</RNEHeading600>
-			</BlurView>
-		</Card>
+					<Heading numberOfLines={2} w={'85%'} my={2} mx={3}>
+						{item.title}
+					</Heading>
+				</BlurView>
+			</Box>
+		</Box>
 	)
 }

@@ -66,21 +66,12 @@ const CodeScreen = () => {
 		shouldUnregister: true,
 	})
 
-	const navigateToNextScreen = () => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'PersonalCredentialStack',
-			params: {
-				screen: 'BirthdayScreen',
-			},
-		})
-	}
-
 	const checkFinalCode = (value: string): ValidateResult => {
 		if (value !== route.params.code) {
 			return false
+		} else {
+			return true
 		}
-		navigateToNextScreen()
-		return true
 	}
 
 	const onSubmit = (data: { code: any }) => {
@@ -89,7 +80,16 @@ const CodeScreen = () => {
 			return setError('code', { type: 'validate', message: 'Invalid code' })
 		}
 		clearErrors()
-		checkFinalCode(code)
+		if (checkFinalCode(code)) {
+			navigation.navigate('CredentialNavigator', {
+				screen: 'PersonalCredentialStack',
+				params: {
+					screen: 'BirthdayScreen',
+				},
+			})
+		} else {
+			setError('code', { type: 'validate', message: 'Wrong code' })
+		}
 	}
 
 	return (
@@ -144,7 +144,7 @@ const CodeScreen = () => {
 									borderBottomWidth={isFocused ? '2px' : '1px'}
 									onLayout={getCellOnLayoutHandler(index)}
 								>
-									<Heading color={'primary.500'} fontSize={'lg'}>
+									<Heading color={'primary.500'} fontSize={'3xl'}>
 										{symbol || (isFocused ? <Cursor /> : null)}
 									</Heading>
 								</Box>

@@ -1,9 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CountryPicker from '@components/atoms/inputs/CountryPicker'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
@@ -11,11 +8,11 @@ import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } fro
 import { Button, Text } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
-import { Box, Heading, KeyboardAvoidingView } from 'native-base'
+import { Box, Heading, Input, KeyboardAvoidingView } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, InteractionManager, Platform, TextInput, View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 export type FormType = {
 	countrySelector: CountrySelector
@@ -250,11 +247,11 @@ const PhoneScreen = () => {
 						name='mobileNumber.completeNumber'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<RNETextInput
-								refChild={phonenumberRef}
-								keyProp='mobileNumber.completeNumber'
+							<Input
+								ref={phonenumberRef}
+								key='mobileNumber.completeNumber'
 								value={value}
-								onChange={value => onChange(value)}
+								onChangeText={value => onChange(value)}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
 								textContentType='telephoneNumber'
@@ -263,10 +260,9 @@ const PhoneScreen = () => {
 								placeholder='Mobile Number'
 								returnKeyType='done'
 								inputAccessoryViewID={inputAccessoryViewID}
-								autoCompleteType='tel'
+								autoComplete='tel'
 								keyboardType='phone-pad'
-								errorMessage={errors?.mobileNumber?.number?.message}
-								leftIcon={renderInputLeftIcon()}
+								leftElement={renderInputLeftIcon()}
 							/>
 						)}
 						rules={{
@@ -282,6 +278,7 @@ const PhoneScreen = () => {
 							},
 						}}
 					/>
+					<Text>{errors?.mobileNumber?.number?.message}</Text>
 				</View>
 			) : null}
 

@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
-import { View, Image, Text, Dimensions, StyleSheet } from 'react-native'
+import { Image } from 'native-base'
+import { View, Text, Dimensions, StyleSheet } from 'react-native'
 
 const { width } = Dimensions.get('window')
 export const cards = [
@@ -58,7 +59,7 @@ interface CardProps {
 const Card = ({ picture, caption }: CardProps) => (
 	<>
 		<View style={styles.container}>
-			<Image source={picture} style={styles.image} />
+			<Image source={{ uri: picture }} style={styles.image} alt={'Profile Photo'} />
 		</View>
 		<View style={styles.caption}>
 			<Text style={styles.text}>{caption}</Text>

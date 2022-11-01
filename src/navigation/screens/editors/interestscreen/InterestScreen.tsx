@@ -1,12 +1,9 @@
-import RNEHeading1000 from '@components/atoms/typography/RNETypography/heading/RNEHeading1000'
-import { View } from 'react-native'
+import { Heading } from 'native-base'
 
 interface InterestScreenProps {}
 
 const InterestScreen = ({}: InterestScreenProps) => (
-	<View>
-		<RNEHeading1000>InterestScreen</RNEHeading1000>
-	</View>
+	<Heading fontSize={'xl'}>InterestScreen</Heading>
 )
 
 export default InterestScreen

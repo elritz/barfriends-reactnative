@@ -153,6 +153,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
 		onCompleted: async data => {
+			console.log('🚀 ~ file: Navigator.tsx ~ line 156 ~ data', data)
 			if (data.createGuestProfile.__typename === 'CreateProfileResponse') {
 				createADeviceManagerMutation({
 					variables: {

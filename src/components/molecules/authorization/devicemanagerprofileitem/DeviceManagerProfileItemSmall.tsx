@@ -1,67 +1,66 @@
-import React, { useContext, useState } from 'react'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { Text, Icon, Image, Box, HStack, Checkbox, IconButton } from 'native-base'
+import { useContext } from 'react'
 import { ActivityIndicator } from 'react-native'
-import { Icon, Image, ListItem } from '@rneui/base';
-import { ThemeContext } from 'styled-components/native';
-import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600';
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500';
+import { ThemeContext } from 'styled-components/native'
 
 type ProfileItemType = {
-  item: any;
-  loading?: boolean;
-  selectedProfileId?: string;
+	item: any
+	loading?: boolean
+	selectedProfileId?: string
+	isActive: boolean
 }
 
-const ProfileItemSmall = ({ item, loading, selectedProfileId }: ProfileItemType) => {
-  const themeContext = useContext(ThemeContext)
+const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: ProfileItemType) => {
+	const themeContext = useContext(ThemeContext)
 
-  return (
-    <ListItem
-      key={item.id}
-      containerStyle={{ padding: 4, paddingHorizontal: 5, marginVertical: 2, borderRadius: 10 }}
-    >
-      <Image
-        source={{ uri: item.Profile.photos[0].url }}
-        style={{ width: 40, height: 40, borderRadius: 4 }}
-      />
-      <ListItem.Content style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-        {item.Profile.IdentifiableInformation.fullname && <RNEText500 style={{ textTransform: 'capitalize' }}>
-          {item.Profile.IdentifiableInformation.fullname}
-        </RNEText500>}
-        {item.Profile.IdentifiableInformation.username && <RNEText500
-          style={{ fontWeight: 'bold' }}
-        >
-          {item.Profile.IdentifiableInformation.username}
-        </RNEText500>}
-      </ListItem.Content>
-      <ListItem.CheckBox
-        checked={item.isActive}
-        checkedIcon={
-          !loading ?
-            <Icon
-              name="ios-checkmark-circle"
-              type="ionicon"
-              color={themeContext.palette.active.background.primary}
-              size={25}
-            />
-            :
-            <ActivityIndicator />
-        }
-        uncheckedIcon={
-          (selectedProfileId === item.id) && loading ?
-            <ActivityIndicator />
-            :
-            (
-              <Icon
-                name="radio-button-unchecked"
-                type="material"
-                color={themeContext.palette.disabled.background}
-                size={25}
-              />
-            )
-        }
-      />
-    </ListItem>
-  )
+	return (
+		<Box
+			key={item.id}
+			style={{ padding: 4, paddingHorizontal: 5, marginVertical: 2, borderRadius: 10 }}
+		>
+			<Image
+				alt={'Profile photo'}
+				source={{ uri: item.Profile.photos[0].url }}
+				style={{ width: 40, height: 40, borderRadius: 4 }}
+			/>
+			<HStack style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+				{item.Profile.IdentifiableInformation.fullname && (
+					<Text style={{ textTransform: 'capitalize' }}>
+						{item.Profile.IdentifiableInformation.fullname}
+					</Text>
+				)}
+				{item.Profile.IdentifiableInformation.username && (
+					<Text style={{ fontWeight: 'bold' }}>{item.Profile.IdentifiableInformation.username}</Text>
+				)}
+			</HStack>
+			<IconButton
+				icon={
+					!loading ? (
+						<>
+							{isActive ? (
+								<Icon
+									name='ios-checkmark-circle'
+									as={Ionicons}
+									color={themeContext.palette.active.background.primary}
+									size={'xl'}
+								/>
+							) : (
+								<Icon
+									name='radio-button-unchecked'
+									as={MaterialIcons}
+									color={themeContext.palette.disabled.background}
+									size={'xl'}
+								/>
+							)}
+						</>
+					) : (
+						<ActivityIndicator />
+					)
+				}
+			/>
+		</Box>
+	)
 }
 
-export default ProfileItemSmall;
+export default ProfileItemSmall

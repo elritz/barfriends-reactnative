@@ -1,11 +1,6 @@
-import RNEHeading600 from '@components/atoms/typography/RNETypography/heading/RNEHeading600'
-import RNEHeading800 from '@components/atoms/typography/RNETypography/heading/RNEHeading800'
-import { Text } from '@rneui/base'
 import { useForegroundPermissions } from 'expo-location'
 import { Box, Heading } from 'native-base'
-import React from 'react'
-import { View, useWindowDimensions } from 'react-native'
-import styled from 'styled-components/native'
+import { useWindowDimensions } from 'react-native'
 
 export default function LocationPermissionHalfSection() {
 	const [status, requestPermission] = useForegroundPermissions()

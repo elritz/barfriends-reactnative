@@ -33,15 +33,15 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 			}}
 		>
 			<Image
-				borderRadius={'xl'}
+				source={{ uri: item.avatar }}
 				alt={'User image'}
+				borderRadius={'xl'}
 				style={{
 					width: '100%',
 					height,
 					borderWidth: 3,
 					borderColor: 'white',
 				}}
-				source={{ uri: item.avatar }}
 			/>
 			<View
 				style={{

@@ -10,6 +10,17 @@ const ReactNativeElementsTheme = createTheme({
 		primary: darkCompanyColors.primary,
 		secondary: darkCompanyColors.secondary,
 	},
+	components: {
+		Button: {
+			buttonStyle: {
+				borderRadius: 13,
+				height: 45,
+			},
+			containerStyle: {
+				borderRadius: 13,
+			},
+		},
+	},
 	mode: 'light',
 })
 

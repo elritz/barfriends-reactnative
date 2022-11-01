@@ -12,11 +12,11 @@ import { Input, Button } from '@rneui/base'
 import { Icon } from '@rneui/themed'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Box, Image, KeyboardAvoidingView } from 'native-base'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
 import { LoginStackParamList } from 'src/types/app'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 export type PasswordLoginScreenRouteProp = RouteProp<LoginStackParamList, 'PasswordLoginScreen'>
 
@@ -175,6 +175,7 @@ const PasswordLoginScreen = () => {
 						width={`${IMAGE_SIZE}px`}
 						borderRadius={'lg'}
 						source={{ uri: PQData.profile.photos[0].url }}
+						alt={'Profile Photo'}
 					/>
 				)}
 			</LinearGradient>

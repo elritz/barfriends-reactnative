@@ -1,5 +1,6 @@
 import { products } from './Model'
-import { View, StyleSheet, Image, Dimensions } from 'react-native'
+import { Image } from 'native-base'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 
 const { width } = Dimensions.get('window')
@@ -37,7 +38,11 @@ const Products = ({ x }: ProductsProps) => (
 			})
 			return (
 				<Animated.View key={index} style={[styles.container, style]}>
-					<Image source={product.picture} style={{ width: SIZE, height: SIZE * product.aspectRatio }} />
+					<Image
+						source={product.picture}
+						style={{ width: SIZE, height: SIZE * product.aspectRatio }}
+						alt={'Profile Photo'}
+					/>
 				</Animated.View>
 			)
 		})}

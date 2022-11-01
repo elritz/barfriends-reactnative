@@ -3,7 +3,6 @@ import { lightCompanyColors, bfsCompanyColors } from '../../index'
 import state from '../state'
 
 const palette = {
-	...colors,
 	...state,
 	bfscompany: {
 		...bfsCompanyColors,

@@ -113,7 +113,7 @@ const BirthdayScreen = () => {
 				flexDirection: 'column',
 				justifyContent: 'space-between',
 				marginHorizontal: '5%',
-				marginTop: '20',
+				marginTop: '20px',
 			}}
 		>
 			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>

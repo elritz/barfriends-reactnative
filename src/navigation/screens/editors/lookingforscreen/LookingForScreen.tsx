@@ -1,8 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Profile, useUpdateProfileIdentifiableInformationMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Button, Icon } from '@rneui/themed'
-import { Text } from 'native-base'
+import { Text, Button, Icon } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Pressable, View, ScrollView, SafeAreaView } from 'react-native'
@@ -151,16 +150,15 @@ const LookingForScreen = ({}) => {
 					<Button
 						disabled={false}
 						onPress={handleSubmit(onSubmit)}
-						buttonStyle={{
-							borderRadius: 14,
-							backgroundColor: themeContext.palette.bfscompany.primary,
-							paddingHorizontal: 30,
-						}}
-						containerStyle={{
+						borderRadius={14}
+						bg={themeContext.palette.bfscompany.primary}
+						px={'30px'}
+						style={{
 							alignSelf: 'center',
 						}}
-						title='Update'
-					/>
+					>
+						Update
+					</Button>
 				</SafeAreaView>
 			)}
 		</SafeAreaView>

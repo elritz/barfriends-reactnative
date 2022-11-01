@@ -1,15 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
-import RNEText500 from '@components/atoms/typography/RNETypography/text/RNEText500'
-import { Ionicons } from '@expo/vector-icons'
 import { Profile, useCheckUsernameLazyQuery, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, Button, Heading, KeyboardAvoidingView } from 'native-base'
-import React, { useContext } from 'react'
+import { Input } from 'native-base'
+import { Box, Button, Heading, KeyboardAvoidingView, Text } from 'native-base'
+import { useContext } from 'react'
 import { useForm, Controller, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const UsernameScreen = () => {
 	const themeContext = useContext(ThemeContext)
@@ -104,17 +102,7 @@ const UsernameScreen = () => {
 		}
 	}
 
-	const InputRightIcon = () => {
-		return CULoading ? (
-			<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
-		) : (
-			<Ionicons
-				name='checkmark-circle'
-				size={24}
-				color={errors.username || !CUData?.checkUsername ? 'lightgrey' : 'green'}
-			/>
-		)
-	}
+	const InputRightIcon = () => {}
 
 	const resetInput = (value: String) => {
 		reset({ username: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.username })
@@ -149,39 +137,34 @@ const UsernameScreen = () => {
 							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
 								Username
 							</Heading>
-							<RNETextInput
-								onBlur={onBlur}
-								onChange={onChange}
+							<Input
+								key='username'
 								value={value}
-								blurOnSubmit={false}
-								keyProp='username'
-								blurOnSubmit={false}
+								secureTextEntry
+								onChangeText={value => onChange(value)}
 								onSubmitEditing={handleSubmit(onSubmit)}
-								textContentType='name'
-								autoFocus
-								placeholder='Username '
-								returnKeyType='done'
+								onBlur={onBlur}
 								autoCapitalize='none'
 								numberOfLines={1}
-								rightIcon={<InputRightIcon />}
-								autoCompleteType='name'
-								keyboardType='default'
-								containerStyle={{
-									alignSelf: 'center',
-								}}
-								rightIcon={
+								textContentType='password'
+								blurOnSubmit={false}
+								autoFocus
+								placeholder='Password'
+								returnKeyType='done'
+								autoCorrect={false}
+								rightElement={
 									UOPLoading && dirtyFields.username ? (
 										<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
 									) : (
 										dirtyFields.username && (
 											<Pressable onPress={() => resetInput('nickname')}>
-												<RNEText500>Reset</RNEText500>
+												<Text>Reset</Text>
 											</Pressable>
 										)
 									)
 								}
-								errorMessage={errors?.username?.message}
 							/>
+							<Text>{errors?.username?.message}</Text>
 						</Box>
 					)}
 				/>

@@ -1,6 +1,7 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import {
 	BackgroundLocationPermissionReactiveVar,
@@ -23,20 +24,20 @@ const details = [
 		title: 'How you’ll use this',
 		detail: 'To find venues and event deals around you.',
 		iconName: 'ios-location-sharp',
-		iconType: 'ionicon',
+		iconType: Ionicons,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To create your own content and share. ',
 		iconName: 'android-messages',
-		iconType: 'material-community',
+		iconType: MaterialCommunityIcons,
 	},
 	{
 		title: 'How these settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
 		iconName: 'ios-settings-sharp',
-		iconType: 'ionicon',
+		iconType: Ionicons,
 	},
 ]
 

@@ -1,8 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { KeyboardAvoidingView, Text } from 'native-base'
+import { Input, KeyboardAvoidingView, Text } from 'native-base'
 import { Heading, Button, Box } from 'native-base'
 import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
@@ -129,11 +128,11 @@ const NamesScreen = () => {
 							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
 								Full name
 							</Heading>
-							<RNETextInput
+							<Input
 								onBlur={onBlur}
-								onChange={onChange}
+								onChangeText={onChange}
 								value={value}
-								disabled={UOPLoading}
+								isDisabled={UOPLoading}
 								blurOnSubmit={false}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								textContentType='name'
@@ -142,34 +141,30 @@ const NamesScreen = () => {
 								returnKeyType='done'
 								autoCapitalize='none'
 								numberOfLines={1}
-								autoCompleteType='name'
+								autoComplete='name'
 								keyboardType='default'
-								containerStyle={{
+								style={{
 									alignSelf: 'center',
-								}}
-								rightIconContainerStyle={{
-									marginLeft: 10,
-								}}
-								rightIcon={
-									UOPLoading && dirtyFields.fullname ? (
-										<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
-									) : (
-										dirtyFields.fullname && (
-											<Pressable onPress={() => resetInput('fullname')}>
-												<Text fontWeight={'bold'}>Reset</Text>
-											</Pressable>
-										)
-									)
-								}
-								inputStyle={{
 									backgroundColor: themeContext.palette.secondary.background,
 									height: 55,
 									padding: 10,
 									borderRadius: 13,
 								}}
-								inputContainerStyle={{ borderBottomColor: 'transparent', borderBottomWidth: 0 }}
-								errorMessage={errors?.fullname?.message}
+								rightElement={
+									<Box ml={3}>
+										{UOPLoading && dirtyFields.fullname ? (
+											<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+										) : (
+											dirtyFields.fullname && (
+												<Pressable onPress={() => resetInput('fullname')}>
+													<Text fontWeight={'bold'}>Reset</Text>
+												</Pressable>
+											)
+										)}
+									</Box>
+								}
 							/>
+							<Text>{errors?.fullname?.message}</Text>
 						</Box>
 					)}
 				/>
@@ -184,46 +179,44 @@ const NamesScreen = () => {
 							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
 								Nick name
 							</Heading>
-							<RNETextInput
+							<Input
 								onBlur={onBlur}
 								onChange={onChange}
 								value={value}
 								blurOnSubmit={false}
-								disabled={UOPLoading}
+								isDisabled={UOPLoading}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								textContentType='nickname'
 								placeholder='Nickname'
 								returnKeyType='done'
 								autoCapitalize='none'
 								numberOfLines={1}
-								autoCompleteType='name'
+								autoComplete='name'
 								keyboardType='default'
-								containerStyle={{
+								style={{
 									alignSelf: 'center',
-								}}
-								inputStyle={{
 									backgroundColor: themeContext.palette.secondary.background,
 									height: 55,
 									padding: 10,
 									borderRadius: 13,
+									borderBottomColor: 'transparent',
+									borderBottomWidth: 0,
 								}}
-								rightIconContainerStyle={{
-									marginLeft: 10,
-								}}
-								rightIcon={
-									UOPLoading && dirtyFields.nickname ? (
-										<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
-									) : (
-										dirtyFields.nickname && (
-											<Pressable onPress={() => resetInput('nickname')}>
-												<Text fontWeight={'bold'}>Reset</Text>
-											</Pressable>
-										)
-									)
+								rightElement={
+									<Box ml={3}>
+										{UOPLoading && dirtyFields.nickname ? (
+											<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+										) : (
+											dirtyFields.nickname && (
+												<Pressable onPress={() => resetInput('nickname')}>
+													<Text fontWeight={'bold'}>Reset</Text>
+												</Pressable>
+											)
+										)}
+									</Box>
 								}
-								inputContainerStyle={{ borderBottomColor: 'transparent', borderBottomWidth: 0 }}
-								errorMessage={errors?.nickname?.message}
 							/>
+							<Text>{errors?.nickname?.message}</Text>
 						</Box>
 					)}
 				/>

@@ -15,24 +15,21 @@ import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
-import { Actionsheet, Box, Heading, HStack, Icon, useDisclose } from 'native-base'
-import { ScrollView, Button, Text, Divider, VStack, Pressable } from 'native-base'
+import { Box, Heading } from 'native-base'
+import { ScrollView, Button, Text, Divider, VStack } from 'native-base'
 import { useCallback, useState } from 'react'
-import { Platform, Linking, useColorScheme } from 'react-native'
+import { Platform, Linking } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(Change theme functionality with database and local storage save)
 
 let foregroundSubscription = null
 
-const DevelopmentScreen = () => {
+const ChangeThemeScreen = () => {
 	const insets = useSafeAreaInsets()
-	const colorScheme = useColorScheme()
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [venues, setVenues] = useState([])
-	const { isOpen, onOpen, onClose } = useDisclose()
 
-	const ITEM_HEIGHT = 50
 	const handleOpenPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {
 			Linking.openURL('app-settings://')
@@ -125,9 +122,10 @@ const DevelopmentScreen = () => {
 	}, [])
 
 	return (
-		<Box flex={1} mx={3}>
-			<Box my={5}>
-				<Text
+		<Box flex={1}>
+			<ScrollView flex={1} mx={3} contentInset={{ bottom: insets.bottom + 50 }}>
+				<Heading
+					my={5}
 					adjustsFontSizeToFit
 					fontSize={'3xl'}
 					textAlign={'center'}
@@ -136,137 +134,10 @@ const DevelopmentScreen = () => {
 				>
 					{String.fromCharCode(60)}
 					{ENVIRONMENT} {String.fromCharCode(47, 62)}
-				</Text>
-			</Box>
-			<ScrollView
-				flex={1}
-				contentInset={{ bottom: insets.bottom + 50 }}
-				showsVerticalScrollIndicator={false}
-			>
-				<Pressable onPress={onReloadPress}>
-					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-						<Divider />
-						<Heading variant={'solid'} colorScheme={'tertiary'}>
-							Refresh
-						</Heading>
-						<Divider />
-					</Box>
-				</Pressable>
-				<Pressable onPress={onOpen}>
-					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-						<Divider />
-						<HStack>
-							<Icon />
-							<Heading variant={'solid'} colorScheme={'tertiary'}>
-								Change Theme
-							</Heading>
-						</HStack>
-						<Divider />
-					</Box>
-				</Pressable>
-
-				<Actionsheet isOpen={isOpen} onClose={onClose}>
-					<Actionsheet.Content w={'full'}>
-						<HStack w={'full'} justifyContent={'space-around'}>
-							<Button bg={'light.300'} w={100}>
-								Light
-							</Button>
-							<Button bg={'dark.300'} w={100}>
-								Dark
-							</Button>
-							<Button bg={colorScheme === 'light' ? 'light.300' : 'dark.300'} w={100}>
-								System
-							</Button>
-						</HStack>
-					</Actionsheet.Content>
-				</Actionsheet>
-
-				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
-					Authentication
-				</Text>
-				<Button
-					marginX={10}
-					onPress={async () =>
-						await secureStorageItemDelete({
-							key: AUTHORIZATION,
-						})
-					}
-					variant={'solid'}
-					colorScheme={'error'}
-					color={'white'}
-				>
-					Delete authentication token
-				</Button>
-				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
-					Search Area
-				</Text>
-				<Button
-					marginX={10}
-					onPress={async () => {
-						await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
-						SearchAreaReactiveVar(searchAreaInitialState)
-					}}
-					variant={'solid'}
-					colorScheme={'error'}
-					color={'white'}
-				>
-					Remove Search Area token
-				</Button>
-				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
-					Open Settings
-				</Text>
-				<Button
-					marginX={10}
-					onPress={handleOpenPhoneSettings}
-					variant={'solid'}
-					colorScheme={'primary'}
-					color={'white'}
-				>
-					Open settings
-				</Button>
-				<Divider my={10} />
-
-				{/* <Text fontSize={'2xl'}>Current Pos</Text>
-				<Text fontSize={'2xl'}>{currentPosition?.coords.latitude}</Text>
-				<Text fontSize={'2xl'}>{currentPosition?.coords.longitude}</Text>
-				<Text fontSize={'2xl'}>MASTER</Text>
-				<Text fontSize={'2xl'}>latitude:43.456074</Text>
-				<Text fontSize={'2xl'}>longitude: -80.483948</Text>
-				<Text fontSize={'2xl'}>OFFICE</Text>
-				<Text fontSize={'2xl'}>latitude: 43.455957, </Text>
-				<Text fontSize={'2xl'}>longitude: -80.483694</Text> */}
-
-				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
-					Location Tracking
-				</Text>
-				<VStack space={2} w={'full'} px={10}>
-					<Button onPress={startForegroundUpdate} color='green'>
-						Start in foreground
-					</Button>
-					<Divider />
-					<Button onPress={stopForegroundUpdate} color='red'>
-						Stop in foreground
-					</Button>
-					<Divider />
-					<Button onPress={startBackgroundUpdate} color='green'>
-						Start in background
-					</Button>
-					<Divider />
-					<Button onPress={stopBackgroundUpdate} color='red'>
-						Stop in background
-					</Button>
-				</VStack>
-				{/* <Button onPress={getPosition} color='green.400'>
-						Get current Position
-					</Button>
-					<Button onPress={startGeoFencingUpdate} color='green.400'>
-						Start Geofencing
-					</Button>
-					<Button onPress={stopGeofencing} color='red.500'>
-						Stop Geofencing
-					</Button> */}
+					Change Theme
+				</Heading>
 			</ScrollView>
 		</Box>
 	)
 }
-export default DevelopmentScreen
+export default ChangeThemeScreen

@@ -1,4 +1,4 @@
-import RNEButtonPrimary from '@components/atoms/buttons/rnebutton/barfriends/RNEButtonPrimary'
+import { Button } from 'native-base'
 
 type Props = {
 	onPress: () => void
@@ -6,18 +6,16 @@ type Props = {
 
 export default function PermissionButton(props: Props) {
 	return (
-		<RNEButtonPrimary
-			title={'Continue'}
-			type='solid'
+		<Button
 			onPress={props.onPress}
-			containerStyle={{
-				marginTop: 15,
-				width: '85%',
-			}}
-			titleStyle={{
+			mt={4}
+			w={'85%'}
+			_text={{
 				fontWeight: 'bold',
 				textTransform: 'uppercase',
 			}}
-		/>
+		>
+			Continue
+		</Button>
 	)
 }

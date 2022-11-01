@@ -1,14 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import RNEText600 from '@components/atoms/typography/RNETypography/text/RNEText600'
 import { Feather } from '@expo/vector-icons'
 import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
 import { Button, Icon } from 'native-base'
-import { Box, Center, Text, VStack } from 'native-base'
-import React, { useContext } from 'react'
-import { Pressable, View } from 'react-native'
+import { Box, Text, VStack } from 'native-base'
+import { useContext } from 'react'
+import { Pressable } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
 
 const GetStartedScreen = () => {
@@ -98,7 +97,6 @@ const GetStartedScreen = () => {
 						bg={'tertiary.500'}
 						onPress={() => {
 							CredentialPersonalProfileReactiveVar({
-								...credentialPersonalProfileVar,
 								PrivacyId: String(PPPData.documents[0].id),
 								ServiceId: String(PTSData.documents[0].id),
 							})
