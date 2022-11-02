@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons'
 import {
 	CommonActions,
 	RouteProp,
@@ -5,7 +6,7 @@ import {
 	useNavigation,
 	useRoute,
 } from '@react-navigation/native'
-import { Icon, SearchBar } from '@rneui/themed'
+import { Icon, Input } from 'native-base'
 import React, { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, View, TextInput } from 'react-native'
@@ -97,12 +98,12 @@ const SearchTopTabStackInput = () => {
 			}}
 		>
 			<Icon
-				type='ionicon'
+				as={Ionicons}
 				onPress={goBack}
 				name='arrow-back'
 				size={35}
-				color={themeContext.palette.primary.color.primary}
-				containerStyle={{
+				color={themeContext.palette.primary.color.default}
+				style={{
 					width: '10%',
 					height: '100%',
 					justifyContent: 'center',
@@ -112,27 +113,26 @@ const SearchTopTabStackInput = () => {
 				control={control}
 				name='searchText'
 				render={({ field: { value, onChange } }) => (
-					<SearchBar
+					<Input
 						ref={_searchInputRef}
 						placeholder='Search'
 						value={value}
 						onChangeText={(text: string) => changeSearchText(text)}
 						onSubmitEditing={handleSearchSubmitEditting}
-						platform='ios'
 						returnKeyType='search'
-						searchIcon={
+						leftElement={
 							<Icon
-								type='ionicon'
+								as={Ionicons}
 								name='ios-search'
 								size={20}
-								color={themeContext.palette.primary.color.primary}
+								color={themeContext.palette.primary.color.default}
 							/>
 						}
 						underlineColorAndroid='transparent'
-						onCancel={() => {
-							clearSearchInput()
-							navigation.dispatch(StackActions.popToTop())
-						}}
+						// onCancel={() => {
+						// 	clearSearchInput()
+						// 	navigation.dispatch(StackActions.popToTop())
+						// }}
 						onPressIn={() => {
 							navigation.navigate('HomeTabNavigator', {
 								screen: 'ExploreStack',
@@ -144,23 +144,21 @@ const SearchTopTabStackInput = () => {
 								},
 							})
 						}}
-						containerStyle={{
+						style={{
 							backgroundColor: 'transparent',
 							alignSelf: 'center',
 							width: '90%',
 						}}
-						cancelButtonProps={{
-							color: themeContext.palette.primary.color.primary,
-						}}
-						inputContainerStyle={{
+						// cancelButtonProps={{
+						// 	color: themeContext.palette.primary.color.primary,
+						// }}
+						px={5}
+						_input={{
 							borderBottomColor: 'transparent',
-							paddingHorizontal: 5,
-							backgroundColor: themeContext.palette.secondary.background,
+							backgroundColor: themeContext.palette.secondary.background.default,
 							borderRadius: 14,
 							height: 50,
-						}}
-						inputStyle={{
-							color: themeContext.palette.primary.color.primary,
+							color: themeContext.palette.primary.color.default,
 						}}
 					/>
 				)}

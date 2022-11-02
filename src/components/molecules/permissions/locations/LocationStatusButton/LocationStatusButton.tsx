@@ -4,12 +4,13 @@ import { useNavigation } from '@react-navigation/native'
 import { ForegroundLocationPermissionReactiveVar, MapReactiveVar } from '@reactive'
 import { setLocation } from '@util/hooks/permissions/location/setLocation'
 import * as Location from 'expo-location'
-import { Button, Icon } from 'native-base'
+import { Button, Icon, useTheme } from 'native-base'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
 const LocationStatusButton = () => {
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const navigation = useNavigation()
 	const rPermissionLocation = useReactiveVar(ForegroundLocationPermissionReactiveVar)
 	const map = useReactiveVar(MapReactiveVar)
@@ -38,19 +39,19 @@ const LocationStatusButton = () => {
 				case 'granted':
 					switch (map.centerOnUserCurrentLocation) {
 						case true:
-							return themeContext.palette.highlight.background.secondary
+							return theme.colors.secondary[500]
 						case false:
-							return themeContext.palette.contrast.background.primary
+							return theme.colors.secondary[500]
 						default:
-							return themeContext.palette.contrast.background.primary
+							return theme.colors.secondary[500]
 					}
 				case 'denied':
-					return themeContext.palette.error.background
+					return theme.colors.error[500]
 				case 'undetermined':
-					return themeContext.palette.disabled.background
+					return theme.colors.secondary[400]
 			}
 		} else {
-			return themeContext.palette.error.background
+			return theme.colors.error[500]
 		}
 	}
 
@@ -75,7 +76,7 @@ const LocationStatusButton = () => {
 		<Button
 			w={'40px'}
 			borderRadius={20}
-			bg={themeContext.palette.contrast.background.secondary}
+			colorScheme={'secondary'}
 			rightIcon={
 				<Icon
 					as={MaterialIcons}

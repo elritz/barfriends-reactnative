@@ -26,7 +26,7 @@ function SearchFilterTabStack() {
 			tabBarPosition='top'
 			screenOptions={{
 				tabBarStyle: {
-					backgroundColor: themeContext.palette.primary.background,
+					backgroundColor: themeContext.palette.primary.background.default,
 					marginTop: 105,
 				},
 				tabBarShowLabel: true,
@@ -35,7 +35,7 @@ function SearchFilterTabStack() {
 					alignItems: 'center',
 				},
 				tabBarIndicatorStyle: {
-					backgroundColor: themeContext.palette.active.color.primary,
+					backgroundColor: themeContext.palette.company.accent,
 					bottom: -2,
 					borderBottomWidth: 3,
 					borderRadius: 0,

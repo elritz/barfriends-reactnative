@@ -3,28 +3,29 @@ import Privacy from '@navigation/screens/credential/settings/privacy/Privacy'
 import TermsOfService from '@navigation/screens/credential/settings/services/Services'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { TermsServicePrivacyTabStackParamList } from '@types'
-import * as React from 'react'
-import { TabBarIndicator } from 'react-native-tab-view'
+import { useTheme } from 'native-base'
+import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
 const ScreenStack = createMaterialTopTabNavigator<TermsServicePrivacyTabStackParamList>()
 
 function TermsServicePrivacyNavigationTab() {
-	const themeContext = React.useContext(ThemeContext)
+	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	return (
 		<ScreenStack.Navigator
 			screenOptions={{
 				tabBarContentContainerStyle: {
-					backgroundColor: themeContext.palette.primary.background,
+					backgroundColor: themeContext.palette.primary.background.default,
 					height: TAB_NAVIGATION_HEIGHT,
 				},
-				tabBarInactiveTintColor: themeContext.palette.disabled.background,
-				tabBarActiveTintColor: themeContext.palette.active.color.primary,
+				tabBarInactiveTintColor: theme.colors.gray[400],
+				tabBarActiveTintColor: theme.colors.primary[500],
 				tabBarIndicatorStyle: {
-					backgroundColor: themeContext.palette.active.color.primary,
+					backgroundColor: theme.colors.primary[500],
 					bottom: -1,
 					borderBottomWidth: 2,
-					borderBottomColor: themeContext.palette.active.color.primary,
+					borderBottomColor: theme.colors.primary[500],
 				},
 			}}
 		>

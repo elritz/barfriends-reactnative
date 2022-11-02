@@ -47,15 +47,15 @@ const TermsOfService = () => {
 					allowedStyles={['color', 'backgroundColor']}
 					classesStyles={{
 						'body-1': {
-							color: themeContext.palette.primary.color.primary,
+							color: themeContext.palette.primary.color.default,
 							fontSize: 19,
 						},
 						'lisitem-1': {
-							color: themeContext.palette.primary.color.secondary,
+							color: themeContext.palette.primary.color.default,
 							fontSize: 19,
 						},
 						highlight: {
-							color: themeContext.palette.highlight.color.tertiary,
+							color: themeContext.palette.primary.color.accent,
 						},
 					}}
 				/>

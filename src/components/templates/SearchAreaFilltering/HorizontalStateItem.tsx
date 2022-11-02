@@ -15,7 +15,7 @@ const HorizontalStateItem = ({ index, item }: ListRenderItemInfo<HorizontalState
 		<HStack
 			key={index}
 			style={{
-				backgroundColor: themeContext.palette.secondary.background,
+				backgroundColor: themeContext.palette.secondary.background.default,
 			}}
 			py={4}
 			px={4}

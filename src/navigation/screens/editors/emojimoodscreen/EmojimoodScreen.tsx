@@ -99,12 +99,16 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 								<LinearGradient id='grad' x1='1' y1='0' x2='1' y2='1'>
 									<Stop
 										offset='0.25'
-										stopColor={value.colors[0] ? value.colors[0] : themeContext.palette.primary.background}
+										stopColor={
+											value.colors[0] ? value.colors[0] : themeContext.palette.primary.background.default
+										}
 										stopOpacity='1'
 									/>
 									<Stop
 										offset='1'
-										stopColor={value.colors[1] ? value.colors[1] : themeContext.palette.primary.background}
+										stopColor={
+											value.colors[1] ? value.colors[1] : themeContext.palette.primary.background.default
+										}
 										stopOpacity='1'
 									/>
 								</LinearGradient>
@@ -185,7 +189,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 						/>
 						<ExpoLinearGradient
 							colors={[
-								value.colors[0] ? value.colors[0] : themeContext.palette.primary.background,
+								value.colors[0] ? value.colors[0] : themeContext.palette.primary.background.default,
 								'transparent',
 							]}
 							style={{

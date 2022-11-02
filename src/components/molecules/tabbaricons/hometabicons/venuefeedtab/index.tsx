@@ -1,6 +1,7 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { Icon } from '@rneui/themed'
+import { Ionicons } from '@expo/vector-icons'
+import { Icon } from 'native-base'
 
 const VenueFeedTab = (props: TabProps) => {
 	return (
@@ -14,7 +15,7 @@ const VenueFeedTab = (props: TabProps) => {
 					}}
 					name='md-grid'
 					size={27}
-					type='ionicon'
+					as={Ionicons}
 					color={props.color}
 				/>
 			}

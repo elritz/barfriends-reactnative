@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import GenerateCountryData from '@helpers/generate/placeholder/GenerateCountryData'
 import { useNavigation } from '@react-navigation/native'
-import { AuthorizationReactiveVar, ForegroundLocationPermissionReactiveVar } from '@reactive'
-import { SearchBar } from '@rneui/themed'
+import { AuthorizationReactiveVar } from '@reactive'
+import { Input } from 'native-base'
 import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { View, Pressable } from 'react-native'
+import { View } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
 
 interface HomeTownScreenProps {}
@@ -15,7 +15,6 @@ const HomeTownScreen = ({}: HomeTownScreenProps) => {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const [search, setSearch] = useState<string>('')
-	const rPermissionLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const handleLocationPermissionNavigation = async () => {
@@ -45,23 +44,20 @@ const HomeTownScreen = ({}: HomeTownScreenProps) => {
 
 	return (
 		<View>
-			<SearchBar
+			<Input
 				placeholder='Search...'
 				onChangeText={(text: string) => setSearch(text)}
-				showCancel={false}
-				platform='ios'
+				// platform='ios'
 				value={search}
-				containerStyle={{
+				style={{
 					backgroundColor: 'transparent',
 					width: '95%',
 					alignSelf: 'center',
-				}}
-				cancelButtonProps={{
-					color: themeContext.palette.primary.color.primary,
-				}}
-				inputContainerStyle={{
-					backgroundColor: themeContext.palette.secondary.background,
 					paddingHorizontal: 10,
+				}}
+				_input={{
+					color: themeContext.palette.primary.color.primary,
+					backgroundColor: themeContext.palette.secondary.background,
 					borderBottomColor: 'transparent',
 					borderRadius: 14,
 				}}

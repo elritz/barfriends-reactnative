@@ -1,4 +1,4 @@
-import { nativeBaseTheme } from '@constants/theme/default/nativebase'
+import { nativeBaseTheme } from '@constants/theme/themes/default/nativebase'
 import { extendTheme } from 'native-base'
 
 // 2. Get the type of the CustomTheme

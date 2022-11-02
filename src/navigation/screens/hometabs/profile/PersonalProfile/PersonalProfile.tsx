@@ -74,7 +74,7 @@ const PersonalScreen = () => {
 			return (
 				<SafeAreaView style={{ flex: 1, marginBottom: 60, marginHorizontal: 10 }}>
 					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-						<View style={[{ backgroundColor: themeContext.palette.primary.background, top: 0 }]}>
+						<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
 							<CardPleaseSignup signupTextId={4} />
 							<Divider style={{ marginVertical: 10 }} />
 						</View>

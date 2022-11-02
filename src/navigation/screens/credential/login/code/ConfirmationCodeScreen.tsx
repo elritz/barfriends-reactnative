@@ -1,12 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button } from '@rneui/base'
-import { Icon } from '@rneui/themed'
 import Countdown from '@util/hooks/useTimer'
-import { Box, Heading, KeyboardAvoidingView, Text } from 'native-base'
+import { Box, Heading, KeyboardAvoidingView, Text, Icon, Button, useTheme } from 'native-base'
 import { useContext, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, Pressable, View } from 'react-native'
@@ -34,6 +33,7 @@ const ConfirmationCodeScreen = () => {
 	const route = useRoute<ConfirmationCodeScreenRouteProp>()
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
@@ -107,19 +107,6 @@ const ConfirmationCodeScreen = () => {
 		navigateToNextScreen()
 	}
 
-	const RightIcon = () => (
-		<Icon
-			type='feather'
-			name='arrow-right'
-			size={35}
-			color={
-				errors.code
-					? themeContext.palette.disabled.color.primary
-					: themeContext.palette.bfscompany.accent
-			}
-		/>
-	)
-
 	return (
 		<KeyboardAvoidingView
 			height={'auto'}
@@ -167,7 +154,7 @@ const ConfirmationCodeScreen = () => {
 								>
 									<Heading
 										style={{
-											color: themeContext.palette.active.color.primary,
+											color: themeContext.palette.company.primary,
 										}}
 									>
 										{symbol || (isFocused ? <Cursor /> : null)}
@@ -203,14 +190,10 @@ const ConfirmationCodeScreen = () => {
 						{complete ? (
 							<>
 								<Pressable onPress={() => null}>
-									<Text style={{ color: themeContext.palette.highlight.color.primary }}>
-										Confirm resend code
-									</Text>
+									<Text colorScheme={'primary'}>Confirm resend code</Text>
 								</Pressable>
 								<Pressable onPress={() => navigateToUpdatePhoneNumber()}>
-									<Text style={{ color: themeContext.palette.highlight.color.primary }}>
-										Update phone number
-									</Text>
+									<Text colorScheme={'primary'}>Update phone number</Text>
 								</Pressable>
 							</>
 						) : (
@@ -230,21 +213,22 @@ const ConfirmationCodeScreen = () => {
 						<Button
 							disabled={!!errors.code}
 							onPress={handleSubmit(onSubmit)}
-							containerStyle={{
-								justifyContent: 'center',
-							}}
-							buttonStyle={{
-								backgroundColor: errors.code
-									? themeContext.palette.disabled.background
-									: themeContext.palette.highlight.background.primary,
+							colorScheme={errors.code ? 'gray' : 'primary'}
+							style={{
 								justifyContent: 'center',
 								height: 70,
 								width: 70,
 								paddingHorizontal: 20,
 								borderRadius: 50,
 							}}
-							iconPosition='right'
-							icon={<RightIcon />}
+							endIcon={
+								<Icon
+									as={Feather}
+									name='arrow-right'
+									size={'xl'}
+									color={errors.code ? theme.colors.gray[300] : themeContext.palette.bfscompany.accent}
+								/>
+							}
 						/>
 					</View>
 				</Box>

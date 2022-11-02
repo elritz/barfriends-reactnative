@@ -1,4 +1,4 @@
-import { SearchBar } from '@rneui/themed'
+import { Input } from 'native-base'
 import { useContext, useState } from 'react'
 import { View } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -11,25 +11,21 @@ const CurrentPlacceScreen = ({}: CurrentPlacceScreenProps) => {
 
 	return (
 		<View>
-			<SearchBar
+			<Input
 				placeholder='Search...'
 				onChangeText={(text: string) => setSearch(text)}
-				showCancel={false}
-				platform='ios'
 				value={search}
-				containerStyle={{
+				style={{
 					backgroundColor: 'transparent',
 					width: '95%',
 					alignSelf: 'center',
-				}}
-				cancelButtonProps={{
-					color: themeContext.palette.primary.color.primary,
-				}}
-				inputContainerStyle={{
-					borderBottomColor: 'transparent',
 					paddingHorizontal: 5,
-					backgroundColor: themeContext.palette.secondary.background,
 					borderRadius: 14,
+				}}
+				_input={{
+					color: themeContext.palette.primary.color.primary,
+					borderBottomColor: 'transparent',
+					backgroundColor: themeContext.palette.secondary.background,
 				}}
 			/>
 		</View>

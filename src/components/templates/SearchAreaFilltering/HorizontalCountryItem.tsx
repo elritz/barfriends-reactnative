@@ -18,7 +18,7 @@ const HorizontalCountryItem = ({ index, item }: ListRenderItemInfo<HorizontalCou
 		<HStack
 			key={index}
 			style={{
-				backgroundColor: themeContext.palette.secondary.background,
+				backgroundColor: themeContext.palette.secondary.background.default,
 			}}
 		>
 			<Text

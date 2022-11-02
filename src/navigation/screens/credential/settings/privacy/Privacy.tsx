@@ -1,11 +1,10 @@
-import React, { useContext } from 'react'
-import { Text } from '@rneui/base'
-
-import styled, { ThemeContext } from 'styled-components/native'
+import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
+import { Text } from 'native-base'
+import { useContext } from 'react'
 import { SafeAreaView, ScrollView } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
-import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
+import { ThemeContext } from 'styled-components/native'
 
 const Privacy = () => {
 	const { width } = useWindowDimensions()
@@ -49,15 +48,15 @@ const Privacy = () => {
 					allowedStyles={['color', 'backgroundColor']}
 					classesStyles={{
 						'body-1': {
-							color: themeContext.palette.primary.color.primary,
+							color: themeContext.palette.primary.color.default,
 							fontSize: 19,
 						},
 						'lisitem-1': {
-							color: themeContext.palette.primary.color.secondary,
+							color: themeContext.palette.primary.color.default,
 							fontSize: 19,
 						},
 						highlight: {
-							color: themeContext.palette.highlight.color.tertiary,
+							color: themeContext.palette.primary.color.accent,
 						},
 					}}
 				/>

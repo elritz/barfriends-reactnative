@@ -1,12 +1,11 @@
 // import darkTheme from '@constants/theme/default/dark'
-// import lightTheme from '@constants/theme/default/light'
-import darkTheme from '@constants/theme/barstool/dark'
-import lightTheme from '@constants/theme/barstool/light'
+import { darktheme, lighttheme } from '@constants/theme/themes/default'
+// import { darktheme, lighttheme } from '@constants/theme/themes/barstool'
 import useColorScheme from '@util/hooks/device/useColorScheme'
 import { ColorSchemeName, useColorScheme as _useColorScheme } from 'react-native'
 
-type TLightTheme = typeof lightTheme
-type TDarkTheme = typeof darkTheme
+type TLightTheme = typeof lighttheme
+type TDarkTheme = typeof darktheme
 
 type ThemeReturnType = {
 	themes: TDarkTheme | TLightTheme
@@ -43,23 +42,23 @@ const setDefaultTheme = (): ThemeReturnType => {
 	switch (DefaultTheme) {
 		case 'CUSTOM-light':
 			return {
-				themes: lightTheme,
+				themes: lighttheme,
 			}
 		case 'CUSTOM-dark':
 			return {
-				themes: darkTheme,
+				themes: darktheme,
 			}
 		case 'DEFAULT-light':
 			return {
-				themes: lightTheme,
+				themes: lighttheme,
 			}
 		case 'DEFAULT-dark':
 			return {
-				themes: darkTheme,
+				themes: darktheme,
 			}
 		default:
 			return {
-				themes: lightTheme,
+				themes: lighttheme,
 			}
 	}
 }

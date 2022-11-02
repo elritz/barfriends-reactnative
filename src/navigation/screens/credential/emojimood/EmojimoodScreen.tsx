@@ -118,7 +118,7 @@ const EmojimoodScreen = () => {
 							stopColor={
 								credentialPersonalProfileVar.emojimood.colors[0]
 									? credentialPersonalProfileVar.emojimood.colors[0]
-									: themeContext.palette.primary.background
+									: themeContext.palette.primary.background.default
 							}
 							stopOpacity='1'
 						/>
@@ -127,7 +127,7 @@ const EmojimoodScreen = () => {
 							stopColor={
 								credentialPersonalProfileVar.emojimood.colors[1]
 									? credentialPersonalProfileVar.emojimood.colors[1]
-									: themeContext.palette.primary.background
+									: themeContext.palette.primary.background.default
 							}
 							stopOpacity='1'
 						/>
@@ -196,7 +196,7 @@ const EmojimoodScreen = () => {
 				colors={[
 					credentialPersonalProfileVar.emojimood.colors[0]
 						? credentialPersonalProfileVar.emojimood.colors[0]
-						: themeContext.palette.primary.background,
+						: themeContext.palette.primary.background.default,
 					'transparent',
 				]}
 				style={{

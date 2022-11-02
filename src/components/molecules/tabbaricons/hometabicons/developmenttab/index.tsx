@@ -1,6 +1,7 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { Icon } from '@rneui/themed'
+import { Entypo } from '@expo/vector-icons'
+import { Icon } from 'native-base'
 
 const DevelopmentTab = (props: TabProps) => {
 	return (
@@ -14,7 +15,7 @@ const DevelopmentTab = (props: TabProps) => {
 					}}
 					name='code'
 					size={27}
-					type='entypo'
+					as={Entypo}
 					color={props.color}
 				/>
 			}

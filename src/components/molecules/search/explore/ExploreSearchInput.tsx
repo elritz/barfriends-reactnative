@@ -1,16 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
-import { StackActions } from '@react-navigation/native'
+import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { SearchReactiveVar } from '@reactive'
-import { Input } from '@rneui/base'
-import { Icon } from '@rneui/themed'
+import { Input, Icon, IInputProps } from 'native-base'
 import React, { useContext } from 'react'
-import { View, Keyboard } from 'react-native'
+import { Keyboard } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const ExploreSearchInput = () => {
-	const _searchInputRef = React.useRef<Input>(null)
+	const _searchInputRef = React.useRef<IInputProps>(null)
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const inset = useSafeAreaInsets()
@@ -82,60 +81,32 @@ const ExploreSearchInput = () => {
 						},
 					})
 				}}
-				inputContainerStyle={{
+				px={3}
+				style={{
 					height: 40,
 					borderBottomColor: 'transparent',
-					paddingHorizontal: 10,
-					backgroundColor: themeContext.palette.secondary.background,
 					borderRadius: 14,
 				}}
-				inputStyle={{
-					color: themeContext.palette.primary.color.primary,
+				_input={{
+					color: themeContext.palette.primary.color.default,
 				}}
-				leftIcon={
+				leftElement={
 					isSearch || rSearch.searchText.length ? (
 						<Icon
-							type='ionicon'
+							as={Ionicons}
 							onPress={goBackToFeed}
 							name='arrow-back'
 							size={28}
-							color={themeContext.palette.primary.color.primary}
+							color={themeContext.palette.primary.color.default}
 						/>
 					) : (
 						<Icon
-							type='ionicon'
+							as={Ionicons}
 							name='ios-search'
 							size={20}
-							color={themeContext.palette.primary.color.primary}
+							color={themeContext.palette.primary.color.default}
 						/>
 					)
-				}
-				rightIcon={
-					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						{!isSearch && (
-							<Icon
-								type='ionicon'
-								onPress={() =>
-									navigation.navigate('ModalNavigator', {
-										screen: 'MapLocationModal',
-									})
-								}
-								name='filter'
-								size={24}
-								style={{ marginHorizontal: 5 }}
-								color={themeContext.palette.primary.color.primary}
-							/>
-						)}
-						{!!rSearch.searchText.length && (
-							<Icon
-								type='ionicon'
-								name='close-circle'
-								size={25}
-								color={themeContext.palette.primary.color.primary}
-								onPress={clearSearchInput}
-							/>
-						)}
-					</View>
 				}
 			/>
 		</SafeAreaView>

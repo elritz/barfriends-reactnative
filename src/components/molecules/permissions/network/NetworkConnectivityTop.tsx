@@ -42,7 +42,7 @@ const NetworkConnectivityTop = () => {
 					<Text
 						style={{
 							textAlign: 'center',
-							color: themeContext.palette.tertiary.color.tertiary,
+							color: themeContext.palette.tertiary.color.default,
 						}}
 					>
 						No internet connection

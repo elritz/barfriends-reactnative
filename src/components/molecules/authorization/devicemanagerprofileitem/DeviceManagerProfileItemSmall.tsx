@@ -39,19 +39,9 @@ const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: Profil
 					!loading ? (
 						<>
 							{isActive ? (
-								<Icon
-									name='ios-checkmark-circle'
-									as={Ionicons}
-									color={themeContext.palette.active.background.primary}
-									size={'xl'}
-								/>
+								<Icon name='ios-checkmark-circle' as={Ionicons} colorScheme={'primary'} size={'xl'} />
 							) : (
-								<Icon
-									name='radio-button-unchecked'
-									as={MaterialIcons}
-									color={themeContext.palette.disabled.background}
-									size={'xl'}
-								/>
+								<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'gray'} size={'xl'} />
 							)}
 						</>
 					) : (

@@ -56,7 +56,7 @@ const ProfileTab = (props: TabProps) => {
 				<CompanyCoasterLogoDynamic
 					width={HEIGHT}
 					height={HEIGHT}
-					iconColor={themeContext.palette.primary.background}
+					iconColor={themeContext.palette.primary.background.default}
 					backgroundColor={props.color}
 				/>
 			</Pressable>
@@ -99,7 +99,7 @@ const ProfileTab = (props: TabProps) => {
 								<CompanyCoasterLogoDynamic
 									width={HEIGHT}
 									height={HEIGHT}
-									iconColor={themeContext.palette.primary.background}
+									iconColor={themeContext.palette.primary.background.default}
 									backgroundColor={props.color}
 								/>
 							)}

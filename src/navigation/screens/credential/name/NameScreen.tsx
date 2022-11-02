@@ -4,8 +4,16 @@ import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Input as InputDist } from '@rneui/base/dist/Input'
-import { Box, Input, KeyboardAvoidingView, Text, Button, Icon } from 'native-base'
+import {
+	Box,
+	Input,
+	KeyboardAvoidingView,
+	Text,
+	Button,
+	Icon,
+	IInputProps,
+	useTheme,
+} from 'native-base'
 import React, { useContext, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -16,8 +24,9 @@ const NameScreen = () => {
 	const headerHeight = useHeaderHeight()
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const nameRef = useRef<InputDist | null>(null)
+	const nameRef = useRef<IInputProps | null>(null)
 
 	const inputAccessoryViewID = 'uniqueID2'
 	const keyboardVerticalOffset =
@@ -118,9 +127,7 @@ const NameScreen = () => {
 						onPress={handleSubmit(onSubmit)}
 						disabled={!!errors.name}
 						style={{
-							backgroundColor: errors.name
-								? themeContext.palette.disabled.background
-								: themeContext.palette.highlight.background.primary,
+							backgroundColor: errors.name ? theme.colors.gray[300] : theme.colors.primary[500],
 							borderRadius: 50,
 							height: 70,
 							width: 70,
@@ -132,7 +139,7 @@ const NameScreen = () => {
 								as={Feather}
 								name='arrow-right'
 								size={35}
-								color={errors.name ? themeContext.palette.disabled.color.primary : 'white'}
+								color={errors.name ? theme.colors.gray[500] : 'white'}
 							/>
 						}
 					/>

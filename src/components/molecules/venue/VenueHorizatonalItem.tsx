@@ -1,20 +1,19 @@
 import { Venue } from '@graphql/generated'
-import { Avatar, ListItem } from '@rneui/base'
 import { ItemRenderType } from '@types'
+import { Avatar, Box, Heading, HStack } from 'native-base'
 import { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
 const VenueHorizatonalItem = (props: ItemRenderType<Venue>) => {
 	const themeContext = useContext(ThemeContext)
-	const [profileDisabled, setprofileDisabled] = useState<boolean>(true)
 	const profile = props.item.Profile
 
 	if (!profile) return null
 
 	return (
-		<ListItem
-			disabled={profileDisabled}
-			onPress={() => null}
+		<Box
+			// disabled={profileDisabled}
+			// onPress={() => null}
 			// ViewComponent={LinearGradient}
 			// linearGradientProps={{
 			// 	colors: [
@@ -28,44 +27,29 @@ const VenueHorizatonalItem = (props: ItemRenderType<Venue>) => {
 			// 	start: { x: 0.2, y: 0 },
 			// 	end: { x: 0.7, y: 1 },
 			// }}
-			bottomDivider
-			containerStyle={{
+			// bottomDivider
+			borderBottomWidth={2}
+			style={{
 				margin: 10,
 				borderRadius: 14,
 			}}
 		>
 			{profile.photos[0].url && (
 				<Avatar
-					imageProps={{
-						borderRadius: 14,
+					borderRadius={'lg'}
+					_image={{
 						resizeMode: 'cover',
 					}}
-					containerStyle={{ height: 50, width: 50 }}
+					style={{ height: 50, width: 50 }}
 					source={{ uri: profile.photos[0].url }}
-					title={profile.Personal.IdentifiableInformation.username.charAt(0)}
-				/>
-			)}
-			<ListItem.Content>
-				<ListItem.Title
-					style={{
-						color: themeContext.palette.secondary.color.primary,
-					}}
 				>
-					{profile.Personal.IdentifiableInformation.username}
-				</ListItem.Title>
-			</ListItem.Content>
-			{/* {props.loading && ME?.activeProfile?.username === profile.Credential?.username ? (
-				<ActivityIndicator size='small' color={themeContext.palette.primary.color.tertiary} />
-			) : (
-				<>
-					{ME?.activeProfile?.username === profile.Credential?.username ? (
-						<Ionicons name='checkmark-circle' size={24} color='green' />
-					) : (
-						<ListItem.Chevron size={26} color={themeContext.palette.secondary.color.primary} />
-					)}
-				</>
-			)} */}
-		</ListItem>
+					{profile.IdentifiableInformation.username.charAt(0)}
+				</Avatar>
+			)}
+			<HStack>
+				<Heading>{profile.IdentifiableInformation.username}</Heading>
+			</HStack>
+		</Box>
 	)
 }
 

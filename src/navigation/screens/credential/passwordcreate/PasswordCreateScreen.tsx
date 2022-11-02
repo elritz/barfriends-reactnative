@@ -1,19 +1,18 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
+import { Feather, Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button, Icon } from '@rneui/themed'
-import { Box, Input, KeyboardAvoidingView } from 'native-base'
-import { Text } from 'native-base'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import { Button, Icon, Text, Box, Input, KeyboardAvoidingView, useTheme } from 'native-base'
+import { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const PasswordCreateScreen = () => {
 	const passwordRef = useRef(null)
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const inputAccessoryViewID = '34333mnk21323w22sd2222222222fnkn3ij42kkkl22'
 	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
@@ -70,19 +69,19 @@ const PasswordCreateScreen = () => {
 	const ConfirmPasswordInputRightIcon = () => (
 		<Icon
 			name={errors.password ? 'close-circle' : 'checkmark-circle'}
-			type='ionicon'
+			as={Ionicons}
 			size={25}
-			containerStyle={{ marginHorizontal: 5 }}
-			color={errors?.password ? themeContext.palette.error.background : 'transparent'}
+			mx={3}
+			color={errors?.password ? theme.colors.error[500] : 'transparent'}
 		/>
 	)
 
 	const RightIcon = () => (
 		<Icon
-			type='feather'
+			as={Feather}
 			name='arrow-right'
-			size={35}
-			color={errors.password ? themeContext.palette.disabled.color.primary : 'white'}
+			size={'xl'}
+			color={errors.password ? theme.colors.primary[500] : 'white'}
 		/>
 	)
 
@@ -160,22 +159,16 @@ const PasswordCreateScreen = () => {
 						>
 							<Button
 								onPress={handleSubmit(onSubmit)}
-								disabled={!!errors.password}
-								containerStyle={{
+								isDisabled={!!errors.password}
+								style={{
 									justifyContent: 'center',
-								}}
-								buttonStyle={{
-									backgroundColor: errors.password
-										? themeContext.palette.disabled.background
-										: themeContext.palette.highlight.background.primary,
+									backgroundColor: errors.password ? theme.colors.gray[300] : theme.colors.primary[500],
 									height: 70,
 									width: 70,
 									paddingHorizontal: 20,
-									justifyContent: 'center',
 									borderRadius: 50,
 								}}
-								iconPosition='right'
-								icon={<RightIcon />}
+								endIcon={<RightIcon />}
 							/>
 						</View>
 					</Box>

@@ -1,5 +1,6 @@
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { Icon } from '@rneui/base'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Icon } from 'native-base'
 
 const NotificationTab = (props: TabProps) => (
 	<TabBarIcon
@@ -12,7 +13,7 @@ const NotificationTab = (props: TabProps) => (
 				}}
 				name='notifications'
 				size={33}
-				type='material'
+				as={MaterialIcons}
 				color={props.color}
 			/>
 		}

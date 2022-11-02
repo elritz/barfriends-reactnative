@@ -1,20 +1,19 @@
 import { useReactiveVar } from '@apollo/client'
+import { Ionicons } from '@expo/vector-icons'
 import { StackActions } from '@react-navigation/native'
 import { useNavigation } from '@react-navigation/native'
 import { SearchReactiveVar } from '@reactive'
-import { Input } from '@rneui/base'
-import { Icon } from '@rneui/themed'
-import React, { useContext } from 'react'
+import { IInputProps, Input, Icon } from 'native-base'
+import { useContext, useRef, useState } from 'react'
 import { View, Keyboard } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const VenueFeedSearchInput = () => {
-	const _searchInputRef = React.useRef<Input>(null)
+	const _searchInputRef = useRef<IInputProps>(null)
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
-	const inset = useSafeAreaInsets()
-	const [isSearch, setIsSearch] = React.useState(false)
+	const [isSearch, setIsSearch] = useState(false)
 	const rSearch = useReactiveVar(SearchReactiveVar)
 
 	const changeSearchText = (text: string) => {
@@ -61,73 +60,52 @@ const VenueFeedSearchInput = () => {
 				underlineColorAndroid='transparent'
 				onPressIn={() => {
 					setIsSearch(true)
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'VenueFeedStack',
-						params: {
-							screen: 'SearchTextScreen',
-						},
-					})
+					// navigation.navigate('HomeTabNavigator', {
+					// 	screen: 'VenueFeedStack',
+					// 	params: {
+					// 		screen: 'SearchTextScreen',
+					// 	},
+					// })
 				}}
 				onFocus={() => {
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'VenueFeedStack',
-						params: {
-							screen: 'SearchTextScreen',
-						},
-					})
+					// navigation.navigate('HomeTabNavigator', {
+					// 	screen: 'VenueFeedStack',
+					// 	params: {
+					// 		screen: 'SearchTextScreen',
+					// 	},
+					// })
 				}}
-				containerStyle={{ marginTop: 10 }}
-				inputContainerStyle={{
+				mt={'10px'}
+				style={{
 					borderBottomColor: 'transparent',
 					paddingHorizontal: 10,
-					backgroundColor: themeContext.palette.secondary.background,
 					borderRadius: 14,
 				}}
-				inputStyle={{
-					color: themeContext.palette.primary.color.primary,
-				}}
-				leftIcon={
+				leftElement={
 					isSearch || rSearch.searchText.length ? (
-						<Icon
-							type='ionicon'
-							onPress={goBackToFeed}
-							name='arrow-back'
-							size={28}
-							color={themeContext.palette.primary.color.primary}
-						/>
+						<Icon as={Ionicons} onPress={goBackToFeed} name='arrow-back' size={28} />
 					) : (
-						<Icon
-							type='ionicon'
-							name='ios-search'
-							size={20}
-							color={themeContext.palette.primary.color.primary}
-						/>
+						<Icon as={Ionicons} name='ios-search' size={20} />
 					)
 				}
-				rightIcon={
+				rightElement={
 					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
 						{!isSearch && (
 							<Icon
-								type='ionicon'
+								as={Ionicons}
 								onPress={() =>
-									navigation.navigate('ModalNavigator', {
-										screen: 'MapLocationModal',
-									})
+									// navigation.navigate('ModalNavigator', {
+									// 	screen: 'MapLocationModal',
+									// })
+									console.log('TODO: ===>')
 								}
 								name='filter'
 								size={24}
 								style={{ marginHorizontal: 10 }}
-								color={themeContext.palette.primary.color.primary}
 							/>
 						)}
 						{!!rSearch.searchText.length && (
-							<Icon
-								type='ionicon'
-								name='close-circle'
-								size={25}
-								color={themeContext.palette.primary.color.primary}
-								onPress={clearSearchInput}
-							/>
+							<Icon as={Ionicons} name='close-circle' size={25} onPress={clearSearchInput} />
 						)}
 					</View>
 				}

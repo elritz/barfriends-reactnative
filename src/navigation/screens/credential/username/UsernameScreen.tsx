@@ -1,10 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import RNETextInput from '@components/atoms/inputs/rnetextinput/RNETextInput'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button } from '@rneui/base'
+import { Button, Input, useTheme } from 'native-base'
 import { Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
 import { useContext, useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
@@ -12,12 +11,14 @@ import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-nat
 import { ThemeContext } from 'styled-components/native'
 
 const UsernameScreen = () => {
-	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const inputAccessoryViewID = 'uniqsdfweeqweeeeeeqweue1d5'
-	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
 	const navigation = useNavigation()
+	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const usernameTextInputRef = useRef(null)
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
+
+	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
 
 	const {
 		control,
@@ -111,10 +112,10 @@ const UsernameScreen = () => {
 					control={control}
 					defaultValue=''
 					render={({ field: { onChange, onBlur, value } }) => (
-						<RNETextInput
-							refChild={usernameTextInputRef}
+						<Input
+							ref={usernameTextInputRef}
 							value={value}
-							keyProp='username'
+							key='username'
 							placeholder='Username'
 							onChange={value => onChange(value)}
 							onSubmitEditing={handleSubmit(onSubmit)}
@@ -128,8 +129,7 @@ const UsernameScreen = () => {
 							autoCapitalize='none'
 							inputAccessoryViewID={inputAccessoryViewID}
 							blurOnSubmit={true}
-							rightIcon={<InputRightIcon />}
-							errorMessage={errors?.username?.message}
+							InputRightElement={<InputRightIcon />}
 						/>
 					)}
 					rules={{
@@ -145,6 +145,7 @@ const UsernameScreen = () => {
 						},
 					}}
 				/>
+				<Text>{errors?.username?.message}</Text>
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
@@ -163,27 +164,21 @@ const UsernameScreen = () => {
 					>
 						<Button
 							onPress={handleSubmit(onSubmit)}
-							disabled={!!errors.username}
-							containerStyle={{
+							isDisabled={!!errors.username}
+							style={{
 								justifyContent: 'center',
-							}}
-							buttonStyle={{
-								backgroundColor: errors.username
-									? themeContext.palette.disabled.background
-									: themeContext.palette.highlight.background.primary,
+								backgroundColor: errors.username ? theme.colors.gray[300] : theme.colors.primary[500],
 								borderRadius: 50,
 								height: 70,
 								width: 70,
 								paddingHorizontal: 20,
-								justifyContent: 'center',
 							}}
-							iconPosition='right'
-							icon={
+							rightIcon={
 								<Icon
 									as={Feather}
 									name='arrow-right'
 									size={35}
-									color={errors.username ? themeContext.palette.disabled.color.primary : 'white'}
+									color={errors.username ? theme.colors.primary[500] : 'white'}
 								/>
 							}
 						/>

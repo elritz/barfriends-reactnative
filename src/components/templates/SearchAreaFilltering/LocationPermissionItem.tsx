@@ -119,7 +119,6 @@ export default LocationPermissionItem
 	/* <Button
 	 	size={'lg'}
 	 	w={'full'}
-	 	bg={themeContext.palette.secondary.background}
 	 	h={55}
 	 	rounded={'lg'}
 	 	onPress={async () => {

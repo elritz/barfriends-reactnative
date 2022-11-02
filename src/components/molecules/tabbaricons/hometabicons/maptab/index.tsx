@@ -1,6 +1,7 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { Icon } from '@rneui/base'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { Icon } from 'native-base'
 
 const MapTab = (props: TabProps) => {
 	return (
@@ -14,7 +15,7 @@ const MapTab = (props: TabProps) => {
 					}}
 					name='map-marker-alt'
 					size={28}
-					type='font-awesome-5'
+					as={FontAwesome5}
 					color={props.color}
 				/>
 			}

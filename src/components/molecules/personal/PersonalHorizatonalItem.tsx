@@ -49,7 +49,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 				<HStack>
 					<Heading
 						style={{
-							color: themeContext.palette.secondary.color.primary,
+							color: themeContext.palette.secondary.color.default,
 						}}
 					>
 						{profile.IdentifiableInformation.username}

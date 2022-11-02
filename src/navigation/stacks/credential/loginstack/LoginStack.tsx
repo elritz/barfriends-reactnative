@@ -25,7 +25,7 @@ function LoginStack() {
 				component={AuthenticatorScreen}
 				options={{
 					headerStyle: {
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 					},
 				}}
 			/>
@@ -34,7 +34,7 @@ function LoginStack() {
 				component={ConfirmationCodeScreen}
 				options={{
 					headerStyle: {
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 					},
 				}}
 			/>
@@ -43,7 +43,7 @@ function LoginStack() {
 				component={DeviceManagerScreen}
 				options={{
 					headerStyle: {
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 					},
 				}}
 			/>
@@ -52,7 +52,7 @@ function LoginStack() {
 				component={PasswordLoginScreen}
 				options={{
 					headerStyle: {
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 					},
 				}}
 			/>

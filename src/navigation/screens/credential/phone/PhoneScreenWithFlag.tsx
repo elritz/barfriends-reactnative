@@ -1,15 +1,23 @@
 import { useReactiveVar } from '@apollo/client'
 import CountryPicker from '@components/atoms/inputs/CountryPicker'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Button, Text } from '@rneui/base'
-import { Icon } from '@rneui/themed'
 import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
-import { Box, Heading, Input, KeyboardAvoidingView } from 'native-base'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import {
+	Box,
+	Heading,
+	Input,
+	KeyboardAvoidingView,
+	Text,
+	Button,
+	Icon,
+	useTheme,
+} from 'native-base'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, InteractionManager, Platform, TextInput, View } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -32,6 +40,7 @@ const PhoneScreen = () => {
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const keyboardVerticalOffset =
 		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
@@ -225,10 +234,10 @@ const PhoneScreen = () => {
 
 	const RightIcon = () => (
 		<Icon
-			type='feather'
+			as={Feather}
 			name='arrow-right'
-			size={35}
-			color={errors.mobileNumber && themeContext.palette.disabled.color.primary}
+			size={'lg'}
+			color={errors.mobileNumber ? theme.colors.gray[300] : theme.colors.primary[500]}
 		/>
 	)
 
@@ -298,21 +307,17 @@ const PhoneScreen = () => {
 					<Button
 						disabled={!!errors.mobileNumber}
 						onPress={handleSubmit(onSubmit)}
-						containerStyle={{
-							justifyContent: 'center',
-						}}
-						buttonStyle={{
+						style={{
 							backgroundColor: errors.mobileNumber?.completeNumber
-								? themeContext.palette.disabled.background
-								: themeContext.palette.bfscompany.primary,
+								? theme.colors.gray[300]
+								: theme.colors.primary[500],
 							borderRadius: 50,
 							height: 70,
 							width: 70,
 							paddingHorizontal: 20,
 							justifyContent: 'center',
 						}}
-						iconPosition='right'
-						icon={<RightIcon />}
+						endIcon={<RightIcon />}
 					/>
 				</Box>
 			</InputAccessoryView>

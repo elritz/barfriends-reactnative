@@ -232,8 +232,16 @@ const PhotoScreen = () => {
 				>
 					<Defs>
 						<LinearGradient id='grad' x1='1' y1='0' x2='1' y2='1'>
-							<Stop offset='0.25' stopColor={themeContext.palette.primary.background} stopOpacity='1' />
-							<Stop offset='1' stopColor={themeContext.palette.primary.background} stopOpacity='1' />
+							<Stop
+								offset='0.25'
+								stopColor={themeContext.palette.primary.background.default}
+								stopOpacity='1'
+							/>
+							<Stop
+								offset='1'
+								stopColor={themeContext.palette.primary.background.default}
+								stopOpacity='1'
+							/>
 						</LinearGradient>
 					</Defs>
 					<Rect height='100%' width={window.width} fill='url(#grad)' />
@@ -303,7 +311,7 @@ const PhotoScreen = () => {
 				style={{
 					position: 'absolute',
 					bottom: 0,
-					backgroundColor: themeContext.palette.primary.background,
+					backgroundColor: themeContext.palette.primary.background.default,
 					flexDirection: 'row',
 					width: '100%',
 					height: 90,

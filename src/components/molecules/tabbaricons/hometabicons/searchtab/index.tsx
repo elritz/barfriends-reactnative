@@ -1,5 +1,6 @@
 import TabBarIcon, { TabBarIconProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { Icon } from '@rneui/base'
+import { Ionicons } from '@expo/vector-icons'
+import { Icon } from 'native-base'
 
 const SearchTab = (props: TabBarIconProps) => {
 	return (
@@ -13,7 +14,7 @@ const SearchTab = (props: TabBarIconProps) => {
 					}}
 					name='search'
 					size={35}
-					type='ionicons'
+					as={Ionicons}
 					color={props.color}
 				/>
 			}

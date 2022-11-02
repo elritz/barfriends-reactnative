@@ -2,8 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { useProfileQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Chip, ListItem } from '@rneui/themed'
-import { Heading, VStack } from 'native-base'
+import { Badge, Box, Heading, VStack } from 'native-base'
 import { useContext } from 'react'
 import { ScrollView, Pressable } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -32,9 +31,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	if (loading) return null
 
 	const RoundedListItem = ({ children, ...props }) => (
-		<ListItem
+		<Box
 			{...props}
-			containerStyle={{
+			style={{
 				borderRadius: 15,
 				marginVertical: 10,
 				backgroundColor: themeContext.palette.secondary.background,
@@ -47,7 +46,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				{props.title}
 			</Heading>
 			{children}
-		</ListItem>
+		</Box>
 	)
 
 	return (
@@ -68,11 +67,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Full name'
 			>
-				<ListItem.Title>{rIdentifiableInformation.fullname}</ListItem.Title>
+				<Heading>{rIdentifiableInformation.fullname}</Heading>
 				{rIdentifiableInformation.nickname && (
 					<>
 						<Heading py={2}>Nick name</Heading>
-						<ListItem.Title>{rIdentifiableInformation.nickname}</ListItem.Title>
+						<Heading>{rIdentifiableInformation.nickname}</Heading>
 					</>
 				)}
 			</RoundedListItem>
@@ -84,7 +83,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Username'
 			>
-				<ListItem.Title>{rIdentifiableInformation.username}</ListItem.Title>
+				<Heading>{rIdentifiableInformation.username}</Heading>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -95,12 +94,12 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				title='Emojimood'
 			>
 				{rAuthorizationVar.DeviceProfile.Profile.Story.length ? (
-					<ListItem.Title>
+					<Heading>
 						{rAuthorizationVar.DeviceProfile.Profile.Story[0].emojimood.emoji}{' '}
 						{rAuthorizationVar.DeviceProfile.Profile.Story[0].emojimood.emojiname}
-					</ListItem.Title>
+					</Heading>
 				) : (
-					<ListItem.Title>Add your emojimood tonight</ListItem.Title>
+					<Heading>Add your emojimood tonight</Heading>
 				)}
 			</RoundedListItem>
 			<RoundedListItem
@@ -111,7 +110,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='🥳 Birthday'
 			>
-				<ListItem.Title>{date}</ListItem.Title>
+				<Heading>{date}</Heading>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -121,11 +120,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='About me'
 			>
-				<ListItem.Title numberOfLines={4} ellipsizeMode='tail'>
+				<Heading numberOfLines={4} ellipsizeMode='tail'>
 					{!rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description
 						? 'Add description'
 						: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description}
-				</ListItem.Title>
+				</Heading>
 			</RoundedListItem>
 			<Heading fontSize={'lg'} py={2}>
 				MY INTERESTS
@@ -137,7 +136,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 					})
 				}
 			>
-				<ListItem.Content>
+				<Box>
 					<Pressable
 						onPress={() =>
 							navigation.navigate('ProfileEditorNavigator', {
@@ -147,24 +146,22 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 					>
 						<VStack flexDir={'row'} flexWrap={'wrap'}>
 							{interests.map((interest, index) => (
-								<Chip
+								<Badge
 									key={interest}
-									disabled
-									title={interest}
-									disabledStyle={{
+									_text={{
 										backgroundColor: themeContext.palette.company.primary,
-										paddingHorizontal: 8,
-									}}
-									disabledTitleStyle={{
 										color: themeContext.palette.company.secondary,
 										fontWeight: '600',
 									}}
-									containerStyle={{ margin: 2 }}
-								/>
+									px={8}
+									m={2}
+								>
+									{interest}
+								</Badge>
 							))}
 						</VStack>
 					</Pressable>
-				</ListItem.Content>
+				</Box>
 			</RoundedListItem>
 			<Heading fontSize={'lg'} py={2}>
 				MY BASIC INFO
@@ -177,9 +174,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`I am a ...`}
 			>
-				<ListItem.Title>
+				<Heading>
 					{rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.gender || 'Set your gender'}
-				</ListItem.Title>
+				</Heading>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -189,10 +186,10 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`I'm looking for a ...`}
 			>
-				<ListItem.Title numberOfLines={1}>
+				<Heading numberOfLines={1}>
 					{rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.lookfor ||
 						'Set the vibes your looking for'}
-				</ListItem.Title>
+				</Heading>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -202,7 +199,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`Relationship status`}
 			>
-				<ListItem.Title>Are you in a relationship</ListItem.Title>
+				<Heading>Are you in a relationship</Heading>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -212,7 +209,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`Add your hometown`}
 			>
-				<ListItem.Title>add your hometown</ListItem.Title>
+				<Heading>add your hometown</Heading>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -222,7 +219,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={'Add your city'}
 			>
-				<ListItem.Title>Rep your city</ListItem.Title>
+				<Heading>Rep your city</Heading>
 			</RoundedListItem>
 		</ScrollView>
 	)

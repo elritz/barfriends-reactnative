@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons'
 import {
 	CommonActions,
 	RouteProp,
@@ -5,9 +6,7 @@ import {
 	useNavigation,
 	useRoute,
 } from '@react-navigation/native'
-import { SearchBar } from '@rneui/base'
-import { Icon } from '@rneui/themed'
-import { Box } from 'native-base'
+import { Box, Icon, Input } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ExploreFilterTabParamList } from 'src/types/app'
@@ -75,27 +74,19 @@ const SearchTextScreenInput = () => {
 				control={control}
 				name='searchText'
 				render={({ field: { value, onChange } }) => (
-					<SearchBar
+					<Input
 						placeholder='Search'
-						platform='ios'
 						autoFocus
 						value={value}
 						onChangeText={text => changeSearchText(text)}
 						returnKeyType='search'
 						underlineColorAndroid='transparent'
-						searchIcon={
-							<Icon
-								type='ionicon'
-								name='ios-search'
-								size={20}
-								color={themeContext.palette.primary.color.primary}
-							/>
-						}
+						leftElement={<Icon as={Ionicons} name='ios-search' size={20} />}
 						onSubmitEditing={handleSearchSubmitEditting}
-						onCancel={() => {
-							clearSearchInput()
-							navigation.dispatch(StackActions.popToTop())
-						}}
+						// onCancel={() => {
+						// 	clearSearchInput()
+						// 	navigation.dispatch(StackActions.popToTop())
+						// }}
 						onPressIn={() => {
 							navigation.navigate('HomeTabNavigator', {
 								screen: 'ExploreStack',
@@ -104,22 +95,15 @@ const SearchTextScreenInput = () => {
 								},
 							})
 						}}
-						containerStyle={{
+						style={{
 							backgroundColor: 'transparent',
 							alignSelf: 'center',
-						}}
-						cancelButtonProps={{
-							color: themeContext.palette.primary.color.primary,
-						}}
-						inputContainerStyle={{
-							borderBottomColor: 'transparent',
 							paddingHorizontal: 5,
-							backgroundColor: themeContext.palette.secondary.background,
+						}}
+						_input={{
+							borderBottomColor: 'transparent',
 							borderRadius: 14,
 							height: 50,
-						}}
-						inputStyle={{
-							color: themeContext.palette.primary.color.primary,
 						}}
 					/>
 				)}

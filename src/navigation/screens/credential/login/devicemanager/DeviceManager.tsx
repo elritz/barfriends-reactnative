@@ -47,7 +47,7 @@ export default function DeviceManagerScreen() {
 
 	if (data.authorizedProfiles.__typename === 'ErrorProfiling') {
 		return (
-			<View style={[{ backgroundColor: themeContext.palette.primary.background, top: 0 }]}>
+			<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
 				<Heading fontSize={'xl'}>Error finding profiles</Heading>
 			</View>
 		)
@@ -59,7 +59,7 @@ export default function DeviceManagerScreen() {
 
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
-				<View style={[{ backgroundColor: themeContext.palette.primary.background, top: 0 }]}>
+				<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
 					<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 						Your profiles
 					</Text>

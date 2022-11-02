@@ -8,13 +8,22 @@ import {
 } from '@graphql/generated'
 import { useRoute, useIsFocused, useNavigation, RouteProp } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Input, Button } from '@rneui/base'
-import { Icon } from '@rneui/themed'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Box, Image, KeyboardAvoidingView } from 'native-base'
+import {
+	Box,
+	Image,
+	KeyboardAvoidingView,
+	Input,
+	Icon,
+	HStack,
+	Text,
+	IconButton,
+	Spinner,
+} from 'native-base'
+import { useTheme } from 'native-base'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
+import { InputAccessoryView, Platform, View } from 'react-native'
 import { LoginStackParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
 
@@ -28,12 +37,14 @@ const IMAGE_SIZE = 75
 
 const PasswordLoginScreen = () => {
 	const inputAccessoryViewID = 'uni2que123ID4'
-	const passwordRef = useRef(null)
-	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
+	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const route = useRoute<PasswordLoginScreenRouteProp>()
-	const isFocused = useIsFocused()
+	const passwordRef = useRef(null)
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
+
+	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
 
 	const [showPassword, setShowPassword] = useState<boolean>(true)
 
@@ -115,38 +126,10 @@ const PasswordLoginScreen = () => {
 		}
 	}
 
-	const InputRightIcon = () => (
-		<Feather
-			onPress={() => {
-				setShowPassword(!showPassword)
-			}}
-			name={showPassword ? 'eye-off' : 'eye'}
-			size={20}
-			style={{
-				padding: 10,
-			}}
-			color={
-				showPassword
-					? themeContext.palette.disabled.background
-					: themeContext.palette.active.color.primary
-			}
-		/>
-	)
-
-	const RightIcon = () => (
-		<>
-			{SDPLoading || LPLoading ? (
-				<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
-			) : (
-				<Icon type='feather' name='arrow-right' size={35} />
-			)}
-		</>
-	)
-
 	if (!PQData) {
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<ActivityIndicator size='large' color={themeContext.palette.primary.color.primary} />
+				<Spinner size='large' accessibilityLabel={'Loading...'} />
 			</View>
 		)
 	}
@@ -167,7 +150,10 @@ const PasswordLoginScreen = () => {
 					padding: 5,
 					borderRadius: 20,
 				}}
-				colors={[themeContext.palette.secondary.background, themeContext.palette.secondary.background]}
+				colors={[
+					themeContext.palette.secondary.background.default,
+					themeContext.palette.secondary.background.default,
+				]}
 			>
 				{!PQLoading && (
 					<Image
@@ -184,29 +170,44 @@ const PasswordLoginScreen = () => {
 					name='password'
 					control={control}
 					defaultValue=''
-					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
-							ref={passwordRef}
-							key='password'
-							value={value}
-							onChangeText={onChange}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							textContentType='password'
-							blurOnSubmit={false}
-							autoFocus
-							placeholder='Password'
-							returnKeyType='done'
-							autoCorrect={false}
-							inputAccessoryViewID={inputAccessoryViewID}
-							secureTextEntry={showPassword}
-							autoCapitalize='none'
-							numberOfLines={1}
-							errorStyle={{ color: 'red' }}
-							errorMessage={errors?.password?.message}
-							rightIcon={<InputRightIcon />}
-						/>
-					)}
+					render={({ field: { onChange, onBlur, value } }) => {
+						return (
+							<HStack>
+								<Input
+									ref={passwordRef}
+									key='password'
+									value={value}
+									onChangeText={onChange}
+									onSubmitEditing={handleSubmit(onSubmit)}
+									onBlur={onBlur}
+									textContentType='password'
+									blurOnSubmit={false}
+									autoFocus
+									placeholder='Password'
+									returnKeyType='done'
+									autoCorrect={false}
+									inputAccessoryViewID={inputAccessoryViewID}
+									secureTextEntry={showPassword}
+									autoCapitalize='none'
+									numberOfLines={1}
+									rightElement={
+										<Icon
+											onPress={() => {
+												setShowPassword(!showPassword)
+											}}
+											name={showPassword ? 'eye-off' : 'eye'}
+											size={20}
+											style={{
+												padding: 10,
+											}}
+											color={showPassword ? theme.colors.gray[300] : theme.colors.primary[500]}
+										/>
+									}
+								/>
+								<Text>{errors?.password?.message}</Text>
+							</HStack>
+						)
+					}}
 				/>
 				<InputAccessoryView nativeID={inputAccessoryViewID}>
 					<Box
@@ -223,21 +224,25 @@ const PasswordLoginScreen = () => {
 								justifyContent: 'space-around',
 							}}
 						>
-							<Button
+							<IconButton
 								disabled={SDPLoading || LPLoading}
 								onPress={handleSubmit(onSubmit)}
-								buttonStyle={{
-									backgroundColor: !!errors.password
-										? themeContext.palette.disabled.background
-										: themeContext.palette.highlight.background.primary,
+								as={Feather}
+								style={{
+									backgroundColor: !!errors.password ? theme.colors.gray[300] : theme.colors.primary[500],
 									height: 70,
 									width: 'auto',
 									minWidth: 70,
 									justifyContent: 'center',
 									borderRadius: 50,
 								}}
-								iconPosition='right'
-								icon={<RightIcon />}
+								icon={
+									SDPLoading || LPLoading ? (
+										<Spinner size='small' />
+									) : (
+										<Icon as={Feather} name='arrow-right' size={35} />
+									)
+								}
 							/>
 						</View>
 					</Box>

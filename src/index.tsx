@@ -60,6 +60,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 // 		])
 // 	}
 // })
+
 TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
 	if (error) {
 		console.error(error)

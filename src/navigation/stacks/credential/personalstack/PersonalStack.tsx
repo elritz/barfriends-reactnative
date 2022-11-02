@@ -44,7 +44,7 @@ function PersonalCredentialStack() {
 				component={EmailPhoneTabStack}
 				options={{
 					headerStyle: {
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 					},
 				}}
 			/>
@@ -120,7 +120,7 @@ function PersonalCredentialStack() {
 				component={TermsServicePrivacyTabStack}
 				options={{
 					headerStyle: {
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 					},
 				}}
 			/>

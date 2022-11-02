@@ -82,7 +82,7 @@ export default function DeviceManagerModal() {
 
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
-				<View style={[{ backgroundColor: themeContext.palette.primary.background, top: 0 }]}>
+				<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
 					<WithDeviceProfiles />
 				</View>
 				<View style={{ flex: 1 }}>

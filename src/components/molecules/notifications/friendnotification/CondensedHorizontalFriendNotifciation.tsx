@@ -22,7 +22,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 					source={{ uri: item.avatar }}
 					size='medium'
 					_text={{
-						backgroundColor: themeContext.palette.primary.background,
+						backgroundColor: themeContext.palette.primary.background.default,
 						height: '100%',
 						width: '100%',
 					}}
@@ -36,8 +36,8 @@ export const CondensedHorizontalFriendNotifciation = ({
 					</VStack>
 					<HStack justifyContent={'space-around'} alignItems={'center'}>
 						<Button
+							colorScheme={'primary'}
 							style={{
-								backgroundColor: themeContext.palette.active.background.primary,
 								paddingHorizontal: 20,
 								paddingVertical: 10,
 							}}

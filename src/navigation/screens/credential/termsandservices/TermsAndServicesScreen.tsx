@@ -1,14 +1,11 @@
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Button } from '@rneui/base'
-import { Icon } from '@rneui/themed'
-import { LinearGradient } from 'expo-linear-gradient'
-import { Box, Heading, KeyboardAvoidingView, Text } from 'native-base'
+import { Box, Heading, KeyboardAvoidingView, Text, Button, Icon } from 'native-base'
 import { useContext } from 'react'
 import { Pressable } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const TermsAndServices = () => {
 	const navigation = useNavigation()
@@ -50,7 +47,7 @@ const TermsAndServices = () => {
 	const RightIcon = () => {
 		return (
 			<Icon
-				type='feather'
+				as={Feather}
 				name='arrow-right'
 				size={35}
 				style={{
@@ -62,22 +59,15 @@ const TermsAndServices = () => {
 	}
 
 	return (
-		<KeyboardAvoidingView
-		height={'auto'}
-		flexDir={'column'}
-		mx={2%}
-		>
+		<KeyboardAvoidingView height={'auto'} flexDir={'column'} mx={'2%'}>
 			<Heading fontSize={'xl'}>Discover what’s happening tonight </Heading>
 			<Box alignSelf={'center'} mx={4}>
 				<Pressable onPress={() => navigateToNextScreen('TermsServicePrivacyFlow')}>
 					<Text>
 						By continuing up, you agree to thes
-						<Text style={{ color: themeContext.palette.highlight.color.primary }}> Term of Services</Text>
-						<Text style={{ color: themeContext.palette.primary.color.primary }}> and</Text>
-						<Text style={{ color: themeContext.palette.highlight.color.primary }}>
-							{' '}
-							Privacy Policies.
-						</Text>
+						<Text style={{ color: themeContext.palette.primary.color.accent }}> Term of Services</Text>
+						<Text style={{ color: themeContext.palette.primary.color.default }}> and</Text>
+						<Text style={{ color: themeContext.palette.primary.color.accent }}> Privacy Policies.</Text>
 					</Text>
 				</Pressable>
 			</Box>
@@ -88,37 +78,34 @@ const TermsAndServices = () => {
 				}}
 			>
 				<Button
-					title='Create Profile'
 					onPress={() => navigateToNextScreen('CreateAccountProfileFlow')}
-					ViewComponent={LinearGradient} // Don't forget this!
-					linearGradientProps={{
-						colors: [
-							themeContext.palette.secondary.background,
-							themeContext.palette.primary.color.primary,
-						],
-						start: { x: 0.5, y: 0.2 },
-						end: { x: 0.5, y: 10 },
-					}}
-					buttonStyle={{
-						backgroundColor: themeContext.palette.secondary.background,
-						borderRadius: 20,
-						paddingHorizontal: wp(20),
-					}}
-				/>
+					// ViewComponent={LinearGradient} // Don't forget this!
+					// linearGradientProps={{
+					// 	colors: [
+					// 		themeContext.palette.secondary.background,
+					// 		themeContext.palette.primary.color.primary,
+					// 	],
+					// 	start: { x: 0.5, y: 0.2 },
+					// 	end: { x: 0.5, y: 10 },
+					// }}
+					bg={themeContext.palette.secondary.background.default}
+					px={wp(20)}
+					borderRadius={'lg'}
+				>
+					Create Profile
+				</Button>
 				<Button
-					type='clear'
-					title='Login'
+					variant={'ghost'}
 					onPress={() => navigateToNextScreen('LoginFlow')}
-					titleStyle={{
-						color: themeContext.palette.primary.color.primary,
+					_text={{
 						fontWeight: '500',
 					}}
-					buttonStyle={{
-						borderRadius: 50,
-						paddingHorizontal: wp(20),
-						marginVertical: 15,
-					}}
-				/>
+					borderRadius={50}
+					px={wp(20)}
+					my={15}
+				>
+					Login
+				</Button>
 			</SafeAreaView>
 			<SafeAreaView
 				style={{
@@ -130,20 +117,11 @@ const TermsAndServices = () => {
 					height: 'auto',
 				}}
 			>
-				<Button
-					title='Continue'
-					onPress={onSubmit}
-					buttonStyle={{
-						backgroundColor: themeContext.palette.active.background.primary,
-					}}
-					titleStyle={{
-						color: '#ffffff',
-					}}
-					iconPosition='right'
-					icon={<RightIcon />}
-				/>
+				<Button onPress={onSubmit} colorScheme={'primary'} endIcon={<RightIcon />}>
+					Continue
+				</Button>
 			</SafeAreaView>
-		</KeyboardAvoid>
+		</KeyboardAvoidingView>
 	)
 }
 

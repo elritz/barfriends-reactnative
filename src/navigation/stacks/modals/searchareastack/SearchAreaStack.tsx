@@ -142,7 +142,7 @@ function SearchAreaStackNavigation() {
 									<View
 										style={[
 											StyleSheet.absoluteFill,
-											{ backgroundColor: themeContext.palette.primary.background },
+											{ backgroundColor: themeContext.palette.primary.background.default },
 										]}
 									/>
 								)}
@@ -171,7 +171,7 @@ function SearchAreaStackNavigation() {
 										<View
 											style={[
 												StyleSheet.absoluteFill,
-												{ backgroundColor: themeContext.palette.primary.background },
+												{ backgroundColor: themeContext.palette.primary.background.default },
 											]}
 										/>
 									)}

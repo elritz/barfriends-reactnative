@@ -11,7 +11,6 @@ import {
 } from '@graphql/generated'
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
-import SplashScreen from '@navigation/screens/SplashScreen'
 import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native'
@@ -25,19 +24,16 @@ import {
 	SearchAreaType,
 	BackgroundLocationPermissionReactiveVar,
 } from '@reactive'
-import { ThemeProvider as RNEThemeProvider } from '@rneui/themed'
-import useCheckLocalStorageForAuthorizationToken from '@util/hooks/auth/useCheckLocalStorageForAuthorizationToken'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { setDefaultTheme } from '@util/hooks/theme/useDefaultTheme'
-import * as Application from 'expo-application'
 import { Camera } from 'expo-camera'
 import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'expo-location'
 import { getPermissionsAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { NativeBaseProvider } from 'native-base'
 import React, { useEffect } from 'react'
-import { ColorSchemeName, View } from 'react-native'
+import { ColorSchemeName } from 'react-native'
 import { AuthorizationDecoded } from 'src/types/app'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
@@ -49,7 +45,9 @@ interface NavigationProps {
 const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const themes = setDefaultTheme()
+	const {
+		themes: { nativebase, rn, styled },
+	} = setDefaultTheme()
 
 	const setLocalStorageData = async () => {
 		try {
@@ -110,18 +108,18 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		},
 	}
 
-	const ReactNavigationTheme: Theme = {
-		...DefaultTheme,
-		colors: {
-			...DefaultTheme.colors,
-			background: themes.themes.styled.palette.primary.background,
-			primary: themes.themes.styled.palette.company.primary,
-			card: themes.themes.styled.palette.secondary.background,
-			text: themes.themes.styled.palette.primary.color.primary,
-			border: themes.themes.styled.palette.primary.color.secondary,
-			notification: themes.themes.styled.palette.company.tertiary,
-		},
-	}
+	// const ReactNavigationTheme: Theme = {
+	// 	...DefaultTheme,
+	// 	colors: {
+	// 		...DefaultTheme.colors,
+	// 		background: themes.themes.styled.palette.primary.background,
+	// 		primary: themes.themes.styled.palette.company.primary,
+	// 		card: themes.themes.styled.palette.secondary.background,
+	// 		text: themes.themes.styled.palette.primary.color.primary,
+	// 		border: themes.themes.styled.palette.primary.color.secondary,
+	// 		notification: themes.themes.styled.palette.company.tertiary,
+	// 	},
+	// }
 
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
@@ -163,6 +161,7 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			}
 		},
 	})
+	console.log('🚀 ~ file: Navigator.tsx ~ line 164 ~ error', error)
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
@@ -198,6 +197,10 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+		console.log(
+			'🚀 ~ file: Navigator.tsx ~ line 199 ~ applicationAuthorization ~ getAuthorization',
+			getAuthorization,
+		)
 
 		if (!getAuthorization) {
 			createGuestProfileMutation()
@@ -221,19 +224,17 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 
 	return (
 		<NavigationContainer
-			theme={ReactNavigationTheme}
+			theme={rn}
 			linking={AppLinkingConfiguration}
 			// fallback={<SplashScreen />}
 		>
-			<StyledThemeProvider theme={themes.themes.styled}>
-				<NativeBaseProvider theme={themes.themes.nativebase}>
-					<RNEThemeProvider theme={themes.themes.rne}>
-						<BottomSheetModalProvider>
-							<AnimatedAppLoader>
-								<RootNavigator />
-							</AnimatedAppLoader>
-						</BottomSheetModalProvider>
-					</RNEThemeProvider>
+			<StyledThemeProvider theme={styled}>
+				<NativeBaseProvider theme={nativebase}>
+					<BottomSheetModalProvider>
+						<AnimatedAppLoader>
+							<RootNavigator />
+						</AnimatedAppLoader>
+					</BottomSheetModalProvider>
 				</NativeBaseProvider>
 			</StyledThemeProvider>
 		</NavigationContainer>
