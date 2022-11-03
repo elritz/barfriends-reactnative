@@ -171,7 +171,7 @@ const BirthdayScreen = () => {
 						borderRadius: 50,
 						height: 70,
 						width: 70,
-						paddingHorizontal: 20,
+						paddingHorizontal: 10,
 						alignSelf: 'center',
 					}}
 					icon={

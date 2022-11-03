@@ -64,7 +64,7 @@ const VenueItem = (props: Props) => {
 				width={width}
 				borderRadius={'lg'}
 				style={{
-					backgroundColor: themeContext.palette.secondary.background,
+					backgroundColor: themeContext.palette.secondary.background.default,
 					justifyContent: 'flex-end',
 					overflow: 'hidden',
 				}}

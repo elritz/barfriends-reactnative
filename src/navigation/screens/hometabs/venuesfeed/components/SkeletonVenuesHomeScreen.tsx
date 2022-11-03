@@ -20,8 +20,14 @@ export default function SkeletonVenuesHomeScreen() {
 										key={index}
 										speed={0.25}
 										rounded='xl'
-										startColor='secondary.900'
-										endColor={'secondary.800'}
+										_dark={{
+											startColor: 'secondary.900',
+											endColor: 'secondary.800',
+										}}
+										_light={{
+											startColor: 'light.100',
+											endColor: 'light.200',
+										}}
 										h='280'
 										w={loadingSkelWidth}
 									/>

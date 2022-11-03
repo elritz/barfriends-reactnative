@@ -85,7 +85,7 @@ const NetworkPermissionScreen = () => {
 							borderRadius={'lg'}
 							px={'20px'}
 							_text={{
-								color: themeContext.palette.highlight.color.secondary,
+								color: 'primary.500',
 								fontSize: 20,
 							}}
 							width={'90%'}
@@ -101,7 +101,7 @@ const NetworkPermissionScreen = () => {
 						px={20}
 						justifyContent={'center'}
 						_text={{
-							color: themeContext.palette.secondary.color.primary,
+							color: themeContext.palette.secondary.color.default,
 							fontWeight: '600',
 							fontSize: 20,
 						}}

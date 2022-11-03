@@ -34,15 +34,15 @@ declare const grey: {
 	/**
 	 * Preview: ![grey 700](https://material-ui.com/static/colors-preview/grey-700-24x24.svg)
 	 */
-	700: '#616161'
+	700: '#212121'
 	/**
 	 * Preview: ![grey 800](https://material-ui.com/static/colors-preview/grey-800-24x24.svg)
 	 */
-	800: '#212121'
+	800: '#191919'
 	/**
 	 * Preview: ![grey 900](https://material-ui.com/static/colors-preview/grey-900-24x24.svg)
 	 */
-	900: '#191919'
+	900: '#18181b'
 	/**
 	 * Preview: ![grey A100](https://material-ui.com/static/colors-preview/grey-A100-24x24.svg)
 	 */

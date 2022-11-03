@@ -132,12 +132,7 @@ const CurrentLocationFromVenueDistance = () => {
 						{metric === 'km' ? `We are in your area` : `You're super close!`}
 					</Heading>
 					<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'} alignItems={'center'}>
-						<Icon
-							color={themeContext.palette.highlight.background.primary}
-							size={'xl'}
-							name='location-pin'
-							as={MaterialIcons}
-						/>
+						<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
 						<Heading fontWeight={'900'}>
 							{distance}&nbsp;{metric}
 						</Heading>

@@ -53,7 +53,7 @@ const TermsAndServices = () => {
 				style={{
 					padding: 5,
 				}}
-				color={themeContext.palette.secondary.background}
+				color={themeContext.palette.secondary.background.default}
 			/>
 		)
 	}
@@ -83,7 +83,7 @@ const TermsAndServices = () => {
 					// linearGradientProps={{
 					// 	colors: [
 					// 		themeContext.palette.secondary.background,
-					// 		themeContext.palette.primary.color.primary,
+					// 		themeContext.palette.primary.color.default,
 					// 	],
 					// 	start: { x: 0.5, y: 0.2 },
 					// 	end: { x: 0.5, y: 10 },

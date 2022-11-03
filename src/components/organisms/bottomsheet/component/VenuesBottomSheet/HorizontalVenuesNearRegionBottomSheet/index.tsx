@@ -103,7 +103,7 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 					<Ionicons
 						name='md-search-circle'
 						size={33}
-						color={themeContext.palette.primary.color.primary}
+						color={themeContext.palette.primary.color.default}
 					/>
 				</Pressable>
 				<FlatListStyledAnimated

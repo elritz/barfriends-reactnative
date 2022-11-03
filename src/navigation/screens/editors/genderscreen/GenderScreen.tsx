@@ -110,7 +110,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 									key={i}
 									onPress={() => onChange(item.gender)}
 									style={{
-										backgroundColor: themeContext.palette.secondary.background,
+										backgroundColor: themeContext.palette.secondary.background.default,
 										width: '95%',
 										padding: 15,
 										marginVertical: 5,
@@ -147,7 +147,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 								keyboardType='default'
 								style={{
 									alignSelf: 'center',
-									backgroundColor: themeContext.palette.secondary.background,
+									backgroundColor: themeContext.palette.secondary.background.default,
 									height: 55,
 									padding: 10,
 									borderRadius: 15,
@@ -158,7 +158,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 								rightElement={
 									<Box ml={3}>
 										{UPIILoading && dirtyFields.gender ? (
-											<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+											<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
 										) : (
 											dirtyFields.gender && (
 												<Pressable onPress={() => reset()}>

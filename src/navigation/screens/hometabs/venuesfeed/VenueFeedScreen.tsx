@@ -18,11 +18,10 @@ import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
 import { AnimatePresence, MotiView } from 'moti'
-import { Box, Center, VStack, Skeleton, Text, Heading, Icon, Button } from 'native-base'
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { AppState, Dimensions, FlatList, View } from 'react-native'
+import { Box, Center, VStack, Skeleton, Text, Heading, Icon, Button, FlatList } from 'native-base'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { AppState, Dimensions, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 // TODO: FN(handleAppStateChange) check if location permission is enabled and go somewhere with it
 // TODO: UX() Workflow isn't quite working good enough for production
@@ -38,7 +37,6 @@ const VenueFeedScreen = () => {
 	const insets = useSafeAreaInsets()
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
@@ -134,14 +132,13 @@ const VenueFeedScreen = () => {
 				<VStack w={'full'} space={4}>
 					{!rSearchAreaVar.coords.latitude || !rSearchAreaVar.coords.longitude ? (
 						<SafeAreaView>
-							<Box mb={2} mx={scrollViewMarginX}>
-								<Box
-									borderRadius={'lg'}
-									p={5}
-									_dark={{ backgroundColor: 'secondary.800' }}
-									_light={{ backgroundColor: 'white' }}
-									alignItems={'center'}
-								>
+							<Box
+								mb={2}
+								mx={scrollViewMarginX}
+								_dark={{ backgroundColor: 'dark.100' }}
+								_light={{ backgroundColor: 'light.100' }}
+							>
+								<Box borderRadius={'lg'} p={5} alignItems={'center'}>
 									<Heading size={'2xl'} textAlign={'center'} fontWeight={'black'} lineHeight={'xs'} mb={5}>
 										Welcome to Barfriends
 									</Heading>
@@ -182,16 +179,28 @@ const VenueFeedScreen = () => {
 										<Skeleton
 											speed={0.25}
 											rounded='xl'
-											startColor='secondary.900'
-											endColor={'secondary.800'}
+											_dark={{
+												startColor: 'secondary.900',
+												endColor: 'secondary.800',
+											}}
+											_light={{
+												startColor: 'light.100',
+												endColor: 'light.200',
+											}}
 											h='280'
 											w={loadingSkelHeight}
 										/>
 										<Skeleton
 											speed={0.25}
 											rounded='xl'
-											startColor='secondary.900'
-											endColor={'secondary.800'}
+											_dark={{
+												startColor: 'secondary.900',
+												endColor: 'secondary.800',
+											}}
+											_light={{
+												startColor: 'light.100',
+												endColor: 'light.200',
+											}}
 											h='150'
 											w={loadingSkelHeight}
 										/>
@@ -227,7 +236,8 @@ const VenueFeedScreen = () => {
 									}}
 								>
 									<Box
-										bgColor={themeContext.palette.secondary.background}
+										_dark={{ backgroundColor: 'dark.100' }}
+										_light={{ backgroundColor: 'light.200' }}
 										px={5}
 										pb={15}
 										pt={35}
@@ -261,196 +271,34 @@ const VenueFeedScreen = () => {
 	}
 
 	return (
-		<SafeAreaView>
-			<FlatList
-				onRefresh={fnMemoed}
-				refreshing={loading}
-				showsVerticalScrollIndicator={false}
-				numColumns={2}
-				style={{ height: '100%' }}
-				columnWrapperStyle={{ justifyContent: 'space-around' }}
-				data={venues}
-				renderItem={({ item }) => <VenueItem loading={loading} item={item} />}
-				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-				keyExtractor={item => item.id}
-				ListHeaderComponent={listHeaderComponent}
-				ListHeaderComponentStyle={{
-					marginTop: insets.top,
-					// paddingTop: insets.top,
-				}}
-				contentInset={{
-					top: 0,
-					left: 0,
-					bottom: 90 + insets.bottom,
-					right: 0,
-				}}
-			/>
-		</SafeAreaView>
+		<>
+			<Box _dark={{ backgroundColor: 'dark.50' }} _light={{ backgroundColor: 'light.300' }}>
+				<FlatList
+					onRefresh={fnMemoed}
+					refreshing={loading}
+					showsVerticalScrollIndicator={false}
+					numColumns={2}
+					style={{ height: '100%' }}
+					columnWrapperStyle={{ justifyContent: 'space-around' }}
+					data={venues}
+					renderItem={({ item }) => <VenueItem loading={loading} item={item} />}
+					ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+					keyExtractor={item => item.id}
+					ListHeaderComponent={listHeaderComponent}
+					ListHeaderComponentStyle={{
+						marginTop: insets.top,
+						// paddingTop: insets.top,
+					}}
+					contentInset={{
+						top: 5,
+						left: 0,
+						bottom: 90 + insets.bottom,
+						right: 0,
+					}}
+				/>
+			</Box>
+		</>
 	)
 }
 
 export default VenueFeedScreen
-
-////
-// ? FOREGROUND BACKGROUND UPDATES
-////
-
-// // Start location tracking in foreground
-// const startForegroundUpdate = async () => {
-// 	// Check if foreground permission is granted
-// 	const { granted } = await Location.getForegroundPermissionsAsync()
-// 	if (!granted) {
-// 		console.log('location tracking denied')
-// 		return
-// 	}
-
-// 	// Make sure that foreground location tracking is not running
-// 	foregroundSubscription?.remove()
-
-// 	// Start watching position in real-time
-// 	foregroundSubscription = await Location.watchPositionAsync(
-// 		{
-// 			// For better logs, we set the accuracy to the most sensitive option
-// 			accuracy: Location.Accuracy.BestForNavigation,
-// 		},
-// 		location => {
-// 			setPosition(location.coords)
-// 		},
-// 	)
-// }
-
-// // Stop location tracking in foreground
-// const stopForegroundUpdate = () => {
-// 	foregroundSubscription?.remove()
-// 	setPosition(null)
-// }
-
-// // Start location tracking in background
-// const startBackgroundUpdate = async () => {
-// 	// Don't track position if permission is not granted
-// 	const { granted } = await Location.getBackgroundPermissionsAsync()
-// 	if (!granted) {
-// 		console.log('location tracking denied')
-// 		return
-// 	}
-
-// 	// Make sure the task is defined otherwise do not start tracking
-// 	const isTaskDefined = await TaskManager.isTaskDefined(LOCATION_TASK_NAME)
-// 	if (!isTaskDefined) {
-// 		console.log('Task is not defined')
-// 		return
-// 	}
-
-// 	// Don't track if it is already running in background
-// 	const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
-// 	if (hasStarted) {
-// 		console.log('Already started')
-// 		return
-// 	}
-
-// 	await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-// 		// For better logs, we set the accuracy to the most sensitive option
-// 		accuracy: Location.Accuracy.BestForNavigation,
-// 		// Make sure to enable this notification if you want to consistently track in the background
-// 		showsBackgroundLocationIndicator: true,
-// 		deferredUpdatesInterval: 20000,
-// 		distanceInterval: 10,
-// 		foregroundService: {
-// 			notificationTitle: 'Location',
-// 			notificationBody: 'Location tracking in background',
-// 			notificationColor: '#fff',
-// 		},
-// 	})
-// }
-
-// // Stop location tracking in background
-// const stopBackgroundUpdate = async () => {
-// 	const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
-// 	if (hasStarted) {
-// 		await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME)
-// 		console.log('Location tacking stopped')
-// 	}
-// }
-
-////
-// ? GEOFENCING
-////
-
-// // Start location tracking in background
-// const startGeoFencingUpdate = async () => {
-// 	// Don't track position if permission is not granted
-// 	const { granted } = await Location.getBackgroundPermissionsAsync()
-// 	if (!granted) {
-// 		console.log('location tracking denied')
-// 		return
-// 	}
-
-// 	// Make sure the task is defined otherwise do not start tracking
-// 	const isTaskDefined = await TaskManager.isTaskDefined(GEOFENCING_LOCATION_TASK_NAME)
-// 	if (!isTaskDefined) {
-// 		console.log('Task is not defined')
-// 		return
-// 	}
-
-// 	// Don't track if it is already running in background
-// 	const hasStarted = await Location.hasStartedGeofencingAsync(GEOFENCING_LOCATION_TASK_NAME)
-// 	if (hasStarted) {
-// 		console.log('Already started')
-// 		return
-// 	}
-// 	console.log(
-// 		'🚀 ~ file: HomeScreen.tsx ~ line 157 ~ startGeoFencingUpdate ~ hasStarted',
-// 		hasStarted,
-// 	)
-
-// 	const regions: LocationRegion[] = data.venuesNearby.map(item => {
-// 		return {
-// 			identifier: item.id,
-// 			latitude: item.Venue.Location.Geometry.latitude,
-// 			longitude: item.Venue.Location.Geometry.longitude,
-// 			radius: 20,
-// 			notifyOnEnter: true,
-// 			notifyOnExit: true,
-// 			state: LocationGeofencingRegionState.Unknown,
-// 		}
-// 	})
-
-// 	regions.push({
-// 		identifier: '12312',
-// 		latitude: 43.4560624,
-// 		longitude: -80.4841828,
-// 		radius: 50,
-// 		notifyOnEnter: true,
-// 		notifyOnExit: true,
-// 		state: LocationGeofencingRegionState.Outside,
-// 	})
-
-// 	await Location.startGeofencingAsync(GEOFENCING_LOCATION_TASK_NAME, [
-// 		// MASTER
-// 		{
-// 			identifier: '1111111MASTER',
-// 			latitude: 43.456074,
-// 			longitude: -80.483948,
-// 			radius: 10,
-// 			notifyOnEnter: true,
-// 			notifyOnExit: true,
-// 		},
-// 		// OFFICE
-// 		{
-// 			identifier: '2222222OFFICE',
-// 			latitude: 43.455957,
-// 			longitude: -80.483694,
-// 			radius: 10,
-// 			notifyOnEnter: true,
-// 			notifyOnExit: true,
-// 		},
-// 	])
-// }
-// // Stop location tracking in background
-// const stopGeofencing = async () => {
-// 	const hasStarted = await Location.hasStartedGeofencingAsync(GEOFENCING_LOCATION_TASK_NAME)
-// 	if (hasStarted) {
-// 		await Location.stopGeofencingAsync(GEOFENCING_LOCATION_TASK_NAME)
-// 		console.log('Location tacking stopped')
-// 	}
-// }

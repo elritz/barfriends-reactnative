@@ -36,7 +36,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			style={{
 				borderRadius: 15,
 				marginVertical: 10,
-				backgroundColor: themeContext.palette.secondary.background,
+				backgroundColor: themeContext.palette.secondary.background.default,
 				width: '100%',
 				flexDirection: 'column',
 				alignItems: 'flex-start',

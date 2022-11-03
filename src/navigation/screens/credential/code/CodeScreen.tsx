@@ -5,8 +5,9 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import Countdown from '@util/hooks/useTimer'
+import { watch } from 'fs'
 import { IconButton, Icon, Box, Text, VStack, KeyboardAvoidingView, Heading } from 'native-base'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, Pressable, View } from 'react-native'
 import {
@@ -16,7 +17,7 @@ import {
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
 import { PersonalCredentialStackParamList } from 'src/types/app'
-import styled from 'styled-components/native'
+import styled, { ThemeContext } from 'styled-components/native'
 
 // TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 
@@ -29,13 +30,14 @@ export type CodeScreenRouteProp = RouteProp<
 	'ConfirmationCodeScreen'
 >
 const CodeScreen = () => {
+	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 	const route = useRoute<CodeScreenRouteProp>()
 	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const inputAccessoryViewID = 'codeAccessoryViewID'
-	const CELL_COUNT = 4
+	const CELL_COUNT = route.params.code.length
 	const { num, complete } = Countdown(9)
 	const [codeValue, setCodeValue] = useState('')
 	const keyboardVerticalOffset =
@@ -52,6 +54,7 @@ const CodeScreen = () => {
 		handleSubmit,
 		setError,
 		clearErrors,
+		watch,
 		formState: { errors },
 	} = useForm({
 		mode: 'onChange',
@@ -75,6 +78,7 @@ const CodeScreen = () => {
 	}
 
 	const onSubmit = (data: { code: any }) => {
+		console.log('🚀 ~ file: CodeScreen.tsx ~ line 81 ~ onSubmit ~ code', code)
 		const { code } = data
 		if (code !== route.params.code) {
 			return setError('code', { type: 'validate', message: 'Invalid code' })
@@ -91,6 +95,14 @@ const CodeScreen = () => {
 			setError('code', { type: 'validate', message: 'Wrong code' })
 		}
 	}
+
+	useEffect(() => {
+		if (watch('code').length === route.params.code.length) {
+			onSubmit({
+				code: watch('code'),
+			})
+		}
+	}, [watch('code')])
 
 	return (
 		<KeyboardAvoidingView
@@ -167,7 +179,7 @@ const CodeScreen = () => {
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
-					bg={'white'}
+					bg={themeContext.palette.primary.background.dark}
 					display={'flex'}
 					flexDir={'row'}
 					justifyContent={'space-between'}

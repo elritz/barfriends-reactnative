@@ -1,4 +1,3 @@
-import MessagingRoomStack from '@navigation/navigators/messageroomnavigator/MessageRoomNavigator'
 import MessagesScreen from '@navigation/screens/hometabs/messages/Messages'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { MessagesTabStackParamList } from '@types'

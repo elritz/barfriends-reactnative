@@ -6,7 +6,7 @@ import {
 	useNavigation,
 	useRoute,
 } from '@react-navigation/native'
-import { Icon, Input } from 'native-base'
+import { Box, HStack, Icon, Input } from 'native-base'
 import React, { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, View, TextInput } from 'react-native'
@@ -89,81 +89,61 @@ const SearchTopTabStackInput = () => {
 	}
 
 	return (
-		<View
+		<Box
 			style={{
-				flexDirection: 'row',
-				alignItems: 'center',
-				justifyContent: 'space-around',
-				paddingTop: inset.top,
+				marginTop: inset.top,
 			}}
 		>
-			<Icon
-				as={Ionicons}
-				onPress={goBack}
-				name='arrow-back'
-				size={35}
-				color={themeContext.palette.primary.color.default}
-				style={{
-					width: '10%',
-					height: '100%',
-					justifyContent: 'center',
-				}}
-			/>
-			<Controller
-				control={control}
-				name='searchText'
-				render={({ field: { value, onChange } }) => (
-					<Input
-						ref={_searchInputRef}
-						placeholder='Search'
-						value={value}
-						onChangeText={(text: string) => changeSearchText(text)}
-						onSubmitEditing={handleSearchSubmitEditting}
-						returnKeyType='search'
-						leftElement={
-							<Icon
-								as={Ionicons}
-								name='ios-search'
-								size={20}
-								color={themeContext.palette.primary.color.default}
-							/>
-						}
-						underlineColorAndroid='transparent'
-						// onCancel={() => {
-						// 	clearSearchInput()
-						// 	navigation.dispatch(StackActions.popToTop())
-						// }}
-						onPressIn={() => {
-							navigation.navigate('HomeTabNavigator', {
-								screen: 'ExploreStack',
-								params: {
-									screen: 'SearchTextScreen',
-									params: {
-										searchText: value,
-									},
-								},
-							})
-						}}
-						style={{
-							backgroundColor: 'transparent',
-							alignSelf: 'center',
-							width: '90%',
-						}}
-						// cancelButtonProps={{
-						// 	color: themeContext.palette.primary.color.primary,
-						// }}
-						px={5}
-						_input={{
-							borderBottomColor: 'transparent',
-							backgroundColor: themeContext.palette.secondary.background.default,
-							borderRadius: 14,
-							height: 50,
-							color: themeContext.palette.primary.color.default,
-						}}
-					/>
-				)}
-			/>
-		</View>
+			<HStack alignItems={'center'}>
+				<Icon
+					as={Ionicons}
+					onPress={goBack}
+					name='arrow-back'
+					size={'3xl'}
+					style={{
+						width: '10%',
+					}}
+				/>
+				<Controller
+					control={control}
+					name='searchText'
+					render={({ field: { value, onChange } }) => (
+						<Input
+							variant={'filled'}
+							rounded={'lg'}
+							mx={2}
+							py={4}
+							bg={'secondary.50'}
+							ref={_searchInputRef}
+							placeholder='Search'
+							_input={{
+								fontSize: 'lg',
+							}}
+							isReadOnly
+							value={value}
+							onChangeText={(text: string) => changeSearchText(text)}
+							onSubmitEditing={handleSearchSubmitEditting}
+							returnKeyType='search'
+							leftElement={<Icon as={Ionicons} name='ios-search' size={'lg'} ml={2} />}
+							underlineColorAndroid='transparent'
+							onPressIn={() => {
+								navigation.dispatch(
+									StackActions.push('HomeTabNavigator', {
+										screen: 'ExploreStack',
+										params: {
+											screen: 'SearchTextScreen',
+											params: {
+												searchText: value,
+											},
+										},
+									}),
+								)
+							}}
+						/>
+					)}
+				/>
+			</HStack>
+		</Box>
 	)
 }
 

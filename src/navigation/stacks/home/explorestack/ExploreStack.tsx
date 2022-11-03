@@ -2,108 +2,118 @@ import SearchFilterTabStack from '../../searchfiltertabstack/SearchFilterTabStac
 import { useReactiveVar } from '@apollo/client'
 import SearchTopTabStackInput from '@components/molecules/search/SearchTopTabStackInput'
 import SearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
+import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
 import ExploreScreen from '@navigation/screens/hometabs/explore/ExploreScreen'
 import SearchTextScreen from '@navigation/screens/search/searchtext/SearchTextScreen'
-import { useNavigation } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
+import {
+	createStackNavigator,
+	HeaderStyleInterpolators,
+	TransitionPresets,
+	TransitionSpecs,
+} from '@react-navigation/stack'
 import { ThemeReactiveVar } from '@reactive'
-import { ExploreFilterTabParamList } from '@types'
+import { ExploreFilterTabParamList, HomeTabNavigatorParamList } from '@types'
 import { BlurView } from 'expo-blur'
-import { useContext } from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
+import { Box } from 'native-base'
+import { VStack } from 'native-base'
+import { Platform, StyleSheet, Animated } from 'react-native'
 
 const ScreenStack = createStackNavigator<ExploreFilterTabParamList>()
+export type ExploreFilterTabSearchResultRouteProp = RouteProp<
+	HomeTabNavigatorParamList,
+	'ExploreStack'
+>
 
 function ExploreStack() {
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
-	const theme = useReactiveVar(ThemeReactiveVar)
-	const insets = useSafeAreaInsets()
 
-	const handleNavigationToExploreSearchText = () => {
-		navigation.navigate('HomeTabNavigator', {
-			screen: 'ExploreStack',
-			params: {
-				screen: 'SearchTextScreen',
-			},
-		})
+	const theme = useReactiveVar(ThemeReactiveVar)
+
+	type InputTypeProps = {
+		disabled: boolean
+	}
+	const Input = ({ disabled }: InputTypeProps) => {
+		return (
+			<VStack height={105} justifyContent={'flex-end'} pb={2}>
+				{Platform.OS !== 'ios' ? (
+					<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+				) : (
+					<Box background={'secondary.100'} style={[StyleSheet.absoluteFill]} />
+				)}
+				{disabled ? (
+					<ExploreSearchInputDisabled
+						onPress={() =>
+							navigation.dispatch(
+								StackActions.push('HomeTabNavigator', {
+									screen: 'ExploreStack',
+									params: {
+										screen: 'SearchTextScreen',
+									},
+								}),
+							)
+						}
+					/>
+				) : (
+					<SearchTextScreenInput />
+				)}
+			</VStack>
+		)
 	}
 
 	return (
-		<ScreenStack.Navigator>
+		<ScreenStack.Navigator screenOptions={{}}>
 			<ScreenStack.Screen
 				name='ExploreScreen'
-				component={ExploreScreen}
 				options={{
+					headerShown: true,
+					headerTransparent: true,
+					gestureResponseDistance: 240,
+					gestureDirection: 'horizontal',
 					header: () => {
 						return (
-							<View
-								style={{
-									position: 'absolute',
-									paddingTop: insets.top,
-									flexDirection: 'column-reverse',
-								}}
-							>
+							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
 								) : (
-									<View
-										style={[
-											StyleSheet.absoluteFill,
-											{ backgroundColor: themeContext.palette.primary.background.default },
-										]}
-									/>
+									<Box style={[StyleSheet.absoluteFill]} />
 								)}
-								<SearchInputDisabled onPress={handleNavigationToExploreSearchText} />
-							</View>
+								<ExploreSearchInputDisabled
+									onPress={() =>
+										navigation.dispatch(
+											StackActions.push('HomeTabNavigator', {
+												screen: 'ExploreStack',
+												params: {
+													screen: 'SearchTextScreen',
+												},
+											}),
+										)
+									}
+								/>
+							</VStack>
 						)
 					},
 				}}
+				component={ExploreScreen}
 			/>
 			<ScreenStack.Screen
 				name='SearchTextScreen'
-				component={SearchTextScreen}
 				options={{
 					header: () => {
 						return (
-							<View
-								style={{
-									paddingTop: insets.top,
-									flexDirection: 'column-reverse',
-								}}
-							>
-								{Platform.OS === 'ios' ? (
+							<VStack height={105} justifyContent={'flex-end'} pb={2}>
+								{Platform.OS !== 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
 								) : (
-									<View
-										style={[
-											StyleSheet.absoluteFill,
-											{ backgroundColor: themeContext.palette.primary.background.default },
-										]}
-									/>
+									<Box background={'secondary.100'} style={[StyleSheet.absoluteFill]} />
 								)}
 								<SearchTextScreenInput />
-							</View>
+							</VStack>
 						)
 					},
-					transitionSpec: {
-						open: {
-							animation: 'timing',
-							config: {
-								duration: 0,
-							},
-						},
-						close: {
-							animation: 'timing',
-							config: {
-								duration: 150,
-							},
-						},
-					},
 				}}
+				component={SearchTextScreen}
 			/>
 
 			<ScreenStack.Screen
@@ -114,22 +124,30 @@ function ExploreStack() {
 					gestureResponseDistance: 1000,
 					header: () => {
 						return (
-							<View
+							<Box
 								style={{
-									paddingTop: insets.top,
 									flexDirection: 'column-reverse',
 								}}
 							>
-								<View
-									style={[
-										StyleSheet.absoluteFill,
-										{ backgroundColor: themeContext.palette.primary.background.default },
-									]}
-								/>
+								<Box style={[StyleSheet.absoluteFill]} />
 								<SearchTopTabStackInput />
-							</View>
+							</Box>
 						)
 					},
+					// transitionSpec: {
+					// 	open: {
+					// 		animation: 'timing',
+					// 		config: {
+					// 			duration: 0,
+					// 		},
+					// 	},
+					// 	close: {
+					// 		animation: 'timing',
+					// 		config: {
+					// 			duration: 150,
+					// 		},
+					// 	},
+					// },
 				}}
 			/>
 		</ScreenStack.Navigator>

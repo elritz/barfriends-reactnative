@@ -20,13 +20,12 @@ export type SearchFilterTabStackRouteProp = RouteProp<
 function SearchFilterTabStack() {
 	const themeContext = useContext(ThemeContext)
 	const route = useRoute<SearchFilterTabStackRouteProp>()
-
 	return (
 		<ScreenStack.Navigator
 			tabBarPosition='top'
 			screenOptions={{
 				tabBarStyle: {
-					backgroundColor: themeContext.palette.primary.background.default,
+					backgroundColor: 'themeContext.palette.primary.background.default',
 					marginTop: 105,
 				},
 				tabBarShowLabel: true,

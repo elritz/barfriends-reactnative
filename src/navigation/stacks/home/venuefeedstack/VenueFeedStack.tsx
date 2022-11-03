@@ -1,19 +1,16 @@
 import { useReactiveVar } from '@apollo/client'
-import VenueSearchInputDisable from '@components/molecules/search/venuefeed/VenueSearchInputDisable'
+import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
 import VenueFeedScreen from '@navigation/screens/hometabs/venuesfeed/VenueFeedScreen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { ThemeReactiveVar } from '@reactive'
 import { HomeTabStackParamList } from '@types'
 import { BlurView } from 'expo-blur'
-import { VStack } from 'native-base'
-import { useContext } from 'react'
+import { Box, VStack } from 'native-base'
 import { Platform, StyleSheet, View } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 const ScreenStack = createStackNavigator<HomeTabStackParamList>()
 
 function VenueFeedStack() {
-	const themeContext = useContext(ThemeContext)
 	const theme = useReactiveVar(ThemeReactiveVar)
 
 	return (
@@ -28,18 +25,13 @@ function VenueFeedStack() {
 					gestureDirection: 'horizontal',
 					header: () => {
 						return (
-							<VStack height={105} justifyContent={'flex-end'}>
+							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
 								) : (
-									<View
-										style={[
-											StyleSheet.absoluteFill,
-											{ backgroundColor: themeContext.palette.primary.background.default },
-										]}
-									/>
+									<Box style={[StyleSheet.absoluteFill]} />
 								)}
-								<VenueSearchInputDisable />
+								<VenueFeedSearchInput />
 							</VStack>
 						)
 					},

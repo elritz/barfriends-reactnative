@@ -1,11 +1,14 @@
 import { ExploreFilterTabSearchResultRouteProp } from '@components/molecules/search/SearchTopTabStackInput'
-import { useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { SearchResultTabStackParamList } from '@types'
 import { Center, Heading } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+export type SearchResultTabStackRouteProp = RouteProp<SearchResultTabStackParamList, 'TopScreen'>
+
 export default function SearchAccounts() {
-	const route = useRoute<ExploreFilterTabSearchResultRouteProp>()
-	const searchText = route.params.params.searchText
+	const route = useRoute<SearchResultTabStackRouteProp>()
+	const searchText = route.params.searchText
 
 	return (
 		<SafeAreaView style={{ backgroundColor: 'blue', flex: 1 }}>

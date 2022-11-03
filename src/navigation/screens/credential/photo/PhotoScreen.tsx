@@ -332,7 +332,7 @@ const PhotoScreen = () => {
 							as={MaterialIcons}
 							name='photo-library'
 							size={29}
-							color={themeContext.palette.primary.color.primary}
+							color={themeContext.palette.primary.color.default}
 						/>
 					}
 				/>
@@ -342,16 +342,9 @@ const PhotoScreen = () => {
 					onPress={handleSubmit(onSubmit)}
 					variant={'ghost'}
 					isLoading={imageUploading}
-					endIcon={
-						<Icon
-							name='arrow-right'
-							size={29}
-							as={Feather}
-							color={themeContext.palette.highlight.background.primary}
-						/>
-					}
+					endIcon={<Icon name='arrow-right' size={29} as={Feather} />}
 				>
-					<Text color={themeContext.palette.highlight.background.primary} fontSize={'xl'}>
+					<Text color={'primary.500'} fontSize={'xl'}>
 						Continue
 					</Text>
 				</Button>

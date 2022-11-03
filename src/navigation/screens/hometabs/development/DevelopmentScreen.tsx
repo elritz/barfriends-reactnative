@@ -1,14 +1,8 @@
-import { useReactiveVar } from '@apollo/client'
 import { AUTHORIZATION, LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { LOCATION_TASK_NAME, GEOFENCING_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-	BackgroundLocationPermissionReactiveVar,
-	ForegroundLocationPermissionReactiveVar,
-	searchAreaInitialState,
-	SearchAreaReactiveVar,
-} from '@reactive'
+import { searchAreaInitialState, SearchAreaReactiveVar } from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
@@ -140,7 +134,8 @@ const DevelopmentScreen = () => {
 			</Box>
 			<ScrollView
 				flex={1}
-				contentInset={{ bottom: insets.bottom + 50 }}
+				mt={5}
+				contentInset={{ bottom: insets.bottom + 80 }}
 				showsVerticalScrollIndicator={false}
 			>
 				<Pressable onPress={onReloadPress}>

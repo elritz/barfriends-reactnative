@@ -6,16 +6,14 @@ import {
 	useNavigation,
 	useRoute,
 } from '@react-navigation/native'
-import { Box, Icon, Input } from 'native-base'
-import { useContext } from 'react'
+import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
+import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ExploreFilterTabParamList } from 'src/types/app'
-import { ThemeContext } from 'styled-components/native'
 
 export type SearchTextScreenRouteProp = RouteProp<ExploreFilterTabParamList, 'SearchTextScreen'>
 // TODO: UX() get the navigation route here as well default values from form
 const SearchTextScreenInput = () => {
-	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 	const route = useRoute<SearchTextScreenRouteProp>()
 
@@ -28,6 +26,7 @@ const SearchTextScreenInput = () => {
 		handleSubmit,
 		formState: { errors },
 		watch,
+		setFocus,
 	} = useForm({
 		defaultValues: {
 			searchText: route.params?.searchText || '',
@@ -44,18 +43,20 @@ const SearchTextScreenInput = () => {
 	const handleSearchSubmitEditting = item => {
 		navigation.dispatch(StackActions.pop())
 		const values = getValues()
-		navigation.navigate('HomeTabNavigator', {
-			screen: 'ExploreStack',
-			params: {
-				screen: 'SearchResultTabStack',
+		navigation.dispatch(
+			StackActions.push('HomeTabNavigator', {
+				screen: 'ExploreStack',
 				params: {
-					screen: 'TopScreen',
+					screen: 'SearchResultTabStack',
 					params: {
-						searchText: values.searchText,
+						screen: 'TopScreen',
+						params: {
+							searchText: values.searchText,
+						},
 					},
 				},
-			},
-		})
+			}),
+		)
 	}
 
 	const changeSearchText = (text: string) => {
@@ -75,36 +76,55 @@ const SearchTextScreenInput = () => {
 				name='searchText'
 				render={({ field: { value, onChange } }) => (
 					<Input
+						variant={'filled'}
+						rounded={'lg'}
+						mx={2}
+						py={4}
+						_input={{
+							fontSize: 'lg',
+						}}
 						placeholder='Search'
 						autoFocus
 						value={value}
 						onChangeText={text => changeSearchText(text)}
 						returnKeyType='search'
 						underlineColorAndroid='transparent'
-						leftElement={<Icon as={Ionicons} name='ios-search' size={20} />}
 						onSubmitEditing={handleSearchSubmitEditting}
-						// onCancel={() => {
-						// 	clearSearchInput()
-						// 	navigation.dispatch(StackActions.popToTop())
-						// }}
 						onPressIn={() => {
-							navigation.navigate('HomeTabNavigator', {
-								screen: 'ExploreStack',
-								params: {
-									screen: 'SearchTextScreen',
-								},
-							})
+							navigation.dispatch(
+								StackActions.push('HomeTabNavigator', {
+									screen: 'ExploreStack',
+									params: {
+										screen: 'SearchTextScreen',
+									},
+								}),
+							)
 						}}
-						style={{
-							backgroundColor: 'transparent',
-							alignSelf: 'center',
-							paddingHorizontal: 5,
-						}}
-						_input={{
-							borderBottomColor: 'transparent',
-							borderRadius: 14,
-							height: 50,
-						}}
+						leftElement={<Icon as={Ionicons} name='ios-search' size={'lg'} ml={2} />}
+						rightElement={
+							<HStack alignItems={'center'}>
+								<IconButton
+									variant={'ghost'}
+									_hover={{
+										bg: 'transparent',
+									}}
+									_focus={{
+										bg: 'transparent',
+									}}
+									icon={<Icon as={Ionicons} name='close-circle' size={'lg'} onPress={clearSearchInput} />}
+									isDisabled={!value.length}
+								/>
+								<Button
+									onPress={() => {
+										clearSearchInput()
+										navigation.dispatch(StackActions.pop(1))
+									}}
+									variant={'ghost'}
+								>
+									<Text>Cancel</Text>
+								</Button>
+							</HStack>
+						}
 					/>
 				)}
 			/>

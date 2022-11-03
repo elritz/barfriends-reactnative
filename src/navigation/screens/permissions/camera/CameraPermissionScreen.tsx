@@ -117,7 +117,7 @@ const CameraPermissionScreen = () => {
 						variant='ghost'
 						onPress={() => openCameraApp()}
 						_text={{
-							color: themeContext.palette.primary.color.primary,
+							color: themeContext.palette.primary.color.default,
 							fontWeight: 'bold',
 						}}
 						mt={10}

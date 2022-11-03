@@ -161,7 +161,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			}
 		},
 	})
-	console.log('🚀 ~ file: Navigator.tsx ~ line 164 ~ error', error)
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
@@ -197,10 +196,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
-		console.log(
-			'🚀 ~ file: Navigator.tsx ~ line 199 ~ applicationAuthorization ~ getAuthorization',
-			getAuthorization,
-		)
 
 		if (!getAuthorization) {
 			createGuestProfileMutation()

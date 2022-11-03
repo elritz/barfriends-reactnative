@@ -1,116 +1,43 @@
-import { useReactiveVar } from '@apollo/client'
-import { Ionicons } from '@expo/vector-icons'
-import { StackActions } from '@react-navigation/native'
+import { FontAwesome5, Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { SearchReactiveVar } from '@reactive'
-import { IInputProps, Input, Icon } from 'native-base'
-import { useContext, useRef, useState } from 'react'
-import { View, Keyboard } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
+import { Icon, Box, IconButton, Input } from 'native-base'
 
 const VenueFeedSearchInput = () => {
-	const _searchInputRef = useRef<IInputProps>(null)
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
-	const [isSearch, setIsSearch] = useState(false)
-	const rSearch = useReactiveVar(SearchReactiveVar)
-
-	const changeSearchText = (text: string) => {
-		SearchReactiveVar({
-			...rSearch,
-			searchText: text,
-		})
-	}
-
-	const goBackToFeed = () => {
-		Keyboard.dismiss()
-		setIsSearch(false)
-		_searchInputRef.current?.blur()
-		navigation.navigate('HomeTabNavigator', {
-			screen: 'VenueFeedStack',
-			params: {
-				screen: 'VenueFeedScreen',
-			},
-		})
-	}
-
-	const clearSearchInput = () => {
-		_searchInputRef.current.clear()
-		SearchReactiveVar({
-			...rSearch,
-			searchText: '',
-		})
-	}
 
 	return (
-		<SafeAreaView>
+		<Box>
 			<Input
-				ref={_searchInputRef}
-				placeholder='Search'
-				value={rSearch.searchText}
-				onChangeText={text => changeSearchText(text)}
-				returnKeyType='search'
-				onSubmitEditing={() => {
-					// navigation.dispatch(StackActions.push('SearchTextScreen', { text: '123' }))
-					navigation.dispatch(
-						StackActions.push('SearchNavigator', { screen: 'SearchTextScreen', params: { text: '123' } }),
-					)
-				}}
+				variant={'filled'}
+				rounded={'lg'}
+				mx={2}
+				py={4}
+				placeholder='Search venues'
 				underlineColorAndroid='transparent'
-				onPressIn={() => {
-					setIsSearch(true)
-					// navigation.navigate('HomeTabNavigator', {
-					// 	screen: 'VenueFeedStack',
-					// 	params: {
-					// 		screen: 'SearchTextScreen',
-					// 	},
-					// })
+				_input={{
+					fontSize: 'lg',
 				}}
-				onFocus={() => {
-					// navigation.navigate('HomeTabNavigator', {
-					// 	screen: 'VenueFeedStack',
-					// 	params: {
-					// 		screen: 'SearchTextScreen',
-					// 	},
-					// })
-				}}
-				mt={'10px'}
-				style={{
-					borderBottomColor: 'transparent',
-					paddingHorizontal: 10,
-					borderRadius: 14,
-				}}
-				leftElement={
-					isSearch || rSearch.searchText.length ? (
-						<Icon as={Ionicons} onPress={goBackToFeed} name='arrow-back' size={28} />
-					) : (
-						<Icon as={Ionicons} name='ios-search' size={20} />
-					)
-				}
+				leftElement={<Icon as={Ionicons} name='ios-search' size={'lg'} ml={2} />}
 				rightElement={
-					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-						{!isSearch && (
-							<Icon
-								as={Ionicons}
-								onPress={() =>
-									// navigation.navigate('ModalNavigator', {
-									// 	screen: 'MapLocationModal',
-									// })
-									console.log('TODO: ===>')
-								}
-								name='filter'
-								size={24}
-								style={{ marginHorizontal: 10 }}
-							/>
-						)}
-						{!!rSearch.searchText.length && (
-							<Icon as={Ionicons} name='close-circle' size={25} onPress={clearSearchInput} />
-						)}
-					</View>
+					<IconButton
+						icon={<Icon as={FontAwesome5} name='filter' />}
+						onPress={() =>
+							navigation.navigate('ModalNavigator', {
+								screen: 'SearchAreaModalStack',
+								params: {
+									screen: 'SearchAreaModal',
+								},
+							})
+						}
+						mr={2}
+						rounded={'full'}
+						size={'sm'}
+						color={'transparent'}
+						variant={'solid'}
+					/>
 				}
 			/>
-		</SafeAreaView>
+		</Box>
 	)
 }
 

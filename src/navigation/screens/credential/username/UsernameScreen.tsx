@@ -84,7 +84,7 @@ const UsernameScreen = () => {
 
 	const InputRightIcon = () => {
 		return CULoading ? (
-			<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+			<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
 		) : (
 			<Icon
 				as={Ionicons}

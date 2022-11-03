@@ -106,7 +106,7 @@ const LookingForScreen = ({}) => {
 											key={i}
 											onPress={() => onChange(item)}
 											style={{
-												backgroundColor: themeContext.palette.secondary.background,
+												backgroundColor: themeContext.palette.secondary.background.default,
 												width: '95%',
 												padding: 15,
 												marginVertical: 5,
@@ -134,7 +134,7 @@ const LookingForScreen = ({}) => {
 					style={{
 						paddingHorizontal: 10,
 						paddingBottom: insets.bottom,
-						backgroundColor: themeContext.palette.secondary.background,
+						backgroundColor: themeContext.palette.secondary.background.default,
 						position: 'absolute',
 						bottom: 0,
 						flexDirection: 'row',

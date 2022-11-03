@@ -22,13 +22,13 @@ function EmailPhoneTabStack() {
 					backgroundColor: themeContext.palette.primary.background.default,
 					height: TAB_NAVIGATION_HEIGHT,
 				},
-				tabBarInactiveTintColor: theme.colors.gray[100],
-				tabBarActiveTintColor: themeContext.palette.company.primary,
+				tabBarInactiveTintColor: theme.colors.primary[500],
+				tabBarActiveTintColor: theme.colors.primary[500],
 				tabBarIndicatorStyle: {
-					backgroundColor: themeContext.palette.company.primary,
+					backgroundColor: theme.colors.primary[500],
 					bottom: -1,
 					borderBottomWidth: 2,
-					borderBottomColor: themeContext.palette.company.accent,
+					borderBottomColor: theme.colors.primary[500],
 				},
 			}}
 		>

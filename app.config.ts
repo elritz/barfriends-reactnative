@@ -20,6 +20,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				plugins: [
+					'sentry-expo',
 					[
 						'expo-camera',
 						{
@@ -159,6 +160,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				plugins: [
+					'sentry-expo',
 					[
 						'expo-camera',
 						{
@@ -305,6 +307,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				plugins: [
+					'sentry-expo',
 					[
 						'expo-camera',
 						{

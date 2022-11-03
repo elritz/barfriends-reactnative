@@ -1,14 +1,17 @@
 import ShowCaseScroll from './ShowCaseScroll'
-import { Box, ScrollView } from 'native-base'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Box, ScrollView, View, VStack } from 'native-base'
 
 const ExploreScreen = () => {
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<Box
+			_dark={{ backgroundColor: 'dark.50' }}
+			_light={{ backgroundColor: 'light.300' }}
+			style={{ flex: 1 }}
+		>
 			<ScrollView>
 				<ShowCaseScroll />
 			</ScrollView>
-		</SafeAreaView>
+		</Box>
 	)
 }
 export default ExploreScreen

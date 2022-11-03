@@ -62,7 +62,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 					{ME?.activeProfile?.username === profile.Credential?.username ? (
 						<Ionicons name='checkmark-circle' size={24} color='green' />
 					) : (
-						<ListItem.Chevron size={26} color={themeContext.palette.secondary.color.primary} />
+						<ListItem.Chevron size={26} color={themeContext.palette.secondary.color.default} />
 					)}
 				</>
 			)} */}

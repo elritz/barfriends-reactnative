@@ -23,9 +23,9 @@ const CurrentPlacceScreen = ({}: CurrentPlacceScreenProps) => {
 					borderRadius: 14,
 				}}
 				_input={{
-					color: themeContext.palette.primary.color.primary,
+					color: themeContext.palette.primary.color.default,
 					borderBottomColor: 'transparent',
-					backgroundColor: themeContext.palette.secondary.background,
+					backgroundColor: themeContext.palette.secondary.background.default,
 				}}
 			/>
 		</View>

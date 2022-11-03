@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import NavigationDragIcon from '@components/atoms/icons/navigationdragicon/NavigationDragIcon'
-import SearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
+import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
 import SearchAreaCountryTextScreenInput from '@components/molecules/search/searcharea/SearchAreaCountryTextScreenInput'
 import SearchAreaModal from '@navigation/screens/modals/searcharea/SearchAreaModal'
 import SearchAreaCountries from '@navigation/screens/search/searcharea/SearchAreaCountries'
@@ -11,7 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { ModalNavigatorParamList, SearchAreaStackParamList } from '@types'
 import { BlurView } from 'expo-blur'
-import { VStack } from 'native-base'
+import { Box, VStack } from 'native-base'
 import { useContext, useEffect } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { Platform, View, StyleSheet } from 'react-native'
@@ -168,14 +168,9 @@ function SearchAreaStackNavigation() {
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
 									) : (
-										<View
-											style={[
-												StyleSheet.absoluteFill,
-												{ backgroundColor: themeContext.palette.primary.background.default },
-											]}
-										/>
+										<Box background={'secondary.50'} style={[StyleSheet.absoluteFill]} />
 									)}
-									<SearchInputDisabled onPress={handleNavigationToExploreText} />
+									<ExploreSearchInputDisabled onPress={handleNavigationToExploreText} />
 									<NavigationDragIcon />
 								</VStack>
 							)

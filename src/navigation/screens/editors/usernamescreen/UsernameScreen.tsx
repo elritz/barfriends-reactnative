@@ -154,7 +154,7 @@ const UsernameScreen = () => {
 								autoCorrect={false}
 								rightElement={
 									UOPLoading && dirtyFields.username ? (
-										<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+										<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
 									) : (
 										dirtyFields.username && (
 											<Pressable onPress={() => resetInput('nickname')}>

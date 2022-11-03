@@ -56,8 +56,8 @@ const HomeTownScreen = ({}: HomeTownScreenProps) => {
 					paddingHorizontal: 10,
 				}}
 				_input={{
-					color: themeContext.palette.primary.color.primary,
-					backgroundColor: themeContext.palette.secondary.background,
+					color: themeContext.palette.primary.color.default,
+					backgroundColor: themeContext.palette.secondary.background.default,
 					borderBottomColor: 'transparent',
 					borderRadius: 14,
 				}}

@@ -84,20 +84,20 @@ export const DarkStyledTheme: DefaultTheme = {
 			...darkCompanyColors,
 		},
 		background: {
-			paper: colors.grey[50],
+			paper: colors.grey[900],
 		},
 		primary: {
 			background: {
-				default: colors.grey[300],
-				dark: colors.grey[300],
+				default: colors.grey[800],
+				dark: colors.grey[900],
 				light: colors.grey[300],
-				accent: colors.grey[300],
+				accent: '#FF7000',
 			},
 			color: {
-				default: colors.grey[800],
-				dark: colors.grey[800],
-				light: colors.grey[800],
-				accent: colors.grey[800],
+				default: colors.grey[100],
+				dark: colors.grey[300],
+				light: colors.grey[50],
+				accent: '#FF7000',
 			},
 		},
 		secondary: {
@@ -105,7 +105,7 @@ export const DarkStyledTheme: DefaultTheme = {
 				default: colors.grey[300],
 				dark: colors.grey[300],
 				light: colors.grey[300],
-				accent: colors.grey[300],
+				accent: colors.blue.A400,
 			},
 			color: {
 				default: colors.grey[800],

@@ -34,9 +34,9 @@ export const darktheme = {
 		...DefaultTheme,
 		colors: {
 			...DefaultTheme.colors,
-			background: DarkStyledTheme.palette.primary.background,
+			background: DarkStyledTheme.palette.primary.background.default,
 			primary: DarkStyledTheme.palette.company.primary,
-			card: DarkStyledTheme.palette.secondary.background,
+			card: DarkStyledTheme.palette.secondary.background.default,
 			text: DarkStyledTheme.palette.primary.color.default,
 			border: DarkStyledTheme.palette.primary.color.default,
 			notification: DarkStyledTheme.palette.company.tertiary,

@@ -1,11 +1,13 @@
-import { SearchTextScreenRouteProp } from '@components/molecules/search/searchtext/SearchTextScreenInput'
-import { useRoute } from '@react-navigation/native'
-import { Box, Heading } from 'native-base'
+import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
+import SearchTextScreenInput, {
+	SearchTextScreenRouteProp,
+} from '@components/molecules/search/searchtext/SearchTextScreenInput'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Box, Heading, VStack } from 'native-base'
 import { ScrollView } from 'react-native'
 
 const SearchTextScreen = () => {
 	const route = useRoute<SearchTextScreenRouteProp>()
-
 	const params = route.params
 
 	return (

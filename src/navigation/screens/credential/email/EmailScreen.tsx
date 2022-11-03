@@ -12,6 +12,7 @@ import { InputAccessoryView, Platform, View, TextInput, InteractionManager } fro
 import styled, { ThemeContext } from 'styled-components/native'
 
 const EmailScreen = () => {
+	const themeContext = useContext(ThemeContext)
 	const emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
 	const headerHeight = useHeaderHeight()
@@ -89,11 +90,12 @@ const EmailScreen = () => {
 	}
 
 	useEffect(() => {
-		if (isFocused) {
+		if (isFocused && emailRef.current) {
 			InteractionManager.runAfterInteractions(() => {
 				emailRef.current?.focus()
 			})
-		} else {
+		}
+		if (!isFocused) {
 			InteractionManager.runAfterInteractions(() => {
 				emailRef.current?.blur()
 			})
@@ -111,7 +113,7 @@ const EmailScreen = () => {
 				marginHorizontal: '5%',
 			}}
 		>
-			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
 				Enter your email
 			</Text>
 			<View style={{ marginVertical: 20, width: '100%' }}>
@@ -119,10 +121,9 @@ const EmailScreen = () => {
 					name='email'
 					control={control}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
+						<TextInput
 							ref={emailRef}
 							key={'email'}
-							variant={'underlined'}
 							autoFocus
 							returnKeyType='done'
 							autoComplete='email'
@@ -131,10 +132,14 @@ const EmailScreen = () => {
 							numberOfLines={1}
 							placeholder='Email'
 							inputAccessoryViewID={inputAccessoryViewID}
-							py={4}
-							_input={{
-								fontSize: '2xl',
-								fontWeight: 'medium',
+							style={{
+								fontSize: 25,
+								lineHeight: 35,
+								paddingBottom: 10,
+								fontWeight: '500',
+								color: themeContext.palette.primary.color.default,
+								borderBottomColor: themeContext.palette.primary.background.accent,
+								borderBottomWidth: 1,
 							}}
 							blurOnSubmit={false}
 							onSubmitEditing={handleSubmit(onSubmit)}
@@ -154,7 +159,7 @@ const EmailScreen = () => {
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
-					bg={'white'}
+					bg={themeContext.palette.primary.background.dark}
 					flexDir={'row'}
 					justifyContent={'flex-start'}
 					alignContent={'space-around'}

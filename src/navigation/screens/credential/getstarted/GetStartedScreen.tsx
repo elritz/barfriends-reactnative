@@ -97,6 +97,7 @@ const GetStartedScreen = () => {
 						bg={'tertiary.500'}
 						onPress={() => {
 							CredentialPersonalProfileReactiveVar({
+								...credentialPersonalProfileVar,
 								PrivacyId: String(PPPData.documents[0].id),
 								ServiceId: String(PTSData.documents[0].id),
 							})

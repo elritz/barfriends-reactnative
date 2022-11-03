@@ -237,16 +237,9 @@ const EmojimoodScreen = () => {
 					onPress={onSubmit}
 					variant={'solid'}
 					borderRadius={'xl'}
-					icon={
-						<Icon
-							color={themeContext.palette.highlight.color.primary}
-							name='arrow-right'
-							size={29}
-							as={Feather}
-						/>
-					}
+					icon={<Icon color={'primary.500'} name='arrow-right' size={29} as={Feather} />}
 				>
-					<Text color={themeContext.palette.highlight.color.primary} fontSize={'lg'}>
+					<Text color={'primary.500'} fontSize={'lg'}>
 						{loading ? 'Completing' : !credentialPersonalProfileVar.emojimood.id ? 'Skip' : 'Complete'}
 					</Text>
 				</IconButton>

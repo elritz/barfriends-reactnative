@@ -145,7 +145,7 @@ const NamesScreen = () => {
 								keyboardType='default'
 								style={{
 									alignSelf: 'center',
-									backgroundColor: themeContext.palette.secondary.background,
+									backgroundColor: themeContext.palette.secondary.background.default,
 									height: 55,
 									padding: 10,
 									borderRadius: 13,
@@ -153,7 +153,10 @@ const NamesScreen = () => {
 								rightElement={
 									<Box ml={3}>
 										{UOPLoading && dirtyFields.fullname ? (
-											<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+											<ActivityIndicator
+												size='small'
+												color={themeContext.palette.primary.background.default}
+											/>
 										) : (
 											dirtyFields.fullname && (
 												<Pressable onPress={() => resetInput('fullname')}>
@@ -195,7 +198,7 @@ const NamesScreen = () => {
 								keyboardType='default'
 								style={{
 									alignSelf: 'center',
-									backgroundColor: themeContext.palette.secondary.background,
+									backgroundColor: themeContext.palette.secondary.background.default,
 									height: 55,
 									padding: 10,
 									borderRadius: 13,
@@ -205,7 +208,7 @@ const NamesScreen = () => {
 								rightElement={
 									<Box ml={3}>
 										{UOPLoading && dirtyFields.nickname ? (
-											<ActivityIndicator size='small' color={themeContext.palette.primary.color.primary} />
+											<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
 										) : (
 											dirtyFields.nickname && (
 												<Pressable onPress={() => resetInput('nickname')}>
