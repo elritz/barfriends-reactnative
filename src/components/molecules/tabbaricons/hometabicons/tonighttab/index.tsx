@@ -14,7 +14,7 @@ const TonightTab = (props: TabProps) => {
 						zIndex: 100,
 					}}
 					name='play'
-					size={25}
+					size={23}
 					as={FontAwesome5}
 					color={props.color}
 				/>

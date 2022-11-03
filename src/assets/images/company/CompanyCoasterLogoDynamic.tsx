@@ -33,8 +33,8 @@ const CompanyCoasterLogoDynamic: React.FC<Props> = ({
 	CompanyCoasterLogoDynamic.defaultProps = {
 		width: 100,
 		height: 100,
-		backgroundColor: themeContext.palette.bfscompany.secondary,
-		iconColor: themeContext.palette.bfscompany.primary,
+		backgroundColor: themeContext.palette.bfscompany.primary,
+		iconColor: themeContext.palette.bfscompany.secondary,
 	}
 
 	return (

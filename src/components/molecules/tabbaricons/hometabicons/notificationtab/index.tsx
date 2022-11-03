@@ -12,7 +12,7 @@ const NotificationTab = (props: TabProps) => (
 					justifyContent: 'center',
 				}}
 				name='notifications'
-				size={33}
+				size={31}
 				as={MaterialIcons}
 				color={props.color}
 			/>

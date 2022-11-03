@@ -14,7 +14,7 @@ const HomeTab = (props: TabProps) => {
 						justifyContent: 'center',
 					}}
 					name='home'
-					size={27}
+					size={25}
 					as={Entypo}
 					color={props.color}
 				/>

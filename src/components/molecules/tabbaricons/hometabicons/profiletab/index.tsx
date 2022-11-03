@@ -93,7 +93,6 @@ const ProfileTab = (props: TabProps) => {
 										borderWidth: 1.5,
 									}}
 									alt={'Profile Photo'}
-									PlaceholderContent={<ActivityIndicator />}
 								/>
 							) : (
 								<CompanyCoasterLogoDynamic

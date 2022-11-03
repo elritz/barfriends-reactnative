@@ -14,7 +14,7 @@ const MessageTab = (props: TabProps) => {
 						justifyContent: 'center',
 					}}
 					name='chatbubble-ellipses'
-					size={29}
+					size={27}
 					as={Ionicons}
 					color={props.color}
 				/>

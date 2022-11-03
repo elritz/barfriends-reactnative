@@ -108,19 +108,6 @@ const Navigator: React.FC<NavigationProps> = ({ colorScheme }: NavigationProps) 
 		},
 	}
 
-	// const ReactNavigationTheme: Theme = {
-	// 	...DefaultTheme,
-	// 	colors: {
-	// 		...DefaultTheme.colors,
-	// 		background: themes.themes.styled.palette.primary.background,
-	// 		primary: themes.themes.styled.palette.company.primary,
-	// 		card: themes.themes.styled.palette.secondary.background,
-	// 		text: themes.themes.styled.palette.primary.color.primary,
-	// 		border: themes.themes.styled.palette.primary.color.secondary,
-	// 		notification: themes.themes.styled.palette.company.tertiary,
-	// 	},
-	// }
-
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {

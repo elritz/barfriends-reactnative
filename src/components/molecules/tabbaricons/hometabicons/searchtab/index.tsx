@@ -13,7 +13,7 @@ const SearchTab = (props: TabBarIconProps) => {
 						justifyContent: 'center',
 					}}
 					name='search'
-					size={35}
+					size={'32px'}
 					as={Ionicons}
 					color={props.color}
 				/>

@@ -14,7 +14,7 @@ const MapTab = (props: TabProps) => {
 						justifyContent: 'center',
 					}}
 					name='map-marker-alt'
-					size={28}
+					size={26}
 					as={FontAwesome5}
 					color={props.color}
 				/>

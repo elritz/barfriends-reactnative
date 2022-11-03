@@ -15,7 +15,7 @@ const GetStartedScreen = () => {
 	const rProfilesBottomSheetVar = useReactiveVar(ProfilesBottomSheetRefReactiveVar)
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
-	const hightlightColor = themeContext.palette.bfscompany.primary
+	const hightlightColor = themeContext.palette.bfscompany.secondary
 
 	if (rProfilesBottomSheetVar) {
 		rProfilesBottomSheetVar.current.close()

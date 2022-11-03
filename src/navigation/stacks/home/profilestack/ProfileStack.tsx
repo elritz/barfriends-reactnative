@@ -28,6 +28,7 @@ function PublicPersonalStackNavigation() {
 				headerStyle: {
 					backgroundColor: 'transparent',
 				},
+				headerTitle: '',
 				headerRight: () => (
 					<View
 						style={{ display: 'flex', flexDirection: 'row', width: 90, justifyContent: 'space-around' }}

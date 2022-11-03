@@ -14,7 +14,7 @@ const VenueFeedTab = (props: TabProps) => {
 						justifyContent: 'center',
 					}}
 					name='md-grid'
-					size={27}
+					size={26}
 					as={Ionicons}
 					color={props.color}
 				/>

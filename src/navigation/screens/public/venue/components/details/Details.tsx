@@ -39,12 +39,7 @@ export default function Details(props: Props) {
 	return (
 		<VStack
 			space={3}
-			_light={{
-				bg: 'light.50',
-			}}
-			_dark={{
-				bg: 'light.800',
-			}}
+			bg={themeContext.palette.background.paper}
 			flex={1}
 			py={4}
 			px={3}

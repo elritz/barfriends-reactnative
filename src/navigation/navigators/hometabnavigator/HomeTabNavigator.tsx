@@ -75,7 +75,7 @@ function HomeTabNavigator() {
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,
-					tabBarBadge: 11,
+					// tabBarBadge: 11,
 				}}
 			/>
 			<ScreenStack.Screen
@@ -88,7 +88,7 @@ function HomeTabNavigator() {
 					tabBarLabel: 'search',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
-					tabBarBadge: 11,
+					// tabBarBadge: 11,
 				}}
 			/>
 			<ScreenStack.Screen
@@ -107,7 +107,7 @@ function HomeTabNavigator() {
 					headerShown: false,
 					tabBarLabel: 'messages',
 					tabBarIcon: ({ color }: IColor) => <MessageTab color={color} />,
-					tabBarBadge: 13,
+					// tabBarBadge: 13,
 				}}
 			/>
 			<ScreenStack.Screen
@@ -117,7 +117,7 @@ function HomeTabNavigator() {
 					headerShown: false,
 					tabBarIcon: ({ color }: IColor) => <ProfileTab color={color} />,
 					tabBarLabel: 'profile',
-					tabBarBadge: 12,
+					// tabBarBadge: 12,
 				}}
 			/>
 			{ENVIRONMENT === 'development' && (

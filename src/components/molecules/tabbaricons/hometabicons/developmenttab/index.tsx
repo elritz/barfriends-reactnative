@@ -4,6 +4,7 @@ import { Entypo } from '@expo/vector-icons'
 import { Icon } from 'native-base'
 
 const DevelopmentTab = (props: TabProps) => {
+	console.log('🚀 ~ file: index.tsx ~ line 10 ~ DevelopmentTab ~ props.color', props.color)
 	return (
 		<TabBarIcon
 			color={props.color}
@@ -14,7 +15,7 @@ const DevelopmentTab = (props: TabProps) => {
 						justifyContent: 'center',
 					}}
 					name='code'
-					size={27}
+					size={25}
 					as={Entypo}
 					color={props.color}
 				/>

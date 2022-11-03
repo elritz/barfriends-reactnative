@@ -13,12 +13,7 @@ export default function ActionCard({ children, numColumns }) {
 		<OuterView
 			width={width}
 			numColumns={numColumns}
-			_light={{
-				bg: 'light.50',
-			}}
-			_dark={{
-				bg: 'light.800',
-			}}
+			bg={themeContext.palette.background.paper}
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',

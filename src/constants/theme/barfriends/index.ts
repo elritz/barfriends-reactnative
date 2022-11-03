@@ -1,6 +1,6 @@
 export const bfsCompanyColors = {
-	primary: '#FF7000',
-	secondary: '#0b0b0b',
+	primary: '#0b0b0b',
+	secondary: '#FF7000',
 	tertiary: '#257CFF',
 	accent: '#FFFFFF',
 	soft: {
