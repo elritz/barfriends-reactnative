@@ -71,6 +71,7 @@ export default function WithDeviceProfiles() {
 						my={4}
 						_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
 						borderRadius={'xl'}
+						colorScheme={'primary'}
 					>
 						Sign up
 					</Button>

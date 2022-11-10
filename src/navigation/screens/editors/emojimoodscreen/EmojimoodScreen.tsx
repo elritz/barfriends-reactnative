@@ -11,6 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, Ellipse, LinearGradient, Rect, Stop } from 'react-native-svg'
 import { ThemeContext } from 'styled-components/native'
 
+// TODO: FN(onPress clear emojimood)
 interface EmojimoodScreenProps {}
 
 const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
@@ -123,7 +124,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 								return (
 									<Button
 										onPress={() => {
-											console.log('Clear emoijimood ========>')
+											console.log('TODO: Clear emoijimood ========>')
 										}}
 									>
 										Clear

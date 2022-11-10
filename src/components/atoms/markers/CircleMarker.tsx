@@ -40,7 +40,7 @@ const BasicCircleMarker = ({
 	useEffect(() => {}, [])
 
 	const onPressMarker = () => {
-		//console.log("DOD NOT ")
+		//console.log("TODO: DOD NOT ")
 	}
 
 	return (

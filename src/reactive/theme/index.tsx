@@ -1,12 +1,32 @@
-import { makeVar } from "@apollo/client"
-import { Code_FragmentFragment } from "@graphql/generated"
+import { makeVar } from '@apollo/client'
+import { darktheme, lighttheme } from '@constants/theme/themes/default'
+import { DefaultTheme as RNDefaultTheme } from '@react-navigation/native'
+import { ICustomTheme, ITheme } from 'native-base'
+import { DefaultTheme } from 'styled-components/native'
 
-export enum MeReactiveVarient {
-  Light = 'light',
-  Dark = 'dark',
+export enum ThemeColorScheme {
+	light = 'light',
+	dark = 'dark',
+	system = 'system',
 }
 
-export type ColorSchemeName = 'light' | 'dark' | null | undefined
+type TLightTheme = typeof lighttheme
+type TDarkTheme = typeof darktheme
 
+export type IBFSTheme = {
+	styled: DefaultTheme
+	rn: typeof RNDefaultTheme
+	nb: ITheme
+}
 
-export const ThemeReactiveVar = makeVar<ColorSchemeName>(MeReactiveVarient.Dark)
+export interface ThemeInterface {
+	colorScheme: 'light' | 'dark' | 'system'
+	theme: IBFSTheme | null
+}
+
+export const ThemeEmptyState: ThemeInterface = {
+	colorScheme: 'system',
+	theme: null,
+}
+
+export const ThemeReactiveVar = makeVar<ThemeInterface>(ThemeEmptyState)

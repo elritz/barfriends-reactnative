@@ -88,7 +88,6 @@ const PhoneScreen = () => {
 			}
 		},
 	})
-	console.log('🚀 ~ file: PhoneScreen.tsx ~ line 91 ~ PhoneScreen ~ error', error)
 
 	const onSubmit = data => {
 		CredentialPersonalProfileReactiveVar({

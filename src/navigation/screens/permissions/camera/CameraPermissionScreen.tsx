@@ -63,7 +63,7 @@ const CameraPermissionScreen = () => {
 	}, [isFocused])
 
 	const openCameraApp = async () => {
-		console.log('opencamera')
+		console.log('TODO: opencamera')
 	}
 
 	const openPhoneSettings = async () => {
@@ -128,7 +128,7 @@ const CameraPermissionScreen = () => {
 				<Button
 					onPress={() =>
 						rPermissionCamera.canAskAgain && !rPermissionCamera.granted
-							? console.log('TODO')
+							? console.log('TODO: handle this state')
 							: openPhoneSettings()
 					}
 					width={'100%'}

@@ -14,7 +14,7 @@ import { ThemeContext } from 'styled-components/native'
 const ScreenStack = createStackNavigator<DevelopmentStackParamList>()
 
 function DevelopmentStack() {
-	const theme = useReactiveVar(ThemeReactiveVar)
+	const themeContext = useContext(ThemeContext)
 	return (
 		<ScreenStack.Navigator
 			screenOptions={{
@@ -26,7 +26,7 @@ function DevelopmentStack() {
 					return (
 						<VStack height={90} justifyContent={'flex-end'} alignItems={'center'} pb={2}>
 							{Platform.OS === 'ios' ? (
-								<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+								<BlurView style={StyleSheet.absoluteFill} tint={themeContext.theme} intensity={80} />
 							) : (
 								<Box style={[StyleSheet.absoluteFill]} />
 							)}

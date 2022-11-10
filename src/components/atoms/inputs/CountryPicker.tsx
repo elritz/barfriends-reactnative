@@ -32,7 +32,7 @@ const ComponentCountryPicker = ({ countryCode, onSelect }: CountryPickerProps) =
 
 	return (
 		<CountryPicker
-			theme={theme === 'dark' ? DARK_THEME : DEFAULT_THEME}
+			theme={theme.colorScheme === 'dark' ? DARK_THEME : DEFAULT_THEME}
 			{...{
 				countryCode,
 				withFilter,

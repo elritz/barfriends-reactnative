@@ -135,7 +135,7 @@ const MapScreen = () => {
 				ref={_map}
 				style={StyleSheet.absoluteFillObject}
 				provider={PROVIDER_GOOGLE}
-				customMapStyle={theme === 'dark' ? DarkMapStyle : LightMapStyle}
+				customMapStyle={theme.colorScheme === 'dark' ? DarkMapStyle : LightMapStyle}
 				region={{
 					latitude: rMap.useCustomLocation
 						? rMap.current.coords.latitude

@@ -1,12 +1,9 @@
 import TonightImages from './images'
 import ProfileActivityAndStatusCards from '@components/organisms/ProfileActivityAndStatusCards/ProfileActivityAndStatusCards'
-import { useContext } from 'react'
 import { ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 const Tonight = () => {
-	const themeContext = useContext(ThemeContext)
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView

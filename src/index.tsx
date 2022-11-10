@@ -1,13 +1,13 @@
 import { ApolloProvider, useReactiveVar } from '@apollo/client'
 import { LOCATION_TASK_NAME, BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import gateaWayClient from '@library/gateway-apollo-server'
-import Navigator from '@navigation/navigators/Navigator'
+import Navigation from '@navigation/index'
 import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
 import { ThemeReactiveVar } from '@reactive'
 import useDeviceNetwork from '@util/hooks/device/useDeviceNetwork'
 import usePermission from '@util/hooks/device/usePermission'
 import useCachedResources from '@util/hooks/local/useCachedResources'
-import { setDefaultTheme } from '@util/hooks/theme/useDefaultTheme'
+import { useCurrentTheme } from '@util/hooks/theme/useCurrentTheme'
 import Constants from 'expo-constants'
 import 'expo-dev-client'
 import * as Device from 'expo-device'
@@ -37,8 +37,8 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 // 		return
 // 	}
 // 	if (data.eventType === GeofencingEventType.Enter) {
-// 		// console.log("You've entered region:", data.region)
-// 		// console.log("You've entered region:", data)
+// 		// console.log(TODO:"You've entered region:", data.region)
+// 		// console.log("TODO:You've entered region:", data)
 // 		Alert.alert('You have entered a region', `${data.region.identifier}`, [
 // 			{
 // 				text: 'Cancel',
@@ -49,7 +49,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 // 		])
 // 	} else if (data.eventType === GeofencingEventType.Exit) {
 // 		console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
-// 		// console.log("You've left region:")
+// 		// console.log("TODO:You've left region:")
 // 		Alert.alert('You have Left a region', `SOMETHING HAS TO BE DONE${data.region.identifier}`, [
 // 			{
 // 				text: 'Cancel',
@@ -78,9 +78,9 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
 })
 
 // TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
-// 	console.log('Received a notification in the background!')
+// 	console.log('TODO: Received a notification in the background!')
 // 	// Do something with the notification data
-// 	console.log('🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data', data)
+// 	console.log('TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data', data)
 // })
 
 Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
@@ -94,33 +94,13 @@ Notifications.setNotificationHandler({
 })
 
 export default function App() {
-	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const isDeviceNetworkComplete = useDeviceNetwork()
 	const isPermissionComplete = usePermission()
-
-	ThemeReactiveVar(useColorScheme())
-	const themesObject = setDefaultTheme()
-
-	//   componentDidMount() {
-	//   registerForPushNotificationsAsync();
-	//   Notifications.addNotificationReceivedListener(this._handleNotification);
-	//   Notifications.addNotificationResponseReceivedListener(this._handleNotificationResponse);
-	// }
-
-	// _handleNotification = notification => {
-	//   this.setState({ notification: notification });
-	// };
-
-	// _handleNotificationResponse = response => {
-	//   console.log(response);
-	// };
-
-	// const [expoPushToken, setExpoPushToken] = useState('')
-	// const [notification, setNotification] = useState(false)
+	const colorScheme = useColorScheme()
 
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			// console.log(notification)
+			// console.log('TODO:',notification)
 			// ============> Object {
 			// 	"date": 1666290510.895539,
 			// 	"request": Object {
@@ -173,7 +153,7 @@ export default function App() {
 
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			// console.log('============>', notification)
+			// console.log('TODO:============>', notification)
 		})
 		return () => subscription.remove()
 	}, [])
@@ -182,8 +162,7 @@ export default function App() {
 		<SafeAreaProvider>
 			<KeyboardProvider statusBarTranslucent>
 				<ApolloProvider client={gateaWayClient}>
-					<Navigator colorScheme={rThemeVar} />
-					<StatusBar style='auto' />
+					<Navigation />
 				</ApolloProvider>
 			</KeyboardProvider>
 		</SafeAreaProvider>
@@ -225,7 +204,7 @@ export default function App() {
 // 			return
 // 		}
 // 		token = (await Notifications.getExpoPushTokenAsync()).data
-// 		console.log(token)
+// 		console.log('TODO:',token)
 // 	} else {
 // 		alert('Must use physical device for Push Notifications')
 // 	}

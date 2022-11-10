@@ -4,7 +4,6 @@ import GetSignInUpText from '@helpers/data/SignupinText'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Box, Center, Text, Button } from 'native-base'
-import { useState } from 'react'
 
 const text = GetSignInUpText()
 
@@ -85,7 +84,7 @@ const CardPleaseSignup = (props: Props) => {
 					Sign up
 				</Button>
 				<Button
-					variant={''}
+					variant={'unstyled'}
 					onPress={handleSigninNavigation}
 					w={'95%'}
 					_text={{

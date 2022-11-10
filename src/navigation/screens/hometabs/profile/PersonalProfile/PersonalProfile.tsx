@@ -11,13 +11,11 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Image, Button, Divider, Heading, ScrollView } from 'native-base'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 const PersonalScreen = () => {
-	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [selectedProfileId, setSelectedProfileId] = useState('')
@@ -74,7 +72,7 @@ const PersonalScreen = () => {
 			return (
 				<SafeAreaView style={{ flex: 1, marginBottom: 60, marginHorizontal: 10 }}>
 					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-						<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
+						<View style={[{ top: 0 }]}>
 							<CardPleaseSignup signupTextId={4} />
 							<Divider style={{ marginVertical: 10 }} />
 						</View>

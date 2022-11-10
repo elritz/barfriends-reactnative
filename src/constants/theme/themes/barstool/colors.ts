@@ -1,7 +1,7 @@
 export const lightCompanyColors = {
 	primary: '#1D314D',
-	secondary: '#ffffff',
-	tertiary: '#AE3639',
+	secondary: '#AE3639',
+	tertiary: '#FFFFFF',
 	accent: '#191919',
 	soft: {
 		primary: '#374963',

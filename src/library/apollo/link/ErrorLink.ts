@@ -28,16 +28,16 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 	if (networkError) {
 		switch (networkError.name) {
 			case 'TypeError':
-				console.log('TypeError network error')
+				console.log('TODO:TypeError network error')
 				return forward(operation)
 			case '500':
-				console.log('500 network error')
+				console.log('TODO:500 network error')
 				return forward(operation)
 			case undefined:
-				console.log('undefined network error')
+				console.log('TODO:undefined network error')
 				return forward(operation)
 			default:
-				console.log('default apollo network error')
+				console.log('TODO:default apollo network error')
 				return forward(operation)
 		}
 	}

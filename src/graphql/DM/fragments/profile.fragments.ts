@@ -3,12 +3,14 @@ import { CREDENTIALS_FRAGMENT } from '@graphql/DM/fragments/credentials.fragment
 import { DETAIL_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/detail_information.fragments'
 import { INDETIFIABLE_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/identifiable_information.fragments'
 import { LOCATION_FRAGMENT } from '@graphql/DM/fragments/location.fragments'
+import { THEME_MANAGER_FRAGMENT } from '@graphql/DM/fragments/theme.fragments'
 
 export const PROFILE_FRAGMENT = gql`
 	${CREDENTIALS_FRAGMENT}
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
 	${DETAIL_INFORMATION_FRAGMENT}
 	${LOCATION_FRAGMENT}
+	${THEME_MANAGER_FRAGMENT}
 	fragment PROFILE_FRAGMENT on Profile {
 		__typename
 		id
@@ -18,6 +20,9 @@ export const PROFILE_FRAGMENT = gql`
 		}
 		DetailInformation {
 			...DETAIL_INFORMATION_FRAGMENT
+		}
+		ThemeManager {
+			...THEME_MANAGER_FRAGMENT
 		}
 		Relationships {
 			id

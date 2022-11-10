@@ -20,6 +20,7 @@ import { useWindowDimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 // TODO: FN(this needs to be operational for user story line)
+// TODO: UX(get photos in order and update order)
 
 const tiles = [
 	{
@@ -75,7 +76,7 @@ const TonightImages = () => {
 					const data = await r
 						.json()
 						.then(res => {
-							console.log('===========>', res)
+							console.log('TODO: ===========>', res)
 							// ===========> Object {
 							// 	"access_mode": "public",
 							// 	"asset_id": "71f1571bc20005e90d13992cf003e3ce",
@@ -156,6 +157,7 @@ const TonightImages = () => {
 								})
 								if (result.selected) {
 									console.log(
+										'TODO:',
 										'🚀 ~ file: TonightImages.tsx ~ line 126 ~ onPress={ ~ result',
 										result.selected,
 									)
@@ -163,6 +165,7 @@ const TonightImages = () => {
 								if (result.cancelled) {
 									result.cancelled
 									console.log(
+										'TODO:',
 										'🚀 ~ file: TonightImages.tsx ~ line 131 ~ onPress={ ~ result.cancelled',
 										result.cancelled,
 									)

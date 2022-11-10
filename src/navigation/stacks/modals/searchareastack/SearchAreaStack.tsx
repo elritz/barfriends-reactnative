@@ -137,7 +137,7 @@ function SearchAreaStackNavigation() {
 						return (
 							<VStack flexDirection={'column-reverse'} alignItems={'center'}>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
 								) : (
 									<View
 										style={[
@@ -166,7 +166,7 @@ function SearchAreaStackNavigation() {
 							return (
 								<VStack flexDirection={'column-reverse'} alignItems={'center'}>
 									{Platform.OS === 'ios' ? (
-										<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+										<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
 									) : (
 										<Box background={'secondary.50'} style={[StyleSheet.absoluteFill]} />
 									)}

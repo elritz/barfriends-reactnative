@@ -6,7 +6,6 @@ import SearchTab from '@components/molecules/tabbaricons/hometabicons/searchtab'
 import TonightTab from '@components/molecules/tabbaricons/hometabicons/tonighttab'
 import VenueFeedTab from '@components/molecules/tabbaricons/hometabicons/venuefeedtab'
 import { ENVIRONMENT } from '@env'
-import DevelopmentScreen from '@navigation/screens/hometabs/development/DevelopmentScreen'
 import DevelopmentStack from '@navigation/stacks/development/DevelopmentStack'
 import ExploreStack from '@navigation/stacks/home/explorestack/ExploreStack'
 import MessagesStack from '@navigation/stacks/home/messagestack/MessagesStack'
@@ -14,9 +13,9 @@ import ProfileStack from '@navigation/stacks/home/profilestack/ProfileStack'
 import VenueFeedStack from '@navigation/stacks/home/venuefeedstack/VenueFeedStack'
 import TonightStack from '@navigation/stacks/tonightstack/TonightStack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { ThemeReactiveVar } from '@reactive'
 import { HomeTabNavigatorParamList } from '@types'
 import { BlurView } from 'expo-blur'
+import { useColorModeValue } from 'native-base'
 import { useContext } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -28,17 +27,15 @@ interface IColor {
 
 function HomeTabNavigator() {
 	const themeContext = useContext(ThemeContext)
-	const theme = useReactiveVar(ThemeReactiveVar)
 
 	return (
 		<ScreenStack.Navigator
-			// initialRouteName='MessagesStack'
 			initialRouteName='VenueFeedStack'
 			screenOptions={{
 				tabBarBackground: () => (
 					<>
 						{Platform.OS === 'ios' ? (
-							<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={100} />
+							<BlurView style={StyleSheet.absoluteFill} tint={themeContext.theme} intensity={100} />
 						) : (
 							<View
 								style={[

@@ -41,7 +41,7 @@ const ChangeThemeScreen = () => {
 	const startForegroundUpdate = async () => {
 		const { granted } = await Location.getForegroundPermissionsAsync()
 		if (!granted) {
-			console.log('location tracking denied')
+			console.log('TODO: location tracking denied')
 			return
 		}
 
@@ -71,21 +71,21 @@ const ChangeThemeScreen = () => {
 		// Don't track position if permission is not granted
 		const { granted } = await Location.getBackgroundPermissionsAsync()
 		if (!granted) {
-			console.log('location tracking denied')
+			console.log('TODO: location tracking denied')
 			return
 		}
 
 		// Make sure the task is defined otherwise do not start tracking
 		const isTaskDefined = await TaskManager.isTaskDefined(LOCATION_TASK_NAME)
 		if (!isTaskDefined) {
-			console.log('Task is not defined')
+			console.log('TODO: Task is not defined')
 			return
 		}
 
 		// Don't track if it is already running in background
 		const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
 		if (hasStarted) {
-			console.log('Already started')
+			console.log('TODO: Already started')
 			return
 		}
 
@@ -109,7 +109,7 @@ const ChangeThemeScreen = () => {
 		const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
 		if (hasStarted) {
 			await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME)
-			console.log('Location tacking stopped')
+			console.log('TODO: Location tacking stopped')
 		}
 	}
 

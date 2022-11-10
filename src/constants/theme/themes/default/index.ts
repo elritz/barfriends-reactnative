@@ -12,7 +12,6 @@ export const lighttheme = {
 	rn: {
 		...DefaultTheme,
 		colors: {
-			...DefaultTheme.colors,
 			background: LightStyledTheme.palette.primary.background.default,
 			primary: LightStyledTheme.palette.company.primary,
 			card: LightStyledTheme.palette.secondary.background.default,
@@ -43,3 +42,42 @@ export const darktheme = {
 		},
 	},
 } as const
+
+export const theme = ({ theme }) => {
+	return {
+		nativebase: {
+			...NativeBaseTheme,
+		},
+		styled: theme === 'dark' ? { ...DarkStyledTheme } : { ...LightStyledTheme },
+		rn: {
+			...DefaultTheme,
+			colors: {
+				...DefaultTheme.colors,
+				background:
+					theme === 'dark'
+						? DarkStyledTheme.palette.primary.background.default
+						: LightStyledTheme.palette.primary.background.default,
+				primary:
+					theme === 'dark'
+						? DarkStyledTheme.palette.company.primary
+						: LightStyledTheme.palette.company.primary,
+				card:
+					theme === 'dark'
+						? DarkStyledTheme.palette.secondary.background.default
+						: LightStyledTheme.palette.secondary.background.default,
+				text:
+					theme === 'dark'
+						? DarkStyledTheme.palette.primary.color.default
+						: LightStyledTheme.palette.primary.color.default,
+				border:
+					theme === 'dark'
+						? DarkStyledTheme.palette.primary.color.default
+						: LightStyledTheme.palette.primary.color.default,
+				notification:
+					theme === 'dark'
+						? DarkStyledTheme.palette.company.tertiary
+						: LightStyledTheme.palette.company.tertiary,
+			},
+		},
+	}
+}

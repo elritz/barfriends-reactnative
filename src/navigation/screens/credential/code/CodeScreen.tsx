@@ -78,7 +78,6 @@ const CodeScreen = () => {
 	}
 
 	const onSubmit = (data: { code: any }) => {
-		console.log('🚀 ~ file: CodeScreen.tsx ~ line 81 ~ onSubmit ~ code', code)
 		const { code } = data
 		if (code !== route.params.code) {
 			return setError('code', { type: 'validate', message: 'Invalid code' })

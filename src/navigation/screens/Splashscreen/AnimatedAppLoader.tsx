@@ -1,9 +1,10 @@
 import AnimatedSplashScreen from './AnimatedSplashScreen'
+import { useReactiveVar } from '@apollo/client'
+import { ThemeReactiveVar } from '@reactive'
 import { useAssets } from 'expo-asset'
-import { useColorScheme } from 'react-native'
 
 function AnimatedAppLoader({ children }) {
-	const colorScheme = useColorScheme()
+	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 
 	const [assets, error] = useAssets([
 		require('../../../assets/images/splash/splash.light.png'),
@@ -13,7 +14,7 @@ function AnimatedAppLoader({ children }) {
 	if (!assets) return null
 
 	return (
-		<AnimatedSplashScreen image={colorScheme === 'light' ? assets[0] : assets[1]}>
+		<AnimatedSplashScreen image={rThemeVar.colorScheme === 'light' ? assets[0] : assets[1]}>
 			{children}
 		</AnimatedSplashScreen>
 	)

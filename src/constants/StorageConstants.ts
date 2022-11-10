@@ -7,3 +7,5 @@ export const REFRESH_TOKEN = 'refresh_token'
 export const TERMS_SERVICES = 'terms_services'
 // Local Storage
 export const LOCAL_STORAGE_SEARCH_AREA = '@local_search_area'
+export const LOCAL_STORAGE_DEFAULT_THEME = '@defaulttheme'
+export const LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE = '@color_theme'

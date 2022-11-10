@@ -6,12 +6,14 @@ import { ThemeReactiveVar } from '@reactive'
 import { HomeTabStackParamList } from '@types'
 import { BlurView } from 'expo-blur'
 import { Box, VStack } from 'native-base'
+import { useContext } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
+import { ThemeContext } from 'styled-components/native'
 
 const ScreenStack = createStackNavigator<HomeTabStackParamList>()
 
 function VenueFeedStack() {
-	const theme = useReactiveVar(ThemeReactiveVar)
+	const themeContext = useContext(ThemeContext)
 
 	return (
 		<ScreenStack.Navigator initialRouteName='VenueFeedScreen'>
@@ -27,7 +29,7 @@ function VenueFeedStack() {
 						return (
 							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={themeContext.theme} intensity={80} />
 								) : (
 									<Box style={[StyleSheet.absoluteFill]} />
 								)}

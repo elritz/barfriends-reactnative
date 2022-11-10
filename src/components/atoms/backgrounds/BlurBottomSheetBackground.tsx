@@ -13,7 +13,7 @@ const BlurBottomSheetBackground = ({ style }: BottomSheetBackgroundProps) => {
 	return (
 		<BlurView
 			style={[StyleSheet.absoluteFill, style]}
-			tint={theme === 'dark' ? 'dark' : 'light'}
+			tint={theme.colorScheme === 'dark' ? 'dark' : 'light'}
 			intensity={100}
 		/>
 	)

@@ -6,6 +6,8 @@ import { AuthorizationReactiveVar } from '@reactive'
 import { secureStorageItemCreate, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import { AuthorizationDecoded } from 'src/types/app'
 
+// TODO FN(How can i set the profile here, currently only getting Profile.id)
+
 const afterwareLink = new ApolloLink((operation, forward) =>
 	asyncMap(forward(operation), async response => {
 		const {
@@ -13,19 +15,23 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 		} = operation.getContext()
 		if (headers) {
 			const authorization = headers.get('authorization')
-			// console.log('AUTHORIZATION 🚀 ~ file: AfterwareLink.ts ~ line 13 ~ asyncMap ~ authorization', authorization)
 			if (authorization) {
 				await secureStorageItemCreate({
 					value: authorization,
 					key: AUTHORIZATION,
 				})
-				const getAuthorization = (await secureStorageItemRead({
-					key: AUTHORIZATION,
-					decode: true,
-				})) as AuthorizationDecoded
+				// const getAuthorization = (await secureStorageItemRead({
+				// 	key: AUTHORIZATION,
+				// 	decode: true,
+				// })) as AuthorizationDecoded
 
-				const deviceManager = getAuthorization as unknown as DeviceManager
-				AuthorizationReactiveVar(deviceManager)
+				// const parsedAuthorization = JSON.parse(getAuthorization.devicemanager) as DeviceManager
+				// console.log(
+				// 	'🚀 ~ file: AfterwareLink.ts ~ line 28 ~ asyncMap ~ parsedAuthorization',
+				// 	parsedAuthorization.DeviceProfile.Profile,
+				// )
+
+				// AuthorizationReactiveVar(parsedAuthorization)
 			}
 		}
 		return response

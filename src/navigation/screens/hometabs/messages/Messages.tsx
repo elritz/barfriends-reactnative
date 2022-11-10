@@ -2,9 +2,8 @@ import HorizontalMessageNotification from '@components/molecules/notifications/m
 import { Ionicons } from '@expo/vector-icons'
 import GenerateMessageData from '@helpers/generate/placeholder/GenerateMessagesData'
 import { useNavigation } from '@react-navigation/native'
-import { Heading, HStack, Icon } from 'native-base'
+import { Heading, HStack, Icon, FlatList } from 'native-base'
 import { useRef } from 'react'
-import { FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Messages = () => {

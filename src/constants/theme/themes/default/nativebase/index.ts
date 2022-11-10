@@ -1,13 +1,11 @@
-import colors from './palette/colors'
+import nativebasecolors from '@constants/theme/themes/default/nativebase/palette/colors'
 import { theme, extendTheme } from 'native-base'
 
 const NativeBaseTheme = extendTheme({
-	...theme,
-	colors,
+	colors: nativebasecolors,
 	config: {
-		useSystemColorMode: true,
+		useSystemColorMode: false,
 	},
-
 	components: {
 		Button: {
 			baseStyle: {

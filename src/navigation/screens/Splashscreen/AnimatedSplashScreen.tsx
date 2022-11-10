@@ -1,4 +1,6 @@
+import { useReactiveVar } from '@apollo/client'
 import VectorFonts from '@helpers/VectorFonts'
+import { ThemeReactiveVar } from '@reactive'
 import { cacheFonts, cacheImages } from '@util/hooks/local/useCacheImages'
 import useCachedResources from '@util/hooks/local/useCachedResources'
 import { Asset } from 'expo-asset'
@@ -13,6 +15,7 @@ function AnimatedSplashScreen({ children, image }) {
 	const animation = useMemo(() => new Animated.Value(1), [])
 	const [isAppReady, setAppReady] = useState(false)
 	const [isSplashAnimationComplete, setAnimationComplete] = useState(false)
+	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 
 	useEffect(() => {
 		if (isAppReady) {
@@ -64,7 +67,7 @@ function AnimatedSplashScreen({ children, image }) {
 				left: 0,
 				right: 0,
 				// backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
-				backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
+				backgroundColor: rThemeVar.colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
 				flex: 1,
 			}}
 		>
@@ -75,7 +78,7 @@ function AnimatedSplashScreen({ children, image }) {
 					style={[
 						StyleSheet.absoluteFill,
 						{
-							backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
+							backgroundColor: rThemeVar.colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
 						},
 					]}
 				>

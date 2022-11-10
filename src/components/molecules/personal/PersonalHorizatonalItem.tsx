@@ -14,7 +14,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 	if (!profile) return null
 
 	return (
-		<Pressable onPress={profileDisabled ? console.log('T1DO') : console.log('T2DO')}>
+		<Pressable onPress={profileDisabled ? console.log('TODO:') : console.log('TODO:')}>
 			<Box
 				// ViewComponent={LinearGradient}
 				// linearGradientProps={{

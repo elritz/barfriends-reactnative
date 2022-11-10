@@ -38,7 +38,7 @@ function ExploreStack() {
 		return (
 			<VStack height={105} justifyContent={'flex-end'} pb={2}>
 				{Platform.OS !== 'ios' ? (
-					<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+					<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
 				) : (
 					<Box background={'secondary.100'} style={[StyleSheet.absoluteFill]} />
 				)}
@@ -66,6 +66,7 @@ function ExploreStack() {
 		<ScreenStack.Navigator screenOptions={{}}>
 			<ScreenStack.Screen
 				name='ExploreScreen'
+				component={ExploreScreen}
 				options={{
 					headerShown: true,
 					headerTransparent: true,
@@ -75,7 +76,7 @@ function ExploreStack() {
 						return (
 							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
 								) : (
 									<Box style={[StyleSheet.absoluteFill]} />
 								)}
@@ -95,7 +96,6 @@ function ExploreStack() {
 						)
 					},
 				}}
-				component={ExploreScreen}
 			/>
 			<ScreenStack.Screen
 				name='SearchTextScreen'
@@ -104,7 +104,7 @@ function ExploreStack() {
 						return (
 							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS !== 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
 								) : (
 									<Box background={'secondary.100'} style={[StyleSheet.absoluteFill]} />
 								)}

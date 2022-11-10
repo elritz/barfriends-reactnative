@@ -1,8 +1,8 @@
-import colors from './palette/colors'
+import nativebasecolors from '@constants/theme/themes/barstool/nativebase/palette/colors'
 import { extendTheme } from 'native-base'
 
 const NativeBaseTheme = extendTheme({
-	colors,
+	colors: nativebasecolors,
 	config: {
 		useSystemColorMode: true,
 	},

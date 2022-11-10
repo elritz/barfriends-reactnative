@@ -327,16 +327,16 @@ input BoolNullableFilter {
   not: NestedBoolNullableFilter
 }
 
+input ChatroomCreateNestedManyWithoutProfilesInput {
+  connect: [ChatroomWhereUniqueInput!]
+  connectOrCreate: [ChatroomCreateOrConnectWithoutProfilesInput!]
+  create: [ChatroomCreateWithoutProfilesInput!]
+}
+
 input ChatroomCreateNestedOneWithoutMessagesInput {
   connect: ChatroomWhereUniqueInput
   connectOrCreate: ChatroomCreateOrConnectWithoutMessagesInput
   create: ChatroomCreateWithoutMessagesInput
-}
-
-input ChatroomCreateNestedOneWithoutProfilesInput {
-  connect: ChatroomWhereUniqueInput
-  connectOrCreate: ChatroomCreateOrConnectWithoutProfilesInput
-  create: ChatroomCreateWithoutProfilesInput
 }
 
 input ChatroomCreateOrConnectWithoutMessagesInput {
@@ -359,10 +359,43 @@ input ChatroomCreateWithoutProfilesInput {
   messages: MessageCreateNestedManyWithoutChatroomInput
 }
 
-input ChatroomOrderByWithRelationInput {
-  id: SortOrder
-  messages: MessageOrderByRelationAggregateInput
-  profiles: ProfileOrderByRelationAggregateInput
+input ChatroomListRelationFilter {
+  every: ChatroomWhereInput
+  none: ChatroomWhereInput
+  some: ChatroomWhereInput
+}
+
+input ChatroomOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ChatroomScalarWhereInput {
+  AND: [ChatroomScalarWhereInput!]
+  id: StringFilter
+  NOT: [ChatroomScalarWhereInput!]
+  OR: [ChatroomScalarWhereInput!]
+}
+
+input ChatroomUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+}
+
+input ChatroomUpdateManyWithoutProfilesInput {
+  connect: [ChatroomWhereUniqueInput!]
+  connectOrCreate: [ChatroomCreateOrConnectWithoutProfilesInput!]
+  create: [ChatroomCreateWithoutProfilesInput!]
+  delete: [ChatroomWhereUniqueInput!]
+  deleteMany: [ChatroomScalarWhereInput!]
+  disconnect: [ChatroomWhereUniqueInput!]
+  set: [ChatroomWhereUniqueInput!]
+  update: [ChatroomUpdateWithWhereUniqueWithoutProfilesInput!]
+  updateMany: [ChatroomUpdateManyWithWhereWithoutProfilesInput!]
+  upsert: [ChatroomUpsertWithWhereUniqueWithoutProfilesInput!]
+}
+
+input ChatroomUpdateManyWithWhereWithoutProfilesInput {
+  data: ChatroomUpdateManyMutationInput!
+  where: ChatroomScalarWhereInput!
 }
 
 input ChatroomUpdateOneWithoutMessagesInput {
@@ -375,16 +408,6 @@ input ChatroomUpdateOneWithoutMessagesInput {
   upsert: ChatroomUpsertWithoutMessagesInput
 }
 
-input ChatroomUpdateOneWithoutProfilesInput {
-  connect: ChatroomWhereUniqueInput
-  connectOrCreate: ChatroomCreateOrConnectWithoutProfilesInput
-  create: ChatroomCreateWithoutProfilesInput
-  delete: Boolean
-  disconnect: Boolean
-  update: ChatroomUpdateWithoutProfilesInput
-  upsert: ChatroomUpsertWithoutProfilesInput
-}
-
 input ChatroomUpdateWithoutMessagesInput {
   id: StringFieldUpdateOperationsInput
   profiles: ProfileUpdateManyWithoutChatroomInput
@@ -395,14 +418,20 @@ input ChatroomUpdateWithoutProfilesInput {
   messages: MessageUpdateManyWithoutChatroomInput
 }
 
+input ChatroomUpdateWithWhereUniqueWithoutProfilesInput {
+  data: ChatroomUpdateWithoutProfilesInput!
+  where: ChatroomWhereUniqueInput!
+}
+
 input ChatroomUpsertWithoutMessagesInput {
   create: ChatroomCreateWithoutMessagesInput!
   update: ChatroomUpdateWithoutMessagesInput!
 }
 
-input ChatroomUpsertWithoutProfilesInput {
+input ChatroomUpsertWithWhereUniqueWithoutProfilesInput {
   create: ChatroomCreateWithoutProfilesInput!
   update: ChatroomUpdateWithoutProfilesInput!
+  where: ChatroomWhereUniqueInput!
 }
 
 input ChatroomWhereInput {
@@ -1327,7 +1356,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "b010b0b3-2a54-47d7-ac6e-41c385bcd408"
+  sessiontoken: String = "061ba054-7137-4a00-bbc8-7b977f49343d"
   textinput: String!
 
   """
@@ -2702,10 +2731,6 @@ input MessageListRelationFilter {
   some: MessageWhereInput
 }
 
-input MessageOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
 input MessageScalarWhereInput {
   AND: [MessageScalarWhereInput!]
   chatroomId: StringNullableFilter
@@ -3997,10 +4022,10 @@ type Profile implements Node {
   IdentifiableInformation: IdentifiableInformation
   Personal: Personal
   photos(after: PhotoWhereUniqueInput, before: PhotoWhereUniqueInput, first: Int, last: Int): [Photo!]!
-  ProfileSearchesService: ProfileSearchesService
   ProfileType: ProfileType
   Relationships(after: RelationshipWhereUniqueInput, before: RelationshipWhereUniqueInput, first: Int, last: Int): [Relationship!]!
   Story: Story
+  ThemeManager: ThemeManager
   updatedAt: DateTime!
   Venue: Venue
 }
@@ -4015,29 +4040,10 @@ input ProfileCreateDeviceManagerInput {
   set: [String!]
 }
 
-input ProfileCreateManyChatroomInput {
-  bfsprofileid: String
-  createdAt: DateTime
-  DeviceManager: ProfileCreateManyDeviceManagerInput
-  id: String
-  ProfileType: ProfileType
-  updatedAt: DateTime
-}
-
-input ProfileCreateManyChatroomInputEnvelope {
-  data: [ProfileCreateManyChatroomInput!]
-  skipDuplicates: Boolean
-}
-
-input ProfileCreateManyDeviceManagerInput {
-  set: [String!]
-}
-
 input ProfileCreateNestedManyWithoutChatroomInput {
   connect: [ProfileWhereUniqueInput!]
   connectOrCreate: [ProfileCreateOrConnectWithoutChatroomInput!]
   create: [ProfileCreateWithoutChatroomInput!]
-  createMany: ProfileCreateManyChatroomInputEnvelope
 }
 
 input ProfileCreateNestedManyWithoutGroupInput {
@@ -4115,13 +4121,14 @@ input ProfileCreateWithoutChatroomInput {
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
   Story: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
 }
 
 input ProfileCreateWithoutGroupInput {
   bfsprofileid: String
-  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
   createdAt: DateTime
   Credentials: CredentialsCreateNestedOneWithoutProfileInput
   DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
@@ -4134,13 +4141,14 @@ input ProfileCreateWithoutGroupInput {
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
   Story: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
 }
 
 input ProfileCreateWithoutPersonalInput {
   bfsprofileid: String
-  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
   createdAt: DateTime
   Credentials: CredentialsCreateNestedOneWithoutProfileInput
   DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
@@ -4153,13 +4161,14 @@ input ProfileCreateWithoutPersonalInput {
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
   Story: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
 }
 
 input ProfileCreateWithoutPhotosInput {
   bfsprofileid: String
-  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
   createdAt: DateTime
   Credentials: CredentialsCreateNestedOneWithoutProfileInput
   DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
@@ -4172,13 +4181,14 @@ input ProfileCreateWithoutPhotosInput {
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
   Story: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
 }
 
 input ProfileCreateWithoutStoryInput {
   bfsprofileid: String
-  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
   createdAt: DateTime
   Credentials: CredentialsCreateNestedOneWithoutProfileInput
   DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
@@ -4191,13 +4201,14 @@ input ProfileCreateWithoutStoryInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
 }
 
 input ProfileCreateWithoutVenueInput {
   bfsprofileid: String
-  Chatroom: ChatroomCreateNestedOneWithoutProfilesInput
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
   createdAt: DateTime
   Credentials: CredentialsCreateNestedOneWithoutProfileInput
   DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
@@ -4211,6 +4222,7 @@ input ProfileCreateWithoutVenueInput {
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
   Story: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
 }
 
@@ -4220,14 +4232,9 @@ input ProfileListRelationFilter {
   some: ProfileWhereInput
 }
 
-input ProfileOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
 input ProfileOrderByWithRelationInput {
   bfsprofileid: SortOrder
-  Chatroom: ChatroomOrderByWithRelationInput
-  chatroomId: SortOrder
+  Chatroom: ChatroomOrderByRelationAggregateInput
   createdAt: SortOrder
   Credentials: CredentialsOrderByWithRelationInput
   DetailInformation: DetailInformationOrderByWithRelationInput
@@ -4241,6 +4248,7 @@ input ProfileOrderByWithRelationInput {
   ProfileType: SortOrder
   Relationships: RelationshipOrderByRelationAggregateInput
   Story: StoryOrderByRelationAggregateInput
+  ThemeManager: ThemeManagerOrderByWithRelationInput
   updatedAt: SortOrder
   Venue: VenueOrderByWithRelationInput
 }
@@ -4252,7 +4260,6 @@ type Profiles {
 input ProfileScalarWhereInput {
   AND: [ProfileScalarWhereInput!]
   bfsprofileid: StringFilter
-  chatroomId: StringNullableFilter
   createdAt: DateTimeFilter
   DeviceManager: StringNullableListFilter
   id: StringFilter
@@ -4260,11 +4267,6 @@ input ProfileScalarWhereInput {
   OR: [ProfileScalarWhereInput!]
   ProfileType: EnumProfileTypeFilter
   updatedAt: DateTimeFilter
-}
-
-type ProfileSearchesService {
-  id: String!
-  searches: [Json!]!
 }
 
 input ProfileSearchesServiceCreateNestedOneWithoutProfileInput {
@@ -4334,6 +4336,135 @@ input ProfileSearchesServiceWhereUniqueInput {
   profileId: String
 }
 
+type ProfileTheme {
+  createdAt: DateTime!
+  id: String!
+  isActive: Boolean!
+  Theme: Theme!
+  themeId: String!
+  ThemeManager: ThemeManager
+  themeManagerId: String
+  updatedAt: DateTime!
+}
+
+input ProfileThemeCreateManyThemeManagerInput {
+  createdAt: DateTime
+  id: String
+  isActive: Boolean!
+  themeId: String!
+  updatedAt: DateTime
+}
+
+input ProfileThemeCreateManyThemeManagerInputEnvelope {
+  data: [ProfileThemeCreateManyThemeManagerInput!]
+  skipDuplicates: Boolean
+}
+
+input ProfileThemeCreateNestedManyWithoutThemeManagerInput {
+  connect: [ProfileThemeWhereUniqueInput!]
+  connectOrCreate: [ProfileThemeCreateOrConnectWithoutThemeManagerInput!]
+  create: [ProfileThemeCreateWithoutThemeManagerInput!]
+  createMany: ProfileThemeCreateManyThemeManagerInputEnvelope
+}
+
+input ProfileThemeCreateOrConnectWithoutThemeManagerInput {
+  create: ProfileThemeCreateWithoutThemeManagerInput!
+  where: ProfileThemeWhereUniqueInput!
+}
+
+input ProfileThemeCreateWithoutThemeManagerInput {
+  createdAt: DateTime
+  id: String
+  isActive: Boolean!
+  Theme: ThemeCreateNestedOneWithoutProfileThemeInput!
+  updatedAt: DateTime
+}
+
+input ProfileThemeListRelationFilter {
+  every: ProfileThemeWhereInput
+  none: ProfileThemeWhereInput
+  some: ProfileThemeWhereInput
+}
+
+input ProfileThemeOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProfileThemeScalarWhereInput {
+  AND: [ProfileThemeScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  isActive: BoolFilter
+  NOT: [ProfileThemeScalarWhereInput!]
+  OR: [ProfileThemeScalarWhereInput!]
+  themeId: StringFilter
+  themeManagerId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input ProfileThemeUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isActive: BoolFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProfileThemeUpdateManyWithoutThemeManagerInput {
+  connect: [ProfileThemeWhereUniqueInput!]
+  connectOrCreate: [ProfileThemeCreateOrConnectWithoutThemeManagerInput!]
+  create: [ProfileThemeCreateWithoutThemeManagerInput!]
+  createMany: ProfileThemeCreateManyThemeManagerInputEnvelope
+  delete: [ProfileThemeWhereUniqueInput!]
+  deleteMany: [ProfileThemeScalarWhereInput!]
+  disconnect: [ProfileThemeWhereUniqueInput!]
+  set: [ProfileThemeWhereUniqueInput!]
+  update: [ProfileThemeUpdateWithWhereUniqueWithoutThemeManagerInput!]
+  updateMany: [ProfileThemeUpdateManyWithWhereWithoutThemeManagerInput!]
+  upsert: [ProfileThemeUpsertWithWhereUniqueWithoutThemeManagerInput!]
+}
+
+input ProfileThemeUpdateManyWithWhereWithoutThemeManagerInput {
+  data: ProfileThemeUpdateManyMutationInput!
+  where: ProfileThemeScalarWhereInput!
+}
+
+input ProfileThemeUpdateWithoutThemeManagerInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  isActive: BoolFieldUpdateOperationsInput
+  Theme: ThemeUpdateOneRequiredWithoutProfileThemeInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ProfileThemeUpdateWithWhereUniqueWithoutThemeManagerInput {
+  data: ProfileThemeUpdateWithoutThemeManagerInput!
+  where: ProfileThemeWhereUniqueInput!
+}
+
+input ProfileThemeUpsertWithWhereUniqueWithoutThemeManagerInput {
+  create: ProfileThemeCreateWithoutThemeManagerInput!
+  update: ProfileThemeUpdateWithoutThemeManagerInput!
+  where: ProfileThemeWhereUniqueInput!
+}
+
+input ProfileThemeWhereInput {
+  AND: [ProfileThemeWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  isActive: BoolFilter
+  NOT: [ProfileThemeWhereInput!]
+  OR: [ProfileThemeWhereInput!]
+  Theme: ThemeWhereInput
+  themeId: StringFilter
+  ThemeManager: ThemeManagerWhereInput
+  themeManagerId: StringNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input ProfileThemeWhereUniqueInput {
+  id: String
+}
+
 enum ProfileType {
   GUEST
   PERSONAL
@@ -4353,7 +4484,7 @@ input ProfileUpdateDeviceManagerInput {
 
 input ProfileUpdateInput {
   bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Credentials: CredentialsUpdateOneWithoutProfileInput
   DetailInformation: DetailInformationUpdateOneWithoutProfileInput
@@ -4367,6 +4498,7 @@ input ProfileUpdateInput {
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
   Story: StoryUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileInput
 }
@@ -4384,7 +4516,6 @@ input ProfileUpdateManyWithoutChatroomInput {
   connect: [ProfileWhereUniqueInput!]
   connectOrCreate: [ProfileCreateOrConnectWithoutChatroomInput!]
   create: [ProfileCreateWithoutChatroomInput!]
-  createMany: ProfileCreateManyChatroomInputEnvelope
   delete: [ProfileWhereUniqueInput!]
   deleteMany: [ProfileScalarWhereInput!]
   disconnect: [ProfileWhereUniqueInput!]
@@ -4468,13 +4599,14 @@ input ProfileUpdateWithoutChatroomInput {
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
   Story: StoryUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileInput
 }
 
 input ProfileUpdateWithoutGroupInput {
   bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Credentials: CredentialsUpdateOneWithoutProfileInput
   DetailInformation: DetailInformationUpdateOneWithoutProfileInput
@@ -4487,13 +4619,14 @@ input ProfileUpdateWithoutGroupInput {
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
   Story: StoryUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileInput
 }
 
 input ProfileUpdateWithoutPersonalInput {
   bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Credentials: CredentialsUpdateOneWithoutProfileInput
   DetailInformation: DetailInformationUpdateOneWithoutProfileInput
@@ -4506,13 +4639,14 @@ input ProfileUpdateWithoutPersonalInput {
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
   Story: StoryUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileInput
 }
 
 input ProfileUpdateWithoutPhotosInput {
   bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Credentials: CredentialsUpdateOneWithoutProfileInput
   DetailInformation: DetailInformationUpdateOneWithoutProfileInput
@@ -4525,13 +4659,14 @@ input ProfileUpdateWithoutPhotosInput {
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
   Story: StoryUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileInput
 }
 
 input ProfileUpdateWithoutStoryInput {
   bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Credentials: CredentialsUpdateOneWithoutProfileInput
   DetailInformation: DetailInformationUpdateOneWithoutProfileInput
@@ -4544,13 +4679,14 @@ input ProfileUpdateWithoutStoryInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileInput
 }
 
 input ProfileUpdateWithoutVenueInput {
   bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateOneWithoutProfilesInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Credentials: CredentialsUpdateOneWithoutProfileInput
   DetailInformation: DetailInformationUpdateOneWithoutProfileInput
@@ -4564,6 +4700,7 @@ input ProfileUpdateWithoutVenueInput {
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
   Story: StoryUpdateManyWithoutProfileInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -4612,8 +4749,7 @@ input ProfileUpsertWithWhereUniqueWithoutGroupInput {
 input ProfileWhereInput {
   AND: [ProfileWhereInput!]
   bfsprofileid: StringFilter
-  Chatroom: ChatroomWhereInput
-  chatroomId: StringNullableFilter
+  Chatroom: ChatroomListRelationFilter
   createdAt: DateTimeFilter
   Credentials: CredentialsWhereInput
   DetailInformation: DetailInformationWhereInput
@@ -4629,6 +4765,7 @@ input ProfileWhereInput {
   ProfileType: EnumProfileTypeFilter
   Relationships: RelationshipListRelationFilter
   Story: StoryListRelationFilter
+  ThemeManager: ThemeManagerWhereInput
   updatedAt: DateTimeFilter
   Venue: VenueWhereInput
 }
@@ -5182,6 +5319,198 @@ input TagWhereInput {
 
 input TagWhereUniqueInput {
   id: Int
+}
+
+type Theme {
+  createdAt: DateTime!
+  endDate: DateTime
+  id: String!
+  mobile: [Json!]!
+  mobileVersions: [String!]!
+  name: String!
+  ProfileTheme(after: ProfileThemeWhereUniqueInput, before: ProfileThemeWhereUniqueInput, first: Int, last: Int): [ProfileTheme!]!
+  startDate: DateTime
+  updatedAt: DateTime!
+  web: [Json!]!
+  webVersions: [String!]!
+}
+
+input ThemeCreatemobileInput {
+  set: [Json!]
+}
+
+input ThemeCreatemobileVersionsInput {
+  set: [String!]
+}
+
+input ThemeCreateNestedOneWithoutProfileThemeInput {
+  connect: ThemeWhereUniqueInput
+  connectOrCreate: ThemeCreateOrConnectWithoutProfileThemeInput
+  create: ThemeCreateWithoutProfileThemeInput
+}
+
+input ThemeCreateOrConnectWithoutProfileThemeInput {
+  create: ThemeCreateWithoutProfileThemeInput!
+  where: ThemeWhereUniqueInput!
+}
+
+input ThemeCreatewebInput {
+  set: [Json!]
+}
+
+input ThemeCreatewebVersionsInput {
+  set: [String!]
+}
+
+input ThemeCreateWithoutProfileThemeInput {
+  createdAt: DateTime
+  endDate: DateTime
+  id: String
+  mobile: ThemeCreatemobileInput
+  mobileVersions: ThemeCreatemobileVersionsInput
+  name: String!
+  startDate: DateTime
+  updatedAt: DateTime
+  web: ThemeCreatewebInput
+  webVersions: ThemeCreatewebVersionsInput
+}
+
+type ThemeManager {
+  activeTheme: Theme
+  id: ID
+}
+
+input ThemeManagerCreateNestedOneWithoutProfileInput {
+  connect: ThemeManagerWhereUniqueInput
+  connectOrCreate: ThemeManagerCreateOrConnectWithoutProfileInput
+  create: ThemeManagerCreateWithoutProfileInput
+}
+
+input ThemeManagerCreateOrConnectWithoutProfileInput {
+  create: ThemeManagerCreateWithoutProfileInput!
+  where: ThemeManagerWhereUniqueInput!
+}
+
+input ThemeManagerCreateWithoutProfileInput {
+  createdAt: DateTime
+  id: String
+  ProfileTheme: ProfileThemeCreateNestedManyWithoutThemeManagerInput
+  updatedAt: DateTime
+}
+
+input ThemeManagerOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  ProfileTheme: ProfileThemeOrderByRelationAggregateInput
+  updatedAt: SortOrder
+}
+
+input ThemeManagerUpdateOneWithoutProfileInput {
+  connect: ThemeManagerWhereUniqueInput
+  connectOrCreate: ThemeManagerCreateOrConnectWithoutProfileInput
+  create: ThemeManagerCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ThemeManagerUpdateWithoutProfileInput
+  upsert: ThemeManagerUpsertWithoutProfileInput
+}
+
+input ThemeManagerUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  ProfileTheme: ProfileThemeUpdateManyWithoutThemeManagerInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input ThemeManagerUpsertWithoutProfileInput {
+  create: ThemeManagerCreateWithoutProfileInput!
+  update: ThemeManagerUpdateWithoutProfileInput!
+}
+
+input ThemeManagerWhereInput {
+  AND: [ThemeManagerWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [ThemeManagerWhereInput!]
+  OR: [ThemeManagerWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  ProfileTheme: ProfileThemeListRelationFilter
+  updatedAt: DateTimeFilter
+}
+
+input ThemeManagerWhereUniqueInput {
+  id: String
+  profileId: String
+}
+
+input ThemeUpdatemobileInput {
+  push: Json
+  set: [Json!]
+}
+
+input ThemeUpdatemobileVersionsInput {
+  push: String
+  set: [String!]
+}
+
+input ThemeUpdateOneRequiredWithoutProfileThemeInput {
+  connect: ThemeWhereUniqueInput
+  connectOrCreate: ThemeCreateOrConnectWithoutProfileThemeInput
+  create: ThemeCreateWithoutProfileThemeInput
+  update: ThemeUpdateWithoutProfileThemeInput
+  upsert: ThemeUpsertWithoutProfileThemeInput
+}
+
+input ThemeUpdatewebInput {
+  push: Json
+  set: [Json!]
+}
+
+input ThemeUpdatewebVersionsInput {
+  push: String
+  set: [String!]
+}
+
+input ThemeUpdateWithoutProfileThemeInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  mobile: ThemeUpdatemobileInput
+  mobileVersions: ThemeUpdatemobileVersionsInput
+  name: StringFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  web: ThemeUpdatewebInput
+  webVersions: ThemeUpdatewebVersionsInput
+}
+
+input ThemeUpsertWithoutProfileThemeInput {
+  create: ThemeCreateWithoutProfileThemeInput!
+  update: ThemeUpdateWithoutProfileThemeInput!
+}
+
+input ThemeWhereInput {
+  AND: [ThemeWhereInput!]
+  createdAt: DateTimeFilter
+  endDate: DateTimeNullableFilter
+  id: StringFilter
+  mobile: JsonNullableListFilter
+  mobileVersions: StringNullableListFilter
+  name: StringFilter
+  NOT: [ThemeWhereInput!]
+  OR: [ThemeWhereInput!]
+  ProfileTheme: ProfileThemeListRelationFilter
+  startDate: DateTimeNullableFilter
+  updatedAt: DateTimeFilter
+  web: JsonNullableListFilter
+  webVersions: StringNullableListFilter
+}
+
+input ThemeWhereUniqueInput {
+  id: String
 }
 
 type TotaledOut {

@@ -49,7 +49,7 @@ function MessageRoomNavigator() {
 								}}
 							>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
 								) : (
 									<View
 										style={[
@@ -90,7 +90,7 @@ function MessageRoomNavigator() {
 									</HStack>
 									<Box w={'10%'}>
 										<IconButton
-											onPress={() => console.log('Settings still need to be done')}
+											onPress={() => console.log('TODO: Settings still need to be done')}
 											my={2}
 											mr={2}
 											icon={<Icon as={Entypo} name={'dots-three-vertical'} size={23} />}

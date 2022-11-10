@@ -6,6 +6,8 @@ import { Icon, useColorMode, Image } from 'native-base'
 import React from 'react'
 import { InputToolbar, Actions, Composer, Send } from 'react-native-gifted-chat'
 
+// !! TODO: DEL(This no longer applies because it is not installed DELETE)
+
 export const renderInputToolbar = props => (
 	<InputToolbar
 		{...props}
@@ -40,10 +42,10 @@ export const renderActions = props => (
 		)}
 		options={{
 			'Choose From Library': () => {
-				console.log('Choose From Library')
+				console.log('TODO: Choose From Library')
 			},
 			Cancel: () => {
-				console.log('Cancel')
+				console.log('TODO: Cancel')
 			},
 		}}
 		// optionTintColor='#222B45'

@@ -6,7 +6,7 @@ const ScreenStack = createNativeStackNavigator<MessagesTabStackParamList>()
 
 function MessagesStack() {
 	return (
-		<ScreenStack.Navigator screenOptions={{}}>
+		<ScreenStack.Navigator>
 			<ScreenStack.Screen
 				name='MessagesScreen'
 				component={MessagesScreen}

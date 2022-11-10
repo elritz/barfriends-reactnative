@@ -1,4 +1,4 @@
-const colors = {
+const nativebasecolors = {
 	primary: {
 		50: '#ffefdb',
 		100: '#ffd3ae',
@@ -37,4 +37,4 @@ const colors = {
 	},
 }
 
-export default colors
+export default nativebasecolors

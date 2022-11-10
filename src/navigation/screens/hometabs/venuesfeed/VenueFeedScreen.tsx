@@ -272,7 +272,7 @@ const VenueFeedScreen = () => {
 
 	return (
 		<>
-			<Box _dark={{ backgroundColor: 'dark.50' }} _light={{ backgroundColor: 'light.300' }}>
+			<Box>
 				<FlatList
 					onRefresh={fnMemoed}
 					refreshing={loading}

@@ -1,17 +1,32 @@
-import { AUTHORIZATION, LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
+import { useReactiveVar } from '@apollo/client'
+import {
+	AUTHORIZATION,
+	LOCAL_STORAGE_SEARCH_AREA,
+	LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+} from '@constants/StorageConstants'
 import { LOCATION_TASK_NAME, GEOFENCING_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import BottomSheet, { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { setTheme, useToggleTheme } from '@navigation/navigators/Navigator'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { searchAreaInitialState, SearchAreaReactiveVar } from '@reactive'
+import {
+	AuthorizationReactiveVar,
+	searchAreaInitialState,
+	SearchAreaReactiveVar,
+	ThemeColorScheme,
+	ThemeInterface,
+	ThemeReactiveVar,
+} from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
-import { Actionsheet, Box, Heading, HStack, Icon, useDisclose } from 'native-base'
+import { Box, Heading, HStack, Icon, useColorMode, useDisclose } from 'native-base'
 import { ScrollView, Button, Text, Divider, VStack, Pressable } from 'native-base'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { Platform, Linking, useColorScheme } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -23,8 +38,54 @@ const DevelopmentScreen = () => {
 	const insets = useSafeAreaInsets()
 	const colorScheme = useColorScheme()
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
-	const [venues, setVenues] = useState([])
-	const { isOpen, onOpen, onClose } = useDisclose()
+	const rThemeVar = useReactiveVar(ThemeReactiveVar)
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const { toggleColorMode, colorMode } = useColorMode()
+	const [theme, toggleThemes] = useToggleTheme()
+
+	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+
+	// variables
+	const data = useMemo(
+		() =>
+			Array(50)
+				.fill(0)
+				.map((_, index) => `index-${index}`),
+		[],
+	)
+	const snapPoints = useMemo(() => ['45%', '95%'], [])
+
+	// callbacks
+	const handleSheetChange = useCallback(index => {
+		console.log('handleSheetChange', index)
+	}, [])
+
+	const handleSnapPress = useCallback(index => {
+		console.log('handleSheetChange', index)
+		bottomSheetModalRef.current.present()
+		bottomSheetModalRef.current?.snapToIndex(index)
+	}, [])
+
+	const handleClosePress = useCallback(() => {
+		bottomSheetModalRef.current?.close()
+	}, [])
+
+	// render
+	const renderItem = useCallback(
+		({ item }) => (
+			<Box
+				style={{
+					flex: 1,
+					padding: 6,
+					margin: 6,
+					backgroundColor: '#eee',
+				}}
+			>
+				<Text>{item}</Text>
+			</Box>
+		),
+		[],
+	)
 
 	const ITEM_HEIGHT = 50
 	const handleOpenPhoneSettings = async () => {
@@ -38,7 +99,7 @@ const DevelopmentScreen = () => {
 	const startForegroundUpdate = async () => {
 		const { granted } = await Location.getForegroundPermissionsAsync()
 		if (!granted) {
-			console.log('location tracking denied')
+			console.log('TODO: location tracking denied')
 			return
 		}
 
@@ -68,21 +129,21 @@ const DevelopmentScreen = () => {
 		// Don't track position if permission is not granted
 		const { granted } = await Location.getBackgroundPermissionsAsync()
 		if (!granted) {
-			console.log('location tracking denied')
+			console.log('TODO:location tracking denied')
 			return
 		}
 
 		// Make sure the task is defined otherwise do not start tracking
 		const isTaskDefined = await TaskManager.isTaskDefined(LOCATION_TASK_NAME)
 		if (!isTaskDefined) {
-			console.log('Task is not defined')
+			console.log('TODO: Task is not defined')
 			return
 		}
 
 		// Don't track if it is already running in background
 		const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
 		if (hasStarted) {
-			console.log('Already started')
+			console.log('TODO:Already started')
 			return
 		}
 
@@ -106,7 +167,7 @@ const DevelopmentScreen = () => {
 		const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
 		if (hasStarted) {
 			await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME)
-			console.log('Location tacking stopped')
+			console.log('TODO:Location tacking stopped')
 		}
 	}
 
@@ -141,40 +202,96 @@ const DevelopmentScreen = () => {
 				<Pressable onPress={onReloadPress}>
 					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
 						<Divider />
-						<Heading variant={'solid'} colorScheme={'tertiary'}>
-							Refresh
-						</Heading>
-						<Divider />
-					</Box>
-				</Pressable>
-				<Pressable onPress={onOpen}>
-					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-						<Divider />
-						<HStack>
-							<Icon />
+						<HStack space={1} alignItems={'center'}>
+							<Icon size={'md'} as={Ionicons} name={'refresh'} />
 							<Heading variant={'solid'} colorScheme={'tertiary'}>
-								Change Theme
+								Refresh
 							</Heading>
 						</HStack>
 						<Divider />
 					</Box>
 				</Pressable>
-
-				<Actionsheet isOpen={isOpen} onClose={onClose}>
-					<Actionsheet.Content w={'full'}>
-						<HStack w={'full'} justifyContent={'space-around'}>
-							<Button bg={'light.300'} w={100}>
-								Light
-							</Button>
-							<Button bg={'dark.300'} w={100}>
-								Dark
-							</Button>
-							<Button bg={colorScheme === 'light' ? 'light.300' : 'dark.300'} w={100}>
-								System
-							</Button>
+				<Pressable onPress={() => handleSnapPress(1)}>
+					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
+						<Divider />
+						<HStack space={1} alignItems={'center'}>
+							<Icon size={'md'} as={Ionicons} name={'color-palette-sharp'} />
+							<Heading variant={'solid'} colorScheme={'tertiary'}>
+								Change theme
+							</Heading>
 						</HStack>
-					</Actionsheet.Content>
-				</Actionsheet>
+						<Divider />
+					</Box>
+				</Pressable>
+				<BottomSheetModal
+					ref={bottomSheetModalRef}
+					snapPoints={snapPoints}
+					onChange={handleSheetChange}
+				>
+					<BottomSheetFlatList
+						data={data}
+						keyExtractor={i => i}
+						numColumns={3}
+						renderItem={renderItem}
+						ListHeaderComponent={() => {
+							return (
+								<HStack px={2} py={4} w={'full'} space={21} justifyContent={'space-around'}>
+									<Button
+										onPress={async () => {
+											// if (colorMode !== 'light') {
+											// 	toggleColorMode()
+											// }
+											await toggleThemes({ newColorScheme: 'light' })
+											// setTheme({
+											// 	colorScheme,
+											// 	rAuthorizationVar,
+											// 	rThemeVar,
+											// 	newColorScheme: 'light',
+											// })
+										}}
+										bg={'light.200'}
+										flex={1}
+									>
+										<Text color={'black'}>Light</Text>
+									</Button>
+									<Button
+										onPress={async () => {
+											// if (colorMode !== 'dark') {
+											// 	toggleColorMode()
+											// }
+											await toggleThemes({ newColorScheme: 'dark' })
+											// setTheme({
+											// 	colorScheme,
+											// 	rAuthorizationVar,
+											// 	rThemeVar,
+											// 	newColorScheme: 'dark',
+											// })
+										}}
+										bg={'dark.100'}
+										flex={1}
+									>
+										<Text color={'white'}>Dark</Text>
+									</Button>
+									<Button
+										onPress={async () => {
+											await toggleThemes({ newColorScheme: 'system' })
+											// setTheme({
+											// 	colorScheme,
+											// 	rAuthorizationVar,
+											// 	rThemeVar,
+											// 	newColorScheme: 'system',
+											// })
+										}}
+										bg={colorScheme === 'light' ? 'light.200' : 'dark.100'}
+										flex={1}
+									>
+										<Text color={colorScheme === 'light' ? 'black' : 'white'}>System</Text>
+									</Button>
+								</HStack>
+							)
+						}}
+					/>
+				</BottomSheetModal>
 
 				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
 					Authentication
