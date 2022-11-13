@@ -8,6 +8,7 @@ import {
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { Text, Icon, Center, IconButton, Box, Image } from 'native-base'
@@ -23,6 +24,7 @@ const EmojimoodScreen = () => {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
@@ -183,7 +185,7 @@ const EmojimoodScreen = () => {
 				}}
 			/>
 			<BlurView
-				tint={'dark'}
+				tint={colorScheme}
 				intensity={20}
 				style={{
 					position: 'absolute',

@@ -10,6 +10,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { ModalNavigatorParamList, SearchAreaStackParamList } from '@types'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, VStack } from 'native-base'
 import { useContext, useEffect } from 'react'
@@ -59,8 +60,8 @@ export type SearchAreaStackRouteProp = RouteProp<ModalNavigatorParamList, 'Searc
 function SearchAreaStackNavigation() {
 	const navigation = useNavigation()
 	const route = useRoute<SearchAreaStackRouteProp>()
+	const colorScheme = useThemeColorScheme()
 	const themeContext = useContext(ThemeContext)
-	const theme = useReactiveVar(ThemeReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const methods = useForm({
@@ -137,7 +138,7 @@ function SearchAreaStackNavigation() {
 						return (
 							<VStack flexDirection={'column-reverse'} alignItems={'center'}>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
 									<View
 										style={[
@@ -166,7 +167,7 @@ function SearchAreaStackNavigation() {
 							return (
 								<VStack flexDirection={'column-reverse'} alignItems={'center'}>
 									{Platform.OS === 'ios' ? (
-										<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
+										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box background={'secondary.50'} style={[StyleSheet.absoluteFill]} />
 									)}

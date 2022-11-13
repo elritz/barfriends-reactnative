@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { ThemeReactiveVar } from '@reactive'
 import { MessageRoomNavigatorParamList } from '@types'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, Heading, HStack, Icon, IconButton, Image } from 'native-base'
 import { useContext } from 'react'
@@ -22,7 +23,7 @@ function MessageRoomNavigator() {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const insets = useSafeAreaInsets()
-	const theme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 	return (
 		<ScreenStack.Navigator
 			screenOptions={{
@@ -49,7 +50,7 @@ function MessageRoomNavigator() {
 								}}
 							>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={theme.colorScheme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
 									<View
 										style={[

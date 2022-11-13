@@ -1,7 +1,5 @@
-import { useReactiveVar } from '@apollo/client'
-import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
-import React from 'react'
 import { StyleSheet, ViewStyle } from 'react-native'
 
 type BottomSheetBackgroundProps = {
@@ -9,14 +7,8 @@ type BottomSheetBackgroundProps = {
 }
 
 const BlurBottomSheetBackground = ({ style }: BottomSheetBackgroundProps) => {
-	const theme = useReactiveVar(ThemeReactiveVar)
-	return (
-		<BlurView
-			style={[StyleSheet.absoluteFill, style]}
-			tint={theme.colorScheme === 'dark' ? 'dark' : 'light'}
-			intensity={100}
-		/>
-	)
+	const colorScheme = useThemeColorScheme()
+	return <BlurView style={[StyleSheet.absoluteFill, style]} tint={colorScheme} intensity={100} />
 }
 
 export default BlurBottomSheetBackground

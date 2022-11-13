@@ -4,6 +4,7 @@ import DevelopmentScreen from '@navigation/screens/hometabs/development/Developm
 import { createStackNavigator } from '@react-navigation/stack'
 import { ThemeReactiveVar } from '@reactive'
 import { DevelopmentStackParamList, PersonalCredentialStackParamList } from '@types'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box } from 'native-base'
 import { VStack } from 'native-base'
@@ -14,7 +15,7 @@ import { ThemeContext } from 'styled-components/native'
 const ScreenStack = createStackNavigator<DevelopmentStackParamList>()
 
 function DevelopmentStack() {
-	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	return (
 		<ScreenStack.Navigator
 			screenOptions={{
@@ -26,7 +27,7 @@ function DevelopmentStack() {
 					return (
 						<VStack height={90} justifyContent={'flex-end'} alignItems={'center'} pb={2}>
 							{Platform.OS === 'ios' ? (
-								<BlurView style={StyleSheet.absoluteFill} tint={themeContext.theme} intensity={80} />
+								<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 							) : (
 								<Box style={[StyleSheet.absoluteFill]} />
 							)}

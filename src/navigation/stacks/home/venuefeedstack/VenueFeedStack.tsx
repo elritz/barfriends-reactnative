@@ -1,19 +1,16 @@
-import { useReactiveVar } from '@apollo/client'
 import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
 import VenueFeedScreen from '@navigation/screens/hometabs/venuesfeed/VenueFeedScreen'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ThemeReactiveVar } from '@reactive'
 import { HomeTabStackParamList } from '@types'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, VStack } from 'native-base'
-import { useContext } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 const ScreenStack = createStackNavigator<HomeTabStackParamList>()
 
 function VenueFeedStack() {
-	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 
 	return (
 		<ScreenStack.Navigator initialRouteName='VenueFeedScreen'>
@@ -29,7 +26,7 @@ function VenueFeedStack() {
 						return (
 							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={themeContext.theme} intensity={80} />
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
 									<Box style={[StyleSheet.absoluteFill]} />
 								)}

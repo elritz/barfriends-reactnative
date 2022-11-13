@@ -14,6 +14,7 @@ import VenueFeedStack from '@navigation/stacks/home/venuefeedstack/VenueFeedStac
 import TonightStack from '@navigation/stacks/tonightstack/TonightStack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { HomeTabNavigatorParamList } from '@types'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { useColorModeValue } from 'native-base'
 import { useContext } from 'react'
@@ -26,6 +27,7 @@ interface IColor {
 }
 
 function HomeTabNavigator() {
+	const colorScheme = useThemeColorScheme()
 	const themeContext = useContext(ThemeContext)
 
 	return (
@@ -35,7 +37,7 @@ function HomeTabNavigator() {
 				tabBarBackground: () => (
 					<>
 						{Platform.OS === 'ios' ? (
-							<BlurView style={StyleSheet.absoluteFill} tint={themeContext.theme} intensity={100} />
+							<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={100} />
 						) : (
 							<View
 								style={[

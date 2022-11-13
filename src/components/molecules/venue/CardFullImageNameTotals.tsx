@@ -1,9 +1,9 @@
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { AspectRatio, Box, Center, Heading, Image } from 'native-base'
-import { useColorScheme } from 'react-native'
 
 export default function CardFullImageNameTotals({ item, index, height, width }) {
-	const colorScheme = useColorScheme()
+	const colorScheme = useThemeColorScheme()
 	return (
 		<Box key={index} alignItems='center'>
 			<Box
@@ -37,7 +37,7 @@ export default function CardFullImageNameTotals({ item, index, height, width }) 
 				</Box>
 				<BlurView
 					style={{ position: 'absolute', bottom: 0, width: '100%' }}
-					tint={colorScheme === 'dark' ? 'dark' : 'light'}
+					tint={colorScheme}
 					intensity={100}
 				>
 					<Heading numberOfLines={2} w={'85%'} my={2} mx={3}>

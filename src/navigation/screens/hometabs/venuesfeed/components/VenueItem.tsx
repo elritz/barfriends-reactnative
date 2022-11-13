@@ -1,5 +1,6 @@
 import { Profile } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Image } from 'native-base'
 import { Box, Heading, Text } from 'native-base'
@@ -21,8 +22,9 @@ type Props = {
 
 const VenueItem = (props: Props) => {
 	const navigation = useNavigation()
-	const [hideBlur, setHideBlur] = useState(false)
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
+	const [hideBlur, setHideBlur] = useState(false)
 
 	useEffect(() => {}, [props.item, props.loading])
 
@@ -100,6 +102,7 @@ const VenueItem = (props: Props) => {
 				> */}
 				<BlurView
 					intensity={60}
+					tint={colorScheme}
 					style={{
 						justifyContent: 'space-around',
 						height: 65,

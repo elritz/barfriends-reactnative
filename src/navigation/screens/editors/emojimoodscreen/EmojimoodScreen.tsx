@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Profile, useEmojimoodsQuery, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { Box, Button, Text } from 'native-base'
@@ -19,6 +20,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 	const window = useWindowDimensions()
 	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const onPressEmojimood = (item: any) => {
 		setValue('emojimood', {
@@ -179,7 +181,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 							}}
 						/>
 						<BlurView
-							tint={'dark'}
+							tint={colorScheme}
 							intensity={20}
 							style={{
 								position: 'absolute',

@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Icon, Box, Input, Text, useTheme, useColorMode } from 'native-base'
 import { useEffect } from 'react'
@@ -18,16 +19,11 @@ import {
 	PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
-import {
-	useKeyboardAnimation,
-	useReanimatedKeyboardAnimation,
-} from 'react-native-keyboard-controller'
-import { KeyboardProvider } from 'react-native-keyboard-controller'
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Animated, {
 	Easing,
 	Extrapolate,
 	interpolate,
-	useAnimatedGestureHandler,
 	useAnimatedRef,
 	useAnimatedScrollHandler,
 	useAnimatedStyle,
@@ -38,7 +34,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function MessageRoom(props) {
 	const data = [...Array(16)]
-	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 	const _nbMode = useColorMode()
 	const insets = useSafeAreaInsets()
 	const _keyboard = useKeyboard()
@@ -46,6 +42,7 @@ export default function MessageRoom(props) {
 	const flatListRef = useAnimatedRef<FlatList>()
 	const positionBottom = useSharedValue(0)
 	const keyboardOffset = useSharedValue(0)
+
 	const INPUT_HEIGHT = 65
 
 	const animatedStyle = useAnimatedStyle(() => {
@@ -175,13 +172,13 @@ export default function MessageRoom(props) {
 				]}
 			> */}
 				<BlurView
+					tint={colorScheme}
 					style={{
 						minWidth: '100%',
 						height: '100%',
 						backgroundColor: 'transparent',
 						paddingVertical: 15,
 					}}
-					tint={_nbMode.colorMode === 'light' ? 'light' : 'dark'}
 				>
 					<Input
 						bg={_nbMode.colorMode === 'light' ? 'light.100' : 'dark.100'}

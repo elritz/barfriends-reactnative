@@ -1,6 +1,5 @@
-import { useReactiveVar } from '@apollo/client'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, Heading, Image } from 'native-base'
 import { useWindowDimensions } from 'react-native'
@@ -12,7 +11,7 @@ type Props = {
 const VenueHeader = (props: Props) => {
 	const HEADER_IMAGE_HEIGHT = 235
 	const { width } = useWindowDimensions()
-	const theme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !props.profileId,
@@ -61,7 +60,7 @@ const VenueHeader = (props: Props) => {
 				}}
 				alt={'Profile Photo'}
 			/>
-			<BlurView tint={theme.colorScheme} intensity={40} style={{ padding: 5 }}>
+			<BlurView tint={colorScheme} intensity={40} style={{ padding: 5 }}>
 				<Heading size={'xl'} numberOfLines={1}>
 					{name}
 				</Heading>
