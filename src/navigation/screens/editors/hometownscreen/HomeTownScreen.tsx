@@ -2,6 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import GenerateCountryData from '@helpers/generate/placeholder/GenerateCountryData'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input } from 'native-base'
 import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -14,8 +15,9 @@ const data = GenerateCountryData()
 const HomeTownScreen = ({}: HomeTownScreenProps) => {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
-	const [search, setSearch] = useState<string>('')
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const colorScheme = useThemeColorScheme()
+	const [search, setSearch] = useState<string>('')
 
 	const handleLocationPermissionNavigation = async () => {
 		navigation.navigate('PermissionNavigator', {
@@ -47,6 +49,7 @@ const HomeTownScreen = ({}: HomeTownScreenProps) => {
 			<Input
 				placeholder='Search...'
 				onChangeText={(text: string) => setSearch(text)}
+				keyboardAppearance={colorScheme}
 				// platform='ios'
 				value={search}
 				style={{

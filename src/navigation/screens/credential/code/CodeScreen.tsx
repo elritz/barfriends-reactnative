@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import Countdown from '@util/hooks/useTimer'
 import { watch } from 'fs'
 import { IconButton, Icon, Box, Text, VStack, KeyboardAvoidingView, Heading } from 'native-base'
@@ -30,20 +31,24 @@ export type CodeScreenRouteProp = RouteProp<
 	'ConfirmationCodeScreen'
 >
 const CodeScreen = () => {
-	const themeContext = useContext(ThemeContext)
+	const inputAccessoryViewID = 'codeAccessoryViewID'
 	const navigation = useNavigation()
 	const route = useRoute<CodeScreenRouteProp>()
 	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const inputAccessoryViewID = 'codeAccessoryViewID'
+	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
+
 	const CELL_COUNT = route.params.code.length
+	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
+
 	const { num, complete } = Countdown(9)
 	const [codeValue, setCodeValue] = useState('')
+
 	const keyboardVerticalOffset =
 		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 
-	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 	const [props, getCellOnLayoutHandler] = useClearByFocusCell({
 		value: codeValue,
 		setValue: setCodeValue,
@@ -137,6 +142,7 @@ const CodeScreen = () => {
 								width: 260,
 							}}
 							keyboardType='number-pad'
+							keyboardAppearance={colorScheme}
 							textContentType='oneTimeCode'
 							inputAccessoryViewID={inputAccessoryViewID}
 							onSubmitEditing={handleSubmit(onSubmit)}

@@ -6828,6 +6828,8 @@ export type Personal_FragmentFragment = { __typename?: 'Personal', id: string, u
 
 export type Profile_FragmentFragment = { __typename: 'Profile', id: string, ProfileType?: ProfileType | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: number, emoji?: string | null, name: string }> } | null, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null, ProfileTheme?: { __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null } | null, Theme: { __typename?: 'Theme', id: string, name: string, mobile: Array<any>, mobileVersions: Array<string>, web: Array<any>, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } } | null } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, venueMetAt?: string | null, status: Array<Status>, createdAt: any, updatedAt: any }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials?: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: number, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: number, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null } | null, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId?: string | null, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: number, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: number, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, Story?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: number, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null };
 
+export type Public_Profile_FragmentFragment = { __typename: 'Profile', id: string, ProfileType?: ProfileType | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: number, emoji?: string | null, name: string }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, venueMetAt?: string | null, status: Array<Status>, createdAt: any, updatedAt: any }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials?: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: number, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: number, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null } | null, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId?: string | null, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: number, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: number, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, Story?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: number, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null };
+
 export type Theme_FragmentFragment = { __typename?: 'Theme', id: string, name: string, mobile: Array<any>, mobileVersions: Array<string>, web: Array<any>, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null };
 
 export type Profile_Theme_FragmentFragment = { __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null } | null, Theme: { __typename?: 'Theme', id: string, name: string, mobile: Array<any>, mobileVersions: Array<string>, web: Array<any>, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } };
@@ -6966,7 +6968,7 @@ export type CurrentVenueQueryVariables = Exact<{
 }>;
 
 
-export type CurrentVenueQuery = { __typename?: 'Query', profile?: { __typename: 'Profile', id: string, ProfileType?: ProfileType | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: number, emoji?: string | null, name: string }> } | null, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null, ProfileTheme?: { __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null } | null, Theme: { __typename?: 'Theme', id: string, name: string, mobile: Array<any>, mobileVersions: Array<string>, web: Array<any>, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } } | null } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, venueMetAt?: string | null, status: Array<Status>, createdAt: any, updatedAt: any }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials?: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: number, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: number, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null } | null, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId?: string | null, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: number, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: number, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, Story?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: number, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null };
+export type CurrentVenueQuery = { __typename?: 'Query', profile?: { __typename: 'Profile', id: string, ProfileType?: ProfileType | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: number, emoji?: string | null, name: string }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, venueMetAt?: string | null, status: Array<Status>, createdAt: any, updatedAt: any }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials?: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: number, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: number, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null } | null, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId?: string | null, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: number, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: number, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, Story?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: number, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null };
 
 export type GetLiveVenueTotalsQueryVariables = Exact<{
   profileIdVenue: Scalars['String'];
@@ -7389,6 +7391,144 @@ export const Personal_FragmentFragmentDoc = gql`
   createdAt
 }
     ${Profile_FragmentFragmentDoc}`;
+export const Public_Profile_FragmentFragmentDoc = gql`
+    fragment PUBLIC_PROFILE_FRAGMENT on Profile {
+  __typename
+  id
+  ProfileType
+  IdentifiableInformation {
+    ...INDETIFIABLE_INFORMATION_FRAGMENT
+  }
+  DetailInformation {
+    ...DETAIL_INFORMATION_FRAGMENT
+  }
+  Relationships {
+    id
+    venueMetAt
+    status
+    createdAt
+    updatedAt
+  }
+  photos {
+    id
+    url
+    type
+    position
+    active
+    ratio
+    blurhash
+    createdAt
+    updatedAt
+  }
+  Credentials {
+    ...CREDENTIALS_FRAGMENT
+  }
+  Personal {
+    id
+    Profile {
+      id
+      createdAt
+      updatedAt
+    }
+    profileId
+    PersonalStats {
+      id
+      joinedVenueHistory {
+        id
+        personalProfileId
+        venueProfileId
+        createdAt
+        updatedAt
+      }
+      totaledVenueHistory {
+        id
+        venueProfileId
+        personalProfileId
+        createdAt
+        updatedAt
+      }
+    }
+    LiveOutPersonal {
+      id
+      joined {
+        id
+        venueProfileId
+        personalProfileId
+      }
+      totaled {
+        id
+        venueProfileId
+        personalProfileId
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+  Venue {
+    id
+    Profile {
+      id
+      createdAt
+      updatedAt
+    }
+    LiveOutVenue {
+      id
+      joined {
+        id
+        venueProfileId
+        personalProfileId
+      }
+      totaled {
+        id
+        venueProfileId
+        personalProfileId
+      }
+    }
+    VenueStats {
+      id
+      joinedVenueHistory {
+        id
+        venueProfileId
+        personalProfileId
+        createdAt
+        updatedAt
+      }
+      totaledVenueHistory {
+        id
+        personalProfileId
+        venueProfileId
+        createdAt
+        updatedAt
+      }
+    }
+    Location {
+      ...LOCATION_FRAGMENT
+    }
+    createdAt
+    updatedAt
+  }
+  Story {
+    id
+    photos {
+      id
+      position
+      url
+    }
+    emojimood {
+      __typename
+      id
+      colors
+      emojiname
+      emoji
+    }
+  }
+}
+    ${Indetifiable_Information_FragmentFragmentDoc}
+${Detail_Information_FragmentFragmentDoc}
+${Credentials_FragmentFragmentDoc}
+${Location_FragmentFragmentDoc}`;
 export const Venue_FragmentFragmentDoc = gql`
     fragment VENUE_FRAGMENT on Venue {
   id
@@ -8046,10 +8186,10 @@ export type RemovePersonalJoinsVenueMutationOptions = Apollo.BaseMutationOptions
 export const CurrentVenueDocument = gql`
     query currentVenue($where: ProfileWhereUniqueInput!) {
   profile(where: $where) {
-    ...PROFILE_FRAGMENT
+    ...PUBLIC_PROFILE_FRAGMENT
   }
 }
-    ${Profile_FragmentFragmentDoc}`;
+    ${Public_Profile_FragmentFragmentDoc}`;
 
 /**
  * __useCurrentVenueQuery__

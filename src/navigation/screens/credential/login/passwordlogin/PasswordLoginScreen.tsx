@@ -8,6 +8,7 @@ import {
 } from '@graphql/generated'
 import { useRoute, useIsFocused, useNavigation, RouteProp } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { LinearGradient } from 'expo-linear-gradient'
 import {
 	Box,
@@ -40,9 +41,10 @@ const PasswordLoginScreen = () => {
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const route = useRoute<PasswordLoginScreenRouteProp>()
-	const passwordRef = useRef(null)
 	const themeContext = useContext(ThemeContext)
 	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
+	const passwordRef = useRef(null)
 
 	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
 
@@ -177,6 +179,7 @@ const PasswordLoginScreen = () => {
 									ref={passwordRef}
 									key='password'
 									value={value}
+									keyboardAppearance={colorScheme}
 									onChangeText={onChange}
 									onSubmitEditing={handleSubmit(onSubmit)}
 									onBlur={onBlur}

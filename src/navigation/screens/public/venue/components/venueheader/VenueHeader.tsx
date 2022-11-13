@@ -41,7 +41,7 @@ const VenueHeader = (props: Props) => {
 	const venueData = data?.profile
 	const name = venueData?.IdentifiableInformation?.fullname
 	const username = venueData?.IdentifiableInformation.username
-
+	console.log(venueData)
 	return (
 		<Box
 			style={{

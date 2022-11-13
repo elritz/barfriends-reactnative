@@ -2,6 +2,7 @@ import { history } from './Message'
 import Message from './data'
 import { Ionicons } from '@expo/vector-icons'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Input, useColorMode, Icon } from 'native-base'
 import { View } from 'react-native'
@@ -17,6 +18,7 @@ type MessageRoomScreenRouteProp = RouteProp<MessageRoomNavigatorParamList, 'Mess
 const MessageRoomAniamted = () => {
 	const navigation = useNavigation()
 	const route = useRoute<MessageRoomScreenRouteProp>()
+	const colorScheme = useThemeColorScheme()
 	const INPUT_CONTAINER_HEIGHT = 80
 	const { bottom } = useSafeAreaInsets()
 	const _nbMode = useColorMode()
@@ -77,6 +79,7 @@ const MessageRoomAniamted = () => {
 							bg: _nbMode.colorMode === 'light' ? 'light.100' : 'dark.100',
 							borderColor: 'transparent',
 						}}
+						keyboardAppearance={colorScheme}
 						onPressIn={() => null}
 						variant={'filled'}
 						size={'2xl'}

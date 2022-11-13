@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client'
-import { PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
+import { PUBLIC_PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
 
 export const CURRENT_VENUE_QUERY = gql`
-	${PROFILE_FRAGMENT}
+	${PUBLIC_PROFILE_FRAGMENT}
 	query currentVenue($where: ProfileWhereUniqueInput!) {
 		profile(where: $where) {
-			...PROFILE_FRAGMENT
+			...PUBLIC_PROFILE_FRAGMENT
 		}
 	}
 `

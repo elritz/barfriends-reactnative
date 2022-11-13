@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Icon, Input, useTheme } from 'native-base'
 
 type Props = {
@@ -6,12 +7,14 @@ type Props = {
 }
 
 const ExploreSearchInputDisabled = (props: Props) => {
+	const colorScheme = useThemeColorScheme()
 	return (
 		<Input
 			variant={'filled'}
 			rounded={'lg'}
 			mx={2}
 			py={4}
+			keyboardAppearance={colorScheme}
 			placeholder='Search'
 			value={''}
 			_input={{

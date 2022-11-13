@@ -6,11 +6,11 @@ import {
 } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useNavigation } from '@react-navigation/native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { KeyboardAvoidingView, Button, IconButton, Icon, Box, Input } from 'native-base'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, InputAccessoryView, Platform } from 'react-native'
-import styled from 'styled-components/native'
 
 export type FormType = {
 	authenticator: string
@@ -21,6 +21,7 @@ export default function AuthenticatorScreen() {
 	const inputAccessoryViewID = 'phonenumberAccessoryID'
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
+	const colorScheme = useThemeColorScheme()
 	const [keyboardType, setKeyboardType] = useState('number-pad')
 	const [focusKeyboard, setFocusKeybaord] = useState(false)
 	const keyboardVerticalOffset =
@@ -175,6 +176,7 @@ export default function AuthenticatorScreen() {
 						<Input
 							// ref={inputRef}
 							key='authenticator'
+							keyboardAppearance={colorScheme}
 							variant={'underlined'}
 							returnKeyType='done'
 							textContentType='telephoneNumber'

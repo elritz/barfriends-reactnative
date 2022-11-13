@@ -2,18 +2,19 @@ import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { SearchReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input, Icon, IInputProps } from 'native-base'
-import React, { useContext } from 'react'
+import { useRef, useContext, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const ExploreSearchInput = () => {
-	const _searchInputRef = React.useRef<IInputProps>(null)
+	const _searchInputRef = useRef<IInputProps>(null)
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
-	const inset = useSafeAreaInsets()
-	const [isSearch, setIsSearch] = React.useState(false)
+	const [isSearch, setIsSearch] = useState(false)
+	const colorScheme = useThemeColorScheme()
 	const rSearch = useReactiveVar(SearchReactiveVar)
 
 	const changeSearchText = (text: string) => {
@@ -51,6 +52,7 @@ const ExploreSearchInput = () => {
 				value={rSearch.searchText}
 				onChangeText={text => changeSearchText(text)}
 				returnKeyType='search'
+				keyboardAppearance={colorScheme}
 				onSubmitEditing={() => {
 					navigation.navigate('HomeTabNavigator', {
 						screen: 'ExploreStack',

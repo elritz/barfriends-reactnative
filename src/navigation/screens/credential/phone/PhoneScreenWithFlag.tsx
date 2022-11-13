@@ -6,6 +6,7 @@ import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
 import {
 	Box,
@@ -17,10 +18,9 @@ import {
 	Icon,
 	useTheme,
 } from 'native-base'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, InteractionManager, Platform, TextInput, View } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 export type FormType = {
 	countrySelector: CountrySelector
@@ -39,7 +39,7 @@ const PhoneScreen = () => {
 	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
-	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const keyboardVerticalOffset =
@@ -260,6 +260,7 @@ const PhoneScreen = () => {
 								ref={phonenumberRef}
 								key='mobileNumber.completeNumber'
 								value={value}
+								keyboardAppearance={colorScheme}
 								onChangeText={value => onChange(value)}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}

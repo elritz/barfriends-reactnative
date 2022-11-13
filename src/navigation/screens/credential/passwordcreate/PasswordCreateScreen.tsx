@@ -2,16 +2,16 @@ import { useReactiveVar } from '@apollo/client'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Button, Icon, Text, Box, Input, KeyboardAvoidingView, useTheme } from 'native-base'
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 const PasswordCreateScreen = () => {
 	const passwordRef = useRef(null)
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const inputAccessoryViewID = '34333mnk21323w22sd2222222222fnkn3ij42kkkl22'
@@ -107,6 +107,7 @@ const PasswordCreateScreen = () => {
 								<Input
 									ref={passwordRef}
 									key='password'
+									keyboardAppearance={colorScheme}
 									value={value}
 									secureTextEntry
 									onChangeText={value => onChange(value)}

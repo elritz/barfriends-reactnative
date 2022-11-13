@@ -5,6 +5,7 @@ import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
 import React, { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -12,11 +13,12 @@ import { InputAccessoryView, Platform, View, TextInput, InteractionManager } fro
 import styled, { ThemeContext } from 'styled-components/native'
 
 const EmailScreen = () => {
+	const navigation = useNavigation()
+	const headerHeight = useHeaderHeight()
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
-	const headerHeight = useHeaderHeight()
-	const navigation = useNavigation()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
 	const inputAccessoryViewID = 'uniqueID2'
@@ -121,25 +123,24 @@ const EmailScreen = () => {
 					name='email'
 					control={control}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<TextInput
+						<Input
 							ref={emailRef}
 							key={'email'}
+							isFocused={isFocused}
+							variant={'underlined'}
 							autoFocus
 							returnKeyType='done'
 							autoComplete='email'
 							autoCapitalize='none'
 							keyboardType='email-address'
+							keyboardAppearance={colorScheme}
 							numberOfLines={1}
 							placeholder='Email'
 							inputAccessoryViewID={inputAccessoryViewID}
-							style={{
-								fontSize: 25,
-								lineHeight: 35,
-								paddingBottom: 10,
-								fontWeight: '500',
-								color: themeContext.palette.primary.color.default,
-								borderBottomColor: themeContext.palette.primary.background.accent,
-								borderBottomWidth: 1,
+							py={4}
+							_input={{
+								fontSize: '2xl',
+								fontWeight: 'medium',
 							}}
 							blurOnSubmit={false}
 							onSubmitEditing={handleSubmit(onSubmit)}
@@ -147,6 +148,33 @@ const EmailScreen = () => {
 							value={value.toLowerCase()}
 							onChangeText={onChange}
 						/>
+						// <TextInput
+						// 	ref={emailRef}
+						// 	key={'email'}
+						// 	autoFocus
+						// 	returnKeyType='done'
+						// 	autoComplete='email'
+						// 	autoCapitalize='none'
+						// 	keyboardType='email-address'
+						// 	numberOfLines={1}
+						// 	placeholder='Email'
+						// 	keyboardAppearance={colorScheme}
+						// 	inputAccessoryViewID={inputAccessoryViewID}
+						// 	style={{
+						// 		fontSize: 25,
+						// 		lineHeight: 35,
+						// 		paddingBottom: 10,
+						// 		fontWeight: '500',
+						// 		color: themeContext.palette.primary.color.default,
+						// 		borderBottomColor: themeContext.palette.primary.background.accent,
+						// 		borderBottomWidth: 1,
+						// 	}}
+						// 	blurOnSubmit={false}
+						// 	onSubmitEditing={handleSubmit(onSubmit)}
+						// 	onBlur={onBlur}
+						// 	value={value.toLowerCase()}
+						// 	onChangeText={onChange}
+						// />
 					)}
 					rules={{
 						required: {

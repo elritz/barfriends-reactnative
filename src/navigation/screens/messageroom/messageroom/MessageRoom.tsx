@@ -12,12 +12,6 @@ import {
 	Platform,
 	KeyboardAvoidingView,
 } from 'react-native'
-import {
-	Gesture,
-	GestureDetector,
-	PanGestureHandler,
-	PanGestureHandlerGestureEvent,
-} from 'react-native-gesture-handler'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Animated, {
@@ -186,6 +180,7 @@ export default function MessageRoom(props) {
 							bg: _nbMode.colorMode === 'light' ? 'light.100' : 'dark.100',
 							borderColor: 'transparent',
 						}}
+						keyboardAppearance={colorScheme}
 						onPressIn={handlePressIn}
 						variant={'filled'}
 						size={'2xl'}

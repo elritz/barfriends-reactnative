@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input, KeyboardAvoidingView, Text } from 'native-base'
 import { Heading, Button, Box } from 'native-base'
 import { useContext } from 'react'
@@ -12,6 +13,7 @@ import { ThemeContext } from 'styled-components/native'
 const NamesScreen = () => {
 	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const {
 		control,
@@ -130,6 +132,7 @@ const NamesScreen = () => {
 							</Heading>
 							<Input
 								onBlur={onBlur}
+								keyboardAppearance={colorScheme}
 								onChangeText={onChange}
 								value={value}
 								isDisabled={UOPLoading}
@@ -188,6 +191,7 @@ const NamesScreen = () => {
 								value={value}
 								blurOnSubmit={false}
 								isDisabled={UOPLoading}
+								keyboardAppearance={colorScheme}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								textContentType='nickname'
 								placeholder='Nickname'

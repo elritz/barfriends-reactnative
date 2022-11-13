@@ -1,10 +1,8 @@
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input, Icon } from 'native-base'
-import { useContext } from 'react'
 import { useController, UseControllerProps, useFormContext } from 'react-hook-form'
 import { TextInputProps as RNTextInputProps } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 export interface TextInputProps extends RNTextInputProps, UseControllerProps {
 	label: string
@@ -12,12 +10,8 @@ export interface TextInputProps extends RNTextInputProps, UseControllerProps {
 }
 
 const ControlledInput = (props: TextInputProps) => {
-	const themeContext = useContext(ThemeContext)
-	const navigation = useNavigation()
-	const { watch, reset } = useFormContext()
-
+	const colorScheme = useThemeColorScheme()
 	const { name, label, rules, defaultValue, ...inputProps } = props
-
 	const { field } = useController({ name, rules, defaultValue })
 
 	return (
@@ -25,6 +19,7 @@ const ControlledInput = (props: TextInputProps) => {
 			placeholder={props.placeholder}
 			autoFocus
 			onChangeText={field.onChange}
+			keyboardAppearance={colorScheme}
 			// onClear={() => field.onChange}
 			onBlur={field.onBlur}
 			value={field.value}

@@ -5,6 +5,7 @@ import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { CountryCode } from 'libphonenumber-js'
 import { Input, Text, Icon, IconButton, KeyboardAvoidingView, Box, Heading } from 'native-base'
 import { useContext, useEffect, useRef } from 'react'
@@ -27,10 +28,11 @@ export type CountrySelector = {
 
 const PhoneScreen = () => {
 	const inputAccessoryViewID = 'phonenumberAccessoryID2122'
+	const navigation = useNavigation()
 	const phonenumberRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
-	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
+	const colorScheme = useThemeColorScheme()
 	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
@@ -117,18 +119,18 @@ const PhoneScreen = () => {
 		setValue('countrySelector', { countryCode: 'CA', countryCallingCode: '+1' })
 	}, [])
 
-	// useEffect(() => {
-	// 	if (isFocused && phonenumberRef.current) {
-	// 		InteractionManager.runAfterInteractions(() => {
-	// 			phonenumberRef.current?.focus()
-	// 		})
-	// 	}
-	// 	if (!isFocused) {
-	// 		InteractionManager.runAfterInteractions(() => {
-	// 			phonenumberRef.current?.blur()
-	// 		})
-	// 	}
-	// }, [isFocused])
+	useEffect(() => {
+		if (isFocused && phonenumberRef.current) {
+			InteractionManager.runAfterInteractions(() => {
+				phonenumberRef.current?.focus()
+			})
+		}
+		if (!isFocused) {
+			InteractionManager.runAfterInteractions(() => {
+				phonenumberRef.current?.blur()
+			})
+		}
+	}, [isFocused])
 
 	return (
 		<KeyboardAvoidingView
@@ -149,27 +151,24 @@ const PhoneScreen = () => {
 					name='mobileNumber.completeNumber'
 					control={control}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<TextInput
-							autoFocus
-							// ref={phonenumberRef}
+						<Input
+							ref={phonenumberRef}
 							key={'mobileNumber.completeNumber'}
+							isFocused={isFocused}
+							variant={'underlined'}
 							returnKeyType='done'
 							textContentType='telephoneNumber'
 							autoComplete='tel'
 							keyboardType='phone-pad'
 							numberOfLines={1}
 							placeholder='Mobile Number'
+							keyboardAppearance={colorScheme}
 							inputAccessoryViewID={inputAccessoryViewID}
-							style={{
-								fontSize: 25,
-								lineHeight: 35,
-								paddingBottom: 10,
-								fontWeight: '500',
-								color: themeContext.palette.primary.color.default,
-								borderBottomColor: themeContext.palette.primary.background.accent,
-								borderBottomWidth: 1,
+							py={4}
+							_input={{
+								fontSize: '2xl',
+								fontWeight: 'medium',
 							}}
-							blurOnSubmit={false}
 							onSubmitEditing={handleSubmit(onSubmit)}
 							onBlur={onBlur}
 							onChangeText={value => {
@@ -178,11 +177,10 @@ const PhoneScreen = () => {
 								setValue('mobileNumber.number', replaced)
 							}}
 						/>
-						// <Input
+						// <TextInput
+						// 	autoFocus
 						// 	ref={phonenumberRef}
 						// 	key={'mobileNumber.completeNumber'}
-						// 	autoFocus
-						// 	variant={'underlined'}
 						// 	returnKeyType='done'
 						// 	textContentType='telephoneNumber'
 						// 	autoComplete='tel'
@@ -190,11 +188,16 @@ const PhoneScreen = () => {
 						// 	numberOfLines={1}
 						// 	placeholder='Mobile Number'
 						// 	inputAccessoryViewID={inputAccessoryViewID}
-						// 	py={4}
-						// 	_input={{
-						// 		fontSize: '2xl',
-						// 		fontWeight: 'medium',
+						// 	style={{
+						// 		fontSize: 25,
+						// 		lineHeight: 35,
+						// 		paddingBottom: 10,
+						// 		fontWeight: '500',
+						// 		color: themeContext.palette.primary.color.default,
+						// 		borderBottomColor: themeContext.palette.primary.background.accent,
+						// 		borderBottomWidth: 1,
 						// 	}}
+						// 	blurOnSubmit={false}
 						// 	onSubmitEditing={handleSubmit(onSubmit)}
 						// 	onBlur={onBlur}
 						// 	onChangeText={value => {

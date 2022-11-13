@@ -1,3 +1,4 @@
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input } from 'native-base'
 import { useContext, useState } from 'react'
 import { View } from 'react-native'
@@ -7,6 +8,7 @@ interface CurrentPlacceScreenProps {}
 
 const CurrentPlacceScreen = ({}: CurrentPlacceScreenProps) => {
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const [search, setSearch] = useState<string>('')
 
 	return (
@@ -15,6 +17,7 @@ const CurrentPlacceScreen = ({}: CurrentPlacceScreenProps) => {
 				placeholder='Search...'
 				onChangeText={(text: string) => setSearch(text)}
 				value={search}
+				keyboardAppearance={colorScheme}
 				style={{
 					backgroundColor: 'transparent',
 					width: '95%',

@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Profile, useCheckUsernameLazyQuery, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input } from 'native-base'
 import { Box, Button, Heading, KeyboardAvoidingView, Text } from 'native-base'
 import { useContext } from 'react'
@@ -12,6 +13,7 @@ import { ThemeContext } from 'styled-components/native'
 const UsernameScreen = () => {
 	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const {
 		control,
@@ -140,6 +142,7 @@ const UsernameScreen = () => {
 							<Input
 								key='username'
 								value={value}
+								keyboardAppearance={colorScheme}
 								secureTextEntry
 								onChangeText={value => onChange(value)}
 								onSubmitEditing={handleSubmit(onSubmit)}

@@ -3,6 +3,7 @@ import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Button, Input, useTheme } from 'native-base'
 import { Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
 import { useContext, useRef } from 'react'
@@ -16,6 +17,7 @@ const UsernameScreen = () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const usernameTextInputRef = useRef(null)
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 
 	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
@@ -117,6 +119,7 @@ const UsernameScreen = () => {
 							value={value}
 							key='username'
 							placeholder='Username'
+							keyboardAppearance={colorScheme}
 							onChange={value => onChange(value)}
 							onSubmitEditing={handleSubmit(onSubmit)}
 							onBlur={onBlur}

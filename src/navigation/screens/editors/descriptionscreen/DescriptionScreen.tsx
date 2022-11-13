@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, Button, Input, KeyboardAvoidingView, Text } from 'native-base'
 import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
@@ -13,6 +14,7 @@ const DESCRIPTION_LENGTH = 250
 
 const DescriptionScreen = () => {
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const {
@@ -120,6 +122,7 @@ const DescriptionScreen = () => {
 							<Input
 								multiline={true}
 								maxLength={DESCRIPTION_LENGTH}
+								keyboardAppearance={colorScheme}
 								onBlur={onBlur}
 								onChange={onChange}
 								value={value}

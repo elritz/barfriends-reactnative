@@ -6,6 +6,7 @@ import {
 	useNavigation,
 	useRoute,
 } from '@react-navigation/native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
 import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -16,6 +17,7 @@ export type SearchTextScreenRouteProp = RouteProp<ExploreFilterTabParamList, 'Se
 const SearchTextScreenInput = () => {
 	const navigation = useNavigation()
 	const route = useRoute<SearchTextScreenRouteProp>()
+	const colorScheme = useThemeColorScheme()
 
 	const {
 		control,
@@ -80,6 +82,7 @@ const SearchTextScreenInput = () => {
 						rounded={'lg'}
 						mx={2}
 						py={4}
+						keyboardAppearance={colorScheme}
 						_input={{
 							fontSize: 'lg',
 						}}

@@ -21,6 +21,7 @@ const genderlist = [
 
 const GenderScreen = ({}: GenderScreenProps) => {
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const [
@@ -137,6 +138,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 								onBlur={onBlur}
 								onChangeText={onChange}
 								value={value}
+								keyboardAppearance={colorScheme}
 								blurOnSubmit={false}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								autoFocus

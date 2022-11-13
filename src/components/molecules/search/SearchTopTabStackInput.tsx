@@ -6,13 +6,13 @@ import {
 	useNavigation,
 	useRoute,
 } from '@react-navigation/native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, HStack, Icon, Input } from 'native-base'
-import React, { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard, View, TextInput } from 'react-native'
+import { Keyboard, TextInput } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ExploreFilterTabParamList } from 'src/types/app'
-import { ThemeContext } from 'styled-components/native'
 
 export type ExploreFilterTabSearchResultRouteProp = RouteProp<
 	ExploreFilterTabParamList,
@@ -22,7 +22,7 @@ export type ExploreFilterTabSearchResultRouteProp = RouteProp<
 const SearchTopTabStackInput = () => {
 	const _searchInputRef = useRef<TextInput>(null)
 	const inset = useSafeAreaInsets()
-	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const navigation = useNavigation()
 	const route = useRoute<ExploreFilterTabSearchResultRouteProp>()
 	const params = route.params
@@ -113,6 +113,7 @@ const SearchTopTabStackInput = () => {
 							rounded={'lg'}
 							mx={2}
 							py={4}
+							keyboardAppearance={colorScheme}
 							bg={'secondary.50'}
 							ref={_searchInputRef}
 							placeholder='Search'

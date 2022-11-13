@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import {
 	Box,
 	Input,
@@ -14,16 +15,15 @@ import {
 	IInputProps,
 	useTheme,
 } from 'native-base'
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 const NameScreen = () => {
 	const isFocused = useIsFocused()
 	const headerHeight = useHeaderHeight()
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const nameRef = useRef<IInputProps | null>(null)
@@ -83,6 +83,7 @@ const NameScreen = () => {
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
 								ref={nameRef}
+								keyboardAppearance={colorScheme}
 								key={'name'}
 								variant={'underlined'}
 								returnKeyType='done'
