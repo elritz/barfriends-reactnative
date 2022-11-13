@@ -50,8 +50,6 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 	const [loading, setLoading] = React.useState(false)
 	const rMapBottomSheet = useReactiveVar(MapBottomSheetRefVar)
 
-	const handleSheetChanges = useCallback((index: number) => {}, [])
-
 	React.useEffect(() => {
 		if (rMap.reverseGeocoded) {
 			setLoading(false)
@@ -78,7 +76,6 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 				Platform.OS === 'ios' ? BlurBottomSheetBackground : FadeBottomSheetBackground
 			}
 			snapPoints={snapPoints}
-			onChange={handleSheetChanges}
 			bottomInset={90}
 			keyboardBehavior='fillParent'
 		>
@@ -91,12 +88,11 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 				>
 					<Text
 						numberOfLines={1}
-						h3
-						h3Style={{
+						style={{
 							textTransform: 'uppercase',
 							fontWeight: '800',
-							paddingHorizontal: '2%',
 						}}
+						px={'2%'}
 					>
 						{rMap.reverseGeocoded.city}
 					</Text>

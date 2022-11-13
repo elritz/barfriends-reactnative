@@ -1,13 +1,14 @@
 import { DefaultTheme } from '@react-navigation/native'
-import { IBFSTheme } from '@reactive'
-import { extendTheme, useColorMode } from 'native-base'
+import { AuthorizationReactiveVar, IBFSTheme } from '@reactive'
+import { extendTheme } from 'native-base'
 
 type Props = {
 	themeScheme: 'light' | 'dark'
-	theme: any
 }
 
-const createTheme = ({ theme, themeScheme }: Props): IBFSTheme => {
+const createTheme = ({ themeScheme }: Props): IBFSTheme => {
+	const theme =
+		AuthorizationReactiveVar().DeviceProfile.Profile.ThemeManager.ProfileTheme.Theme.mobile[0]
 	const rnColors = () => {
 		const rn = themeScheme === 'dark' ? theme.dark.rn.colors : theme.light.rn.colors
 		return rn

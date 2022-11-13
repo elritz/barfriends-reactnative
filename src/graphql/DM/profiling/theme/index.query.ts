@@ -1,19 +1,14 @@
 import { gql } from '@apollo/client'
+import { THEME_FRAGMENT } from '@graphql/DM/fragments/theme.fragments'
 
-// export const GET_THEME = gql`
-//   query GetTheme($where: ThemeWhereUniqueInput!) {
-//     theme(where: $where) {
-//       id
-//       name
-//       text
-//       tint
-//       background
-//       tabBar
-//       tabIconSelected
-//       tabIconDefault
-//     }
-//   }
-// `;
+export const GET_THEME = gql`
+	${THEME_FRAGMENT}
+	query getAllThemes {
+		getAllThemes {
+			...THEME_FRAGMENT
+		}
+	}
+`
 
 // export const GET_THEMES = gql`
 //   query GetThemes(

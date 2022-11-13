@@ -6,26 +6,44 @@ import {
 } from '@constants/StorageConstants'
 import { LOCATION_TASK_NAME, GEOFENCING_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import BottomSheet, { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
-import { setTheme, useToggleTheme } from '@navigation/navigators/Navigator'
+import { Ionicons } from '@expo/vector-icons'
+import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
+import {
+	Profile,
+	ProfileTheme,
+	useGetAllThemesQuery,
+	useProfileLazyQuery,
+	useUpdateOneProfileMutation,
+	useUpdateThemeManagerSwitchThemeMutation,
+} from '@graphql/generated'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	AuthorizationReactiveVar,
 	searchAreaInitialState,
 	SearchAreaReactiveVar,
 	ThemeColorScheme,
-	ThemeInterface,
 	ThemeReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
+import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
-import { Box, Heading, HStack, Icon, useColorMode, useDisclose } from 'native-base'
-import { ScrollView, Button, Text, Divider, VStack, Pressable } from 'native-base'
+import {
+	Box,
+	Heading,
+	HStack,
+	Icon,
+	ScrollView,
+	Button,
+	Text,
+	Divider,
+	VStack,
+	Pressable,
+	Stack,
+} from 'native-base'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Platform, Linking, useColorScheme } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -36,56 +54,234 @@ let foregroundSubscription = null
 
 const DevelopmentScreen = () => {
 	const insets = useSafeAreaInsets()
+	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 	const colorScheme = useColorScheme()
-	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const { toggleColorMode, colorMode } = useColorMode()
-	const [theme, toggleThemes] = useToggleTheme()
+	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
+	const [toggleThemes] = useToggleTheme()
 
-	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
+
+	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
+		variables: {
+			where: {
+				id: rAuthorizationVar.DeviceProfile.Profile?.id,
+			},
+		},
+		onCompleted: async data => {
+			if (data.profile) {
+				const profile = data.profile as Profile
+				AuthorizationReactiveVar({
+					...rAuthorizationVar,
+					DeviceProfile: {
+						...rAuthorizationVar.DeviceProfile,
+						Profile: profile,
+					},
+				})
+				await toggleThemes({ colorScheme: rThemeVar.colorScheme })
+			}
+		},
+	})
+
+	const [updateThemeManagerSwitchTheme, { data: UTMSData, loading: UTMSLoading, error: UTMSError }] =
+		useUpdateThemeManagerSwitchThemeMutation({
+			onCompleted: async data => {
+				profileQuery()
+			},
+		})
 
 	// variables
-	const data = useMemo(
-		() =>
-			Array(50)
-				.fill(0)
-				.map((_, index) => `index-${index}`),
-		[],
-	)
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
 
-	// callbacks
-	const handleSheetChange = useCallback(index => {
-		console.log('handleSheetChange', index)
-	}, [])
-
 	const handleSnapPress = useCallback(index => {
-		console.log('handleSheetChange', index)
 		bottomSheetModalRef.current.present()
 		bottomSheetModalRef.current?.snapToIndex(index)
 	}, [])
 
-	const handleClosePress = useCallback(() => {
-		bottomSheetModalRef.current?.close()
-	}, [])
-
 	// render
-	const renderItem = useCallback(
-		({ item }) => (
+	const renderItem = useCallback(({ item }) => {
+		const company = {
+			dark: [
+				item.mobile[0].dark.styled.palette.company.primary,
+				item.mobile[0].dark.styled.palette.company.secondary,
+				item.mobile[0].dark.styled.palette.company.tertiary,
+			],
+			light: [
+				item.mobile[0].light.styled.palette.company.primary,
+				item.mobile[0].light.styled.palette.company.secondary,
+				item.mobile[0].light.styled.palette.company.tertiary,
+			],
+		}
+		const styled = {
+			dark: [
+				item.mobile[0].dark.styled.palette.primary.background.default,
+				item.mobile[0].dark.styled.palette.secondary.background.default,
+				item.mobile[0].dark.styled.palette.tertiary.background.default,
+				item.mobile[0].dark.styled.palette.quaternary.background.default,
+			],
+			light: [
+				item.mobile[0].light.styled.palette.primary.background.default,
+				item.mobile[0].light.styled.palette.secondary.background.default,
+				item.mobile[0].light.styled.palette.tertiary.background.default,
+				item.mobile[0].light.styled.palette.quaternary.background.default,
+			],
+		}
+		const bfs = {
+			dark: [
+				item.mobile[0].dark.styled.palette.bfscompany.primary,
+				item.mobile[0].dark.styled.palette.bfscompany.secondary,
+				item.mobile[0].dark.styled.palette.bfscompany.tertiary,
+			],
+			light: [
+				item.mobile[0].light.styled.palette.bfscompany.primary,
+				item.mobile[0].light.styled.palette.bfscompany.secondary,
+				item.mobile[0].light.styled.palette.bfscompany.tertiary,
+			],
+		}
+
+		return (
 			<Box
+				key={item.id}
+				m={3}
+				bg={'gray.400'}
 				style={{
 					flex: 1,
-					padding: 6,
-					margin: 6,
-					backgroundColor: '#eee',
 				}}
+				py={4}
+				px={1}
+				borderRadius={'lg'}
+				borderWidth={2}
+				borderColor={
+					AuthorizationReactiveVar().DeviceProfile.Profile.ThemeManager.ProfileTheme.Theme.id === item.id
+						? 'primary.400'
+						: 'transparent'
+				}
 			>
-				<Text>{item}</Text>
+				<Pressable
+					onPress={async () => {
+						updateThemeManagerSwitchTheme({
+							variables: {
+								id: rAuthorizationVar.DeviceProfile.Profile.ThemeManager.id,
+								themeId: item.id,
+							},
+						})
+					}}
+				>
+					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
+						{rThemeVar.colorScheme === 'light' ? (
+							<>
+								{bfs.light.map(item => {
+									return (
+										<Box
+											alignSelf={'center'}
+											style={{
+												backgroundColor: item,
+												width: 30,
+												height: 30,
+											}}
+											m={2}
+										/>
+									)
+								})}
+							</>
+						) : (
+							<>
+								{bfs.dark.map(item => {
+									return (
+										<Box
+											alignSelf={'center'}
+											style={{
+												backgroundColor: item,
+												width: 30,
+												height: 30,
+											}}
+											m={2}
+										/>
+									)
+								})}
+							</>
+						)}
+					</Stack>
+					<Divider />
+					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
+						{rThemeVar.colorScheme === 'light' ? (
+							<>
+								{styled.light.map(item => {
+									return (
+										<Box
+											alignSelf={'center'}
+											style={{
+												backgroundColor: item,
+												width: 30,
+												height: 30,
+											}}
+											m={2}
+										/>
+									)
+								})}
+							</>
+						) : (
+							<>
+								{styled.dark.map(item => {
+									return (
+										<Box
+											alignSelf={'center'}
+											style={{
+												backgroundColor: item,
+												width: 30,
+												height: 30,
+											}}
+											m={2}
+										/>
+									)
+								})}
+							</>
+						)}
+					</Stack>
+					<Divider />
+					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
+						{rThemeVar.colorScheme === 'light' ? (
+							<>
+								{company.light.map(item => {
+									return (
+										<Box
+											alignSelf={'center'}
+											style={{
+												backgroundColor: item,
+												width: 30,
+												height: 30,
+											}}
+											m={2}
+										/>
+									)
+								})}
+							</>
+						) : (
+							<>
+								{company.dark.map(item => {
+									return (
+										<Box
+											alignSelf={'center'}
+											style={{
+												backgroundColor: item,
+												width: 30,
+												height: 30,
+											}}
+											m={2}
+										/>
+									)
+								})}
+							</>
+						)}
+					</Stack>
+					<Text fontWeight={'medium'} textTransform={'capitalize'} textAlign={'center'} fontSize={'xl'}>
+						{item.name}
+					</Text>
+				</Pressable>
 			</Box>
-		),
-		[],
-	)
+		)
+	}, [])
 
 	const ITEM_HEIGHT = 50
 	const handleOpenPhoneSettings = async () => {
@@ -179,6 +375,8 @@ const DevelopmentScreen = () => {
 		}
 	}, [])
 
+	if (GATLoading) return null
+
 	return (
 		<Box flex={1} mx={3}>
 			<Box my={5}>
@@ -203,7 +401,7 @@ const DevelopmentScreen = () => {
 					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
 						<Divider />
 						<HStack space={1} alignItems={'center'}>
-							<Icon size={'md'} as={Ionicons} name={'refresh'} />
+							<Icon size={'lg'} as={Ionicons} name={'refresh'} />
 							<Heading variant={'solid'} colorScheme={'tertiary'}>
 								Refresh
 							</Heading>
@@ -215,7 +413,7 @@ const DevelopmentScreen = () => {
 					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
 						<Divider />
 						<HStack space={1} alignItems={'center'}>
-							<Icon size={'md'} as={Ionicons} name={'color-palette-sharp'} />
+							<Icon size={'lg'} as={Ionicons} name={'color-palette-sharp'} />
 							<Heading variant={'solid'} colorScheme={'tertiary'}>
 								Change theme
 							</Heading>
@@ -226,10 +424,12 @@ const DevelopmentScreen = () => {
 				<BottomSheetModal
 					ref={bottomSheetModalRef}
 					snapPoints={snapPoints}
-					onChange={handleSheetChange}
+					backgroundStyle={{
+						backgroundColor: rThemeVar.colorScheme === 'dark' ? 'black' : 'white',
+					}}
 				>
 					<BottomSheetFlatList
-						data={data}
+						data={GATData.getAllThemes}
 						keyExtractor={i => i}
 						numColumns={3}
 						renderItem={renderItem}
@@ -238,52 +438,34 @@ const DevelopmentScreen = () => {
 								<HStack px={2} py={4} w={'full'} space={21} justifyContent={'space-around'}>
 									<Button
 										onPress={async () => {
-											// if (colorMode !== 'light') {
-											// 	toggleColorMode()
-											// }
-											await toggleThemes({ newColorScheme: 'light' })
-											// setTheme({
-											// 	colorScheme,
-											// 	rAuthorizationVar,
-											// 	rThemeVar,
-											// 	newColorScheme: 'light',
-											// })
+											await toggleThemes({ colorScheme: 'light' })
 										}}
 										bg={'light.200'}
 										flex={1}
+										borderColor={rThemeVar.colorScheme === 'light' && 'primary.300'}
+										borderWidth={2}
 									>
 										<Text color={'black'}>Light</Text>
 									</Button>
 									<Button
 										onPress={async () => {
-											// if (colorMode !== 'dark') {
-											// 	toggleColorMode()
-											// }
-											await toggleThemes({ newColorScheme: 'dark' })
-											// setTheme({
-											// 	colorScheme,
-											// 	rAuthorizationVar,
-											// 	rThemeVar,
-											// 	newColorScheme: 'dark',
-											// })
+											await toggleThemes({ colorScheme: 'dark' })
 										}}
 										bg={'dark.100'}
 										flex={1}
+										borderColor={rThemeVar.colorScheme === 'dark' && 'primary.300'}
+										borderWidth={2}
 									>
 										<Text color={'white'}>Dark</Text>
 									</Button>
 									<Button
 										onPress={async () => {
-											await toggleThemes({ newColorScheme: 'system' })
-											// setTheme({
-											// 	colorScheme,
-											// 	rAuthorizationVar,
-											// 	rThemeVar,
-											// 	newColorScheme: 'system',
-											// })
+											await toggleThemes({ colorScheme: 'system' })
 										}}
 										bg={colorScheme === 'light' ? 'light.200' : 'dark.100'}
 										flex={1}
+										borderColor={rThemeVar.colorScheme === 'system' && 'primary.300'}
+										borderWidth={2}
 									>
 										<Text color={colorScheme === 'light' ? 'black' : 'white'}>System</Text>
 									</Button>

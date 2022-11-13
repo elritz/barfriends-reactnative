@@ -1356,7 +1356,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "061ba054-7137-4a00-bbc8-7b977f49343d"
+  sessiontoken: String = "81dfcb89-3c7c-4e80-b8af-532fea73167f"
   textinput: String!
 
   """
@@ -2874,6 +2874,7 @@ type Mutation {
   createGuestProfile: CreateProfileResponseUnion
   createOneDevice(data: DeviceCreateInput!): Device!
   createOneEmojimood(data: EmojimoodCreateInput!): Emojimood!
+  createOneProfileTheme(data: ProfileThemeCreateInput!): ProfileTheme!
   createPersonalProfile(data: CreatePersonalProfileDataInput): CreateProfileResponseUnion
   refreshDeviceManager: RefreshDeviceManagerResponseUnion
   removeDeviceProfileFromDeviceManager(profileId: String!): Boolean
@@ -2887,6 +2888,7 @@ type Mutation {
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateWithoutProfileInput!, where: IdentifiableInformationWhereUniqueInput!): UpdateProfileResponse
   updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean
   updateStoryPhotos(disconnectId: String!, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Boolean
+  updateThemeManagerSwitchTheme(id: String!, themeId: String!): ProfileTheme
   upsertTonightPathOrPath(latitude: Float!, longitude: Float!, profileIdPersonal: String!, tonightPathId: String): Boolean
 }
 
@@ -4070,6 +4072,12 @@ input ProfileCreateNestedOneWithoutStoryInput {
   create: ProfileCreateWithoutStoryInput
 }
 
+input ProfileCreateNestedOneWithoutThemeManagerInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutThemeManagerInput
+  create: ProfileCreateWithoutThemeManagerInput
+}
+
 input ProfileCreateNestedOneWithoutVenueInput {
   connect: ProfileWhereUniqueInput
   connectOrCreate: ProfileCreateOrConnectWithoutVenueInput
@@ -4098,6 +4106,11 @@ input ProfileCreateOrConnectWithoutPhotosInput {
 
 input ProfileCreateOrConnectWithoutStoryInput {
   create: ProfileCreateWithoutStoryInput!
+  where: ProfileWhereUniqueInput!
+}
+
+input ProfileCreateOrConnectWithoutThemeManagerInput {
+  create: ProfileCreateWithoutThemeManagerInput!
   where: ProfileWhereUniqueInput!
 }
 
@@ -4202,6 +4215,26 @@ input ProfileCreateWithoutStoryInput {
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutThemeManagerInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: ProfileCreateDeviceManagerInput
+  Group: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  Story: StoryCreateNestedManyWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
 }
@@ -4345,6 +4378,15 @@ type ProfileTheme {
   ThemeManager: ThemeManager
   themeManagerId: String
   updatedAt: DateTime!
+}
+
+input ProfileThemeCreateInput {
+  createdAt: DateTime
+  id: String
+  isActive: Boolean!
+  Theme: ThemeCreateNestedOneWithoutProfileThemeInput!
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileThemeInput
+  updatedAt: DateTime
 }
 
 input ProfileThemeCreateManyThemeManagerInput {
@@ -4789,6 +4831,7 @@ type Query {
   getAllCitiesByState(country: String!, state: String!): [Json]
   getAllCountries: [Json]
   getAllStatesByCountry(country: String!): [Json]
+  getAllThemes: [Theme]
   getLiveVenueTotals(profileIdVenue: String!): LiveVenueTotals
   H3IndexGrid(cell: String!, ringSize: Int = 1): [String]
   H3IndexLatLng(cell: String!): [Float]
@@ -5376,8 +5419,8 @@ input ThemeCreateWithoutProfileThemeInput {
 }
 
 type ThemeManager {
-  activeTheme: Theme
   id: ID
+  ProfileTheme: ProfileTheme
 }
 
 input ThemeManagerCreateNestedOneWithoutProfileInput {
@@ -5386,8 +5429,19 @@ input ThemeManagerCreateNestedOneWithoutProfileInput {
   create: ThemeManagerCreateWithoutProfileInput
 }
 
+input ThemeManagerCreateNestedOneWithoutProfileThemeInput {
+  connect: ThemeManagerWhereUniqueInput
+  connectOrCreate: ThemeManagerCreateOrConnectWithoutProfileThemeInput
+  create: ThemeManagerCreateWithoutProfileThemeInput
+}
+
 input ThemeManagerCreateOrConnectWithoutProfileInput {
   create: ThemeManagerCreateWithoutProfileInput!
+  where: ThemeManagerWhereUniqueInput!
+}
+
+input ThemeManagerCreateOrConnectWithoutProfileThemeInput {
+  create: ThemeManagerCreateWithoutProfileThemeInput!
   where: ThemeManagerWhereUniqueInput!
 }
 
@@ -5395,6 +5449,13 @@ input ThemeManagerCreateWithoutProfileInput {
   createdAt: DateTime
   id: String
   ProfileTheme: ProfileThemeCreateNestedManyWithoutThemeManagerInput
+  updatedAt: DateTime
+}
+
+input ThemeManagerCreateWithoutProfileThemeInput {
+  createdAt: DateTime
+  id: String
+  Profile: ProfileCreateNestedOneWithoutThemeManagerInput!
   updatedAt: DateTime
 }
 

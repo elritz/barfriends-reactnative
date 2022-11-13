@@ -14,6 +14,7 @@ import {
 	ThemeReactiveVar,
 } from '@reactive'
 import createTheme from '@util/hooks/theme/createTheme'
+import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { StatusBar } from 'expo-status-bar'
 // import useDefaultTheme from '@util/hooks/theme/useDefaultTheme'
 import { NativeBaseProvider, useColorMode } from 'native-base'
@@ -26,18 +27,18 @@ interface NavigationProps {}
 
 const Navigator: React.FC<NavigationProps> = () => {
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const colorScheme = useColorScheme()
+	const [toggleThemes] = useToggleTheme()
 
 	const memTheme = useMemo(() => {
 		return rThemeVar.theme
-	}, [rThemeVar.theme, rThemeVar.colorScheme])
+	}, [rThemeVar.theme])
 
-	setTheme({
-		colorScheme,
-		rAuthorizationVar,
-		rThemeVar,
-	})
+	useEffect(() => {
+		const setTheme = async () => {
+			await toggleThemes({})
+		}
+		setTheme()
+	}, [])
 
 	if (!rThemeVar.theme) return null
 
@@ -62,145 +63,3 @@ const Navigator: React.FC<NavigationProps> = () => {
 }
 
 export default Navigator
-
-type setThemeProps = {
-	rAuthorizationVar: DeviceManager
-	colorScheme: ColorSchemeName
-	rThemeVar: ThemeInterface
-	newColorScheme?: 'light' | 'dark' | 'system' | null
-}
-
-export const setTheme = async ({
-	rAuthorizationVar,
-	colorScheme,
-	rThemeVar,
-	newColorScheme,
-}: setThemeProps) => {
-	const { toggleColorMode } = useColorMode()
-	const themeSwitch = async () => {
-		let switchColor = rThemeVar.colorScheme
-		const dataTheme = rAuthorizationVar.DeviceProfile.Profile.ThemeManager.activeTheme.mobile[0]
-
-		if (newColorScheme) {
-			switchColor = newColorScheme
-			const initialThemeColorSchemeState = {
-				colorScheme: newColorScheme,
-			}
-			const newThemeColorScheme = JSON.stringify(initialThemeColorSchemeState)
-			await AsyncStorage.setItem(LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE, newThemeColorScheme)
-		}
-
-		switch (switchColor) {
-			case 'system':
-				console.log('HERE1')
-				const sTheme = createTheme({ themeScheme: colorScheme, theme: dataTheme })
-				ThemeReactiveVar({
-					...rThemeVar,
-					theme: sTheme,
-				})
-				break
-			case 'light':
-				console.log('HERE2')
-				const lTheme = createTheme({ themeScheme: 'light', theme: dataTheme })
-				toggleColorMode()
-				ThemeReactiveVar({
-					...rThemeVar,
-					theme: lTheme,
-				})
-				break
-			case 'dark':
-				console.log('HERE3')
-				const dTheme = createTheme({ themeScheme: 'dark', theme: dataTheme })
-				toggleColorMode()
-				ThemeReactiveVar({
-					...rThemeVar,
-					theme: dTheme,
-				})
-				break
-			default:
-				console.log('HERE4')
-				const defaultTheme = createTheme({ themeScheme: 'dark', theme: dataTheme })
-				ThemeReactiveVar({
-					...rThemeVar,
-					theme: defaultTheme,
-				})
-		}
-	}
-
-	useEffect(() => {
-		themeSwitch()
-	}, [])
-
-	return {
-		theme: rThemeVar.theme,
-	}
-}
-
-export const useToggleTheme = () => {
-	const rThemeVar = useReactiveVar(ThemeReactiveVar)
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const { setColorMode } = useColorMode()
-	const colorScheme = useColorScheme()
-
-	const dataTheme = rAuthorizationVar.DeviceProfile.Profile.ThemeManager.activeTheme.mobile[0]
-
-	const toggleTheme = useCallback(async ({ newColorScheme }) => {
-		const localStorageColorScheme = await AsyncStorage.getItem(
-			LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
-		)
-		const valueLocalStorageColorScheme = JSON.parse(localStorageColorScheme)
-		if (newColorScheme !== valueLocalStorageColorScheme.colorScheme) {
-			const initialThemeColorSchemeState = {
-				colorScheme: newColorScheme,
-			}
-			const newLocalStorageColorScheme = JSON.stringify(initialThemeColorSchemeState)
-			await AsyncStorage.setItem(
-				LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
-				newLocalStorageColorScheme,
-			)
-
-			switch (newColorScheme) {
-				case 'system':
-					console.log('HERE SYSTEM')
-					const sTheme = createTheme({ themeScheme: colorScheme, theme: dataTheme })
-					setColorMode(colorScheme)
-					ThemeReactiveVar({
-						colorScheme: 'system',
-						theme: sTheme,
-					})
-					break
-				case 'light':
-					setColorMode('light')
-					const lTheme = createTheme({ themeScheme: 'light', theme: dataTheme })
-					ThemeReactiveVar({
-						colorScheme: 'light',
-						theme: lTheme,
-					})
-					break
-				case 'dark':
-					setColorMode('dark')
-					const dTheme = createTheme({ themeScheme: 'dark', theme: dataTheme })
-					ThemeReactiveVar({
-						colorScheme: 'dark',
-						theme: dTheme,
-					})
-					break
-				default:
-					console.log('HERE DEFAULT')
-					setColorMode('dark')
-					const defaultTheme = createTheme({ themeScheme: 'dark', theme: dataTheme })
-					ThemeReactiveVar({
-						colorScheme: 'dark',
-						theme: defaultTheme,
-					})
-			}
-			// if (newColorScheme === 'system' && newColorScheme !== colorMode) {
-			// 	toggleColorMode()
-			// } else if (newColorScheme !== colorMode) {
-			// 	toggleColorMode()
-			// }
-		}
-	}, [])
-
-	return [rThemeVar, toggleTheme]
-}

@@ -27,7 +27,7 @@ import {
 	ThemeColorScheme,
 	ThemeReactiveVar,
 } from '@reactive'
-import { secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
+import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { Camera } from 'expo-camera'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
@@ -192,7 +192,6 @@ const Navigation = () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
-
 		if (!getAuthorization) {
 			createGuestProfileMutation()
 		} else {
@@ -200,6 +199,10 @@ const Navigation = () => {
 		}
 	}
 
+	useEffect(() => {
+		setPermissions()
+		setLocalStorageData()
+	}, [])
 	useEffect(() => {
 		setPermissions()
 		setLocalStorageData()
