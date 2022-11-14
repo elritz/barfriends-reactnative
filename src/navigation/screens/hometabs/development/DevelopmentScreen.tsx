@@ -241,9 +241,10 @@ const DevelopmentScreen = () => {
 							</>
 						) : (
 							<>
-								{company.dark.map(item => {
+								{company.dark.map((item, index) => {
 									return (
 										<Box
+											key={index}
 											alignSelf={'center'}
 											style={{
 												backgroundColor: item,
