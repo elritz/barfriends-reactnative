@@ -31,10 +31,10 @@ module.exports = function (api) {
 					},
 				},
 			],
-			'react-native-reanimated/plugin',
 			["babel-plugin-styled-components", {
 				"pure": true
-			},]
+			},],
+			'react-native-reanimated/plugin',
 		],
 	}
 }
