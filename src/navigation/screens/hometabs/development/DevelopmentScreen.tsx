@@ -17,6 +17,7 @@ import {
 	useUpdateThemeManagerSwitchThemeMutation,
 } from '@graphql/generated'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	searchAreaInitialState,
@@ -53,43 +54,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 let foregroundSubscription = null
 
 const DevelopmentScreen = () => {
+	const navigation = useNavigation()
 	const insets = useSafeAreaInsets()
 	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 	const colorScheme = useColorScheme()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [toggleThemes] = useToggleTheme()
 
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
-
-	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
-		variables: {
-			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile?.id,
-			},
-		},
-		onCompleted: async data => {
-			if (data.profile) {
-				const profile = data.profile as Profile
-				AuthorizationReactiveVar({
-					...rAuthorizationVar,
-					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
-						Profile: profile,
-					},
-				})
-				await toggleThemes({ colorScheme: rThemeVar.colorScheme })
-			}
-		},
-	})
-
-	const [updateThemeManagerSwitchTheme, { data: UTMSData, loading: UTMSLoading, error: UTMSError }] =
-		useUpdateThemeManagerSwitchThemeMutation({
-			onCompleted: async data => {
-				profileQuery()
-			},
-		})
 
 	// variables
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
@@ -160,10 +133,14 @@ const DevelopmentScreen = () => {
 			>
 				<Pressable
 					onPress={async () => {
-						updateThemeManagerSwitchTheme({
-							variables: {
-								id: rAuthorizationVar.DeviceProfile.Profile.ThemeManager.id,
-								themeId: item.id,
+						bottomSheetModalRef.current.close()
+						navigation.navigate('HomeTabNavigator', {
+							screen: 'DevelopmentStack',
+							params: {
+								screen: 'ThemeViewer',
+								params: {
+									theme: item,
+								},
 							},
 						})
 					}}
@@ -171,9 +148,10 @@ const DevelopmentScreen = () => {
 					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
 						{rThemeVar.colorScheme === 'light' ? (
 							<>
-								{bfs.light.map(item => {
+								{bfs.light.map((item, index) => {
 									return (
 										<Box
+											key={index}
 											alignSelf={'center'}
 											style={{
 												backgroundColor: item,
@@ -187,9 +165,10 @@ const DevelopmentScreen = () => {
 							</>
 						) : (
 							<>
-								{bfs.dark.map(item => {
+								{bfs.dark.map((item, index) => {
 									return (
 										<Box
+											key={index}
 											alignSelf={'center'}
 											style={{
 												backgroundColor: item,
@@ -207,9 +186,10 @@ const DevelopmentScreen = () => {
 					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
 						{rThemeVar.colorScheme === 'light' ? (
 							<>
-								{styled.light.map(item => {
+								{styled.light.map((item, index) => {
 									return (
 										<Box
+											key={index}
 											alignSelf={'center'}
 											style={{
 												backgroundColor: item,
@@ -223,9 +203,10 @@ const DevelopmentScreen = () => {
 							</>
 						) : (
 							<>
-								{styled.dark.map(item => {
+								{styled.dark.map((item, index) => {
 									return (
 										<Box
+											key={index}
 											alignSelf={'center'}
 											style={{
 												backgroundColor: item,
@@ -243,9 +224,10 @@ const DevelopmentScreen = () => {
 					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
 						{rThemeVar.colorScheme === 'light' ? (
 							<>
-								{company.light.map(item => {
+								{company.light.map((item, index) => {
 									return (
 										<Box
+											key={index}
 											alignSelf={'center'}
 											style={{
 												backgroundColor: item,
@@ -377,9 +359,27 @@ const DevelopmentScreen = () => {
 
 	if (GATLoading) return null
 
+	const settingsOptions = [
+		{
+			title: 'Refresh',
+			icon: 'refresh',
+			onPress: onReloadPress,
+		},
+		{
+			title: 'Device settings',
+			icon: 'settings',
+			onPress: handleOpenPhoneSettings,
+		},
+		{
+			title: 'Change theme',
+			icon: 'color-palette-sharp',
+			onPress: () => handleSnapPress(1),
+		},
+	]
+
 	return (
 		<Box flex={1} mx={3}>
-			<Box my={5}>
+			<Box mt={100} my={5}>
 				<Text
 					adjustsFontSizeToFit
 					fontSize={'3xl'}
@@ -397,30 +397,22 @@ const DevelopmentScreen = () => {
 				contentInset={{ bottom: insets.bottom + 80 }}
 				showsVerticalScrollIndicator={false}
 			>
-				<Pressable onPress={onReloadPress}>
-					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-						<Divider />
-						<HStack space={1} alignItems={'center'}>
-							<Icon size={'lg'} as={Ionicons} name={'refresh'} />
-							<Heading variant={'solid'} colorScheme={'tertiary'}>
-								Refresh
-							</Heading>
-						</HStack>
-						<Divider />
-					</Box>
-				</Pressable>
-				<Pressable onPress={() => handleSnapPress(1)}>
-					<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-						<Divider />
-						<HStack space={1} alignItems={'center'}>
-							<Icon size={'lg'} as={Ionicons} name={'color-palette-sharp'} />
-							<Heading variant={'solid'} colorScheme={'tertiary'}>
-								Change theme
-							</Heading>
-						</HStack>
-						<Divider />
-					</Box>
-				</Pressable>
+				{settingsOptions.map((item, index) => {
+					return (
+						<Pressable key={index} onPress={item.onPress}>
+							<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
+								<Divider />
+								<HStack space={4} alignItems={'center'}>
+									<Icon size={'lg'} as={Ionicons} name={item.icon} />
+									<Heading variant={'solid'} colorScheme={'tertiary'}>
+										{item.title}
+									</Heading>
+								</HStack>
+								<Divider />
+							</Box>
+						</Pressable>
+					)
+				})}
 				<BottomSheetModal
 					ref={bottomSheetModalRef}
 					snapPoints={snapPoints}
@@ -506,19 +498,6 @@ const DevelopmentScreen = () => {
 				>
 					Remove Search Area token
 				</Button>
-				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
-					Open Settings
-				</Text>
-				<Button
-					marginX={10}
-					onPress={handleOpenPhoneSettings}
-					variant={'solid'}
-					colorScheme={'primary'}
-					color={'white'}
-				>
-					Open settings
-				</Button>
-				<Divider my={10} />
 
 				{/* <Text fontSize={'2xl'}>Current Pos</Text>
 				<Text fontSize={'2xl'}>{currentPosition?.coords.latitude}</Text>

@@ -1,4 +1,6 @@
-import { Personal, Profile, Venue } from '@graphql/generated'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetModalRef } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types'
+import { Personal, Profile, Theme, Venue } from '@graphql/generated'
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs'
 import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -88,7 +90,9 @@ export type HomeTabNavigatorParamList = {
 
 export type DevelopmentStackParamList = {
 	DevelopmentOptionsScreen: undefined
-	ChangeThemeScreen: undefined
+	ThemeViewer: {
+		theme: Theme | undefined
+	}
 	NotFound: undefined
 }
 export type ProfileTabStackParamList = {

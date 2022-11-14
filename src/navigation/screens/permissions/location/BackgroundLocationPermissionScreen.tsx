@@ -7,7 +7,7 @@ import {
 	BackgroundLocationPermissionReactiveVar,
 	ForegroundLocationPermissionReactiveVar,
 } from '@reactive'
-import { capitalizeFirstLetter } from '@util/capitalizeFirstLetter'
+import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'

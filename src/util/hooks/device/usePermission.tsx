@@ -4,9 +4,7 @@ import {
 	ForegroundLocationPermissionReactiveVar,
 	NotificationsPermissionReactiveVar,
 } from '@reactive'
-import * as Font from 'expo-font'
 import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'expo-location'
-import * as Network from 'expo-network'
 import * as Notifications from 'expo-notifications'
 import { useEffect, useState } from 'react'
 

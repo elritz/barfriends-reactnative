@@ -4,7 +4,7 @@ import IllustrationDynamicLocation from '@assets/images/location/IllustrationDyn
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { ForegroundLocationPermissionReactiveVar, SearchAreaReactiveVar } from '@reactive'
-import { capitalizeFirstLetter } from '@util/capitalizeFirstLetter'
+import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
