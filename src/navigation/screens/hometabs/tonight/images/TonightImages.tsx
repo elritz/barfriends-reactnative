@@ -41,10 +41,6 @@ const tiles = [
 const TonightImages = () => {
 	const window = useWindowDimensions()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	console.log(
-		'🚀 ~ file: TonightImages.tsx ~ line 35 ~ TonightImages ~ rAuthorizationVar',
-		rAuthorizationVar.DeviceProfile.Profile,
-	)
 
 	const handleSelectImage = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({

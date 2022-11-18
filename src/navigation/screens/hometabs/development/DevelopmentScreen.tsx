@@ -26,6 +26,7 @@ import {
 	ThemeReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
@@ -57,7 +58,7 @@ const DevelopmentScreen = () => {
 	const navigation = useNavigation()
 	const insets = useSafeAreaInsets()
 	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-	const colorScheme = useColorScheme()
+	const colorScheme = useThemeColorScheme()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [toggleThemes] = useToggleTheme()
@@ -117,7 +118,8 @@ const DevelopmentScreen = () => {
 			<Box
 				key={item.id}
 				m={3}
-				bg={'gray.400'}
+				bg={colorScheme === 'light' ? 'light.50' :'gray.800'}
+				shadow={5}
 				style={{
 					flex: 1,
 				}}
@@ -418,7 +420,7 @@ const DevelopmentScreen = () => {
 					ref={bottomSheetModalRef}
 					snapPoints={snapPoints}
 					backgroundStyle={{
-						backgroundColor: rThemeVar.colorScheme === 'dark' ? 'black' : 'white',
+						backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
 					}}
 				>
 					<BottomSheetFlatList
@@ -435,7 +437,7 @@ const DevelopmentScreen = () => {
 										}}
 										bg={'light.200'}
 										flex={1}
-										borderColor={rThemeVar.colorScheme === 'light' && 'primary.300'}
+										borderColor={colorScheme === 'light' && 'primary.300'}
 										borderWidth={2}
 									>
 										<Text color={'black'}>Light</Text>
@@ -446,7 +448,7 @@ const DevelopmentScreen = () => {
 										}}
 										bg={'dark.100'}
 										flex={1}
-										borderColor={rThemeVar.colorScheme === 'dark' && 'primary.300'}
+										borderColor={colorScheme === 'dark' && 'primary.300'}
 										borderWidth={2}
 									>
 										<Text color={'white'}>Dark</Text>

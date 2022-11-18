@@ -9,9 +9,10 @@ import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { View, Animated, StyleSheet, useColorScheme } from 'react-native'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 
 function AnimatedSplashScreen({ children, image }) {
-	const colorScheme = useColorScheme()
+	const colorScheme = useThemeColorScheme()
 	const animation = useMemo(() => new Animated.Value(1), [])
 	const [isAppReady, setAppReady] = useState(false)
 	const [isSplashAnimationComplete, setAnimationComplete] = useState(false)
@@ -67,7 +68,7 @@ function AnimatedSplashScreen({ children, image }) {
 				left: 0,
 				right: 0,
 				// backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
-				backgroundColor: rThemeVar.colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
+				backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
 				flex: 1,
 			}}
 		>
@@ -78,7 +79,7 @@ function AnimatedSplashScreen({ children, image }) {
 					style={[
 						StyleSheet.absoluteFill,
 						{
-							backgroundColor: rThemeVar.colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
+							backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
 						},
 					]}
 				>
