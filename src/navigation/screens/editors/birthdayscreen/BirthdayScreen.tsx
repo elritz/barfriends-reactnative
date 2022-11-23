@@ -111,12 +111,11 @@ const BirthdayScreen = () => {
 	return (
 		<SafeAreaView
 			style={{
-				flex: '1',
+				flex: 1,
 				alignItems: 'center',
-				flexDir: 'column',
+				flexDirection: 'column',
 				justifyContent: 'space-between',
 				marginHorizontal: '5%',
-				marginTop: '20px',
 			}}
 		>
 			<>

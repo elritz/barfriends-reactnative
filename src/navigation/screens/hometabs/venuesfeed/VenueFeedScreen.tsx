@@ -2,6 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
 import BackgroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/BackgroundLocationPermissionFullSection'
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
+import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useVenuesNearbyLazyQuery } from '@graphql/generated'
 import SearchAreaLocationPermissionButton from '@navigation/screens/hometabs/venuesfeed/components/SearchAreaLocationPermissionButton'
@@ -131,46 +132,44 @@ const VenueFeedScreen = () => {
 			<Center>
 				<VStack w={'full'} space={4}>
 					{!rSearchAreaVar.coords.latitude || !rSearchAreaVar.coords.longitude ? (
-						<SafeAreaView>
-							<Box
-								mb={2}
-								mx={scrollViewMarginX}
-								_dark={{ backgroundColor: 'dark.100' }}
-								_light={{ backgroundColor: 'light.100' }}
-							>
-								<Box borderRadius={'lg'} p={5} alignItems={'center'}>
-									<Heading size={'2xl'} textAlign={'center'} fontWeight={'black'} lineHeight={'xs'} mb={5}>
-										Welcome to Barfriends
-									</Heading>
-									<Text>
-										Continue to find venues using location using your device location, or find venues with
-										Search Area.
-										<Icon size={'xs'} color={'primary.500'} as={FontAwesome5} name='filter' /> search area.{' '}
-									</Text>
-									<VStack w={'full'} alignItems={'center'} space={2}>
-										<SearchAreaLocationPermissionButton />
-										<Button
-											onPress={() => {
-												navigation.navigate('ModalNavigator', {
-													screen: 'SearchAreaModalStack',
-													params: {
-														screen: 'SearchAreaModal',
-													},
-												})
-											}}
-											w={'85%'}
-											variant={'ghost'}
-											size={'lg'}
-											_text={{
-												fontSize: 'lg',
-											}}
-										>
-											Find area
-										</Button>
-									</VStack>
-								</Box>
-							</Box>
-						</SafeAreaView>
+						<Box
+							mb={2}
+							mx={scrollViewMarginX}
+							_dark={{ backgroundColor: 'dark.100' }}
+							_light={{ backgroundColor: 'light.100' }}
+							borderRadius={'lg'}
+							p={5}
+						>
+							<Heading size={'2xl'} textAlign={'center'} fontWeight={'black'} lineHeight={'xs'} mb={5}>
+								Welcome to Barfriends
+							</Heading>
+							<Text>
+								Continue to find venues using location using your device location, or find venues with
+								Search Area.
+								<Icon size={'xs'} color={'primary.500'} as={FontAwesome5} name='filter' /> search area.{' '}
+							</Text>
+							<VStack w={'full'} alignItems={'center'} space={2}>
+								<SearchAreaLocationPermissionButton />
+								<Button
+									onPress={() => {
+										navigation.navigate('ModalNavigator', {
+											screen: 'SearchAreaModalStack',
+											params: {
+												screen: 'SearchAreaModal',
+											},
+										})
+									}}
+									w={'85%'}
+									variant={'ghost'}
+									size={'lg'}
+									_text={{
+										fontSize: 'lg',
+									}}
+								>
+									Find area
+								</Button>
+							</VStack>
+						</Box>
 					) : (
 						<>
 							{loading || (!data && !data?.venuesNearby) ? (
@@ -237,7 +236,7 @@ const VenueFeedScreen = () => {
 								>
 									<Box
 										_dark={{ backgroundColor: 'dark.100' }}
-										_light={{ backgroundColor: 'light.200' }}
+										_light={{ backgroundColor: 'light.100' }}
 										px={5}
 										pb={15}
 										pt={35}
@@ -269,35 +268,32 @@ const VenueFeedScreen = () => {
 			</Center>
 		)
 	}
-
 	return (
-		<>
-			<Box>
-				<FlatList
-					onRefresh={fnMemoed}
-					refreshing={loading}
-					showsVerticalScrollIndicator={false}
-					numColumns={2}
-					style={{ height: '100%' }}
-					columnWrapperStyle={{ justifyContent: 'space-around' }}
-					data={venues}
-					renderItem={({ item }) => <VenueItem loading={loading} item={item} />}
-					ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-					keyExtractor={item => item.id}
-					ListHeaderComponent={listHeaderComponent}
-					ListHeaderComponentStyle={{
-						marginTop: insets.top,
-						// paddingTop: insets.top,
-					}}
-					contentInset={{
-						top: 5,
-						left: 0,
-						bottom: 90 + insets.bottom,
-						right: 0,
-					}}
-				/>
-			</Box>
-		</>
+		<Box>
+			<FlatList
+				onRefresh={fnMemoed}
+				refreshing={loading}
+				showsVerticalScrollIndicator={false}
+				numColumns={2}
+				style={{ height: '100%' }}
+				columnWrapperStyle={{ justifyContent: 'space-around' }}
+				data={venues}
+				renderItem={({ item }) => <VenueItem loading={loading} item={item} />}
+				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+				keyExtractor={item => item.id}
+				ListHeaderComponent={listHeaderComponent}
+				ListHeaderComponentStyle={{
+					// marginTop: 105,
+					paddingTop: HOME_TAB_TOP_NAIGATION_HEIGHT + 15,
+				}}
+				contentInset={{
+					top: 0,
+					left: 0,
+					bottom: 105 + insets.bottom,
+					right: 0,
+				}}
+			/>
+		</Box>
 	)
 }
 

@@ -67,7 +67,7 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
 		return
 	}
 	if (data) {
-		console.log('🚀 ~ file: index.tsx ~ line 59 ~ TaskManager.defineTask ~ data', data)
+		// console.log('🚀 ~ file: index.tsx ~ line 59 ~ TaskManager.defineTask ~ data', data)
 		// Extract location coordinates from data
 		const { locations }: any = data
 		const location = locations[0]

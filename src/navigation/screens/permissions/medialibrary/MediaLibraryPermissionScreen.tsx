@@ -11,7 +11,7 @@ import * as MediaLibrary from 'expo-media-library'
 import { Button, Divider } from 'native-base'
 import { Box, VStack, Text, Heading } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
-import { Platform, View } from 'react-native'
+import { AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 const details = [
@@ -37,6 +37,7 @@ const details = [
 ]
 
 const MediaLibraryPermissionScreen = () => {
+	const appStateRef = useRef(AppState.currentState)
 	const [status, requestPermission] = MediaLibrary.usePermissions()
 	const navigation = useNavigation()
 	const rPermissionMedia = useReactiveVar(PermissionMediaReactiveVar)
@@ -64,9 +65,31 @@ const MediaLibraryPermissionScreen = () => {
 		}
 	}
 
+	useEffect(() => {
+		const subscription = AppState.addEventListener('change', handleAppStateChange)
+		return () => {
+			subscription.remove()
+		}
+	}, [])
+
+	const handleAppStateChange = async (nextAppState: any) => {
+		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
+			const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync()
+			PermissionMediaReactiveVar(mediaLibraryPermission)
+			if (mediaLibraryPermission.granted && mediaLibraryPermission.status === 'granted') {
+				start()
+			}
+		}
+		appStateRef.current = nextAppState
+	}
+
+	finished(() => {
+		navigation.goBack()
+	})
+
 	return (
-		<Box safeAreaBottom style={{ flex: 1 }}>
-			<Box safeAreaBottom style={{ flex: 1 }}>
+		<Box style={{ flex: 1 }}>
+			<Box style={{ flex: 1 }}>
 				<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 					<IllustrationDynamicMedia width={60} height={60} />
 					<Divider width={2} style={{ width: 50, marginVertical: 10 }} />

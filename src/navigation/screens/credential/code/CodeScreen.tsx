@@ -6,9 +6,8 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import Countdown from '@util/hooks/useTimer'
-import { watch } from 'fs'
 import { IconButton, Icon, Box, Text, VStack, KeyboardAvoidingView, Heading } from 'native-base'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, Pressable, View } from 'react-native'
 import {
@@ -18,7 +17,6 @@ import {
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
 import { PersonalCredentialStackParamList } from 'src/types/app'
-import styled, { ThemeContext } from 'styled-components/native'
 
 // TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 
@@ -37,7 +35,6 @@ const CodeScreen = () => {
 	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 
 	const CELL_COUNT = route.params.code.length
@@ -184,7 +181,12 @@ const CodeScreen = () => {
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
-					bg={themeContext.palette.primary.background.dark}
+					_light={{
+						bg: 'light.100',
+					}}
+					_dark={{
+						bg: 'dark.200',
+					}}
 					display={'flex'}
 					flexDir={'row'}
 					justifyContent={'space-between'}

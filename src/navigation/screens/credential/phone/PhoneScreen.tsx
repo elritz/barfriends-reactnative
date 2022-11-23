@@ -7,11 +7,19 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { CountryCode } from 'libphonenumber-js'
-import { Input, Text, Icon, IconButton, KeyboardAvoidingView, Box, Heading } from 'native-base'
-import { useContext, useEffect, useRef } from 'react'
+import {
+	Input,
+	Text,
+	Icon,
+	IconButton,
+	KeyboardAvoidingView,
+	Box,
+	Heading,
+	useTheme,
+} from 'native-base'
+import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, InteractionManager, TextInput } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 export type FormType = {
 	countrySelector: CountrySelector
@@ -33,7 +41,6 @@ const PhoneScreen = () => {
 	const isFocused = useIsFocused()
 	const headerHeight = useHeaderHeight()
 	const colorScheme = useThemeColorScheme()
-	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
 	const keyboardVerticalOffset =
@@ -164,11 +171,12 @@ const PhoneScreen = () => {
 							placeholder='Mobile Number'
 							keyboardAppearance={colorScheme}
 							inputAccessoryViewID={inputAccessoryViewID}
-							py={4}
+							py={2}
 							_input={{
 								fontSize: '2xl',
 								fontWeight: 'medium',
 							}}
+							size={'lg'}
 							onSubmitEditing={handleSubmit(onSubmit)}
 							onBlur={onBlur}
 							onChangeText={value => {
@@ -177,35 +185,6 @@ const PhoneScreen = () => {
 								setValue('mobileNumber.number', replaced)
 							}}
 						/>
-						// <TextInput
-						// 	autoFocus
-						// 	ref={phonenumberRef}
-						// 	key={'mobileNumber.completeNumber'}
-						// 	returnKeyType='done'
-						// 	textContentType='telephoneNumber'
-						// 	autoComplete='tel'
-						// 	keyboardType='phone-pad'
-						// 	numberOfLines={1}
-						// 	placeholder='Mobile Number'
-						// 	inputAccessoryViewID={inputAccessoryViewID}
-						// 	style={{
-						// 		fontSize: 25,
-						// 		lineHeight: 35,
-						// 		paddingBottom: 10,
-						// 		fontWeight: '500',
-						// 		color: themeContext.palette.primary.color.default,
-						// 		borderBottomColor: themeContext.palette.primary.background.accent,
-						// 		borderBottomWidth: 1,
-						// 	}}
-						// 	blurOnSubmit={false}
-						// 	onSubmitEditing={handleSubmit(onSubmit)}
-						// 	onBlur={onBlur}
-						// 	onChangeText={value => {
-						// 		onChange(value)
-						// 		const replaced = value.replace(/\D/g, '')
-						// 		setValue('mobileNumber.number', replaced)
-						// 	}}
-						// />
 					)}
 					rules={{
 						required: {
@@ -219,7 +198,12 @@ const PhoneScreen = () => {
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
-					bg={themeContext.palette.primary.background.dark}
+					_light={{
+						bg: 'light.100',
+					}}
+					_dark={{
+						bg: 'dark.200',
+					}}
 					flexDir={'row'}
 					justifyContent={'flex-end'}
 					alignContent={'space-around'}

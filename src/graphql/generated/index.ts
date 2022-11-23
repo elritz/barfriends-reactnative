@@ -3109,12 +3109,6 @@ export type MutationUpsertTonightPathOrPathArgs = {
   tonightPathId?: InputMaybe<Scalars['String']>;
 };
 
-export enum MutationType {
-  Created = 'CREATED',
-  Deleted = 'DELETED',
-  Updated = 'UPDATED'
-}
-
 export type NestedBoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']>;
   not?: InputMaybe<NestedBoolFilter>;
@@ -5170,13 +5164,13 @@ export type QueryEmojimoodsArgs = {
 
 
 export type QueryGetAllCitiesByStateArgs = {
-  country: Scalars['String'];
+  countryIsoCode: Scalars['String'];
   state: Scalars['String'];
 };
 
 
 export type QueryGetAllStatesByCountryArgs = {
-  country: Scalars['String'];
+  countryIsoCode: Scalars['String'];
 };
 
 
@@ -7047,14 +7041,14 @@ export type GetAllCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllCountriesQuery = { __typename?: 'Query', getAllCountries?: Array<any | null> | null };
 
 export type GetAllStatesByCountryQueryVariables = Exact<{
-  country: Scalars['String'];
+  countryIsoCode: Scalars['String'];
 }>;
 
 
 export type GetAllStatesByCountryQuery = { __typename?: 'Query', getAllStatesByCountry?: Array<any | null> | null };
 
 export type GetAllCitiesByStateQueryVariables = Exact<{
-  country: Scalars['String'];
+  countryIsoCode: Scalars['String'];
   state: Scalars['String'];
 }>;
 
@@ -8624,8 +8618,8 @@ export type GetAllCountriesQueryHookResult = ReturnType<typeof useGetAllCountrie
 export type GetAllCountriesLazyQueryHookResult = ReturnType<typeof useGetAllCountriesLazyQuery>;
 export type GetAllCountriesQueryResult = Apollo.QueryResult<GetAllCountriesQuery, GetAllCountriesQueryVariables>;
 export const GetAllStatesByCountryDocument = gql`
-    query getAllStatesByCountry($country: String!) {
-  getAllStatesByCountry(country: $country)
+    query getAllStatesByCountry($countryIsoCode: String!) {
+  getAllStatesByCountry(countryIsoCode: $countryIsoCode)
 }
     `;
 
@@ -8641,7 +8635,7 @@ export const GetAllStatesByCountryDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllStatesByCountryQuery({
  *   variables: {
- *      country: // value for 'country'
+ *      countryIsoCode: // value for 'countryIsoCode'
  *   },
  * });
  */
@@ -8657,8 +8651,8 @@ export type GetAllStatesByCountryQueryHookResult = ReturnType<typeof useGetAllSt
 export type GetAllStatesByCountryLazyQueryHookResult = ReturnType<typeof useGetAllStatesByCountryLazyQuery>;
 export type GetAllStatesByCountryQueryResult = Apollo.QueryResult<GetAllStatesByCountryQuery, GetAllStatesByCountryQueryVariables>;
 export const GetAllCitiesByStateDocument = gql`
-    query getAllCitiesByState($country: String!, $state: String!) {
-  getAllCitiesByState(country: $country, state: $state)
+    query getAllCitiesByState($countryIsoCode: String!, $state: String!) {
+  getAllCitiesByState(countryIsoCode: $countryIsoCode, state: $state)
 }
     `;
 
@@ -8674,7 +8668,7 @@ export const GetAllCitiesByStateDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllCitiesByStateQuery({
  *   variables: {
- *      country: // value for 'country'
+ *      countryIsoCode: // value for 'countryIsoCode'
  *      state: // value for 'state'
  *   },
  * });

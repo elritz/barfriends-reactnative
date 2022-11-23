@@ -46,7 +46,7 @@ import {
 	Pressable,
 	Stack,
 } from 'native-base'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Platform, Linking, useColorScheme } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -118,7 +118,7 @@ const DevelopmentScreen = () => {
 			<Box
 				key={item.id}
 				m={3}
-				bg={colorScheme === 'light' ? 'light.50' :'gray.800'}
+				bg={colorScheme === 'light' ? 'light.50' : 'gray.800'}
 				shadow={5}
 				style={{
 					flex: 1,

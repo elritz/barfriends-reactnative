@@ -7,10 +7,10 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
-import React, { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 const EmailScreen = () => {
 	const navigation = useNavigation()
@@ -131,50 +131,26 @@ const EmailScreen = () => {
 							autoFocus
 							returnKeyType='done'
 							autoComplete='email'
+							importantForAutofill='auto'
+							autoCorrect={true}
 							autoCapitalize='none'
 							keyboardType='email-address'
 							keyboardAppearance={colorScheme}
 							numberOfLines={1}
 							placeholder='Email'
 							inputAccessoryViewID={inputAccessoryViewID}
-							py={4}
+							py={2}
 							_input={{
 								fontSize: '2xl',
 								fontWeight: 'medium',
 							}}
+							size={'lg'}
 							blurOnSubmit={false}
 							onSubmitEditing={handleSubmit(onSubmit)}
 							onBlur={onBlur}
 							value={value.toLowerCase()}
 							onChangeText={onChange}
 						/>
-						// <TextInput
-						// 	ref={emailRef}
-						// 	key={'email'}
-						// 	autoFocus
-						// 	returnKeyType='done'
-						// 	autoComplete='email'
-						// 	autoCapitalize='none'
-						// 	keyboardType='email-address'
-						// 	numberOfLines={1}
-						// 	placeholder='Email'
-						// 	keyboardAppearance={colorScheme}
-						// 	inputAccessoryViewID={inputAccessoryViewID}
-						// 	style={{
-						// 		fontSize: 25,
-						// 		lineHeight: 35,
-						// 		paddingBottom: 10,
-						// 		fontWeight: '500',
-						// 		color: themeContext.palette.primary.color.default,
-						// 		borderBottomColor: themeContext.palette.primary.background.accent,
-						// 		borderBottomWidth: 1,
-						// 	}}
-						// 	blurOnSubmit={false}
-						// 	onSubmitEditing={handleSubmit(onSubmit)}
-						// 	onBlur={onBlur}
-						// 	value={value.toLowerCase()}
-						// 	onChangeText={onChange}
-						// />
 					)}
 					rules={{
 						required: {
@@ -187,7 +163,12 @@ const EmailScreen = () => {
 			</View>
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
-					bg={themeContext.palette.primary.background.dark}
+					_light={{
+						bg: 'light.100',
+					}}
+					_dark={{
+						bg: 'dark.200',
+					}}
 					flexDir={'row'}
 					justifyContent={'flex-start'}
 					alignContent={'space-around'}

@@ -59,10 +59,10 @@ const LocationPermissionItem = () => {
 			}}
 			rounded={'xl'}
 			_light={{
-				bg: !rSearchAreaVar.useCurrentLocation ? 'light.100' : 'success.900',
+				bg: !rSearchAreaVar.useCurrentLocation ? 'light.100' : 'light.100',
 			}}
 			_dark={{
-				bg: !rSearchAreaVar.useCurrentLocation ? 'light.900' : 'success.900',
+				bg: !rSearchAreaVar.useCurrentLocation ? 'light.900' : 'light.900',
 			}}
 			_pressed={{
 				bg: 'primary.500',
@@ -71,7 +71,7 @@ const LocationPermissionItem = () => {
 			<HStack p={3} justifyContent={'space-between'}>
 				<Text
 					_light={{
-						color: rSearchAreaVar.useCurrentLocation ? 'white' : 'black',
+						color: rSearchAreaVar.useCurrentLocation ? 'black' : 'black',
 					}}
 					_dark={{
 						color: 'white',
@@ -101,10 +101,10 @@ const LocationPermissionItem = () => {
 						/>
 					}
 					_light={{
-						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.300',
+						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.200',
 					}}
 					_dark={{
-						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.800',
+						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.500',
 					}}
 					rounded={'full'}
 				/>

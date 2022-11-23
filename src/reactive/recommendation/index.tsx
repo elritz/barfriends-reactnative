@@ -6,6 +6,7 @@ export type SearchAreaType =
 			country: string | undefined
 			state: string | undefined
 			city: string | undefined
+			isoCode: string | undefined
 			coords: {
 				latitude: number | undefined
 				longitude: number | undefined
@@ -19,6 +20,7 @@ export type SearchAreaType =
 export const searchAreaInitialState: SearchAreaType = {
 	useCurrentLocation: false,
 	country: '',
+	isoCode: '',
 	state: '',
 	city: '',
 	coords: {

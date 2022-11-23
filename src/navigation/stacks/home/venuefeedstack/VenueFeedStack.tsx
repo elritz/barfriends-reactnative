@@ -1,4 +1,5 @@
 import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
+import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import VenueFeedScreen from '@navigation/screens/hometabs/venuesfeed/VenueFeedScreen'
 import { createStackNavigator } from '@react-navigation/stack'
 import { HomeTabStackParamList } from '@types'
@@ -6,11 +7,13 @@ import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, VStack } from 'native-base'
 import { Platform, StyleSheet, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const ScreenStack = createStackNavigator<HomeTabStackParamList>()
 
 function VenueFeedStack() {
 	const colorScheme = useThemeColorScheme()
+	const insets = useSafeAreaInsets()
 
 	return (
 		<ScreenStack.Navigator initialRouteName='VenueFeedScreen'>
@@ -24,7 +27,12 @@ function VenueFeedStack() {
 					gestureDirection: 'horizontal',
 					header: () => {
 						return (
-							<VStack height={105} justifyContent={'flex-end'} pb={2}>
+							<VStack
+								pt={insets.top}
+								height={HOME_TAB_TOP_NAIGATION_HEIGHT}
+								justifyContent={'flex-end'}
+								pb={2}
+							>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (

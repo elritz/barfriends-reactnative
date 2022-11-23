@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import { useGetAllCountriesQuery } from '@graphql/generated'
-import { HorizontalCountryItemProps } from '@navigation/stacks/modals/searchareastack/SearchAreaStack'
+import { HorizontalCountryItemProps } from '@navigation/stacks/searchareastack/SearchAreaStack'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
 import { filter } from 'lodash'
@@ -10,12 +10,10 @@ import { useContext, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList, Pressable, ListRenderItemInfo } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 export default function SearchAreaCountries() {
 	const { bottom } = useSafeAreaInsets()
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const [countries, setCountries] = useState<Array<HorizontalCountryItemProps>>([])
 	const [pagination, setPagination] = useState<number>()
@@ -68,6 +66,7 @@ export default function SearchAreaCountries() {
 			renderItem={({ index, item }: ListRenderItemInfo<HorizontalCountryItemProps>) => {
 				return (
 					<Button
+						key={index}
 						_stack={{
 							paddingY: 0,
 							paddingX: 2,
@@ -86,13 +85,14 @@ export default function SearchAreaCountries() {
 						}}
 						rounded={'full'}
 						endIcon={
-							rSearchAreaVar.country === item.isoCode ? (
-								<Icon color={'blueGray.700'} size={'lg'} as={Feather} name={'check'} />
+							rSearchAreaVar.country === item.name ? (
+								<Icon color={'secondary.600'} size={'lg'} as={Feather} name={'check'} />
 							) : null
 						}
 						onPress={() => {
 							setValue('searchtext', '')
-							setValue('country', item.isoCode)
+							setValue('country', item.name)
+							setValue('isoCode', item.isoCode)
 							navigation.dispatch(StackActions.pop())
 							navigation.navigate('ModalNavigator', {
 								screen: 'SearchAreaModalStack',

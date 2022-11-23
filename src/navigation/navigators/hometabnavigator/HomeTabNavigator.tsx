@@ -5,6 +5,7 @@ import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profileta
 import SearchTab from '@components/molecules/tabbaricons/hometabicons/searchtab'
 import TonightTab from '@components/molecules/tabbaricons/hometabicons/tonighttab'
 import VenueFeedTab from '@components/molecules/tabbaricons/hometabicons/venuefeedtab'
+import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ENVIRONMENT } from '@env'
 import DevelopmentStack from '@navigation/stacks/development/DevelopmentStack'
 import ExploreStack from '@navigation/stacks/home/explorestack/ExploreStack'
@@ -19,6 +20,7 @@ import { BlurView } from 'expo-blur'
 import { useColorModeValue } from 'native-base'
 import { useContext } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const ScreenStack = createBottomTabNavigator<HomeTabNavigatorParamList>()
@@ -28,6 +30,7 @@ interface IColor {
 
 function HomeTabNavigator() {
 	const colorScheme = useThemeColorScheme()
+	const insets = useSafeAreaInsets()
 	const themeContext = useContext(ThemeContext)
 
 	return (
@@ -50,7 +53,8 @@ function HomeTabNavigator() {
 				),
 				tabBarStyle: {
 					position: 'absolute',
-					height: 90,
+					height: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+					paddingBottom: insets.bottom,
 					paddingVertical: 15,
 					shadowOpacity: 0,
 					shadowRadius: 4.84,

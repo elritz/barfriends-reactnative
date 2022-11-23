@@ -1,5 +1,5 @@
 import { Feather } from '@expo/vector-icons'
-import { HorizontalCityItemProps } from '@navigation/stacks/modals/searchareastack/SearchAreaStack'
+import { HorizontalCityItemProps } from '@navigation/stacks/searchareastack/SearchAreaStack'
 import { Icon, HStack, Text } from 'native-base'
 import { useContext } from 'react'
 import { useFormContext } from 'react-hook-form'

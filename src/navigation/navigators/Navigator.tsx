@@ -14,6 +14,7 @@ import {
 	ThemeReactiveVar,
 } from '@reactive'
 import createTheme from '@util/hooks/theme/createTheme'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { StatusBar } from 'expo-status-bar'
 // import useDefaultTheme from '@util/hooks/theme/useDefaultTheme'
@@ -28,19 +29,21 @@ interface NavigationProps {}
 const Navigator: React.FC<NavigationProps> = () => {
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [toggleThemes] = useToggleTheme()
+	const colorScheme = useThemeColorScheme()
 
-	const memTheme = useMemo(() => {
-		return rThemeVar.theme
-	}, [rThemeVar.theme])
+	const setTheme = async () => {
+		await toggleThemes({})
+	}
 
 	useEffect(() => {
-		const setTheme = async () => {
-			await toggleThemes({})
-		}
 		setTheme()
 	}, [])
 
-	if (!rThemeVar.theme) return null
+	const memTheme = useMemo(() => {
+		return rThemeVar.theme
+	}, [rThemeVar.theme, rThemeVar.colorScheme, colorScheme])
+
+	if (!memTheme) return null
 
 	return (
 		<NavigationContainer

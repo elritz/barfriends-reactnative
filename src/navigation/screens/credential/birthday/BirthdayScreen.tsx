@@ -106,14 +106,13 @@ const BirthdayScreen = () => {
 	}, [isFocused])
 
 	return (
-		<SafeAreaView
+		<Box
 			style={{
 				flex: 1,
 				alignItems: 'center',
 				flexDirection: 'column',
 				justifyContent: 'space-between',
-				marginHorizontal: '5%',
-				marginTop: '20px',
+				marginTop: 20,
 			}}
 		>
 			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
@@ -153,38 +152,45 @@ const BirthdayScreen = () => {
 				</Text>
 			</>
 			<Box
+				_light={{
+					bg: 'light.100',
+				}}
+				_dark={{
+					bg: 'dark.200',
+				}}
 				display={'flex'}
 				flexDir={'row-reverse'}
 				justifyContent={'space-between'}
 				w={'100%'}
-				py={4}
-				mb={insets.bottom}
 			>
-				<IconButton
-					disabled={!!errors.date}
-					onPress={handleSubmit(onSubmit)}
-					variant={'solid'}
-					color={'primary.500'}
-					isDisabled={!!errors.date}
-					style={{
-						justifyContent: 'center',
-						borderRadius: 50,
-						height: 70,
-						width: 70,
-						paddingHorizontal: 10,
-						alignSelf: 'center',
-					}}
-					icon={
-						<Icon
-							as={Feather}
-							name='arrow-right'
-							size={'2xl'}
-							color={errors.date ? 'light.800' : 'white'}
-						/>
-					}
-				/>
+				<Box mt={insets.bottom / 2} mb={insets.bottom}>
+					<IconButton
+						disabled={!!errors.date}
+						onPress={handleSubmit(onSubmit)}
+						variant={'solid'}
+						color={'primary.500'}
+						isDisabled={!!errors.date}
+						h={70}
+						w={70}
+						mx={2}
+						borderRadius={'full'}
+						style={{
+							justifyContent: 'center',
+							borderRadius: 50,
+							alignSelf: 'center',
+						}}
+						icon={
+							<Icon
+								as={Feather}
+								name='arrow-right'
+								size={'2xl'}
+								color={errors.date ? 'light.800' : 'white'}
+							/>
+						}
+					/>
+				</Box>
 			</Box>
-		</SafeAreaView>
+		</Box>
 	)
 }
 

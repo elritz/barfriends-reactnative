@@ -5,7 +5,7 @@ module.exports = {
     service: "barfriends",
     // service: {
     //   name: "barfriends",
-    //   url: "http://localhost:4000/graphql"
+    //   url: "http://192.168.86.23:4000/graphql"
     // }
   }
 };

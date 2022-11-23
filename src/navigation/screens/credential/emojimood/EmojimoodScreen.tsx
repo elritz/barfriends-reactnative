@@ -234,12 +234,20 @@ const EmojimoodScreen = () => {
 				}}
 			>
 				<IconButton
-					w={'40%'}
 					mx={'10%'}
 					onPress={onSubmit}
 					variant={'solid'}
+					color={'primary.500'}
+					style={{
+						justifyContent: 'center',
+						borderRadius: 50,
+						height: 70,
+						width: 70,
+						paddingHorizontal: 20,
+						alignSelf: 'center',
+					}}
 					borderRadius={'xl'}
-					icon={<Icon color={'primary.500'} name='arrow-right' size={29} as={Feather} />}
+					icon={<Icon color={'white'} name='arrow-right' size={'2xl'} as={Feather} />}
 				>
 					<Text color={'primary.500'} fontSize={'lg'}>
 						{loading ? 'Completing' : !credentialPersonalProfileVar.emojimood.id ? 'Skip' : 'Complete'}

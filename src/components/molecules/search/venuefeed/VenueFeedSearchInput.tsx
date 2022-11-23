@@ -8,7 +8,7 @@ const VenueFeedSearchInput = () => {
 	const colorScheme = useThemeColorScheme()
 
 	return (
-		<Box>
+		<Box flex={1}>
 			<Input
 				variant={'filled'}
 				rounded={'lg'}

@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { Feather, FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
@@ -38,12 +38,11 @@ const UserFemaleIllustration = require('@assets/images/illustration/user_female_
 const PhotoScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
-	const isFocused = useIsFocused()
 	const navigation = useNavigation()
 	const window = useWindowDimensions()
 	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const permissionMediaReactiveVar = useReactiveVar(PermissionMediaReactiveVar)
+	const rPermissionMediaReactiveVar = useReactiveVar(PermissionMediaReactiveVar)
 	const [status] = MediaLibrary.usePermissions()
 	const [mediaLoading, setMediaLoading] = useState(false)
 	const [imageUploading, setImageUploading] = useState(false)
@@ -95,7 +94,7 @@ const PhotoScreen = () => {
 	}
 
 	const _pickMediaPicker = async () => {
-		if (!permissionMediaReactiveVar.granted) {
+		if (!rPermissionMediaReactiveVar.granted) {
 			navigation.navigate('PermissionNavigator', {
 				screen: 'MediaLibraryPermissionScreen',
 			})
@@ -170,18 +169,16 @@ const PhotoScreen = () => {
 	}
 
 	useEffect(() => {
-		if (permissionMediaReactiveVar.granted) {
+		if (rPermissionMediaReactiveVar.granted) {
 			if (!photoLibrary.length) {
 				loadMediaAsync()
 			}
 		} else {
-			if (permissionMediaReactiveVar.canAskAgain) {
-				navigation.navigate('PermissionNavigator', {
-					screen: 'MediaLibraryPermissionScreen',
-				})
-			}
+			navigation.navigate('PermissionNavigator', {
+				screen: 'MediaLibraryPermissionScreen',
+			})
 		}
-	}, [permissionMediaReactiveVar, mediaLoading, photoLibrary])
+	}, [rPermissionMediaReactiveVar, mediaLoading, photoLibrary])
 
 	if (!photoLibrary.length || mediaLoading) {
 		return (
@@ -197,6 +194,37 @@ const PhotoScreen = () => {
 						alt={'loading image'}
 						source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 					/>
+					<Box
+						mb={2}
+						mx={2}
+						_dark={{ backgroundColor: 'dark.100' }}
+						_light={{ backgroundColor: 'light.100' }}
+						borderRadius={'lg'}
+						p={5}
+					>
+						<VStack my={2} alignItems={'center'}>
+							<Text px={2}>
+								Continue with your profile setup, use your own photos to share and create the style that
+								reflect you the best.
+							</Text>
+							<Button
+								variant='solid'
+								onPress={async () =>
+									navigation.navigate('PermissionNavigator', {
+										screen: 'MediaLibraryPermissionScreen',
+									})
+								}
+								mt={15}
+								w={'85%'}
+								_text={{
+									fontSize: 'lg',
+									fontWeight: 'bold',
+								}}
+							>
+								Continue
+							</Button>
+						</VStack>
+					</Box>
 					{[...Array(6)].map((item, index) => {
 						return (
 							<HStack key={index} space={0} overflow='hidden'>

@@ -4,6 +4,7 @@ import {
 	AUTHORIZATION,
 	LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
 } from '@constants/StorageConstants'
+import { SERVER_ENDPOINT } from '@env'
 import {
 	useSwitchDeviceProfileMutation,
 	DeviceManager,
@@ -52,6 +53,7 @@ const Navigation = () => {
 						...rSearchAreaVar,
 						city: values.city,
 						country: values.country,
+						isoCode: values.isoCode,
 						state: values.state,
 						coords: {
 							latitude: Number(values.coords.latitude),
@@ -111,6 +113,7 @@ const Navigation = () => {
 		useCurrentLocation: false,
 		country: '',
 		state: '',
+		isoCode: '',
 		city: '',
 		coords: {
 			latitude: undefined,
@@ -132,6 +135,10 @@ const Navigation = () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
+				console.table(
+					'🚀 ~ file: index.tsx ~ line 141 ~ Navigation ~ data.refreshDeviceManager',
+					data.refreshDeviceManager,
+				)
 				if (
 					data.refreshDeviceManager.__typename === 'DeviceManager' ||
 					data.refreshDeviceManager.__typename === 'Success'
@@ -192,6 +199,10 @@ const Navigation = () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+		// console.log(
+		// 	'🚀 ~ file: index.tsx ~ line 199 ~ applicationAuthorization ~ getAuthorization',
+		// 	getAuthorization,
+		// )
 		if (!getAuthorization) {
 			createGuestProfileMutation()
 		} else {
@@ -214,7 +225,9 @@ const Navigation = () => {
 		return () => subscription.remove()
 	}, [])
 
-	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) return null
+	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) {
+		return null
+	}
 
 	return <Navigator />
 }

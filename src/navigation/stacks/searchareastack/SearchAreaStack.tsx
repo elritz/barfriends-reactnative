@@ -8,12 +8,12 @@ import SearchAreaCountryStates from '@navigation/screens/search/searcharea/Searc
 import SearchAreaStateCities from '@navigation/screens/search/searcharea/SearchAreaStateCities'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
+import { SearchAreaReactiveVar } from '@reactive'
 import { ModalNavigatorParamList, SearchAreaStackParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, VStack } from 'native-base'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { Platform, View, StyleSheet } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -60,16 +60,17 @@ export type SearchAreaStackRouteProp = RouteProp<ModalNavigatorParamList, 'Searc
 function SearchAreaStackNavigation() {
 	const navigation = useNavigation()
 	const route = useRoute<SearchAreaStackRouteProp>()
-	const colorScheme = useThemeColorScheme()
 	const themeContext = useContext(ThemeContext)
+	const colorScheme = useThemeColorScheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const methods = useForm({
 		defaultValues: {
 			searchtext: '',
-			country: '',
-			state: '',
-			city: '',
+			country: '' || rSearchAreaVar.country,
+			state: '' || rSearchAreaVar.state,
+			city: '' || rSearchAreaVar.city,
+			isoCode: '' || rSearchAreaVar.isoCode,
 			latitude: '',
 			longitude: '',
 			done: false,
@@ -82,6 +83,7 @@ function SearchAreaStackNavigation() {
 				methods.setValue('city', rSearchAreaVar.city)
 				methods.setValue('country', rSearchAreaVar.country)
 				methods.setValue('state', rSearchAreaVar.state)
+				methods.setValue('isoCode', rSearchAreaVar.state)
 			} else {
 				console.log('TODO')
 			}
@@ -96,7 +98,7 @@ function SearchAreaStackNavigation() {
 
 	const onSubmit = data => console.log(data)
 
-	const handleNavigationToExploreText = () => {
+	const handleNavigationToNewSearchAreaForm = () => {
 		navigation.navigate('ModalNavigator', {
 			screen: 'SearchAreaModalStack',
 			params: {
@@ -105,7 +107,7 @@ function SearchAreaStackNavigation() {
 		})
 	}
 
-	const getTitle = () => {
+	const searchBarTitle = useMemo(() => {
 		switch (route.params.screen) {
 			case 'SearchCountryTextScreen':
 				return 'Search country'
@@ -114,7 +116,7 @@ function SearchAreaStackNavigation() {
 			case 'SearchStateCitiesTextScreen':
 				return 'Search city'
 		}
-	}
+	}, [route])
 
 	return (
 		<FormProvider {...methods}>
@@ -150,7 +152,7 @@ function SearchAreaStackNavigation() {
 								<SearchAreaCountryTextScreenInput
 									name='searchtext'
 									label=''
-									placeholder={getTitle()}
+									placeholder={searchBarTitle}
 									keyboardType='default'
 								/>
 								<NavigationDragIcon />
@@ -165,13 +167,13 @@ function SearchAreaStackNavigation() {
 					options={{
 						header: () => {
 							return (
-								<VStack flexDirection={'column-reverse'} alignItems={'center'}>
+								<VStack flexDirection={'column-reverse'} alignItems={'center'} pb={2}>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box background={'secondary.50'} style={[StyleSheet.absoluteFill]} />
 									)}
-									<ExploreSearchInputDisabled onPress={handleNavigationToExploreText} />
+									<ExploreSearchInputDisabled onPress={handleNavigationToNewSearchAreaForm} />
 									<NavigationDragIcon />
 								</VStack>
 							)

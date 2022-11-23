@@ -1,7 +1,7 @@
 import NavigationDragIcon from '@components/atoms/icons/navigationdragicon/NavigationDragIcon'
 import DeviceManagerModal from '@navigation/screens/modals/devicemanager/DeviceManagerModal'
 import { MediaLibraryModal } from '@navigation/screens/modals/medialibrary/MediaLibraryModal'
-import SearchAreaStackNavigation from '@navigation/stacks/modals/searchareastack/SearchAreaStack'
+import SearchAreaStackNavigation from '@navigation/stacks/searchareastack/SearchAreaStack'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ModalNavigatorParamList } from '@types'
 

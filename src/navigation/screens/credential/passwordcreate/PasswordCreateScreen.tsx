@@ -105,10 +105,17 @@ const PasswordCreateScreen = () => {
 						return (
 							<>
 								<Input
+									variant={'underlined'}
 									ref={passwordRef}
 									key='password'
 									keyboardAppearance={colorScheme}
 									value={value}
+									py={2}
+									_input={{
+										fontSize: '2xl',
+										fontWeight: 'medium',
+									}}
+									size={'lg'}
 									secureTextEntry
 									onChangeText={value => onChange(value)}
 									onSubmitEditing={() => {
@@ -118,6 +125,7 @@ const PasswordCreateScreen = () => {
 									onBlur={onBlur}
 									textContentType='password'
 									blurOnSubmit={false}
+									autoComplete={'password-new'}
 									autoFocus
 									placeholder='Password'
 									returnKeyType='next'
@@ -147,9 +155,14 @@ const PasswordCreateScreen = () => {
 					<Box
 						flexDir={'row'}
 						justifyContent={'flex-end'}
-						alignContent={'space-around'}
 						height={'90px'}
 						px={'2.5%'}
+						_light={{
+							bg: theme.colors.light[100],
+						}}
+						_dark={{
+							bg: theme.colors.dark[200],
+						}}
 					>
 						<View
 							style={{

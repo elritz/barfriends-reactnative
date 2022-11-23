@@ -4,8 +4,7 @@ import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Button, Input, useTheme } from 'native-base'
-import { Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
+import { Button, Input, useTheme, Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
 import { useContext, useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
@@ -93,6 +92,7 @@ const UsernameScreen = () => {
 				name='checkmark-circle'
 				size={'lg'}
 				color={errors.username || !CUData?.checkUsername ? 'error.600' : 'success.700'}
+				mr={2}
 			/>
 		)
 	}
@@ -119,14 +119,22 @@ const UsernameScreen = () => {
 							value={value}
 							key='username'
 							placeholder='Username'
+							variant={'underlined'}
 							keyboardAppearance={colorScheme}
-							onChange={value => onChange(value)}
+							onChangeText={onChange}
 							onSubmitEditing={handleSubmit(onSubmit)}
 							onBlur={onBlur}
 							autoCorrect={false}
 							autoFocus
 							textContentType='username'
+							autoComplete='username-new'
 							returnKeyType='done'
+							py={2}
+							_input={{
+								fontSize: '2xl',
+								fontWeight: 'medium',
+							}}
+							size={'lg'}
 							numberOfLines={1}
 							keyboardType='default'
 							autoCapitalize='none'
@@ -141,7 +149,7 @@ const UsernameScreen = () => {
 							message: '',
 						},
 						validate: {
-							greaterThanZero: value => value.length > 0 || 'Must have password',
+							greaterThanZero: value => value.length > 0 || '',
 							greaterQualThanFour: value => value.length >= 1 || '',
 							noSpaces: value => /^[\S]+$/.test(value) || 'No spaces are allowed',
 							validateCheckUsername: async value => (await validateCheckUsername(value)) || '',
@@ -154,11 +162,16 @@ const UsernameScreen = () => {
 				<Box
 					flexDir={'row'}
 					justifyContent={'flex-end'}
-					alignContent={'space-around'}
 					height={'90px'}
 					px={'2.5%'}
+					_light={{
+						bg: theme.colors.light[100],
+					}}
+					_dark={{
+						bg: theme.colors.dark[200],
+					}}
 				>
-					<View
+					<Box
 						style={{
 							display: 'flex',
 							flexDirection: 'column',
@@ -185,7 +198,7 @@ const UsernameScreen = () => {
 								/>
 							}
 						/>
-					</View>
+					</Box>
 				</Box>
 			</InputAccessoryView>
 		</KeyboardAvoidingView>

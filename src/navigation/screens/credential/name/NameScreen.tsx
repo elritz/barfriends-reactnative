@@ -93,13 +93,14 @@ const NameScreen = () => {
 								keyboardType='default'
 								numberOfLines={1}
 								autoFocus
-								placeholder='Mobile Number'
+								placeholder='Full name'
 								inputAccessoryViewID={inputAccessoryViewID}
-								py={4}
+								py={2}
 								_input={{
 									fontSize: '2xl',
 									fontWeight: 'medium',
 								}}
+								size={'lg'}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
 								onChangeText={onChange}
@@ -118,9 +119,15 @@ const NameScreen = () => {
 			) : null}
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
+					_light={{
+						bg: theme.colors.light[100],
+					}}
+					_dark={{
+						bg: theme.colors.light[100],
+					}}
 					flexDir={'row'}
 					justifyContent={'flex-end'}
-					alignContent={'space-around'}
+					alignItems={'center'}
 					height={'90px'}
 					px={'2.5%'}
 				>

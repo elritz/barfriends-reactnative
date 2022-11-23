@@ -16,13 +16,13 @@ export const GET_COUNTRIES_QUERY = gql`
 `
 
 export const GET_ALL_STATES_BY_COUNTRY_QUERY = gql`
-	query getAllStatesByCountry($country: String!) {
-		getAllStatesByCountry(country: $country)
+	query getAllStatesByCountry($countryIsoCode: String!) {
+		getAllStatesByCountry(countryIsoCode: $countryIsoCode)
 	}
 `
 
 export const GET_ALL_CITIES_BY_STATE_QUERY = gql`
-	query getAllCitiesByState($country: String!, $state: String!) {
-		getAllCitiesByState(country: $country, state: $state)
+	query getAllCitiesByState($countryIsoCode: String!, $state: String!) {
+		getAllCitiesByState(countryIsoCode: $countryIsoCode, state: $state)
 	}
 `

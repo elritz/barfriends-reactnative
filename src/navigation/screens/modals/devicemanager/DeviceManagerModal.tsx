@@ -32,6 +32,7 @@ export default function DeviceManagerModal() {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
+				console.log('🚀 ~ file: DeviceManagerModal.tsx ~ line 35 ~ DeviceManagerModal ~ data', data)
 				if (data.switchDeviceProfile.__typename == 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)

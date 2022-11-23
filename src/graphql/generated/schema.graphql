@@ -1,6 +1,8 @@
-"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @defer(if: Boolean! = true, label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""Exposes a URL that specifies the behavior of this scalar."""
 directive @specifiedBy(
-  """The URL that specifies the behaviour of this scalar."""
+  """The URL that specifies the behavior of this scalar."""
   url: String!
 ) on SCALAR
 
@@ -1356,7 +1358,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "f2aef707-4faa-41ee-97e3-78b6da787534"
+  sessiontoken: String = "02219f58-41d0-4ac4-bdc9-8b32e73177a1"
   textinput: String!
 
   """
@@ -2890,12 +2892,6 @@ type Mutation {
   updateStoryPhotos(disconnectId: String!, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Boolean
   updateThemeManagerSwitchTheme(id: String!, themeId: String!): ProfileTheme
   upsertTonightPathOrPath(latitude: Float!, longitude: Float!, profileIdPersonal: String!, tonightPathId: String): Boolean
-}
-
-enum MutationType {
-  CREATED
-  DELETED
-  UPDATED
 }
 
 input NestedBoolFilter {
@@ -4828,9 +4824,9 @@ type Query {
   emojimood(where: EmojimoodWhereUniqueInput!): Emojimood
   emojimoods(after: EmojimoodWhereUniqueInput, before: EmojimoodWhereUniqueInput, first: Int, last: Int, orderBy: [EmojimoodOrderByWithRelationInput!], where: EmojimoodWhereInput): [Emojimood!]!
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion
-  getAllCitiesByState(country: String!, state: String!): [Json]
+  getAllCitiesByState(countryIsoCode: String!, state: String!): [Json]
   getAllCountries: [Json]
-  getAllStatesByCountry(country: String!): [Json]
+  getAllStatesByCountry(countryIsoCode: String!): [Json]
   getAllThemes: [Theme]
   getLiveVenueTotals(profileIdVenue: String!): LiveVenueTotals
   H3IndexGrid(cell: String!, ringSize: Int = 1): [String]

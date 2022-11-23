@@ -120,7 +120,7 @@ const UsernameScreen = () => {
 				flexDir={'column'}
 				justifyContent={'space-between'}
 				alignItems={'center'}
-				my={'20px'}
+				my={20}
 			>
 				<Controller
 					name='username'
@@ -148,6 +148,7 @@ const UsernameScreen = () => {
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
 								autoCapitalize='none'
+								size={'xl'}
 								numberOfLines={1}
 								textContentType='password'
 								blurOnSubmit={false}

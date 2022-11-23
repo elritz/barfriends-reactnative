@@ -1,18 +1,18 @@
+import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import { useGetAllStatesByCountryQuery } from '@graphql/generated'
-import { HorizontalStateItemProps } from '@navigation/stacks/modals/searchareastack/SearchAreaStack'
+import { HorizontalStateItemProps } from '@navigation/stacks/searchareastack/SearchAreaStack'
 import { StackActions, useNavigation } from '@react-navigation/native'
+import { SearchAreaReactiveVar, SearchReactiveVar } from '@reactive'
 import { filter } from 'lodash'
 import { Button, Text, Icon, Center } from 'native-base'
 import { useContext, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 export default function SearchAreaCountryStates() {
 	const { bottom } = useSafeAreaInsets()
-	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 	const [countryStates, setCountryStates] = useState<Array<HorizontalStateItemProps>>([])
 	const [pagination, setPagination] = useState<number>()
@@ -21,9 +21,9 @@ export default function SearchAreaCountryStates() {
 	const { watch, getValues, setValue } = formContext
 
 	const { data, loading, error } = useGetAllStatesByCountryQuery({
-		skip: !getValues('country'),
+		skip: !getValues('isoCode'),
 		variables: {
-			country: getValues('country'),
+			countryIsoCode: getValues('isoCode'),
 		},
 		onCompleted: data => {
 			setCountryStates(data.getAllStatesByCountry)

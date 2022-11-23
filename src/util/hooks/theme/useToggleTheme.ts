@@ -25,7 +25,7 @@ export const useToggleTheme = () => {
 					colorScheme: 'system',
 					theme: sTheme,
 				})
-				break
+				return { colorScheme: 'light', theme: sTheme }
 			case 'light':
 				setColorMode('light')
 				const lTheme = createTheme({ themeScheme: 'light' })
@@ -33,7 +33,7 @@ export const useToggleTheme = () => {
 					colorScheme: 'light',
 					theme: lTheme,
 				})
-				break
+				return { colorScheme: 'light', theme: lTheme }
 			case 'dark':
 				setColorMode('dark')
 				const dTheme = createTheme({ themeScheme: 'dark' })
@@ -41,7 +41,10 @@ export const useToggleTheme = () => {
 					colorScheme: 'dark',
 					theme: dTheme,
 				})
-				break
+				return {
+					colorScheme: 'dark',
+					theme: dTheme,
+				}
 			default:
 				setColorMode('dark')
 				const defaultTheme = createTheme({ themeScheme: 'dark' })
@@ -49,6 +52,10 @@ export const useToggleTheme = () => {
 					colorScheme: 'dark',
 					theme: defaultTheme,
 				})
+				return {
+					colorScheme: 'dark',
+					theme: defaultTheme,
+				}
 		}
 	}
 
@@ -72,9 +79,11 @@ export const useToggleTheme = () => {
 					newLocalStorageColorScheme,
 				)
 			}
-			setTheme({ colorScheme: props.colorScheme })
+			const { theme, colorScheme } = setTheme({ colorScheme: props.colorScheme })
+			return { theme, colorScheme }
 		} else {
-			setTheme({ colorScheme: rThemeVar.colorScheme })
+			const { theme, colorScheme } = setTheme({ colorScheme: rThemeVar.colorScheme })
+			return { theme, colorScheme }
 		}
 	}, [])
 

@@ -167,6 +167,23 @@ export type SearchAreaStackParamList = {
 		country: string
 		state: string
 	}
+	SearchAreaLocationTabStackModal:
+		| NavigatorScreenParams<SearchAreaLocationStackModalParamList>
+		| undefined
+	NotFound: undefined
+}
+
+export type SearchAreaLocationStackModalParamList = {
+	SearchCountryTextScreen: {
+		searchText?: string
+	}
+	SearchCountryStatesTextScreen: {
+		country: string
+	}
+	SearchStateCitiesTextScreen: {
+		country: string
+		state: string
+	}
 	NotFound: undefined
 }
 

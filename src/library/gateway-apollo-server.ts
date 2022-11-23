@@ -1,7 +1,6 @@
-import { ApolloClient } from '@apollo/client'
-
 import { cache } from './apollo/cache'
 import link from './apollo/link'
+import { ApolloClient } from '@apollo/client'
 
 const client = new ApolloClient({
 	link,
