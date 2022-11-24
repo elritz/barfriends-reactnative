@@ -2,6 +2,7 @@ import { Feather } from '@expo/vector-icons'
 import {
 	DeviceManager,
 	Profile,
+	ProfileType,
 	useLoginPasswordLazyQuery,
 	useProfileQuery,
 	useSwitchDeviceProfileMutation,
@@ -112,6 +113,7 @@ const PasswordLoginScreen = () => {
 				switchDeviceProfileMutation({
 					variables: {
 						profileId: route.params.profile,
+						profileType: ProfileType.Personal,
 					},
 				})
 			},

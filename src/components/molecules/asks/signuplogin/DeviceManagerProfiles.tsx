@@ -42,6 +42,7 @@ const DeviceManagerProfiles = () => {
 		switchDeviceProfileMutation({
 			variables: {
 				profileId: item.Profile.id,
+				profileType: item.Profile.profileType,
 			},
 		})
 	}

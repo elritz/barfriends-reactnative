@@ -28,8 +28,8 @@ const DeviceManagerProfileItemLarge = ({
 			flex={1}
 			flexDir={'row'}
 			my={2}
-			px={2}
-			py={2}
+			p={2}
+			px={3}
 			borderRadius={'lg'}
 			alignItems={'center'}
 			justifyContent={'space-between'}
@@ -45,7 +45,9 @@ const DeviceManagerProfileItemLarge = ({
 					<Heading style={{ textTransform: 'capitalize' }}>
 						{item?.IdentifiableInformation?.fullname}
 					</Heading>
-					<Text style={{ fontWeight: 'bold' }}>{item?.IdentifiableInformation?.username}</Text>
+					<Text ml={0.5} style={{ fontWeight: 'bold' }}>
+						{item?.IdentifiableInformation?.username}
+					</Text>
 				</VStack>
 			</HStack>
 			<IconButton
@@ -53,9 +55,9 @@ const DeviceManagerProfileItemLarge = ({
 					!loading ? (
 						<>
 							{isActive ? (
-								<Icon name='ios-checkmark-circle' as={Ionicons} colorScheme={'primary'} size={'xl'} />
+								<Icon name='ios-checkmark-circle' as={Ionicons} color={'success.600'} size={'xl'} />
 							) : (
-								<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'gray'} size={'xl'} />
+								<Icon name='radio-button-unchecked' as={MaterialIcons} color={'gray.400'} size={'xl'} />
 							)}
 						</>
 					) : (

@@ -32,20 +32,30 @@ export default function DeviceManagerModal() {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
-				console.log('🚀 ~ file: DeviceManagerModal.tsx ~ line 35 ~ DeviceManagerModal ~ data', data)
+				console.log(
+					'🚀 ~ =====================+> data',
+					data.switchDeviceProfile,
+					'=====================+>',
+				)
 				if (data.switchDeviceProfile.__typename == 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
+					console.log(
+						'🚀 ~ file: DeviceManagerModal.tsx ~ line 42 ~ DeviceManagerModal ~ deviceManager',
+						deviceManager,
+						'=================>',
+					)
 					AuthorizationReactiveVar(deviceManager)
 					navigation.dispatch(StackActions.popToTop())
 				}
 			},
 		})
 
-	const switchProfile = item => {
+	const handleSwitchProfile = item => {
 		setSelectedProfileId(item.id)
 		switchDeviceProfileMutation({
 			variables: {
 				profileId: item.Profile.id,
+				profileType: item.Profile.profileType,
 			},
 		})
 	}
@@ -92,7 +102,7 @@ export default function DeviceManagerModal() {
 							return (
 								<Pressable
 									key={item.id}
-									onPress={() => (!item.isActive ? switchProfile(item) : logoutProfile(item))}
+									onPress={() => (!item.isActive ? handleSwitchProfile(item) : logoutProfile(item))}
 								>
 									<DeviceManagerProfileItemLarge
 										isActive={item.isActive}

@@ -15,10 +15,7 @@ const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: Profil
 	const themeContext = useContext(ThemeContext)
 
 	return (
-		<Box
-			key={item.id}
-			style={{ padding: 4, paddingHorizontal: 5, marginVertical: 2, borderRadius: 10 }}
-		>
+		<Box key={item.id} my={2} p={2} px={3} borderRadius={'lg'}>
 			<Image
 				alt={'Profile photo'}
 				source={{ uri: item.Profile.photos[0].url }}
@@ -41,7 +38,7 @@ const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: Profil
 							{isActive ? (
 								<Icon name='ios-checkmark-circle' as={Ionicons} colorScheme={'primary'} size={'xl'} />
 							) : (
-								<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'gray'} size={'xl'} />
+								<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'danger'} size={'xl'} />
 							)}
 						</>
 					) : (

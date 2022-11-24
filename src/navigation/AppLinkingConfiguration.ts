@@ -117,7 +117,7 @@ const linking: LinkingOptions<RootNavigatorParamList> = {
 		const url = await Linking.getInitialURL()
 
 		if (url != null) {
-			return url
+			return urls
 		}
 
 		// Handle URL from expo push notifications

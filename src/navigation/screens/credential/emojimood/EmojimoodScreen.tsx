@@ -2,6 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import {
 	DeviceManager,
+	ProfileType,
 	useCreatePersonalProfileMutation,
 	useEmojimoodsQuery,
 	useSwitchDeviceProfileMutation,
@@ -29,21 +30,13 @@ const EmojimoodScreen = () => {
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data.switchDeviceProfile.__typename === 'Success') {
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'TonightStack',
-						params: {
-							screen: 'TonightScreen',
-						},
-					})
-				}
 				if (data.switchDeviceProfile.__typename === 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					navigation.navigate('HomeTabNavigator', {
-						screen: 'TonightStack',
+						screen: 'VenueFeedStack',
 						params: {
-							screen: 'TonightScreen',
+							screen: 'VenueFeedScreen',
 						},
 					})
 				}
@@ -77,10 +70,10 @@ const EmojimoodScreen = () => {
 		},
 		onCompleted: async data => {
 			if (data.createPersonalProfile.__typename === 'CreateProfileResponse') {
-				// CredentialPersonalProfileReactiveVar() // not sure why this is here
 				switchDeviceProfileMutation({
 					variables: {
 						profileId: data.createPersonalProfile.Profile.id,
+						profileType: ProfileType.Personal,
 					},
 				})
 			}

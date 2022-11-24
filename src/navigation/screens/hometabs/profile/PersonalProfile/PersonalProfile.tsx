@@ -44,6 +44,7 @@ const PersonalScreen = () => {
 		switchDeviceProfile({
 			variables: {
 				profileId: item.Profile.id,
+				profileType: item.Profile.profileType,
 			},
 		})
 	}
@@ -117,9 +118,9 @@ const PersonalScreen = () => {
 					>
 						{profile.IdentifiableInformation.fullname}
 					</Heading>
-					{/* <Heading fontSize={'md'} style={{ textTransform: 'uppercase', textAlign: 'center' }}>
+					<Heading fontSize={'md'} style={{ textTransform: 'uppercase', textAlign: 'center' }}>
 						@{profile.IdentifiableInformation.username}
-					</Heading> */}
+					</Heading>
 				</View>
 				<Button
 					onPress={() =>

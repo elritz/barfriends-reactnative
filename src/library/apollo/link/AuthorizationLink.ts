@@ -11,7 +11,7 @@ const authLink = setContext(async (_, { headers }) => {
 	return {
 		headers: {
 			...headers,
-			authorization: authorization ? authorization : 'qweqweqeqweqw',
+			authorization: authorization ? authorization : '',
 			deviceType,
 			appType: BARFRIENDS,
 		},

@@ -2871,21 +2871,21 @@ type Mutation {
   addPersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   addPersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   checkThePink: Boolean
-  createADeviceManager(profileId: String!): RefreshDeviceManagerResponseUnion
+  createADeviceManager(profileId: String!): RefreshDeviceManagerDeviceManagerResponseUnion
   createAVenue(data: CreateVenueProfileDataInput!): CreateProfileResponseUnion
   createGuestProfile: CreateProfileResponseUnion
   createOneDevice(data: DeviceCreateInput!): Device!
   createOneEmojimood(data: EmojimoodCreateInput!): Emojimood!
   createOneProfileTheme(data: ProfileThemeCreateInput!): ProfileTheme!
   createPersonalProfile(data: CreatePersonalProfileDataInput): CreateProfileResponseUnion
-  refreshDeviceManager: RefreshDeviceManagerResponseUnion
+  refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion
   removeDeviceProfileFromDeviceManager(profileId: String!): Boolean
   removePersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   removePersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   sendAuthenticatorDeviceOwnerCode(data: CodeData, where: CodeWhere): CodeResponse
   sendAuthenticatorForgotPasswordCode(data: CodeData, where: CodeWhere): CodeResponse
   storageCreateVenues(data: [Json]): [CreateVenueStorageResponse]
-  switchDeviceProfile(profileId: String!): RefreshDeviceManagerResponseUnion
+  switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): RefreshDeviceManagerDeviceManagerResponseUnion
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateWithoutProfileInput!, where: IdentifiableInformationWhereUniqueInput!): UpdateProfileResponse
   updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean
@@ -4851,7 +4851,7 @@ enum QueryMode {
   insensitive
 }
 
-union RefreshDeviceManagerResponseUnion = DeviceManager | Error | Success
+union RefreshDeviceManagerDeviceManagerResponseUnion = DeviceManager | Error
 
 input RefreshTokenCreateNestedOneWithoutDeviceProfileInput {
   connect: RefreshTokenWhereUniqueInput

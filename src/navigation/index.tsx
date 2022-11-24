@@ -128,6 +128,12 @@ const Navigation = () => {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 				}
+				if (data.switchDeviceProfile.__typename === 'Error') {
+					console.error(
+						'🚀 ~ file: index.tsx ~ line 133 ~ Navigation ~ data.switchDeviceProfile.errorCode',
+						data.switchDeviceProfile.errorCode,
+					)
+				}
 			},
 		})
 
@@ -135,14 +141,8 @@ const Navigation = () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
-				console.table(
-					'🚀 ~ file: index.tsx ~ line 141 ~ Navigation ~ data.refreshDeviceManager',
-					data.refreshDeviceManager,
-				)
-				if (
-					data.refreshDeviceManager.__typename === 'DeviceManager' ||
-					data.refreshDeviceManager.__typename === 'Success'
-				) {
+				console.log('REFRESH')
+				if (data.refreshDeviceManager.__typename === 'DeviceManager') {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 				}
@@ -155,7 +155,12 @@ const Navigation = () => {
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
 		onCompleted: async data => {
+			console.log('🚀 ~ file: index.CREATE G+UEST')
 			if (data.createGuestProfile.__typename === 'CreateProfileResponse') {
+				console.log(
+					'🚀 ~ file: index.tsx ~ line 160 ~ Navigation ~ data.createGuestProfile',
+					data.createGuestProfile.Profile.id,
+				)
 				createADeviceManagerMutation({
 					variables: {
 						profileId: data.createGuestProfile.Profile.id,
@@ -168,18 +173,17 @@ const Navigation = () => {
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
 			onCompleted: async data => {
-				if (
-					data.createADeviceManager.__typename === 'Success' ||
-					data.createADeviceManager.__typename === 'DeviceManager'
-				) {
+				if (data.createADeviceManager.__typename === 'DeviceManager') {
+					const deviceManager = data.createADeviceManager as DeviceManager
+					AuthorizationReactiveVar(deviceManager)
 					updateOneProfileMutation({
 						variables: {
 							where: {
-								id: rAuthorizationVar.DeviceProfile.Profile.id,
+								id: deviceManager.DeviceProfile.Profile.id,
 							},
 							data: {
 								DeviceManager: {
-									push: rAuthorizationVar.id,
+									push: deviceManager.id,
 								},
 							},
 						},
@@ -199,13 +203,16 @@ const Navigation = () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
-		// console.log(
-		// 	'🚀 ~ file: index.tsx ~ line 199 ~ applicationAuthorization ~ getAuthorization',
-		// 	getAuthorization,
-		// )
+
+		console.log(
+			'🚀 ~ file: index.tsx ~ line 208 ~ applicationAuthorization ~ getAuthorization',
+			getAuthorization,
+		)
 		if (!getAuthorization) {
+			console.log('HERE1')
 			createGuestProfileMutation()
 		} else {
+			console.log('HERE2')
 			refreshDeviceManagerMutation()
 		}
 	}
