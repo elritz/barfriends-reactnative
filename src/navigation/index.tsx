@@ -40,8 +40,6 @@ import { AuthorizationDecoded } from 'src/types/app'
 const Navigation = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	// console.log(JSON.stringify(rAuthorizationVar.DeviceProfile.DeviceManager, null, 4))
-	console.log(rAuthorizationVar.DeviceProfile.DeviceManager)
 
 	const setLocalStorageData = async () => {
 		try {
@@ -146,6 +144,10 @@ const Navigation = () => {
 				if (data.refreshDeviceManager.__typename === 'DeviceManager') {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
+					console.log('🚀 --------------------------------------------------------------------------🚀')
+					// console.log(JSON.stringify(deviceManager, null, 4))
+					console.log(deviceManager)
+					console.log('🚀 --------------------------------------------------------------------------🚀')
 				}
 
 				if (data.refreshDeviceManager.__typename === 'Error') {

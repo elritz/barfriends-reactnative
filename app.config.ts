@@ -19,6 +19,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				runtimeVersion: {
 					policy: 'sdkVersion',
 				},
+				jsEngine: 'hermes',
 				plugins: [
 					'sentry-expo',
 					[
@@ -65,6 +66,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					bundleIdentifier: 'com.barfriends.christian',
 					supportsTablet: false,
 					icon: `./src/assets/images/icon/icon.png`,
+					jsEngine: 'hermes',
 					splash: {
 						image: `./src/assets/images/splash/splash.png`,
 						resizeMode: 'contain',
