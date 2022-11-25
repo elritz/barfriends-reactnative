@@ -99,55 +99,7 @@ export default function App() {
 	const colorScheme = useColorScheme()
 
 	useEffect(() => {
-		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			// console.log('TODO:',notification)
-			// ============> Object {
-			// 	"date": 1666290510.895539,
-			// 	"request": Object {
-			// 		"content": Object {
-			// 			"attachments": Array [],
-			// 			"badge": null,
-			// 			"body": "What is up go to the route",
-			// 			"categoryIdentifier": "",
-			// 			"data": Object {
-			// 				"messageroomId": 12323312,
-			// 			},
-			// 			"launchImageName": "",
-			// 			"sound": "default",
-			// 			"subtitle": "awesome",
-			// 			"summaryArgument": null,
-			// 			"summaryArgumentCount": 0,
-			// 			"targetContentIdentifier": null,
-			// 			"threadIdentifier": "",
-			// 			"title": "Hey CHritian",
-			// 		},
-			// 		"identifier": "5657D80B-6919-492E-838C-9A28E54FBFC9",
-			// 		"trigger": Object {
-			// 			"class": "UNPushNotificationTrigger",
-			// 			"payload": Object {
-			// 				"aps": Object {
-			// 					"alert": Object {
-			// 						"body": "What is up go to the route",
-			// 						"launch-image": "",
-			// 						"subtitle": "awesome",
-			// 						"title": "Hey CHritian",
-			// 					},
-			// 					"category": "",
-			// 					"sound": "default",
-			// 					"thread-id": "",
-			// 				},
-			// 				"body": Object {
-			// 					"messageroomId": 12323312,
-			// 				},
-			// 				"experienceId": "@barfriends/barfriends",
-			// 				"projectId": "7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4",
-			// 				"scopeKey": "@barfriends/barfriends",
-			// 			},
-			// 			"type": "push",
-			// 		},
-			// 	},
-			// }
-		})
+		const subscription = Notifications.addNotificationReceivedListener(notification => {})
 		return () => subscription.remove()
 	}, [])
 

@@ -120,10 +120,10 @@ const NameScreen = () => {
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box
 					_light={{
-						bg: theme.colors.light[100],
+						bg: 'light.100',
 					}}
 					_dark={{
-						bg: theme.colors.light[100],
+						bg: 'dark.200',
 					}}
 					flexDir={'row'}
 					justifyContent={'flex-end'}

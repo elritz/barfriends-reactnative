@@ -128,14 +128,19 @@ const PersonalScreen = () => {
 							screen: 'EditableOptionsScreen',
 						})
 					}
+					borderRadius={'lg'}
 					width={'80%'}
 				>
 					Edit Profile
 				</Button>
 			</View>
+
 			<Divider style={{ marginVertical: 20 }} />
+
 			<CondensedVerticalFriendsNotficationsList />
+
 			<Divider style={{ marginVertical: 20 }} />
+
 			<FriendsList />
 		</ScrollView>
 	)

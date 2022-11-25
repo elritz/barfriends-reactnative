@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { useProfileQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Badge, Box, Heading, VStack } from 'native-base'
+import { Badge, Box, Heading, Text, VStack } from 'native-base'
 import { useContext } from 'react'
 import { ScrollView, Pressable } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -33,18 +33,24 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	const RoundedListItem = ({ children, ...props }) => (
 		<Box
 			{...props}
-			style={{
-				borderRadius: 15,
-				marginVertical: 10,
-				backgroundColor: themeContext.palette.secondary.background.default,
-				width: '100%',
-				flexDirection: 'column',
-				alignItems: 'flex-start',
+			_light={{
+				bg: 'light.100',
 			}}
+			_dark={{
+				bg: 'dark.200',
+			}}
+			my={2}
+			px={2}
+			py={3}
+			borderRadius={'lg'}
+			alignItems={'flex-start'}
+			flexDirection={'column'}
 		>
-			<Heading size={'md'} pb={3}>
-				{props.title}
-			</Heading>
+			{props.title && (
+				<Heading size={'md'} pb={3}>
+					{props.title}
+				</Heading>
+			)}
 			{children}
 		</Box>
 	)
@@ -67,11 +73,13 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Full name'
 			>
-				<Heading>{rIdentifiableInformation.fullname}</Heading>
+				<Text fontSize={'xl'}>{rIdentifiableInformation.fullname}</Text>
 				{rIdentifiableInformation.nickname && (
 					<>
-						<Heading py={2}>Nick name</Heading>
-						<Heading>{rIdentifiableInformation.nickname}</Heading>
+						<Text fontSize={'xl'} py={2}>
+							Nick name
+						</Text>
+						<Text fontSize={'xl'}>{rIdentifiableInformation.nickname}</Text>
 					</>
 				)}
 			</RoundedListItem>
@@ -83,7 +91,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Username'
 			>
-				<Heading>{rIdentifiableInformation.username}</Heading>
+				<Text fontSize={'xl'}>{rIdentifiableInformation.username}</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -93,13 +101,13 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Emojimood'
 			>
-				{rAuthorizationVar.DeviceProfile.Profile.Story.length ? (
-					<Heading>
+				{rAuthorizationVar.DeviceProfile.Profile.Story ? (
+					<Heading fontSize={'sm'}>
 						{rAuthorizationVar.DeviceProfile.Profile.Story[0].emojimood.emoji}{' '}
 						{rAuthorizationVar.DeviceProfile.Profile.Story[0].emojimood.emojiname}
 					</Heading>
 				) : (
-					<Heading>Add your emojimood tonight</Heading>
+					<Text fontSize={'xl'}>Add your emojimood tonight</Text>
 				)}
 			</RoundedListItem>
 			<RoundedListItem
@@ -108,9 +116,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 						screen: 'BirthdayScreen',
 					})
 				}
-				title='🥳 Birthday'
+				title='Birthday 🥳'
 			>
-				<Heading>{date}</Heading>
+				<Text fontSize={'xl'}>{date}</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -120,21 +128,19 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='About me'
 			>
-				<Heading numberOfLines={4} ellipsizeMode='tail'>
+				<Text fontSize={'xl'} numberOfLines={4} ellipsizeMode='tail'>
 					{!rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description
 						? 'Add description'
 						: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description}
-				</Heading>
+				</Text>
 			</RoundedListItem>
-			<Heading fontSize={'lg'} py={2}>
-				MY INTERESTS
-			</Heading>
 			<RoundedListItem
 				onPress={() =>
 					navigation.navigate('ProfileEditorNavigator', {
 						screen: 'InterestScreen',
 					})
 				}
+				title={'My interests'}
 			>
 				<Box>
 					<Pressable
@@ -148,12 +154,15 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 							{interests.map((interest, index) => (
 								<Badge
 									key={interest}
+									borderRadius={'lg'}
+									bg={'primary.500'}
 									_text={{
-										backgroundColor: themeContext.palette.company.primary,
-										color: themeContext.palette.company.secondary,
-										fontWeight: '600',
+										fontWeight: '400',
+										fontSize: 'md',
+										color: 'text.100',
 									}}
-									px={8}
+									px={2}
+									py={1}
 									m={2}
 								>
 									{interest}
@@ -174,9 +183,9 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`I am a ...`}
 			>
-				<Heading>
+				<Text fontSize={'xl'}>
 					{rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.gender || 'Set your gender'}
-				</Heading>
+				</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -186,10 +195,10 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`I'm looking for a ...`}
 			>
-				<Heading numberOfLines={1}>
+				<Text fontSize={'xl'} numberOfLines={1}>
 					{rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.lookfor ||
 						'Set the vibes your looking for'}
-				</Heading>
+				</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -199,7 +208,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`Relationship status`}
 			>
-				<Heading>Are you in a relationship</Heading>
+				<Text fontSize={'xl'}>Are you in a relationship</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -209,7 +218,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={`Add your hometown`}
 			>
-				<Heading>add your hometown</Heading>
+				<Text fontSize={'xl'}>add your hometown</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -219,7 +228,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title={'Add your city'}
 			>
-				<Heading>Rep your city</Heading>
+				<Text fontSize={'xl'}>Rep your city</Text>
 			</RoundedListItem>
 		</ScrollView>
 	)

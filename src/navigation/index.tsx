@@ -40,6 +40,8 @@ import { AuthorizationDecoded } from 'src/types/app'
 const Navigation = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	// console.log(JSON.stringify(rAuthorizationVar.DeviceProfile.DeviceManager, null, 4))
+	console.log(rAuthorizationVar.DeviceProfile.DeviceManager)
 
 	const setLocalStorageData = async () => {
 		try {
@@ -141,7 +143,6 @@ const Navigation = () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
-				console.log('REFRESH')
 				if (data.refreshDeviceManager.__typename === 'DeviceManager') {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
@@ -155,12 +156,7 @@ const Navigation = () => {
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
 		onCompleted: async data => {
-			console.log('🚀 ~ file: index.CREATE G+UEST')
 			if (data.createGuestProfile.__typename === 'CreateProfileResponse') {
-				console.log(
-					'🚀 ~ file: index.tsx ~ line 160 ~ Navigation ~ data.createGuestProfile',
-					data.createGuestProfile.Profile.id,
-				)
 				createADeviceManagerMutation({
 					variables: {
 						profileId: data.createGuestProfile.Profile.id,
@@ -204,15 +200,9 @@ const Navigation = () => {
 			decode: true,
 		})) as AuthorizationDecoded
 
-		console.log(
-			'🚀 ~ file: index.tsx ~ line 208 ~ applicationAuthorization ~ getAuthorization',
-			getAuthorization,
-		)
 		if (!getAuthorization) {
-			console.log('HERE1')
 			createGuestProfileMutation()
 		} else {
-			console.log('HERE2')
 			refreshDeviceManagerMutation()
 		}
 	}

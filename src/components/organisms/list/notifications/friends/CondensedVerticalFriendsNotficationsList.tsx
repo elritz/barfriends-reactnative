@@ -7,7 +7,21 @@ interface CondensedVerticalFriendsNotficationsListProps {}
 const CondensedVerticalFriendsNotficationsList = ({}) => {
 	const data = GenerateUsers(5)
 	return (
-		<Box flex={1} w={'100%'} h={'100%'} flexDir={'column'} borderRadius={'lg'} overflow={'hidden'}>
+		<Box
+			_light={{
+				bg: 'light.100',
+			}}
+			_dark={{
+				bg: 'dark.200',
+			}}
+			flex={1}
+			w={'100%'}
+			h={'100%'}
+			py={2}
+			flexDir={'column'}
+			borderRadius={'lg'}
+			overflow={'hidden'}
+		>
 			{data.length ? (
 				<>
 					{data.map((item, index) => (
