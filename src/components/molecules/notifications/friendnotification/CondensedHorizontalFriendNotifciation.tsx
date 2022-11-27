@@ -1,5 +1,16 @@
 import { Ionicons } from '@expo/vector-icons'
-import { Button, IconButton, Icon, Avatar, Box, HStack, VStack, Heading, Text } from 'native-base'
+import {
+	Button,
+	IconButton,
+	Icon,
+	Avatar,
+	Box,
+	HStack,
+	VStack,
+	Heading,
+	Text,
+	Image,
+} from 'native-base'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
@@ -16,23 +27,23 @@ export const CondensedHorizontalFriendNotifciation = ({
 }: CondensedHorizontalFriendNotifciationProps) => {
 	const themeContext = useContext(ThemeContext)
 	return (
-		<Box style={{ backgroundColor: 'transparent' }} p={2} borderBottomWidth={0.25}>
+		<Box
+			style={{ backgroundColor: 'transparent' }}
+			py={3}
+			px={2}
+			borderBottomColor={'light.300'}
+			borderBottomWidth={0.2}
+		>
 			<HStack justifyContent={'space-between'}>
-				<HStack space={1}>
-					<Avatar
-						source={{ uri: item.avatar }}
-						size='md'
-						_text={{
-							backgroundColor: themeContext.palette.primary.background.default,
-							height: '100%',
-							width: '100%',
-						}}
-					>
-						{item.name[0]}
-					</Avatar>
-					<VStack>
-						<Text fontSize={'lg'}>{item.name}</Text>
-						<Heading fontSize={'sm'}>{item.username}</Heading>
+				<HStack alignItems={'flex-start'} space={2}>
+					<Image source={{ uri: item.avatar }} size='xs' borderRadius={'lg'} alt={item.name[0]} />
+					<VStack mt={-1}>
+						<Text fontSize={'lg'} numberOfLines={1} isTruncated>
+							{item.name}
+						</Text>
+						<Heading fontSize={'sm'} isTruncated>
+							{item.username}
+						</Heading>
 					</VStack>
 				</HStack>
 				<HStack space={1} justifyContent={'space-around'} alignItems={'center'}>

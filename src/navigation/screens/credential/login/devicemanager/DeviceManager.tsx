@@ -1,4 +1,4 @@
-import ProfilingProfileItemLarge from '@components/molecules/authorization/profilingprofileitem/ProfilingProfileItem'
+import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import { useAuthorizedProfilesQuery } from '@graphql/generated'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { Heading, Text } from 'native-base'
@@ -53,8 +53,19 @@ export default function DeviceManagerScreen() {
 		)
 	}
 	if (data.authorizedProfiles.__typename === 'ProfileTypesResponse') {
-		const emailProfiles = data.authorizedProfiles.phone
-		const phoneProfiles = data.authorizedProfiles.email
+		const emailProfiles = data.authorizedProfiles.phone.filter(item => {
+			if (item.ProfileType === 'GUEST') {
+				return null
+			}
+			return item
+		})
+		const phoneProfiles = data.authorizedProfiles.email.filter(item => {
+			if (item.ProfileType === 'GUEST') {
+				return null
+			}
+			return item
+		})
+
 		const finalProfileArray = [...new Set([...emailProfiles, ...phoneProfiles])]
 
 		return (
@@ -68,11 +79,14 @@ export default function DeviceManagerScreen() {
 					showsVerticalScrollIndicator={false}
 					scrollEventThrottle={16}
 					keyboardDismissMode='none'
+					contentInset={{
+						top: 20,
+					}}
 				>
 					{finalProfileArray.map(item => {
 						return (
 							<Pressable key={item.id} onPress={() => navigateToLogin(item)}>
-								<ProfilingProfileItemLarge item={item} />
+								<DeviceManagerProfileItemLarge isActive={false} item={item} />
 							</Pressable>
 						)
 					})}

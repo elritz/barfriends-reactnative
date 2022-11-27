@@ -2,56 +2,49 @@ import { useReactiveVar } from '@apollo/client'
 import VectorFonts from '@helpers/VectorFonts'
 import { ThemeReactiveVar } from '@reactive'
 import { cacheFonts, cacheImages } from '@util/hooks/local/useCacheImages'
-import useCachedResources from '@util/hooks/local/useCachedResources'
-import { Asset } from 'expo-asset'
-import Constants from 'expo-constants'
-import * as Font from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { View, Animated, StyleSheet, useColorScheme } from 'react-native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import * as SplashScreen from 'expo-splash-screen'
+import { useCallback, useEffect, useState } from 'react'
+import { View, Animated, StyleSheet, Image, useColorScheme } from 'react-native'
 
-function AnimatedSplashScreen({ children, image }) {
+function AnimatedSplashScreen({ children, assets }) {
+	const deviceColorScheme = useColorScheme()
 	const colorScheme = useThemeColorScheme()
-	const animation = useMemo(() => new Animated.Value(1), [])
-	const [isAppReady, setAppReady] = useState(false)
-	const [isSplashAnimationComplete, setAnimationComplete] = useState(false)
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
+	const [isSplashAnimationComplete, setAnimationComplete] = useState(false)
+	const [isAppReady, setAppReady] = useState(false)
 
 	useEffect(() => {
 		if (isAppReady) {
-			Animated.timing(animation, {
-				toValue: 0,
-				duration: 200,
-				useNativeDriver: true,
-			}).start(() => setAnimationComplete(true))
+			setTimeout(() => setAnimationComplete(true), 2000)
 		}
 	}, [isAppReady])
 
-	async function loadResourcesAndDataAsync() {
+	const loadResourcesAndDataAsync = async () => {
 		try {
 			const imageAssets = cacheImages([])
 			const fontAssets = cacheFonts([...VectorFonts])
 
 			// Load fonts
-			await Font.loadAsync({
-				// eslint-disable-next-line global-require
-				'space-mono': require('../../../assets/fonts/SpaceMono-Regular.ttf'),
-			})
+			// await Font.loadAsync({
+			// 	// eslint-disable-next-line global-require
+			// 	'space-mono': require('../../../assets/fonts/SpaceMono-Regular.ttf'),
+			// })
 
 			await Promise.all([...imageAssets, ...fontAssets])
-			// await new Promise(resolve => setTimeout(resolve, 2000))
 		} catch (e) {
 			console.warn(e)
-		} finally {
 		}
 	}
 
 	const onImageLoaded = useCallback(async () => {
 		try {
-			await SplashScreen.hideAsync()
 			// Load stuff
-			await Promise.all([loadResourcesAndDataAsync])
+			setTimeout(() => SplashScreen.hideAsync(), 2000)
+
+			// Load stuff
+			// await Promise.all([loadResourcesAndDataAsync])
+			await loadResourcesAndDataAsync()
 		} catch (e) {
 			// handle errors
 		} finally {
@@ -62,19 +55,12 @@ function AnimatedSplashScreen({ children, image }) {
 	return (
 		<View
 			style={{
-				position: 'absolute',
-				top: 0,
-				bottom: 0,
-				left: 0,
-				right: 0,
-				// backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
-				backgroundColor: colorScheme === 'dark' ? '#0d0d0d' : '#f1f1f1',
 				flex: 1,
 			}}
 		>
 			{isAppReady && children}
 			{!isSplashAnimationComplete && (
-				<Animated.View
+				<View
 					pointerEvents='none'
 					style={[
 						StyleSheet.absoluteFill,
@@ -83,17 +69,25 @@ function AnimatedSplashScreen({ children, image }) {
 						},
 					]}
 				>
-					<Animated.Image
+					<Image
+						onLoad={onImageLoaded}
+						fadeDuration={0}
+						source={
+							rThemeVar.colorScheme === 'system'
+								? deviceColorScheme === 'light'
+									? assets[0]
+									: assets[1]
+								: rThemeVar.colorScheme === 'light'
+								? assets[0]
+								: assets[1]
+						}
 						style={{
 							width: '100%',
 							height: '100%',
-							resizeMode: 'contain',
+							resizeMode: 'cover',
 						}}
-						source={image}
-						onLoadEnd={onImageLoaded}
-						fadeDuration={0}
 					/>
-				</Animated.View>
+				</View>
 			)}
 		</View>
 	)

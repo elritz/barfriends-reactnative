@@ -78,6 +78,7 @@ export default function WithDeviceProfiles() {
 					<Button
 						variant={'ghost'}
 						onPress={handleSigninNavigation}
+						w={'95%'}
 						_text={{
 							textTransform: 'uppercase',
 							fontWeight: '700',

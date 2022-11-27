@@ -11,7 +11,7 @@ export default function QuickBarfriendCard() {
 				numberOfLines={2}
 				adjustsFontSizeToFit
 				color={'primary.600'}
-				size={'md'}
+				fontSize={'md'}
 				textTransform={'uppercase'}
 				fontWeight={'black'}
 				lineHeight={'xs'}

@@ -8,6 +8,7 @@ import {
 } from '@graphql/generated'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { Box } from 'native-base'
 import React, { useContext, useState } from 'react'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -18,7 +19,6 @@ export default function DeviceManagerModal() {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
@@ -32,26 +32,15 @@ export default function DeviceManagerModal() {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
-				console.log(
-					'🚀 ~ =====================+> data',
-					data.switchDeviceProfile,
-					'=====================+>',
-				)
 				if (data.switchDeviceProfile.__typename == 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
-					console.log(
-						'🚀 ~ file: DeviceManagerModal.tsx ~ line 42 ~ DeviceManagerModal ~ deviceManager',
-						deviceManager,
-						'=================>',
-					)
 					AuthorizationReactiveVar(deviceManager)
-					navigation.dispatch(StackActions.popToTop())
+					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
 				}
 			},
 		})
 
 	const handleSwitchProfile = item => {
-		setSelectedProfileId(item.id)
 		switchDeviceProfileMutation({
 			variables: {
 				profileId: item.Profile.id,
@@ -93,9 +82,9 @@ export default function DeviceManagerModal() {
 
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
-				<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
+				<Box>
 					<WithDeviceProfiles />
-				</View>
+				</Box>
 				<View style={{ flex: 1 }}>
 					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
 						{filteredDeviceProfiles.map(item => {
@@ -108,7 +97,6 @@ export default function DeviceManagerModal() {
 										isActive={item.isActive}
 										item={item.Profile}
 										loading={SWDPLoading}
-										selectedProfileId={selectedProfileId}
 									/>
 								</Pressable>
 							)

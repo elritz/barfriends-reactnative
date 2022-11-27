@@ -6871,7 +6871,7 @@ export type AuthorizedProfilesQueryVariables = Exact<{
 }>;
 
 
-export type AuthorizedProfilesQuery = { __typename?: 'Query', authorizedProfiles?: { __typename?: 'ErrorProfiling', errorCode?: string | null, message?: string | null } | { __typename?: 'ProfileTypesResponse', email?: Array<{ __typename?: 'Profile', id: string, ProfileType?: ProfileType | null } | null> | null, phone?: Array<{ __typename?: 'Profile', id: string, ProfileType?: ProfileType | null } | null> | null, username?: Array<{ __typename?: 'Profile', id: string, ProfileType?: ProfileType | null } | null> | null } | null };
+export type AuthorizedProfilesQuery = { __typename?: 'Query', authorizedProfiles?: { __typename?: 'ErrorProfiling', errorCode?: string | null, message?: string | null } | { __typename?: 'ProfileTypesResponse', email?: Array<{ __typename?: 'Profile', id: string, ProfileType?: ProfileType | null, photos: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }>, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null } | null> | null, phone?: Array<{ __typename?: 'Profile', id: string, ProfileType?: ProfileType | null, photos: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }>, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null, Story?: { __typename?: 'Story', id: string, emojimood: Array<{ __typename?: 'Emojimood', colors: Array<string>, emoji?: string | null, emojiname?: string | null }> } | null } | null> | null, username?: Array<{ __typename?: 'Profile', id: string, ProfileType?: ProfileType | null, photos: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }>, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null } | null> | null } | null };
 
 export type DocumentsQueryVariables = Exact<{
   after?: InputMaybe<DocumentWhereUniqueInput>;
@@ -7060,7 +7060,6 @@ export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesBySta
 export type UpdateStoryPhotosMutationVariables = Exact<{
   disconnectId: Scalars['String'];
   photos?: InputMaybe<PhotoCreateManyProfileInputEnvelope>;
-  storyId?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -7068,7 +7067,6 @@ export type UpdateStoryPhotosMutation = { __typename?: 'Mutation', updateStoryPh
 
 export type UpdateStoryEmojimoodMutationVariables = Exact<{
   emojimoodId: Scalars['Int'];
-  storyId?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -7795,14 +7793,52 @@ export const AuthorizedProfilesDocument = gql`
       email {
         id
         ProfileType
+        photos {
+          id
+          blurhash
+          url
+        }
+        IdentifiableInformation {
+          id
+          username
+          fullname
+        }
       }
       phone {
         id
         ProfileType
+        photos {
+          id
+          blurhash
+          url
+        }
+        IdentifiableInformation {
+          id
+          username
+          fullname
+        }
+        Story {
+          id
+          emojimood {
+            colors
+            emoji
+            emojiname
+          }
+        }
       }
       username {
         id
         ProfileType
+        photos {
+          id
+          blurhash
+          url
+        }
+        IdentifiableInformation {
+          id
+          username
+          fullname
+        }
       }
     }
   }
@@ -8696,7 +8732,7 @@ export type GetAllCitiesByStateQueryHookResult = ReturnType<typeof useGetAllCiti
 export type GetAllCitiesByStateLazyQueryHookResult = ReturnType<typeof useGetAllCitiesByStateLazyQuery>;
 export type GetAllCitiesByStateQueryResult = Apollo.QueryResult<GetAllCitiesByStateQuery, GetAllCitiesByStateQueryVariables>;
 export const UpdateStoryPhotosDocument = gql`
-    mutation updateStoryPhotos($disconnectId: String!, $photos: PhotoCreateManyProfileInputEnvelope, $storyId: String) {
+    mutation updateStoryPhotos($disconnectId: String!, $photos: PhotoCreateManyProfileInputEnvelope) {
   updateStoryPhotos(disconnectId: $disconnectId, photos: $photos)
 }
     `;
@@ -8717,7 +8753,6 @@ export type UpdateStoryPhotosMutationFn = Apollo.MutationFunction<UpdateStoryPho
  *   variables: {
  *      disconnectId: // value for 'disconnectId'
  *      photos: // value for 'photos'
- *      storyId: // value for 'storyId'
  *   },
  * });
  */
@@ -8729,7 +8764,7 @@ export type UpdateStoryPhotosMutationHookResult = ReturnType<typeof useUpdateSto
 export type UpdateStoryPhotosMutationResult = Apollo.MutationResult<UpdateStoryPhotosMutation>;
 export type UpdateStoryPhotosMutationOptions = Apollo.BaseMutationOptions<UpdateStoryPhotosMutation, UpdateStoryPhotosMutationVariables>;
 export const UpdateStoryEmojimoodDocument = gql`
-    mutation updateStoryEmojimood($emojimoodId: Int!, $storyId: String) {
+    mutation updateStoryEmojimood($emojimoodId: Int!) {
   updateStoryEmojimood(emojimoodId: $emojimoodId)
 }
     `;
@@ -8749,7 +8784,6 @@ export type UpdateStoryEmojimoodMutationFn = Apollo.MutationFunction<UpdateStory
  * const [updateStoryEmojimoodMutation, { data, loading, error }] = useUpdateStoryEmojimoodMutation({
  *   variables: {
  *      emojimoodId: // value for 'emojimoodId'
- *      storyId: // value for 'storyId'
  *   },
  * });
  */

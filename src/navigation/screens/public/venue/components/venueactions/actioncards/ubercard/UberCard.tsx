@@ -51,7 +51,7 @@ export default function UberCard() {
 	return (
 		<Box>
 			<VStack space={3}>
-				<Heading textTransform={'uppercase'} lineHeight={'xs'} size={'md'} fontWeight={'black'}>
+				<Heading textTransform={'uppercase'} lineHeight={'xs'} fontSize={'md'} fontWeight={'black'}>
 					GET HERE FAST.
 				</Heading>
 				<OpenURLButton url={url} />

@@ -47,7 +47,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			flexDirection={'column'}
 		>
 			{props.title && (
-				<Heading size={'md'} pb={3}>
+				<Heading fontSize={'md'} pb={3}>
 					{props.title}
 				</Heading>
 			)}

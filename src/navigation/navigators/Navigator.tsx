@@ -4,7 +4,8 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { DeviceManager } from '@graphql/generated'
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
-import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
+import SplashScreen from '@navigation/screens/SplashScreen'
+import AnimatedSplashScreen from '@navigation/screens/Splashscreen/AnimatedSplashScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import {
@@ -16,6 +17,7 @@ import {
 import createTheme from '@util/hooks/theme/createTheme'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
+import { useAssets } from 'expo-asset'
 import { StatusBar } from 'expo-status-bar'
 // import useDefaultTheme from '@util/hooks/theme/useDefaultTheme'
 import { NativeBaseProvider, useColorMode } from 'native-base'
@@ -54,10 +56,8 @@ const Navigator: React.FC<NavigationProps> = () => {
 			<StyledThemeProvider theme={memTheme.styled}>
 				<NativeBaseProvider theme={memTheme.nb}>
 					<BottomSheetModalProvider>
-						<AnimatedAppLoader>
-							<RootNavigator />
-							<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
-						</AnimatedAppLoader>
+						<RootNavigator />
+						<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
 					</BottomSheetModalProvider>
 				</NativeBaseProvider>
 			</StyledThemeProvider>

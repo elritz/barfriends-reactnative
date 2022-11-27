@@ -18,7 +18,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const PersonalScreen = () => {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const [switchDeviceProfile, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
@@ -35,18 +34,18 @@ const PersonalScreen = () => {
 	})
 
 	const logoutProfile = item => {
-		setSelectedProfileId(item.Profile.id)
-		switchDeviceProfile()
+		console.log('LOG OUT')
+		// switchDeviceProfile()
 	}
 
 	const switchProfile = item => {
-		setSelectedProfileId(item.Profile.id)
-		switchDeviceProfile({
-			variables: {
-				profileId: item.Profile.id,
-				profileType: item.Profile.profileType,
-			},
-		})
+		console.log('SWITCH')
+		// switchDeviceProfile({
+		// 	variables: {
+		// 		profileId: item.Profile.id,
+		// 		profileType: item.Profile.profileType,
+		// 	},
+		// })
 	}
 
 	if (loading) {
@@ -82,13 +81,12 @@ const PersonalScreen = () => {
 								return (
 									<Pressable
 										key={item.id}
-										onPress={() => (!item.isActive ? switchProfile(item) : logoutProfile(item))}
+										onPress={() => (item.isActive ? logoutProfile(item) : switchProfile(item))}
 									>
 										<DeviceManagerProfileItemLarge
 											isActive={item.isActive}
 											item={item.Profile}
 											loading={SWDPLoading}
-											selectedProfileId={selectedProfileId}
 										/>
 									</Pressable>
 								)

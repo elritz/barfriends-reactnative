@@ -1,12 +1,11 @@
+import AnimatedAppLoader from './screens/Splashscreen/AnimatedAppLoader'
 import { useReactiveVar } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	AUTHORIZATION,
 	LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
 } from '@constants/StorageConstants'
-import { SERVER_ENDPOINT } from '@env'
 import {
-	useSwitchDeviceProfileMutation,
 	DeviceManager,
 	useRefreshDeviceManagerMutation,
 	useCreateGuestProfileMutation,
@@ -24,12 +23,12 @@ import {
 	ForegroundLocationPermissionReactiveVar,
 	BackgroundLocationPermissionReactiveVar,
 	PermissionMediaReactiveVar,
-	ThemeInterface,
 	ThemeColorScheme,
 	ThemeReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
+import { useAssets } from 'expo-asset'
 import { Camera } from 'expo-camera'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
 import * as Notifications from 'expo-notifications'
@@ -112,6 +111,8 @@ const Navigation = () => {
 		...rSearchAreaVar,
 		useCurrentLocation: false,
 		country: '',
+		distance: 60,
+		kRing: 2,
 		state: '',
 		isoCode: '',
 		city: '',
@@ -121,22 +122,6 @@ const Navigation = () => {
 		},
 	}
 
-	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
-		useSwitchDeviceProfileMutation({
-			onCompleted: data => {
-				if (data.switchDeviceProfile.__typename === 'DeviceManager') {
-					const deviceManager = data.switchDeviceProfile as DeviceManager
-					AuthorizationReactiveVar(deviceManager)
-				}
-				if (data.switchDeviceProfile.__typename === 'Error') {
-					console.error(
-						'🚀 ~ file: index.tsx ~ line 133 ~ Navigation ~ data.switchDeviceProfile.errorCode',
-						data.switchDeviceProfile.errorCode,
-					)
-				}
-			},
-		})
-
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
@@ -144,10 +129,6 @@ const Navigation = () => {
 				if (data.refreshDeviceManager.__typename === 'DeviceManager') {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					console.log('🚀 --------------------------------------------------------------------------🚀')
-					// console.log(JSON.stringify(deviceManager, null, 4))
-					console.log(deviceManager)
-					console.log('🚀 --------------------------------------------------------------------------🚀')
 				}
 
 				if (data.refreshDeviceManager.__typename === 'Error') {
@@ -201,7 +182,6 @@ const Navigation = () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
-
 		if (!getAuthorization) {
 			createGuestProfileMutation()
 		} else {
@@ -212,10 +192,6 @@ const Navigation = () => {
 	useEffect(() => {
 		setPermissions()
 		setLocalStorageData()
-	}, [])
-	useEffect(() => {
-		setPermissions()
-		setLocalStorageData()
 		applicationAuthorization()
 	}, [])
 
@@ -223,12 +199,23 @@ const Navigation = () => {
 		const subscription = Notifications.addPushTokenListener(e => {})
 		return () => subscription.remove()
 	}, [])
-
+	const [assets, Aerror] = useAssets([
+		require('../assets/images/splash/splash.light.png'),
+		require('../assets/images/splash/splash.dark.png'),
+	])
 	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) {
 		return null
 	}
 
-	return <Navigator />
+	if (!assets) {
+		return null
+	}
+
+	return (
+		<AnimatedAppLoader assets={assets}>
+			<Navigator />
+		</AnimatedAppLoader>
+	)
 }
 
 export default Navigation

@@ -186,7 +186,7 @@ const ConfirmationCodeScreen = () => {
 					height={'90px'}
 					px={'2.5%'}
 				>
-					<Box flexDir={'column'} justifyContent={'space-around'} my={2}>
+					<Box flexDir={'column'} justifyContent={'space-around'} my={2} flex={1}>
 						{complete ? (
 							<>
 								<Pressable onPress={() => null}>

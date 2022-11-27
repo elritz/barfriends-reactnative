@@ -5,15 +5,17 @@ import { HStack, VStack } from 'native-base'
 
 interface ProfileActivityAndStatusCardsProps {}
 
-const ProfileActivityAndStatusCards = ({}) => (
-	<VStack space={2} justifyContent={'space-around'}>
-		<HStack space={2} mx={2}>
-			<AddRelationship />
-			<AddEmoji />
-		</HStack>
-		<HStack space={2} mx={2} justifyContent={'space-around'}>
-			<JoinVenue />
-		</HStack>
-	</VStack>
-)
+const ProfileActivityAndStatusCards = ({}) => {
+	return (
+		<VStack space={2} justifyContent={'space-around'}>
+			<HStack space={2} mx={2}>
+				<AddRelationship />
+				<AddEmoji />
+			</HStack>
+			<HStack space={2} mx={2} justifyContent={'space-around'}>
+				<JoinVenue />
+			</HStack>
+		</VStack>
+	)
+}
 export default ProfileActivityAndStatusCards

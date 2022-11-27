@@ -1,21 +1,15 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Box, Heading, HStack, Icon, IconButton, Image, Pressable, Text, VStack } from 'native-base'
+import { Box, Heading, HStack, Icon, IconButton, Image, Text, VStack } from 'native-base'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {
 	item: Profile
 	isActive: boolean
 	loading?: boolean
-	selectedProfileId?: string
 }
 
-const DeviceManagerProfileItemLarge = ({
-	item,
-	isActive,
-	loading,
-	selectedProfileId,
-}: ProfileItemType) => {
+const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemType) => {
 	return (
 		<Box
 			_light={{
@@ -28,7 +22,7 @@ const DeviceManagerProfileItemLarge = ({
 			flex={1}
 			flexDir={'row'}
 			my={2}
-			p={2}
+			py={3}
 			px={3}
 			borderRadius={'lg'}
 			alignItems={'center'}
@@ -42,29 +36,25 @@ const DeviceManagerProfileItemLarge = ({
 					alt={'Profile photo'}
 				/>
 				<VStack mx={2}>
-					<Heading style={{ textTransform: 'capitalize' }}>
+					<Text fontSize={'lg'} numberOfLines={1} isTruncated>
 						{item?.IdentifiableInformation?.fullname}
-					</Heading>
-					<Text ml={0.5} style={{ fontWeight: 'bold' }}>
-						{item?.IdentifiableInformation?.username}
 					</Text>
+					<Heading fontSize={'sm'} isTruncated>
+						{item?.IdentifiableInformation?.username}
+					</Heading>
 				</VStack>
 			</HStack>
-			<IconButton
-				icon={
-					!loading ? (
-						<>
-							{isActive ? (
-								<Icon name='ios-checkmark-circle' as={Ionicons} color={'success.600'} size={'xl'} />
-							) : (
-								<Icon name='radio-button-unchecked' as={MaterialIcons} color={'gray.400'} size={'xl'} />
-							)}
-						</>
+			{!loading ? (
+				<>
+					{isActive ? (
+						<Icon name='ios-checkmark-circle' as={Ionicons} color={'success.600'} size={'xl'} />
 					) : (
-						<ActivityIndicator />
-					)
-				}
-			/>
+						<Icon name='radio-button-unchecked' as={MaterialIcons} color={'gray.400'} size={'xl'} />
+					)}
+				</>
+			) : (
+				<ActivityIndicator />
+			)}
 		</Box>
 	)
 }

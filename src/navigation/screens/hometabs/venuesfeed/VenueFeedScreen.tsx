@@ -250,7 +250,7 @@ const VenueFeedScreen = () => {
 						)}
 					{!loading && data && data?.venuesNearby && (
 						<VStack mx={scrollViewMarginX} alignItems={'flex-start'} mb={3}>
-							<Heading lineHeight={'xs'} size={'md'} fontWeight={'bold'}>
+							<Heading lineHeight={'xs'} fontSize={'md'} fontWeight={'bold'}>
 								Nearby
 							</Heading>
 							<Heading mt={'-5px'} lineHeight={'xs'} size={'2xl'} fontWeight={'black'} numberOfLines={1}>

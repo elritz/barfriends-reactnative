@@ -22,6 +22,9 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
+	const ITEM_HEIGHT = window.width / 3
+	const ITEM_WIDTH = window.width / 3
+
 	const onPressEmojimood = (item: any) => {
 		setValue('emojimood', {
 			...item,
@@ -31,18 +34,22 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 		onCompleted: data => {
 			if (data.updateOneProfile) {
 				const Profile = data.updateOneProfile as Profile
-				AuthorizationReactiveVar({
-					...rAuthorizationVar,
-					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
-						Profile,
-					},
-				})
-				reset({
-					description: data.updateOneProfile.DetailInformation.description,
-				})
+				if (rAuthorizationVar?.DeviceProfile) {
+					AuthorizationReactiveVar({
+						...rAuthorizationVar,
+						DeviceProfile: {
+							...rAuthorizationVar.DeviceProfile,
+							Profile,
+						},
+					})
+				}
+				// reset({
+				// 	emojimood: {
+				// 		name: data.updateOneProfile.DetailInformation.description,
+				// 	}
+				// })
 			} else {
-				setError('description', { message: 'Couldnt update profile' })
+				setError('emojimood', { message: 'Couldnt update profile' })
 			}
 		},
 	})
@@ -57,10 +64,11 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 	} = useForm({
 		defaultValues: {
 			emojimood: {
-				id: rAuthorizationVar.DeviceProfile.Profile.Story[0]?.emojimood.id || '',
-				emoji: rAuthorizationVar.DeviceProfile.Profile.Story[0]?.emojimood.emoji || '',
-				name: rAuthorizationVar.DeviceProfile.Profile.Story[0]?.emojimood.emojiname || '',
-				colors: rAuthorizationVar.DeviceProfile.Profile.Story[0]?.emojimood.colors || ([] as string[]),
+				id: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].id || '',
+				emoji: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].emoji || '',
+				name: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].emojiname || '',
+				colors:
+					rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].colors || ([] as string[]),
 			},
 		},
 	})
@@ -80,6 +88,15 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 	const { data: emojiData, loading: emojiLoading, error: emojiError } = useEmojimoodsQuery()
 
 	if (emojiLoading) return null
+
+	if (emojiError) {
+		return (
+			<Box>
+				<Text>{emojiError.name}</Text>
+				<Text>{emojiError.message}</Text>
+			</Box>
+		)
+	}
 
 	return (
 		<Box alignItems={'center'} flex={1}>
@@ -121,30 +138,34 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 						<FlatList
 							style={{
 								flex: 1,
+								paddingTop: window.width / 1.5,
 							}}
+							contentInset={{ bottom: window.width / 1.5, left: 0, right: 0 }}
+							contentInsetAdjustmentBehavior='automatic'
 							ListHeaderComponent={() => {
 								return (
-									<Button
-										onPress={() => {
-											console.log('TODO: Clear emoijimood ========>')
-										}}
-									>
-										Clear
-									</Button>
+									<Box alignItems={'center'}>
+										<Button
+											w={'55%'}
+											onPress={() => {
+												console.log('TODO: Clear emoijimood ========>')
+											}}
+										>
+											Clear
+										</Button>
+									</Box>
 								)
 							}}
 							keyExtractor={item => item.id.toString()}
 							onEndReachedThreshold={0.4}
 							showsVerticalScrollIndicator={false}
 							numColumns={3}
-							contentInset={{ top: window.width / 1.5, bottom: 90, left: 0, right: 0 }}
-							contentInsetAdjustmentBehavior='automatic'
-							data={emojiData.emojimoods}
-							renderItem={({ item }: any) => {
+							data={emojiData?.emojimoods}
+							renderItem={({ item }) => {
 								return (
 									<Pressable onPress={() => onPressEmojimood(item)}>
 										<View>
-											<Svg width={window.width / 3} height={window.width / 3}>
+											<Svg width={ITEM_WIDTH} height={ITEM_HEIGHT}>
 												<Defs>
 													<LinearGradient id='grad' x1='1' y1='0' x2='1' y2='1'>
 														<Stop offset='0' stopColor={item.colors[0]} stopOpacity='1' />
@@ -157,31 +178,41 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 													rx={window.width / 8}
 													ry={window.width / 8}
 													fill='url(#grad)'
-													stroke={value.id === item.id ? 'white' : '#FFFFFF00'}
+													stroke={value.id === String(item.id) ? 'white' : '#FFFFFF00'}
 													strokeWidth='2'
 												/>
 											</Svg>
 											<Text
 												style={{
 													position: 'absolute',
-													top: window.width / 12,
+													top: ITEM_HEIGHT / 3,
 													textAlign: 'center',
 													alignSelf: 'center',
-													marginTop: 10,
-													justifyContent: 'center',
-													fontSize: 35,
 												}}
+												fontSize={'3xl'}
 											>
 												{item.emoji}
 											</Text>
 										</View>
-										<Text style={{ textAlign: 'center' }}>{item.name}</Text>
+										<Text
+											fontSize={'md'}
+											isTruncated
+											w={ITEM_WIDTH}
+											adjustsFontSizeToFit
+											allowFontScaling
+											minimumFontScale={0.5}
+											numberOfLines={2}
+											fontWeight={'medium'}
+											style={{ textAlign: 'center' }}
+										>
+											{item.emojiname}
+										</Text>
 									</Pressable>
 								)
 							}}
 						/>
 						<BlurView
-							tint={colorScheme}
+							tint={colorScheme === 'light' ? 'light' : 'dark'}
 							intensity={20}
 							style={{
 								position: 'absolute',
@@ -211,20 +242,10 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 								borderWidth: 2,
 							}}
 							width={window.width / 2.3}
-							height={window.width / 2.2}
+							height={window.width / 2.3}
 							source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
 							alt={'Profile Photo'}
 						/>
-						<SafeAreaView
-							style={{
-								position: 'absolute',
-								bottom: insets.bottom,
-								left: 0,
-								right: 0,
-								display: 'flex',
-								flexDirection: 'row-reverse',
-							}}
-						></SafeAreaView>
 					</>
 				)}
 			/>

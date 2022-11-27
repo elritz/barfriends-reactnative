@@ -13,14 +13,52 @@ export const authorizedProfiles = gql`
 				email {
 					id
 					ProfileType
+					photos {
+						id
+						blurhash
+						url
+					}
+					IdentifiableInformation {
+						id
+						username
+						fullname
+					}
 				}
 				phone {
 					id
 					ProfileType
+					photos {
+						id
+						blurhash
+						url
+					}
+					IdentifiableInformation {
+						id
+						username
+						fullname
+					}
+					Story {
+						id
+						emojimood {
+							colors
+							emoji
+							emojiname
+						}
+					}
 				}
 				username {
 					id
 					ProfileType
+					photos {
+						id
+						blurhash
+						url
+					}
+					IdentifiableInformation {
+						id
+						username
+						fullname
+					}
 				}
 			}
 		}

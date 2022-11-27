@@ -2,11 +2,10 @@ import LocationPermissionItem from './LocationPermissionItem'
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { Feather } from '@expo/vector-icons'
-import GenerateCountryData from '@helpers/generate/placeholder/GenerateCountryData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
-import { Box, Heading, Text, HStack, Button, Center, ScrollView } from 'native-base'
+import { Box, Heading, Text, HStack, Button, ScrollView } from 'native-base'
 import { Icon } from 'native-base'
 
 // TODO: FN(Flatlist with data of recent SearchArea with onPress to switch to it)
@@ -19,9 +18,9 @@ const SearchAreaFilltering = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const searchAreaLocation = [
-		{ name: 'Country', value: rSearchAreaVar.country },
-		{ name: 'State', value: rSearchAreaVar.state },
-		{ name: 'City', value: rSearchAreaVar.city },
+		{ name: 'Country', value: rSearchAreaVar?.country },
+		{ name: 'State', value: rSearchAreaVar?.state },
+		{ name: 'City', value: rSearchAreaVar?.city },
 	]
 
 	const searchAreaDistances = [
@@ -42,18 +41,27 @@ const SearchAreaFilltering = () => {
 	const switchRouter = value => {
 		switch (value) {
 			case 'City':
-				navigation.navigate('ModalNavigator', {
-					screen: 'SearchAreaModalStack',
-					params: {
-						screen: 'SearchStateCitiesTextScreen',
-					},
-				})
+				if (rSearchAreaVar?.country && rSearchAreaVar?.state) {
+					navigation.navigate('ModalNavigator', {
+						screen: 'SearchAreaModalStack',
+						params: {
+							screen: 'SearchStateCitiesTextScreen',
+							params: {
+								country: rSearchAreaVar?.country,
+								state: rSearchAreaVar?.state,
+							},
+						},
+					})
+				}
 				break
 			default:
 				navigation.navigate('ModalNavigator', {
 					screen: 'SearchAreaModalStack',
 					params: {
 						screen: 'SearchCountryTextScreen',
+						params: {
+							searchText: '',
+						},
 					},
 				})
 		}
@@ -107,19 +115,19 @@ const SearchAreaFilltering = () => {
 						return (
 							<Button
 								key={index}
-								variant={rSearchAreaVar.kRing === item.kRing ? 'solid' : 'outline'}
-								colorScheme={rSearchAreaVar.kRing === item.kRing ? 'primary' : 'white'}
+								variant={rSearchAreaVar?.kRing === item.kRing ? 'solid' : 'outline'}
+								colorScheme={rSearchAreaVar?.kRing === item.kRing ? 'primary' : 'white'}
 								_text={{
 									_dark: {
-										color: rSearchAreaVar.kRing === item.kRing ? 'white' : 'red.200',
+										color: rSearchAreaVar?.kRing === item.kRing ? 'white' : 'red.200',
 									},
 									_light: {
-										color: rSearchAreaVar.kRing === item.kRing ? 'white' : 'coolGray.900',
+										color: rSearchAreaVar?.kRing === item.kRing ? 'white' : 'coolGray.900',
 									},
-									fontWeight: rSearchAreaVar.kRing === item.kRing ? 'medium' : 'medium',
+									fontWeight: rSearchAreaVar?.kRing === item.kRing ? 'medium' : 'medium',
 								}}
 								style={{
-									borderColor: rSearchAreaVar.kRing === item.kRing ? '#ff700000' : '#ff7000',
+									borderColor: rSearchAreaVar?.kRing === item.kRing ? '#ff700000' : '#ff7000',
 									borderWidth: 1,
 								}}
 								onPress={() => handleSearchAreaKRing(item)}
@@ -161,7 +169,7 @@ const SearchAreaFilltering = () => {
 						numberOfLines={1}
 						ellipsizeMode={'tail'}
 					>
-						{rSearchAreaVar.country}, {rSearchAreaVar.state}, {rSearchAreaVar.city}
+						{rSearchAreaVar?.country}, {rSearchAreaVar?.state}, {rSearchAreaVar?.city}
 					</Text>
 				</Button>
 			</ScrollView>

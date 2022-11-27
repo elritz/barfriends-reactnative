@@ -1,35 +1,33 @@
-import AnimatedSplashScreen from './AnimatedSplashScreen'
-import { useReactiveVar } from '@apollo/client'
-import { ThemeReactiveVar } from '@reactive'
-import { useAssets } from 'expo-asset'
-import { useColorScheme } from 'react-native'
+import AnimatedSplashScreen from '@navigation/screens/Splashscreen/AnimatedSplashScreen'
+import { Asset } from 'expo-asset'
+import { useEffect, useState } from 'react'
 
-function AnimatedAppLoader({ children }) {
-	const rThemeVar = useReactiveVar(ThemeReactiveVar)
-	const deviceColorScheme = useColorScheme()
+function AnimatedAppLoader({ children, assets }) {
+	const [isAppSplashIsReady, setAppSplashIsReady] = useState(false)
 
-	const [assets, error] = useAssets([
-		require('../../../assets/images/splash/splash.light.png'),
-		require('../../../assets/images/splash/splash.dark.png'),
-	])
-
-	if (!assets) return null
-
-	return (
-		<AnimatedSplashScreen
-			image={
-				rThemeVar.colorScheme === 'system'
-					? deviceColorScheme === 'light'
-						? assets[0]
-						: assets[1]
-					: rThemeVar.colorScheme === 'light'
-					? assets[0]
-					: assets[1]
+	useEffect(() => {
+		async function prepare() {
+			try {
+				// Artificially delay for two seconds to simulate a slow loading
+				// experience. Please remove this if you copy and paste the code!
+				// await loadResourcesAndDataAsync()
+				// await new Promise(resolve => setTimeout(() => setAppSplashIsReady(true), 500))
+				// assets.map(async item => {
+				// 	await Asset.fromURI(item.localUri).downloadAsync()
+				// })
+				setAppSplashIsReady(true)
+			} catch (e) {
+				console.warn(e)
 			}
-		>
-			{children}
-		</AnimatedSplashScreen>
-	)
+		}
+		prepare()
+	}, [assets])
+
+	if (!isAppSplashIsReady) {
+		return null
+	}
+
+	return <AnimatedSplashScreen assets={assets}>{children}</AnimatedSplashScreen>
 }
 
 export default AnimatedAppLoader

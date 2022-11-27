@@ -7,7 +7,7 @@ export default function LocationPermission() {
 
 	return (
 		<Box flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
-			<Heading size={'md'} textTransform={'uppercase'} fontWeight={'black'} lineHeight={'xs'}>
+			<Heading fontSize={'md'} textTransform={'uppercase'} fontWeight={'black'} lineHeight={'xs'}>
 				Use the join venue feature!
 			</Heading>
 			<Button

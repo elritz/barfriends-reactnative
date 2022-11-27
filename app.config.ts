@@ -12,6 +12,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				scheme: 'barfriends',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
+				primaryColor: '#FF7000',
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -158,6 +159,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
 				},
+				primaryColor: '#FF7000',
 				runtimeVersion: {
 					policy: 'sdkVersion',
 				},

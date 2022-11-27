@@ -1,8 +1,6 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { Text, Icon, Image, Box, HStack, Checkbox, IconButton } from 'native-base'
-import { useContext } from 'react'
+import { Text, Icon, Image, Box, HStack, IconButton, VStack, Heading } from 'native-base'
 import { ActivityIndicator } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 type ProfileItemType = {
 	item: any
@@ -12,8 +10,6 @@ type ProfileItemType = {
 }
 
 const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: ProfileItemType) => {
-	const themeContext = useContext(ThemeContext)
-
 	return (
 		<Box key={item.id} my={2} p={2} px={3} borderRadius={'lg'}>
 			<Image
@@ -22,30 +18,26 @@ const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: Profil
 				style={{ width: 40, height: 40, borderRadius: 4 }}
 			/>
 			<HStack style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-				{item.Profile.IdentifiableInformation.fullname && (
-					<Text style={{ textTransform: 'capitalize' }}>
-						{item.Profile.IdentifiableInformation.fullname}
+				<VStack mx={2}>
+					<Text fontSize={'lg'} numberOfLines={1} isTruncated>
+						{item?.IdentifiableInformation?.fullname}
 					</Text>
-				)}
-				{item.Profile.IdentifiableInformation.username && (
-					<Text style={{ fontWeight: 'bold' }}>{item.Profile.IdentifiableInformation.username}</Text>
-				)}
+					<Heading fontSize={'sm'} isTruncated>
+						{item?.IdentifiableInformation?.username}
+					</Heading>
+				</VStack>
 			</HStack>
-			<IconButton
-				icon={
-					!loading ? (
-						<>
-							{isActive ? (
-								<Icon name='ios-checkmark-circle' as={Ionicons} colorScheme={'primary'} size={'xl'} />
-							) : (
-								<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'danger'} size={'xl'} />
-							)}
-						</>
+			{!loading ? (
+				<>
+					{isActive ? (
+						<Icon name='ios-checkmark-circle' as={Ionicons} colorScheme={'primary'} size={'xl'} />
 					) : (
-						<ActivityIndicator />
-					)
-				}
-			/>
+						<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'danger'} size={'xl'} />
+					)}
+				</>
+			) : (
+				<ActivityIndicator />
+			)}
 		</Box>
 	)
 }

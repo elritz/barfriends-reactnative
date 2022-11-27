@@ -35,7 +35,7 @@ type PasswordScreenProps = {
 	Profile?: Profile
 }
 
-const IMAGE_SIZE = 75
+const IMAGE_SIZE = 85
 
 const PasswordLoginScreen = () => {
 	const inputAccessoryViewID = 'uni2que123ID4'
@@ -146,29 +146,15 @@ const PasswordLoginScreen = () => {
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
-			<LinearGradient
-				style={{
-					alignItems: 'center',
-					justifyContent: 'center',
-					marginTop: 10,
-					padding: 5,
-					borderRadius: 20,
-				}}
-				colors={[
-					themeContext.palette.secondary.background.default,
-					themeContext.palette.secondary.background.default,
-				]}
-			>
-				{!PQLoading && (
-					<Image
-						height={`${IMAGE_SIZE}px`}
-						width={`${IMAGE_SIZE}px`}
-						borderRadius={'lg'}
-						source={{ uri: PQData.profile.photos[0].url }}
-						alt={'Profile Photo'}
-					/>
-				)}
-			</LinearGradient>
+			{!PQLoading && (
+				<Image
+					height={`${IMAGE_SIZE}px`}
+					width={`${IMAGE_SIZE}px`}
+					borderRadius={'lg'}
+					source={{ uri: PQData.profile.photos[0].url }}
+					alt={'Profile Photo'}
+				/>
+			)}
 			<View style={{ marginVertical: '10%', width: '100%' }}>
 				<Controller
 					name='password'

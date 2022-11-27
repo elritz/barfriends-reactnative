@@ -1,32 +1,15 @@
-import { ApolloProvider, useReactiveVar } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import { LOCATION_TASK_NAME, BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import gateaWayClient from '@library/gateway-apollo-server'
 import Navigation from '@navigation/index'
-import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
-import { ThemeReactiveVar } from '@reactive'
-import useDeviceNetwork from '@util/hooks/device/useDeviceNetwork'
-import usePermission from '@util/hooks/device/usePermission'
-import useCachedResources from '@util/hooks/local/useCachedResources'
-import { useCurrentTheme } from '@util/hooks/theme/useCurrentTheme'
-import Constants from 'expo-constants'
 import 'expo-dev-client'
-import * as Device from 'expo-device'
-import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
-import * as SplashScreen from 'expo-splash-screen'
-import { StatusBar } from 'expo-status-bar'
 import * as TaskManager from 'expo-task-manager'
-import { identity } from 'lodash'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { View, useColorScheme, Alert, Platform } from 'react-native'
+import { useEffect } from 'react'
 import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
-SplashScreen.preventAutoHideAsync().catch(() => {
-	/* reloading the app might trigger some race conditions, ignore them */
-})
 // TODO: FN(Background or foreground location tracking) - need to setup the application to optimize around apps fn performance
 
 // Define the background task for location tracking
@@ -94,10 +77,6 @@ Notifications.setNotificationHandler({
 })
 
 export default function App() {
-	const isDeviceNetworkComplete = useDeviceNetwork()
-	const isPermissionComplete = usePermission()
-	const colorScheme = useColorScheme()
-
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {})
 		return () => subscription.remove()
@@ -114,7 +93,9 @@ export default function App() {
 		<SafeAreaProvider>
 			<KeyboardProvider statusBarTranslucent>
 				<ApolloProvider client={gateaWayClient}>
+					{/* <AnimatedAppLoader assets={assets}> */}
 					<Navigation />
+					{/* </AnimatedAppLoader> */}
 				</ApolloProvider>
 			</KeyboardProvider>
 		</SafeAreaProvider>

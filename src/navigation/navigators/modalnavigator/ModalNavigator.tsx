@@ -42,9 +42,8 @@ function ModalNavigator() {
 					headerStyle: {
 						backgroundColor: 'transparent',
 					},
-					// headerTitle: () => <NavigationDragIcon />,
 					headerShown: false,
-					headerTitle: () => '',
+					headerTitle: () => <NavigationDragIcon />,
 					headerLeft: () => null,
 				}}
 			/>
