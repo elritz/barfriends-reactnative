@@ -1,11 +1,11 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Box, Heading, HStack, Icon, IconButton, Image, Text, VStack } from 'native-base'
+import { Box, Heading, HStack, Icon, Image, Text, VStack } from 'native-base'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {
-	item: Profile
-	isActive: boolean
+	item: Profile | undefined
+	isActive: boolean | undefined
 	loading?: boolean
 }
 
@@ -18,7 +18,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 			_dark={{
 				bg: 'dark.200',
 			}}
-			key={item.id}
+			key={item?.id}
 			flex={1}
 			flexDir={'row'}
 			my={2}

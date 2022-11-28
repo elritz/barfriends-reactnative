@@ -43,11 +43,11 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 						},
 					})
 				}
-				// reset({
-				// 	emojimood: {
-				// 		name: data.updateOneProfile.DetailInformation.description,
-				// 	}
-				// })
+				reset({
+					emojimood: {
+						name: String(data.updateOneProfile.DetailInformation?.description),
+					},
+				})
 			} else {
 				setError('emojimood', { message: 'Couldnt update profile' })
 			}

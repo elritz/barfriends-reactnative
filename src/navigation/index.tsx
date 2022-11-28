@@ -25,6 +25,8 @@ import {
 	PermissionMediaReactiveVar,
 	ThemeColorScheme,
 	ThemeReactiveVar,
+	ThemeColorSchemeType,
+	ThemeColorSchemeParseType,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
@@ -34,6 +36,7 @@ import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'ex
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync } from 'expo-notifications'
 import { useEffect } from 'react'
+import { Appearance } from 'react-native'
 import { AuthorizationDecoded } from 'src/types/app'
 
 const Navigation = () => {
@@ -71,16 +74,25 @@ const Navigation = () => {
 				LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
 			)
 			if (getLocalStorageTheme === null) {
-				const initialThemeColorSchemeState = {
-					colorScheme: ThemeColorScheme.system,
-				}
-				const newThemeColorScheme = JSON.stringify(initialThemeColorSchemeState)
-				await AsyncStorage.setItem(LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE, newThemeColorScheme)
-			} else {
-				const values = JSON.parse(getLocalStorageTheme)
+				const initialThemeColorSchemeState = JSON.stringify({
+					colorScheme: 'system',
+				})
+				await AsyncStorage.setItem(
+					LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+					initialThemeColorSchemeState,
+				)
 				ThemeReactiveVar({
 					theme: null,
-					colorScheme: values.colorScheme,
+					localStorageColorScheme: 'system',
+					colorScheme: Appearance.getColorScheme(),
+				})
+			} else {
+				const values: ThemeColorSchemeParseType = JSON.parse(getLocalStorageTheme)
+				ThemeReactiveVar({
+					theme: null,
+					localStorageColorScheme: values.colorScheme,
+					colorScheme:
+						values.colorScheme === 'system' ? Appearance.getColorScheme() : values.colorScheme,
 				})
 				// there is a setting for theme
 			}

@@ -5,13 +5,13 @@ import { FriendsList } from '@components/organisms/list/friendslist/FriendsList'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import {
 	DeviceManager,
+	Profile,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Image, Button, Divider, Heading, ScrollView } from 'native-base'
-import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -22,7 +22,7 @@ const PersonalScreen = () => {
 	const [switchDeviceProfile, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
-				if (data.switchDeviceProfile.__typename == 'DeviceManager') {
+				if (data?.switchDeviceProfile?.__typename == 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 				}
@@ -35,33 +35,32 @@ const PersonalScreen = () => {
 
 	const logoutProfile = item => {
 		console.log('LOG OUT')
-		// switchDeviceProfile()
+		switchDeviceProfile()
 	}
 
 	const switchProfile = item => {
-		console.log('SWITCH')
-		// switchDeviceProfile({
-		// 	variables: {
-		// 		profileId: item.Profile.id,
-		// 		profileType: item.Profile.profileType,
-		// 	},
-		// })
+		switchDeviceProfile({
+			variables: {
+				profileId: item.Profile.id,
+				profileType: item.Profile.profileType,
+			},
+		})
 	}
 
 	if (loading) {
 		return null
 	}
 
-	const profile = rAuthorizationVar.DeviceProfile.Profile
+	const profile = rAuthorizationVar?.DeviceProfile?.Profile
 
 	if (
-		!rAuthorizationVar.DeviceProfile.Profile.Personal &&
-		!rAuthorizationVar.DeviceProfile.Profile.Venue
+		!rAuthorizationVar?.DeviceProfile?.Profile?.Personal &&
+		!rAuthorizationVar?.DeviceProfile?.Profile?.Venue
 	) {
-		if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
+		if (data?.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
 			const deviceProfiles = data.getADeviceManager.DeviceProfiles
-			const filteredDeviceProfiles = deviceProfiles.filter(item => {
-				if (!item.Profile) {
+			const filteredDeviceProfiles = deviceProfiles?.filter(item => {
+				if (!item?.Profile) {
 					return null
 				}
 				if (!item.Profile.Personal && !item.Profile.Venue) {
@@ -77,15 +76,15 @@ const PersonalScreen = () => {
 							<Divider style={{ marginVertical: 10 }} />
 						</View>
 						<View style={{ width: '95%', alignSelf: 'center' }}>
-							{filteredDeviceProfiles.map((item, index) => {
+							{filteredDeviceProfiles?.map((item, index) => {
 								return (
 									<Pressable
-										key={item.id}
-										onPress={() => (item.isActive ? logoutProfile(item) : switchProfile(item))}
+										key={item?.id}
+										onPress={() => (item?.isActive ? logoutProfile(item) : switchProfile(item))}
 									>
 										<DeviceManagerProfileItemLarge
-											isActive={item.isActive}
-											item={item.Profile}
+											isActive={item?.isActive}
+											item={item?.Profile as Profile}
 											loading={SWDPLoading}
 										/>
 									</Pressable>
@@ -105,7 +104,7 @@ const PersonalScreen = () => {
 					width={165}
 					height={170}
 					borderRadius={15}
-					source={{ uri: profile.photos[0].url }}
+					source={{ uri: profile?.photos[0].url }}
 					alt={'Profile Photo'}
 				/>
 				<View style={{ marginVertical: 20 }}>
@@ -114,10 +113,10 @@ const PersonalScreen = () => {
 						numberOfLines={2}
 						style={{ textTransform: 'capitalize', textAlign: 'center' }}
 					>
-						{profile.IdentifiableInformation.fullname}
+						{profile?.IdentifiableInformation?.fullname}
 					</Heading>
 					<Heading fontSize={'md'} style={{ textTransform: 'uppercase', textAlign: 'center' }}>
-						@{profile.IdentifiableInformation.username}
+						@{profile?.IdentifiableInformation?.username}
 					</Heading>
 				</View>
 				<Button

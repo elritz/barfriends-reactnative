@@ -23,6 +23,7 @@ import {
 	searchAreaInitialState,
 	SearchAreaReactiveVar,
 	ThemeColorScheme,
+	ThemeColorSchemeParseType,
 	ThemeReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
@@ -47,7 +48,7 @@ import {
 	Stack,
 } from 'native-base'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Platform, Linking, useColorScheme } from 'react-native'
+import { Platform, Linking, useColorScheme, ColorSchemeName } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(Change theme functionality with database and local storage save)
@@ -65,208 +66,216 @@ const DevelopmentScreen = () => {
 
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
 
+	const setTheme = async ({ colorScheme }: { colorScheme: 'light' | 'dark' | 'system' }) => {
+		await toggleThemes({ colorScheme })
+	}
+
 	// variables
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
 
 	const handleSnapPress = useCallback(index => {
-		bottomSheetModalRef.current.present()
+		bottomSheetModalRef.current?.present()
 		bottomSheetModalRef.current?.snapToIndex(index)
 	}, [])
 
 	// render
-	const renderItem = useCallback(({ item }) => {
-		const company = {
-			dark: [
-				item.mobile[0].dark.styled.palette.company.primary,
-				item.mobile[0].dark.styled.palette.company.secondary,
-				item.mobile[0].dark.styled.palette.company.tertiary,
-			],
-			light: [
-				item.mobile[0].light.styled.palette.company.primary,
-				item.mobile[0].light.styled.palette.company.secondary,
-				item.mobile[0].light.styled.palette.company.tertiary,
-			],
-		}
-		const styled = {
-			dark: [
-				item.mobile[0].dark.styled.palette.primary.background.default,
-				item.mobile[0].dark.styled.palette.secondary.background.default,
-				item.mobile[0].dark.styled.palette.tertiary.background.default,
-				item.mobile[0].dark.styled.palette.quaternary.background.default,
-			],
-			light: [
-				item.mobile[0].light.styled.palette.primary.background.default,
-				item.mobile[0].light.styled.palette.secondary.background.default,
-				item.mobile[0].light.styled.palette.tertiary.background.default,
-				item.mobile[0].light.styled.palette.quaternary.background.default,
-			],
-		}
-		const bfs = {
-			dark: [
-				item.mobile[0].dark.styled.palette.bfscompany.primary,
-				item.mobile[0].dark.styled.palette.bfscompany.secondary,
-				item.mobile[0].dark.styled.palette.bfscompany.tertiary,
-			],
-			light: [
-				item.mobile[0].light.styled.palette.bfscompany.primary,
-				item.mobile[0].light.styled.palette.bfscompany.secondary,
-				item.mobile[0].light.styled.palette.bfscompany.tertiary,
-			],
-		}
+	const renderItem = useCallback(
+		({ item }) => {
+			const company = {
+				dark: [
+					item.mobile[0].dark.styled.palette.company.primary,
+					item.mobile[0].dark.styled.palette.company.secondary,
+					item.mobile[0].dark.styled.palette.company.tertiary,
+				],
+				light: [
+					item.mobile[0].light.styled.palette.company.primary,
+					item.mobile[0].light.styled.palette.company.secondary,
+					item.mobile[0].light.styled.palette.company.tertiary,
+				],
+			}
+			const styled = {
+				dark: [
+					item.mobile[0].dark.styled.palette.primary.background.default,
+					item.mobile[0].dark.styled.palette.secondary.background.default,
+					item.mobile[0].dark.styled.palette.tertiary.background.default,
+					item.mobile[0].dark.styled.palette.quaternary.background.default,
+				],
+				light: [
+					item.mobile[0].light.styled.palette.primary.background.default,
+					item.mobile[0].light.styled.palette.secondary.background.default,
+					item.mobile[0].light.styled.palette.tertiary.background.default,
+					item.mobile[0].light.styled.palette.quaternary.background.default,
+				],
+			}
+			const bfs = {
+				dark: [
+					item.mobile[0].dark.styled.palette.bfscompany.primary,
+					item.mobile[0].dark.styled.palette.bfscompany.secondary,
+					item.mobile[0].dark.styled.palette.bfscompany.tertiary,
+				],
+				light: [
+					item.mobile[0].light.styled.palette.bfscompany.primary,
+					item.mobile[0].light.styled.palette.bfscompany.secondary,
+					item.mobile[0].light.styled.palette.bfscompany.tertiary,
+				],
+			}
 
-		return (
-			<Box
-				key={item.id}
-				m={3}
-				bg={colorScheme === 'light' ? 'light.50' : 'gray.800'}
-				shadow={5}
-				style={{
-					flex: 1,
-				}}
-				py={4}
-				px={1}
-				borderRadius={'lg'}
-				borderWidth={2}
-				borderColor={
-					AuthorizationReactiveVar().DeviceProfile.Profile.ThemeManager.ProfileTheme.Theme.id === item.id
-						? 'primary.400'
-						: 'transparent'
-				}
-			>
-				<Pressable
-					onPress={async () => {
-						bottomSheetModalRef.current.close()
-						navigation.navigate('HomeTabNavigator', {
-							screen: 'DevelopmentStack',
-							params: {
-								screen: 'ThemeViewer',
-								params: {
-									theme: item,
-								},
-							},
-						})
+			return (
+				<Box
+					key={item.id}
+					m={3}
+					bg={colorScheme === 'light' ? 'light.50' : 'gray.800'}
+					shadow={5}
+					style={{
+						flex: 1,
 					}}
+					py={4}
+					px={1}
+					borderRadius={'lg'}
+					borderWidth={2}
+					borderColor={
+						AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme?.Theme.id ===
+						item.id
+							? 'primary.400'
+							: 'transparent'
+					}
 				>
-					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
-						{rThemeVar.colorScheme === 'light' ? (
-							<>
-								{bfs.light.map((item, index) => {
-									return (
-										<Box
-											key={index}
-											alignSelf={'center'}
-											style={{
-												backgroundColor: item,
-												width: 30,
-												height: 30,
-											}}
-											m={2}
-										/>
-									)
-								})}
-							</>
-						) : (
-							<>
-								{bfs.dark.map((item, index) => {
-									return (
-										<Box
-											key={index}
-											alignSelf={'center'}
-											style={{
-												backgroundColor: item,
-												width: 30,
-												height: 30,
-											}}
-											m={2}
-										/>
-									)
-								})}
-							</>
-						)}
-					</Stack>
-					<Divider />
-					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
-						{rThemeVar.colorScheme === 'light' ? (
-							<>
-								{styled.light.map((item, index) => {
-									return (
-										<Box
-											key={index}
-											alignSelf={'center'}
-											style={{
-												backgroundColor: item,
-												width: 30,
-												height: 30,
-											}}
-											m={2}
-										/>
-									)
-								})}
-							</>
-						) : (
-							<>
-								{styled.dark.map((item, index) => {
-									return (
-										<Box
-											key={index}
-											alignSelf={'center'}
-											style={{
-												backgroundColor: item,
-												width: 30,
-												height: 30,
-											}}
-											m={2}
-										/>
-									)
-								})}
-							</>
-						)}
-					</Stack>
-					<Divider />
-					<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
-						{rThemeVar.colorScheme === 'light' ? (
-							<>
-								{company.light.map((item, index) => {
-									return (
-										<Box
-											key={index}
-											alignSelf={'center'}
-											style={{
-												backgroundColor: item,
-												width: 30,
-												height: 30,
-											}}
-											m={2}
-										/>
-									)
-								})}
-							</>
-						) : (
-							<>
-								{company.dark.map((item, index) => {
-									return (
-										<Box
-											key={index}
-											alignSelf={'center'}
-											style={{
-												backgroundColor: item,
-												width: 30,
-												height: 30,
-											}}
-											m={2}
-										/>
-									)
-								})}
-							</>
-						)}
-					</Stack>
-					<Text fontWeight={'medium'} textTransform={'capitalize'} textAlign={'center'} fontSize={'xl'}>
-						{item.name}
-					</Text>
-				</Pressable>
-			</Box>
-		)
-	}, [])
+					<Pressable
+						onPress={async () => {
+							bottomSheetModalRef.current?.close()
+							navigation.navigate('HomeTabNavigator', {
+								screen: 'DevelopmentStack',
+								params: {
+									screen: 'ThemeViewer',
+									params: {
+										theme: item,
+									},
+								},
+							})
+						}}
+					>
+						<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
+							{rThemeVar.colorScheme === 'light' ? (
+								<>
+									{bfs.light.map((item, index) => {
+										return (
+											<Box
+												key={index}
+												alignSelf={'center'}
+												style={{
+													backgroundColor: item,
+													width: 30,
+													height: 30,
+												}}
+												m={2}
+											/>
+										)
+									})}
+								</>
+							) : (
+								<>
+									{bfs.dark.map((item, index) => {
+										return (
+											<Box
+												key={index}
+												alignSelf={'center'}
+												style={{
+													backgroundColor: item,
+													width: 30,
+													height: 30,
+												}}
+												m={2}
+											/>
+										)
+									})}
+								</>
+							)}
+						</Stack>
+						<Divider />
+						<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
+							{rThemeVar.colorScheme === 'light' ? (
+								<>
+									{styled.light.map((item, index) => {
+										return (
+											<Box
+												key={index}
+												alignSelf={'center'}
+												style={{
+													backgroundColor: item,
+													width: 30,
+													height: 30,
+												}}
+												m={2}
+											/>
+										)
+									})}
+								</>
+							) : (
+								<>
+									{styled.dark.map((item, index) => {
+										return (
+											<Box
+												key={index}
+												alignSelf={'center'}
+												style={{
+													backgroundColor: item,
+													width: 30,
+													height: 30,
+												}}
+												m={2}
+											/>
+										)
+									})}
+								</>
+							)}
+						</Stack>
+						<Divider />
+						<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
+							{rThemeVar.colorScheme === 'light' ? (
+								<>
+									{company.light.map((item, index) => {
+										return (
+											<Box
+												key={index}
+												alignSelf={'center'}
+												style={{
+													backgroundColor: item,
+													width: 30,
+													height: 30,
+												}}
+												m={2}
+											/>
+										)
+									})}
+								</>
+							) : (
+								<>
+									{company.dark.map((item, index) => {
+										return (
+											<Box
+												key={index}
+												alignSelf={'center'}
+												style={{
+													backgroundColor: item,
+													width: 30,
+													height: 30,
+												}}
+												m={2}
+											/>
+										)
+									})}
+								</>
+							)}
+						</Stack>
+						<Text fontWeight={'medium'} textTransform={'capitalize'} textAlign={'center'} fontSize={'xl'}>
+							{item.name}
+						</Text>
+					</Pressable>
+				</Box>
+			)
+		},
+		[rThemeVar.colorScheme],
+	)
 
 	const ITEM_HEIGHT = 50
 	const handleOpenPhoneSettings = async () => {
@@ -433,7 +442,7 @@ const DevelopmentScreen = () => {
 								<HStack px={2} py={4} w={'full'} space={21} justifyContent={'space-around'}>
 									<Button
 										onPress={async () => {
-											await toggleThemes({ colorScheme: 'light' })
+											await setTheme({ colorScheme: 'light' })
 										}}
 										bg={'light.200'}
 										flex={1}
@@ -444,7 +453,7 @@ const DevelopmentScreen = () => {
 									</Button>
 									<Button
 										onPress={async () => {
-											await toggleThemes({ colorScheme: 'dark' })
+											await setTheme({ colorScheme: 'dark' })
 										}}
 										bg={'dark.100'}
 										flex={1}
@@ -455,7 +464,7 @@ const DevelopmentScreen = () => {
 									</Button>
 									<Button
 										onPress={async () => {
-											await toggleThemes({ colorScheme: 'system' })
+											await setTheme({ colorScheme: 'light' })
 										}}
 										bg={colorScheme === 'light' ? 'light.200' : 'dark.100'}
 										flex={1}
@@ -471,8 +480,30 @@ const DevelopmentScreen = () => {
 				</BottomSheetModal>
 
 				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
+					Theme Scheme LocalStorage
+				</Text>
+				<Button
+					marginX={10}
+					onPress={async () => {
+						await AsyncStorage.removeItem(LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE)
+						const initialThemeColorSchemeState = JSON.stringify({
+							colorScheme: 'system',
+						})
+						await AsyncStorage.setItem(
+							LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+							initialThemeColorSchemeState,
+						)
+					}}
+					variant={'solid'}
+					colorScheme={'error'}
+					color={'white'}
+				>
+					Delete Local Storage Theme Color Scheme
+				</Button>
+				<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
 					Authentication
 				</Text>
+
 				<Button
 					marginX={10}
 					onPress={async () =>

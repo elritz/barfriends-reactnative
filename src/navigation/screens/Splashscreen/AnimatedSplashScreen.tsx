@@ -5,7 +5,7 @@ import { cacheFonts, cacheImages } from '@util/hooks/local/useCacheImages'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, useEffect, useState } from 'react'
-import { View, Animated, StyleSheet, Image, useColorScheme } from 'react-native'
+import { View, StyleSheet, Image, useColorScheme } from 'react-native'
 
 function AnimatedSplashScreen({ children, assets }) {
 	const deviceColorScheme = useColorScheme()

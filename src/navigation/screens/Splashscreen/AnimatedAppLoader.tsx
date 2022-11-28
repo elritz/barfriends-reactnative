@@ -1,5 +1,4 @@
 import AnimatedSplashScreen from '@navigation/screens/Splashscreen/AnimatedSplashScreen'
-import { Asset } from 'expo-asset'
 import { useEffect, useState } from 'react'
 
 function AnimatedAppLoader({ children, assets }) {
@@ -8,13 +7,6 @@ function AnimatedAppLoader({ children, assets }) {
 	useEffect(() => {
 		async function prepare() {
 			try {
-				// Artificially delay for two seconds to simulate a slow loading
-				// experience. Please remove this if you copy and paste the code!
-				// await loadResourcesAndDataAsync()
-				// await new Promise(resolve => setTimeout(() => setAppSplashIsReady(true), 500))
-				// assets.map(async item => {
-				// 	await Asset.fromURI(item.localUri).downloadAsync()
-				// })
 				setAppSplashIsReady(true)
 			} catch (e) {
 				console.warn(e)
