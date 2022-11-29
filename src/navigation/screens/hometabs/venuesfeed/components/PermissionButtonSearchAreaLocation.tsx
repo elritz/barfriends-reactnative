@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
-import { ForegroundLocationPermissionReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { Button } from 'native-base'
 
-export default function SearchAreaLocationPermissionButton() {
+export default function PermissionButtonSearchAreaLocation() {
 	const navigation = useNavigation()
-	const rPermissionLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
+	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 
 	const handleLocationPermissionNavigation = async () => {
 		navigation.navigate('PermissionNavigator', {
@@ -18,7 +18,7 @@ export default function SearchAreaLocationPermissionButton() {
 		<Button
 			variant='solid'
 			onPress={async () =>
-				rPermissionLocationVar.granted
+				rPermissionLocationVar?.granted
 					? await useSetSearchAreaWithLocation()
 					: await handleLocationPermissionNavigation()
 			}

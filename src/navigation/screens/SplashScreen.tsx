@@ -1,8 +1,7 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
-import { View, useColorScheme, SafeAreaView } from 'react-native'
+import { View, SafeAreaView } from 'react-native'
 
 export default function SplashScreen() {
-	const colorScheme = useColorScheme()
 	return (
 		<SafeAreaView>
 			<View
@@ -12,7 +11,6 @@ export default function SplashScreen() {
 					alignItems: 'center',
 					justifyContent: 'flex-start',
 					width: '100%',
-					// backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
 				}}
 			>
 				<View

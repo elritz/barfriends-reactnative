@@ -3,13 +3,14 @@ import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { ForegroundLocationPermissionReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
+import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
-import { Button, Heading, VStack } from 'native-base'
+import { Button, Heading, Text, VStack } from 'native-base'
 import { Box } from 'native-base'
 import { Divider } from 'native-base'
 import React, { useEffect, useRef } from 'react'
@@ -42,13 +43,15 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const navigation = useNavigation()
 	const isFocused = useIsFocused()
-	const rPermissionLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
-	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-
+	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
+	const { start, seconds, started } = useTimer2('0:2')
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Barfriends Foreground Search Area Location Permission',
-			capitalizeFirstLetter(rPermissionLocationVar.status),
+			`Location is ${capitalizeFirstLetter(
+				rPermissionLocationVar?.status,
+			)} and currently in use. If you wish to adjust go to your device settings.
+			`,
 			[
 				{
 					text: 'Cancel',
@@ -92,7 +95,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 		async function loadPermissionsAsync() {
 			const status = await Location.getForegroundPermissionsAsync()
 			try {
-				ForegroundLocationPermissionReactiveVar(status)
+				PermissionForegroundLocationReactiveVar(status)
 			} catch (e) {
 				console.warn(e)
 			}
@@ -110,7 +113,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
 			const locationpermission = await Location.getForegroundPermissionsAsync()
-			ForegroundLocationPermissionReactiveVar(locationpermission)
+			PermissionForegroundLocationReactiveVar(locationpermission)
 			if (locationpermission.granted && locationpermission.status === 'granted') {
 				setTimeout(() => {
 					navigation.navigate('HomeTabNavigator', {
@@ -127,7 +130,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 	}
 
 	return (
-		<Box safeAreaBottom style={{ flex: 1 }}>
+		<Box style={{ flex: 1 }}>
 			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
@@ -154,7 +157,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 					)
 				})}
 			</Box>
-			<VStack space={2} w={'full'} alignItems={'center'}>
+			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					variant={'ghost'}
@@ -169,19 +172,30 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 					size={'lg'}
 					width={'95%'}
 					onPress={() =>
-						!rPermissionLocationVar.granted
+						!rPermissionLocationVar?.granted
 							? rPermissionLocationVar?.canAskAgain && !rPermissionLocationVar.granted
 								? handleRequestForegroundLocationPermission()
 								: handleOpenPhoneSettings()
 							: createTwoButtonAlert()
 					}
 				>
-					{!rPermissionLocationVar.granted
+					{!rPermissionLocationVar?.granted
 						? rPermissionLocationVar?.canAskAgain && !rPermissionLocationVar.granted
 							? 'Continue'
 							: 'Go to Phone Settings'
 						: 'Granted'}
 				</Button>
+				{!started ? (
+					<Button onPress={() => navigation.goBack()} variant={'ghost'}>
+						<Text fontWeight={'medium'}>Close</Text>
+					</Button>
+				) : (
+					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+						{started && (
+							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+						)}
+					</Button>
+				)}
 			</VStack>
 		</Box>
 	)

@@ -23,6 +23,6 @@ export const permissionNotificationsInitialState: NotificationPermissionsStatus 
 	},
 }
 
-export const NotificationsPermissionReactiveVar = makeVar<NotificationPermissionsStatus | null>(
+export const PermissionNotificationReactiveVar = makeVar<NotificationPermissionsStatus | null>(
 	permissionNotificationsInitialState,
 )

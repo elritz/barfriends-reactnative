@@ -1,5 +1,5 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import UserProfileScreen from '@navigation/screens/hometabs/profile/PersonalProfile/PersonalProfile'
+import UserProfileScreen from '@navigation/screens/hometabs/profile/Profile'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { ProfileTabStackParamList } from '@types'

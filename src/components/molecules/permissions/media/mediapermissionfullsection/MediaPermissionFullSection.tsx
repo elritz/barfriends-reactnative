@@ -1,17 +1,17 @@
-import PermissionButton from './PermissionButton'
 import { useReactiveVar } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
 import { PermissionMediaReactiveVar } from '@reactive'
+import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
-import { Box, Heading, Text } from 'native-base'
+import { Box, Button, Heading, Text } from 'native-base'
 
 export default function MediaPermissionFullSection() {
 	const navigation = useNavigation()
 	const rPermissionMediaVar = useReactiveVar(PermissionMediaReactiveVar)
 
 	return (
-		<AnimatePresence>
-			{!rPermissionMediaVar.granted && (
+		<AnimatePresence key={uniqueId()}>
+			{!rPermissionMediaVar?.granted && (
 				<MotiView
 					from={{
 						opacity: 0,
@@ -44,13 +44,22 @@ export default function MediaPermissionFullSection() {
 						<Text fontSize={'lg'} style={{ width: '100%' }}>
 							Using your photos on your device.
 						</Text>
-						<PermissionButton
+						<Button
 							onPress={() =>
 								navigation.navigate('PermissionNavigator', {
 									screen: 'MediaLibraryPermissionScreen',
 								})
 							}
-						/>
+							size={'sm'}
+							mt={4}
+							w={'85%'}
+							_text={{
+								fontWeight: 'bold',
+								fontSize: 'sm',
+							}}
+						>
+							Use Current Location
+						</Button>
 					</Box>
 				</MotiView>
 			)}

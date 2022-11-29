@@ -1,6 +1,6 @@
 import createTheme from './createTheme'
 import { useReactiveVar } from '@apollo/client'
-import { LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE } from '@constants/StorageConstants'
+import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ThemeReactiveVar, AuthorizationReactiveVar } from '@reactive'
 import { useColorMode } from 'native-base'
@@ -15,10 +15,6 @@ export const useToggleTheme = () => {
 	const { setColorMode } = useColorMode()
 
 	const setTheme = ({ colorScheme }) => {
-		console.log('🚀 ---------------------------------------------------------------------------🚀')
-		console.log('🚀 ~ file: useToggleTheme.ts ~ line 19 ~ setTheme ~ colorScheme', colorScheme)
-		console.log('🚀 ---------------------------------------------------------------------------🚀')
-
 		switch (colorScheme) {
 			case 'system':
 				const deviceColorScheme = Appearance.getColorScheme()
@@ -70,12 +66,8 @@ export const useToggleTheme = () => {
 	}
 
 	const toggleTheme = useCallback(async (props: Props) => {
-		console.log('🚀 ------------------------------------------------------------------🚀')
-		console.log('🚀 ~ file: useToggleTheme.ts ~ line 68 ~ toggleTheme ~ props', props)
-		console.log('🚀 ------------------------------------------------------------------🚀')
-
 		const localStorageColorScheme = await AsyncStorage.getItem(
-			LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)
 
 		const valueLocalStorageColorScheme = JSON.parse(String(localStorageColorScheme))
@@ -86,7 +78,7 @@ export const useToggleTheme = () => {
 			})
 
 			await AsyncStorage.setItem(
-				LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 				initialThemeColorSchemeState,
 			)
 		}

@@ -1,18 +1,17 @@
-import PermissionButton from './PermissionButton'
 import { useReactiveVar } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
-import { ForegroundLocationPermissionReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar } from '@reactive'
+import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
-import { Box, Heading, Text } from 'native-base'
-import styled from 'styled-components/native'
+import { Box, Button, Heading, Text } from 'native-base'
 
 export default function ForegroundLocationPermissionFullSection() {
 	const navigation = useNavigation()
-	const rPermissionLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
+	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 
 	return (
-		<AnimatePresence>
-			{!rPermissionLocationVar.granted && (
+		<Box key={uniqueId()}>
+			{!rPermissionLocationVar?.granted && (
 				<MotiView
 					from={{
 						opacity: 0,
@@ -45,16 +44,25 @@ export default function ForegroundLocationPermissionFullSection() {
 						<Text fontSize={'lg'} style={{ width: '100%' }}>
 							Using your current location will automatically show you what's near you.
 						</Text>
-						<PermissionButton
+						<Button
 							onPress={() =>
 								navigation.navigate('PermissionNavigator', {
 									screen: 'ForegroundLocationPermissionScreen',
 								})
 							}
-						/>
+							size={'sm'}
+							mt={4}
+							w={'85%'}
+							_text={{
+								fontWeight: 'bold',
+								fontSize: 'sm',
+							}}
+						>
+							Use Current Location
+						</Button>
 					</Box>
 				</MotiView>
 			)}
-		</AnimatePresence>
+		</Box>
 	)
 }

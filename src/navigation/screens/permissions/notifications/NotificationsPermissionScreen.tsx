@@ -1,9 +1,8 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
-import { ENVIRONMENT } from '@env'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { NotificationsPermissionReactiveVar } from '@reactive'
+import { PermissionNotificationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as Application from 'expo-application'
@@ -43,13 +42,13 @@ const NotificationsPermissionScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const navigation = useNavigation()
 	const isFocused = useIsFocused()
-	const rNotificationsPermission = useReactiveVar(NotificationsPermissionReactiveVar)
+	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
 	const { start, seconds, started } = useTimer2('0:3')
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Barfriends Notification Permission',
-			capitalizeFirstLetter(rNotificationsPermission.status),
+			capitalizeFirstLetter(rNotificationsPermission?.status),
 			[
 				{
 					text: 'Cancel',
@@ -71,7 +70,7 @@ const NotificationsPermissionScreen = () => {
 	const handleRequestPermission = async () => {
 		const status = await Notifications.getPermissionsAsync()
 		if (status.granted) {
-			NotificationsPermissionReactiveVar(status)
+			PermissionNotificationReactiveVar(status)
 			navigation.goBack()
 		}
 	}
@@ -88,7 +87,7 @@ const NotificationsPermissionScreen = () => {
 				allowDisplayInCarPlay: true,
 			},
 		})
-		NotificationsPermissionReactiveVar(status)
+		PermissionNotificationReactiveVar(status)
 		if (status.granted) {
 			const devicetoken = await Notifications.getDevicePushTokenAsync()
 			console.log(
@@ -99,11 +98,11 @@ const NotificationsPermissionScreen = () => {
 				const IOSenv = await Application.getIosPushNotificationServiceEnvironmentAsync()
 				const expoToken = await Notifications.getExpoPushTokenAsync({
 					experienceId: '@barfriends/barfriends',
-					applicationId: Application.applicationId,
+					applicationId: String(Application.applicationId),
 					// devicePushToken: devicetoken.data, // this defaults to this anyways as per the docs
 					development: IOSenv === 'development' ? true : false,
 				})
-				NotificationsPermissionReactiveVar(status)
+				PermissionNotificationReactiveVar(status)
 				console.log(
 					'🚀 ~ file: NotificationsPermissionScreen.tsx ~ line 103 ~ handleRequestNotificationsPermission ~ expoToken',
 					expoToken.data,
@@ -115,7 +114,7 @@ const NotificationsPermissionScreen = () => {
 			} else {
 				const expoToken = await Notifications.getExpoPushTokenAsync({
 					experienceId: '@barfriends/barfriends',
-					applicationId: Application.applicationId,
+					applicationId: String(Application.applicationId),
 					devicePushToken: devicetoken,
 				})
 				console.log(
@@ -134,7 +133,7 @@ const NotificationsPermissionScreen = () => {
 		async function loadPermissionsAsync() {
 			const status = await Notifications.getPermissionsAsync()
 			try {
-				NotificationsPermissionReactiveVar(status)
+				PermissionNotificationReactiveVar(status)
 			} catch (e) {
 				console.warn(e)
 			}
@@ -152,7 +151,7 @@ const NotificationsPermissionScreen = () => {
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
 			const status = await Notifications.getPermissionsAsync()
-			NotificationsPermissionReactiveVar(status)
+			PermissionNotificationReactiveVar(status)
 			if (status.granted && status.status === 'granted') {
 				setTimeout(() => {
 					navigation.goBack()
@@ -168,7 +167,7 @@ const NotificationsPermissionScreen = () => {
 			const IOSenv = await Application.getIosPushNotificationServiceEnvironmentAsync()
 			const expoToken = await Notifications.getExpoPushTokenAsync({
 				experienceId: '@barfriends/barfriends',
-				applicationId: Application.applicationId,
+				applicationId: String(Application.applicationId),
 				development: IOSenv === 'development' ? true : false,
 			})
 			console.log(
@@ -180,9 +179,8 @@ const NotificationsPermissionScreen = () => {
 	}, [])
 
 	return (
-		<Box safeAreaBottom style={{ flex: 1 }}>
+		<Box style={{ flex: 1 }}>
 			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
-				{/* <IllustrationDynamicLocation width={60} height={60} /> */}
 				<Box
 					borderRadius={'lg'}
 					h={65}
@@ -218,31 +216,31 @@ const NotificationsPermissionScreen = () => {
 					)
 				})}
 			</Box>
-			<VStack space={2} w={'full'} alignItems={'center'}>
+			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
 					width={'95%'}
 					onPress={() =>
-						!rNotificationsPermission.granted
+						!rNotificationsPermission?.granted
 							? rNotificationsPermission?.canAskAgain && !rNotificationsPermission.granted
 								? handleRequestNotificationsPermission()
 								: handleOpenPhoneSettings()
 							: createTwoButtonAlert()
 					}
 				>
-					{!rNotificationsPermission.granted
+					{!rNotificationsPermission?.granted
 						? rNotificationsPermission?.canAskAgain && !rNotificationsPermission.granted
 							? 'Continue'
 							: 'Go to Phone Settings'
 						: 'Granted'}
 				</Button>
 				{!started && (
-					<Button onPress={() => navigation.goBack()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
 						<Text fontWeight={'medium'}>Close</Text>
 					</Button>
 				)}
-				<Box h={'20px'}>{started && <Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+				{started && <Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>}
 			</VStack>
 		</Box>
 	)

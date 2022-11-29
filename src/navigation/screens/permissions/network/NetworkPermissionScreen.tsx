@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicNetwork from '@assets/images/network/IllustrationDynamicNetwork'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { DeviceNetworkInfoReactiveVar, ForegroundLocationPermissionReactiveVar } from '@reactive'
+import { DeviceNetworkInfoReactiveVar, PermissionForegroundLocationReactiveVar } from '@reactive'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
@@ -22,7 +22,7 @@ const NetworkPermissionScreen = () => {
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
 			const locationpermission = await Location.getForegroundPermissionsAsync()
-			ForegroundLocationPermissionReactiveVar(locationpermission)
+			PermissionForegroundLocationReactiveVar(locationpermission)
 			if (locationpermission.granted && locationpermission.status === 'granted') {
 				setTimeout(() => {
 					navigation.goBack()
@@ -46,7 +46,7 @@ const NetworkPermissionScreen = () => {
 		async function loadPermissionsAsync() {
 			const status = await Location.getForegroundPermissionsAsync()
 			try {
-				ForegroundLocationPermissionReactiveVar(status)
+				PermissionForegroundLocationReactiveVar(status)
 			} catch (e) {
 				console.warn(e)
 			}

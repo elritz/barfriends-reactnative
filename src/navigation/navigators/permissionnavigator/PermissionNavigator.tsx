@@ -32,8 +32,8 @@ function PermissionNavigator() {
 						headerStyle: {
 							backgroundColor: 'transparent',
 						},
-						headerTitle: '',
-						headerLeft: null,
+						headerTitle: () => <NavigationDragIcon />,
+						headerLeft: () => null,
 					}}
 				/>
 				<ScreenStack.Screen
@@ -76,8 +76,8 @@ function PermissionNavigator() {
 						headerStyle: {
 							backgroundColor: 'transparent',
 						},
-						headerTitle: '',
-						headerLeft: null,
+						headerTitle: () => <NavigationDragIcon />,
+						headerLeft: () => null,
 					}}
 				/>
 				<ScreenStack.Screen
@@ -87,8 +87,8 @@ function PermissionNavigator() {
 						headerStyle: {
 							backgroundColor: 'transparent',
 						},
-						headerTitle: '',
-						headerLeft: null,
+						headerTitle: () => <NavigationDragIcon />,
+						headerLeft: () => null,
 					}}
 				/>
 			</ScreenStack.Group>

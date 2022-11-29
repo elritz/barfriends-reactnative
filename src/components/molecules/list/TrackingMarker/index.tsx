@@ -1,13 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import { LATITUDE_DELTA, LONGITUDE_DELTA } from '@components/atoms/markers/BasicCircleMarker'
-import { ForegroundLocationPermissionReactiveVar, CurrentLocationReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar, CurrentLocationReactiveVar } from '@reactive'
 import * as Location from 'expo-location'
 import { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { Marker } from 'react-native-maps'
 
 export default function index(props: any) {
-	const rPermissionLocation = useReactiveVar(ForegroundLocationPermissionReactiveVar)
+	const rPermissionLocation = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rCurrentLocation = useReactiveVar(CurrentLocationReactiveVar)
 
 	const [markerCurrentLocation, setLocation] = useState({

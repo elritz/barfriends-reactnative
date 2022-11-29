@@ -1,53 +1,53 @@
+import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
+import VenueFeedSignupCard from './components/VenueFeedSignupCard'
+import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
+import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
+import VenuesFeedVenuesEmptyState from './components/VenuesFeedVenuesEmptyState'
 import { useReactiveVar } from '@apollo/client'
-import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
 import BackgroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/BackgroundLocationPermissionFullSection'
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
+import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import { FontAwesome5 } from '@expo/vector-icons'
 import { useVenuesNearbyLazyQuery } from '@graphql/generated'
-import SearchAreaLocationPermissionButton from '@navigation/screens/hometabs/venuesfeed/components/SearchAreaLocationPermissionButton'
-import SkeletonVenuesHomeScreen from '@navigation/screens/hometabs/venuesfeed/components/SkeletonVenuesHomeScreen'
-import VenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueItem'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
+import { useIsFocused } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
-	BackgroundLocationPermissionReactiveVar,
-	ForegroundLocationPermissionReactiveVar,
+	PermissionBackgroundLocationReactiveVar,
+	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
-import { AnimatePresence, MotiView } from 'moti'
-import { Box, Center, VStack, Skeleton, Text, Heading, Icon, Button, FlatList } from 'native-base'
+import { uniqueId } from 'lodash'
+import { AnimatePresence } from 'moti'
+import { Box, Center, VStack, FlatList } from 'native-base'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { AppState, Dimensions, View } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { AppState, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(handleAppStateChange) check if location permission is enabled and go somewhere with it
 // TODO: UX() Workflow isn't quite working good enough for production
 // TODO: FN() Get background location changes working
 
-const { width } = Dimensions.get('window')
-const loadingSkelHeight = width - 20
-const scrollViewMarginX = '2'
+export const VenueFeedScreenMarginX = '2'
 const scrollViewItemsMarginY = 5
 
 const VenueFeedScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
 	const isFocused = useIsFocused()
-	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const rForegroundLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
-	const rBackgroundLocationVar = useReactiveVar(BackgroundLocationPermissionReactiveVar)
+	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
+	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const [venues, setVenues] = useState([])
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
-			latitude: rSearchAreaVar.coords.latitude,
-			longitude: rSearchAreaVar.coords.longitude,
+			latitude: Number(rSearchAreaVar?.coords.latitude),
+			longitude: Number(rSearchAreaVar?.coords.longitude),
 		},
 		onCompleted: async data => {
 			const status = await Location.getForegroundPermissionsAsync()
@@ -56,11 +56,11 @@ const VenueFeedScreen = () => {
 					accuracy: LocationAccuracy.BestForNavigation,
 				})
 
-				const venues = data.venuesNearby.map(item => {
+				const venues = data?.venuesNearby?.map(item => {
 					return {
 						...item,
-						latitude: item.Venue.Location.Geometry.latitude,
-						longitude: item.Venue.Location.Geometry.longitude,
+						latitude: item?.Venue?.Location?.Geometry?.latitude,
+						longitude: item?.Venue?.Location?.Geometry?.longitude,
 					}
 				})
 
@@ -80,15 +80,15 @@ const VenueFeedScreen = () => {
 				})
 				setVenues(withDistance)
 			} else {
-				setVenues(data.venuesNearby)
+				setVenues(data?.venuesNearby)
 			}
 		},
 	})
 
 	const fnMemoed = async () => {
 		if (
-			rSearchAreaVar.coords.latitude !== undefined &&
-			rSearchAreaVar.coords.longitude !== undefined
+			rSearchAreaVar?.coords.latitude !== undefined &&
+			rSearchAreaVar?.coords.longitude !== undefined
 		) {
 			return venuesNearby()
 		}
@@ -96,15 +96,15 @@ const VenueFeedScreen = () => {
 
 	const memoizedResultes = useMemo(
 		async () => await fnMemoed(),
-		[rSearchAreaVar.coords.latitude, rSearchAreaVar.coords.longitude],
+		[rSearchAreaVar?.coords.latitude, rSearchAreaVar?.coords.longitude],
 	)
 
 	useEffect(() => {
 		if (
 			!data &&
 			!data?.venuesNearby.length &&
-			rSearchAreaVar.coords.latitude &&
-			rSearchAreaVar.coords.longitude
+			rSearchAreaVar?.coords.latitude &&
+			rSearchAreaVar?.coords?.longitude
 		) {
 			venuesNearby()
 		}
@@ -120,7 +120,7 @@ const VenueFeedScreen = () => {
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
 			const locationpermission = await Location.getForegroundPermissionsAsync()
-			ForegroundLocationPermissionReactiveVar(locationpermission)
+			PermissionForegroundLocationReactiveVar(locationpermission)
 			if (locationpermission.granted && locationpermission.status === 'granted') {
 			}
 		}
@@ -131,143 +131,35 @@ const VenueFeedScreen = () => {
 		return (
 			<Center>
 				<VStack w={'full'} space={4}>
-					{!rSearchAreaVar.coords.latitude || !rSearchAreaVar.coords.longitude ? (
-						<Box
-							mb={2}
-							mx={scrollViewMarginX}
-							_dark={{ backgroundColor: 'dark.100' }}
-							_light={{ backgroundColor: 'light.100' }}
-							borderRadius={'lg'}
-							p={5}
-						>
-							<Heading size={'2xl'} textAlign={'center'} fontWeight={'black'} lineHeight={'xs'} mb={5}>
-								Welcome to Barfriends
-							</Heading>
-							<Text>
-								Continue to find venues using location using your device location, or find venues with
-								Search Area.
-								<Icon size={'xs'} color={'primary.500'} as={FontAwesome5} name='filter' /> search area.{' '}
-							</Text>
-							<VStack w={'full'} alignItems={'center'} space={2}>
-								<SearchAreaLocationPermissionButton />
-								<Button
-									onPress={() => {
-										navigation.navigate('ModalNavigator', {
-											screen: 'SearchAreaModalStack',
-											params: {
-												screen: 'SearchAreaModal',
-											},
-										})
-									}}
-									w={'85%'}
-									variant={'ghost'}
-									size={'lg'}
-									_text={{
-										fontSize: 'lg',
-									}}
-								>
-									Find area
-								</Button>
-							</VStack>
-						</Box>
+					{!rSearchAreaVar?.coords.latitude || !rSearchAreaVar?.coords.longitude ? (
+						<VenueFeedSearchAreaEmptyState />
 					) : (
 						<>
 							{loading || (!data && !data?.venuesNearby) ? (
-								<Center>
-									<VStack space={2}>
-										<Skeleton
-											speed={0.25}
-											rounded='xl'
-											_dark={{
-												startColor: 'secondary.900',
-												endColor: 'secondary.800',
-											}}
-											_light={{
-												startColor: 'light.100',
-												endColor: 'light.200',
-											}}
-											h='280'
-											w={loadingSkelHeight}
-										/>
-										<Skeleton
-											speed={0.25}
-											rounded='xl'
-											_dark={{
-												startColor: 'secondary.900',
-												endColor: 'secondary.800',
-											}}
-											_light={{
-												startColor: 'light.100',
-												endColor: 'light.200',
-											}}
-											h='150'
-											w={loadingSkelHeight}
-										/>
-										<SkeletonVenuesHomeScreen />
-									</VStack>
-								</Center>
+								<VenueFeedSkeletonLoadingState />
 							) : (
-								<Box mx={scrollViewMarginX} my={scrollViewItemsMarginY}>
-									{!rForegroundLocationVar.granted ? (
-										<ForegroundLocationPermissionFullSection />
-									) : !rBackgroundLocationVar.granted ? (
-										<BackgroundLocationPermissionFullSection />
-									) : null}
-								</Box>
+								<AnimatePresence key={uniqueId()}>
+									<Box mx={VenueFeedScreenMarginX} my={scrollViewItemsMarginY}>
+										{!rForegroundLocationVar?.granted ? (
+											<ForegroundLocationPermissionFullSection />
+										) : !rBackgroundLocationVar?.granted ? (
+											<BackgroundLocationPermissionFullSection />
+										) : null}
+									</Box>
+								</AnimatePresence>
 							)}
 						</>
 					)}
 					{!rAuthorizationVar?.DeviceProfile?.Profile?.Personal &&
-						!rAuthorizationVar?.DeviceProfile?.Profile?.Venue && (
-							<AnimatePresence>
-								<MotiView
-									from={{
-										opacity: 0,
-										scale: 1,
-									}}
-									animate={{
-										opacity: 1,
-										scale: 1,
-									}}
-									exit={{
-										opacity: 0,
-										scale: 0.9,
-									}}
-								>
-									<Box
-										_dark={{ backgroundColor: 'dark.100' }}
-										_light={{ backgroundColor: 'light.100' }}
-										px={5}
-										pb={15}
-										pt={35}
-										mx={scrollViewMarginX}
-										borderRadius={13}
-									>
-										<CardPleaseSignup signupTextId={1} />
-									</Box>
-								</MotiView>
-							</AnimatePresence>
-						)}
-					{!loading && data && data?.venuesNearby && (
-						<VStack mx={scrollViewMarginX} alignItems={'flex-start'} mb={3}>
-							<Heading lineHeight={'xs'} fontSize={'md'} fontWeight={'bold'}>
-								Nearby
-							</Heading>
-							<Heading mt={'-5px'} lineHeight={'xs'} size={'2xl'} fontWeight={'black'} numberOfLines={1}>
-								{rSearchAreaVar.city}
-							</Heading>
-						</VStack>
-					)}
-					{!venues.length && (
-						<Center>
-							<Heading>No Venues</Heading>
-							<Heading>Found in your area</Heading>
-						</Center>
-					)}
+						!rAuthorizationVar?.DeviceProfile?.Profile?.Venue && <VenueFeedSignupCard />}
+					{!venues.length && <VenuesFeedVenuesEmptyState />}
+
+					{!loading && data && data?.venuesNearby && <VenuesFeedSearchAreaHeader />}
 				</VStack>
 			</Center>
 		)
 	}
+
 	return (
 		<Box>
 			<FlatList
@@ -278,7 +170,7 @@ const VenueFeedScreen = () => {
 				style={{ height: '100%' }}
 				columnWrapperStyle={{ justifyContent: 'space-around' }}
 				data={venues}
-				renderItem={({ item }) => <VenueItem loading={loading} item={item} />}
+				renderItem={({ item }) => <VenueFeedVenueItem loading={loading} item={item} />}
 				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={listHeaderComponent}

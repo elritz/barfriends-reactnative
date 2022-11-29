@@ -4,8 +4,8 @@ import IllustrationDynamicLocation from '@assets/images/location/IllustrationDyn
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import {
-	BackgroundLocationPermissionReactiveVar,
-	ForegroundLocationPermissionReactiveVar,
+	PermissionBackgroundLocationReactiveVar,
+	PermissionForegroundLocationReactiveVar,
 } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
@@ -45,12 +45,15 @@ const BackgroundLocationPermissionScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const navigation = useNavigation()
 	const isFocused = useIsFocused()
-	const rBackgroundLocationPermissionVar = useReactiveVar(BackgroundLocationPermissionReactiveVar)
+	const rBackgroundLocationPermissionVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const { start, seconds, started } = useTimer2('0:2')
 	const createTwoButtonAlert = () =>
 		Alert.alert(
-			'Barfriends Background Location Permission',
-			capitalizeFirstLetter(rBackgroundLocationPermissionVar.status),
+			'Barfriends Backgrounds Location Permission',
+			`Location access is currently active ${capitalizeFirstLetter(
+				rBackgroundLocationPermissionVar?.status,
+			)}. If you wish to adjust go to your device settings.
+			`,
 			[
 				{
 					text: 'Cancel',
@@ -79,7 +82,7 @@ const BackgroundLocationPermissionScreen = () => {
 		async function loadPermissionsAsync() {
 			const status = await Location.getBackgroundPermissionsAsync()
 			try {
-				BackgroundLocationPermissionReactiveVar(status)
+				PermissionBackgroundLocationReactiveVar(status)
 			} catch (e) {
 				console.warn(e)
 			}
@@ -97,7 +100,7 @@ const BackgroundLocationPermissionScreen = () => {
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
 			const backgroundlocationpermission = await Location.getBackgroundPermissionsAsync()
-			BackgroundLocationPermissionReactiveVar(backgroundlocationpermission)
+			PermissionBackgroundLocationReactiveVar(backgroundlocationpermission)
 			if (backgroundlocationpermission.granted && backgroundlocationpermission.status === 'granted') {
 				setTimeout(() => {
 					navigation.goBack()
@@ -109,7 +112,7 @@ const BackgroundLocationPermissionScreen = () => {
 	}
 
 	return (
-		<Box safeAreaBottom style={{ flex: 1 }}>
+		<Box style={{ flex: 1 }}>
 			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
@@ -137,31 +140,36 @@ const BackgroundLocationPermissionScreen = () => {
 					)
 				})}
 			</Box>
-			<VStack space={2} w={'full'} alignItems={'center'}>
+			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
 					width={'95%'}
 					onPress={() =>
-						!rBackgroundLocationPermissionVar.granted
+						!rBackgroundLocationPermissionVar?.granted
 							? rBackgroundLocationPermissionVar?.canAskAgain && !rBackgroundLocationPermissionVar.granted
 								? handleRequestBackgroundLocationPermission()
 								: handleOpenPhoneSettings()
 							: createTwoButtonAlert()
 					}
 				>
-					{!rBackgroundLocationPermissionVar.granted
+					{!rBackgroundLocationPermissionVar?.granted
 						? rBackgroundLocationPermissionVar?.canAskAgain && !rBackgroundLocationPermissionVar.granted
 							? 'Continue'
 							: 'Go to Phone Settings'
 						: 'Granted'}
 				</Button>
-				{!started && (
-					<Button onPress={() => navigation.goBack()} variant={'ghost'}>
+				{!started ? (
+					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
 						<Text fontWeight={'medium'}>Close</Text>
 					</Button>
+				) : (
+					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+						{started && (
+							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+						)}
+					</Button>
 				)}
-				<Box h={'20px'}>{started && <Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
 			</VStack>
 		</Box>
 	)

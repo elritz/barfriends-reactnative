@@ -26,7 +26,6 @@ export default function useCachedResources() {
 				console.warn(e)
 			} finally {
 				setIsCacheComplete(true)
-				console.log('CALLED')
 				await SplashScreen.hideAsync()
 			}
 		}

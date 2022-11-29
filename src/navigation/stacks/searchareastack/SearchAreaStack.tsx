@@ -103,12 +103,15 @@ function SearchAreaStackNavigation() {
 			screen: 'SearchAreaModalStack',
 			params: {
 				screen: 'SearchCountryTextScreen',
+				params: {
+					searchText: '',
+				},
 			},
 		})
 	}
 
 	const searchBarTitle = useMemo(() => {
-		switch (route.params.screen) {
+		switch (route?.params?.screen) {
 			case 'SearchCountryTextScreen':
 				return 'Search country'
 			case 'SearchCountryStatesTextScreen':

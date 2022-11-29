@@ -8,14 +8,15 @@ export default function PermissionButton(props: Props) {
 	return (
 		<Button
 			onPress={props.onPress}
+			size={'sm'}
 			mt={4}
 			w={'85%'}
 			_text={{
 				fontWeight: 'bold',
-				textTransform: 'uppercase',
+				fontSize: 'sm',
 			}}
 		>
-			Continue
+			Use "always allow"
 		</Button>
 	)
 }

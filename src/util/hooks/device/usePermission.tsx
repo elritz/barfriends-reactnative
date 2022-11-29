@@ -1,8 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
 import {
-	BackgroundLocationPermissionReactiveVar,
-	ForegroundLocationPermissionReactiveVar,
-	NotificationsPermissionReactiveVar,
+	PermissionBackgroundLocationReactiveVar,
+	PermissionForegroundLocationReactiveVar,
+	PermissionNotificationReactiveVar,
 } from '@reactive'
 import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'expo-location'
 import * as Notifications from 'expo-notifications'
@@ -14,7 +14,7 @@ export default function usePermission() {
 		async function loadForegroundPermissionsAsync() {
 			const status = await getForegroundPermissionsAsync()
 			try {
-				ForegroundLocationPermissionReactiveVar(status)
+				PermissionForegroundLocationReactiveVar(status)
 			} catch (e) {
 				console.warn(`Foreground Location Permission Error`, e)
 			}
@@ -22,7 +22,7 @@ export default function usePermission() {
 		async function loadBackgroundPermissionAsync() {
 			const status = await getBackgroundPermissionsAsync()
 			try {
-				BackgroundLocationPermissionReactiveVar(status)
+				PermissionBackgroundLocationReactiveVar(status)
 			} catch (e) {
 				console.warn(`Background Location Permission Error`, e)
 			}
@@ -30,7 +30,7 @@ export default function usePermission() {
 		async function loadNotificationPermissionAsync() {
 			const status = await Notifications.getPermissionsAsync()
 			try {
-				NotificationsPermissionReactiveVar(status)
+				PermissionNotificationReactiveVar(status)
 			} catch (e) {
 				console.warn(`Notifications Permission Error`, e)
 			} finally {

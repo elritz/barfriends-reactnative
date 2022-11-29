@@ -20,18 +20,6 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 					value: authorization,
 					key: AUTHORIZATION,
 				})
-				// const getAuthorization = (await secureStorageItemRead({
-				// 	key: AUTHORIZATION,
-				// 	decode: true,
-				// })) as AuthorizationDecoded
-
-				// const parsedAuthorization = JSON.parse(getAuthorization.devicemanager) as DeviceManager
-				// console.log(
-				// 	'🚀 ~ file: AfterwareLink.ts ~ line 28 ~ asyncMap ~ parsedAuthorization',
-				// 	parsedAuthorization.DeviceProfile.Profile,
-				// )
-
-				// AuthorizationReactiveVar(parsedAuthorization)
 			}
 		}
 		return response

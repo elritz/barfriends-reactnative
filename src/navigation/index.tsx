@@ -3,7 +3,8 @@ import { useReactiveVar } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	AUTHORIZATION,
-	LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 } from '@constants/StorageConstants'
 import {
 	DeviceManager,
@@ -13,28 +14,32 @@ import {
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
 import Navigator from '@navigation/navigators/Navigator'
+import {
+	LocalStoragePreferenceNotificationPermissionType,
+	LocalStoragePreferenceSearchAreaType,
+	LocalStoragePreferenceThemeType,
+} from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	SearchAreaReactiveVar,
 	AuthorizationReactiveVar,
-	SearchAreaType,
 	PermissionCameraReactiveVar,
 	PermissionMicrophoneReactiveVar,
-	ForegroundLocationPermissionReactiveVar,
-	BackgroundLocationPermissionReactiveVar,
+	PermissionForegroundLocationReactiveVar,
+	PermissionBackgroundLocationReactiveVar,
 	PermissionMediaReactiveVar,
-	ThemeColorScheme,
 	ThemeReactiveVar,
-	ThemeColorSchemeType,
-	ThemeColorSchemeParseType,
+	PermissionNotificationReactiveVar,
+	PreferencePermissionNotificationReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useAssets } from 'expo-asset'
 import { Camera } from 'expo-camera'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
+import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
-import { getPermissionsAsync } from 'expo-notifications'
+import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
 import { AuthorizationDecoded } from 'src/types/app'
@@ -45,56 +50,97 @@ const Navigation = () => {
 
 	const setLocalStorageData = async () => {
 		try {
+			// SEARCH AREA
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
 			if (getLocalStorageSearchArea !== null) {
-				const values: SearchAreaType = JSON.parse(getLocalStorageSearchArea)
-				if (values.useCurrentLocation) {
-					await useSetSearchAreaWithLocation()
-				} else {
-					SearchAreaReactiveVar({
-						...rSearchAreaVar,
-						city: values.city,
-						country: values.country,
-						isoCode: values.isoCode,
-						state: values.state,
-						coords: {
-							latitude: Number(values.coords.latitude),
-							longitude: Number(values.coords.longitude),
-						},
-						distance: values.distance,
-						kRing: 2,
-					})
+				const values: LocalStoragePreferenceSearchAreaType = JSON.parse(getLocalStorageSearchArea)
+				if (values) {
+					if (values.useCurrentLocation) {
+						await useSetSearchAreaWithLocation()
+					} else {
+						SearchAreaReactiveVar({
+							...rSearchAreaVar,
+							useCurrentLocation: false,
+							city: values.city,
+							country: values.country,
+							isoCode: values.isoCode,
+							state: values.state,
+							coords: {
+								latitude: Number(values.coords.latitude),
+								longitude: Number(values.coords.longitude),
+							},
+							distance: values.distance,
+							kRing: 2,
+						})
+					}
 				}
 			} else {
-				const newSearchAreaValue = JSON.stringify(emptyStateSearchArea)
+				const newSearchAreaValue = JSON.stringify({
+					...rSearchAreaVar,
+					useCurrentLocation: false,
+					country: '',
+					distance: 60,
+					kRing: 2,
+					state: '',
+					isoCode: '',
+					city: '',
+					coords: {
+						latitude: 0,
+						longitude: 0,
+					},
+				} as LocalStoragePreferenceSearchAreaType)
 				await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchAreaValue)
 			}
-
+			// THEME
 			const getLocalStorageTheme = await AsyncStorage.getItem(
-				LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 			)
-			if (getLocalStorageTheme === null) {
+			if (!getLocalStorageTheme) {
 				const initialThemeColorSchemeState = JSON.stringify({
 					colorScheme: 'system',
-				})
+				} as LocalStoragePreferenceThemeType)
+
 				await AsyncStorage.setItem(
-					LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+					LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 					initialThemeColorSchemeState,
 				)
+
 				ThemeReactiveVar({
 					theme: null,
 					localStorageColorScheme: 'system',
 					colorScheme: Appearance.getColorScheme(),
 				})
 			} else {
-				const values: ThemeColorSchemeParseType = JSON.parse(getLocalStorageTheme)
+				const values: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
+
 				ThemeReactiveVar({
 					theme: null,
 					localStorageColorScheme: values.colorScheme,
 					colorScheme:
 						values.colorScheme === 'system' ? Appearance.getColorScheme() : values.colorScheme,
 				})
-				// there is a setting for theme
+			}
+			// NOTIFICATION_PERMISSION_PREFERENCE
+			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
+				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+			)
+			if (!getLocalStorageNotificationPermissionsPreference) {
+				const initialNotificationPermissionPreferenceState = JSON.stringify({
+					canShowAgain: true,
+					dateToShowAgain: Date.now(),
+				} as LocalStoragePreferenceNotificationPermissionType)
+
+				await AsyncStorage.setItem(
+					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+					initialNotificationPermissionPreferenceState,
+				)
+			} else {
+				const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
+					getLocalStorageNotificationPermissionsPreference,
+				)
+				PreferencePermissionNotificationReactiveVar({
+					...values,
+				})
 			}
 		} catch (e) {
 			// error reading value
@@ -106,44 +152,31 @@ const Navigation = () => {
 		const microphonePermission = await Camera.getMicrophonePermissionsAsync()
 		const foregroundLocationPermission = await getForegroundPermissionsAsync()
 		const backgroundLocationPermission = await getBackgroundPermissionsAsync()
-		const mediaLibraryPermission = await getPermissionsAsync()
+		const mediaLibraryPermission = await getMeidaPermissionAsync()
+		const notificationPermission = await getNotificiationPermissionAsync()
 
 		PermissionCameraReactiveVar(cameraPermission)
 		PermissionMicrophoneReactiveVar(microphonePermission)
-		ForegroundLocationPermissionReactiveVar(foregroundLocationPermission)
-		BackgroundLocationPermissionReactiveVar(backgroundLocationPermission)
+		PermissionForegroundLocationReactiveVar(foregroundLocationPermission)
+		PermissionBackgroundLocationReactiveVar(backgroundLocationPermission)
 		PermissionMediaReactiveVar(mediaLibraryPermission)
+		PermissionNotificationReactiveVar(notificationPermission)
 	}
 
 	const setExpo = async () => {
 		const cameraPermission = await Camera.getCameraPermissionsAsync()
 	}
 
-	const emptyStateSearchArea: SearchAreaType = {
-		...rSearchAreaVar,
-		useCurrentLocation: false,
-		country: '',
-		distance: 60,
-		kRing: 2,
-		state: '',
-		isoCode: '',
-		city: '',
-		coords: {
-			latitude: undefined,
-			longitude: undefined,
-		},
-	}
-
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
-				if (data.refreshDeviceManager.__typename === 'DeviceManager') {
+				if (data.refreshDeviceManager?.__typename === 'DeviceManager') {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 				}
 
-				if (data.refreshDeviceManager.__typename === 'Error') {
+				if (data.refreshDeviceManager?.__typename === 'Error') {
 					createADeviceManagerMutation()
 				}
 			},
@@ -151,10 +184,10 @@ const Navigation = () => {
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
 		onCompleted: async data => {
-			if (data.createGuestProfile.__typename === 'CreateProfileResponse') {
+			if (data?.createGuestProfile?.__typename === 'CreateProfileResponse') {
 				createADeviceManagerMutation({
 					variables: {
-						profileId: data.createGuestProfile.Profile.id,
+						profileId: String(data.createGuestProfile.Profile?.id),
 					},
 				})
 			}
@@ -164,13 +197,13 @@ const Navigation = () => {
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
 			onCompleted: async data => {
-				if (data.createADeviceManager.__typename === 'DeviceManager') {
+				if (data.createADeviceManager?.__typename === 'DeviceManager') {
 					const deviceManager = data.createADeviceManager as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					updateOneProfileMutation({
 						variables: {
 							where: {
-								id: deviceManager.DeviceProfile.Profile.id,
+								id: deviceManager?.DeviceProfile?.Profile?.id,
 							},
 							data: {
 								DeviceManager: {

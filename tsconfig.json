@@ -19,6 +19,7 @@
 		"strict": true,
 		"baseUrl": "./",
 		"paths": {
+			"@preferences": ["./src/types/preferences.d.ts"],
 			"@types": ["./src/types/app.d"],
 			"@util/*": ["./src/util/*"],
 			"@helpers/*": ["./src/helpers/*"],

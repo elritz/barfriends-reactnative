@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
-import { ForegroundLocationPermissionReactiveVar, MapReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar, MapReactiveVar } from '@reactive'
 import { setLocation } from '@util/hooks/permissions/location/setLocation'
 import * as Location from 'expo-location'
 import { Button, Icon, useTheme } from 'native-base'
@@ -11,7 +11,7 @@ const LocationStatusButton = () => {
 	const themeContext = useContext(ThemeContext)
 	const theme = useTheme()
 	const navigation = useNavigation()
-	const rPermissionLocation = useReactiveVar(ForegroundLocationPermissionReactiveVar)
+	const rPermissionLocation = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const map = useReactiveVar(MapReactiveVar)
 
 	const setMapToLocation = () => {
@@ -20,7 +20,7 @@ const LocationStatusButton = () => {
 
 	const requestionLocationPermission = async () => {
 		const response = await Location.requestForegroundPermissionsAsync()
-		ForegroundLocationPermissionReactiveVar(response)
+		PermissionForegroundLocationReactiveVar(response)
 
 		if (response.status === 'granted') {
 			setLocation()

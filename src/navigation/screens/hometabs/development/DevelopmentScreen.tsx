@@ -2,28 +2,19 @@ import { useReactiveVar } from '@apollo/client'
 import {
 	AUTHORIZATION,
 	LOCAL_STORAGE_SEARCH_AREA,
-	LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 } from '@constants/StorageConstants'
 import { LOCATION_TASK_NAME, GEOFENCING_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import { Ionicons } from '@expo/vector-icons'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
-import {
-	Profile,
-	ProfileTheme,
-	useGetAllThemesQuery,
-	useProfileLazyQuery,
-	useUpdateOneProfileMutation,
-	useUpdateThemeManagerSwitchThemeMutation,
-} from '@graphql/generated'
+import { useGetAllThemesQuery } from '@graphql/generated'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	searchAreaInitialState,
 	SearchAreaReactiveVar,
-	ThemeColorScheme,
-	ThemeColorSchemeParseType,
 	ThemeReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
@@ -58,11 +49,13 @@ let foregroundSubscription = null
 const DevelopmentScreen = () => {
 	const navigation = useNavigation()
 	const insets = useSafeAreaInsets()
-	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+	const bottomSheetThemeModalRef = useRef<BottomSheetModal>(null)
+	const bottomSheetThemePermissionRef = useRef<BottomSheetModal>(null)
 	const colorScheme = useThemeColorScheme()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [toggleThemes] = useToggleTheme()
+	const snapPoints = useMemo(() => ['45%', '95%'], [])
 
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
 
@@ -70,12 +63,14 @@ const DevelopmentScreen = () => {
 		await toggleThemes({ colorScheme })
 	}
 
-	// variables
-	const snapPoints = useMemo(() => ['45%', '95%'], [])
+	const handleBottomSheetPermissionSnapPress = useCallback(index => {
+		bottomSheetThemePermissionRef.current?.present()
+		bottomSheetThemePermissionRef.current?.snapToIndex(index)
+	}, [])
 
-	const handleSnapPress = useCallback(index => {
-		bottomSheetModalRef.current?.present()
-		bottomSheetModalRef.current?.snapToIndex(index)
+	const handleBottomSheetThemeSnapPress = useCallback(index => {
+		bottomSheetThemeModalRef.current?.present()
+		bottomSheetThemeModalRef.current?.snapToIndex(index)
 	}, [])
 
 	// render
@@ -142,7 +137,7 @@ const DevelopmentScreen = () => {
 				>
 					<Pressable
 						onPress={async () => {
-							bottomSheetModalRef.current?.close()
+							bottomSheetThemeModalRef.current?.close()
 							navigation.navigate('HomeTabNavigator', {
 								screen: 'DevelopmentStack',
 								params: {
@@ -278,6 +273,7 @@ const DevelopmentScreen = () => {
 	)
 
 	const ITEM_HEIGHT = 50
+
 	const handleOpenPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {
 			Linking.openURL('app-settings://')
@@ -369,9 +365,17 @@ const DevelopmentScreen = () => {
 		}
 	}, [])
 
+	const onPermissionsPress = useCallback(() => {}, [])
+
 	if (GATLoading) return null
 
 	const settingsOptions = [
+		{
+			title: 'Permissions',
+			// icon: 'alert-circle-sharp',
+			icon: 'bookmarks',
+			onPress: () => handleBottomSheetPermissionSnapPress(1),
+		},
 		{
 			title: 'Refresh',
 			icon: 'refresh',
@@ -385,7 +389,7 @@ const DevelopmentScreen = () => {
 		{
 			title: 'Change theme',
 			icon: 'color-palette-sharp',
-			onPress: () => handleSnapPress(1),
+			onPress: () => handleBottomSheetThemeSnapPress(1),
 		},
 	]
 
@@ -426,7 +430,74 @@ const DevelopmentScreen = () => {
 					)
 				})}
 				<BottomSheetModal
-					ref={bottomSheetModalRef}
+					ref={bottomSheetThemePermissionRef}
+					snapPoints={snapPoints}
+					backgroundStyle={{
+						backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+					}}
+				>
+					<BottomSheetFlatList
+						data={[
+							{
+								name: 'Foreground Location',
+								route: () =>
+									navigation.navigate('PermissionNavigator', {
+										screen: 'ForegroundLocationPermissionScreen',
+									}),
+							},
+							{
+								name: 'Foreground Search Area Location',
+								route: () =>
+									navigation.navigate('PermissionNavigator', {
+										screen: 'ForegroundLocationPermissionSearchAreaScreen',
+									}),
+							},
+							{
+								name: 'Background Location',
+								route: () =>
+									navigation.navigate('PermissionNavigator', {
+										screen: 'BackgroundLocationPermissionScreen',
+									}),
+							},
+							{
+								name: 'Notifications',
+								route: () =>
+									navigation.navigate('PermissionNavigator', {
+										screen: 'NotificationsPermissionScreen',
+									}),
+							},
+							{
+								name: 'Media Library',
+								route: () =>
+									navigation.navigate('PermissionNavigator', {
+										screen: 'MediaLibraryPermissionScreen',
+									}),
+							},
+						]}
+						keyExtractor={i => i.name}
+						numColumns={1}
+						style={{
+							marginHorizontal: 5,
+						}}
+						contentInset={{ top: 10 }}
+						renderItem={({ item }) => {
+							return (
+								<Pressable
+									onPressIn={item.route}
+									onPressOut={() => bottomSheetThemePermissionRef.current?.dismiss()}
+								>
+									<Divider />
+									<HStack h={'45px'} flex={1} alignItems={'center'}>
+										<Heading fontSize={'md'}>{item.name}</Heading>
+									</HStack>
+									<Divider />
+								</Pressable>
+							)
+						}}
+					/>
+				</BottomSheetModal>
+				<BottomSheetModal
+					ref={bottomSheetThemeModalRef}
 					snapPoints={snapPoints}
 					backgroundStyle={{
 						backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
@@ -485,12 +556,12 @@ const DevelopmentScreen = () => {
 				<Button
 					marginX={10}
 					onPress={async () => {
-						await AsyncStorage.removeItem(LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE)
+						await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME)
 						const initialThemeColorSchemeState = JSON.stringify({
 							colorScheme: 'system',
 						})
 						await AsyncStorage.setItem(
-							LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+							LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 							initialThemeColorSchemeState,
 						)
 					}}

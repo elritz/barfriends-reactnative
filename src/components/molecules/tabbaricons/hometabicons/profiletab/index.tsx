@@ -5,7 +5,7 @@ import { useGetADeviceManagerQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as Haptics from 'expo-haptics'
-import { Image, Pressable } from 'native-base'
+import { Box, Image, Pressable } from 'native-base'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
@@ -23,18 +23,10 @@ const ProfileTab = (props: TabProps) => {
 
 	const onLongPressProfileIcon = async () => {
 		await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
-		if (rAuthorizationVar.id) {
-			navigation.navigate('ModalNavigator', {
-				screen: 'DeviceManagerModal',
-			})
-		} else {
-			navigation.navigate('CredentialNavigator', {
-				screen: 'PersonalCredentialStack',
-				params: {
-					screen: 'GetStartedScreen',
-				},
-			})
-		}
+
+		navigation.navigate('ModalNavigator', {
+			screen: 'DeviceManagerModal',
+		})
 	}
 
 	if (loading || !rAuthorizationVar) {
@@ -85,7 +77,7 @@ const ProfileTab = (props: TabProps) => {
 						onLongPress={() => !loading && onLongPressProfileIcon()}
 					>
 						<>
-							{rAuthorizationVar.DeviceProfile.Profile?.photos?.length ? (
+							{rAuthorizationVar?.DeviceProfile?.Profile?.photos?.length ? (
 								<Image
 									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
 									style={{
@@ -113,6 +105,7 @@ const ProfileTab = (props: TabProps) => {
 					</Pressable>
 				}
 			/>
+			<Box position={'absolute'} bottom={-3} bg={'red.500'} h={1} w={1} borderRadius={'full'} />
 		</>
 	)
 }

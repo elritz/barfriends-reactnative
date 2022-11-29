@@ -208,18 +208,17 @@ export type LoginStackParamList = {
 }
 
 export type PersonalCredentialStackParamList = {
-	GetStartedScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
+	GetStartedScreen: undefined
 	EmailPhoneTabStack: NavigatorScreenParams<EmailPhoneTabStackParamlist> | undefined
 	ConfirmationCodeScreen: {
 		code: string
-		nextScreen?: NavigatorScreenParams<RootNavigatorParamList> | undefined
 	}
-	BirthdayScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	NameScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	UsernameScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	PasswordCreateScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	PhotoScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	EmojimoodScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
+	BirthdayScreen: undefined
+	NameScreen: undefined
+	UsernameScreen: undefined
+	PasswordCreateScreen: undefined
+	PhotoScreen: undefined
+	EmojimoodScreen: undefined
 	TermsServicePrivacyTabStack:
 		| NavigatorScreenParams<TermsServicePrivacyTabStackParamList>
 		| undefined
@@ -239,14 +238,14 @@ export type VenueCredentialStackParamList = {
 }
 
 export type EmailPhoneTabStackParamlist = {
-	PhoneScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	EmailScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
+	PhoneScreen: undefined
+	EmailScreen: undefined
 }
 
 export type TermsServicePrivacyTabStackParamList = {
-	ServiceScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	TermsScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
-	PrivacyScreen: { nextScreen: NavigatorScreenParams<RootNavigatorParamList> | undefined }
+	ServiceScreen: undefined
+	TermsScreen: undefined
+	PrivacyScreen: undefined
 }
 
 export type PersonalCredentialStackNavProps = CompositeNavigationProp<

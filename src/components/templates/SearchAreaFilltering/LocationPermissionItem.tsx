@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ForegroundLocationPermissionReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
@@ -15,7 +15,7 @@ import { ThemeContext } from 'styled-components/native'
 
 const LocationPermissionItem = () => {
 	const themeContext = useContext(ThemeContext)
-	const rForegroundPermissionLocationVar = useReactiveVar(ForegroundLocationPermissionReactiveVar)
+	const rForegroundPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const newSearchArea = {

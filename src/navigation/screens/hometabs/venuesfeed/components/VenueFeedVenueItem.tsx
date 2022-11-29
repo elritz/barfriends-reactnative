@@ -20,13 +20,11 @@ type Props = {
 	loading: boolean
 }
 
-const VenueItem = (props: Props) => {
+const VenueFeedVenueItem = (props: Props) => {
 	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const [hideBlur, setHideBlur] = useState(false)
-
-	useEffect(() => {}, [props.item, props.loading])
 
 	if (!props.item || props.loading) return null
 
@@ -86,7 +84,7 @@ const VenueItem = (props: Props) => {
 				) : null}
 				{!hideBlur && (
 					<Blurhash
-						blurhash={getActiveBannerPhotos[0]?.blurhash}
+						blurhash={String(getActiveBannerPhotos[0]?.blurhash)}
 						style={{
 							flex: 1,
 						}}
@@ -117,7 +115,7 @@ const VenueItem = (props: Props) => {
 						alignSelf={'center'}
 						ellipsizeMode='tail'
 					>
-						{getTitleCase(props.item.IdentifiableInformation.fullname)}
+						{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
 					</Heading>
 					<Text textAlign={'center'} color={'black'} fontSize={'xl'}>
 						{props.item.distance}
@@ -128,4 +126,4 @@ const VenueItem = (props: Props) => {
 	)
 }
 
-export default VenueItem
+export default VenueFeedVenueItem

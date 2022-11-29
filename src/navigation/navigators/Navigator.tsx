@@ -1,24 +1,16 @@
 import { useReactiveVar } from '@apollo/client'
-import { LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE } from '@constants/StorageConstants'
+import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { DeviceManager } from '@graphql/generated'
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
 import SplashScreen from '@navigation/screens/SplashScreen'
 import AnimatedSplashScreen from '@navigation/screens/Splashscreen/AnimatedSplashScreen'
+import { LocalStoragePreferenceThemeType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
-import {
-	AuthorizationReactiveVar,
-	ThemeColorScheme,
-	ThemeColorSchemeParseType,
-	ThemeInterface,
-	ThemeReactiveVar,
-} from '@reactive'
-import createTheme from '@util/hooks/theme/createTheme'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
-import { useAssets } from 'expo-asset'
 import { StatusBar } from 'expo-status-bar'
 // import useDefaultTheme from '@util/hooks/theme/useDefaultTheme'
 import { NativeBaseProvider, useColorMode, useColorModeValue } from 'native-base'
@@ -39,9 +31,9 @@ const Navigator: React.FC<NavigationProps> = () => {
 
 	const setTheme = async () => {
 		const localStorageColorScheme = await AsyncStorage.getItem(
-			LOCAL_STORAGE_THEME_COLOR_SCHEME_PREFERENCE,
+			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)
-		const valueLocalStorageColorScheme: ThemeColorSchemeParseType = JSON.parse(
+		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
 			String(localStorageColorScheme),
 		)
 
@@ -52,19 +44,11 @@ const Navigator: React.FC<NavigationProps> = () => {
 		const subscription = AppState.addEventListener('change', nextAppState => {
 			const currentDeviceAppearance = Appearance.getColorScheme()
 			if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-				console.log('AppState ======== INACTIVE 111111', currentDeviceAppearance)
-				console.log('AppState ======== INACTIVE 222222', rThemeVar.colorScheme)
-				console.log('AppState ======== INACTIVE 33333', rThemeVar.localStorageColorScheme)
 				setTheme()
-				console.log('CALLED111111')
 			}
 			if (rThemeVar.localStorageColorScheme === 'system') {
 				if (currentDeviceAppearance !== rThemeVar.colorScheme) {
-					console.log('AppState ======== ACTIVE 111111', currentDeviceAppearance)
-					console.log('AppState ======== ACTIVE 222222', rThemeVar.colorScheme)
-					console.log('AppState ======== ACTIVE 33333', rThemeVar.localStorageColorScheme)
 					setTheme()
-					console.log('CALLED22222')
 				}
 			}
 

@@ -1,7 +1,7 @@
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
-	ForegroundLocationPermissionReactiveVar,
+	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 	SearchAreaType,
 } from '@reactive'
@@ -12,7 +12,7 @@ import { Alert, Linking, Platform } from 'react-native'
 const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 	const status = await Location.getForegroundPermissionsAsync()
 	const rSearchAreaVar = SearchAreaReactiveVar()
-	const rPermissionLocationVar = ForegroundLocationPermissionReactiveVar()
+	const rPermissionLocationVar = PermissionForegroundLocationReactiveVar()
 
 	const useLocationToSetSearchArea = async (): Promise<Boolean> => {
 		const currentLocation = await Location.getCurrentPositionAsync({
@@ -114,7 +114,7 @@ const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 		return useLocationToSetSearchArea()
 	} else if (status.canAskAgain) {
 		const status = await Location.requestForegroundPermissionsAsync()
-		ForegroundLocationPermissionReactiveVar(status)
+		PermissionForegroundLocationReactiveVar(status)
 		if (status.granted) {
 			return useLocationToSetSearchArea()
 		} else {

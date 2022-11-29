@@ -18,7 +18,7 @@ const GetStartedScreen = () => {
 	const hightlightColor = themeContext.palette.bfscompany.secondary
 
 	if (rProfilesBottomSheetVar) {
-		rProfilesBottomSheetVar.current.close()
+		rProfilesBottomSheetVar?.current?.close()
 	}
 
 	const {
@@ -98,8 +98,8 @@ const GetStartedScreen = () => {
 						onPress={() => {
 							CredentialPersonalProfileReactiveVar({
 								...credentialPersonalProfileVar,
-								PrivacyId: String(PPPData.documents[0].id),
-								ServiceId: String(PTSData.documents[0].id),
+								PrivacyId: String(PPPData?.documents[0].id),
+								ServiceId: String(PTSData?.documents[0].id),
 							})
 							navigation.navigate('CredentialNavigator', {
 								screen: 'PersonalCredentialStack',

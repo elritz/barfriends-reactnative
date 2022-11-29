@@ -11,7 +11,7 @@ import {
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Image, Button, Divider, Heading, ScrollView } from 'native-base'
+import { Image, Button, Divider, Heading, ScrollView, Box } from 'native-base'
 import { Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -69,36 +69,34 @@ const PersonalScreen = () => {
 				return item
 			})
 			return (
-				<SafeAreaView style={{ flex: 1, marginBottom: 60, marginHorizontal: 10 }}>
-					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-						<View style={[{ top: 0 }]}>
-							<CardPleaseSignup signupTextId={4} />
-							<Divider style={{ marginVertical: 10 }} />
-						</View>
-						<View style={{ width: '95%', alignSelf: 'center' }}>
-							{filteredDeviceProfiles?.map((item, index) => {
-								return (
-									<Pressable
-										key={item?.id}
-										onPress={() => (item?.isActive ? logoutProfile(item) : switchProfile(item))}
-									>
-										<DeviceManagerProfileItemLarge
-											isActive={item?.isActive}
-											item={item?.Profile as Profile}
-											loading={SWDPLoading}
-										/>
-									</Pressable>
-								)
-							})}
-						</View>
-					</ScrollView>
-				</SafeAreaView>
+				<Box mb={60} mx={3} flex={1}>
+					<View style={[{ top: 0 }]}>
+						<CardPleaseSignup signupTextId={4} />
+						<Divider style={{ marginVertical: 10 }} />
+					</View>
+					<View style={{ width: '95%', alignSelf: 'center' }}>
+						{filteredDeviceProfiles?.map((item, index) => {
+							return (
+								<Pressable
+									key={item?.id}
+									onPress={() => (item?.isActive ? logoutProfile(item) : switchProfile(item))}
+								>
+									<DeviceManagerProfileItemLarge
+										isActive={item?.isActive}
+										item={item?.Profile as Profile}
+										loading={SWDPLoading}
+									/>
+								</Pressable>
+							)
+						})}
+					</View>
+				</Box>
 			)
 		}
 	}
 
 	return (
-		<ScrollView px={2} contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}>
+		<Box m={3}>
 			<View style={{ alignItems: 'center' }}>
 				<Image
 					width={165}
@@ -139,7 +137,7 @@ const PersonalScreen = () => {
 			<Divider style={{ marginVertical: 20 }} />
 
 			<FriendsList />
-		</ScrollView>
+		</Box>
 	)
 }
 

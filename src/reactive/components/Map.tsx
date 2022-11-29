@@ -4,6 +4,8 @@ import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/typ
 import { LocationGeocodedAddress, LocationObject } from 'expo-location'
 import { Dimensions } from 'react-native'
 
+// !TODO: Clean up - can remove this from the application
+
 const { width, height } = Dimensions.get('window')
 const ASPECT_RATIO = width / height
 const LATITUDE_DELTA = 0.0692

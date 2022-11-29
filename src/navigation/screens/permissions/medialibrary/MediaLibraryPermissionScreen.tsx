@@ -118,22 +118,32 @@ const MediaLibraryPermissionScreen = () => {
 					})}
 				</Box>
 			</Box>
-			<VStack space={2} w={'full'} alignItems={'center'}>
+			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
 					width={'95%'}
 					onPress={() =>
-						rPermissionMedia.canAskAgain ? askMediaLibraryPermissionAsync() : openPhoneSettings()
+						rPermissionMedia?.canAskAgain ? askMediaLibraryPermissionAsync() : openPhoneSettings()
 					}
 				>
-					{rPermissionMedia.canAskAgain && !rPermissionMedia.granted
-						? 'Continue'
-						: 'Go to Phone Settings'}
+					{!rPermissionMedia?.granted
+						? rPermissionMedia?.canAskAgain && !rPermissionMedia.granted
+							? 'Continue'
+							: 'Go to Phone Settings'
+						: 'Granted'}
 				</Button>
-				<Button variant={'ghost'} size={'lg'} width={'95%'} onPress={() => navigation.goBack()}>
-					<Box h={'20px'}>{started && <Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
-				</Button>
+				{!started ? (
+					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+						<Text fontWeight={'medium'}>Close</Text>
+					</Button>
+				) : (
+					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+						{started && (
+							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+						)}
+					</Button>
+				)}
 			</VStack>
 		</Box>
 	)
