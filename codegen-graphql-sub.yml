@@ -1,0 +1,18 @@
+overwrite: true
+schema: "ws://localhost:5004/graphql"
+documents: "src/graphql/DM/**/*.subscription.ts"
+generates:
+  ./src/graphql/generated/subindex.ts:
+    schema: ./subschema.graphql
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./src/graphql/generated/subschema.graphql:
+    plugins:
+      - schema-ast
+  ./src/graphql/generated/subschema.graphql.json:
+    plugins:
+      - "introspection"
+    config:
+      minify: true

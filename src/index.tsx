@@ -78,14 +78,12 @@ Notifications.setNotificationHandler({
 
 export default function App() {
 	useEffect(() => {
-		const subscription = Notifications.addNotificationReceivedListener(notification => {})
-		return () => subscription.remove()
-	}, [])
-
-	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			// console.log('TODO:============>', notification)
+			console.log('🚀 -------------------------------------------------------------------------🚀')
+			console.log('🚀 ~ file: index.tsx ~ line 84 ~ subscription ~ notification', notification)
+			console.log('🚀 -------------------------------------------------------------------------🚀')
 		})
+
 		return () => subscription.remove()
 	}, [])
 

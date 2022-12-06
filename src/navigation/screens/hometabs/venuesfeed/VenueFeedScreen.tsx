@@ -9,6 +9,7 @@ import ForegroundLocationPermissionFullSection from '@components/molecules/permi
 import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useVenuesNearbyLazyQuery } from '@graphql/generated'
+import { useNumberIncrementedSubscription } from '@graphql/generated/subindex'
 import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
 import { useIsFocused } from '@react-navigation/native'
 import {
@@ -44,6 +45,8 @@ const VenueFeedScreen = () => {
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const [venues, setVenues] = useState([])
 
+	const { data: subData } = useNumberIncrementedSubscription({})
+	console.log('subData', subData)
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
 			latitude: Number(rSearchAreaVar?.coords.latitude),

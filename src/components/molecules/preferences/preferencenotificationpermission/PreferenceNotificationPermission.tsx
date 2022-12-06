@@ -5,8 +5,7 @@ import {
 	PermissionNotificationReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
 } from '@reactive'
-import { uniqueId } from 'lodash'
-import { AnimatePresence, MotiView } from 'moti'
+import { MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, VStack } from 'native-base'
 
 export default function PreferenceNotificationPermission() {
