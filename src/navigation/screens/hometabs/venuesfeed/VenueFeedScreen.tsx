@@ -23,7 +23,7 @@ import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, Center, VStack, FlatList } from 'native-base'
+import { Box, Center, VStack, FlatList, Text } from 'native-base'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -45,8 +45,16 @@ const VenueFeedScreen = () => {
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const [venues, setVenues] = useState([])
 
-	const { data: subData } = useNumberIncrementedSubscription({})
-	console.log('subData', subData)
+	// const {
+	// 	isLoading,
+	// 	error: rqError,
+	// 	data: rqData,
+	// } = useQuery('repoData', () =>
+	// 	fetch('https://api.github.com/repos/tannerlinsley/react-query').then(res => {
+	// 		res.json(), console.log(res.json())
+	// 	}),
+	// )
+
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
 			latitude: Number(rSearchAreaVar?.coords.latitude),
@@ -162,6 +170,10 @@ const VenueFeedScreen = () => {
 			</Center>
 		)
 	}
+	// if (isLoading) return null
+	// console.log('🚀 -------------------------------------------------------------------🚀')
+	// console.log('🚀 ~ file: VenueFeedScreen.tsx:56 ~ VenueFeedScreen ~ rqData', rqData)
+	// console.log('🚀 -------------------------------------------------------------------🚀')
 
 	return (
 		<Box>

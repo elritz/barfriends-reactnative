@@ -2,17 +2,10 @@ import { onError } from '@apollo/client/link/error'
 
 // TODO: FN(Errorlink should resetted by UI func)
 
-// const errorLink = onError(({ graphQLErrors, networkError }) => {
-//   if (graphQLErrors)
-//     graphQLErrors.forEach(({ message, locations, path }) =>
-//     );
-
-// });
-
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
 	if (graphQLErrors) {
 		for (let err of graphQLErrors) {
-			switch (err.extensions.code) {
+			switch (err?.extensions?.code) {
 				case 'UNAUTHENTICATED':
 					const oldHeaders = operation.getContext().headers
 					operation.setContext({

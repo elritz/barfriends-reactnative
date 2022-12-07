@@ -89,7 +89,7 @@ const PhoneScreen = () => {
 						params: {
 							screen: 'ConfirmationCodeScreen',
 							params: {
-								code: data.sendAuthenticatorDeviceOwnerCode.code,
+								code: String(data.sendAuthenticatorDeviceOwnerCode.code),
 							},
 						},
 					})
@@ -162,15 +162,16 @@ const PhoneScreen = () => {
 							ref={phonenumberRef}
 							key={'mobileNumber.completeNumber'}
 							isFocused={isFocused}
-							variant={'underlined'}
-							returnKeyType='done'
 							textContentType='telephoneNumber'
 							autoComplete='tel'
 							keyboardType='phone-pad'
-							numberOfLines={1}
 							placeholder='Mobile Number'
+							variant={'underlined'}
+							returnKeyType='done'
+							numberOfLines={1}
 							keyboardAppearance={colorScheme}
 							inputAccessoryViewID={inputAccessoryViewID}
+							mt={'1/6'}
 							py={2}
 							_input={{
 								fontSize: '2xl',

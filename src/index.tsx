@@ -10,8 +10,11 @@ import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+// import { QueryClient, QueryClientProvider } from 'react-query'
+
 // TODO: FN(Background or foreground location tracking) - need to setup the application to optimize around apps fn performance
 
+// const queryClient = new QueryClient()
 // Define the background task for location tracking
 // TaskManager.defineTask(GEOFENCING_LOCATION_TASK_NAME, async ({ data, error }: any) => {
 // 	console.log('reun')
@@ -90,11 +93,13 @@ export default function App() {
 	return (
 		<SafeAreaProvider>
 			<KeyboardProvider statusBarTranslucent>
+				{/* <QueryClientProvider client={queryClient}> */}
 				<ApolloProvider client={gateaWayClient}>
 					{/* <AnimatedAppLoader assets={assets}> */}
 					<Navigation />
 					{/* </AnimatedAppLoader> */}
 				</ApolloProvider>
+				{/* </QueryClientProvider> */}
 			</KeyboardProvider>
 		</SafeAreaProvider>
 	)

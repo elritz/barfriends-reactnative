@@ -4,6 +4,9 @@ import { VStack, Heading } from 'native-base'
 
 export default function VenuesFeedSearchAreaHeader() {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+
+	if (!rSearchAreaVar?.city) return null
+
 	return (
 		<VStack alignItems={'flex-start'} mx={2} mb={3}>
 			<Heading lineHeight={'xs'} fontSize={'md'} fontWeight={'bold'}>

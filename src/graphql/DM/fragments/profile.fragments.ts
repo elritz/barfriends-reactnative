@@ -27,7 +27,7 @@ export const PROFILE_FRAGMENT = gql`
 		Relationships {
 			id
 			venueMetAt
-			status
+			Status
 			createdAt
 			updatedAt
 		}
@@ -167,7 +167,7 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 		Relationships {
 			id
 			venueMetAt
-			status
+			Status
 			createdAt
 			updatedAt
 		}

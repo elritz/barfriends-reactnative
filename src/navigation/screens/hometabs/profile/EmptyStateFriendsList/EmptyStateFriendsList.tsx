@@ -20,6 +20,9 @@ export const EmptyStateFriendsList = () => {
 						screen: 'ExploreStack',
 						params: {
 							screen: 'SearchTextScreen',
+							params: {
+								searchText: '',
+							},
 						},
 					})
 				}}

@@ -1,5 +1,5 @@
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Feather } from '@expo/vector-icons'
+import { Entypo, Feather } from '@expo/vector-icons'
 import {
 	useAuthorizedProfilesLazyQuery,
 	useSendAuthenticatorDeviceOwnerCodeMutation,
@@ -73,19 +73,19 @@ export default function AuthenticatorScreen() {
 			const replaced = formValues.authenticator.replace(/\D/g, '')
 
 			if (data.authorizedProfiles.__typename === 'ProfileTypesResponse') {
-				if (data.authorizedProfiles.username.length) {
+				if (data.authorizedProfiles?.username.length) {
 					navigation.navigate('CredentialNavigator', {
 						screen: 'LoginCredentialStack',
 						params: {
 							screen: 'PasswordLoginScreen',
 							params: {
-								profile: data.authorizedProfiles.username[0].id,
+								profile: data.authorizedProfiles?.username[0].id,
 							},
 						},
 					})
 				}
 
-				if (data.authorizedProfiles.phone.length) {
+				if (data.authorizedProfiles?.phone.length) {
 					sendAuthenticatorDeviceOwnerCodeMutation({
 						variables: {
 							where: {
@@ -141,9 +141,9 @@ export default function AuthenticatorScreen() {
 	const RightIcon = () => {
 		switch (keyboardType) {
 			case 'number-pad':
-				return <Icon onPress={() => setKeyboardType('email')} name='email' type='entypo' />
+				return <Icon onPress={() => setKeyboardType('email')} name='email' as={Entypo} />
 			case 'email':
-				return <Icon onPress={() => setKeyboardType('number-pad')} name='dial-pad' type='entypo' />
+				return <Icon onPress={() => setKeyboardType('number-pad')} name='dial-pad' as={Entypo} />
 		}
 	}
 
@@ -188,8 +188,8 @@ export default function AuthenticatorScreen() {
 							rightElement={<RightIcon />}
 							autoCapitalize='none'
 							autoFocus={focusKeyboard}
-							mt={4}
-							py={4}
+							mt={'1/6'}
+							py={2}
 							_input={{
 								fontSize: '2xl',
 								fontWeight: 'medium',

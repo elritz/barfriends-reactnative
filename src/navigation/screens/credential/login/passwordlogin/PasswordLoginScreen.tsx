@@ -91,7 +91,9 @@ const PasswordLoginScreen = () => {
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data.switchDeviceProfile.__typename == 'DeviceManager') {
+				if (!data || !data.switchDeviceProfile) {
+					return null
+				} else if (data.switchDeviceProfile.__typename == 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					navigation.navigate('HomeTabNavigator', {
@@ -120,7 +122,7 @@ const PasswordLoginScreen = () => {
 		})
 
 	const onSubmit = async (data: any) => {
-		if (PQData.profile.IdentifiableInformation.username) {
+		if (PQData?.profile?.IdentifiableInformation?.username) {
 			loginPasswordQuery({
 				variables: {
 					username: PQData.profile.IdentifiableInformation.username,
@@ -143,19 +145,22 @@ const PasswordLoginScreen = () => {
 			height={'auto'}
 			flexDir={'column'}
 			mx={'5%'}
+			flex={1}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
 			{!PQLoading && (
 				<Image
+					mt={5}
+					alignSelf={'center'}
 					height={`${IMAGE_SIZE}px`}
 					width={`${IMAGE_SIZE}px`}
 					borderRadius={'lg'}
-					source={{ uri: PQData.profile.photos[0].url }}
+					source={{ uri: PQData?.profile?.photos[0].url }}
 					alt={'Profile Photo'}
 				/>
 			)}
-			<View style={{ marginVertical: '10%', width: '100%' }}>
+			<View style={{ width: '100%' }}>
 				<Controller
 					name='password'
 					control={control}
@@ -173,6 +178,7 @@ const PasswordLoginScreen = () => {
 									onBlur={onBlur}
 									textContentType='password'
 									blurOnSubmit={false}
+									flex={1}
 									autoFocus
 									placeholder='Password'
 									returnKeyType='done'
@@ -181,6 +187,14 @@ const PasswordLoginScreen = () => {
 									secureTextEntry={showPassword}
 									autoCapitalize='none'
 									numberOfLines={1}
+									variant={'underlined'}
+									mt={'10'}
+									py={2}
+									_input={{
+										fontSize: '2xl',
+										fontWeight: 'medium',
+									}}
+									size={'lg'}
 									rightElement={
 										<Icon
 											onPress={() => {
@@ -218,20 +232,27 @@ const PasswordLoginScreen = () => {
 							<IconButton
 								disabled={SDPLoading || LPLoading}
 								onPress={handleSubmit(onSubmit)}
+								variant={'solid'}
+								color={'primary.500'}
 								as={Feather}
 								style={{
-									backgroundColor: !!errors.password ? theme.colors.gray[300] : theme.colors.primary[500],
-									height: 70,
-									width: 'auto',
-									minWidth: 70,
 									justifyContent: 'center',
 									borderRadius: 50,
+									height: 70,
+									width: 70,
+									paddingHorizontal: 20,
+									alignSelf: 'center',
 								}}
 								icon={
 									SDPLoading || LPLoading ? (
 										<Spinner size='small' />
 									) : (
-										<Icon as={Feather} name='arrow-right' size={35} />
+										<Icon
+											as={Feather}
+											name='arrow-right'
+											size={'2xl'}
+											color={errors?.password ? 'light.800' : 'white'}
+										/>
 									)
 								}
 							/>
