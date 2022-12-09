@@ -3087,6 +3087,7 @@ export type Mutation = {
   checkThePink?: Maybe<Scalars['Boolean']>;
   createADeviceManager?: Maybe<RefreshDeviceManagerDeviceManagerResponseUnion>;
   createAVenue?: Maybe<CreateProfileResponseUnion>;
+  createFriendRequest?: Maybe<Scalars['Boolean']>;
   createGuestProfile?: Maybe<CreateProfileResponseUnion>;
   createOneDevice: Device;
   createOneEmojimood: Emojimood;
@@ -3129,6 +3130,12 @@ export type MutationCreateADeviceManagerArgs = {
 
 export type MutationCreateAVenueArgs = {
   data: CreateVenueProfileDataInput;
+};
+
+
+export type MutationCreateFriendRequestArgs = {
+  receiverId: Scalars['String'];
+  senderId: Scalars['String'];
 };
 
 
@@ -7117,6 +7124,15 @@ export type Theme_Manager_FragmentFragment = { __typename?: 'ThemeManager', id?:
 
 export type Venue_FragmentFragment = { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename: 'Profile', id: string, ProfileType?: ProfileType | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: number, emoji?: string | null, name: string }> } | null, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null, ProfileTheme?: { __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager?: { __typename?: 'ThemeManager', id?: string | null } | null, Theme: { __typename?: 'Theme', id: string, name: string, mobile: Array<any>, mobileVersions: Array<string>, web: Array<any>, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } } | null } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, venueMetAt?: string | null, Status: Array<Status>, createdAt: any, updatedAt: any }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials?: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: number, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: number, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null } | null, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId?: string | null, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId?: string | null, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: number, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: number, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, Story?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: number, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } };
 
+export type UpsertDevicePushTokenMutationVariables = Exact<{
+  androidToken?: InputMaybe<Scalars['String']>;
+  appleToken?: InputMaybe<Scalars['String']>;
+  expoToken?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpsertDevicePushTokenMutation = { __typename?: 'Mutation', upsertDevicePushToken?: boolean | null };
+
 export type CreateADeviceManagerMutationVariables = Exact<{
   profileId: Scalars['String'];
 }>;
@@ -7201,6 +7217,14 @@ export type EmojimoodQueryVariables = Exact<{
 
 
 export type EmojimoodQuery = { __typename?: 'Query', emojimood?: { __typename?: 'Emojimood', id: number, colors: Array<string>, emoji?: string | null, emojiname?: string | null } | null };
+
+export type CreateFriendRequestMutationVariables = Exact<{
+  senderId: Scalars['String'];
+  receiverId: Scalars['String'];
+}>;
+
+
+export type CreateFriendRequestMutation = { __typename?: 'Mutation', createFriendRequest?: boolean | null };
 
 export type UpsertTonightPathOrPathMutationVariables = Exact<{
   latitude: Scalars['Float'];
@@ -7817,6 +7841,39 @@ export const Venue_FragmentFragmentDoc = gql`
   updatedAt
 }
     ${Profile_FragmentFragmentDoc}`;
+export const UpsertDevicePushTokenDocument = gql`
+    mutation upsertDevicePushToken($androidToken: String, $appleToken: String, $expoToken: String) {
+  upsertDevicePushToken(androidToken: $androidToken, appleToken: $appleToken, expoToken: $expoToken)
+}
+    `;
+export type UpsertDevicePushTokenMutationFn = Apollo.MutationFunction<UpsertDevicePushTokenMutation, UpsertDevicePushTokenMutationVariables>;
+
+/**
+ * __useUpsertDevicePushTokenMutation__
+ *
+ * To run a mutation, you first call `useUpsertDevicePushTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertDevicePushTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertDevicePushTokenMutation, { data, loading, error }] = useUpsertDevicePushTokenMutation({
+ *   variables: {
+ *      androidToken: // value for 'androidToken'
+ *      appleToken: // value for 'appleToken'
+ *      expoToken: // value for 'expoToken'
+ *   },
+ * });
+ */
+export function useUpsertDevicePushTokenMutation(baseOptions?: Apollo.MutationHookOptions<UpsertDevicePushTokenMutation, UpsertDevicePushTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpsertDevicePushTokenMutation, UpsertDevicePushTokenMutationVariables>(UpsertDevicePushTokenDocument, options);
+      }
+export type UpsertDevicePushTokenMutationHookResult = ReturnType<typeof useUpsertDevicePushTokenMutation>;
+export type UpsertDevicePushTokenMutationResult = Apollo.MutationResult<UpsertDevicePushTokenMutation>;
+export type UpsertDevicePushTokenMutationOptions = Apollo.BaseMutationOptions<UpsertDevicePushTokenMutation, UpsertDevicePushTokenMutationVariables>;
 export const CreateADeviceManagerDocument = gql`
     mutation createADeviceManager($profileId: String!) {
   createADeviceManager(profileId: $profileId) {
@@ -8347,6 +8404,38 @@ export function useEmojimoodLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type EmojimoodQueryHookResult = ReturnType<typeof useEmojimoodQuery>;
 export type EmojimoodLazyQueryHookResult = ReturnType<typeof useEmojimoodLazyQuery>;
 export type EmojimoodQueryResult = Apollo.QueryResult<EmojimoodQuery, EmojimoodQueryVariables>;
+export const CreateFriendRequestDocument = gql`
+    mutation createFriendRequest($senderId: String!, $receiverId: String!) {
+  createFriendRequest(senderId: $senderId, receiverId: $receiverId)
+}
+    `;
+export type CreateFriendRequestMutationFn = Apollo.MutationFunction<CreateFriendRequestMutation, CreateFriendRequestMutationVariables>;
+
+/**
+ * __useCreateFriendRequestMutation__
+ *
+ * To run a mutation, you first call `useCreateFriendRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFriendRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFriendRequestMutation, { data, loading, error }] = useCreateFriendRequestMutation({
+ *   variables: {
+ *      senderId: // value for 'senderId'
+ *      receiverId: // value for 'receiverId'
+ *   },
+ * });
+ */
+export function useCreateFriendRequestMutation(baseOptions?: Apollo.MutationHookOptions<CreateFriendRequestMutation, CreateFriendRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateFriendRequestMutation, CreateFriendRequestMutationVariables>(CreateFriendRequestDocument, options);
+      }
+export type CreateFriendRequestMutationHookResult = ReturnType<typeof useCreateFriendRequestMutation>;
+export type CreateFriendRequestMutationResult = Apollo.MutationResult<CreateFriendRequestMutation>;
+export type CreateFriendRequestMutationOptions = Apollo.BaseMutationOptions<CreateFriendRequestMutation, CreateFriendRequestMutationVariables>;
 export const UpsertTonightPathOrPathDocument = gql`
     mutation UpsertTonightPathOrPath($latitude: Float!, $longitude: Float!, $profileIdPersonal: String!) {
   upsertTonightPathOrPath(latitude: $latitude, longitude: $longitude, profileIdPersonal: $profileIdPersonal)

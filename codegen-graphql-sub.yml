@@ -1,5 +1,6 @@
 overwrite: true
-schema: "ws://localhost:5004/graphql"
+# schema: "ws://localhost:5004/graphql"
+schema: "https://localhost:5004/graphql/stream"
 documents: "src/graphql/**/*.subscription.ts"
 generates:
   ./src/graphql/generated/subindex.ts:

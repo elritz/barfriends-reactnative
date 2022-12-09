@@ -8,7 +8,7 @@ import BackgroundLocationPermissionFullSection from '@components/molecules/permi
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
 import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import { useVenuesNearbyLazyQuery } from '@graphql/generated'
+import { useCreateFriendRequestMutation, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import { useNumberIncrementedSubscription } from '@graphql/generated/subindex'
 import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
 import { useIsFocused } from '@react-navigation/native'
@@ -16,6 +16,7 @@ import {
 	AuthorizationReactiveVar,
 	PermissionBackgroundLocationReactiveVar,
 	PermissionForegroundLocationReactiveVar,
+	PermissionNotificationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
 import * as Location from 'expo-location'
@@ -23,7 +24,7 @@ import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, Center, VStack, FlatList, Text } from 'native-base'
+import { Box, Center, VStack, FlatList, Text, Button } from 'native-base'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -43,17 +44,17 @@ const VenueFeedScreen = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
+
 	const [venues, setVenues] = useState([])
 
-	// const {
-	// 	isLoading,
-	// 	error: rqError,
-	// 	data: rqData,
-	// } = useQuery('repoData', () =>
-	// 	fetch('https://api.github.com/repos/tannerlinsley/react-query').then(res => {
-	// 		res.json(), console.log(res.json())
-	// 	}),
-	// )
+	// const { data: sData } = useNumberIncrementedSubscription({
+	// 	context: {
+	// 		server: 'subscription',
+	// 	},
+	// })
+
+	const [createFriendRequestMutation, { data: cfrmData, loading: cfrmLoading, error: cfrmError }] =
+		useCreateFriendRequestMutation()
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
@@ -141,6 +142,18 @@ const VenueFeedScreen = () => {
 	const listHeaderComponent = () => {
 		return (
 			<Center>
+				<Button
+					onPress={() => {
+						createFriendRequestMutation({
+							variables: {
+								receiverId: '1231',
+								senderId: '123123',
+							},
+						})
+					}}
+				>
+					Create Friend Request
+				</Button>
 				<VStack w={'full'} space={4}>
 					{!rSearchAreaVar?.coords.latitude || !rSearchAreaVar?.coords.longitude ? (
 						<VenueFeedSearchAreaEmptyState />

@@ -1,6 +1,7 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { PermissionNotificationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
@@ -11,7 +12,7 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
 import { Box, VStack, Button, Divider, Icon, Text, Heading } from 'native-base'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -44,13 +45,10 @@ const NotificationsPermissionScreen = () => {
 	const navigation = useNavigation()
 	const isFocused = useIsFocused()
 	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
-
-	console.log(
-		'🚀 ~ file: NotificationsPermissionScreen.tsx ~ line 46 ~ NotificationsPermissionScreen ~ rNotificationsPermission',
-		JSON.stringify(rNotificationsPermission, null, 4),
-	)
-
 	const { finished, start, seconds, started } = useTimer2('0:2')
+
+	const [upsertDevicePushTokenMutation, { data, loading, error }] =
+		useUpsertDevicePushTokenMutation()
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(
@@ -94,6 +92,7 @@ const NotificationsPermissionScreen = () => {
 					lightColor: '#ff6f007c',
 				})
 			}
+
 			const status = await Notifications.requestPermissionsAsync({
 				ios: {
 					allowAlert: true,
@@ -110,51 +109,37 @@ const NotificationsPermissionScreen = () => {
 
 			if (status.granted) {
 				const devicetoken = await Notifications.getDevicePushTokenAsync()
+
 				if (Platform.OS === 'ios') {
 					const IOSenv = await Application.getIosPushNotificationServiceEnvironmentAsync()
+
 					const expoToken = await Notifications.getExpoPushTokenAsync({
 						experienceId: '@barfriends/barfriends',
 						applicationId: String(Application.applicationId),
-						// devicePushToken: devicetoken.data, // this defaults to this anyways as per the docs
 						development: IOSenv === 'development' ? true : false,
 					})
-					PermissionNotificationReactiveVar(status)
-					console.log(
-						'🚀 ~ file: NotificationsPermissionScreen.tsx ~ line 103 ~ handleRequestNotificationsPermission ~ expoToken',
-						expoToken.data,
-					)
-					console.log(
-						'🚀 ~ file: NotificationsPermissionScreen.tsx ~ line 103 ~ handleRequestNotificationsPermission ~ expoToken',
-						expoToken.type,
-					)
+
+					upsertDevicePushTokenMutation({
+						variables: {
+							appleToken: devicetoken.data,
+							expoToken: expoToken.data,
+						},
+					})
 				} else {
 					const expoToken = await Notifications.getExpoPushTokenAsync({
 						experienceId: '@barfriends/barfriends',
 						applicationId: String(Application.applicationId),
-						devicePushToken: devicetoken,
 					})
 
-					const deviceToken = await Notifications.getDevicePushTokenAsync()
-					console.log(
-						'🚀 --------------------------------------------------------------------------------------------------------------------🚀',
-					)
-					console.log(
-						'🚀 ~ file: NotificationsPermissionScreen.tsx ~ line 128 ~ handleRequestNotificationsPermission ~ expoToken',
-						expoToken,
-					)
-					console.log(
-						'🚀 --------------------------------------------------------------------------------------------------------------------🚀',
-					)
-					console.log(
-						'🚀 ~ file: NotificationsPermissionScreen.tsx ~ line 129 ~ handleRequestNotificationsPermission ~ deviceToken',
-						deviceToken,
-					)
-					console.log(
-						'🚀 ------------------------------------------------------------------------------------------------------------------------🚀',
-					)
+					upsertDevicePushTokenMutation({
+						variables: {
+							androidToken: devicetoken.data,
+							expoToken: expoToken.data,
+						},
+					})
 				}
 			} else {
-				console.log('Inorder to enable notification you need to go your device settings')
+				createTwoButtonAlert()
 			}
 		} else {
 			Alert.alert('Must use physical device for Push Notifications')
@@ -193,20 +178,6 @@ const NotificationsPermissionScreen = () => {
 		}
 		appStateRef.current = nextAppState
 	}
-
-	// useEffect(() => {
-	// 	const getExpoToken = async () => {
-	// 		const IOSPushNotificationServerEnv =
-	// 			await Application.getIosPushNotificationServiceEnvironmentAsync()
-	// 		const expoToken = await Notifications.getExpoPushTokenAsync({
-	// 			experienceId: '@barfriends/barfriends',
-	// 			applicationId: String(Application.applicationId),
-	// 			development: IOSPushNotificationServerEnv === 'development' ? true : false,
-	// 		})
-	// 		const deviceToken = await Notifications.getDevicePushTokenAsync()
-	// 	}
-	// 	getExpoToken()
-	// }, [])
 
 	finished(() => {
 		navigation.goBack()

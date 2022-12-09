@@ -6,7 +6,7 @@ import {
 } from '@constants/StorageConstants'
 import { LOCATION_TASK_NAME, GEOFENCING_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
-import { Ionicons } from '@expo/vector-icons'
+import { Feather, Ionicons } from '@expo/vector-icons'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useGetAllThemesQuery } from '@graphql/generated'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -17,9 +17,10 @@ import {
 	SearchAreaReactiveVar,
 	ThemeReactiveVar,
 } from '@reactive'
-import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
+import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
+import * as Clipboard from 'expo-clipboard'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
@@ -37,10 +38,12 @@ import {
 	VStack,
 	Pressable,
 	Stack,
+	IconButton,
 } from 'native-base'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Platform, Linking, useColorScheme, ColorSchemeName } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { AuthorizationDecoded } from 'src/types/app'
 
 // TODO: FN(Change theme functionality with database and local storage save)
 
@@ -49,6 +52,7 @@ let foregroundSubscription = null
 const DevelopmentScreen = () => {
 	const navigation = useNavigation()
 	const insets = useSafeAreaInsets()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const bottomSheetThemeModalRef = useRef<BottomSheetModal>(null)
 	const bottomSheetThemePermissionRef = useRef<BottomSheetModal>(null)
 	const colorScheme = useThemeColorScheme()
@@ -56,6 +60,18 @@ const DevelopmentScreen = () => {
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [toggleThemes] = useToggleTheme()
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
+	const [authorization, setAuthorization] = useState('')
+
+	async function applicationAuthorization() {
+		const getAuthorization = await secureStorageItemRead({
+			key: AUTHORIZATION,
+		})
+		setAuthorization(String(getAuthorization))
+	}
+
+	useEffect(() => {
+		applicationAuthorization()
+	}, [])
 
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
 
@@ -395,24 +411,36 @@ const DevelopmentScreen = () => {
 
 	return (
 		<Box flex={1} mx={3}>
-			<Box mt={100} my={5}>
-				<Text
-					adjustsFontSizeToFit
-					fontSize={'3xl'}
-					textAlign={'center'}
-					textTransform={'capitalize'}
-					fontWeight={'black'}
-				>
-					{String.fromCharCode(60)}
-					{ENVIRONMENT} {String.fromCharCode(47, 62)}
-				</Text>
-			</Box>
 			<ScrollView
 				flex={1}
 				mt={5}
 				contentInset={{ bottom: insets.bottom + 80 }}
 				showsVerticalScrollIndicator={false}
 			>
+				<Box mt={100} my={5}>
+					<Text
+						adjustsFontSizeToFit
+						fontSize={'3xl'}
+						textAlign={'center'}
+						textTransform={'capitalize'}
+						fontWeight={'black'}
+					>
+						{String.fromCharCode(60)}
+						{ENVIRONMENT} {String.fromCharCode(47, 62)}
+					</Text>
+					<Text
+						fontSize={'md'}
+						textAlign={'center'}
+						textTransform={'capitalize'}
+						fontWeight={'black'}
+						numberOfLines={1}
+						onPress={async () => {
+							await Clipboard.setStringAsync(authorization)
+						}}
+					>
+						{authorization} <IconButton icon={<Icon as={Feather} name='copy' />} />
+					</Text>
+				</Box>
 				{settingsOptions.map((item, index) => {
 					return (
 						<Pressable key={index} onPress={item.onPress}>

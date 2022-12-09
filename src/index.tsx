@@ -63,13 +63,14 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
 	}
 })
 
-// TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
-// 	console.log('TODO: Received a notification in the background!')
-// 	// Do something with the notification data
-// 	console.log('TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data', data)
-// })
-
-Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
+TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
+	console.log('TODO: Received a notification in the background!')
+	// Do something with the notification data
+	console.log(
+		'TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data',
+		JSON.stringify(data, null, 4),
+	)
+})
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -78,6 +79,8 @@ Notifications.setNotificationHandler({
 		shouldSetBadge: true,
 	}),
 })
+
+Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
 
 export default function App() {
 	useEffect(() => {

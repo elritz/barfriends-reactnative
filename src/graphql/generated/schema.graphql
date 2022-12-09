@@ -1477,7 +1477,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "e3a12796-9a42-4fdc-a330-52da7a535e68"
+  sessiontoken: String = "81a1ad3c-5066-43ee-a99b-8859fff94f8d"
   textinput: String!
 
   """
@@ -2992,6 +2992,7 @@ type Mutation {
   checkThePink: Boolean
   createADeviceManager(profileId: String!): RefreshDeviceManagerDeviceManagerResponseUnion
   createAVenue(data: CreateVenueProfileDataInput!): CreateProfileResponseUnion
+  createFriendRequest(receiverId: String!, senderId: String!): Boolean
   createGuestProfile: CreateProfileResponseUnion
   createOneDevice(data: DeviceCreateInput!): Device!
   createOneEmojimood(data: EmojimoodCreateInput!): Emojimood!
