@@ -137,6 +137,7 @@ export type ExploreFilterTabParamList = {
 	}
 	SearchTextScreen: {
 		searchText?: string
+		data?: []
 	}
 	SearchResultTabStack: NavigatorScreenParams<SearchResultTabStackParamList> | undefined
 	NotFound: undefined
@@ -145,12 +146,15 @@ export type ExploreFilterTabParamList = {
 export type SearchResultTabStackParamList = {
 	TopScreen: {
 		searchText?: string
+		data?: {}
 	}
 	VenueScreen: {
 		searchText?: string
+		data?: {}
 	}
 	UserScreen: {
 		searchText?: string
+		data?: {}
 	}
 	NotFound: undefined
 }

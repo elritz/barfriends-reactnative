@@ -1,3 +1,4 @@
+import ActionCard from '../../ActionCard'
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
@@ -21,7 +22,7 @@ export default function LeaveCard() {
 		{ data: RPJVData, loading: RPJVLoading, error: RPJVError },
 	] = useRemovePersonalJoinsVenueMutation({
 		variables: {
-			profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile.id,
+			profileIdPersonal: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 			profileIdVenue: route.params.profileId,
 		},
 		onCompleted: async () => {
@@ -40,7 +41,7 @@ export default function LeaveCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
 		variables: {
 			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile.id,
+				id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 			},
 		},
 		onCompleted: data => {
@@ -49,7 +50,7 @@ export default function LeaveCard() {
 				AuthorizationReactiveVar({
 					...rAuthorizationVar,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
+						...rAuthorizationVar?.DeviceProfile,
 						Profile: profile,
 					},
 				})
@@ -57,35 +58,44 @@ export default function LeaveCard() {
 		},
 	})
 	if (
-		rAuthorizationVar.DeviceProfile.Profile?.Personal.LiveOutPersonal.joined[0]?.venueProfileId ===
-		route.params.profileId
+		rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]
+			?.venueProfileId === route.params.profileId
 	) {
 		return (
-			<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
-				<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
-					You've joined here{'\n'}
-					<Heading fontWeight={'900'} color={'red.600'} textAlign={'center'} textTransform={'uppercase'}>
-						Leave now
+			<ActionCard numColumns={1}>
+				<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
+					<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
+						You've joined here{'\n'}
+						<Heading
+							fontWeight={'900'}
+							color={'red.600'}
+							textAlign={'center'}
+							textTransform={'uppercase'}
+						>
+							Leave now
+						</Heading>
 					</Heading>
-				</Heading>
-				<Box>
-					<Button
-						onPress={() => {
-							removePersonalJoinsVenueMutation()
-						}}
-						textAlign={'center'}
-						colorScheme={'error'}
-						borderRadius={'lg'}
-						_text={{
-							fontWeight: '700',
-							fontSize: 'md',
-						}}
-						w={'100'}
-					>
-						Leave
-					</Button>
-				</Box>
-			</VStack>
+					<Box>
+						<Button
+							onPress={() => {
+								removePersonalJoinsVenueMutation()
+							}}
+							textAlign={'center'}
+							colorScheme={'error'}
+							borderRadius={'lg'}
+							_text={{
+								fontWeight: '700',
+								fontSize: 'md',
+							}}
+							w={'100'}
+						>
+							Leave
+						</Button>
+					</Box>
+				</VStack>
+			</ActionCard>
 		)
+	} else {
+		return null
 	}
 }

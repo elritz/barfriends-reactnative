@@ -48,8 +48,11 @@ const ExploreSearchInput = () => {
 		<SafeAreaView>
 			<Input
 				ref={_searchInputRef}
+				_light={{ bgColor: 'light.50' }}
+				_dark={{ bgColor: 'dark.50' }}
+				w={'85%'}
 				placeholder='Search'
-				value={rSearch.searchText}
+				value={rSearch?.searchText}
 				onChangeText={text => changeSearchText(text)}
 				returnKeyType='search'
 				keyboardAppearance={colorScheme}
@@ -60,6 +63,7 @@ const ExploreSearchInput = () => {
 							screen: 'SearchResultTabStack',
 							params: {
 								screen: 'TopScreen',
+								params: {},
 							},
 						},
 					})
@@ -72,6 +76,7 @@ const ExploreSearchInput = () => {
 						screen: 'ExploreStack',
 						params: {
 							screen: 'SearchTextScreen',
+							params: {},
 						},
 					})
 				}}
@@ -80,6 +85,7 @@ const ExploreSearchInput = () => {
 						screen: 'ExploreStack',
 						params: {
 							screen: 'SearchTextScreen',
+							params: {},
 						},
 					})
 				}}

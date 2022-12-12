@@ -53,7 +53,8 @@ function SearchFilterTabStack() {
 					tabBarLabel: 'Top',
 				}}
 				initialParams={{
-					searchText: route.params.params.searchText,
+					searchText: route.params?.params?.searchText,
+					data: route.params?.params?.data,
 				}}
 			/>
 			<ScreenStack.Screen
@@ -63,7 +64,8 @@ function SearchFilterTabStack() {
 					tabBarLabel: 'Venues',
 				}}
 				initialParams={{
-					searchText: route.params.params.searchText,
+					searchText: route.params?.params?.searchText,
+					data: route.params?.params?.data,
 				}}
 			/>
 			<ScreenStack.Screen
@@ -73,7 +75,8 @@ function SearchFilterTabStack() {
 					tabBarLabel: 'Accounts',
 				}}
 				initialParams={{
-					searchText: route.params.params.searchText,
+					searchText: route.params?.params?.searchText,
+					data: route.params?.params?.data,
 				}}
 			/>
 		</ScreenStack.Navigator>

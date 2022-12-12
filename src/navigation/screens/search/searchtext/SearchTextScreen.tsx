@@ -1,23 +1,47 @@
-import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
-import SearchTextScreenInput, {
-	SearchTextScreenRouteProp,
-} from '@components/molecules/search/searchtext/SearchTextScreenInput'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { Box, Heading, VStack } from 'native-base'
-import { ScrollView } from 'react-native'
+import SearchCard from '../components/SearchCard'
+import { SearchTextScreenRouteProp } from '@components/molecules/search/searchtext/SearchTextScreenInput'
+import { useRoute } from '@react-navigation/native'
+import { Box, ScrollView, Text, Center } from 'native-base'
 
 const SearchTextScreen = () => {
 	const route = useRoute<SearchTextScreenRouteProp>()
 	const params = route.params
 
+	console.log(
+		'🚀 -------------------------------------------------------------------------------------------------🚀',
+	)
+	console.log(
+		'🚀 ~ file: SearchTextScreen.tsx:11 ~ SearchTextScreen ~ params?.data?.venues',
+		params?.data?.venues,
+		params?.data?.people,
+	)
+	console.log(
+		'🚀 -------------------------------------------------------------------------------------------------🚀',
+	)
+	if (!params?.data?.venues?.length && !params?.data?.people?.length) {
+		return (
+			<Box flex={1} background={'red'}>
+				<Center>
+					<Text>RECENT SESRCHES</Text>
+				</Center>
+			</Box>
+		)
+	}
+
 	return (
-		<Box flex={1} background={'red'}>
+		<Box safeAreaTop flex={1}>
 			<ScrollView
-				keyboardDismissMode='interactive'
-				style={{ backgroundColor: 'orange', paddingTop: 90, paddingHorizontal: 10 }}
+				contentInset={{ top: 60 }}
+				automaticallyAdjustKeyboardInsets
+				keyboardDismissMode='on-drag'
 			>
-				<Heading style={{ textAlign: 'center' }}>searchTextScreen</Heading>
-				<Heading style={{ textAlign: 'center' }}>{params?.searchText}</Heading>
+				{params?.data?.people?.map(item => {
+					console.log('========>', item)
+					return <SearchCard item={item} />
+				})}
+				{params?.data?.venues?.map(item => {
+					return <SearchCard item={item} />
+				})}
 			</ScrollView>
 		</Box>
 	)

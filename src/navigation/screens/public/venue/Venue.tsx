@@ -6,7 +6,7 @@ import VenueTotals from './components/venuetotals/VenueTotals'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import GenerateUserData from '@helpers/generate/placeholder/GenerateUserData'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { Text, FlatList } from 'native-base'
+import { Text, FlatList, VStack } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { VenueProfileStackParamList } from 'src/types/app'
 
@@ -44,12 +44,12 @@ const VenueScreen = (props: any) => {
 				numColumns={2}
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
-					<>
+					<VStack mb={5}>
 						<VenueHeader profileId={props.route.params.profileId} />
 						<VenueTotals />
 						{/* <LocationPermissionCard /> */}
 						<VenueActions />
-					</>
+					</VStack>
 				}
 				ListEmptyComponent={handleEmpty}
 				columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}

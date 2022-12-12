@@ -46,12 +46,10 @@ export default function VenueTotals() {
 	return (
 		<HStack
 			style={{
-				height: 100,
 				flexDirection: 'row',
 				justifyContent: 'space-around',
-				marginVertical: 10,
-				marginHorizontal: 5,
 			}}
+			mt={5}
 		>
 			{[friends, total, joined].map(item => {
 				return (

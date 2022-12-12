@@ -43,7 +43,7 @@ export default function Details(props: Props) {
 			flex={1}
 			py={4}
 			px={3}
-			my={1}
+			mt={5}
 			mx={2}
 			borderRadius={'xl'}
 		>

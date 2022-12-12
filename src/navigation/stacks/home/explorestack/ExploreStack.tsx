@@ -5,7 +5,11 @@ import SearchTextScreenInput from '@components/molecules/search/searchtext/Searc
 import ExploreScreen from '@navigation/screens/hometabs/explore/ExploreScreen'
 import SearchTextScreen from '@navigation/screens/search/searchtext/SearchTextScreen'
 import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import {
+	CardStyleInterpolators,
+	createStackNavigator,
+	HeaderStyleInterpolators,
+} from '@react-navigation/stack'
 import { ExploreFilterTabParamList, HomeTabNavigatorParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
@@ -21,38 +25,8 @@ export type ExploreFilterTabSearchResultRouteProp = RouteProp<
 
 function ExploreStack() {
 	const navigation = useNavigation()
+	const route = useRoute()
 	const colorScheme = useThemeColorScheme()
-
-	type InputTypeProps = {
-		disabled: boolean
-	}
-	const Input = ({ disabled }: InputTypeProps) => {
-		return (
-			<VStack height={105} justifyContent={'flex-end'} pb={2}>
-				{Platform.OS !== 'ios' ? (
-					<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
-				) : (
-					<Box background={'secondary.100'} style={[StyleSheet.absoluteFill]} />
-				)}
-				{disabled ? (
-					<ExploreSearchInputDisabled
-						onPress={() =>
-							navigation.dispatch(
-								StackActions.push('HomeTabNavigator', {
-									screen: 'ExploreStack',
-									params: {
-										screen: 'SearchTextScreen',
-									},
-								}),
-							)
-						}
-					/>
-				) : (
-					<SearchTextScreenInput />
-				)}
-			</VStack>
-		)
-	}
 
 	return (
 		<ScreenStack.Navigator screenOptions={{}}>
@@ -64,13 +38,19 @@ function ExploreStack() {
 					headerTransparent: true,
 					gestureResponseDistance: 240,
 					gestureDirection: 'horizontal',
+					headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+					cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
 					header: () => {
 						return (
 							<VStack height={105} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
-									<Box style={[StyleSheet.absoluteFill]} />
+									<Box
+										_light={{ bg: 'light.50' }}
+										_dark={{ bg: 'dark.50' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
 								)}
 								<ExploreSearchInputDisabled
 									onPress={() =>
@@ -92,13 +72,20 @@ function ExploreStack() {
 			<ScreenStack.Screen
 				name='SearchTextScreen'
 				options={{
+					headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+					cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+					headerTransparent: true,
 					header: () => {
 						return (
 							<VStack height={105} justifyContent={'flex-end'} pb={2}>
-								{Platform.OS !== 'ios' ? (
+								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
-									<Box background={'secondary.100'} style={[StyleSheet.absoluteFill]} />
+									<Box
+										_light={{ bg: 'light.50' }}
+										_dark={{ bg: 'dark.50' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
 								)}
 								<SearchTextScreenInput />
 							</VStack>
@@ -114,32 +101,29 @@ function ExploreStack() {
 				options={{
 					headerTransparent: true,
 					gestureResponseDistance: 1000,
+					headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+					cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
 					header: () => {
 						return (
 							<Box
 								style={{
 									flexDirection: 'column-reverse',
 								}}
+								pb={2}
 							>
-								<Box style={[StyleSheet.absoluteFill]} />
+								{Platform.OS === 'ios' ? (
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+								) : (
+									<Box
+										_light={{ bg: 'light.50' }}
+										_dark={{ bg: 'dark.50' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
+								)}
 								<SearchTopTabStackInput />
 							</Box>
 						)
 					},
-					// transitionSpec: {
-					// 	open: {
-					// 		animation: 'timing',
-					// 		config: {
-					// 			duration: 0,
-					// 		},
-					// 	},
-					// 	close: {
-					// 		animation: 'timing',
-					// 		config: {
-					// 			duration: 150,
-					// 		},
-					// 	},
-					// },
 				}}
 			/>
 		</ScreenStack.Navigator>

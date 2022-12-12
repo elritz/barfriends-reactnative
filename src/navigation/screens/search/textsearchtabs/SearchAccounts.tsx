@@ -1,20 +1,24 @@
-import { ExploreFilterTabSearchResultRouteProp } from '@components/molecules/search/SearchTopTabStackInput'
+import SearchCard from '../components/SearchCard'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { SearchResultTabStackParamList } from '@types'
-import { Center, Heading } from 'native-base'
+import { Box, ScrollView } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-export type SearchResultTabStackRouteProp = RouteProp<SearchResultTabStackParamList, 'TopScreen'>
+export type SearchResultTabStackRouteProp = RouteProp<SearchResultTabStackParamList, 'UserScreen'>
 
 export default function SearchAccounts() {
-	const route = useRoute<SearchResultTabStackRouteProp>()
-	const searchText = route.params.searchText
+	const { params } = useRoute<SearchResultTabStackRouteProp>()
+
+	if (!params?.data?.people?.length) return null
 
 	return (
-		<SafeAreaView style={{ backgroundColor: 'blue', flex: 1 }}>
-			<Center>
-				<Heading size={'3xl'}>{searchText}</Heading>
-			</Center>
-		</SafeAreaView>
+		<Box style={{ flex: 1 }}>
+			<ScrollView>
+				{params?.data?.people?.map(item => {
+					console.log('========>', item)
+					return <SearchCard item={item} />
+				})}
+			</ScrollView>
+		</Box>
 	)
 }

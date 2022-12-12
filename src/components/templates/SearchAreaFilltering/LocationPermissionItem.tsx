@@ -48,8 +48,8 @@ const LocationPermissionItem = () => {
 	return (
 		<Pressable
 			onPress={async () => {
-				!rSearchAreaVar.useCurrentLocation
-					? !rForegroundPermissionLocationVar.granted
+				!rSearchAreaVar?.useCurrentLocation
+					? !rForegroundPermissionLocationVar?.granted
 						? rForegroundPermissionLocationVar?.canAskAgain && !rForegroundPermissionLocationVar.granted
 							? await useSetSearchAreaWithLocation()
 							: createTwoButtonAlert()
@@ -59,10 +59,10 @@ const LocationPermissionItem = () => {
 			}}
 			rounded={'xl'}
 			_light={{
-				bg: !rSearchAreaVar.useCurrentLocation ? 'light.100' : 'light.100',
+				bg: !rSearchAreaVar?.useCurrentLocation ? 'light.100' : 'light.100',
 			}}
 			_dark={{
-				bg: !rSearchAreaVar.useCurrentLocation ? 'light.900' : 'light.900',
+				bg: !rSearchAreaVar?.useCurrentLocation ? 'light.900' : 'light.900',
 			}}
 			_pressed={{
 				bg: 'primary.500',
@@ -71,7 +71,7 @@ const LocationPermissionItem = () => {
 			<HStack p={3} justifyContent={'space-between'}>
 				<Text
 					_light={{
-						color: rSearchAreaVar.useCurrentLocation ? 'black' : 'black',
+						color: rSearchAreaVar?.useCurrentLocation ? 'black' : 'black',
 					}}
 					_dark={{
 						color: 'white',
@@ -83,7 +83,7 @@ const LocationPermissionItem = () => {
 					ellipsizeMode={'tail'}
 					alignSelf={'center'}
 				>
-					{rSearchAreaVar.useCurrentLocation ? 'Using current location' : 'Use current location'}
+					{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 				</Text>
 				<IconButton
 					icon={
@@ -93,18 +93,18 @@ const LocationPermissionItem = () => {
 							rounded={'full'}
 							name={'location-arrow'}
 							_light={{
-								color: rSearchAreaVar.useCurrentLocation ? 'white' : 'blue.400',
+								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
 							}}
 							_dark={{
-								color: rSearchAreaVar.useCurrentLocation ? 'white' : 'blue.400',
+								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
 							}}
 						/>
 					}
 					_light={{
-						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.200',
+						bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.200',
 					}}
 					_dark={{
-						bg: rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'light.500',
+						bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.500',
 					}}
 					rounded={'full'}
 				/>

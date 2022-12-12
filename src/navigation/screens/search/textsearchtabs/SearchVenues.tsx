@@ -1,19 +1,29 @@
+import SearchCard from '../components/SearchCard'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { Center, Heading } from 'native-base'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Box, Center, Heading, ScrollView } from 'native-base'
 import { SearchResultTabStackParamList } from 'src/types/app'
 
-export type SearchVenueScreenRouteProp = RouteProp<SearchResultTabStackParamList, 'VenueScreen'>
+export type SearchVenueScreenRouteProp = RouteProp<SearchResultTabStackParamList, 'TopScreen'>
 
 export default function SearchVenues() {
-	const route = useRoute<SearchVenueScreenRouteProp>()
-	const params = route.params
+	const { params } = useRoute<SearchVenueScreenRouteProp>()
 
+	if (!params?.data?.venues?.length) {
+		return (
+			<Box safeAreaTop>
+				<Center>
+					<Heading>No search results</Heading>
+				</Center>
+			</Box>
+		)
+	}
 	return (
-		<SafeAreaView style={{ backgroundColor: 'blue', flex: 1 }}>
-			<Center>
-				<Heading size={'3xl'}>{params.searchText}</Heading>
-			</Center>
-		</SafeAreaView>
+		<Box safeAreaTop style={{ flex: 1 }}>
+			<ScrollView>
+				{params?.data?.venues?.map(item => {
+					return <SearchCard item={item} />
+				})}
+			</ScrollView>
+		</Box>
 	)
 }

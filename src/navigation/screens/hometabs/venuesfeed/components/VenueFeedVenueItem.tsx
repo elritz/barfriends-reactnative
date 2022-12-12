@@ -40,10 +40,6 @@ const VenueFeedVenueItem = (props: Props) => {
 		return titleCase
 	}
 
-	const getActiveBannerPhotos = props.item.photos.filter(item => {
-		return item.active
-	})
-
 	return (
 		<Pressable
 			key={props.item.id}
@@ -71,7 +67,7 @@ const VenueFeedVenueItem = (props: Props) => {
 			>
 				{!props.loading ? (
 					<Image
-						source={{ uri: getActiveBannerPhotos[0]?.url }}
+						source={{ uri: props.item.photos?.url }}
 						resizeMode='cover'
 						onLoadEnd={() => setHideBlur(true)}
 						style={{
@@ -84,7 +80,7 @@ const VenueFeedVenueItem = (props: Props) => {
 				) : null}
 				{!hideBlur && (
 					<Blurhash
-						blurhash={String(getActiveBannerPhotos[0]?.blurhash)}
+						blurhash={String(props.item.photos?.blurhash)}
 						style={{
 							flex: 1,
 						}}

@@ -99,9 +99,10 @@ const SearchTopTabStackInput = () => {
 					as={Ionicons}
 					onPress={goBack}
 					name='arrow-back'
-					size={'3xl'}
+					size={'lg'}
+					ml={2}
 					style={{
-						width: '10%',
+						width: 30,
 					}}
 				/>
 				<Controller
@@ -109,12 +110,13 @@ const SearchTopTabStackInput = () => {
 					name='searchText'
 					render={({ field: { value, onChange } }) => (
 						<Input
+							_light={{ bgColor: 'light.50' }}
+							_dark={{ bgColor: 'dark.50' }}
 							variant={'filled'}
 							rounded={'lg'}
-							mx={2}
-							py={4}
+							mr={2}
+							w={'85%'}
 							keyboardAppearance={colorScheme}
-							bg={'secondary.50'}
 							ref={_searchInputRef}
 							placeholder='Search'
 							_input={{

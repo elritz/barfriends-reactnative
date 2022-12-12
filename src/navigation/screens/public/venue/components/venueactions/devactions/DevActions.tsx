@@ -5,7 +5,7 @@ import { Text, Heading, HStack, VStack, Box } from 'native-base'
 
 export default function DevActions() {
 	return (
-		<VStack space={4} justifyContent={'space-between'}>
+		<VStack my={2} space={4} justifyContent={'space-between'}>
 			<Box>
 				<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
 					You are in {'\n'}

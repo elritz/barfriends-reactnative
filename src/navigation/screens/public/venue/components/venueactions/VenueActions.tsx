@@ -11,7 +11,7 @@ import { ENVIRONMENT } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, HStack } from 'native-base'
+import { Box, HStack, Stack } from 'native-base'
 
 // TODO: UX() Item need to be updated for messageboard route
 // TODO: UX() Item need to be updated for Personal data, loading, error
@@ -43,37 +43,35 @@ const VenueActions = () => {
 	if (PLoading) return null
 
 	return (
-		<Box style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-			<HStack space={2}>
-				<ActionCard numColumns={numColumns}>
-					<UberCard />
-				</ActionCard>
-				<ActionCard numColumns={numColumns}>
-					<DistanceCard />
-				</ActionCard>
+		<Stack mt={5}>
+			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+				<HStack space={2}>
+					<ActionCard numColumns={numColumns}>
+						<UberCard />
+					</ActionCard>
+					<ActionCard numColumns={numColumns}>
+						<DistanceCard />
+					</ActionCard>
+				</HStack>
+
+				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
+
+				{ENVIRONMENT === 'development' && (
+					<ActionCard numColumns={1}>
+						<DevActions />
+					</ActionCard>
+				)}
+
+				<HStack space={2}>
+					<ActionCard numColumns={numColumns}>
+						<QuickBarfriend />
+					</ActionCard>
+					<ActionCard numColumns={numColumns}>
+						<InviteCard />
+					</ActionCard>
+				</HStack>
 			</HStack>
-
-			{rAuthorizationVar.DeviceProfile.Profile.Personal && (
-				<ActionCard numColumns={1}>
-					<LeaveCard />
-				</ActionCard>
-			)}
-
-			{ENVIRONMENT === 'development' && (
-				<ActionCard numColumns={1}>
-					<DevActions />
-				</ActionCard>
-			)}
-
-			<HStack space={2}>
-				<ActionCard numColumns={numColumns}>
-					<QuickBarfriend />
-				</ActionCard>
-				<ActionCard numColumns={numColumns}>
-					<InviteCard />
-				</ActionCard>
-			</HStack>
-		</Box>
+		</Stack>
 	)
 }
 
