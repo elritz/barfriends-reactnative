@@ -52,14 +52,15 @@ export default function DeviceManagerScreen() {
 			</View>
 		)
 	}
-	if (data?.authorizedProfiles.__typename === 'ProfileTypesResponse') {
-		const emailProfiles = data?.authorizedProfiles?.phone.filter(item => {
+
+	if (data?.authorizedProfiles?.__typename === 'ProfileTypesResponse') {
+		const emailProfiles = data?.authorizedProfiles?.phone?.filter(item => {
 			if (item.ProfileType === 'GUEST') {
 				return null
 			}
 			return item
 		})
-		const phoneProfiles = data.authorizedProfiles.email.filter(item => {
+		const phoneProfiles = data?.authorizedProfiles?.email?.filter(item => {
 			if (item.ProfileType === 'GUEST') {
 				return null
 			}

@@ -10,17 +10,16 @@ import {
 import { useRoute, useIsFocused, useNavigation, RouteProp } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { LinearGradient } from 'expo-linear-gradient'
 import {
 	Box,
 	Image,
 	KeyboardAvoidingView,
 	Input,
 	Icon,
-	HStack,
 	Text,
 	IconButton,
 	Spinner,
+	VStack,
 } from 'native-base'
 import { useTheme } from 'native-base'
 import { useContext, useEffect, useRef, useState } from 'react'
@@ -111,13 +110,14 @@ const PasswordLoginScreen = () => {
 			onCompleted: data => {
 				if (!data.loginPassword) {
 					setError('password', { type: 'validate', message: 'Incorrect password' })
+				} else {
+					switchDeviceProfileMutation({
+						variables: {
+							profileId: route.params.profile,
+							profileType: ProfileType.Personal,
+						},
+					})
 				}
-				switchDeviceProfileMutation({
-					variables: {
-						profileId: route.params.profile,
-						profileType: ProfileType.Personal,
-					},
-				})
 			},
 		})
 
@@ -149,117 +149,120 @@ const PasswordLoginScreen = () => {
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
-			{!PQLoading && (
-				<Image
-					mt={5}
-					alignSelf={'center'}
-					height={`${IMAGE_SIZE}px`}
-					width={`${IMAGE_SIZE}px`}
-					borderRadius={'lg'}
-					source={{ uri: PQData?.profile?.photos?.url }}
-					alt={'Profile Photo'}
-				/>
-			)}
-			<View style={{ width: '100%' }}>
+			<VStack space={3}>
+				{!PQLoading && (
+					<Image
+						mt={5}
+						alignSelf={'center'}
+						height={`${IMAGE_SIZE}px`}
+						width={`${IMAGE_SIZE}px`}
+						borderRadius={'lg'}
+						source={{ uri: PQData?.profile?.photos?.url }}
+						alt={'Profile Photo'}
+					/>
+				)}
 				<Controller
 					name='password'
 					control={control}
 					defaultValue=''
 					render={({ field: { onChange, onBlur, value } }) => {
 						return (
-							<HStack>
-								<Input
-									ref={passwordRef}
-									key='password'
-									value={value}
-									keyboardAppearance={colorScheme}
-									onChangeText={onChange}
-									onSubmitEditing={handleSubmit(onSubmit)}
-									onBlur={onBlur}
-									textContentType='password'
-									blurOnSubmit={false}
-									flex={1}
-									autoFocus
-									placeholder='Password'
-									returnKeyType='done'
-									autoCorrect={false}
-									inputAccessoryViewID={inputAccessoryViewID}
-									secureTextEntry={showPassword}
-									autoCapitalize='none'
-									numberOfLines={1}
-									variant={'underlined'}
-									mt={'10'}
-									py={2}
-									_input={{
-										fontSize: '2xl',
-										fontWeight: 'medium',
-									}}
-									size={'lg'}
-									rightElement={
-										<Icon
-											onPress={() => {
-												setShowPassword(!showPassword)
-											}}
-											name={showPassword ? 'eye-off' : 'eye'}
-											size={20}
-											style={{
-												padding: 10,
-											}}
-											color={showPassword ? theme.colors.gray[300] : theme.colors.primary[500]}
-										/>
-									}
-								/>
-								<Text>{errors?.password?.message}</Text>
-							</HStack>
+							<Input
+								variant={'underlined'}
+								ref={passwordRef}
+								key='password'
+								placeholder='Password'
+								keyboardAppearance={colorScheme}
+								value={value}
+								_input={{
+									fontSize: '2xl',
+									fontWeight: 'medium',
+								}}
+								secureTextEntry
+								onChangeText={value => onChange(value)}
+								onSubmitEditing={() => {
+									handleSubmit(onSubmit)
+									passwordRef?.current?.focus()
+								}}
+								h={'50px'}
+								onBlur={onBlur}
+								textContentType='password'
+								blurOnSubmit={false}
+								autoComplete={'password-new'}
+								autoFocus
+								placeholder='Password'
+								returnKeyType='next'
+								autoCorrect={false}
+								inputAccessoryViewID={inputAccessoryViewID}
+								autoCapitalize='none'
+								numberOfLines={1}
+								rightElement={
+									<Icon
+										onPress={() => {
+											setShowPassword(!showPassword)
+										}}
+										name={showPassword ? 'eye-off' : 'eye'}
+										size={20}
+										style={{
+											padding: 10,
+										}}
+										color={showPassword ? theme.colors.gray[300] : theme.colors.primary[500]}
+									/>
+								}
+							/>
 						)
 					}}
 				/>
-				<InputAccessoryView nativeID={inputAccessoryViewID}>
-					<Box
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						height={'90px'}
-						px={'2.5%'}
+
+				<Box h={'30px'} w={'100%'}>
+					<Text>{errors?.password?.message}</Text>
+				</Box>
+			</VStack>
+			<InputAccessoryView nativeID={inputAccessoryViewID}>
+				<Box
+					flexDir={'row'}
+					justifyContent={'flex-end'}
+					alignContent={'space-around'}
+					height={'90px'}
+					px={'2.5%'}
+				>
+					<View
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							justifyContent: 'space-around',
+						}}
 					>
-						<View
+						<IconButton
+							disabled={SDPLoading || LPLoading}
+							onPress={handleSubmit(onSubmit)}
+							variant={'solid'}
+							color={'primary.500'}
+							as={Feather}
 							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
+								justifyContent: 'center',
+								borderRadius: 50,
+								height: 70,
+								width: 70,
+								paddingHorizontal: 20,
+								alignSelf: 'center',
 							}}
-						>
-							<IconButton
-								disabled={SDPLoading || LPLoading}
-								onPress={handleSubmit(onSubmit)}
-								variant={'solid'}
-								color={'primary.500'}
-								as={Feather}
-								style={{
-									justifyContent: 'center',
-									borderRadius: 50,
-									height: 70,
-									width: 70,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								icon={
-									SDPLoading || LPLoading ? (
-										<Spinner size='small' />
-									) : (
-										<Icon
-											as={Feather}
-											name='arrow-right'
-											size={'2xl'}
-											color={errors?.password ? 'light.800' : 'white'}
-										/>
-									)
-								}
-							/>
-						</View>
-					</Box>
-				</InputAccessoryView>
-			</View>
+							icon={
+								SDPLoading || LPLoading ? (
+									<Spinner size='small' />
+								) : (
+									<Icon
+										as={Feather}
+										name='arrow-right'
+										size={'2xl'}
+										color={errors?.password ? 'light.800' : 'white'}
+									/>
+								)
+							}
+						/>
+					</View>
+				</Box>
+			</InputAccessoryView>
 		</KeyboardAvoidingView>
 	)
 }

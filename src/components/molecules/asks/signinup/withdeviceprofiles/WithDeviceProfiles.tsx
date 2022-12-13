@@ -43,7 +43,7 @@ export default function WithDeviceProfiles() {
 		return null
 	}
 
-	if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
+	if (data?.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
 		const text = GetSignInUpText()
 
 		return (
