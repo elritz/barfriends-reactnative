@@ -2,6 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	DeviceManager,
+	DeviceProfile,
 	Profile,
 	ProfileType,
 	useGetADeviceManagerQuery,
@@ -9,14 +10,14 @@ import {
 } from '@graphql/generated'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Center, Pressable } from 'native-base'
+import { Center, Pressable, Text } from 'native-base'
 import { useState } from 'react'
 
 const text = GetSignInUpText()
 
 const DeviceManagerProfiles = () => {
 	const [selectedProfileId, setSelectedProfileId] = useState('')
-	const [profiles, setProfiles] = useState<Array<Profile>>([])
+	const [profiles, setProfiles] = useState<Array<DeviceProfile>>([])
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
@@ -38,9 +39,18 @@ const DeviceManagerProfiles = () => {
 			},
 		})
 
-	const logoutProfile = item => {
-		setSelectedProfileId(item.Profile.id)
-		switchDeviceProfileMutation()
+	const logoutProfile = () => {
+		const guestProfile = profiles.map(item => {
+			if (item?.Profile?.ProfileType === ProfileType.Guest) return item
+		})
+
+		setSelectedProfileId('')
+		switchDeviceProfileMutation({
+			variables: {
+				profileId: String(guestProfile[0]?.Profile?.id),
+				profileType: ProfileType.Guest,
+			},
+		})
 	}
 
 	const switchProfile = item => {
@@ -55,6 +65,8 @@ const DeviceManagerProfiles = () => {
 
 	if (loading) return null
 
+	console.log(profiles)
+
 	return (
 		<Center>
 			{profiles.length ? (
@@ -64,7 +76,7 @@ const DeviceManagerProfiles = () => {
 						return (
 							<Pressable
 								key={item.id}
-								onPress={() => (!item.isActive ? switchProfile(item) : logoutProfile(item))}
+								onPress={() => (item?.isActive ? logoutProfile() : switchProfile(item))}
 								h={'80px'}
 								w={'100%'}
 							>

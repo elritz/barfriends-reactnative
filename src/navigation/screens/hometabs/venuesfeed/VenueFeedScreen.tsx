@@ -8,7 +8,11 @@ import BackgroundLocationPermissionFullSection from '@components/molecules/permi
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
 import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import { useCreateFriendRequestMutation, useVenuesNearbyLazyQuery } from '@graphql/generated'
+import {
+	ProfileType,
+	useCreateFriendRequestMutation,
+	useVenuesNearbyLazyQuery,
+} from '@graphql/generated'
 import { useNumberIncrementedSubscription } from '@graphql/generated/subindex'
 import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
 import { useIsFocused } from '@react-navigation/native'
@@ -44,8 +48,18 @@ const VenueFeedScreen = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
-
 	const [venues, setVenues] = useState([])
+
+	// console.log(
+	// 	'🚀 --------------------------------------------------------------------------------------------------------------------------------------------------------------🚀',
+	// )
+	// console.log(
+	// 	'🚀 ~ file: VenueFeedScreen.tsx:206 ~ VenueFeedScreen ~ rAuthorizationVar?.DeviceProfile?.Profile?.Personal',
+	// 	rAuthorizationVar?.DeviceProfile?.Profile?.Personal,
+	// )
+	// console.log(
+	// 	'🚀 --------------------------------------------------------------------------------------------------------------------------------------------------------------🚀',
+	// )
 
 	// const { data: sData } = useNumberIncrementedSubscription({
 	// 	context: {
@@ -160,8 +174,9 @@ const VenueFeedScreen = () => {
 						</>
 					)}
 
-					{!rAuthorizationVar?.DeviceProfile?.Profile?.Personal &&
-						!rAuthorizationVar?.DeviceProfile?.Profile?.Venue && <VenueFeedSignupCard />}
+					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+						<VenueFeedSignupCard />
+					)}
 					{!venues.length && <VenuesFeedVenuesEmptyState />}
 
 					{!loading && data && data?.venuesNearby && <VenuesFeedSearchAreaHeader />}
@@ -169,10 +184,6 @@ const VenueFeedScreen = () => {
 			</Center>
 		)
 	}
-	// if (isLoading) return null
-	// console.log('🚀 -------------------------------------------------------------------🚀')
-	// console.log('🚀 ~ file: VenueFeedScreen.tsx:56 ~ VenueFeedScreen ~ rqData', rqData)
-	// console.log('🚀 -------------------------------------------------------------------🚀')
 
 	return (
 		<Box>

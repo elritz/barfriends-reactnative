@@ -10,6 +10,17 @@ type ProfileItemType = {
 }
 
 const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemType) => {
+	console.log(
+		'🚀 ---------------------------------------------------------------------------------------------------🚀',
+	)
+	console.log(
+		'🚀 ~ file: DeviceManagerProfileItemLarge.tsx:59 ~ DeviceManagerProfileItemLarge ~ isActive',
+		isActive,
+	)
+	console.log(
+		'🚀 ---------------------------------------------------------------------------------------------------🚀',
+	)
+
 	return (
 		<Box
 			_light={{

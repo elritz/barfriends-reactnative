@@ -59,7 +59,7 @@ export default function Actions({ data }: Props) {
 			</HStack>
 			<Details item={data} />
 			<Modal isOpen={isOpen} onClose={onClose}>
-				<Modal.Content>
+				<Modal.Content w={'95%'}>
 					<Modal.CloseButton />
 					<Modal.Header fontSize='4xl' fontWeight='bold'>
 						Account Sign up

@@ -1476,7 +1476,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "55410682-41ca-4dcf-9215-d99ea249b568"
+  sessiontoken: String = "f292897a-28ba-433a-acec-25ddf0bf2e7f"
   textinput: String!
 
   """
@@ -3004,7 +3004,7 @@ type Mutation {
   sendAuthenticatorDeviceOwnerCode(data: CodeData, where: CodeWhere): CodeResponse
   sendAuthenticatorForgotPasswordCode(data: CodeData, where: CodeWhere): CodeResponse
   storageCreateVenues(data: [Json]): [CreateVenueStorageResponse]
-  switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): RefreshDeviceManagerDeviceManagerResponseUnion
+  switchDeviceProfile(profileId: String, profileType: ProfileType = GUEST): RefreshDeviceManagerDeviceManagerResponseUnion
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateWithoutProfileInput!, where: IdentifiableInformationWhereUniqueInput!): UpdateProfileResponse
   updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean
@@ -4273,7 +4273,7 @@ type Profile implements Node {
   Personal: Personal
   photos: Photo
   ProfileType: ProfileType
-  Relationships(after: RelationshipWhereUniqueInput, before: RelationshipWhereUniqueInput, first: Int, last: Int): [Relationship!]!
+  Relationships: [Relationship]
   Story: Story
   ThemeManager: ThemeManager
   updatedAt: DateTime!

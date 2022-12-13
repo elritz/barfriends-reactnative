@@ -173,6 +173,13 @@ const Navigation = () => {
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'DeviceManager') {
 					const deviceManager = data.refreshDeviceManager as DeviceManager
+					console.log('🚀 -------------------------------------------------------------------🚀')
+					console.log(
+						'🚀 ~ file: index.tsx:176 ~ Navigation ~ deviceManager',
+						JSON.stringify(deviceManager, null, 4),
+					)
+					console.log('🚀 -------------------------------------------------------------------🚀')
+
 					AuthorizationReactiveVar(deviceManager)
 				}
 
