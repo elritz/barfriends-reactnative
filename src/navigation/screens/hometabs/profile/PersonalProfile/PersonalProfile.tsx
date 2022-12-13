@@ -1,19 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
-import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import { FriendsList } from '@components/organisms/list/friendslist/FriendsList'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import {
 	DeviceManager,
-	Profile,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Image, Button, Divider, Heading, ScrollView, Box } from 'native-base'
-import { Pressable, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Image, Button, Divider, Heading, Box, View } from 'native-base'
 
 const PersonalScreen = () => {
 	const navigation = useNavigation()
@@ -69,12 +65,12 @@ const PersonalScreen = () => {
 				return item
 			})
 			return (
-				<Box mb={60} mx={3} flex={1}>
-					<View style={[{ top: 0 }]}>
+				<Box my={10} mx={3} flex={1}>
+					<View>
 						<CardPleaseSignup signupTextId={4} />
 						<Divider style={{ marginVertical: 10 }} />
 					</View>
-					<View style={{ width: '95%', alignSelf: 'center' }}>
+					{/* <View style={{ width: '95%', alignSelf: 'center' }}>
 						{filteredDeviceProfiles?.map((item, index) => {
 							return (
 								<Pressable
@@ -89,7 +85,7 @@ const PersonalScreen = () => {
 								</Pressable>
 							)
 						})}
-					</View>
+					</View> */}
 				</Box>
 			)
 		}

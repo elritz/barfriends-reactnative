@@ -33,9 +33,6 @@ const CardPleaseSignup = (props: Props) => {
 		})
 	}
 
-	if (!rAuthorizationVar) {
-		return null
-	}
 	return (
 		<Box>
 			<Text

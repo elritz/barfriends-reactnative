@@ -53,9 +53,6 @@ const VenueFeedScreen = () => {
 	// 	},
 	// })
 
-	const [createFriendRequestMutation, { data: cfrmData, loading: cfrmLoading, error: cfrmError }] =
-		useCreateFriendRequestMutation()
-
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
 			latitude: Number(rSearchAreaVar?.coords.latitude),
@@ -142,18 +139,6 @@ const VenueFeedScreen = () => {
 	const listHeaderComponent = () => {
 		return (
 			<Center>
-				<Button
-					onPress={() => {
-						createFriendRequestMutation({
-							variables: {
-								receiverId: '1231',
-								senderId: '123123',
-							},
-						})
-					}}
-				>
-					Create Friend Request
-				</Button>
 				<VStack w={'full'} space={4}>
 					{!rSearchAreaVar?.coords.latitude || !rSearchAreaVar?.coords.longitude ? (
 						<VenueFeedSearchAreaEmptyState />
@@ -174,6 +159,7 @@ const VenueFeedScreen = () => {
 							)}
 						</>
 					)}
+
 					{!rAuthorizationVar?.DeviceProfile?.Profile?.Personal &&
 						!rAuthorizationVar?.DeviceProfile?.Profile?.Venue && <VenueFeedSignupCard />}
 					{!venues.length && <VenuesFeedVenuesEmptyState />}

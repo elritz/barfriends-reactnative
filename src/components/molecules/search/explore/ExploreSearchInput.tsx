@@ -48,14 +48,25 @@ const ExploreSearchInput = () => {
 		<SafeAreaView>
 			<Input
 				ref={_searchInputRef}
+				variant={'filled'}
 				_light={{ bgColor: 'light.50' }}
 				_dark={{ bgColor: 'dark.50' }}
 				w={'85%'}
+				px={3}
+				style={{
+					borderBottomColor: 'transparent',
+					borderRadius: 14,
+				}}
+				_input={{
+					color: themeContext.palette.primary.color.default,
+					fontSize: 'lg',
+				}}
+				returnKeyType='search'
+				underlineColorAndroid='transparent'
+				keyboardAppearance={colorScheme}
 				placeholder='Search'
 				value={rSearch?.searchText}
 				onChangeText={text => changeSearchText(text)}
-				returnKeyType='search'
-				keyboardAppearance={colorScheme}
 				onSubmitEditing={() => {
 					navigation.navigate('HomeTabNavigator', {
 						screen: 'ExploreStack',
@@ -69,7 +80,6 @@ const ExploreSearchInput = () => {
 					})
 					// navigation.dispatch(StackActions.push('SearchNavigator', { screen: 'SearchTextScreen', params: { text: '123' } }))
 				}}
-				underlineColorAndroid='transparent'
 				onPressIn={() => {
 					setIsSearch(true)
 					navigation.navigate('HomeTabNavigator', {
@@ -88,15 +98,6 @@ const ExploreSearchInput = () => {
 							params: {},
 						},
 					})
-				}}
-				px={3}
-				style={{
-					height: 40,
-					borderBottomColor: 'transparent',
-					borderRadius: 14,
-				}}
-				_input={{
-					color: themeContext.palette.primary.color.default,
 				}}
 				leftElement={
 					isSearch || rSearch.searchText.length ? (

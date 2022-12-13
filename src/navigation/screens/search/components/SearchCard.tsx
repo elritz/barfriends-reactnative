@@ -3,6 +3,7 @@ import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base'
 
 export default function SearchCard({ item }) {
 	const navigation = useNavigation()
+
 	return (
 		<Pressable
 			onPress={() => {
@@ -13,7 +14,7 @@ export default function SearchCard({ item }) {
 							params: {
 								screen: 'PublicPersonalScreen',
 								params: {
-									profileId: item.id,
+									profileId: item.Profile.id,
 								},
 							},
 						})
@@ -23,7 +24,7 @@ export default function SearchCard({ item }) {
 							params: {
 								screen: 'PublicVenueScreen',
 								params: {
-									profileId: item.id,
+									profileId: item.Profile.id,
 								},
 							},
 						})

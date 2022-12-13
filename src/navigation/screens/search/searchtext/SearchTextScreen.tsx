@@ -7,17 +7,6 @@ const SearchTextScreen = () => {
 	const route = useRoute<SearchTextScreenRouteProp>()
 	const params = route.params
 
-	console.log(
-		'🚀 -------------------------------------------------------------------------------------------------🚀',
-	)
-	console.log(
-		'🚀 ~ file: SearchTextScreen.tsx:11 ~ SearchTextScreen ~ params?.data?.venues',
-		params?.data?.venues,
-		params?.data?.people,
-	)
-	console.log(
-		'🚀 -------------------------------------------------------------------------------------------------🚀',
-	)
 	if (!params?.data?.venues?.length && !params?.data?.people?.length) {
 		return (
 			<Box flex={1} background={'red'}>
@@ -36,7 +25,6 @@ const SearchTextScreen = () => {
 				keyboardDismissMode='on-drag'
 			>
 				{params?.data?.people?.map(item => {
-					console.log('========>', item)
 					return <SearchCard item={item} />
 				})}
 				{params?.data?.venues?.map(item => {

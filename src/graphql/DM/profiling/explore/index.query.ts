@@ -6,6 +6,7 @@ export const EXPLORE_SEARCH_QUERY = gql`
 			people {
 				id
 				Profile {
+					id
 					IdentifiableInformation {
 						fullname
 						firstname
@@ -23,6 +24,7 @@ export const EXPLORE_SEARCH_QUERY = gql`
 			venues {
 				id
 				Profile {
+					id
 					IdentifiableInformation {
 						fullname
 						firstname

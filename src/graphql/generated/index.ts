@@ -7256,7 +7256,7 @@ export type ExploreSearchQueryVariables = Exact<{
 }>;
 
 
-export type ExploreSearchQuery = { __typename?: 'Query', exploreSearch?: { __typename?: 'ExploreResponse', events?: Array<any | null> | null, people?: Array<{ __typename?: 'Personal', id: string, Profile: { __typename?: 'Profile', IdentifiableInformation?: { __typename?: 'IdentifiableInformation', fullname?: string | null, firstname?: string | null, lastname?: string | null, username: string } | null, photos?: { __typename?: 'Photo', id: string, active: boolean, blurhash?: string | null, url: string } | null } } | null> | null, venues?: Array<{ __typename?: 'Venue', id: string, Profile: { __typename?: 'Profile', IdentifiableInformation?: { __typename?: 'IdentifiableInformation', fullname?: string | null, firstname?: string | null, lastname?: string | null, username: string } | null, photos?: { __typename?: 'Photo', id: string, active: boolean, blurhash?: string | null, url: string } | null } } | null> | null } | null };
+export type ExploreSearchQuery = { __typename?: 'Query', exploreSearch?: { __typename?: 'ExploreResponse', events?: Array<any | null> | null, people?: Array<{ __typename?: 'Personal', id: string, Profile: { __typename?: 'Profile', id: string, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', fullname?: string | null, firstname?: string | null, lastname?: string | null, username: string } | null, photos?: { __typename?: 'Photo', id: string, active: boolean, blurhash?: string | null, url: string } | null } } | null> | null, venues?: Array<{ __typename?: 'Venue', id: string, Profile: { __typename?: 'Profile', id: string, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', fullname?: string | null, firstname?: string | null, lastname?: string | null, username: string } | null, photos?: { __typename?: 'Photo', id: string, active: boolean, blurhash?: string | null, url: string } | null } } | null> | null } | null };
 
 export type CreateFriendRequestMutationVariables = Exact<{
   senderProfileId: Scalars['String'];
@@ -8450,6 +8450,7 @@ export const ExploreSearchDocument = gql`
     people {
       id
       Profile {
+        id
         IdentifiableInformation {
           fullname
           firstname
@@ -8467,6 +8468,7 @@ export const ExploreSearchDocument = gql`
     venues {
       id
       Profile {
+        id
         IdentifiableInformation {
           fullname
           firstname

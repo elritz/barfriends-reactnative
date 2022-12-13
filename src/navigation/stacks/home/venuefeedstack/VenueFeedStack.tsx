@@ -27,16 +27,15 @@ function VenueFeedStack() {
 					gestureDirection: 'horizontal',
 					header: () => {
 						return (
-							<VStack
-								pt={insets.top}
-								height={HOME_TAB_TOP_NAIGATION_HEIGHT}
-								justifyContent={'flex-end'}
-								pb={2}
-							>
+							<VStack height={90} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
-									<Box style={[StyleSheet.absoluteFill]} />
+									<Box
+										_light={{ bg: 'light.50' }}
+										_dark={{ bg: 'dark.50' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
 								)}
 								<VenueFeedSearchInput />
 							</VStack>

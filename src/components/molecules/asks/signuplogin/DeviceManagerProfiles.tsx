@@ -2,30 +2,36 @@ import { useReactiveVar } from '@apollo/client'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	DeviceManager,
+	Profile,
 	ProfileType,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Center } from 'native-base'
+import { Center, Pressable } from 'native-base'
 import { useState } from 'react'
-import { Pressable } from 'react-native'
 
 const text = GetSignInUpText()
 
 const DeviceManagerProfiles = () => {
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [selectedProfileId, setSelectedProfileId] = useState('')
+	const [profiles, setProfiles] = useState<Array<Profile>>([])
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
+		onCompleted: data => {
+			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
+				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles
+				setProfiles(deviceProfiles)
+			}
+		},
 	})
 
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
-				if (data.switchDeviceProfile.__typename == 'DeviceManager') {
+				if (data.switchDeviceProfile?.__typename == 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 				}
@@ -47,36 +53,33 @@ const DeviceManagerProfiles = () => {
 		})
 	}
 
-	if (loading) {
-		return null
-	}
+	if (loading) return null
 
-	if (data.getADeviceManager.__typename === 'Error') {
-		return null
-	}
-
-	if (data.getADeviceManager.__typename === 'DeviceManagerDeviceProfiles') {
-		const deviceProfiles = data.getADeviceManager.DeviceProfiles
-		return (
-			<Center>
-				{deviceProfiles.map((item, index) => {
-					// if (item.Profile?.Personal.Profile.ProfileType === ProfileType.Guest) return null
-					return (
-						<Pressable
-							key={item.id}
-							onPress={() => (!item.isActive ? switchProfile(item) : logoutProfile(item))}
-						>
-							{/* <DeviceManagerProfileItemLarge
-								item={item.Profile}
-								isActive={item.isActive}
-								loading={SWDPLoading}
-								selectedProfileId={selectedProfileId}
-							/> */}
-						</Pressable>
-					)
-				})}
-			</Center>
-		)
-	}
+	return (
+		<Center>
+			{profiles.length ? (
+				<>
+					{profiles?.map((item, index) => {
+						if (item.Profile?.ProfileType === ProfileType.Guest) return null
+						return (
+							<Pressable
+								key={item.id}
+								onPress={() => (!item.isActive ? switchProfile(item) : logoutProfile(item))}
+								h={'80px'}
+								w={'100%'}
+							>
+								<DeviceManagerProfileItemLarge
+									item={item.Profile}
+									isActive={item.isActive}
+									loading={SWDPLoading}
+									selectedProfileId={selectedProfileId}
+								/>
+							</Pressable>
+						)
+					})}
+				</>
+			) : null}
+		</Center>
+	)
 }
 export default DeviceManagerProfiles

@@ -13,7 +13,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 	return (
 		<Box
 			_light={{
-				bg: 'light.100',
+				bg: 'light.200',
 			}}
 			_dark={{
 				bg: 'dark.200',
@@ -22,6 +22,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 			flex={1}
 			flexDir={'row'}
 			my={2}
+			w={'100%'}
 			py={3}
 			px={3}
 			borderRadius={'lg'}
@@ -30,7 +31,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 		>
 			<HStack alignItems={'center'}>
 				<Image
-					source={{ uri: item?.photos[0]?.url }}
+					source={{ uri: item?.photos?.url }}
 					style={{ width: 40, height: 40 }}
 					borderRadius={'lg'}
 					alt={'Profile photo'}

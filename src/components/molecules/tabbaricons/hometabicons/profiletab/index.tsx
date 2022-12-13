@@ -77,9 +77,9 @@ const ProfileTab = (props: TabProps) => {
 						onLongPress={() => !loading && onLongPressProfileIcon()}
 					>
 						<>
-							{rAuthorizationVar?.DeviceProfile?.Profile?.photos?.length ? (
+							{rAuthorizationVar?.DeviceProfile?.Profile?.photos ? (
 								<Image
-									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
+									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos?.url }}
 									style={{
 										width: HEIGHT,
 										height: HEIGHT,

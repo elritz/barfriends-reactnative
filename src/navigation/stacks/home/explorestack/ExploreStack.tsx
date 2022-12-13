@@ -42,7 +42,7 @@ function ExploreStack() {
 					cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
 					header: () => {
 						return (
-							<VStack height={105} justifyContent={'flex-end'} pb={2}>
+							<VStack height={90} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
@@ -77,7 +77,7 @@ function ExploreStack() {
 					headerTransparent: true,
 					header: () => {
 						return (
-							<VStack height={105} justifyContent={'flex-end'} pb={2}>
+							<VStack height={90} justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
