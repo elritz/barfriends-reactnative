@@ -10,16 +10,6 @@ import { Image, Button, Divider, Heading, Box, View } from 'native-base'
 const PersonalScreen = () => {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	console.log(
-		'🚀 ------------------------------------------------------------------------------------------------------------------------------------------------------------------🚀',
-	)
-	console.log(
-		'🚀 ~ file: PersonalProfile.tsx:15 ~ PersonalScreen ~ rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType',
-		rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType,
-	)
-	console.log(
-		'🚀 ------------------------------------------------------------------------------------------------------------------------------------------------------------------🚀',
-	)
 
 	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest) {
 		return (

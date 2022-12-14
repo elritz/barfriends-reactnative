@@ -45,7 +45,7 @@ export default function DeviceManagerScreen() {
 
 	if (loading) return null
 
-	if (data.authorizedProfiles.__typename === 'ErrorProfiling') {
+	if (data?.authorizedProfiles?.__typename === 'ErrorProfiling') {
 		return (
 			<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
 				<Heading fontSize={'xl'}>Error finding profiles</Heading>

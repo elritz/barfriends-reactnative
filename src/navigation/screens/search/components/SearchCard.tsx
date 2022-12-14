@@ -9,22 +9,34 @@ export default function SearchCard({ item }) {
 			onPress={() => {
 				switch (item.__typename) {
 					case 'Personal':
-						return navigation.navigate('PublicNavigator', {
-							screen: 'PersonalStack',
+						return navigation.navigate('HomeTabNavigator', {
+							screen: 'ExploreStack',
 							params: {
-								screen: 'PublicPersonalScreen',
+								screen: 'PublicNavigator',
 								params: {
-									profileId: item.Profile.id,
+									screen: 'PersonalStack',
+									params: {
+										screen: 'PublicPersonalScreen',
+										params: {
+											profileId: item.Profile.id,
+										},
+									},
 								},
 							},
 						})
 					case 'Venue':
-						return navigation.navigate('PublicNavigator', {
-							screen: 'VenueStack',
+						return navigation.navigate('HomeTabNavigator', {
+							screen: 'ExploreStack',
 							params: {
-								screen: 'PublicVenueScreen',
+								screen: 'PublicNavigator',
 								params: {
-									profileId: item.Profile.id,
+									screen: 'VenueStack',
+									params: {
+										screen: 'PublicVenueScreen',
+										params: {
+											profileId: item.Profile.id,
+										},
+									},
 								},
 							},
 						})

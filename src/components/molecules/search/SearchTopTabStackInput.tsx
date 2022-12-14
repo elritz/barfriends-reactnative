@@ -50,10 +50,10 @@ const SearchTopTabStackInput = () => {
 	})
 
 	useEffect(() => {
-		if (params.params.searchText) {
+		if (params?.params?.searchText) {
 			setValue('searchText', params.params.searchText)
 		}
-	}, [params.params.searchText])
+	}, [params?.params?.searchText])
 
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
@@ -99,10 +99,10 @@ const SearchTopTabStackInput = () => {
 					as={Ionicons}
 					onPress={goBack}
 					name='arrow-back'
-					size={'lg'}
+					size={'2xl'}
 					ml={2}
 					style={{
-						width: 30,
+						width: 35,
 					}}
 				/>
 				<Controller

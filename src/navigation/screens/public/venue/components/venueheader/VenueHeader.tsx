@@ -40,7 +40,7 @@ const VenueHeader = (props: Props) => {
 
 	const venueData = data?.profile
 	const name = venueData?.IdentifiableInformation?.fullname
-	const username = venueData?.IdentifiableInformation.username
+	const username = venueData?.IdentifiableInformation?.username
 	console.log(venueData)
 	return (
 		<Box
@@ -52,7 +52,7 @@ const VenueHeader = (props: Props) => {
 			}}
 		>
 			<Image
-				source={{ uri: venueData?.photos[0].url }}
+				source={{ uri: venueData?.photos?.url }}
 				style={{
 					position: 'absolute',
 					width: width,

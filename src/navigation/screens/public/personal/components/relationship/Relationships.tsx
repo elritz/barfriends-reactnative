@@ -2,12 +2,12 @@ import { Relationship } from '@graphql/generated'
 import { Box, Heading } from 'native-base'
 
 type Props = {
-	data: Relationship
+	relationship: Relationship
 }
 
-export default function Relationships({ data }: Props) {
+export default function Relationships({ relationship }: Props) {
 	console.log('🚀 ----------------------------------------------------------🚀')
-	console.log('🚀 ~ file: Relationships.tsx:9 ~ Relationships ~ data', data)
+	console.log('🚀 ~ file: Relationships.tsx:9 ~ Relationships ~ data', relationship)
 	console.log('🚀 ----------------------------------------------------------🚀')
 
 	return (

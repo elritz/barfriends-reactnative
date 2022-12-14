@@ -72,11 +72,7 @@ const Navigator: React.FC<NavigationProps> = () => {
 	if (!memTheme) return null
 
 	return (
-		<NavigationContainer
-			theme={memTheme.rn}
-			linking={AppLinkingConfiguration}
-			// fallback={<SplashScreen />}
-		>
+		<NavigationContainer theme={memTheme.rn} linking={AppLinkingConfiguration}>
 			<StyledThemeProvider theme={memTheme.styled}>
 				<NativeBaseProvider theme={memTheme.nb}>
 					<BottomSheetModalProvider>

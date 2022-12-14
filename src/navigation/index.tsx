@@ -48,6 +48,27 @@ const Navigation = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
+	const [assets, Aerror] = useAssets([
+		require('../assets/images/splash/splash.light.png'),
+		require('../assets/images/splash/splash.dark.png'),
+	])
+
+	const setPermissions = async () => {
+		const cameraPermission = await Camera.getCameraPermissionsAsync()
+		const microphonePermission = await Camera.getMicrophonePermissionsAsync()
+		const foregroundLocationPermission = await getForegroundPermissionsAsync()
+		const backgroundLocationPermission = await getBackgroundPermissionsAsync()
+		const mediaLibraryPermission = await getMeidaPermissionAsync()
+		const notificationPermission = await getNotificiationPermissionAsync()
+
+		PermissionCameraReactiveVar(cameraPermission)
+		PermissionMicrophoneReactiveVar(microphonePermission)
+		PermissionForegroundLocationReactiveVar(foregroundLocationPermission)
+		PermissionBackgroundLocationReactiveVar(backgroundLocationPermission)
+		PermissionMediaReactiveVar(mediaLibraryPermission)
+		PermissionNotificationReactiveVar(notificationPermission)
+	}
+
 	const setLocalStorageData = async () => {
 		try {
 			// SEARCH AREA
@@ -142,29 +163,7 @@ const Navigation = () => {
 					...values,
 				})
 			}
-		} catch (e) {
-			// error reading value
-		}
-	}
-
-	const setPermissions = async () => {
-		const cameraPermission = await Camera.getCameraPermissionsAsync()
-		const microphonePermission = await Camera.getMicrophonePermissionsAsync()
-		const foregroundLocationPermission = await getForegroundPermissionsAsync()
-		const backgroundLocationPermission = await getBackgroundPermissionsAsync()
-		const mediaLibraryPermission = await getMeidaPermissionAsync()
-		const notificationPermission = await getNotificiationPermissionAsync()
-
-		PermissionCameraReactiveVar(cameraPermission)
-		PermissionMicrophoneReactiveVar(microphonePermission)
-		PermissionForegroundLocationReactiveVar(foregroundLocationPermission)
-		PermissionBackgroundLocationReactiveVar(backgroundLocationPermission)
-		PermissionMediaReactiveVar(mediaLibraryPermission)
-		PermissionNotificationReactiveVar(notificationPermission)
-	}
-
-	const setExpo = async () => {
-		const cameraPermission = await Camera.getCameraPermissionsAsync()
+		} catch (e) {}
 	}
 
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
@@ -248,13 +247,12 @@ const Navigation = () => {
 	}, [])
 
 	useEffect(() => {
-		const subscription = Notifications.addPushTokenListener(e => {})
+		const subscription = Notifications.addPushTokenListener(e => {
+			console.log('e =======>', e, 'e =======>')
+		})
 		return () => subscription.remove()
 	}, [])
-	const [assets, Aerror] = useAssets([
-		require('../assets/images/splash/splash.light.png'),
-		require('../assets/images/splash/splash.dark.png'),
-	])
+
 	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) {
 		return null
 	}

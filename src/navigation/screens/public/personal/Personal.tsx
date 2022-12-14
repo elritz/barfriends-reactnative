@@ -34,20 +34,18 @@ const PersonalScreen = (props: any) => {
 	if (PQLoading && !PQData) return null
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
-			<NBScrollView mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-				<Photos story={PQData?.profile?.Story} photo={PQData?.profile?.photos} />
-				<VStack space={3}>
-					<Actions data={PQData?.profile} />
-					<HStack space={3} h={200}>
-						{PQData?.profile?.Personal?.LiveOutPersonal?.joined.length ? <CurrentVenue /> : null}
-						{PQData?.profile?.Relationships.length ? (
-							<Relationships data={PQData.profile?.Relationships} />
-						) : null}
-					</HStack>
-				</VStack>
-			</NBScrollView>
-		</SafeAreaView>
+		<NBScrollView pt={4} mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
+			<Photos story={PQData?.profile?.Story} photo={PQData?.profile?.photos} />
+			<VStack space={3}>
+				<Actions profile={PQData?.profile} />
+				<HStack space={3} h={200}>
+					{PQData?.profile?.Personal?.LiveOutPersonal?.joined.length ? <CurrentVenue /> : null}
+					{PQData?.profile?.Relationship?.length ? (
+						<Relationships relationship={PQData.profile?.Relationships} />
+					) : null}
+				</HStack>
+			</VStack>
+		</NBScrollView>
 	)
 }
 

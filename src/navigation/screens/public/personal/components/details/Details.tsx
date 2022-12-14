@@ -3,17 +3,17 @@ import { Heading, VStack, Text, Box, Button } from 'native-base'
 import React, { useState } from 'react'
 
 type Props = {
-	item: Profile
+	profile: Profile
 }
 
-export default function Details({ item }: Props) {
+export default function Details({ profile: item }: Props) {
 	const [showMore, setShowMore] = useState(false)
 
 	return (
 		<VStack flex={1} mx={2} space={1}>
-			<Heading lineHeight={'xs'}>{item.IdentifiableInformation?.fullname}</Heading>
+			<Heading lineHeight={'xs'}>{item?.IdentifiableInformation?.fullname}</Heading>
 			<Text lineHeight={'xs'} fontWeight={'bold'} fontSize={'md'}>
-				@{item.IdentifiableInformation?.username}
+				@{item?.IdentifiableInformation?.username}
 			</Text>
 			<Box flex={1}>
 				{item?.DetailInformation?.description?.length ? (

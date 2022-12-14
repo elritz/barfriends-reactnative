@@ -1,18 +1,20 @@
 import Details from '../details/Details'
 import { useReactiveVar } from '@apollo/client'
-import { Profile } from '@graphql/generated'
+import { Profile, useCreateFriendRequestMutation } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Button, VStack, HStack, Modal, useDisclose } from 'native-base'
 
 type Props = {
-	data: Profile
+	profile: Profile
 }
 
-export default function Actions({ data }: Props) {
+export default function Actions({ profile }: Props) {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const { isOpen, onOpen, onClose } = useDisclose()
+
+	const [createFriendRequestMutation, { data, loading, error }] = useCreateFriendRequestMutation({})
 
 	return (
 		<VStack
@@ -36,7 +38,12 @@ export default function Actions({ data }: Props) {
 					onPress={() => {
 						rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST'
 							? onOpen()
-							: console.log('HEELO)W')
+							: createFriendRequestMutation({
+									variables: {
+										receiversProfileId: profile.id,
+										senderProfileId: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
+									},
+							  })
 					}}
 				>
 					Barfriend
@@ -51,13 +58,18 @@ export default function Actions({ data }: Props) {
 					onPress={() => {
 						rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST'
 							? onOpen()
-							: console.log('HEELO)W')
+							: navigation.navigate('MessageRoomNavigator', {
+									screen: 'MessagingRoomScreen',
+									params: {
+										messageroomId: '',
+									},
+							  })
 					}}
 				>
 					Message
 				</Button>
 			</HStack>
-			<Details item={data} />
+			<Details profile={profile} />
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<Modal.Content w={'95%'}>
 					<Modal.CloseButton />

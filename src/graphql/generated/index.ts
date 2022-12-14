@@ -7258,6 +7258,11 @@ export type CreateFriendRequestMutationVariables = Exact<{
 
 export type CreateFriendRequestMutation = { __typename?: 'Mutation', createFriendRequest?: boolean | null };
 
+export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNotificationsQuery = { __typename?: 'Query', getNotifications?: { __typename?: 'Notifications', FriendRequests: Array<{ __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } }> } | null };
+
 export type UpsertTonightPathOrPathMutationVariables = Exact<{
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
@@ -8539,6 +8544,51 @@ export function useCreateFriendRequestMutation(baseOptions?: Apollo.MutationHook
 export type CreateFriendRequestMutationHookResult = ReturnType<typeof useCreateFriendRequestMutation>;
 export type CreateFriendRequestMutationResult = Apollo.MutationResult<CreateFriendRequestMutation>;
 export type CreateFriendRequestMutationOptions = Apollo.BaseMutationOptions<CreateFriendRequestMutation, CreateFriendRequestMutationVariables>;
+export const GetNotificationsDocument = gql`
+    query getNotifications {
+  getNotifications {
+    FriendRequests {
+      id
+      receiverProfileId
+      senderProfileId
+      NotificationStatus {
+        id
+        isAccepted
+        isAnswered
+        isChecked
+      }
+      notificationStatusId
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetNotificationsQuery__
+ *
+ * To run a query within a React component, call `useGetNotificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNotificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNotificationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetNotificationsQuery(baseOptions?: Apollo.QueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
+      }
+export function useGetNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
+        }
+export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificationsQuery>;
+export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
+export type GetNotificationsQueryResult = Apollo.QueryResult<GetNotificationsQuery, GetNotificationsQueryVariables>;
 export const UpsertTonightPathOrPathDocument = gql`
     mutation UpsertTonightPathOrPath($latitude: Float!, $longitude: Float!, $profileIdPersonal: String!) {
   upsertTonightPathOrPath(latitude: $latitude, longitude: $longitude, profileIdPersonal: $profileIdPersonal)

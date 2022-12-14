@@ -10,7 +10,7 @@ interface ChevronGoBackArrowProps {
 const ChevronBackArrow = ({ margin }: ChevronGoBackArrowProps) => {
 	return (
 		<GoBack width={`${wp(10)}px`}>
-			<Icon as={Ionicons} name='md-chevron-back-outline' size={'4xl'} />
+			<Icon as={Ionicons} name='md-chevron-back-outline' size={'2xl'} />
 		</GoBack>
 	)
 }

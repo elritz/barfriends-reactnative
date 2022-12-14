@@ -140,6 +140,7 @@ export type ExploreFilterTabParamList = {
 		data?: []
 	}
 	SearchResultTabStack: NavigatorScreenParams<SearchResultTabStackParamList> | undefined
+	PublicNavigator: NavigatorScreenParams<PublicNavigatorParamList> | undefined
 	NotFound: undefined
 }
 

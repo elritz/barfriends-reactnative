@@ -111,10 +111,10 @@ const SearchTextScreenInput = () => {
 					as={Ionicons}
 					onPress={goBack}
 					name='arrow-back'
-					size={'lg'}
+					size={'2xl'}
 					ml={2}
 					style={{
-						width: 30,
+						width: 35,
 					}}
 				/>
 				<Controller
