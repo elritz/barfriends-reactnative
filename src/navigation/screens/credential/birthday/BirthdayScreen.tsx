@@ -162,6 +162,7 @@ const BirthdayScreen = () => {
 				flexDir={'row-reverse'}
 				justifyContent={'space-between'}
 				w={'100%'}
+				py={2}
 			>
 				<Box mt={insets.bottom / 2} mb={insets.bottom}>
 					<IconButton

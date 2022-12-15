@@ -11,7 +11,7 @@ import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
-import { Box, VStack, Button, Divider, Icon, Text, Heading } from 'native-base'
+import { Box, VStack, Button, Divider, Icon, Text, Heading, ScrollView } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -212,15 +212,17 @@ const NotificationsPermissionScreen = () => {
 					Allow Barfriends to send notifications
 				</Heading>
 			</Box>
-			<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
-				{details.map((item, index) => {
-					return (
-						<View key={index}>
-							<PermissionDetailItem {...item} />
-						</View>
-					)
-				})}
-			</Box>
+			<ScrollView>
+				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+					{details.map((item, index) => {
+						return (
+							<View key={index}>
+								<PermissionDetailItem {...item} />
+							</View>
+						)
+					})}
+				</Box>
+			</ScrollView>
 			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button

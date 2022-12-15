@@ -10,7 +10,7 @@ import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
-import { Button, Heading, Text, VStack } from 'native-base'
+import { Button, Heading, ScrollView, Text, VStack } from 'native-base'
 import { Box } from 'native-base'
 import { Divider } from 'native-base'
 import React, { useEffect, useRef } from 'react'
@@ -148,15 +148,17 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 					Allow Barfriends to access your location
 				</Heading>
 			</Box>
-			<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
-				{details.map((item, index) => {
-					return (
-						<View key={index}>
-							<PermissionDetailItem {...item} />
-						</View>
-					)
-				})}
-			</Box>
+			<ScrollView>
+				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+					{details.map((item, index) => {
+						return (
+							<View key={index}>
+								<PermissionDetailItem {...item} />
+							</View>
+						)
+					})}
+				</Box>
+			</ScrollView>
 			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button

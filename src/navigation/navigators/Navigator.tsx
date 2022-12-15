@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { useGetNotificationsQuery } from '@graphql/generated'
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
 import SplashScreen from '@navigation/screens/SplashScreen'
@@ -13,7 +14,6 @@ import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { getExpoPushTokenAsync } from 'expo-notifications'
 import { StatusBar } from 'expo-status-bar'
-// import useDefaultTheme from '@util/hooks/theme/useDefaultTheme'
 import { NativeBaseProvider, useColorMode, useColorModeValue } from 'native-base'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Appearance, AppState, ColorSchemeName, useColorScheme } from 'react-native'
@@ -41,6 +41,11 @@ const Navigator: React.FC<NavigationProps> = () => {
 		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
 	}
 
+	// const { data, loading, error } = useGetNotificationsQuery({})
+	// console.log('🚀 ---------------------------------------🚀')
+	// console.log('🚀 ~ file: Navigator.tsx:45 ~ data', JSON.stringify(data, null, 4))
+	// console.log('🚀 ---------------------------------------🚀')
+
 	useEffect(() => {
 		const subscription = AppState.addEventListener('change', nextAppState => {
 			const currentDeviceAppearance = Appearance.getColorScheme()
@@ -52,6 +57,8 @@ const Navigator: React.FC<NavigationProps> = () => {
 					setTheme()
 				}
 			}
+			/// beef yaki noodles
+			/// 40 guiza
 
 			appState.current = nextAppState
 		})

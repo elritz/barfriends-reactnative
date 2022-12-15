@@ -7,7 +7,7 @@ import { PermissionCameraReactiveVar } from '@reactive'
 import { Camera } from 'expo-camera'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
-import { Box, Button, Divider, Heading } from 'native-base'
+import { Box, Button, Divider, Heading, ScrollView } from 'native-base'
 import { useContext, useEffect, useRef } from 'react'
 import { AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -76,34 +76,36 @@ const CameraPermissionScreen = () => {
 
 	const DetailView = () => {
 		return (
-			<Box safeAreaBottom style={{ flex: 1 }}>
-				<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
-					<IllustrationDynamicMedia width={60} height={60} />
-					<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
-					<Heading
-						fontWeight={'900'}
-						style={{
-							width: wp(95),
-							maxWidth: 300,
-							textAlign: 'center',
-						}}
-						allowFontScaling
-						adjustsFontSizeToFit
-						numberOfLines={3}
-					>
-						Allow Barfriends to access your camera and microphone
-					</Heading>
+			<ScrollView>
+				<Box safeAreaBottom style={{ flex: 1 }}>
+					<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
+						<IllustrationDynamicMedia width={60} height={60} />
+						<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
+						<Heading
+							fontWeight={'900'}
+							style={{
+								width: wp(95),
+								maxWidth: 300,
+								textAlign: 'center',
+							}}
+							allowFontScaling
+							adjustsFontSizeToFit
+							numberOfLines={3}
+						>
+							Allow Barfriends to access your camera and microphone
+						</Heading>
+					</Box>
+					<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+						{details.map((item, index) => {
+							return (
+								<View key={index}>
+									<PermissionDetailItem {...item} />
+								</View>
+							)
+						})}
+					</Box>
 				</Box>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
-					{details.map((item, index) => {
-						return (
-							<View key={index}>
-								<PermissionDetailItem {...item} />
-							</View>
-						)
-					})}
-				</Box>
-			</Box>
+			</ScrollView>
 		)
 	}
 

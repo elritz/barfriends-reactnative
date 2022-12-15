@@ -8,7 +8,7 @@ import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as MediaLibrary from 'expo-media-library'
-import { Button, Divider } from 'native-base'
+import { Button, Divider, ScrollView } from 'native-base'
 import { Box, VStack, Text, Heading } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
 import { AppState, Platform, View } from 'react-native'
@@ -108,15 +108,17 @@ const MediaLibraryPermissionScreen = () => {
 						Allow Barfriends to access your photos and videos
 					</Heading>
 				</Box>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
-					{details.map((item, index) => {
-						return (
-							<View key={index}>
-								<PermissionDetailItem {...item} />
-							</View>
-						)
-					})}
-				</Box>
+				<ScrollView>
+					<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+						{details.map((item, index) => {
+							return (
+								<View key={index}>
+									<PermissionDetailItem {...item} />
+								</View>
+							)
+						})}
+					</Box>
+				</ScrollView>
 			</Box>
 			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />

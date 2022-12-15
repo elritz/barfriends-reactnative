@@ -9,7 +9,7 @@ import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
-import { Box, VStack, Button, Divider, Text, Heading } from 'native-base'
+import { Box, VStack, Button, Divider, Text, Heading, ScrollView } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -138,15 +138,17 @@ const ForegroundLocationPermissionScreen = () => {
 					Allow Barfriends to Use Foreground Location
 				</Heading>
 			</Box>
-			<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
-				{details.map((item, index) => {
-					return (
-						<View key={index}>
-							<PermissionDetailItem {...item} />
-						</View>
-					)
-				})}
-			</Box>
+			<ScrollView>
+				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+					{details.map((item, index) => {
+						return (
+							<View key={index}>
+								<PermissionDetailItem {...item} />
+							</View>
+						)
+					})}
+				</Box>
+			</ScrollView>
 			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button

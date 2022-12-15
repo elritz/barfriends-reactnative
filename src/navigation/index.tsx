@@ -12,6 +12,7 @@ import {
 	useCreateGuestProfileMutation,
 	useCreateADeviceManagerMutation,
 	useUpdateOneProfileMutation,
+	useGetNotificationsLazyQuery,
 } from '@graphql/generated'
 import Navigator from '@navigation/navigators/Navigator'
 import {

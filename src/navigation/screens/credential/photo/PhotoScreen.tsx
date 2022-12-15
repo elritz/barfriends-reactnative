@@ -178,9 +178,9 @@ const PhotoScreen = () => {
 				screen: 'MediaLibraryPermissionScreen',
 			})
 		}
-	}, [rPermissionMediaReactiveVar, mediaLoading, photoLibrary])
+	}, [rPermissionMediaReactiveVar, mediaLoading])
 
-	if (!photoLibrary.length || mediaLoading) {
+	if (!photoLibrary.length) {
 		return (
 			<Box>
 				<VStack alignItems={'center'}>

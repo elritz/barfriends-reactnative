@@ -224,6 +224,7 @@ const EmojimoodScreen = () => {
 					right: 0,
 					display: 'flex',
 					flexDirection: 'row-reverse',
+					marginVertical: 10,
 				}}
 			>
 				<IconButton

@@ -113,6 +113,7 @@ const GetStartedScreen = () => {
 						}}
 						variant={'solid'}
 						px={10}
+						mb={2}
 						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={30} />}
 						size={'lg'}
 						fontSize={'lg'}
