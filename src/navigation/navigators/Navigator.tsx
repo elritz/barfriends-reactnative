@@ -40,12 +40,6 @@ const Navigator: React.FC<NavigationProps> = () => {
 
 		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
 	}
-
-	// const { data, loading, error } = useGetNotificationsQuery({})
-	// console.log('🚀 ---------------------------------------🚀')
-	// console.log('🚀 ~ file: Navigator.tsx:45 ~ data', JSON.stringify(data, null, 4))
-	// console.log('🚀 ---------------------------------------🚀')
-
 	useEffect(() => {
 		const subscription = AppState.addEventListener('change', nextAppState => {
 			const currentDeviceAppearance = Appearance.getColorScheme()

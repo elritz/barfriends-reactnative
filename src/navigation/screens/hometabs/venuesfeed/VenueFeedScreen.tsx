@@ -50,17 +50,6 @@ const VenueFeedScreen = () => {
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const [venues, setVenues] = useState([])
 
-	// console.log(
-	// 	'🚀 --------------------------------------------------------------------------------------------------------------------------------------------------------------🚀',
-	// )
-	// console.log(
-	// 	'🚀 ~ file: VenueFeedScreen.tsx:206 ~ VenueFeedScreen ~ rAuthorizationVar?.DeviceProfile?.Profile?.Personal',
-	// 	rAuthorizationVar?.DeviceProfile?.Profile?.Personal,
-	// )
-	// console.log(
-	// 	'🚀 --------------------------------------------------------------------------------------------------------------------------------------------------------------🚀',
-	// )
-
 	// const { data: sData } = useNumberIncrementedSubscription({
 	// 	context: {
 	// 		server: 'subscription',

@@ -2122,6 +2122,21 @@
     graphql-depth-limit "^1.1.0"
     lodash.lowercase "^4.3.0"
 
+"@graphql-sse/apollo-client@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@graphql-sse/apollo-client/-/apollo-client-0.0.19.tgz#fdd43b7c2ed6b877eb10707ca887d22d8cff7fc3"
+  integrity sha512-goTlFAlDXzF5vzryAwSyA1Yxx3n2VujlqIPELvu5RY/jyw6eSS+xXuw2iZ13SuDUlT13HS9ux19GPFJIpcB5Nw==
+  dependencies:
+    "@graphql-sse/client" "^0.0.16"
+    graphql "^15.5.3"
+
+"@graphql-sse/client@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@graphql-sse/client/-/client-0.0.16.tgz#31b39d65348d3b58748eb5f16e7e4f2438a27e75"
+  integrity sha512-PIxErxLQmrDB/3ooQwuo6o35+IJw1F4syf3uk/WPHSRkMLtXx33TZzggyAqm5vYVS5GD4hTOPhgd8h3X0eNLkQ==
+  dependencies:
+    "@microsoft/fetch-event-source" "^2.0.1"
+
 "@graphql-tools/apollo-engine-loader@^7.3.6":
   version "7.3.19"
   resolved "https://registry.yarnpkg.com/@graphql-tools/apollo-engine-loader/-/apollo-engine-loader-7.3.19.tgz#f18e73ba0e2efc9d9b9f30b96f6ce3a842837695"
@@ -2842,6 +2857,11 @@
   integrity sha512-xPIPADtom8/3/4FLNj7MvNcBM/Z2FleH85Fdx2O869eoKW8+PoEgtSVvoxWjCWMA46Sm9A5/R1TyzNGc+yM0wg==
   dependencies:
     dequal "^1.0.0"
+
+"@microsoft/fetch-event-source@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@microsoft/fetch-event-source/-/fetch-event-source-2.0.1.tgz#9ceecc94b49fbaa15666e38ae8587f64acce007d"
+  integrity sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA==
 
 "@motionone/animation@^10.12.0":
   version "10.14.0"
@@ -12057,7 +12077,7 @@ graphql@15.0.0:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.0.0.tgz#042a5eb5e2506a2e2111ce41eb446a8e570b8be9"
   integrity sha512-ZyVO1xIF9F+4cxfkdhOJINM+51B06Friuv4M66W7HzUOeFd+vNzUn4vtswYINPi6sysjf1M2Ri/rwZALqgwbaQ==
 
-graphql@15.8.0:
+graphql@15.8.0, graphql@^15.5.3:
   version "15.8.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.8.0.tgz#33410e96b012fa3bdb1091cc99a94769db212b38"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
