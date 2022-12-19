@@ -1382,6 +1382,19 @@ export type FriendRequestListRelationFilter = {
   some?: InputMaybe<FriendRequestWhereInput>;
 };
 
+export type FriendRequestNotification = {
+  __typename?: 'FriendRequestNotification';
+  createdAt?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
+  NotificationStatus?: Maybe<NotificationStatus>;
+  notificationStatusId?: Maybe<Scalars['String']>;
+  receiverProfile?: Maybe<Profile>;
+  receiverProfileId?: Maybe<Scalars['String']>;
+  senderProfile?: Maybe<Profile>;
+  senderProfileId?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
 export type FriendRequestOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
@@ -1461,11 +1474,6 @@ export type FriendRequestWhereInput = {
 export type FriendRequestWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
   notificationStatusId?: InputMaybe<Scalars['String']>;
-};
-
-export type FriendsResponse = {
-  __typename?: 'FriendsResponse';
-  friends?: Maybe<Scalars['Boolean']>;
 };
 
 export type Geometry = {
@@ -3106,6 +3114,7 @@ export type MessageWhereUniqueInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  acceptFriendRequest?: Maybe<Relationship>;
   addPersonalJoinsVenue?: Maybe<Scalars['Boolean']>;
   addPersonalTotalsVenue?: Maybe<Scalars['Boolean']>;
   checkThePink?: Maybe<Scalars['Boolean']>;
@@ -3134,6 +3143,12 @@ export type Mutation = {
   updateThemeManagerSwitchTheme?: Maybe<ProfileTheme>;
   upsertDevicePushToken?: Maybe<Scalars['Boolean']>;
   upsertTonightPathOrPath?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type MutationAcceptFriendRequestArgs = {
+  friendRequestId: Scalars['String'];
+  venueIdMetAt?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3405,7 +3420,12 @@ export type Node = {
   id?: Maybe<Scalars['String']>;
 };
 
-export type NotificationFriendRequestStatusResponse = ErrorProfiling | FriendRequest | FriendsResponse | Relationship;
+export type NotificationFriendRequestStatusResponse = ErrorProfiling | FriendRequest | RejectedFriendsResponse | Relationship;
+
+export type NotificationResponse = {
+  __typename?: 'NotificationResponse';
+  friendRequestNotifications?: Maybe<Array<Maybe<FriendRequestNotification>>>;
+};
 
 export type Notifications = {
   __typename?: 'Notifications';
@@ -5454,7 +5474,7 @@ export type Query = {
   getAllStatesByCountry?: Maybe<Array<Maybe<Scalars['Json']>>>;
   getAllThemes?: Maybe<Array<Maybe<Theme>>>;
   getLiveVenueTotals?: Maybe<LiveVenueTotals>;
-  getNotifications?: Maybe<Notifications>;
+  getNotifications?: Maybe<NotificationResponse>;
   getRelationshipFriendRequestStatus?: Maybe<NotificationFriendRequestStatusResponse>;
   H3IndexGrid?: Maybe<Array<Maybe<Scalars['String']>>>;
   H3IndexLatLng?: Maybe<Array<Maybe<Scalars['Float']>>>;
@@ -5683,6 +5703,11 @@ export type RefreshTokenWhereUniqueInput = {
   DeviceProfileId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
   token?: InputMaybe<Scalars['String']>;
+};
+
+export type RejectedFriendsResponse = {
+  __typename?: 'RejectedFriendsResponse';
+  friends?: Maybe<Scalars['Boolean']>;
 };
 
 export type Relationship = {
@@ -7405,17 +7430,25 @@ export type DeleteFriendRequestMutationVariables = Exact<{
 
 export type DeleteFriendRequestMutation = { __typename?: 'Mutation', deleteFriendRequest?: boolean | null };
 
+export type AcceptFriendRequestMutationVariables = Exact<{
+  friendRequestId: Scalars['String'];
+  venueIdMetAt?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type AcceptFriendRequestMutation = { __typename?: 'Mutation', acceptFriendRequest?: { __typename?: 'Relationship', id: string, venueMetAt?: string | null, RelationshipStatus: Array<RelationshipStatus>, createdAt: any, updatedAt: any, Profile?: { __typename?: 'Profile', id: string } | null } | null };
+
 export type GetRelationshipFriendRequestStatusQueryVariables = Exact<{
   profileId: Scalars['String'];
 }>;
 
 
-export type GetRelationshipFriendRequestStatusQuery = { __typename?: 'Query', getRelationshipFriendRequestStatus?: { __typename?: 'ErrorProfiling', errorCode?: string | null, message?: string | null } | { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string, profileId: string, Profile: { __typename?: 'Profile', id: string } }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } } | { __typename?: 'FriendsResponse', friends?: boolean | null } | { __typename?: 'Relationship', id: string, venueMetAt?: string | null, RelationshipStatus: Array<RelationshipStatus>, createdAt: any, updatedAt: any, Profile?: { __typename?: 'Profile', id: string } | null } | null };
+export type GetRelationshipFriendRequestStatusQuery = { __typename?: 'Query', getRelationshipFriendRequestStatus?: { __typename?: 'ErrorProfiling', errorCode?: string | null, message?: string | null } | { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string, profileId: string, Profile: { __typename?: 'Profile', id: string } }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } } | { __typename?: 'RejectedFriendsResponse', friends?: boolean | null } | { __typename?: 'Relationship', id: string, venueMetAt?: string | null, RelationshipStatus: Array<RelationshipStatus>, createdAt: any, updatedAt: any, Profile?: { __typename?: 'Profile', id: string } | null } | null };
 
 export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetNotificationsQuery = { __typename?: 'Query', getNotifications?: { __typename?: 'Notifications', FriendRequests: Array<{ __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } }> } | null };
+export type GetNotificationsQuery = { __typename?: 'Query', getNotifications?: { __typename?: 'NotificationResponse', friendRequestNotifications?: Array<{ __typename?: 'FriendRequestNotification', id?: string | null, notificationStatusId?: string | null, receiverProfileId?: string | null, createdAt?: string | null, updatedAt?: string | null, NotificationStatus?: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean, FriendRequest?: { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string } } | null } | null, senderProfile?: { __typename?: 'Profile', id: string, photos?: { __typename?: 'Photo', id: string, type?: PhotoType | null, url: string } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null } | null, receiverProfile?: { __typename?: 'Profile', id: string, photos?: { __typename?: 'Photo', id: string, type?: PhotoType | null, url: string } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null } | null } | null> | null } | null };
 
 export type UpsertTonightPathOrPathMutationVariables = Exact<{
   latitude: Scalars['Float'];
@@ -8729,6 +8762,47 @@ export function useDeleteFriendRequestMutation(baseOptions?: Apollo.MutationHook
 export type DeleteFriendRequestMutationHookResult = ReturnType<typeof useDeleteFriendRequestMutation>;
 export type DeleteFriendRequestMutationResult = Apollo.MutationResult<DeleteFriendRequestMutation>;
 export type DeleteFriendRequestMutationOptions = Apollo.BaseMutationOptions<DeleteFriendRequestMutation, DeleteFriendRequestMutationVariables>;
+export const AcceptFriendRequestDocument = gql`
+    mutation acceptFriendRequest($friendRequestId: String!, $venueIdMetAt: String) {
+  acceptFriendRequest(friendRequestId: $friendRequestId, venueIdMetAt: $venueIdMetAt) {
+    id
+    venueMetAt
+    Profile {
+      id
+    }
+    RelationshipStatus
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type AcceptFriendRequestMutationFn = Apollo.MutationFunction<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>;
+
+/**
+ * __useAcceptFriendRequestMutation__
+ *
+ * To run a mutation, you first call `useAcceptFriendRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptFriendRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptFriendRequestMutation, { data, loading, error }] = useAcceptFriendRequestMutation({
+ *   variables: {
+ *      friendRequestId: // value for 'friendRequestId'
+ *      venueIdMetAt: // value for 'venueIdMetAt'
+ *   },
+ * });
+ */
+export function useAcceptFriendRequestMutation(baseOptions?: Apollo.MutationHookOptions<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>(AcceptFriendRequestDocument, options);
+      }
+export type AcceptFriendRequestMutationHookResult = ReturnType<typeof useAcceptFriendRequestMutation>;
+export type AcceptFriendRequestMutationResult = Apollo.MutationResult<AcceptFriendRequestMutation>;
+export type AcceptFriendRequestMutationOptions = Apollo.BaseMutationOptions<AcceptFriendRequestMutation, AcceptFriendRequestMutationVariables>;
 export const GetRelationshipFriendRequestStatusDocument = gql`
     query getRelationshipFriendRequestStatus($profileId: String!) {
   getRelationshipFriendRequestStatus(profileId: $profileId) {
@@ -8765,7 +8839,7 @@ export const GetRelationshipFriendRequestStatusDocument = gql`
       createdAt
       updatedAt
     }
-    ... on FriendsResponse {
+    ... on RejectedFriendsResponse {
       friends
     }
   }
@@ -8802,17 +8876,56 @@ export type GetRelationshipFriendRequestStatusQueryResult = Apollo.QueryResult<G
 export const GetNotificationsDocument = gql`
     query getNotifications {
   getNotifications {
-    FriendRequests {
+    friendRequestNotifications {
       id
-      receiverProfileId
-      senderProfileId
       NotificationStatus {
         id
+        FriendRequest {
+          id
+          Notifications {
+            id
+          }
+          receiverProfileId
+          senderProfileId
+          NotificationStatus {
+            id
+          }
+          notificationStatusId
+        }
         isAccepted
         isAnswered
         isChecked
       }
       notificationStatusId
+      receiverProfileId
+      senderProfile {
+        id
+        photos {
+          id
+          type
+          url
+        }
+        IdentifiableInformation {
+          id
+          username
+          fullname
+        }
+      }
+      receiverProfile {
+        id
+        photos {
+          id
+          type
+          url
+        }
+        IdentifiableInformation {
+          id
+          username
+          fullname
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 }

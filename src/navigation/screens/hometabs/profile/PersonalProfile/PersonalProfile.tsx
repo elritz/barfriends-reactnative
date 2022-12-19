@@ -1,13 +1,18 @@
 import { useReactiveVar } from '@apollo/client'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
+import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import { FriendsList } from '@components/organisms/list/friendslist/FriendsList'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
-import { ProfileType } from '@graphql/generated'
+import { GetNotificationsQuery, ProfileType, useGetNotificationsQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Image, Button, Divider, Heading, Box, View } from 'native-base'
 
-const PersonalScreen = () => {
+type Props = {
+	notifications: GetNotificationsQuery | undefined
+}
+
+const PersonalScreen = ({ notifications }: Props) => {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
@@ -59,7 +64,11 @@ const PersonalScreen = () => {
 
 			<Divider style={{ marginVertical: 20 }} />
 
-			<CondensedVerticalFriendsNotficationsList />
+			<CondensedVerticalFriendsNotficationsList
+				keyExtractor={item => String(item.id)}
+				renderItem={item => <CondensedHorizontalFriendNotifciation item={item} />}
+				data={notifications?.getNotifications?.friendRequestNotifications}
+			/>
 
 			<Divider style={{ marginVertical: 20 }} />
 

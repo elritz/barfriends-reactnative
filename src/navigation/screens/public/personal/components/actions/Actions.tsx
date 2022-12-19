@@ -2,16 +2,18 @@ import Details from '../details/Details'
 import { useReactiveVar } from '@apollo/client'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelFriendNotioficationmodal/CancelFriendNotificationModal'
 import SignupModal from '@components/molecules/modals/signupmodal/SignupModal'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import {
 	Profile,
+	useAcceptFriendRequestMutation,
 	useCreateFriendRequestMutation,
-	useGetNotificationsQuery,
+	useDeleteFriendRequestMutation,
 	useGetRelationshipFriendRequestStatusQuery,
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Button, VStack, HStack, Modal, useDisclose } from 'native-base'
+import { Button, VStack, HStack, useDisclose, IconButton, Icon } from 'native-base'
 import { ReactElement } from 'react'
 
 type Props = {
@@ -57,66 +59,132 @@ export default function Actions({ profile }: Props) {
 		},
 	})
 
+	const [acceptFriendRequestMutation, { data: AFRData, loading: AFRLoading, error: AFRError }] =
+		useAcceptFriendRequestMutation({
+			onCompleted: data => {
+				console.log('data', data.acceptFriendRequest)
+			},
+			update(cache, { data }) {
+				console.log('data', data?.acceptFriendRequest)
+				console.log(
+					'🚀 ----------------------------------------------------------------------------------🚀',
+					JSON.stringify(cache, null, 4),
+				)
+			},
+		})
+
+	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
+		useDeleteFriendRequestMutation({
+			onCompleted: data => {
+				console.log('data', data.deleteFriendRequest)
+			},
+		})
+
 	if (GRFRSLoading || !GRFRSData) return null
 
 	const FriendStatusButton = (): ReactElement | null => {
+		console.log(
+			'🚀 ------------------------------------------------------------------------------------------------------------------------------------------🚀',
+		)
+		console.log(
+			'🚀 ~ file: Actions.tsx:87 ~ FriendStatusButton ~ GRFRSData.getRelationshipFriendRequestStatus',
+			GRFRSData.getRelationshipFriendRequestStatus,
+		)
+		console.log(
+			'🚀 ------------------------------------------------------------------------------------------------------------------------------------------🚀',
+		)
 		switch (GRFRSData.getRelationshipFriendRequestStatus?.__typename) {
 			case 'FriendRequest':
 				const isSender =
 					GRFRSData?.getRelationshipFriendRequestStatus.senderProfileId ===
 					rAuthorizationVar?.DeviceProfile?.Profile?.id
+
 				return (
 					<>
-						<CancelFriendNotificationModal
-							profileId={profile.id}
-							friendRequestId={GRFRSData.getRelationshipFriendRequestStatus.id}
-							isOpen={isOpenCancelFriendNotification}
-							onClose={onCloseCancelFriendNotification}
-						/>
-						<Button
-							flex={1}
-							_text={{
-								fontWeight: '600',
-							}}
-							colorScheme={'primary'}
-							onPress={() => {
-								isGuest
-									? onOpenSignupModal()
-									: isSender
-									? onOpenCancelFriendNotification()
-									: console.log('receiver')
-							}}
-						>
-							{isSender ? 'Requested' : 'accept decline'}
-						</Button>
+						{isSender ? (
+							<>
+								<CancelFriendNotificationModal
+									profileId={profile.id}
+									friendRequestId={GRFRSData.getRelationshipFriendRequestStatus.id}
+									isOpen={isOpenCancelFriendNotification}
+									onClose={onCloseCancelFriendNotification}
+								/>
+								<Button
+									flex={1}
+									_text={{
+										fontWeight: '600',
+									}}
+									colorScheme={'primary'}
+									onPress={() => {
+										isGuest
+											? onOpenSignupModal()
+											: isSender
+											? onOpenCancelFriendNotification()
+											: console.log('receiver')
+									}}
+								>
+									Requested
+								</Button>
+							</>
+						) : (
+							<HStack space={1} justifyContent={'space-around'} alignItems={'center'}>
+								<Button
+									colorScheme={'primary'}
+									px={4}
+									py={2}
+									borderRadius={'lg'}
+									isDisabled={DFRLoading || AFRLoading}
+									_disabled={{
+										opacity: '100',
+									}}
+									isLoadingText={'Accept'}
+									_text={{
+										fontSize: 11,
+										textTransform: 'uppercase',
+										fontWeight: '900',
+									}}
+									onPress={() =>
+										acceptFriendRequestMutation({
+											variables: {
+												friendRequestId: String(GRFRSData?.getRelationshipFriendRequestStatus?.id),
+												venueIdMetAt: '',
+											},
+										})
+									}
+								>
+									Accept
+								</Button>
+								<IconButton
+									px={2}
+									py={2}
+									isDisabled={DFRLoading || AFRLoading}
+									icon={<Icon as={Ionicons} name='close' size={'lg'} rounded={'full'} />}
+									onPress={() =>
+										declineFriendRequestMutation({
+											variables: {
+												friendRequestId: String(GRFRSData?.getRelationshipFriendRequestStatus?.id),
+											},
+										})
+									}
+								/>
+							</HStack>
+						)}
 					</>
 				)
 			case 'Relationship':
 				return (
-					<Button
-						flex={1}
-						_text={{
-							fontWeight: '600',
-						}}
+					<IconButton
+						icon={<Icon as={MaterialCommunityIcons} name={'account'} />}
 						colorScheme={'primary'}
-						isLoading={loading}
-						isLoadingText={'Barfriend'}
+						variant={'solid'}
+						w={'55px'}
 						onPress={() => {
-							rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST'
-								? onOpenSignupModal()
-								: createFriendRequestMutation({
-										variables: {
-											receiversProfileId: [profile.id],
-											senderProfileId: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-										},
-								  })
+							onOpenSignupModal()
 						}}
-					>
-						Barfriend
-					</Button>
+					/>
 				)
 
-			case 'FriendsResponse':
+			case 'RejectedFriendsResponse':
 				return (
 					<Button
 						flex={1}
@@ -165,6 +233,7 @@ export default function Actions({ profile }: Props) {
 						fontWeight: '600',
 					}}
 					flex={2}
+					borderRadius={'md'}
 					colorScheme={'primary'}
 					onPress={() => {
 						isGuest

@@ -36,7 +36,7 @@ export const GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY = gql`
 				createdAt
 				updatedAt
 			}
-			... on FriendsResponse {
+			... on RejectedFriendsResponse {
 				friends
 			}
 		}

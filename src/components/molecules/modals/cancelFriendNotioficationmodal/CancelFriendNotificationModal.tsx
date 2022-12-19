@@ -29,7 +29,6 @@ export default function CancelFriendNotificationModal({
 			},
 		],
 		onCompleted: data => {
-			console.log('========>', data)
 			onClose()
 		},
 	})

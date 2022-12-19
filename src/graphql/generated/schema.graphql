@@ -1306,6 +1306,18 @@ input FriendRequestListRelationFilter {
   some: FriendRequestWhereInput
 }
 
+type FriendRequestNotification {
+  createdAt: String
+  id: ID
+  NotificationStatus: NotificationStatus
+  notificationStatusId: String
+  receiverProfile: Profile
+  receiverProfileId: String
+  senderProfile: Profile
+  senderProfileId: String
+  updatedAt: String
+}
+
 input FriendRequestOrderByRelationAggregateInput {
   _count: SortOrder
 }
@@ -1385,10 +1397,6 @@ input FriendRequestWhereInput {
 input FriendRequestWhereUniqueInput {
   id: String
   notificationStatusId: String
-}
-
-type FriendsResponse {
-  friends: Boolean
 }
 
 type Geometry {
@@ -1490,7 +1498,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "37e593a1-7fab-4ca6-9e83-fdce593bfa8a"
+  sessiontoken: String = "37962280-7183-412f-acff-f722fbe3b0f0"
   textinput: String!
 
   """
@@ -3000,6 +3008,7 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  acceptFriendRequest(friendRequestId: String!, venueIdMetAt: String): Relationship
   addPersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   addPersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   checkThePink: Boolean
@@ -3155,7 +3164,11 @@ interface Node {
   id: String
 }
 
-union NotificationFriendRequestStatusResponse = ErrorProfiling | FriendRequest | FriendsResponse | Relationship
+union NotificationFriendRequestStatusResponse = ErrorProfiling | FriendRequest | RejectedFriendsResponse | Relationship
+
+type NotificationResponse {
+  friendRequestNotifications: [FriendRequestNotification]
+}
 
 type Notifications {
   FriendRequests(after: FriendRequestWhereUniqueInput, before: FriendRequestWhereUniqueInput, first: Int, last: Int): [FriendRequest!]!
@@ -5168,7 +5181,7 @@ type Query {
   getAllStatesByCountry(countryIsoCode: String!): [Json]
   getAllThemes: [Theme]
   getLiveVenueTotals(profileIdVenue: String!): LiveVenueTotals
-  getNotifications: Notifications
+  getNotifications: NotificationResponse
   getRelationshipFriendRequestStatus(profileId: String!): NotificationFriendRequestStatusResponse
   H3IndexGrid(cell: String!, ringSize: Int = 1): [String]
   H3IndexLatLng(cell: String!): [Float]
@@ -5215,6 +5228,10 @@ input RefreshTokenWhereUniqueInput {
   DeviceProfileId: Int
   id: Int
   token: String
+}
+
+type RejectedFriendsResponse {
+  friends: Boolean
 }
 
 type Relationship {
