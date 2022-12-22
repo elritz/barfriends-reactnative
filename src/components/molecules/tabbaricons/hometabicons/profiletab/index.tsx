@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { useGetADeviceManagerQuery } from '@graphql/generated'
+import { useGetNotificationsLazyQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as Haptics from 'expo-haptics'
 import { Box, Image, Pressable } from 'native-base'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from 'styled-components/native'
 
 const HEIGHT = 25
@@ -15,11 +15,21 @@ const ProfileTab = (props: TabProps) => {
 	const themeContext = useContext(ThemeContext)
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const [numNotification, setNumNotifications] = useState(0)
 
-	const { data, loading, error } = useGetADeviceManagerQuery({
-		skip: !rAuthorizationVar,
-		fetchPolicy: 'network-only',
-	})
+	const [getNotificationQuery, { data: GNData, loading: GNLoading, error }] =
+		useGetNotificationsLazyQuery({
+			fetchPolicy: 'network-only',
+			onCompleted: data => {
+				if (data.getNotifications?.friendRequestNotifications?.length) {
+					setNumNotifications(numNotification + data.getNotifications.friendRequestNotifications.length)
+				}
+			},
+		})
+
+	useEffect(() => {
+		getNotificationQuery()
+	}, [])
 
 	const onLongPressProfileIcon = async () => {
 		await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
@@ -29,7 +39,7 @@ const ProfileTab = (props: TabProps) => {
 		})
 	}
 
-	if (loading || !rAuthorizationVar) {
+	if (!rAuthorizationVar) {
 		return (
 			<Pressable
 				delayLongPress={200}
@@ -42,7 +52,7 @@ const ProfileTab = (props: TabProps) => {
 						},
 					})
 				}
-				onLongPress={() => !loading && onLongPressProfileIcon()}
+				onLongPress={() => onLongPressProfileIcon()}
 			>
 				<CompanyCoasterLogoDynamic
 					width={HEIGHT}
@@ -74,7 +84,7 @@ const ProfileTab = (props: TabProps) => {
 								},
 							})
 						}
-						onLongPress={() => !loading && onLongPressProfileIcon()}
+						onLongPress={() => onLongPressProfileIcon()}
 					>
 						<>
 							{rAuthorizationVar?.DeviceProfile?.Profile?.photos ? (
@@ -105,7 +115,16 @@ const ProfileTab = (props: TabProps) => {
 					</Pressable>
 				}
 			/>
-			<Box position={'absolute'} bottom={-3} bg={'red.500'} h={1} w={1} borderRadius={'full'} />
+			{numNotification > 0 && (
+				<Box
+					position={'absolute'}
+					bottom={-3}
+					bg={'red.500'}
+					h={'4.25px'}
+					w={'4.25px'}
+					borderRadius={'full'}
+				/>
+			)}
 		</>
 	)
 }

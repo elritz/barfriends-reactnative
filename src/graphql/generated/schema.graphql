@@ -1498,7 +1498,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "37962280-7183-412f-acff-f722fbe3b0f0"
+  sessiontoken: String = "e44080af-a2a4-4db3-8255-852a4dc68fc9"
   textinput: String!
 
   """
@@ -3023,6 +3023,7 @@ type Mutation {
   deleteFriendRequest(friendRequestId: String!): Boolean
   refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion
   removeDeviceProfileFromDeviceManager(profileId: String!): Boolean
+  removeFriend(relationshipId: String!): Boolean
   removePersonalJoinsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   removePersonalTotalsVenue(profileIdPersonal: String!, profileIdVenue: String!): Boolean
   sendAuthenticatorDeviceOwnerCode(data: CodeData, where: CodeWhere): CodeResponse
@@ -5236,6 +5237,8 @@ type RejectedFriendsResponse {
 
 type Relationship {
   createdAt: DateTime!
+  friendProfile: Profile
+  friendProfileId: String!
   id: String!
   Profile: Profile
   RelationshipStatus: [RelationshipStatus!]!
@@ -5245,6 +5248,7 @@ type Relationship {
 
 input RelationshipCreateManyProfileInput {
   createdAt: DateTime
+  friendProfileId: String!
   id: String
   RelationshipStatus: RelationshipCreateManyRelationshipStatusInput
   updatedAt: DateTime
@@ -5278,6 +5282,7 @@ input RelationshipCreateRelationshipStatusInput {
 
 input RelationshipCreateWithoutProfileInput {
   createdAt: DateTime
+  friendProfileId: String!
   id: String
   RelationshipStatus: RelationshipCreateRelationshipStatusInput
   updatedAt: DateTime
@@ -5297,6 +5302,7 @@ input RelationshipOrderByRelationAggregateInput {
 input RelationshipScalarWhereInput {
   AND: [RelationshipScalarWhereInput!]
   createdAt: DateTimeFilter
+  friendProfileId: StringFilter
   id: StringFilter
   NOT: [RelationshipScalarWhereInput!]
   OR: [RelationshipScalarWhereInput!]
@@ -5313,6 +5319,7 @@ enum RelationshipStatus {
 
 input RelationshipUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
+  friendProfileId: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   RelationshipStatus: RelationshipUpdateRelationshipStatusInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -5345,6 +5352,7 @@ input RelationshipUpdateRelationshipStatusInput {
 
 input RelationshipUpdateWithoutProfileInput {
   createdAt: DateTimeFieldUpdateOperationsInput
+  friendProfileId: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   RelationshipStatus: RelationshipUpdateRelationshipStatusInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -5365,6 +5373,7 @@ input RelationshipUpsertWithWhereUniqueWithoutProfileInput {
 input RelationshipWhereInput {
   AND: [RelationshipWhereInput!]
   createdAt: DateTimeFilter
+  friendProfileId: StringFilter
   id: StringFilter
   NOT: [RelationshipWhereInput!]
   OR: [RelationshipWhereInput!]

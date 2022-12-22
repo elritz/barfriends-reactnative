@@ -1,6 +1,5 @@
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import { useDeleteFriendRequestMutation } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { Button, Modal } from 'native-base'
 
 type Props = {

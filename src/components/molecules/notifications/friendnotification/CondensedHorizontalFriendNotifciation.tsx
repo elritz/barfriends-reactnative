@@ -2,6 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelFriendNotioficationmodal/CancelFriendNotificationModal'
 import { Ionicons } from '@expo/vector-icons'
 import { AUTHORIZED_PROFILES_QUERY } from '@graphql/DM/profiling/authorization/index.query'
+import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
 import {
 	FriendRequestNotification,
 	useAcceptFriendRequestMutation,
@@ -42,14 +43,23 @@ export const CondensedHorizontalFriendNotifciation = ({
 	const [acceptFriendRequestMutation, { data: AFRData, loading: AFRLoading, error: AFRError }] =
 		useAcceptFriendRequestMutation({
 			onCompleted: data => {
-				console.log('data', data.acceptFriendRequest)
+				// console.log('data', data.acceptFriendRequest)
 			},
 			update(cache, { data }) {
-				console.log('data', data?.acceptFriendRequest)
-				console.log(
-					'🚀 ----------------------------------------------------------------------------------🚀',
-					JSON.stringify(cache, null, 4),
-				)
+				const { getNotifications }: any = cache.readQuery({
+					query: NOTIFICATIONS_QUERY,
+				})
+
+				if (data?.acceptFriendRequest?.id) {
+					cache.writeQuery({
+						query: NOTIFICATIONS_QUERY,
+						data: {
+							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+								notification.id !== String(data.acceptFriendRequest?.id)
+							}),
+						},
+					})
+				}
 			},
 		})
 
@@ -57,6 +67,22 @@ export const CondensedHorizontalFriendNotifciation = ({
 		useDeleteFriendRequestMutation({
 			onCompleted: data => {
 				console.log('data', data.deleteFriendRequest)
+			},
+			update(cache, { data }) {
+				const { getNotifications }: any = cache.readQuery({
+					query: NOTIFICATIONS_QUERY,
+				})
+
+				if (data?.deleteFriendRequest) {
+					cache.writeQuery({
+						query: NOTIFICATIONS_QUERY,
+						data: {
+							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+								notification.id !== item.id
+							}),
+						},
+					})
+				}
 			},
 		})
 

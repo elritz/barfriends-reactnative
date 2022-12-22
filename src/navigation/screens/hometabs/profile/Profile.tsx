@@ -25,9 +25,6 @@ const Profile = () => {
 		useGetNotificationsLazyQuery({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
-				console.log('🚀 -----------------------------------------------🚀')
-				console.log('🚀 ~ file: Profile.tsx:31 ~ Profile ~ data', data)
-				console.log('🚀 -----------------------------------------------🚀')
 				setRefreshing(false)
 			},
 		})
@@ -51,7 +48,7 @@ const Profile = () => {
 
 	return (
 		<ScrollView
-			contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}
+			contentInset={{ top: 0, left: 0, bottom: 150, right: 0 }}
 			showsVerticalScrollIndicator={false}
 			scrollEventThrottle={16}
 			refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}

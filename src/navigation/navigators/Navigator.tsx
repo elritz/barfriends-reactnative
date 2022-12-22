@@ -1,7 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { useGetNotificationsQuery } from '@graphql/generated'
 import AppLinkingConfiguration from '@navigation/AppLinkingConfiguration'
 import RootNavigator from '@navigation/navigators/rootnavigator/RootNavigator'
 import SplashScreen from '@navigation/screens/SplashScreen'

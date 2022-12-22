@@ -21,15 +21,15 @@ const PersonalScreen = ({ notifications }: Props) => {
 			<Box my={10} mx={3} flex={1}>
 				<View>
 					<CardPleaseSignup signupTextId={4} />
-					<Divider style={{ marginVertical: 10 }} />
+					<Divider style={{ marginVertical: 20 }} />
 				</View>
 			</Box>
 		)
 	}
 
 	return (
-		<Box m={3}>
-			<View style={{ alignItems: 'center' }}>
+		<Box>
+			<View style={{ alignItems: 'center', marginVertical: 20 }}>
 				<Image
 					width={165}
 					height={170}
@@ -60,19 +60,16 @@ const PersonalScreen = ({ notifications }: Props) => {
 				>
 					Edit Profile
 				</Button>
+				<Divider style={{ marginVertical: 20 }} />
 			</View>
-
-			<Divider style={{ marginVertical: 20 }} />
-
 			<CondensedVerticalFriendsNotficationsList
 				keyExtractor={item => String(item.id)}
 				renderItem={item => <CondensedHorizontalFriendNotifciation item={item} />}
 				data={notifications?.getNotifications?.friendRequestNotifications}
 			/>
-
-			<Divider style={{ marginVertical: 20 }} />
-
-			<FriendsList />
+			<Box mx={2}>
+				<FriendsList />
+			</Box>
 		</Box>
 	)
 }

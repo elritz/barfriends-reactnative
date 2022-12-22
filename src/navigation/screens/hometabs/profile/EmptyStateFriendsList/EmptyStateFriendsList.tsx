@@ -15,6 +15,14 @@ export const EmptyStateFriendsList = () => {
 				Use search to find your friends
 			</Heading>
 			<Button
+				variant={'link'}
+				_text={{
+					fontSize: 'lg',
+				}}
+				w={'85%'}
+				my={3}
+				borderRadius={'lg'}
+				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
 				onPress={() => {
 					navigation.navigate('HomeTabNavigator', {
 						screen: 'ExploreStack',
@@ -26,10 +34,6 @@ export const EmptyStateFriendsList = () => {
 						},
 					})
 				}}
-				rightIcon={<Icon as={Ionicons} name='search' size={'md'} />}
-				w={'85%'}
-				my={3}
-				borderRadius={'lg'}
 			>
 				Search
 			</Button>

@@ -3,6 +3,7 @@ import { CREDENTIALS_FRAGMENT } from '@graphql/DM/fragments/credentials.fragment
 import { DETAIL_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/detail_information.fragments'
 import { INDETIFIABLE_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/identifiable_information.fragments'
 import { LOCATION_FRAGMENT } from '@graphql/DM/fragments/location.fragments'
+import { RELATIONSHIP_FRAGMENT } from '@graphql/DM/fragments/relationship.fragments'
 import { THEME_MANAGER_FRAGMENT } from '@graphql/DM/fragments/theme.fragments'
 
 export const PROFILE_FRAGMENT = gql`
@@ -11,6 +12,7 @@ export const PROFILE_FRAGMENT = gql`
 	${DETAIL_INFORMATION_FRAGMENT}
 	${LOCATION_FRAGMENT}
 	${THEME_MANAGER_FRAGMENT}
+	${RELATIONSHIP_FRAGMENT}
 	fragment PROFILE_FRAGMENT on Profile {
 		__typename
 		id
@@ -25,11 +27,7 @@ export const PROFILE_FRAGMENT = gql`
 			...THEME_MANAGER_FRAGMENT
 		}
 		Relationships {
-			id
-			venueMetAt
-			RelationshipStatus
-			createdAt
-			updatedAt
+			...RELATIONSHIP_FRAGMENT
 		}
 		photos {
 			id
@@ -154,6 +152,7 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
 	${DETAIL_INFORMATION_FRAGMENT}
 	${LOCATION_FRAGMENT}
+	${RELATIONSHIP_FRAGMENT}
 	fragment PUBLIC_PROFILE_FRAGMENT on Profile {
 		__typename
 		id
@@ -165,11 +164,7 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 			...DETAIL_INFORMATION_FRAGMENT
 		}
 		Relationships {
-			id
-			venueMetAt
-			RelationshipStatus
-			createdAt
-			updatedAt
+			...RELATIONSHIP_FRAGMENT
 		}
 		photos {
 			id

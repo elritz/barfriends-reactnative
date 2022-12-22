@@ -12,7 +12,7 @@ import { getMainDefinition } from '@apollo/client/utilities'
 const directionalLink = new RetryLink().split(
 	operation => operation.getContext().server === 'subscription',
 	sseLink,
-	httpLink,
+	ApolloLink.from([retryLink, authLink, errorLink, afterwareLink, httpLink]),
 )
 
 const link = split(

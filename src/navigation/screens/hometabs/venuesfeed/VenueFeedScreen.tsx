@@ -3,7 +3,7 @@ import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
 import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
 import VenuesFeedVenuesEmptyState from './components/VenuesFeedVenuesEmptyState'
-import { useReactiveVar } from '@apollo/client'
+import { useReactiveVar, useSubscription } from '@apollo/client'
 import BackgroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/BackgroundLocationPermissionFullSection'
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
 import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
@@ -14,6 +14,7 @@ import {
 	useVenuesNearbyLazyQuery,
 } from '@graphql/generated'
 import { useNumberIncrementedSubscription } from '@graphql/generated/subindex'
+import { GRETTINGS_SUBSCRIPTION } from '@graphql/subscriptions/index.subscription'
 import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
 import { useIsFocused } from '@react-navigation/native'
 import {
@@ -26,6 +27,7 @@ import {
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
+import { createClient } from 'graphql-sse'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
 import { Box, Center, VStack, FlatList, Text, Button } from 'native-base'
@@ -49,12 +51,6 @@ const VenueFeedScreen = () => {
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const [venues, setVenues] = useState([])
-
-	// const { data: sData } = useNumberIncrementedSubscription({
-	// 	context: {
-	// 		server: 'subscription',
-	// 	},
-	// })
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {

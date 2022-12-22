@@ -1,6 +1,8 @@
 import { gql } from '@apollo/client'
+import { RELATIONSHIP_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
 
 export const GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY = gql`
+	${RELATIONSHIP_FRAGMENT}
 	query getRelationshipFriendRequestStatus($profileId: String!) {
 		getRelationshipFriendRequestStatus(profileId: $profileId) {
 			... on ErrorProfiling {
@@ -27,14 +29,7 @@ export const GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY = gql`
 				notificationStatusId
 			}
 			... on Relationship {
-				id
-				venueMetAt
-				Profile {
-					id
-				}
-				RelationshipStatus
-				createdAt
-				updatedAt
+				...RELATIONSHIP_FRAGMENT
 			}
 			... on RejectedFriendsResponse {
 				friends

@@ -19,7 +19,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 		}
 	}
 	if (networkError) {
-		console.log(networkError.name)
+		console.log(networkError)
 		switch (networkError.name) {
 			case 'ServerError':
 				console.log('TODO:💽 Server Error network error')

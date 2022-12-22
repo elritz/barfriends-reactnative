@@ -5,6 +5,7 @@ export * from '@graphql/DM/fragments/generic.fragments'
 export * from '@graphql/DM/fragments/identifiable_information.fragments'
 export * from '@graphql/DM/fragments/personal.fragments'
 export * from '@graphql/DM/fragments/profile.fragments'
+export * from '@graphql/DM/fragments/relationship.fragments'
 export * from '@graphql/DM/fragments/venue.fragments'
 
 export const CODE_FRAGMENT = gql`

@@ -26,3 +26,9 @@ export const ACCEPT_FRIEND_REQUEST_MUTATION = gql`
 		}
 	}
 `
+
+export const REMOVE_FRIEND_MUTATION = gql`
+	mutation removeFriend($relationshipId: String!) {
+		removeFriend(relationshipId: $relationshipId)
+	}
+`

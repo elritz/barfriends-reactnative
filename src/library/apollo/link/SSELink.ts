@@ -25,5 +25,6 @@ class SSELink extends ApolloLink {
 }
 
 export const sseLink = new SSELink({
-	url: 'ws://192.168.86.23:5004/graphql/stream',
+	url: 'https://192.168.86.23:5004',
+	// url: 'https://localhost:5004/graphql/stream',
 })

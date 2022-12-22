@@ -1,6 +1,7 @@
 import Actions from './components/actions/Actions'
 import CurrentVenue from './components/currentvenue/CurrentVenue'
 import Details from './components/details/Details'
+import Friendship from './components/friendship/Friendship'
 import Photos from './components/photos'
 import Relationships from './components/relationship/Relationships'
 import { useProfileQuery } from '@graphql/generated'
@@ -32,7 +33,6 @@ const PersonalScreen = (props: any) => {
 	})
 
 	if (PQLoading && !PQData) return null
-
 	return (
 		<NBScrollView pt={4} mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
 			<Photos story={PQData?.profile?.Story} photo={PQData?.profile?.photos} />
@@ -40,9 +40,7 @@ const PersonalScreen = (props: any) => {
 				<Actions profile={PQData?.profile} />
 				<HStack space={3} h={200}>
 					{PQData?.profile?.Personal?.LiveOutPersonal?.joined.length ? <CurrentVenue /> : null}
-					{PQData?.profile?.Relationship?.length ? (
-						<Relationships relationship={PQData.profile?.Relationships} />
-					) : null}
+					<Relationships />
 				</HStack>
 			</VStack>
 		</NBScrollView>

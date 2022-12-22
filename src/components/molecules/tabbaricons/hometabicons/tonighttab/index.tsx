@@ -1,25 +1,37 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Icon } from 'native-base'
+import { Box, Icon } from 'native-base'
 
 const TonightTab = (props: TabProps) => {
 	return (
-		<TabBarIcon
-			color={props.color}
-			icon={
-				<Icon
-					style={{
-						justifyContent: 'center',
-						zIndex: 100,
-					}}
-					name='play'
-					size={'23px'}
-					as={FontAwesome5}
-					color={props.color}
+		<>
+			<TabBarIcon
+				color={props.color}
+				icon={
+					<Icon
+						style={{
+							justifyContent: 'center',
+							zIndex: 100,
+						}}
+						name='play'
+						size={'23px'}
+						as={FontAwesome5}
+						color={props.color}
+					/>
+				}
+			/>
+			{false && (
+				<Box
+					position={'absolute'}
+					bottom={-3}
+					bg={'red.500'}
+					h={'4.25px'}
+					w={'4.25px'}
+					borderRadius={'full'}
 				/>
-			}
-		/>
+			)}
+		</>
 	)
 }
 

@@ -1,55 +1,110 @@
+import { Relationship } from '@graphql/generated'
+import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Box, Heading, Image, Text } from 'native-base'
+import { Box, Image, Pressable, Text } from 'native-base'
+import { useWindowDimensions } from 'react-native'
 
 interface CardFullImageNameEmojiProps {
-	item: {
-		profilePicture: string
-		name: string
-		status?: string
-	}
+	item: Relationship
 	cardWidth: number
 }
 
-export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmojiProps) => (
-	<Box
-		style={{
-			backgroundColor: 'transparent',
-			borderColor: 'transparent',
-			margin: 0,
-			padding: 2,
-			height: 170,
-			width: cardWidth,
-		}}
-	>
-		<Image
-			alt={'Profile image'}
-			source={{ uri: item.profilePicture }}
-			resizeMode='cover'
-			style={{ height: 170, flexDirection: 'column-reverse' }}
-			borderRadius={'lg'}
-		/>
-		<Box>
-			<LinearGradient colors={['transparent', '#00000080']}>
-				<Box style={{ padding: 2 }}>
-					<Heading
-						style={{
-							fontWeight: '800',
-							color: 'white',
-							shadowColor: 'black',
-							shadowOffset: {
-								width: 0,
-								height: 3,
-							},
-							shadowOpacity: 0.27,
-							shadowRadius: 4.65,
-							elevation: 6,
-						}}
-					>
-						{item.name}
-					</Heading>
-					<Text style={{ fontWeight: '800' }}>{item.status}</Text>
+export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmojiProps) => {
+	const { width } = useWindowDimensions()
+	const navigation = useNavigation()
+	if (!item) {
+		return null
+	}
+	return (
+		<Pressable
+			onPress={() => {
+				navigation.navigate('PublicNavigator', {
+					screen: 'PersonalStack',
+					params: {
+						screen: 'PublicPersonalScreen',
+						params: {
+							profileId: item.friendProfile.id,
+						},
+					},
+				})
+			}}
+		>
+			<Box
+				style={{
+					backgroundColor: 'transparent',
+					borderColor: 'transparent',
+					margin: width / (width / 3),
+					height: 170,
+					width: cardWidth,
+				}}
+			>
+				<Box
+					position={'absolute'}
+					bottom={0}
+					left={0}
+					right={0}
+					w={'100%'}
+					zIndex={10}
+					borderRadius={'lg'}
+					overflow={'hidden'}
+				>
+					<LinearGradient colors={['transparent', '#000000d1']}>
+						<Box style={{ padding: 4 }}>
+							<Text
+								fontSize={'md'}
+								textAlign={'center'}
+								fontWeight={'bold'}
+								_light={{
+									color: 'white',
+								}}
+								_dark={{
+									color: 'white',
+								}}
+								style={{
+									shadowOffset: {
+										width: 0,
+										height: 3,
+									},
+									shadowOpacity: 0.27,
+									shadowRadius: 4.65,
+									elevation: 6,
+								}}
+							>
+								{item.friendProfile?.IdentifiableInformation?.firstname}
+							</Text>
+							<Text
+								textAlign={'center'}
+								fontWeight={'bold'}
+								_light={{
+									color: 'white',
+								}}
+								_dark={{
+									color: 'white',
+								}}
+								style={{
+									shadowOffset: {
+										width: 0,
+										height: 3,
+									},
+									shadowOpacity: 0.27,
+									shadowRadius: 4.65,
+									elevation: 6,
+								}}
+							>
+								@{item.friendProfile?.IdentifiableInformation?.username}
+							</Text>
+						</Box>
+					</LinearGradient>
 				</Box>
-			</LinearGradient>
-		</Box>
-	</Box>
-)
+				<Image
+					zIndex={1}
+					alt={'Profile image'}
+					source={{ uri: item.friendProfile?.photos?.url }}
+					resizeMode='cover'
+					style={{ height: 170, flexDirection: 'column-reverse' }}
+					borderRadius={'lg'}
+				/>
+			</Box>
+		</Pressable>
+	)
+}

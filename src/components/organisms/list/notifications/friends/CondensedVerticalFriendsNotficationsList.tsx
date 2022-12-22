@@ -26,7 +26,6 @@ const CondensedVerticalFriendsNotficationsList = <T extends FriendRequestNotific
 					flex={1}
 					w={'100%'}
 					h={'100%'}
-					py={2}
 					flexDir={'column'}
 					borderRadius={'lg'}
 					overflow={'hidden'}

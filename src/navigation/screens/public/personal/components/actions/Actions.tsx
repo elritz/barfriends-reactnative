@@ -1,6 +1,7 @@
 import Details from '../details/Details'
 import { useReactiveVar } from '@apollo/client'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelFriendNotioficationmodal/CancelFriendNotificationModal'
+import RelationshipModal from '@components/molecules/modals/relationshipmodal/RelationshipModal'
 import SignupModal from '@components/molecules/modals/signupmodal/SignupModal'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
@@ -23,6 +24,11 @@ type Props = {
 export default function Actions({ profile }: Props) {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const {
+		isOpen: isOpenRelationshipModal,
+		onOpen: openRelationshipModal,
+		onClose: onCloseRelaationshipModal,
+	} = useDisclose()
 	const {
 		isOpen: isOpenSignupModal,
 		onOpen: onOpenSignupModal,
@@ -61,16 +67,8 @@ export default function Actions({ profile }: Props) {
 
 	const [acceptFriendRequestMutation, { data: AFRData, loading: AFRLoading, error: AFRError }] =
 		useAcceptFriendRequestMutation({
-			onCompleted: data => {
-				console.log('data', data.acceptFriendRequest)
-			},
-			update(cache, { data }) {
-				console.log('data', data?.acceptFriendRequest)
-				console.log(
-					'🚀 ----------------------------------------------------------------------------------🚀',
-					JSON.stringify(cache, null, 4),
-				)
-			},
+			onCompleted: data => {},
+			update(cache, { data }) {},
 		})
 
 	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
@@ -83,16 +81,6 @@ export default function Actions({ profile }: Props) {
 	if (GRFRSLoading || !GRFRSData) return null
 
 	const FriendStatusButton = (): ReactElement | null => {
-		console.log(
-			'🚀 ------------------------------------------------------------------------------------------------------------------------------------------🚀',
-		)
-		console.log(
-			'🚀 ~ file: Actions.tsx:87 ~ FriendStatusButton ~ GRFRSData.getRelationshipFriendRequestStatus',
-			GRFRSData.getRelationshipFriendRequestStatus,
-		)
-		console.log(
-			'🚀 ------------------------------------------------------------------------------------------------------------------------------------------🚀',
-		)
 		switch (GRFRSData.getRelationshipFriendRequestStatus?.__typename) {
 			case 'FriendRequest':
 				const isSender =
@@ -179,7 +167,7 @@ export default function Actions({ profile }: Props) {
 						variant={'solid'}
 						w={'55px'}
 						onPress={() => {
-							onOpenSignupModal()
+							openRelationshipModal()
 						}}
 					/>
 				)
@@ -223,6 +211,7 @@ export default function Actions({ profile }: Props) {
 				bg: 'light.800',
 			}}
 		>
+			<RelationshipModal isOpen={isOpenRelationshipModal} onClose={onCloseRelaationshipModal} />
 			<SignupModal isOpen={isOpenSignupModal} onClose={onCloseSignupModal} />
 
 			<HStack space={3}>

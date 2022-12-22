@@ -28,17 +28,6 @@ export default function DeviceManagerModal() {
 		onCompleted: data => {
 			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
 				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles
-				console.log(
-					'🚀 -----------------------------------------------------------------------------------------🚀',
-				)
-				console.log(
-					'🚀 ~ file: DeviceManagerModal.tsx:30 ~ DeviceManagerModal ~ deviceProfiles',
-					deviceProfiles,
-				)
-				console.log(
-					'🚀 -----------------------------------------------------------------------------------------🚀',
-				)
-
 				setProfiles(deviceProfiles)
 			}
 		},

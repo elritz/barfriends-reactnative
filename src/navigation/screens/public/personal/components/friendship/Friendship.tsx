@@ -1,17 +1,19 @@
-import { PublicProfileRouteProp } from '../friendship/Friendship'
 import { useReactiveVar } from '@apollo/client'
-import {
-	Relationship,
-	RelationshipStatus,
-	useGetRelationshipFriendRequestStatusQuery,
-} from '@graphql/generated'
-import { useRoute } from '@react-navigation/native'
+import { Feather, Ionicons } from '@expo/vector-icons'
+import { Relationship, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { PersonalProfileStackParamList } from '@types'
 import { DateTime } from 'luxon'
-import { Box, Heading, Text } from 'native-base'
+import { Box, Heading, Icon, Text } from 'native-base'
 import { ReactElement } from 'react'
 
-export default function Relationships() {
+export type PublicProfileRouteProp = RouteProp<
+	PersonalProfileStackParamList,
+	'PublicPersonalScreen'
+>
+
+export default function Friendship() {
 	const route = useRoute<PublicProfileRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
@@ -37,29 +39,21 @@ export default function Relationships() {
 			case 'RejectedFriendsResponse':
 				return null
 			case 'Relationship': {
+				console.log(
+					'🚀 ----------------------------------------------------------------------------------------------------------------------------------🚀',
+				)
+				console.log(
+					'🚀 ~ file: Friendship.tsx:46 ~ Friends ~ GRFRSData.getRelationshipFriendRequestStatus',
+					JSON.stringify(GRFRSData.getRelationshipFriendRequestStatus, null, 4),
+				)
+				console.log(
+					'🚀 ----------------------------------------------------------------------------------------------------------------------------------🚀',
+				)
 				const created = DateTime.fromISO(
 					GRFRSData.getRelationshipFriendRequestStatus.createdAt,
 				).toFormat('yyyy LLL dd')
-				GRFRSData.getRelationshipFriendRequestStatus.RelationshipStatus
-				if (
-					!GRFRSData.getRelationshipFriendRequestStatus.RelationshipStatus.includes(
-						RelationshipStatus.Dating,
-					)
-				) {
-					return null
-				}
 				return (
-					<Box
-						_light={{
-							bg: 'light.50',
-						}}
-						_dark={{
-							bg: 'light.800',
-						}}
-						borderRadius={'xl'}
-						flex={1}
-						p={3}
-					>
+					<Box>
 						<Text textTransform={'uppercase'} fontSize={'sm'} fontWeight={'bold'} textAlign={'center'}>
 							Friends since
 						</Text>
@@ -74,5 +68,21 @@ export default function Relationships() {
 		}
 	}
 
-	return <Friends />
+	return (
+		<Box
+			_light={{
+				bg: 'light.50',
+			}}
+			_dark={{
+				bg: 'light.800',
+			}}
+			borderRadius={'xl'}
+			flex={1}
+			p={3}
+			alignItems={'center'}
+		>
+			<Icon as={Ionicons} size={'xl'} name={'person'} my={3} />
+			<Friends />
+		</Box>
+	)
 }
