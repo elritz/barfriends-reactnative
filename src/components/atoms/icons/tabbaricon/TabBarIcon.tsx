@@ -20,9 +20,14 @@ export interface TabProps {
 
 const TabBarIcon = ({ icon, badge, containerStyle }: TabBarIconProps) => (
 	<View
-		height={containerStyle?.height || '100%'}
+		// background={'red.400'}
+		// borderColor={'black'}
+		// borderWidth={1}
+		// height={containerStyle?.height || '100%'}
+		height={'40px'}
 		width={containerStyle?.width || '100%'}
-		hitSlop={{ top: 20, bottom: 30, left: 20, right: 20 }}
+		// hitSlop={{ top: 20, bottom: 30, left: 0, right: 0 }}
+		// paddingBottom={10}
 		alignItems={'center'}
 		justifyContent={'center'}
 	>

@@ -1,25 +1,37 @@
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Heading, Button, Icon, Text } from 'native-base'
-import { View } from 'react-native'
+import { Heading, Button, Icon, Text, Box } from 'native-base'
 
 export const EmptyStateFriendsList = () => {
 	const navigation = useNavigation()
 
 	return (
-		<View style={{ width: '100%', alignItems: 'center' }}>
+		<Box
+			my={5}
+			h={'250px'}
+			justifyContent={'center'}
+			alignItems={'center'}
+			borderRadius={'lg'}
+			_light={{
+				bg: 'light.50',
+			}}
+			_dark={{
+				bg: 'dark.50',
+			}}
+		>
 			<Text fontSize={'md'} fontWeight={'bold'}>
-				You have no barfriends
+				No barfriends
 			</Text>
-			<Heading fontSize={'2xl'} style={{ textAlign: 'center' }}>
+			<Heading w={'85%'} fontSize={'2xl'} style={{ textAlign: 'center' }}>
 				Use search to find your friends
 			</Heading>
 			<Button
-				variant={'link'}
+				// variant={'link'}
 				_text={{
 					fontSize: 'lg',
 				}}
-				w={'85%'}
+				size={'xs'}
+				w={'55%'}
 				my={3}
 				borderRadius={'lg'}
 				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
@@ -37,6 +49,6 @@ export const EmptyStateFriendsList = () => {
 			>
 				Search
 			</Button>
-		</View>
+		</Box>
 	)
 }

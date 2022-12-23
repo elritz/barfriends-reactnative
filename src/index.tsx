@@ -1,8 +1,13 @@
 import { ApolloProvider } from '@apollo/client'
-import { LOCATION_TASK_NAME, BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
+import {
+	LOCATION_TASK_NAME,
+	BACKGROUND_NOTIFICATION_TASK,
+	GEOFENCING_LOCATION_TASK_NAME,
+} from '@constants/TaskManagerConstants'
 import gateaWayClient from '@library/gateway-apollo-server'
 import Navigation from '@navigation/index'
 import 'expo-dev-client'
+import { GeofencingEventType } from 'expo-location'
 import * as Notifications from 'expo-notifications'
 import * as TaskManager from 'expo-task-manager'
 import { useEffect } from 'react'
@@ -16,36 +21,37 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 // const queryClient = new QueryClient()
 // Define the background task for location tracking
-// TaskManager.defineTask(GEOFENCING_LOCATION_TASK_NAME, async ({ data, error }: any) => {
-// 	console.log('reun')
-// 	if (error) {
-// 		console.error(error)
-// 		return
-// 	}
-// 	if (data.eventType === GeofencingEventType.Enter) {
-// 		// console.log(TODO:"You've entered region:", data.region)
-// 		// console.log("TODO:You've entered region:", data)
-// 		Alert.alert('You have entered a region', `${data.region.identifier}`, [
-// 			{
-// 				text: 'Cancel',
-// 				onPress: () => null,
-// 				style: 'cancel',
-// 			},
-// 			{ text: 'ok', style: 'destructive' },
-// 		])
-// 	} else if (data.eventType === GeofencingEventType.Exit) {
-// 		console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
-// 		// console.log("TODO:You've left region:")
-// 		Alert.alert('You have Left a region', `SOMETHING HAS TO BE DONE${data.region.identifier}`, [
-// 			{
-// 				text: 'Cancel',
-// 				onPress: () => null,
-// 				style: 'cancel',
-// 			},
-// 			{ text: 'ok', style: 'destructive' },
-// 		])
-// 	}
-// })
+TaskManager.defineTask(GEOFENCING_LOCATION_TASK_NAME, async ({ data, error }: any) => {
+	console.log('reun')
+	if (error) {
+		console.error(error)
+		return
+	}
+	if (data.eventType === GeofencingEventType.Enter) {
+		// console.log(TODO:"You've entered region:", data.region)
+		// console.log("TODO:You've entered region:", data)
+		// Alert.alert('You have entered a region', `${data.region.identifier}`, [
+		// 	{
+		// 		text: 'Cancel',
+		// 		onPress: () => null,
+		// 		style: 'cancel',
+		// 	},
+		// 	{ text: 'ok', style: 'destructive' },
+		// ])
+		console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
+	} else if (data.eventType === GeofencingEventType.Exit) {
+		console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
+		// console.log("TODO:You've left region:")
+		// Alert.alert('You have Left a region', `SOMETHING HAS TO BE DONE${data.region.identifier}`, [
+		// 	{
+		// 		text: 'Cancel',
+		// 		onPress: () => null,
+		// 		style: 'cancel',
+		// 	},
+		// 	{ text: 'ok', style: 'destructive' },
+		// ])
+	}
+})
 
 TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
 	if (error) {
@@ -66,17 +72,23 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
 TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
 	console.log('TODO: Received a notification in the background!')
 	// Do something with the notification data
-	console.log(
-		'TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data',
-		JSON.stringify(data, null, 4),
-	)
+	if (error) {
+		console.log('error occurred')
+	}
+	if (data) {
+		console.log('Received a notification in the background!')
+		console.log(
+			'TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data',
+			JSON.stringify(data, null, 4),
+		)
+	}
 })
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
 		shouldShowAlert: true,
-		shouldPlaySound: true,
-		shouldSetBadge: true,
+		shouldPlaySound: false,
+		shouldSetBadge: false,
 	}),
 })
 
@@ -85,6 +97,10 @@ Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
 export default function App() {
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
+			console.log('🚀 -------------------------------------------------------------------🚀')
+			console.log('🚀 ~ file: index.tsx:100 ~ subscription ~ notification', notification)
+			console.log('🚀 -------------------------------------------------------------------🚀')
+
 			// console.log('🚀 -------------------------------------------------------------------------🚀')
 			// console.log('🚀 ~ file: index.tsx ~ line 84 ~ subscription ~ notification', notification)
 			// console.log('🚀 -------------------------------------------------------------------------🚀')

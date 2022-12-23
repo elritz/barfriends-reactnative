@@ -125,7 +125,7 @@ const TonightImages = () => {
 						bg: 'light.50',
 					}}
 					_dark={{
-						bg: 'light.800',
+						bg: 'light.50',
 					}}
 				>
 					<VStack space={2} alignItems={'center'}>

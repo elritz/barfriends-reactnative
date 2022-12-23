@@ -53,7 +53,7 @@ export default function Photos({ story, photo }: Props) {
 
 	return (
 		<>
-			{story?.photos.length ? (
+			{story?.photos?.length ? (
 				<Box
 					_light={{
 						bg: 'light.50',

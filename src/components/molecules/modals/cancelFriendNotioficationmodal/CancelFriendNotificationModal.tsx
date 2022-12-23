@@ -1,4 +1,5 @@
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
+import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
 import { useDeleteFriendRequestMutation } from '@graphql/generated'
 import { Button, Modal } from 'native-base'
 
@@ -19,14 +20,37 @@ export default function CancelFriendNotificationModal({
 		variables: {
 			friendRequestId,
 		},
-		refetchQueries: [
-			{
-				query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
-				variables: {
-					profileId,
-				},
-			},
-		],
+		update(cache, { data }) {
+			if (data?.deleteFriendRequest) {
+				const { getNotifications }: any = cache.readQuery({
+					query: NOTIFICATIONS_QUERY,
+				})
+
+				if (data?.deleteFriendRequest) {
+					cache.writeQuery({
+						query: NOTIFICATIONS_QUERY,
+						data: {
+							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+								notification.id !== friendRequestId
+							}),
+						},
+					})
+				}
+
+				cache.writeQuery({
+					query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
+					variables: {
+						profileId: profileId,
+					},
+					data: {
+						getRelationshipFriendRequestStatus: {
+							__typename: 'RejectedFriendsResponse',
+							friends: false,
+						},
+					},
+				})
+			}
+		},
 		onCompleted: data => {
 			onClose()
 		},
@@ -49,12 +73,13 @@ export default function CancelFriendNotificationModal({
 					<Button
 						colorScheme='primary'
 						onPress={() => {
+							console.log(friendRequestId)
 							deleteFriendRequestMutation()
 						}}
 						isLoading={loading}
 						isLoadingText={'Continue'}
 					>
-						Continue
+						Cancel
 					</Button>
 				</Modal.Footer>
 			</Modal.Content>

@@ -5,6 +5,7 @@ import RelationshipModal from '@components/molecules/modals/relationshipmodal/Re
 import SignupModal from '@components/molecules/modals/signupmodal/SignupModal'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
+import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
 import {
 	Profile,
 	useAcceptFriendRequestMutation,
@@ -42,17 +43,6 @@ export default function Actions({ profile }: Props) {
 
 	const isGuest = rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST'
 
-	const [createFriendRequestMutation, { data, loading, error }] = useCreateFriendRequestMutation({
-		refetchQueries: [
-			{
-				query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
-				variables: {
-					profileId: profile.id,
-				},
-			},
-		],
-	})
-
 	const {
 		data: GRFRSData,
 		loading: GRFRSLoading,
@@ -65,16 +55,61 @@ export default function Actions({ profile }: Props) {
 		},
 	})
 
+	const [createFriendRequestMutation, { data, loading, error }] = useCreateFriendRequestMutation({
+		refetchQueries: [
+			{
+				query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
+				variables: {
+					profileId: profile.id,
+				},
+			},
+			{
+				query: NOTIFICATIONS_QUERY,
+			},
+		],
+	})
+
 	const [acceptFriendRequestMutation, { data: AFRData, loading: AFRLoading, error: AFRError }] =
 		useAcceptFriendRequestMutation({
 			onCompleted: data => {},
-			update(cache, { data }) {},
+			update(cache, { data }) {
+				const { getNotifications }: any = cache.readQuery({
+					query: NOTIFICATIONS_QUERY,
+				})
+
+				if (data?.acceptFriendRequest?.id) {
+					cache.writeQuery({
+						query: NOTIFICATIONS_QUERY,
+						data: {
+							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+								notification.id !== String(data.acceptFriendRequest?.id)
+							}),
+						},
+					})
+				}
+			},
 		})
 
 	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
 		useDeleteFriendRequestMutation({
 			onCompleted: data => {
 				console.log('data', data.deleteFriendRequest)
+			},
+			update(cache, { data }) {
+				const { getNotifications }: any = cache.readQuery({
+					query: NOTIFICATIONS_QUERY,
+				})
+
+				if (data?.deleteFriendRequest) {
+					cache.writeQuery({
+						query: NOTIFICATIONS_QUERY,
+						data: {
+							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+								notification.id !== item.id
+							}),
+						},
+					})
+				}
 			},
 		})
 

@@ -1,15 +1,11 @@
 import Actions from './components/actions/Actions'
 import CurrentVenue from './components/currentvenue/CurrentVenue'
-import Details from './components/details/Details'
-import Friendship from './components/friendship/Friendship'
 import Photos from './components/photos'
 import Relationships from './components/relationship/Relationships'
 import { useProfileQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { PersonalProfileStackParamList } from '@types'
-import { database } from 'faker'
-import { Button, HStack, ScrollView as NBScrollView, VStack } from 'native-base'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { HStack, ScrollView as NBScrollView, VStack } from 'native-base'
 
 export type PublicPersonalRouteProp = RouteProp<
 	PersonalProfileStackParamList,
@@ -30,9 +26,15 @@ const PersonalScreen = (props: any) => {
 				id: route.params?.profileId,
 			},
 		},
+		onCompleted: data => {
+			console.log('🚀 -------------------------------------------------------🚀')
+			console.log('🚀 ~ file: Personal.tsx:33 ~ PersonalScreen ~ data', data)
+			console.log('🚀 -------------------------------------------------------🚀')
+		},
 	})
 
-	if (PQLoading && !PQData) return null
+	if (PQLoading && !PQData?.profile) return null
+
 	return (
 		<NBScrollView pt={4} mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
 			<Photos story={PQData?.profile?.Story} photo={PQData?.profile?.photos} />

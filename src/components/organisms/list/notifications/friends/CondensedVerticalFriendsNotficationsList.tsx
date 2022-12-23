@@ -1,6 +1,5 @@
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
-import { FriendRequest, FriendRequestNotification, NotificationStatus } from '@graphql/generated'
-import GenerateUsers from '@helpers/generate/placeholder/GenerateUserData'
+import { FriendRequestNotification } from '@graphql/generated'
 import { Box } from 'native-base'
 
 interface Props<T> {
@@ -12,29 +11,25 @@ interface Props<T> {
 const CondensedVerticalFriendsNotficationsList = <T extends FriendRequestNotification>({
 	data,
 }: Props<T>) => {
-	// const data = GenerateUsers(5)
 	return (
 		<>
 			{data?.length ? (
 				<Box
 					_light={{
-						bg: 'light.100',
+						bg: 'light.50',
 					}}
 					_dark={{
-						bg: 'dark.200',
+						bg: 'dark.50',
 					}}
 					flex={1}
-					w={'100%'}
 					h={'100%'}
 					flexDir={'column'}
 					borderRadius={'lg'}
 					overflow={'hidden'}
 				>
-					<>
-						{data.map((item, index) => (
-							<CondensedHorizontalFriendNotifciation key={index} item={item} />
-						))}
-					</>
+					{data.map((item, index) => (
+						<CondensedHorizontalFriendNotifciation key={index} item={item} />
+					))}
 				</Box>
 			) : null}
 		</>

@@ -62,11 +62,13 @@ const PersonalScreen = ({ notifications }: Props) => {
 				</Button>
 				<Divider style={{ marginVertical: 20 }} />
 			</View>
-			<CondensedVerticalFriendsNotficationsList
-				keyExtractor={item => String(item.id)}
-				renderItem={item => <CondensedHorizontalFriendNotifciation item={item} />}
-				data={notifications?.getNotifications?.friendRequestNotifications}
-			/>
+			<Box mx={2}>
+				<CondensedVerticalFriendsNotficationsList
+					keyExtractor={item => String(item.id)}
+					renderItem={item => <CondensedHorizontalFriendNotifciation item={item} />}
+					data={notifications?.getNotifications?.friendRequestNotifications}
+				/>
+			</Box>
 			<Box mx={2}>
 				<FriendsList />
 			</Box>

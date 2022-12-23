@@ -115,16 +115,16 @@ const ProfileTab = (props: TabProps) => {
 					</Pressable>
 				}
 			/>
-			{numNotification > 0 && (
+			{
 				<Box
-					position={'absolute'}
-					bottom={-3}
-					bg={'red.500'}
+					// position={'absolute'}
+					// bottom={-3}
+					bg={numNotification > 0 ? 'red.500' : 'transparent'}
 					h={'4.25px'}
 					w={'4.25px'}
 					borderRadius={'full'}
 				/>
-			)}
+			}
 		</>
 	)
 }

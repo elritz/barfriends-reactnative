@@ -9,6 +9,7 @@ const STORYBOOK_START = false
 LogBox.ignoreLogs([
 	"No native splash screen registered for given view controller. Call 'SplashScreen.show' for given view controller first.",
 ])
+// LogBox.ignoreAllLogs()
 // Sentry.init({
 // 	dsn: 'https://dd97920eeec34856af296a809960a8ab@o4504095880118272.ingest.sentry.io/4504095974817792',
 // 	tracesSampleRate: 0.1,

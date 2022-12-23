@@ -20,16 +20,14 @@ const SearchTab = (props: TabBarIconProps) => {
 					/>
 				}
 			/>
-			{false && (
-				<Box
-					position={'absolute'}
-					bottom={-3}
-					bg={'red.500'}
-					h={'4.25px'}
-					w={'4.25px'}
-					borderRadius={'full'}
-				/>
-			)}
+			<Box
+				// position={'absolute'}
+				// bottom={-3}
+				bg={false ? 'red.500' : 'transparent'}
+				h={'4.25px'}
+				w={'4.25px'}
+				borderRadius={'full'}
+			/>
 		</>
 	)
 }

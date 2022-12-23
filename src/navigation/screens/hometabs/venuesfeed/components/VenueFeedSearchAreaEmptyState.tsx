@@ -9,8 +9,8 @@ export default function VenueFeedSearchAreaEmptyState() {
 		<Box
 			mb={2}
 			mx={2}
-			_dark={{ backgroundColor: 'dark.100' }}
-			_light={{ backgroundColor: 'light.100' }}
+			_dark={{ backgroundColor: 'dark.50' }}
+			_light={{ backgroundColor: 'light.50' }}
 			borderRadius={'lg'}
 			p={5}
 		>

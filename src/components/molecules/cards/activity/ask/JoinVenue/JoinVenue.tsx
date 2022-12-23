@@ -19,7 +19,7 @@ const JoinVenue = ({}) => {
 				bg: 'light.50',
 			}}
 			_dark={{
-				bg: 'light.800',
+				bg: 'dark.50',
 			}}
 			px={10}
 		>
@@ -29,6 +29,9 @@ const JoinVenue = ({}) => {
 						screen: 'ExploreStack',
 						params: {
 							screen: 'ExploreScreen',
+							params: {
+								searchText: '',
+							},
 						},
 					})
 				}}

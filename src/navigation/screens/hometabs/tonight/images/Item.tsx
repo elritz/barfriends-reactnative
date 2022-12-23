@@ -54,7 +54,7 @@ const Item = ({ uri, onPress }: TileProps) => {
 							bg: 'light.50',
 						}}
 						_dark={{
-							bg: 'light.800',
+							bg: 'dark.50',
 						}}
 					>
 						<Icon

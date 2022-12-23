@@ -42,9 +42,6 @@ export const CondensedHorizontalFriendNotifciation = ({
 
 	const [acceptFriendRequestMutation, { data: AFRData, loading: AFRLoading, error: AFRError }] =
 		useAcceptFriendRequestMutation({
-			onCompleted: data => {
-				// console.log('data', data.acceptFriendRequest)
-			},
 			update(cache, { data }) {
 				const { getNotifications }: any = cache.readQuery({
 					query: NOTIFICATIONS_QUERY,
@@ -65,9 +62,6 @@ export const CondensedHorizontalFriendNotifciation = ({
 
 	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
 		useDeleteFriendRequestMutation({
-			onCompleted: data => {
-				console.log('data', data.deleteFriendRequest)
-			},
 			update(cache, { data }) {
 				const { getNotifications }: any = cache.readQuery({
 					query: NOTIFICATIONS_QUERY,
@@ -92,40 +86,64 @@ export const CondensedHorizontalFriendNotifciation = ({
 		<Box
 			style={{ backgroundColor: 'transparent' }}
 			py={3}
+			my={1}
 			px={2}
 			borderBottomColor={'light.300'}
 			borderBottomWidth={0.2}
 		>
 			{isSender ? (
 				<HStack justifyContent={'space-between'}>
-					<HStack alignItems={'flex-start'} space={2}>
-						<Image
-							source={{ uri: item.receiverProfile?.photos?.url }}
-							size='xs'
-							borderRadius={'lg'}
-							alt={item.receiverProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
-						/>
-						<VStack mt={-1}>
-							<Text fontSize={'lg'} numberOfLines={1} isTruncated>
-								{capitalizeFirstLetter(item.receiverProfile?.IdentifiableInformation?.fullname)}
-							</Text>
-							<Heading fontSize={'md'} isTruncated>
-								@{item.receiverProfile?.IdentifiableInformation?.username}
-							</Heading>
-						</VStack>
-					</HStack>
+					<Pressable
+						onPress={() => {
+							navigation.navigate('PublicNavigator', {
+								screen: 'PersonalStack',
+								params: {
+									screen: 'PublicPersonalScreen',
+									params: {
+										profileId: String(item.receiverProfile?.id),
+									},
+								},
+							})
+						}}
+					>
+						<HStack alignItems={'flex-start'} space={2}>
+							<Image
+								source={{ uri: item.receiverProfile?.photos?.url }}
+								size='xs'
+								borderRadius={'lg'}
+								alt={item.receiverProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
+							/>
+							<VStack mt={-1}>
+								<Text fontSize={'md'} numberOfLines={1} isTruncated>
+									{capitalizeFirstLetter(item.receiverProfile?.IdentifiableInformation?.fullname)}
+								</Text>
+								<Heading fontSize={'sm'} isTruncated>
+									@{item.receiverProfile?.IdentifiableInformation?.username}
+								</Heading>
+							</VStack>
+						</HStack>
+					</Pressable>
 					<CancelFriendNotificationModal
 						profileId={String(item.id)}
-						friendRequestId={String(item.receiverProfileId)}
+						friendRequestId={String(item.id)}
 						isOpen={isOpenCancelFriendNotification}
 						onClose={onCloseCancelFriendNotification}
 					/>
 					<Button
-						borderRadius={'lg'}
-						_text={{
-							fontWeight: '600',
-						}}
 						colorScheme={'primary'}
+						variant={'ghost'}
+						size={'sm'}
+						borderRadius={'lg'}
+						isDisabled={DFRLoading || AFRLoading}
+						_disabled={{
+							opacity: '100',
+						}}
+						isLoadingText={'Requested'}
+						_text={{
+							fontSize: 11,
+							textTransform: 'uppercase',
+							fontWeight: '900',
+						}}
 						onPress={() => {
 							isSender ? onOpenCancelFriendNotification() : console.log('receiver')
 						}}
@@ -156,10 +174,10 @@ export const CondensedHorizontalFriendNotifciation = ({
 								alt={item.senderProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
 							/>
 							<VStack mt={-1}>
-								<Text fontSize={'lg'} numberOfLines={1} isTruncated>
+								<Text fontSize={'md'} numberOfLines={1} isTruncated>
 									{capitalizeFirstLetter(item.senderProfile?.IdentifiableInformation?.fullname)}
 								</Text>
-								<Heading fontSize={'md'} isTruncated>
+								<Heading fontSize={'sm'} isTruncated>
 									@{item.senderProfile?.IdentifiableInformation?.username}
 								</Heading>
 							</VStack>
