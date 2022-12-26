@@ -26,11 +26,7 @@ const PersonalScreen = (props: any) => {
 				id: route.params?.profileId,
 			},
 		},
-		onCompleted: data => {
-			console.log('🚀 -------------------------------------------------------🚀')
-			console.log('🚀 ~ file: Personal.tsx:33 ~ PersonalScreen ~ data', data)
-			console.log('🚀 -------------------------------------------------------🚀')
-		},
+		onCompleted: data => {},
 	})
 
 	if (PQLoading && !PQData?.profile) return null

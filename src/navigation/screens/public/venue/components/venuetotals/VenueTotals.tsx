@@ -2,9 +2,8 @@ import { VenueScreenRouteProp } from '../../Venue'
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
 import { Box, Heading, HStack, Text } from 'native-base'
-import React, { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 interface PeopleAtVenueType {
 	friends: number
@@ -19,7 +18,6 @@ type Totals = {
 
 export default function VenueTotals() {
 	const route = useRoute<VenueScreenRouteProp>()
-	const themeContext = useContext(ThemeContext)
 	const { width } = useWindowDimensions()
 	const numColumns = 3
 	const height = width * (1.15 / numColumns)
@@ -62,7 +60,7 @@ export default function VenueTotals() {
 							bg: item.name !== 'friends' ? 'light.900' : 'primary.600',
 						}}
 						style={{
-							height: 100,
+							height: 75,
 							width: (width - itemPadding) / 3,
 							borderRadius: 17,
 							alignItems: 'center',

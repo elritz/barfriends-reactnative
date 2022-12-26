@@ -160,7 +160,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 								params: {
 									screen: 'PublicPersonalScreen',
 									params: {
-										profileId: String(item.receiverProfileId),
+										profileId: String(item.senderProfile?.id),
 									},
 								},
 							})

@@ -1,4 +1,5 @@
 import { Profile } from '@graphql/generated'
+import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { Heading, VStack, Text, Box, Button } from 'native-base'
 import React, { useState } from 'react'
 
@@ -10,8 +11,10 @@ export default function Details({ profile: item }: Props) {
 	const [showMore, setShowMore] = useState(false)
 
 	return (
-		<VStack flex={1} mx={2} space={1}>
-			<Heading lineHeight={'xs'}>{item?.IdentifiableInformation?.fullname}</Heading>
+		<VStack flex={1} space={1}>
+			<Heading lineHeight={'xs'}>
+				{capitalizeFirstLetter(item?.IdentifiableInformation?.fullname)}
+			</Heading>
 			<Text lineHeight={'xs'} fontWeight={'bold'} fontSize={'md'}>
 				@{item?.IdentifiableInformation?.username}
 			</Text>
@@ -25,12 +28,12 @@ export default function Details({ profile: item }: Props) {
 						) : (
 							<Text fontSize={'lg'}>{item.DetailInformation?.description}</Text>
 						)}
-						<Button mt={2} onPress={() => setShowMore(!showMore)} variant={'ghost'}>
+						<Button my={2} onPress={() => setShowMore(!showMore)} variant={'ghost'}>
 							{showMore ? 'Show Less' : 'Show More'}
 						</Button>
 					</Box>
 				) : (
-					<Box>
+					<Box my={2}>
 						<Text h={'auto'} fontSize={'lg'} isTruncated={!showMore}>
 							No description available
 						</Text>

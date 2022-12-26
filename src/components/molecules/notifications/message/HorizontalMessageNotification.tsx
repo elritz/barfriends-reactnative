@@ -9,6 +9,7 @@ import {
 	HStack,
 	Badge,
 	Container,
+	Image,
 } from 'native-base'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
@@ -31,12 +32,12 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 			flex={1}
 			my={1}
 			backgroundColor={'transparent'}
-			borderBottomWidth={0.18}
+			borderBottomWidth={0.25}
 			_light={{
 				borderBottomColor: 'light.800',
 			}}
 			_dark={{
-				borderBottomColor: 'light.500',
+				borderBottomColor: 'dark.500',
 			}}
 			// bg={'red.600'}
 		>
@@ -49,20 +50,25 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 						},
 					})
 				}}
-				h={'80px'}
+				h={'75px'}
 			>
 				<HStack justifyContent={'space-around'}>
 					<HStack flex={1} space={3}>
-						<Avatar source={{ uri: item.avatar }} rounded={'lg'} h={45} w={45}>
-							{item.name.slice(0, 1)}
-						</Avatar>
+						<Image
+							alt={item.name.slice(0, 1)}
+							source={{ uri: item.avatar }}
+							rounded={'lg'}
+							h={45}
+							w={45}
+							bg={'transparent'}
+						/>
 						<Container>
 							<VStack>
-								<Heading fontSize={'xl'} fontWeight={'600'}>
+								<Heading fontSize={'md'} fontWeight={'600'}>
 									{item.name}
 								</Heading>
 								<Text
-									fontSize={'sm'}
+									fontSize={'xs'}
 									numberOfLines={2}
 									textBreakStrategy={'balanced'}
 									lineBreakMode={'tail'}

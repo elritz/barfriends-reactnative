@@ -72,6 +72,22 @@ export default function Actions({ profile }: Props) {
 	const [acceptFriendRequestMutation, { data: AFRData, loading: AFRLoading, error: AFRError }] =
 		useAcceptFriendRequestMutation({
 			onCompleted: data => {},
+			// update(cache, { data }) {
+			// 	const { getNotifications }: any = cache.readQuery({
+			// 		query: NOTIFICATIONS_QUERY,
+			// 	})
+
+			// 	if (data?.deleteFriendRequest) {
+			// 		cache.writeQuery({
+			// 			query: NOTIFICATIONS_QUERY,
+			// 			data: {
+			// 				getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+			// 					notification.id !== item.id
+			// 				}),
+			// 			},
+			// 		})
+			// 	}
+			// },
 			update(cache, { data }) {
 				const { getNotifications }: any = cache.readQuery({
 					query: NOTIFICATIONS_QUERY,
@@ -92,24 +108,33 @@ export default function Actions({ profile }: Props) {
 
 	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
 		useDeleteFriendRequestMutation({
-			onCompleted: data => {
-				console.log('data', data.deleteFriendRequest)
-			},
+			refetchQueries: [
+				{
+					query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
+					variables: {
+						profileId: profile.id,
+					},
+				},
+			],
 			update(cache, { data }) {
-				const { getNotifications }: any = cache.readQuery({
-					query: NOTIFICATIONS_QUERY,
+				const currentCache: any = cache.readQuery({
+					query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
+					variables: {
+						profileId: profile.id,
+					},
 				})
+				console.log('========>', currentCache)
 
-				if (data?.deleteFriendRequest) {
-					cache.writeQuery({
-						query: NOTIFICATIONS_QUERY,
-						data: {
-							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
-								notification.id !== item.id
-							}),
-						},
-					})
-				}
+				// 	if (data?.deleteFriendRequest) {
+				// 		cache.writeQuery({
+				// 			query: NOTIFICATIONS_QUERY,
+				// 			data: {
+				// 				getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
+				// 					notification.id !== item.id
+				// 				}),
+				// 			},
+				// 		})
+				// 	}
 			},
 		})
 
@@ -133,9 +158,13 @@ export default function Actions({ profile }: Props) {
 									onClose={onCloseCancelFriendNotification}
 								/>
 								<Button
-									flex={1}
+									px={4}
+									my={4}
+									borderRadius={'lg'}
 									_text={{
-										fontWeight: '600',
+										fontSize: 11,
+										textTransform: 'uppercase',
+										fontWeight: '900',
 									}}
 									colorScheme={'primary'}
 									onPress={() => {
@@ -154,18 +183,18 @@ export default function Actions({ profile }: Props) {
 								<Button
 									colorScheme={'primary'}
 									px={4}
-									py={2}
+									my={3}
 									borderRadius={'lg'}
-									isDisabled={DFRLoading || AFRLoading}
 									_disabled={{
 										opacity: '100',
 									}}
-									isLoadingText={'Accept'}
 									_text={{
 										fontSize: 11,
 										textTransform: 'uppercase',
 										fontWeight: '900',
 									}}
+									isLoadingText={'Accept'}
+									isDisabled={DFRLoading || AFRLoading}
 									onPress={() =>
 										acceptFriendRequestMutation({
 											variables: {
@@ -200,7 +229,8 @@ export default function Actions({ profile }: Props) {
 						icon={<Icon as={MaterialCommunityIcons} name={'account'} />}
 						colorScheme={'primary'}
 						variant={'solid'}
-						w={'55px'}
+						my={3}
+						w={'45px'}
 						onPress={() => {
 							openRelationshipModal()
 						}}
@@ -210,11 +240,18 @@ export default function Actions({ profile }: Props) {
 			case 'RejectedFriendsResponse':
 				return (
 					<Button
-						flex={1}
-						_text={{
-							fontWeight: '600',
-						}}
 						colorScheme={'primary'}
+						px={2}
+						my={3}
+						borderRadius={'lg'}
+						_disabled={{
+							opacity: '100',
+						}}
+						_text={{
+							fontSize: 11,
+							textTransform: 'uppercase',
+							fontWeight: '900',
+						}}
 						onPress={() => {
 							isGuest
 								? onOpenSignupModal()
@@ -236,8 +273,9 @@ export default function Actions({ profile }: Props) {
 
 	return (
 		<VStack
-			p={3}
-			space={3}
+			space={1}
+			flex={1}
+			px={3}
 			borderRadius={'xl'}
 			_light={{
 				bg: 'light.50',
@@ -249,14 +287,27 @@ export default function Actions({ profile }: Props) {
 			<RelationshipModal isOpen={isOpenRelationshipModal} onClose={onCloseRelaationshipModal} />
 			<SignupModal isOpen={isOpenSignupModal} onClose={onCloseSignupModal} />
 
-			<HStack space={3}>
+			<HStack space={3} justifyContent={'space-between'}>
 				<FriendStatusButton />
-				<Button
-					bg={'blue.500'}
-					_text={{
-						fontWeight: '600',
-					}}
-					flex={2}
+				<IconButton
+					my={2}
+					icon={
+						<Icon
+							style={{
+								zIndex: 100,
+								justifyContent: 'center',
+							}}
+							name='chatbubble-ellipses'
+							size={'28px'}
+							as={Ionicons}
+							_light={{
+								color: 'light.900',
+							}}
+							_dark={{
+								color: 'dark.900',
+							}}
+						/>
+					}
 					borderRadius={'md'}
 					colorScheme={'primary'}
 					onPress={() => {
@@ -269,9 +320,7 @@ export default function Actions({ profile }: Props) {
 									},
 							  })
 					}}
-				>
-					Message
-				</Button>
+				/>
 			</HStack>
 			<Details profile={profile} />
 		</VStack>

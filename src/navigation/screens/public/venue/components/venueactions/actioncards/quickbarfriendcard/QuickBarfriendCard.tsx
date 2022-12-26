@@ -1,25 +1,34 @@
 import { Box, Heading } from 'native-base'
-import React, { useContext } from 'react'
-import { View, Text } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
+import { View } from 'react-native'
+import QRCode from 'react-native-qrcode-svg'
 
 export default function QuickBarfriendCard() {
-	const themeContext = useContext(ThemeContext)
 	return (
 		<Box flexDirection={'column'} justifyContent={'space-around'}>
 			<Heading
 				numberOfLines={2}
 				adjustsFontSizeToFit
-				color={'primary.600'}
-				fontSize={'md'}
+				// color={'primary.600'}
+				fontSize={'lg'}
 				textTransform={'uppercase'}
 				fontWeight={'black'}
 				lineHeight={'xs'}
 				textAlign={'center'}
+				mb={4}
 			>
 				Quick Barfriend
 			</Heading>
-			<View
+			<Box alignItems={'center'} justifyContent={'center'}>
+				<QRCode
+					size={100}
+					value='Just some string value'
+					// logo={{ uri: base64Logo }}
+					backgroundColor='transparent'
+					logoSize={30}
+					logoBackgroundColor='transparent'
+				/>
+			</Box>
+			{/* <View
 				style={{
 					height: 60,
 					width: 60,
@@ -28,7 +37,7 @@ export default function QuickBarfriendCard() {
 					alignSelf: 'center',
 					marginBottom: 20,
 				}}
-			/>
+			/> */}
 		</Box>
 	)
 }

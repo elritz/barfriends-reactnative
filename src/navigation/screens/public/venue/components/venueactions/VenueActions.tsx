@@ -11,7 +11,7 @@ import { ENVIRONMENT } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, HStack, Stack } from 'native-base'
+import { Box, HStack, Stack, VStack } from 'native-base'
 
 // TODO: UX() Item need to be updated for messageboard route
 // TODO: UX() Item need to be updated for Personal data, loading, error
@@ -43,7 +43,7 @@ const VenueActions = () => {
 	if (PLoading) return null
 
 	return (
-		<Stack mt={5}>
+		<VStack m={1} mt={5}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 				<HStack space={2}>
 					<ActionCard numColumns={numColumns}>
@@ -63,7 +63,7 @@ const VenueActions = () => {
 				)}
 
 				<HStack space={2}>
-					<ActionCard numColumns={numColumns}>
+					<ActionCard bg={'#ff7000'} numColumns={numColumns}>
 						<QuickBarfriend />
 					</ActionCard>
 					<ActionCard numColumns={numColumns}>
@@ -71,7 +71,7 @@ const VenueActions = () => {
 					</ActionCard>
 				</HStack>
 			</HStack>
-		</Stack>
+		</VStack>
 	)
 }
 

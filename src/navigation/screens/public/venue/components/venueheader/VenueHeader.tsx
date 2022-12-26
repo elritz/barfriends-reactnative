@@ -61,10 +61,10 @@ const VenueHeader = (props: Props) => {
 				alt={'Profile Photo'}
 			/>
 			<BlurView tint={colorScheme} intensity={40} style={{ padding: 5 }}>
-				<Heading size={'xl'} numberOfLines={1}>
+				<Heading size={'lg'} numberOfLines={1}>
 					{name}
 				</Heading>
-				<Heading size={'sm'} numberOfLines={1}>
+				<Heading size={'sm'} fontWeight={900} numberOfLines={1}>
 					@{username}
 				</Heading>
 			</BlurView>

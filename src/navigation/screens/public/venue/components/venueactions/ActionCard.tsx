@@ -4,7 +4,13 @@ import { useWindowDimensions } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
 import styled from 'styled-components/native'
 
-export default function ActionCard({ children, numColumns }) {
+type Props = {
+	children: React.ReactNode
+	numColumns: number
+	bg?: string
+}
+
+export default function ActionCard({ children, numColumns, bg }: Props) {
 	const { width } = useWindowDimensions()
 	const themeContext = useContext(ThemeContext)
 	const itemPadding = (width / 33.33) * numColumns
@@ -13,7 +19,7 @@ export default function ActionCard({ children, numColumns }) {
 		<OuterView
 			width={width}
 			numColumns={numColumns}
-			bg={themeContext.palette.background.paper}
+			bg={bg || themeContext.palette.background.paper}
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',
@@ -21,6 +27,7 @@ export default function ActionCard({ children, numColumns }) {
 				borderRadius: 20,
 				marginVertical: 5,
 			}}
+			borderRadius={'lg'}
 		>
 			{children}
 		</OuterView>
@@ -33,5 +40,4 @@ const OuterView = styled(Box)<{ width: number; numColumns: number }>(props => ({
 	padding: 10,
 	justifyContent: 'center',
 	shadowRadius: 10,
-	borderRadius: 16,
 }))
