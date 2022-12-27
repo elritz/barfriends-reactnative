@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { useGetNotificationsLazyQuery } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, TabActions, useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as Haptics from 'expo-haptics'
 import { Box, Image, Pressable } from 'native-base'
@@ -44,14 +44,18 @@ const ProfileTab = (props: TabProps) => {
 			<Pressable
 				delayLongPress={200}
 				style={{ zIndex: 100 }}
-				onPress={() =>
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'ProfileStack',
-						params: {
-							screen: 'UserProfileScreen',
-						},
-					})
-				}
+				onPress={() => {
+					StackActions.pop(0)
+					navigation.dispatch(
+						TabActions.jumpTo('ProfileStack'),
+						// StackActions.replace('HomeTabNavigator', {
+						// 	screen: 'ProfileStack',
+						// 	params: {
+						// 		screen: 'UserProfileScreen',
+						// 	},
+						// }),
+					)
+				}}
 				onLongPress={() => onLongPressProfileIcon()}
 			>
 				<CompanyCoasterLogoDynamic
@@ -76,14 +80,26 @@ const ProfileTab = (props: TabProps) => {
 					<Pressable
 						delayLongPress={200}
 						style={{ zIndex: 100 }}
-						onPress={() =>
-							navigation.navigate('HomeTabNavigator', {
-								screen: 'ProfileStack',
-								params: {
-									screen: 'UserProfileScreen',
-								},
-							})
-						}
+						// onPress={() =>
+						// navigation.navigate('HomeTabNavigator', {
+						// 	screen: 'ProfileStack',
+						// 	params: {
+						// 		screen: 'UserProfileScreen',
+						// 	},
+						// })
+						// }
+						onPress={() => {
+							StackActions.pop(0)
+							navigation.dispatch(
+								TabActions.jumpTo('ProfileStack'),
+								// StackActions.replace('HomeTabNavigator', {
+								// 	screen: 'ProfileStack',
+								// 	params: {
+								// 		screen: 'UserProfileScreen',
+								// 	},
+								// }),
+							)
+						}}
 						onLongPress={() => onLongPressProfileIcon()}
 					>
 						<>

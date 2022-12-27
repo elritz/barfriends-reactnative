@@ -1,5 +1,5 @@
 import ShowCaseScroll from './ShowCaseScroll'
-import { Box, ScrollView, View, VStack } from 'native-base'
+import { Box, ScrollView } from 'native-base'
 
 const ExploreScreen = () => {
 	return (
