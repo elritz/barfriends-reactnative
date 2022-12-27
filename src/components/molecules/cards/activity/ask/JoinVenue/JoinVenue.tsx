@@ -47,7 +47,7 @@ const JoinVenue = ({}) => {
 					borderColor={'primary.500'}
 					borderWidth={3}
 				/>
-				<Heading mt={3} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
+				<Heading textAlign={'center'} mt={3} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
 					Join a venue near you
 				</Heading>
 			</Pressable>

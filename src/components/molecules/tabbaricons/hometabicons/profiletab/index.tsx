@@ -80,16 +80,7 @@ const ProfileTab = (props: TabProps) => {
 					<Pressable
 						delayLongPress={200}
 						style={{ zIndex: 100 }}
-						// onPress={() =>
-						// navigation.navigate('HomeTabNavigator', {
-						// 	screen: 'ProfileStack',
-						// 	params: {
-						// 		screen: 'UserProfileScreen',
-						// 	},
-						// })
-						// }
 						onPress={() => {
-							StackActions.pop(0)
 							navigation.dispatch(
 								TabActions.jumpTo('ProfileStack'),
 								// StackActions.replace('HomeTabNavigator', {

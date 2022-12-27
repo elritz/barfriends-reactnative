@@ -4,7 +4,6 @@ import VenueActions from './components/venueactions/VenueActions'
 import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import GenerateUserData from '@helpers/generate/placeholder/GenerateUserData'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Text, FlatList, VStack } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -13,8 +12,10 @@ import { VenueProfileStackParamList } from 'src/types/app'
 export type VenueScreenRouteProp = RouteProp<VenueProfileStackParamList, 'PublicVenueScreen'>
 
 const VenueScreen = (props: any) => {
-	const users = GenerateUserData(3)
+	// const users = GenerateUserData(3)
+	const users = []
 	const route = useRoute<VenueScreenRouteProp>()
+
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !route.params.profileId,
 		variables: {
@@ -51,7 +52,7 @@ const VenueScreen = (props: any) => {
 						<VenueActions />
 					</VStack>
 				}
-				ListEmptyComponent={handleEmpty}
+				// ListEmptyComponent={handleEmpty}
 				columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
 				contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 1 }}
 				ListFooterComponent={<Details profileId={props.route.params.profileId} />}

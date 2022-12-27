@@ -1,6 +1,7 @@
 import NavigationDragIcon from '@components/atoms/icons/navigationdragicon/NavigationDragIcon'
 import DeviceManagerModal from '@navigation/screens/modals/devicemanager/DeviceManagerModal'
 import { MediaLibraryModal } from '@navigation/screens/modals/medialibrary/MediaLibraryModal'
+import InviteStackNavigiation from '@navigation/stacks/invitestack/IniviteStack'
 import SearchAreaStackNavigation from '@navigation/stacks/searchareastack/SearchAreaStack'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ModalNavigatorParamList } from '@types'
@@ -37,6 +38,19 @@ function ModalNavigator() {
 			<ScreenStack.Screen
 				name='SearchAreaModalStack'
 				component={SearchAreaStackNavigation}
+				options={{
+					presentation: 'modal',
+					headerStyle: {
+						backgroundColor: 'transparent',
+					},
+					headerShown: false,
+					headerTitle: () => <NavigationDragIcon />,
+					headerLeft: () => null,
+				}}
+			/>
+			<ScreenStack.Screen
+				name='InviteStack'
+				component={InviteStackNavigiation}
 				options={{
 					presentation: 'modal',
 					headerStyle: {

@@ -11,7 +11,7 @@ import { ENVIRONMENT } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, HStack, Stack, VStack } from 'native-base'
+import { HStack, VStack } from 'native-base'
 
 // TODO: UX() Item need to be updated for messageboard route
 // TODO: UX() Item need to be updated for Personal data, loading, error
@@ -33,9 +33,9 @@ const VenueActions = () => {
 			},
 		},
 		onCompleted: data => {
-			if (data.profile.Venue.LiveOutVenue) {
+			if (data?.profile?.Venue?.LiveOutVenue) {
 				const peopleAtVenue = data.profile.Venue.LiveOutVenue.joined.some(item => {
-					item.personalProfileId === rAuthorizationVar.DeviceProfile?.Profile.id
+					item.personalProfileId === rAuthorizationVar?.DeviceProfile?.Profile?.id
 				})
 			}
 		},
@@ -64,7 +64,7 @@ const VenueActions = () => {
 
 				<HStack space={2}>
 					<ActionCard bg={'#ff7000'} numColumns={numColumns}>
-						<QuickBarfriend />
+						<QuickBarfriend logosize={30} qrcodesize={100} />
 					</ActionCard>
 					<ActionCard numColumns={numColumns}>
 						<InviteCard />

@@ -27,6 +27,8 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 						'expo-camera',
 						{
 							locationWhenInUsePermission: 'Allow Barfriends to access your location',
+							cameraPermission: 'Allow $(PRODUCT_NAME) to access your camera',
+							microphonePermission: 'Allow $(PRODUCT_NAME) to access your microphone',
 						},
 					],
 					[

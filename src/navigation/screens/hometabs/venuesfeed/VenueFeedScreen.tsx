@@ -162,9 +162,9 @@ const VenueFeedScreen = () => {
 					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 						<VenueFeedSignupCard />
 					)}
-					{!venues.length && <VenuesFeedVenuesEmptyState />}
 
 					{!loading && data && data?.venuesNearby && <VenuesFeedSearchAreaHeader />}
+					{!venues.length && <VenuesFeedVenuesEmptyState />}
 				</VStack>
 			</Center>
 		)

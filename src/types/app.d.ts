@@ -40,6 +40,7 @@ export type ModalNavigatorParamList = {
 	DeviceManagerModal: undefined
 	MediaLibraryModal: undefined
 	SearchAreaModalStack: NavigatorScreenParams<SearchAreaStackParamList> | undefined
+	InviteStack: NavigatorScreenParams<InviteStackParamList> | undefined
 	NotFound: undefined
 }
 
@@ -160,6 +161,10 @@ export type SearchResultTabStackParamList = {
 	NotFound: undefined
 }
 
+export type InviteStackParamList = {
+	VenueInviteModal: undefined
+	NotFound: undefined
+}
 export type SearchAreaStackParamList = {
 	SearchAreaModal: undefined
 	SearchCountryTextScreen: {

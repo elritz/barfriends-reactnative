@@ -1,4 +1,4 @@
-import { Personal } from '@graphql/generated'
+import { Personal, Profile } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { Center, Text, Image, Pressable } from 'native-base'
 import React from 'react'
@@ -8,7 +8,7 @@ import { View, useWindowDimensions } from 'react-native'
 // TODO: UX() Item need to be updated for Personal data, loading, error
 
 type PersonalAtVenueProps = {
-	item: any // Personal
+	item: Profile // Personal
 }
 
 const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
@@ -24,12 +24,13 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 			mx={1}
 			alignSelf={''}
 			onPress={() => {
-				navigation.navigate('PublicNavigator', {
-					screen: 'PersonalStack',
-					params: {
-						screen: 'PublicPersonalScreen',
-					},
-				})
+				console.log('navigate to personal page')
+				// navigation.navigate('PublicNavigator', {
+				// 	screen: 'PersonalStack',
+				// 	params: {
+				// 		screen: 'PublicPersonalScreen',
+				// 	},
+				// })
 			}}
 		>
 			<Image

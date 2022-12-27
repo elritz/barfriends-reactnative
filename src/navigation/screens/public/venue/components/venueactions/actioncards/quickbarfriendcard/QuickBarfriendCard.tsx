@@ -1,43 +1,55 @@
-import { Box, Heading } from 'native-base'
-import { View } from 'react-native'
+import { CameraModal } from './CameraModal'
+import { useReactiveVar } from '@apollo/client'
+import { MaterialIcons } from '@expo/vector-icons'
+import { AuthorizationReactiveVar } from '@reactive'
+import { Box, Heading, Icon, IconButton, Pressable, useDisclose, VStack } from 'native-base'
 import QRCode from 'react-native-qrcode-svg'
 
-export default function QuickBarfriendCard() {
+type Props = {
+	qrcodesize: number
+	logosize: number
+	showIcon?: boolean | true
+	color?: string
+}
+
+export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, color }: Props) {
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const { isOpen, onOpen, onClose } = useDisclose()
+
 	return (
-		<Box flexDirection={'column'} justifyContent={'space-around'}>
-			<Heading
-				numberOfLines={2}
-				adjustsFontSizeToFit
-				// color={'primary.600'}
-				fontSize={'lg'}
-				textTransform={'uppercase'}
-				fontWeight={'black'}
-				lineHeight={'xs'}
-				textAlign={'center'}
-				mb={4}
-			>
-				Quick Barfriend
-			</Heading>
-			<Box alignItems={'center'} justifyContent={'center'}>
-				<QRCode
-					size={100}
-					value='Just some string value'
-					// logo={{ uri: base64Logo }}
-					backgroundColor='transparent'
-					logoSize={30}
-					logoBackgroundColor='transparent'
-				/>
-			</Box>
-			{/* <View
-				style={{
-					height: 60,
-					width: 60,
-					backgroundColor: 'black',
-					borderRadius: 30,
-					alignSelf: 'center',
-					marginBottom: 20,
-				}}
-			/> */}
-		</Box>
+		<Pressable onPress={onOpen}>
+			<CameraModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+			<VStack flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
+				{/* <IconButton
+					disabled={true}
+					variant={'solid'}
+					borderRadius={'lg'}
+					_light={{
+						bg: 'light.100',
+					}}
+					_dark={{
+						bg: 'dark.50',
+					}}
+					icon={<Icon size={30} color={'#ff7000'} as={MaterialIcons} name='group-add' />}
+					height={'50px'}
+					width={'50px'}
+				/> */}
+				<Heading fontWeight={'black'}>BFS</Heading>
+				<Box mt={2} alignItems={'center'} justifyContent={'center'}>
+					<QRCode
+						size={qrcodesize}
+						value={rAuthorizationVar?.DeviceProfile?.Profile?.id}
+						color={color}
+						// logo={{ uri: base64Logo }}
+						backgroundColor='transparent'
+						logo={
+							showIcon && require('../../../../../../../../assets/images/company/company_coaster.png')
+						}
+						logoSize={logosize}
+						logoBackgroundColor='transparent'
+					/>
+				</Box>
+			</VStack>
+		</Pressable>
 	)
 }
