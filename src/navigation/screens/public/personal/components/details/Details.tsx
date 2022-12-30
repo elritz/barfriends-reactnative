@@ -11,11 +11,11 @@ export default function Details({ profile: item }: Props) {
 	const [showMore, setShowMore] = useState(false)
 
 	return (
-		<VStack flex={1} space={1}>
-			<Heading lineHeight={'xs'}>
+		<VStack flex={1} space={1} mt={3}>
+			<Heading fontSize={'lg'} lineHeight={'xs'}>
 				{capitalizeFirstLetter(item?.IdentifiableInformation?.fullname)}
 			</Heading>
-			<Text lineHeight={'xs'} fontWeight={'bold'} fontSize={'md'}>
+			<Text lineHeight={'xs'} fontWeight={'bold'} fontSize={'sm'}>
 				@{item?.IdentifiableInformation?.username}
 			</Text>
 			<Box flex={1}>

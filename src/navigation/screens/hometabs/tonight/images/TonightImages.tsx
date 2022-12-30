@@ -113,7 +113,7 @@ const TonightImages = () => {
 	}
 
 	return (
-		<SafeAreaView style={{ paddingHorizontal: MARGIN }}>
+		<SafeAreaView style={{ paddingHorizontal: MARGIN, marginVertical: 20 }}>
 			{!tiles.length ? (
 				<Box
 					mx={2}

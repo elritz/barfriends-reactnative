@@ -1,6 +1,6 @@
 import Details from '../details/Details'
 import { useReactiveVar } from '@apollo/client'
-import CancelFriendNotificationModal from '@components/molecules/modals/cancelFriendNotioficationmodal/CancelFriendNotificationModal'
+import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import RelationshipModal from '@components/molecules/modals/relationshipmodal/RelationshipModal'
 import SignupModal from '@components/molecules/modals/signupmodal/SignupModal'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -140,189 +140,56 @@ export default function Actions({ profile }: Props) {
 
 	if (GRFRSLoading || !GRFRSData) return null
 
-	const FriendStatusButton = (): ReactElement | null => {
-		switch (GRFRSData.getRelationshipFriendRequestStatus?.__typename) {
-			case 'FriendRequest':
-				const isSender =
-					GRFRSData?.getRelationshipFriendRequestStatus.senderProfileId ===
-					rAuthorizationVar?.DeviceProfile?.Profile?.id
-
-				return (
-					<>
-						{isSender ? (
-							<>
-								<CancelFriendNotificationModal
-									profileId={profile.id}
-									friendRequestId={GRFRSData.getRelationshipFriendRequestStatus.id}
-									isOpen={isOpenCancelFriendNotification}
-									onClose={onCloseCancelFriendNotification}
-								/>
-								<Button
-									px={4}
-									my={4}
-									borderRadius={'lg'}
-									_text={{
-										fontSize: 11,
-										textTransform: 'uppercase',
-										fontWeight: '900',
-									}}
-									colorScheme={'primary'}
-									onPress={() => {
-										isGuest
-											? onOpenSignupModal()
-											: isSender
-											? onOpenCancelFriendNotification()
-											: console.log('receiver')
-									}}
-								>
-									Requested
-								</Button>
-							</>
-						) : (
-							<HStack space={1} justifyContent={'space-around'} alignItems={'center'}>
-								<Button
-									colorScheme={'primary'}
-									px={4}
-									my={3}
-									borderRadius={'lg'}
-									_disabled={{
-										opacity: '100',
-									}}
-									_text={{
-										fontSize: 11,
-										textTransform: 'uppercase',
-										fontWeight: '900',
-									}}
-									isLoadingText={'Accept'}
-									isDisabled={DFRLoading || AFRLoading}
-									onPress={() =>
-										acceptFriendRequestMutation({
-											variables: {
-												friendRequestId: String(GRFRSData?.getRelationshipFriendRequestStatus?.id),
-												venueIdMetAt: '',
-											},
-										})
-									}
-								>
-									Accept
-								</Button>
-								<IconButton
-									px={2}
-									py={2}
-									isDisabled={DFRLoading || AFRLoading}
-									icon={<Icon as={Ionicons} name='close' size={'lg'} rounded={'full'} />}
-									onPress={() =>
-										declineFriendRequestMutation({
-											variables: {
-												friendRequestId: String(GRFRSData?.getRelationshipFriendRequestStatus?.id),
-											},
-										})
-									}
-								/>
-							</HStack>
-						)}
-					</>
-				)
-			case 'Relationship':
-				return (
-					<IconButton
-						icon={<Icon as={MaterialCommunityIcons} name={'account'} />}
-						colorScheme={'primary'}
-						variant={'solid'}
-						my={3}
-						w={'45px'}
-						onPress={() => {
-							openRelationshipModal()
-						}}
-					/>
-				)
-
-			case 'RejectedFriendsResponse':
-				return (
-					<Button
-						colorScheme={'primary'}
-						px={2}
-						my={3}
-						borderRadius={'lg'}
-						_disabled={{
-							opacity: '100',
-						}}
-						_text={{
-							fontSize: 11,
-							textTransform: 'uppercase',
-							fontWeight: '900',
-						}}
-						onPress={() => {
-							isGuest
-								? onOpenSignupModal()
-								: createFriendRequestMutation({
-										variables: {
-											receiversProfileId: [profile.id],
-											senderProfileId: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-										},
-								  })
-						}}
-					>
-						Barfriend
-					</Button>
-				)
-			default:
-				return null
-		}
-	}
-
 	return (
-		<VStack
+		<HStack
 			space={1}
 			flex={1}
-			px={3}
+			py={3}
+			px={2}
+			alignItems={'flex-start'}
 			borderRadius={'xl'}
 			_light={{
 				bg: 'light.50',
 			}}
 			_dark={{
-				bg: 'light.800',
+				bg: 'dark.50',
 			}}
 		>
 			<RelationshipModal isOpen={isOpenRelationshipModal} onClose={onCloseRelaationshipModal} />
 			<SignupModal isOpen={isOpenSignupModal} onClose={onCloseSignupModal} />
 
-			<HStack space={3} justifyContent={'space-between'}>
-				<FriendStatusButton />
-				<IconButton
-					my={2}
-					icon={
-						<Icon
-							style={{
-								zIndex: 100,
-								justifyContent: 'center',
-							}}
-							name='chatbubble-ellipses'
-							size={'28px'}
-							as={Ionicons}
-							_light={{
-								color: 'light.900',
-							}}
-							_dark={{
-								color: 'dark.900',
-							}}
-						/>
-					}
-					borderRadius={'md'}
-					colorScheme={'primary'}
-					onPress={() => {
-						isGuest
-							? onOpenSignupModal()
-							: navigation.navigate('MessageRoomNavigator', {
-									screen: 'MessagingRoomScreen',
-									params: {
-										messageroomId: '',
-									},
-							  })
-					}}
-				/>
-			</HStack>
 			<Details profile={profile} />
-		</VStack>
+			<IconButton
+				icon={
+					<Icon
+						style={{
+							zIndex: 100,
+							justifyContent: 'center',
+						}}
+						name='chatbubble-ellipses'
+						size={'28px'}
+						as={Ionicons}
+						_light={{
+							color: 'light.900',
+						}}
+						_dark={{
+							color: 'dark.900',
+						}}
+					/>
+				}
+				borderRadius={'md'}
+				colorScheme={'primary'}
+				onPress={() => {
+					isGuest
+						? onOpenSignupModal()
+						: navigation.navigate('MessageRoomNavigator', {
+								screen: 'MessagingRoomScreen',
+								params: {
+									messageroomId: '',
+								},
+						  })
+				}}
+			/>
+		</HStack>
 	)
 }

@@ -22,7 +22,14 @@ const ProfileTab = (props: TabProps) => {
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
 				if (data.getNotifications?.friendRequestNotifications?.length) {
-					setNumNotifications(numNotification + data.getNotifications.friendRequestNotifications.length)
+					const filterSentNotifications = data.getNotifications?.friendRequestNotifications.filter(
+						item => {
+							if (item?.receiverProfileId === rAuthorizationVar?.DeviceProfile?.Profile?.id) {
+								return item
+							}
+						},
+					)
+					setNumNotifications(numNotification + filterSentNotifications.length)
 				}
 			},
 		})

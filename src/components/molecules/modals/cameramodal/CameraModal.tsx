@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { useQrAddFriendMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { Camera, CameraType } from 'expo-camera'
@@ -7,7 +8,9 @@ import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 
-export const CameraModal = ({ isOpen, onOpen, onClose }) => {
+const LOGO_COASTER = require('../../../../assets/images/company/company_coaster.png')
+
+const CameraModal = ({ isOpen, onOpen, onClose }) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [hasPermission, setHasPermission] = useState(null)
 	const [scanned, setScanned] = useState(false)
@@ -21,13 +24,17 @@ export const CameraModal = ({ isOpen, onOpen, onClose }) => {
 		getBarCodeScannerPermissions()
 	}, [])
 
+	const [QRAddFriendMutation, { data, loading, error }] = useQrAddFriendMutation()
+
 	const handleBarCodeScanned = ({ type, data }) => {
-		console.log('🚀 ----------------------------------------------------------------🚀')
-		console.log('🚀 ~ file: CameraModal.tsx:25 ~ handleBarCodeScanned ~ data', data)
-		console.log('🚀 ----------------------------------------------------------------🚀')
+		QRAddFriendMutation({
+			variables: {
+				qrCodeProfileId: data.profileId,
+			},
+		})
 
 		setScanned(true)
-		alert(`Bar code with type ${type} and data ${data} has been scanned!`)
+		// alert(`Bar code with type ${type} and data ${data} has been scanned!`)
 	}
 
 	if (hasPermission === null) {
@@ -45,21 +52,14 @@ export const CameraModal = ({ isOpen, onOpen, onClose }) => {
 						onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
 						style={StyleSheet.absoluteFillObject}
 					/>
-					{/* <Camera
-						style={styles.camera}
-						type={CameraType.back}
-						onBarCodeScanned={scanningResult => {
-							console.log('SCANNED')
-						}}
-					> */}
 					<Box h={'100%'} alignItems={'center'} justifyContent={'flex-end'} pb={10}>
 						<Box p={3} borderRadius={'lg'} bg={'dark.50'}>
 							<QRCode
 								size={100}
-								value={rAuthorizationVar?.DeviceProfile?.Profile?.id}
+								value={JSON.stringify({ profileid: rAuthorizationVar?.DeviceProfile?.Profile?.id })}
 								backgroundColor='transparent'
 								color={'#ff7000'}
-								logo={require('../../../../../../../../assets/images/company/company_coaster.png')}
+								logo={LOGO_COASTER}
 								logoSize={40}
 								logoBackgroundColor='transparent'
 							/>
@@ -80,28 +80,4 @@ export const CameraModal = ({ isOpen, onOpen, onClose }) => {
 	)
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-	},
-	camera: {
-		flex: 1,
-	},
-	buttonContainer: {
-		flex: 1,
-		flexDirection: 'row',
-		backgroundColor: 'transparent',
-		margin: 64,
-	},
-	button: {
-		flex: 1,
-		alignSelf: 'flex-end',
-		alignItems: 'center',
-	},
-	text: {
-		fontSize: 24,
-		fontWeight: 'bold',
-		color: 'white',
-	},
-})
+export default CameraModal

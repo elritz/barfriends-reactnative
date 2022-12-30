@@ -6,6 +6,20 @@ export const CREATE_FRIEND_REQUEST_MUTATION = gql`
 	}
 `
 
+export const QR_FRIEND_MUTATION = gql`
+	mutation qrAddFriend($qrCodeProfileId: String!) {
+		qrAddFriend(qrCodeProfileId: $qrCodeProfileId) {
+			id
+			venueMetAt
+			Profile {
+				id
+			}
+			RelationshipStatus
+			createdAt
+			updatedAt
+		}
+	}
+`
 export const DELETE_FRIEND_REQUEST_MUTATION = gql`
 	mutation deleteFriendRequest($friendRequestId: String!) {
 		deleteFriendRequest(friendRequestId: $friendRequestId)

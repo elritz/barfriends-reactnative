@@ -97,10 +97,6 @@ Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
 export default function App() {
 	useEffect(() => {
 		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			console.log('🚀 -------------------------------------------------------------------🚀')
-			console.log('🚀 ~ file: index.tsx:100 ~ subscription ~ notification', notification)
-			console.log('🚀 -------------------------------------------------------------------🚀')
-
 			// console.log('🚀 -------------------------------------------------------------------------🚀')
 			// console.log('🚀 ~ file: index.tsx ~ line 84 ~ subscription ~ notification', notification)
 			// console.log('🚀 -------------------------------------------------------------------------🚀')

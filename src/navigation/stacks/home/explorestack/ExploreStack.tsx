@@ -137,14 +137,7 @@ function ExploreStack() {
 			<ScreenStack.Screen
 				name='PublicNavigator'
 				component={PublicNavigator}
-				options={{
-					headerStyle: {
-						backgroundColor: colorScheme === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
-						shadowOpacity: 0,
-					},
-					headerTitle: () => <LogoTransparent height={30} width={192} />,
-					headerLeft: () => <ChevronBackArrow />,
-				}}
+				options={{ headerShown: false }}
 			/>
 		</ScreenStack.Navigator>
 	)

@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import CancelFriendNotificationModal from '@components/molecules/modals/cancelFriendNotioficationmodal/CancelFriendNotificationModal'
+import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import { Ionicons } from '@expo/vector-icons'
 import { AUTHORIZED_PROFILES_QUERY } from '@graphql/DM/profiling/authorization/index.query'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
@@ -131,22 +131,26 @@ export const CondensedHorizontalFriendNotifciation = ({
 					/>
 					<Button
 						colorScheme={'primary'}
-						variant={'ghost'}
+						variant={'outline'}
 						size={'sm'}
 						borderRadius={'lg'}
 						isDisabled={DFRLoading || AFRLoading}
+						px={3}
+						mx={2}
+						height={'30px'}
 						_disabled={{
 							opacity: '100',
 						}}
-						isLoadingText={'Requested'}
 						_text={{
 							fontSize: 11,
+							lineHeight: 'xs',
 							textTransform: 'uppercase',
-							fontWeight: '900',
+							fontWeight: '800',
 						}}
 						onPress={() => {
 							isSender ? onOpenCancelFriendNotification() : console.log('receiver')
 						}}
+						isLoadingText={'Requested'}
 					>
 						Requested
 					</Button>

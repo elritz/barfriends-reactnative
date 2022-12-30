@@ -3127,6 +3127,7 @@ export type Mutation = {
   createOneProfileTheme: ProfileTheme;
   createPersonalProfile?: Maybe<CreateProfileResponseUnion>;
   deleteFriendRequest?: Maybe<Scalars['Boolean']>;
+  qrAddFriend?: Maybe<Relationship>;
   refreshDeviceManager?: Maybe<RefreshDeviceManagerDeviceManagerResponseUnion>;
   removeDeviceProfileFromDeviceManager?: Maybe<Scalars['Boolean']>;
   removeFriend?: Maybe<Scalars['Boolean']>;
@@ -3203,6 +3204,11 @@ export type MutationCreatePersonalProfileArgs = {
 
 export type MutationDeleteFriendRequestArgs = {
   friendRequestId: Scalars['String'];
+};
+
+
+export type MutationQrAddFriendArgs = {
+  qrCodeProfileId: Scalars['String'];
 };
 
 
@@ -7439,6 +7445,13 @@ export type CreateFriendRequestMutationVariables = Exact<{
 
 export type CreateFriendRequestMutation = { __typename?: 'Mutation', createFriendRequest?: boolean | null };
 
+export type QrAddFriendMutationVariables = Exact<{
+  qrCodeProfileId: Scalars['String'];
+}>;
+
+
+export type QrAddFriendMutation = { __typename?: 'Mutation', qrAddFriend?: { __typename?: 'Relationship', id: string, venueMetAt?: string | null, RelationshipStatus: Array<RelationshipStatus>, createdAt: any, updatedAt: any, Profile?: { __typename?: 'Profile', id: string } | null } | null };
+
 export type DeleteFriendRequestMutationVariables = Exact<{
   friendRequestId: Scalars['String'];
 }>;
@@ -8798,6 +8811,46 @@ export function useCreateFriendRequestMutation(baseOptions?: Apollo.MutationHook
 export type CreateFriendRequestMutationHookResult = ReturnType<typeof useCreateFriendRequestMutation>;
 export type CreateFriendRequestMutationResult = Apollo.MutationResult<CreateFriendRequestMutation>;
 export type CreateFriendRequestMutationOptions = Apollo.BaseMutationOptions<CreateFriendRequestMutation, CreateFriendRequestMutationVariables>;
+export const QrAddFriendDocument = gql`
+    mutation qrAddFriend($qrCodeProfileId: String!) {
+  qrAddFriend(qrCodeProfileId: $qrCodeProfileId) {
+    id
+    venueMetAt
+    Profile {
+      id
+    }
+    RelationshipStatus
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type QrAddFriendMutationFn = Apollo.MutationFunction<QrAddFriendMutation, QrAddFriendMutationVariables>;
+
+/**
+ * __useQrAddFriendMutation__
+ *
+ * To run a mutation, you first call `useQrAddFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useQrAddFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [qrAddFriendMutation, { data, loading, error }] = useQrAddFriendMutation({
+ *   variables: {
+ *      qrCodeProfileId: // value for 'qrCodeProfileId'
+ *   },
+ * });
+ */
+export function useQrAddFriendMutation(baseOptions?: Apollo.MutationHookOptions<QrAddFriendMutation, QrAddFriendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<QrAddFriendMutation, QrAddFriendMutationVariables>(QrAddFriendDocument, options);
+      }
+export type QrAddFriendMutationHookResult = ReturnType<typeof useQrAddFriendMutation>;
+export type QrAddFriendMutationResult = Apollo.MutationResult<QrAddFriendMutation>;
+export type QrAddFriendMutationOptions = Apollo.BaseMutationOptions<QrAddFriendMutation, QrAddFriendMutationVariables>;
 export const DeleteFriendRequestDocument = gql`
     mutation deleteFriendRequest($friendRequestId: String!) {
   deleteFriendRequest(friendRequestId: $friendRequestId)
