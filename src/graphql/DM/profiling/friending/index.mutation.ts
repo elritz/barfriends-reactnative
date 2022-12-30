@@ -6,6 +6,12 @@ export const CREATE_FRIEND_REQUEST_MUTATION = gql`
 	}
 `
 
+export const DELETE_FRIEND_REQUEST_MUTATION = gql`
+	mutation deleteFriendRequest($friendRequestId: String!) {
+		deleteFriendRequest(friendRequestId: $friendRequestId)
+	}
+`
+
 export const QR_FRIEND_MUTATION = gql`
 	mutation qrAddFriend($qrCodeProfileId: String!) {
 		qrAddFriend(qrCodeProfileId: $qrCodeProfileId) {
@@ -18,11 +24,6 @@ export const QR_FRIEND_MUTATION = gql`
 			createdAt
 			updatedAt
 		}
-	}
-`
-export const DELETE_FRIEND_REQUEST_MUTATION = gql`
-	mutation deleteFriendRequest($friendRequestId: String!) {
-		deleteFriendRequest(friendRequestId: $friendRequestId)
 	}
 `
 
@@ -38,6 +39,11 @@ export const ACCEPT_FRIEND_REQUEST_MUTATION = gql`
 			createdAt
 			updatedAt
 		}
+	}
+`
+export const DECLINE_FRIEND_REQUEST_MUTATION = gql`
+	mutation declineFriendRequest($friendRequestId: String!) {
+		declineFriendRequest(friendRequestId: $friendRequestId)
 	}
 `
 

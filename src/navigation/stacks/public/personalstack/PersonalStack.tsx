@@ -8,7 +8,7 @@ import {
 	useGetRelationshipFriendRequestStatusQuery,
 	useCreateFriendRequestMutation,
 	useAcceptFriendRequestMutation,
-	useDeleteFriendRequestMutation,
+	useDeclineFriendRequestMutation,
 } from '@graphql/generated'
 import PersonalScreen from '@navigation/screens/public/personal/Personal'
 import { RouteProp, useRoute } from '@react-navigation/native'
@@ -17,7 +17,7 @@ import { AuthorizationReactiveVar } from '@reactive'
 import { PersonalProfileStackParamList, PublicNavigatorParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Button, HStack, Icon, IconButton, useDisclose, useTheme } from 'native-base'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 
 const ScreenStack = createStackNavigator<PersonalProfileStackParamList>()
 
@@ -111,7 +111,7 @@ function PersonalStack() {
 		})
 
 	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
-		useDeleteFriendRequestMutation({
+		useDeclineFriendRequestMutation({
 			refetchQueries: [
 				{
 					query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
@@ -120,25 +120,10 @@ function PersonalStack() {
 					},
 				},
 			],
-			update(cache, { data }) {
-				const currentCache: any = cache.readQuery({
-					query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
-					variables: {
-						profileId: String(route.params?.params?.profileId),
-					},
-				})
-				console.log('========>', currentCache)
-
-				// 	if (data?.deleteFriendRequest) {
-				// 		cache.writeQuery({
-				// 			query: NOTIFICATIONS_QUERY,
-				// 			data: {
-				// 				getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
-				// 					notification.id !== item.id
-				// 				}),
-				// 			},
-				// 		})
-				// 	}
+			onError: error => {
+				console.log('🚀 --------------------------------------------------------------🚀')
+				console.log('🚀 ~ file: PersonalStack.tsx:148 ~ PersonalStack ~ error', error)
+				console.log('🚀 --------------------------------------------------------------🚀')
 			},
 		})
 
@@ -166,7 +151,8 @@ function PersonalStack() {
 									colorScheme={'primary'}
 									px={3}
 									mx={2}
-									height={'30px'}
+									mr={2}
+									height={'35px'}
 									borderRadius={'lg'}
 									_disabled={{
 										opacity: '100',
@@ -189,12 +175,12 @@ function PersonalStack() {
 								</Button>
 							</>
 						) : (
-							<HStack space={1} justifyContent={'space-around'} alignItems={'center'}>
+							<HStack space={1} justifyContent={'space-around'} alignItems={'center'} mr={3}>
 								<Button
 									colorScheme={'primary'}
 									px={3}
 									mx={2}
-									height={'30px'}
+									height={'35px'}
 									borderRadius={'lg'}
 									_disabled={{
 										opacity: '100',
@@ -219,8 +205,10 @@ function PersonalStack() {
 									Accept
 								</Button>
 								<IconButton
+									variant={'outline'}
 									px={2}
 									py={2}
+									height={'35px'}
 									isDisabled={DFRLoading || AFRLoading}
 									icon={<Icon as={Ionicons} name='close' size={'lg'} rounded={'full'} />}
 									onPress={() =>
@@ -255,7 +243,7 @@ function PersonalStack() {
 						colorScheme={'primary'}
 						px={3}
 						mx={2}
-						height={'30px'}
+						height={'35px'}
 						borderRadius={'lg'}
 						_disabled={{
 							opacity: '100',

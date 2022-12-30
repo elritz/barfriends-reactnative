@@ -1498,7 +1498,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "6c12c160-00f1-4286-937c-5c19d442e63a"
+  sessiontoken: String = "ad59d238-3ae1-4c74-a246-8edd8ecb3dda"
   textinput: String!
 
   """
@@ -3020,6 +3020,7 @@ type Mutation {
   createOneEmojimood(data: EmojimoodCreateInput!): Emojimood!
   createOneProfileTheme(data: ProfileThemeCreateInput!): ProfileTheme!
   createPersonalProfile(data: CreatePersonalProfileDataInput): CreateProfileResponseUnion
+  declineFriendRequest(friendRequestId: String!): Boolean
   deleteFriendRequest(friendRequestId: String!): Boolean
   qrAddFriend(qrCodeProfileId: String!): Relationship
   refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion

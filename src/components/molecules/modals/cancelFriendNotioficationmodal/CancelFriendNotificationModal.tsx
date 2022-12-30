@@ -25,14 +25,20 @@ export default function CancelFriendNotificationModal({
 				const { getNotifications }: any = cache.readQuery({
 					query: NOTIFICATIONS_QUERY,
 				})
-
 				if (data?.deleteFriendRequest) {
+					const filteredNotification = getNotifications.friendRequestNotifications.filter(
+						notification => {
+							if (notification.id === friendRequestId) {
+								return false
+							}
+							return true
+						},
+					)
+
 					cache.writeQuery({
 						query: NOTIFICATIONS_QUERY,
 						data: {
-							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
-								notification.id !== friendRequestId
-							}),
+							getNotifications: filteredNotification,
 						},
 					})
 				}
@@ -54,6 +60,7 @@ export default function CancelFriendNotificationModal({
 		onCompleted: data => {
 			onClose()
 		},
+		onError: error => {},
 	})
 
 	return (

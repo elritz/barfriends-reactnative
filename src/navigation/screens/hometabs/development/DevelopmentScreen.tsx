@@ -20,10 +20,12 @@ import {
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
+import * as Application from 'expo-application'
 import * as Clipboard from 'expo-clipboard'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
+import * as Notifications from 'expo-notifications'
 import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
 import {
@@ -63,18 +65,52 @@ const DevelopmentScreen = () => {
 	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [toggleThemes] = useToggleTheme()
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
-	const [authorization, setAuthorization] = useState('')
-	const { isOpen, onOpen, onClose, onToggle } = useDisclose()
+	const [token, setToken] = useState('')
+	const [pushNotificationToken, setPushNotificationToken] = useState('')
 
-	async function applicationAuthorization() {
+	const {
+		isOpen: isOpenToken,
+		onOpen: onOpenToken,
+		onClose: onCloseToken,
+		onToggle: onToggleToken,
+	} = useDisclose()
+
+	const {
+		isOpen: isOpenProfileId,
+		onOpen: onOpenProfileId,
+		onClose: onCloseProfileId,
+		onToggle: onToggleProfileId,
+	} = useDisclose()
+
+	const {
+		isOpen: isOpenPushNotif,
+		onOpen: onOpenPushNotif,
+		onClose: onClosePushNotif,
+		onToggle: onTogglePushNotif,
+	} = useDisclose()
+
+	async function getApplicationAuthorization() {
 		const getAuthorization = await secureStorageItemRead({
 			key: AUTHORIZATION,
 		})
-		setAuthorization(String(getAuthorization))
+		setToken(String(getAuthorization))
+	}
+
+	async function getPushNotificationToken() {
+		const IOSenv = await Application.getIosPushNotificationServiceEnvironmentAsync()
+
+		const expoToken = await Notifications.getExpoPushTokenAsync({
+			experienceId: '@barfriends/barfriends',
+			applicationId: String(Application.applicationId),
+			development: IOSenv === 'development' ? true : false,
+		})
+
+		setPushNotificationToken(String(expoToken.data))
 	}
 
 	useEffect(() => {
-		applicationAuthorization()
+		getApplicationAuthorization()
+		getPushNotificationToken()
 	}, [])
 
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
@@ -533,12 +569,15 @@ const DevelopmentScreen = () => {
 								</Text>
 								<Pressable
 									onPress={async () => {
-										onToggle()
-										await Clipboard.setStringAsync(authorization)
-										setTimeout(() => onClose(), 500)
+										onToggleToken()
+										await Clipboard.setStringAsync(token)
+										setTimeout(() => onCloseToken(), 500)
 									}}
 								>
-									<Tooltip placement='top' isOpen={isOpen} label='Copied Authorization' openDelay={500}>
+									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+										Token
+									</Heading>
+									<Tooltip placement='top' isOpen={isOpenToken} label='Copied Authorization' openDelay={500}>
 										<HStack
 											_light={{
 												bg: 'light.50',
@@ -548,23 +587,126 @@ const DevelopmentScreen = () => {
 											}}
 											borderRadius={'lg'}
 											alignItems={'center'}
-											justifyContent={'center'}
+											justifyContent={'space-around'}
 											py={3}
 										>
 											<Text
 												fontSize={'md'}
-												textAlign={'center'}
 												textTransform={'capitalize'}
 												fontWeight={'black'}
-												w={'50%'}
+												ellipsizeMode={'tail'}
+												flex={1}
+												marginLeft={5}
 												numberOfLines={1}
 											>
-												{authorization}
+												{token}
 											</Text>
 											<Icon mx={2} color={'primary.500'} size={'lg'} as={Feather} name='copy' />
 										</HStack>
 									</Tooltip>
 								</Pressable>
+								<Divider my={3} />
+								<Pressable
+									onPress={async () => {
+										onToggleProfileId()
+										await Clipboard.setStringAsync(String(rAuthorizationVar?.DeviceProfile?.Profile?.id))
+										console.log(
+											'🚀 ----------------------------------------------------------------------------------------------------------------------------------------------🚀',
+										)
+										console.log(
+											'🚀 ~ file: DevelopmentScreen.tsx:613 ~ onPress={ ~ rAuthorizationVar?.DeviceProfile?.Profile?.id',
+											rAuthorizationVar?.DeviceProfile?.Profile?.id,
+										)
+										console.log(
+											'🚀 ----------------------------------------------------------------------------------------------------------------------------------------------🚀',
+										)
+
+										setTimeout(() => onCloseProfileId(), 500)
+									}}
+								>
+									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+										Profile ID
+									</Heading>
+
+									<Tooltip
+										placement='top'
+										isOpen={isOpenProfileId}
+										label='Copied Profile Id'
+										openDelay={500}
+									>
+										<HStack
+											_light={{
+												bg: 'light.50',
+											}}
+											_dark={{
+												bg: 'dark.50',
+											}}
+											borderRadius={'lg'}
+											alignItems={'center'}
+											justifyContent={'space-around'}
+											py={3}
+										>
+											<Text
+												fontSize={'md'}
+												textTransform={'capitalize'}
+												fontWeight={'black'}
+												ellipsizeMode={'tail'}
+												flex={1}
+												marginLeft={5}
+												numberOfLines={1}
+											>
+												{rAuthorizationVar?.DeviceProfile?.Profile?.id}
+											</Text>
+											<Icon mx={2} color={'primary.500'} size={'lg'} as={Feather} name='copy' />
+										</HStack>
+									</Tooltip>
+								</Pressable>
+								<Divider my={3} />
+								<Pressable
+									onPress={async () => {
+										onTogglePushNotif()
+										await Clipboard.setStringAsync(String(pushNotificationToken))
+										setTimeout(() => onClosePushNotif(), 500)
+									}}
+								>
+									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+										Expo Push Token
+									</Heading>
+
+									<Tooltip
+										placement='top'
+										isOpen={isOpenPushNotif}
+										label='Copied Profile Id'
+										openDelay={500}
+									>
+										<HStack
+											_light={{
+												bg: 'light.50',
+											}}
+											_dark={{
+												bg: 'dark.50',
+											}}
+											borderRadius={'lg'}
+											alignItems={'center'}
+											justifyContent={'space-around'}
+											py={3}
+										>
+											<Text
+												fontSize={'md'}
+												textTransform={'capitalize'}
+												fontWeight={'black'}
+												ellipsizeMode={'tail'}
+												flex={1}
+												marginLeft={5}
+												numberOfLines={1}
+											>
+												{pushNotificationToken}
+											</Text>
+											<Icon mx={2} color={'primary.500'} size={'lg'} as={Feather} name='copy' />
+										</HStack>
+									</Tooltip>
+								</Pressable>
+								<Divider my={3} />
 							</Box>
 							<VStack space={2} w={'full'} px={10} my={3}>
 								<Button onPress={startForegroundUpdate} color='green'>

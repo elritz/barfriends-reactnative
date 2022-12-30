@@ -1,7 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import { Ionicons } from '@expo/vector-icons'
-import { AUTHORIZED_PROFILES_QUERY } from '@graphql/DM/profiling/authorization/index.query'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
 import {
 	FriendRequestNotification,
@@ -63,19 +62,27 @@ export const CondensedHorizontalFriendNotifciation = ({
 	const [declineFriendRequestMutation, { data: DFRData, loading: DFRLoading, error: DFRError }] =
 		useDeleteFriendRequestMutation({
 			update(cache, { data }) {
-				const { getNotifications }: any = cache.readQuery({
-					query: NOTIFICATIONS_QUERY,
-				})
-
 				if (data?.deleteFriendRequest) {
-					cache.writeQuery({
+					const { getNotifications }: any = cache.readQuery({
 						query: NOTIFICATIONS_QUERY,
-						data: {
-							getNotifications: getNotifications.friendRequestNotifications.filter(notification => {
-								notification.id !== item.id
-							}),
-						},
 					})
+					if (data?.deleteFriendRequest) {
+						const filteredNotification = getNotifications.friendRequestNotifications.filter(
+							notification => {
+								if (notification.id === item.id) {
+									return false
+								}
+								return true
+							},
+						)
+
+						cache.writeQuery({
+							query: NOTIFICATIONS_QUERY,
+							data: {
+								getNotifications: filteredNotification,
+							},
+						})
+					}
 				}
 			},
 		})

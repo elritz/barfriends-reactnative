@@ -11,6 +11,7 @@ import { GeofencingEventType } from 'expo-location'
 import * as Notifications from 'expo-notifications'
 import * as TaskManager from 'expo-task-manager'
 import { useEffect } from 'react'
+import { Linking } from 'react-native'
 import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -95,13 +96,25 @@ Notifications.setNotificationHandler({
 Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
 
 export default function App() {
-	useEffect(() => {
-		const subscription = Notifications.addNotificationReceivedListener(notification => {
-			// console.log('🚀 -------------------------------------------------------------------------🚀')
-			// console.log('🚀 ~ file: index.tsx ~ line 84 ~ subscription ~ notification', notification)
-			// console.log('🚀 -------------------------------------------------------------------------🚀')
-		})
+	// useEffect(() => {
+	// 	const subscription = Notifications.addNotificationReceivedListener(notification => {
+	// 		console.log('🚀 -------------------------------------------------------------------------🚀')
+	// 		console.log('🚀 ~ file: index.tsx ~ line 84 ~ subscription ~ notification', notification)
+	// 		console.log('🚀 -------------------------------------------------------------------------🚀')
+	// 	})
 
+	// 	return () => subscription.remove()
+	// }, [])
+
+	useEffect(() => {
+		const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+			const url = response.notification.request.content.data.url
+			console.log('🚀 -------------------------------------------------🚀')
+			console.log('🚀 ~ file: index.tsx:112 ~ subscription ~ url', url)
+			console.log('🚀 -------------------------------------------------🚀')
+
+			Linking.openURL(url)
+		})
 		return () => subscription.remove()
 	}, [])
 
