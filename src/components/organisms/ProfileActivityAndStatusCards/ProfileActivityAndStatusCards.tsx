@@ -24,7 +24,7 @@ const ProfileActivityAndStatusCards = ({}) => {
 					flex={1}
 					p={2}
 				>
-					<QuickBarfriendCard color={'#ff7000'} showIcon={false} logosize={40} qrcodesize={100} />
+					<QuickBarfriendCard color={'#ff7000'} showIcon={false} logosize={40} qrcodesize={120} />
 				</Box>
 				<JoinVenue />
 			</HStack>

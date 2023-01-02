@@ -1,5 +1,6 @@
 import { Relationship } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
+import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Box, Image, Pressable, Text } from 'native-base'
 import { useWindowDimensions } from 'react-native'
@@ -23,7 +24,7 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 					params: {
 						screen: 'PublicPersonalScreen',
 						params: {
-							profileId: item.friendProfile.id,
+							profileId: item?.friendProfile?.id,
 						},
 					},
 				})
@@ -70,7 +71,7 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 									elevation: 6,
 								}}
 							>
-								{item.friendProfile?.IdentifiableInformation?.firstname}
+								{capitalizeFirstLetter(item.friendProfile?.IdentifiableInformation?.firstname)}
 							</Text>
 							<Text
 								textAlign={'center'}

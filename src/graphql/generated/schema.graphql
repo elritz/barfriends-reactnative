@@ -1213,6 +1213,17 @@ input EnumRelationshipStatusNullableListFilter {
   isEmpty: Boolean
 }
 
+input EnumSecureDataTypeFieldUpdateOperationsInput {
+  set: SecureDataType
+}
+
+input EnumSecureDataTypeFilter {
+  equals: SecureDataType
+  in: [SecureDataType!]
+  not: NestedEnumSecureDataTypeFilter
+  notIn: [SecureDataType!]
+}
+
 input EnumTagTypeFieldUpdateOperationsInput {
   set: TagType
 }
@@ -1498,7 +1509,7 @@ input GooglePlaceAutocompleteInput {
          This value also is returned and should be passed back through this input. 
          Default value provided.
   """
-  sessiontoken: String = "ad59d238-3ae1-4c74-a246-8edd8ecb3dda"
+  sessiontoken: String = "559c4a18-203a-4b38-b56e-09cb594986ca"
   textinput: String!
 
   """
@@ -1783,6 +1794,14 @@ input IdentifiableInformationWhereUniqueInput {
   id: String
   profileId: String
   username: String
+}
+
+input IntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
 }
 
 input IntFilter {
@@ -3022,7 +3041,7 @@ type Mutation {
   createPersonalProfile(data: CreatePersonalProfileDataInput): CreateProfileResponseUnion
   declineFriendRequest(friendRequestId: String!): Boolean
   deleteFriendRequest(friendRequestId: String!): Boolean
-  qrAddFriend(qrCodeProfileId: String!): Relationship
+  qrAddFriend(dataHash: String!, qrCodeProfileId: String!): Relationship
   refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion
   removeDeviceProfileFromDeviceManager(profileId: String!): Boolean
   removeFriend(relationshipId: String!): Boolean
@@ -3086,6 +3105,13 @@ input NestedEnumProfileTypeFilter {
   in: [ProfileType!]
   not: NestedEnumProfileTypeFilter
   notIn: [ProfileType!]
+}
+
+input NestedEnumSecureDataTypeFilter {
+  equals: SecureDataType
+  in: [SecureDataType!]
+  not: NestedEnumSecureDataTypeFilter
+  notIn: [SecureDataType!]
 }
 
 input NestedEnumTagTypeFilter {
@@ -3233,6 +3259,7 @@ input NotificationStatusCreateWithoutFriendRequestInput {
   id: String
   isAccepted: Boolean
   isAnswered: Boolean
+  isCanceled: Boolean
   isChecked: Boolean
   updatedAt: DateTime
 }
@@ -3250,6 +3277,7 @@ input NotificationStatusUpdateWithoutFriendRequestInput {
   id: StringFieldUpdateOperationsInput
   isAccepted: BoolFieldUpdateOperationsInput
   isAnswered: BoolFieldUpdateOperationsInput
+  isCanceled: BoolFieldUpdateOperationsInput
   isChecked: BoolFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -3266,6 +3294,7 @@ input NotificationStatusWhereInput {
   id: StringFilter
   isAccepted: BoolFilter
   isAnswered: BoolFilter
+  isCanceled: BoolFilter
   isChecked: BoolFilter
   NOT: [NotificationStatusWhereInput!]
   OR: [NotificationStatusWhereInput!]
@@ -4422,6 +4451,7 @@ input ProfileCreateWithoutChatroomInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
@@ -4444,6 +4474,7 @@ input ProfileCreateWithoutGroupsInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
@@ -4466,6 +4497,7 @@ input ProfileCreateWithoutPersonalInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
@@ -4488,6 +4520,7 @@ input ProfileCreateWithoutPhotosInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
@@ -4511,6 +4544,7 @@ input ProfileCreateWithoutStorysInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
@@ -4533,6 +4567,7 @@ input ProfileCreateWithoutThemeManagerInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   updatedAt: DateTime
@@ -4555,6 +4590,7 @@ input ProfileCreateWithoutVenueInput {
   ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
@@ -4583,6 +4619,7 @@ input ProfileOrderByWithRelationInput {
   ProfileSearchesService: ProfileSearchesServiceOrderByWithRelationInput
   ProfileType: SortOrder
   Relationships: RelationshipOrderByRelationAggregateInput
+  SecuredDataKeys: SecuredDataKeysOrderByRelationAggregateInput
   Settings: SettingsOrderByWithRelationInput
   Storys: StoryOrderByRelationAggregateInput
   ThemeManager: ThemeManagerOrderByWithRelationInput
@@ -4844,6 +4881,7 @@ input ProfileUpdateInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   Storys: StoryUpdateManyWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
@@ -4947,6 +4985,7 @@ input ProfileUpdateWithoutChatroomInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   Storys: StoryUpdateManyWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
@@ -4969,6 +5008,7 @@ input ProfileUpdateWithoutGroupsInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   Storys: StoryUpdateManyWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
@@ -4991,6 +5031,7 @@ input ProfileUpdateWithoutPersonalInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   Storys: StoryUpdateManyWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
@@ -5013,6 +5054,7 @@ input ProfileUpdateWithoutPhotosInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   Storys: StoryUpdateManyWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
@@ -5036,6 +5078,7 @@ input ProfileUpdateWithoutStorysInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -5058,6 +5101,7 @@ input ProfileUpdateWithoutVenueInput {
   ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileInput
   Settings: SettingsUpdateOneWithoutProfileInput
   Storys: StoryUpdateManyWithoutProfileInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileInput
@@ -5125,6 +5169,7 @@ input ProfileWhereInput {
   ProfileSearchesService: ProfileSearchesServiceWhereInput
   ProfileType: EnumProfileTypeFilter
   Relationships: RelationshipListRelationFilter
+  SecuredDataKeys: SecuredDataKeysListRelationFilter
   Settings: SettingsWhereInput
   Storys: StoryListRelationFilter
   ThemeManager: ThemeManagerWhereInput
@@ -5186,6 +5231,7 @@ type Query {
   getLiveVenueTotals(profileIdVenue: String!): LiveVenueTotals
   getNotifications: NotificationResponse
   getRelationshipFriendRequestStatus(profileId: String!): NotificationFriendRequestStatusResponse
+  getSecureFriendQRCodeData: String
   H3IndexGrid(cell: String!, ringSize: Int = 1): [String]
   H3IndexLatLng(cell: String!): [Float]
   IdentifiableInformations(after: IdentifiableInformationWhereUniqueInput, before: IdentifiableInformationWhereUniqueInput, first: Int, last: Int, where: IdentifiableInformationWhereInput): [IdentifiableInformation!]!
@@ -5388,6 +5434,136 @@ input RelationshipWhereInput {
 
 input RelationshipWhereUniqueInput {
   id: String
+}
+
+enum SecureDataType {
+  FRIENDING
+  JOINING
+}
+
+input SecuredDataKeysCreateManyProfileInput {
+  createdAt: DateTime
+  id: String
+  key: String!
+  SecureDataType: SecureDataType!
+  updatedAt: DateTime
+  used: Int
+}
+
+input SecuredDataKeysCreateManyProfileInputEnvelope {
+  data: [SecuredDataKeysCreateManyProfileInput!]
+  skipDuplicates: Boolean
+}
+
+input SecuredDataKeysCreateNestedManyWithoutProfileInput {
+  connect: [SecuredDataKeysWhereUniqueInput!]
+  connectOrCreate: [SecuredDataKeysCreateOrConnectWithoutProfileInput!]
+  create: [SecuredDataKeysCreateWithoutProfileInput!]
+  createMany: SecuredDataKeysCreateManyProfileInputEnvelope
+}
+
+input SecuredDataKeysCreateOrConnectWithoutProfileInput {
+  create: SecuredDataKeysCreateWithoutProfileInput!
+  where: SecuredDataKeysWhereUniqueInput!
+}
+
+input SecuredDataKeysCreateWithoutProfileInput {
+  createdAt: DateTime
+  id: String
+  key: String!
+  SecureDataType: SecureDataType!
+  updatedAt: DateTime
+  used: Int
+}
+
+input SecuredDataKeysListRelationFilter {
+  every: SecuredDataKeysWhereInput
+  none: SecuredDataKeysWhereInput
+  some: SecuredDataKeysWhereInput
+}
+
+input SecuredDataKeysOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input SecuredDataKeysScalarWhereInput {
+  AND: [SecuredDataKeysScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  key: StringFilter
+  NOT: [SecuredDataKeysScalarWhereInput!]
+  OR: [SecuredDataKeysScalarWhereInput!]
+  profileId: StringFilter
+  SecureDataType: EnumSecureDataTypeFilter
+  updatedAt: DateTimeFilter
+  used: IntFilter
+}
+
+input SecuredDataKeysUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  key: StringFieldUpdateOperationsInput
+  SecureDataType: EnumSecureDataTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  used: IntFieldUpdateOperationsInput
+}
+
+input SecuredDataKeysUpdateManyWithoutProfileInput {
+  connect: [SecuredDataKeysWhereUniqueInput!]
+  connectOrCreate: [SecuredDataKeysCreateOrConnectWithoutProfileInput!]
+  create: [SecuredDataKeysCreateWithoutProfileInput!]
+  createMany: SecuredDataKeysCreateManyProfileInputEnvelope
+  delete: [SecuredDataKeysWhereUniqueInput!]
+  deleteMany: [SecuredDataKeysScalarWhereInput!]
+  disconnect: [SecuredDataKeysWhereUniqueInput!]
+  set: [SecuredDataKeysWhereUniqueInput!]
+  update: [SecuredDataKeysUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [SecuredDataKeysUpdateManyWithWhereWithoutProfileInput!]
+  upsert: [SecuredDataKeysUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input SecuredDataKeysUpdateManyWithWhereWithoutProfileInput {
+  data: SecuredDataKeysUpdateManyMutationInput!
+  where: SecuredDataKeysScalarWhereInput!
+}
+
+input SecuredDataKeysUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  key: StringFieldUpdateOperationsInput
+  SecureDataType: EnumSecureDataTypeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  used: IntFieldUpdateOperationsInput
+}
+
+input SecuredDataKeysUpdateWithWhereUniqueWithoutProfileInput {
+  data: SecuredDataKeysUpdateWithoutProfileInput!
+  where: SecuredDataKeysWhereUniqueInput!
+}
+
+input SecuredDataKeysUpsertWithWhereUniqueWithoutProfileInput {
+  create: SecuredDataKeysCreateWithoutProfileInput!
+  update: SecuredDataKeysUpdateWithoutProfileInput!
+  where: SecuredDataKeysWhereUniqueInput!
+}
+
+input SecuredDataKeysWhereInput {
+  AND: [SecuredDataKeysWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  key: StringFilter
+  NOT: [SecuredDataKeysWhereInput!]
+  OR: [SecuredDataKeysWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  SecureDataType: EnumSecureDataTypeFilter
+  updatedAt: DateTimeFilter
+  used: IntFilter
+}
+
+input SecuredDataKeysWhereUniqueInput {
+  id: String
+  key: String
 }
 
 input SettingsCreateNestedOneWithoutProfileInput {

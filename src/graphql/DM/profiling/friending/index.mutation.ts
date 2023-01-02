@@ -13,8 +13,8 @@ export const DELETE_FRIEND_REQUEST_MUTATION = gql`
 `
 
 export const QR_FRIEND_MUTATION = gql`
-	mutation qrAddFriend($qrCodeProfileId: String!) {
-		qrAddFriend(qrCodeProfileId: $qrCodeProfileId) {
+	mutation qrAddFriend($qrCodeProfileId: String!, $dataHash: String!) {
+		qrAddFriend(qrCodeProfileId: $qrCodeProfileId, dataHash: $dataHash) {
 			id
 			venueMetAt
 			Profile {

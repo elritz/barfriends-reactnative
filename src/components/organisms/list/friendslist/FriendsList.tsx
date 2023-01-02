@@ -20,8 +20,8 @@ export const FriendsList = ({}) => {
 			{friendslist.length ? (
 				<>
 					<HStack justifyContent={'flex-start'} flexWrap={'wrap'}>
-						{friendslist.map(item => {
-							return <CardFullImageNameEmoji cardWidth={cardWidth} item={item} />
+						{friendslist.map((item, index) => {
+							return <CardFullImageNameEmoji key={index} cardWidth={cardWidth} item={item} />
 						})}
 					</HStack>
 					<Divider style={{ marginVertical: 20 }} />

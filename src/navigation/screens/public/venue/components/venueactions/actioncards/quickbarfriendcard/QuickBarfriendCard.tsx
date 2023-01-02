@@ -1,7 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
 import CameraModal from '@components/molecules/modals/cameramodal/CameraModal'
+import {
+	useGetSecureFriendQrCodeDataLazyQuery,
+	useGetSecureFriendQrCodeDataQuery,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Box, Heading, Pressable, useDisclose, VStack } from 'native-base'
+import { useState } from 'react'
 import QRCode from 'react-native-qrcode-svg'
 
 const LOGO_COASTER = require('../../../../../../../../assets/images/company/company_coaster.png')
@@ -16,6 +21,19 @@ type Props = {
 export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, color }: Props) {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const { isOpen, onOpen, onClose } = useDisclose()
+	const [dataQR, setDataQR] = useState('')
+
+	const { data, loading, error } = useGetSecureFriendQrCodeDataQuery({
+		onCompleted: data => {
+			const dataQRString = JSON.stringify({
+				dataHash: data.getSecureFriendQRCodeData,
+				qrCodeProfileId: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+			})
+			setDataQR(dataQRString)
+		},
+	})
+
+	if (loading || !data || !dataQR) return null
 
 	return (
 		<Pressable onPress={onOpen}>
@@ -23,15 +41,17 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 			<VStack flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
 				<Heading fontWeight={'black'}>BFS</Heading>
 				<Box mt={2} alignItems={'center'} justifyContent={'center'}>
-					<QRCode
-						size={qrcodesize}
-						value={JSON.stringify({ profileid: rAuthorizationVar?.DeviceProfile?.Profile?.id })}
-						color={color}
-						backgroundColor='transparent'
-						logo={showIcon && LOGO_COASTER}
-						logoSize={logosize}
-						logoBackgroundColor='transparent'
-					/>
+					{dataQR && (
+						<QRCode
+							size={qrcodesize}
+							value={dataQR}
+							color={color}
+							backgroundColor={'transparent'}
+							logo={showIcon && LOGO_COASTER}
+							logoSize={logosize}
+							logoBackgroundColor={'transparent'}
+						/>
+					)}
 				</Box>
 			</VStack>
 		</Pressable>

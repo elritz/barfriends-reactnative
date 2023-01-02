@@ -1277,6 +1277,17 @@ export type EnumRelationshipStatusNullableListFilter = {
   isEmpty?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type EnumSecureDataTypeFieldUpdateOperationsInput = {
+  set?: InputMaybe<SecureDataType>;
+};
+
+export type EnumSecureDataTypeFilter = {
+  equals?: InputMaybe<SecureDataType>;
+  in?: InputMaybe<Array<SecureDataType>>;
+  not?: InputMaybe<NestedEnumSecureDataTypeFilter>;
+  notIn?: InputMaybe<Array<SecureDataType>>;
+};
+
 export type EnumTagTypeFieldUpdateOperationsInput = {
   set?: InputMaybe<TagType>;
 };
@@ -1852,6 +1863,14 @@ export type IdentifiableInformationWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
   profileId?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
+};
+
+export type IntFieldUpdateOperationsInput = {
+  decrement?: InputMaybe<Scalars['Int']>;
+  divide?: InputMaybe<Scalars['Int']>;
+  increment?: InputMaybe<Scalars['Int']>;
+  multiply?: InputMaybe<Scalars['Int']>;
+  set?: InputMaybe<Scalars['Int']>;
 };
 
 export type IntFilter = {
@@ -3214,6 +3233,7 @@ export type MutationDeleteFriendRequestArgs = {
 
 
 export type MutationQrAddFriendArgs = {
+  dataHash: Scalars['String'];
   qrCodeProfileId: Scalars['String'];
 };
 
@@ -3357,6 +3377,13 @@ export type NestedEnumProfileTypeFilter = {
   in?: InputMaybe<Array<ProfileType>>;
   not?: InputMaybe<NestedEnumProfileTypeFilter>;
   notIn?: InputMaybe<Array<ProfileType>>;
+};
+
+export type NestedEnumSecureDataTypeFilter = {
+  equals?: InputMaybe<SecureDataType>;
+  in?: InputMaybe<Array<SecureDataType>>;
+  not?: InputMaybe<NestedEnumSecureDataTypeFilter>;
+  notIn?: InputMaybe<Array<SecureDataType>>;
 };
 
 export type NestedEnumTagTypeFilter = {
@@ -3515,6 +3542,7 @@ export type NotificationStatusCreateWithoutFriendRequestInput = {
   id?: InputMaybe<Scalars['String']>;
   isAccepted?: InputMaybe<Scalars['Boolean']>;
   isAnswered?: InputMaybe<Scalars['Boolean']>;
+  isCanceled?: InputMaybe<Scalars['Boolean']>;
   isChecked?: InputMaybe<Scalars['Boolean']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -3532,6 +3560,7 @@ export type NotificationStatusUpdateWithoutFriendRequestInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   isAccepted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   isAnswered?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  isCanceled?: InputMaybe<BoolFieldUpdateOperationsInput>;
   isChecked?: InputMaybe<BoolFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -3548,6 +3577,7 @@ export type NotificationStatusWhereInput = {
   id?: InputMaybe<StringFilter>;
   isAccepted?: InputMaybe<BoolFilter>;
   isAnswered?: InputMaybe<BoolFilter>;
+  isCanceled?: InputMaybe<BoolFilter>;
   isChecked?: InputMaybe<BoolFilter>;
   NOT?: InputMaybe<Array<NotificationStatusWhereInput>>;
   OR?: InputMaybe<Array<NotificationStatusWhereInput>>;
@@ -4726,6 +4756,7 @@ export type ProfileCreateWithoutChatroomInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryCreateNestedManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerCreateNestedOneWithoutProfileInput>;
@@ -4748,6 +4779,7 @@ export type ProfileCreateWithoutGroupsInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryCreateNestedManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerCreateNestedOneWithoutProfileInput>;
@@ -4770,6 +4802,7 @@ export type ProfileCreateWithoutPersonalInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryCreateNestedManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerCreateNestedOneWithoutProfileInput>;
@@ -4792,6 +4825,7 @@ export type ProfileCreateWithoutPhotosInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryCreateNestedManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerCreateNestedOneWithoutProfileInput>;
@@ -4815,6 +4849,7 @@ export type ProfileCreateWithoutStorysInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerCreateNestedOneWithoutProfileInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -4837,6 +4872,7 @@ export type ProfileCreateWithoutThemeManagerInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryCreateNestedManyWithoutProfileInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -4859,6 +4895,7 @@ export type ProfileCreateWithoutVenueInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceCreateNestedOneWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsCreateNestedOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryCreateNestedManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerCreateNestedOneWithoutProfileInput>;
@@ -4887,6 +4924,7 @@ export type ProfileOrderByWithRelationInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceOrderByWithRelationInput>;
   ProfileType?: InputMaybe<SortOrder>;
   Relationships?: InputMaybe<RelationshipOrderByRelationAggregateInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysOrderByRelationAggregateInput>;
   Settings?: InputMaybe<SettingsOrderByWithRelationInput>;
   Storys?: InputMaybe<StoryOrderByRelationAggregateInput>;
   ThemeManager?: InputMaybe<ThemeManagerOrderByWithRelationInput>;
@@ -5151,6 +5189,7 @@ export type ProfileUpdateInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryUpdateManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
@@ -5254,6 +5293,7 @@ export type ProfileUpdateWithoutChatroomInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryUpdateManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
@@ -5276,6 +5316,7 @@ export type ProfileUpdateWithoutGroupsInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryUpdateManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
@@ -5298,6 +5339,7 @@ export type ProfileUpdateWithoutPersonalInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryUpdateManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
@@ -5320,6 +5362,7 @@ export type ProfileUpdateWithoutPhotosInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryUpdateManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
@@ -5343,6 +5386,7 @@ export type ProfileUpdateWithoutStorysInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -5365,6 +5409,7 @@ export type ProfileUpdateWithoutVenueInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceUpdateOneWithoutProfileInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileInput>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileInput>;
   Settings?: InputMaybe<SettingsUpdateOneWithoutProfileInput>;
   Storys?: InputMaybe<StoryUpdateManyWithoutProfileInput>;
   ThemeManager?: InputMaybe<ThemeManagerUpdateOneWithoutProfileInput>;
@@ -5432,6 +5477,7 @@ export type ProfileWhereInput = {
   ProfileSearchesService?: InputMaybe<ProfileSearchesServiceWhereInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFilter>;
   Relationships?: InputMaybe<RelationshipListRelationFilter>;
+  SecuredDataKeys?: InputMaybe<SecuredDataKeysListRelationFilter>;
   Settings?: InputMaybe<SettingsWhereInput>;
   Storys?: InputMaybe<StoryListRelationFilter>;
   ThemeManager?: InputMaybe<ThemeManagerWhereInput>;
@@ -5494,6 +5540,7 @@ export type Query = {
   getLiveVenueTotals?: Maybe<LiveVenueTotals>;
   getNotifications?: Maybe<NotificationResponse>;
   getRelationshipFriendRequestStatus?: Maybe<NotificationFriendRequestStatusResponse>;
+  getSecureFriendQRCodeData?: Maybe<Scalars['String']>;
   H3IndexGrid?: Maybe<Array<Maybe<Scalars['String']>>>;
   H3IndexLatLng?: Maybe<Array<Maybe<Scalars['Float']>>>;
   IdentifiableInformations: Array<IdentifiableInformation>;
@@ -5880,6 +5927,136 @@ export type RelationshipWhereInput = {
 
 export type RelationshipWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
+};
+
+export enum SecureDataType {
+  Friending = 'FRIENDING',
+  Joining = 'JOINING'
+}
+
+export type SecuredDataKeysCreateManyProfileInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  key: Scalars['String'];
+  SecureDataType: SecureDataType;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  used?: InputMaybe<Scalars['Int']>;
+};
+
+export type SecuredDataKeysCreateManyProfileInputEnvelope = {
+  data?: InputMaybe<Array<SecuredDataKeysCreateManyProfileInput>>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type SecuredDataKeysCreateNestedManyWithoutProfileInput = {
+  connect?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SecuredDataKeysCreateOrConnectWithoutProfileInput>>;
+  create?: InputMaybe<Array<SecuredDataKeysCreateWithoutProfileInput>>;
+  createMany?: InputMaybe<SecuredDataKeysCreateManyProfileInputEnvelope>;
+};
+
+export type SecuredDataKeysCreateOrConnectWithoutProfileInput = {
+  create: SecuredDataKeysCreateWithoutProfileInput;
+  where: SecuredDataKeysWhereUniqueInput;
+};
+
+export type SecuredDataKeysCreateWithoutProfileInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  key: Scalars['String'];
+  SecureDataType: SecureDataType;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  used?: InputMaybe<Scalars['Int']>;
+};
+
+export type SecuredDataKeysListRelationFilter = {
+  every?: InputMaybe<SecuredDataKeysWhereInput>;
+  none?: InputMaybe<SecuredDataKeysWhereInput>;
+  some?: InputMaybe<SecuredDataKeysWhereInput>;
+};
+
+export type SecuredDataKeysOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type SecuredDataKeysScalarWhereInput = {
+  AND?: InputMaybe<Array<SecuredDataKeysScalarWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  key?: InputMaybe<StringFilter>;
+  NOT?: InputMaybe<Array<SecuredDataKeysScalarWhereInput>>;
+  OR?: InputMaybe<Array<SecuredDataKeysScalarWhereInput>>;
+  profileId?: InputMaybe<StringFilter>;
+  SecureDataType?: InputMaybe<EnumSecureDataTypeFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  used?: InputMaybe<IntFilter>;
+};
+
+export type SecuredDataKeysUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  key?: InputMaybe<StringFieldUpdateOperationsInput>;
+  SecureDataType?: InputMaybe<EnumSecureDataTypeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  used?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type SecuredDataKeysUpdateManyWithoutProfileInput = {
+  connect?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<SecuredDataKeysCreateOrConnectWithoutProfileInput>>;
+  create?: InputMaybe<Array<SecuredDataKeysCreateWithoutProfileInput>>;
+  createMany?: InputMaybe<SecuredDataKeysCreateManyProfileInputEnvelope>;
+  delete?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<SecuredDataKeysScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
+  set?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
+  update?: InputMaybe<Array<SecuredDataKeysUpdateWithWhereUniqueWithoutProfileInput>>;
+  updateMany?: InputMaybe<Array<SecuredDataKeysUpdateManyWithWhereWithoutProfileInput>>;
+  upsert?: InputMaybe<Array<SecuredDataKeysUpsertWithWhereUniqueWithoutProfileInput>>;
+};
+
+export type SecuredDataKeysUpdateManyWithWhereWithoutProfileInput = {
+  data: SecuredDataKeysUpdateManyMutationInput;
+  where: SecuredDataKeysScalarWhereInput;
+};
+
+export type SecuredDataKeysUpdateWithoutProfileInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  key?: InputMaybe<StringFieldUpdateOperationsInput>;
+  SecureDataType?: InputMaybe<EnumSecureDataTypeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  used?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type SecuredDataKeysUpdateWithWhereUniqueWithoutProfileInput = {
+  data: SecuredDataKeysUpdateWithoutProfileInput;
+  where: SecuredDataKeysWhereUniqueInput;
+};
+
+export type SecuredDataKeysUpsertWithWhereUniqueWithoutProfileInput = {
+  create: SecuredDataKeysCreateWithoutProfileInput;
+  update: SecuredDataKeysUpdateWithoutProfileInput;
+  where: SecuredDataKeysWhereUniqueInput;
+};
+
+export type SecuredDataKeysWhereInput = {
+  AND?: InputMaybe<Array<SecuredDataKeysWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  key?: InputMaybe<StringFilter>;
+  NOT?: InputMaybe<Array<SecuredDataKeysWhereInput>>;
+  OR?: InputMaybe<Array<SecuredDataKeysWhereInput>>;
+  Profile?: InputMaybe<ProfileWhereInput>;
+  profileId?: InputMaybe<StringFilter>;
+  SecureDataType?: InputMaybe<EnumSecureDataTypeFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  used?: InputMaybe<IntFilter>;
+};
+
+export type SecuredDataKeysWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']>;
+  key?: InputMaybe<Scalars['String']>;
 };
 
 export type SettingsCreateNestedOneWithoutProfileInput = {
@@ -7460,6 +7637,7 @@ export type DeleteFriendRequestMutation = { __typename?: 'Mutation', deleteFrien
 
 export type QrAddFriendMutationVariables = Exact<{
   qrCodeProfileId: Scalars['String'];
+  dataHash: Scalars['String'];
 }>;
 
 
@@ -7493,6 +7671,11 @@ export type GetRelationshipFriendRequestStatusQueryVariables = Exact<{
 
 
 export type GetRelationshipFriendRequestStatusQuery = { __typename?: 'Query', getRelationshipFriendRequestStatus?: { __typename?: 'ErrorProfiling', errorCode?: string | null, message?: string | null } | { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string, profileId: string, Profile: { __typename?: 'Profile', id: string } }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } } | { __typename?: 'RejectedFriendsResponse', friends?: boolean | null } | { __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType?: ProfileType | null, photos?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, Story?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: number, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null } | null };
+
+export type GetSecureFriendQrCodeDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSecureFriendQrCodeDataQuery = { __typename?: 'Query', getSecureFriendQRCodeData?: string | null };
 
 export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8856,8 +9039,8 @@ export type DeleteFriendRequestMutationHookResult = ReturnType<typeof useDeleteF
 export type DeleteFriendRequestMutationResult = Apollo.MutationResult<DeleteFriendRequestMutation>;
 export type DeleteFriendRequestMutationOptions = Apollo.BaseMutationOptions<DeleteFriendRequestMutation, DeleteFriendRequestMutationVariables>;
 export const QrAddFriendDocument = gql`
-    mutation qrAddFriend($qrCodeProfileId: String!) {
-  qrAddFriend(qrCodeProfileId: $qrCodeProfileId) {
+    mutation qrAddFriend($qrCodeProfileId: String!, $dataHash: String!) {
+  qrAddFriend(qrCodeProfileId: $qrCodeProfileId, dataHash: $dataHash) {
     id
     venueMetAt
     Profile {
@@ -8885,6 +9068,7 @@ export type QrAddFriendMutationFn = Apollo.MutationFunction<QrAddFriendMutation,
  * const [qrAddFriendMutation, { data, loading, error }] = useQrAddFriendMutation({
  *   variables: {
  *      qrCodeProfileId: // value for 'qrCodeProfileId'
+ *      dataHash: // value for 'dataHash'
  *   },
  * });
  */
@@ -9061,6 +9245,38 @@ export function useGetRelationshipFriendRequestStatusLazyQuery(baseOptions?: Apo
 export type GetRelationshipFriendRequestStatusQueryHookResult = ReturnType<typeof useGetRelationshipFriendRequestStatusQuery>;
 export type GetRelationshipFriendRequestStatusLazyQueryHookResult = ReturnType<typeof useGetRelationshipFriendRequestStatusLazyQuery>;
 export type GetRelationshipFriendRequestStatusQueryResult = Apollo.QueryResult<GetRelationshipFriendRequestStatusQuery, GetRelationshipFriendRequestStatusQueryVariables>;
+export const GetSecureFriendQrCodeDataDocument = gql`
+    query getSecureFriendQRCodeData {
+  getSecureFriendQRCodeData
+}
+    `;
+
+/**
+ * __useGetSecureFriendQrCodeDataQuery__
+ *
+ * To run a query within a React component, call `useGetSecureFriendQrCodeDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSecureFriendQrCodeDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSecureFriendQrCodeDataQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSecureFriendQrCodeDataQuery(baseOptions?: Apollo.QueryHookOptions<GetSecureFriendQrCodeDataQuery, GetSecureFriendQrCodeDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSecureFriendQrCodeDataQuery, GetSecureFriendQrCodeDataQueryVariables>(GetSecureFriendQrCodeDataDocument, options);
+      }
+export function useGetSecureFriendQrCodeDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSecureFriendQrCodeDataQuery, GetSecureFriendQrCodeDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSecureFriendQrCodeDataQuery, GetSecureFriendQrCodeDataQueryVariables>(GetSecureFriendQrCodeDataDocument, options);
+        }
+export type GetSecureFriendQrCodeDataQueryHookResult = ReturnType<typeof useGetSecureFriendQrCodeDataQuery>;
+export type GetSecureFriendQrCodeDataLazyQueryHookResult = ReturnType<typeof useGetSecureFriendQrCodeDataLazyQuery>;
+export type GetSecureFriendQrCodeDataQueryResult = Apollo.QueryResult<GetSecureFriendQrCodeDataQuery, GetSecureFriendQrCodeDataQueryVariables>;
 export const GetNotificationsDocument = gql`
     query getNotifications {
   getNotifications {

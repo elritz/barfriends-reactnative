@@ -83,7 +83,7 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 				<Pressable
 					style={{ flexDirection: 'row', marginBottom: 5, marginHorizontal: 5 }}
 					onPress={() => {
-						rMapBottomSheet.current.present()
+						rMapBottomSheet?.current?.present()
 					}}
 				>
 					<Text
@@ -94,7 +94,7 @@ const HorizontalVenuesNearRegionBottomSheet = ({
 						}}
 						px={'2%'}
 					>
-						{rMap.reverseGeocoded.city}
+						{rMap?.reverseGeocoded?.city}
 					</Text>
 					<Ionicons
 						name='md-search-circle'

@@ -1,9 +1,11 @@
-import { View, Text } from 'react-native'
+import { View, Text, Center } from 'native-base'
 
 const NotFound = () => (
-	<View>
-		<Text>Not Found</Text>
-  </View>
+	<View flex={1}>
+		<Center>
+			<Text>Not Found</Text>
+		</Center>
+	</View>
 )
 
 export default NotFound
