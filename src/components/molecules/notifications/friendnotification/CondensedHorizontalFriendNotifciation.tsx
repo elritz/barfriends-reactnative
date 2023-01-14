@@ -99,7 +99,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 			borderBottomWidth={0.2}
 		>
 			{isSender ? (
-				<HStack justifyContent={'space-between'}>
+				<HStack justifyContent={'space-between'} alignItems={'center'}>
 					<Pressable
 						onPress={() => {
 							navigation.navigate('PublicNavigator', {

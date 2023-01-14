@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
+import RelationshipModal from '@components/molecules/modals/relationshipmodal/RelationshipModal'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
@@ -32,7 +33,7 @@ function PersonalStack() {
 	const {
 		isOpen: isOpenRelationshipModal,
 		onOpen: openRelationshipModal,
-		onClose: onCloseRelaationshipModal,
+		onClose: onCloseRelationshipModal,
 	} = useDisclose()
 	const {
 		isOpen: isOpenSignupModal,
@@ -225,16 +226,21 @@ function PersonalStack() {
 				)
 			case 'Relationship':
 				return (
-					<IconButton
-						icon={<Icon as={MaterialCommunityIcons} name={'account'} />}
-						colorScheme={'primary'}
-						variant={'solid'}
-						my={3}
-						w={'45px'}
-						onPress={() => {
-							openRelationshipModal()
-						}}
-					/>
+					<>
+						<RelationshipModal isOpen={isOpenRelationshipModal} onClose={onCloseRelationshipModal} />
+						<IconButton
+							icon={<Icon as={MaterialCommunityIcons} name={'account'} />}
+							colorScheme={'primary'}
+							variant={'solid'}
+							px={3}
+							py={2}
+							mx={2}
+							w={'45px'}
+							onPress={() => {
+								openRelationshipModal()
+							}}
+						/>
+					</>
 				)
 
 			case 'RejectedFriendsResponse':

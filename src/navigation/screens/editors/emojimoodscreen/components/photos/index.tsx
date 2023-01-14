@@ -15,15 +15,18 @@ import Animated, {
 type Props = {
 	story: Maybe<Story> | undefined
 	photo: Maybe<Photo> | undefined
+	emojimoodcolors: {
+		colors: string[]
+	}
 }
 
-export default function Photos({ story, photo }: Props) {
-	const { width } = useWindowDimensions()
+export default function Photos({ story, photo, emojimoodcolors }: Props) {
+	const window = useWindowDimensions()
 	const scrollRef = useAnimatedRef<ScrollView>()
 	const translateX = useSharedValue(0)
 	const margin = 12
 	const DOT_SIZE = 8
-	const ITEM_WIDTH = width - margin * 2
+	const ITEM_WIDTH = window.width - margin * 2
 
 	//! don't move this from here
 	const activeIndex = useDerivedValue(() => {
@@ -37,17 +40,19 @@ export default function Photos({ story, photo }: Props) {
 	})
 
 	const onPressScroll = useCallback(side => {
-		if (side === 'left') {
-			if (activeIndex.value === 0) return
-			scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value - 1), animated: false })
-		}
-
-		if (side == 'right') {
-			if (activeIndex.value === story.photos.length - 1) {
-				scrollRef.current?.scrollTo({ x: ITEM_WIDTH * 0, animated: false })
-				return
+		if (story) {
+			if (side === 'left') {
+				if (activeIndex.value === 0) return
+				scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value - 1), animated: false })
 			}
-			scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value + 1), animated: false })
+
+			if (side == 'right') {
+				if (activeIndex.value === story.photos.length - 1) {
+					scrollRef.current?.scrollTo({ x: ITEM_WIDTH * 0, animated: false })
+					return
+				}
+				scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value + 1), animated: false })
+			}
 		}
 	}, [])
 
@@ -61,10 +66,17 @@ export default function Photos({ story, photo }: Props) {
 					_dark={{
 						bg: 'light.800',
 					}}
-					h={400}
-					w={'100%'}
 					borderRadius={'lg'}
 					overflow={'hidden'}
+					style={{
+						position: 'absolute',
+						marginVertical: 20,
+						borderRadius: 20,
+						borderColor: emojimoodcolors.colors[1] ? emojimoodcolors.colors[1] : 'transparent',
+						borderWidth: 2,
+					}}
+					width={window.width / 2.3}
+					height={window.width / 2.3}
 				>
 					<Animated.ScrollView
 						ref={scrollRef as any}
@@ -133,7 +145,7 @@ export default function Photos({ story, photo }: Props) {
 						<View>
 							{story.photos.map((_, i) => {
 								const rDotStyle = useAnimatedStyle(() => {
-									const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
+									const inputRange = [(i - 1) * window.width, i * window.width, (i + 1) * window.width]
 									const dotWidth = interpolate(translateX.value, inputRange, [11, 20, 11], 'clamp')
 									const dotColor = interpolateColor(translateX.value, inputRange, [
 										'#1d1d1d',
@@ -167,30 +179,33 @@ export default function Photos({ story, photo }: Props) {
 			) : (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: emojimoodcolors.colors[1] ? emojimoodcolors.colors[1] : 'light.50',
 					}}
 					_dark={{
-						bg: 'light.800',
+						bg: emojimoodcolors.colors[1] ? emojimoodcolors.colors[1] : 'dark.50',
 					}}
-					h={400}
-					w={'100%'}
-					borderRadius={'lg'}
-					overflow={'hidden'}
-					mb={3}
+					borderRadius={'2xl'}
+					style={{
+						position: 'absolute',
+						marginVertical: 20,
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+					w={window.width / 2.2}
+					h={window.width / 2.2}
 				>
-					<View>
-						<Box h={'100%'} w={ITEM_WIDTH}>
-							<Image
-								source={{
-									uri: photo.url,
-								}}
-								height={'100%'}
-								width={'100%'}
-								rounded={'none'}
-								alt='Alternate Text'
-							/>
-						</Box>
-					</View>
+					<Image
+						source={{
+							uri: photo?.url,
+						}}
+						resizeMethod={'scale'}
+						resizeMode={'cover'}
+						w={window.width / 2.3}
+						h={window.width / 2.3}
+						rounded={'xl'}
+						overflow={'hidden'}
+						alt='Alternate Text'
+					/>
 				</Box>
 			)}
 		</>

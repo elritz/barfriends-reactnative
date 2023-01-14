@@ -12,6 +12,7 @@ import {
 	useCreateGuestProfileMutation,
 	useCreateADeviceManagerMutation,
 	useUpdateOneProfileMutation,
+	ClientDeviceManager,
 } from '@graphql/generated'
 import Navigator from '@navigation/navigators/Navigator'
 import {
@@ -116,6 +117,7 @@ const Navigation = () => {
 			const getLocalStorageTheme = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 			)
+
 			if (!getLocalStorageTheme) {
 				const initialThemeColorSchemeState = JSON.stringify({
 					colorScheme: 'system',
@@ -170,23 +172,33 @@ const Navigation = () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onCompleted: data => {
-				if (data.refreshDeviceManager?.__typename === 'DeviceManager') {
-					const deviceManager = data.refreshDeviceManager as DeviceManager
+				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
+					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
+					console.log('🚀 -------------------------------------------------------------------🚀')
+					console.log(
+						'🚀 ~ file: index.tsx:177 ~ Navigation ~ deviceManager',
+						JSON.stringify(deviceManager, null, 4),
+					)
+					console.log('🚀 -------------------------------------------------------------------🚀')
+
 					AuthorizationReactiveVar(deviceManager)
 				}
-
-				if (data.refreshDeviceManager?.__typename === 'Error') {
+				if (data.refreshDeviceManager?.__typename === 'ErrorManaging') {
 					createADeviceManagerMutation()
 				}
 			},
 		})
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
+		onError: error => {
+			console.log('HERE')
+			console.log('ERROR =========+>', error)
+		},
 		onCompleted: async data => {
-			if (data?.createGuestProfile?.__typename === 'CreateProfileResponse') {
+			if (data?.createGuestProfile.__typename === 'Profile') {
 				createADeviceManagerMutation({
 					variables: {
-						profileId: String(data.createGuestProfile.Profile?.id),
+						profileId: String(data.createGuestProfile.id),
 					},
 				})
 			}
@@ -195,19 +207,23 @@ const Navigation = () => {
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
+			onError: error => {
+				console.log('===============+>', error)
+			},
 			onCompleted: async data => {
-				if (data.createADeviceManager?.__typename === 'DeviceManager') {
-					const deviceManager = data.createADeviceManager as DeviceManager
+				const deviceManager = data.createADeviceManager as ClientDeviceManager
+
+				if (!deviceManager) {
+					console.log('NO Device Manager')
+				} else {
 					AuthorizationReactiveVar(deviceManager)
 					updateOneProfileMutation({
 						variables: {
 							where: {
-								id: deviceManager?.DeviceProfile?.Profile?.id,
+								id: deviceManager.DeviceProfile?.Profile.id,
 							},
 							data: {
-								DeviceManager: {
-									push: deviceManager.id,
-								},
+								DeviceManager: [deviceManager.id],
 							},
 						},
 					})
@@ -226,9 +242,12 @@ const Navigation = () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+
 		if (!getAuthorization) {
+			console.log('createGuest ===================>')
 			createGuestProfileMutation()
 		} else {
+			console.log('refresh ===================>')
 			refreshDeviceManagerMutation()
 		}
 	}

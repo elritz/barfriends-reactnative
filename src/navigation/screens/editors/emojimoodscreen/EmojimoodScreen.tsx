@@ -1,5 +1,11 @@
+import Photos from './components/photos'
 import { useReactiveVar } from '@apollo/client'
-import { Profile, useEmojimoodsQuery, useUpdateOneProfileMutation } from '@graphql/generated'
+import {
+	Profile,
+	useEmojimoodsQuery,
+	useUpdateOneProfileMutation,
+	useUpdateStoryEmojimoodMutation,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
@@ -30,29 +36,6 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 			...item,
 		})
 	}
-	const [updateOneProfileMutation, { data, loading: UOPLoading }] = useUpdateOneProfileMutation({
-		onCompleted: data => {
-			if (data.updateOneProfile) {
-				const Profile = data.updateOneProfile as Profile
-				if (rAuthorizationVar?.DeviceProfile) {
-					AuthorizationReactiveVar({
-						...rAuthorizationVar,
-						DeviceProfile: {
-							...rAuthorizationVar.DeviceProfile,
-							Profile,
-						},
-					})
-				}
-				reset({
-					emojimood: {
-						name: String(data.updateOneProfile.DetailInformation?.description),
-					},
-				})
-			} else {
-				setError('emojimood', { message: 'Couldnt update profile' })
-			}
-		},
-	})
 
 	const {
 		control,
@@ -233,18 +216,10 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 								width: window.width,
 							}}
 						/>
-						<Image
-							style={{
-								position: 'absolute',
-								marginVertical: 20,
-								borderRadius: 20,
-								borderColor: value.colors[1] ? value.colors[1] : 'transparent',
-								borderWidth: 2,
-							}}
-							width={window.width / 2.3}
-							height={window.width / 2.3}
-							source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
-							alt={'Profile Photo'}
+						<Photos
+							emojimoodcolors={{ colors: value.colors }}
+							story={rAuthorizationVar?.DeviceProfile?.Profile?.Story}
+							photo={rAuthorizationVar?.DeviceProfile?.Profile?.photos}
 						/>
 					</>
 				)}

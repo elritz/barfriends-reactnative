@@ -6,7 +6,7 @@ export const RELATIONSHIP_FRAGMENT = gql`
 		RelationshipStatus
 		friendProfile {
 			id
-			photos {
+			photo {
 				id
 				url
 				type
@@ -18,7 +18,7 @@ export const RELATIONSHIP_FRAGMENT = gql`
 				updatedAt
 			}
 			ProfileType
-			Story {
+			tonightStory {
 				emojimood {
 					id
 					emojiname

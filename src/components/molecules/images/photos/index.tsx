@@ -15,15 +15,17 @@ import Animated, {
 type Props = {
 	story: Maybe<Story> | undefined
 	photo: Maybe<Photo> | undefined
+	w: number
+	h: number
 }
 
-export default function Photos({ story, photo }: Props) {
+export default function Photos({ story, photo, w, h }: Props) {
 	const { width } = useWindowDimensions()
 	const scrollRef = useAnimatedRef<ScrollView>()
 	const translateX = useSharedValue(0)
 	const margin = 12
 	const DOT_SIZE = 8
-	const ITEM_WIDTH = width - margin * 2
+	const ITEM_WIDTH = w - margin * 2
 
 	//! don't move this from here
 	const activeIndex = useDerivedValue(() => {
@@ -61,8 +63,8 @@ export default function Photos({ story, photo }: Props) {
 					_dark={{
 						bg: 'light.800',
 					}}
-					h={400}
-					w={'100%'}
+					h={h}
+					w={w}
 					borderRadius={'lg'}
 					overflow={'hidden'}
 				>
@@ -172,25 +174,26 @@ export default function Photos({ story, photo }: Props) {
 					_dark={{
 						bg: 'light.800',
 					}}
-					h={400}
-					w={'100%'}
+					h={h}
+					w={w}
 					borderRadius={'lg'}
+					alignItems={'center'}
+					justifyContent={'center'}
 					overflow={'hidden'}
-					mb={3}
+					m={3}
+					alignSelf={'center'}
 				>
-					<View>
-						<Box h={'100%'} w={ITEM_WIDTH}>
-							<Image
-								source={{
-									uri: photo.url,
-								}}
-								height={'100%'}
-								width={'100%'}
-								rounded={'none'}
-								alt='Alternate Text'
-							/>
-						</Box>
-					</View>
+					<Box h={'100%'} p={2} w={'100%'} borderRadius={'3xl'}>
+						<Image
+							source={{
+								uri: photo.url,
+							}}
+							height={'100%'}
+							width={'100%'}
+							rounded={'xl'}
+							alt='Alternate Text'
+						/>
+					</Box>
 				</Box>
 			)}
 		</>

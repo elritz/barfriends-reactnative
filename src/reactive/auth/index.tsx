@@ -1,5 +1,4 @@
 import { makeVar } from '@apollo/client'
-import { DeviceManager, Profile } from '@graphql/generated'
+import { ClientDeviceManager, DeviceManager } from '@graphql/generated'
 
-export const MeReactiveVar = makeVar<Profile | null | undefined>(null)
-export const AuthorizationReactiveVar = makeVar<DeviceManager | null>(null)
+export const AuthorizationReactiveVar = makeVar<ClientDeviceManager | null>(null)

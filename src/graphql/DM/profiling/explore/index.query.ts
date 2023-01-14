@@ -13,7 +13,7 @@ export const EXPLORE_SEARCH_QUERY = gql`
 						lastname
 						username
 					}
-					photos {
+					photo {
 						id
 						active
 						blurhash
@@ -31,7 +31,7 @@ export const EXPLORE_SEARCH_QUERY = gql`
 						lastname
 						username
 					}
-					photos {
+					photo {
 						id
 						active
 						blurhash

@@ -21,7 +21,7 @@ const JoinVenue = ({}) => {
 			_dark={{
 				bg: 'dark.50',
 			}}
-			px={10}
+			px={5}
 		>
 			<Pressable
 				onPress={() => {

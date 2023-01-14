@@ -5,28 +5,22 @@ import { PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
 export const CREATE_DEVICE_MANAGER_MUTATION = gql`
 	mutation createADeviceManager($profileId: String!) {
 		createADeviceManager(profileId: $profileId) {
-			... on DeviceManager {
-				__typename
+			id
+			DeviceProfile {
 				id
-				DeviceProfile {
+				isActive
+				RefreshToken {
 					id
-					isActive
-					refreshtoken
-					accesstoken
-					AppType
-					DeviceManager {
-						id
-					}
-					deviceManagerId
-					Profile {
-						...PROFILE_FRAGMENT
-					}
 				}
-			}
-			... on Error {
-				type
-				errorCode
-				message
+				accesstoken
+				AppType
+				DeviceManager {
+					id
+				}
+				deviceManagerId
+				Profile {
+					...PROFILE_FRAGMENT
+				}
 			}
 		}
 	}
@@ -37,13 +31,13 @@ export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
 	mutation switchDeviceProfile($profileId: String!, $profileType: ProfileType) {
 		switchDeviceProfile(profileId: $profileId, profileType: $profileType) {
-			... on DeviceManager {
+			... on ClientDeviceManager {
 				__typename
 				id
 				DeviceProfile {
 					id
 					isActive
-					refreshtoken
+					# refreshtoken
 					accesstoken
 					AppType
 					DeviceManager {
@@ -55,8 +49,7 @@ export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 					}
 				}
 			}
-			... on Error {
-				type
+			... on ErrorManaging {
 				errorCode
 				message
 			}
@@ -68,7 +61,7 @@ export const REFRESH_DEVICE_MANAGER_MUTATION = gql`
 	${PROFILE_FRAGMENT}
 	mutation refreshDeviceManager {
 		refreshDeviceManager {
-			... on DeviceManager {
+			... on ClientDeviceManager {
 				__typename
 				id
 				DeviceProfile {
@@ -86,10 +79,9 @@ export const REFRESH_DEVICE_MANAGER_MUTATION = gql`
 					}
 				}
 			}
-			... on Error {
+			... on ErrorManaging {
 				errorCode
 				message
-				type
 			}
 		}
 	}

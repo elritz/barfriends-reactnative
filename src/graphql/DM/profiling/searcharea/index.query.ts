@@ -11,18 +11,24 @@ export const VENUES_NEARBY_QUERY = gql`
 `
 export const GET_COUNTRIES_QUERY = gql`
 	query getAllCountries {
-		getAllCountries
+		getAllCountries {
+			name
+		}
 	}
 `
 
 export const GET_ALL_STATES_BY_COUNTRY_QUERY = gql`
 	query getAllStatesByCountry($countryIsoCode: String!) {
-		getAllStatesByCountry(countryIsoCode: $countryIsoCode)
+		getAllStatesByCountry(countryIsoCode: $countryIsoCode) {
+			name
+		}
 	}
 `
 
 export const GET_ALL_CITIES_BY_STATE_QUERY = gql`
 	query getAllCitiesByState($countryIsoCode: String!, $state: String!) {
-		getAllCitiesByState(countryIsoCode: $countryIsoCode, state: $state)
+		getAllCitiesByState(countryIsoCode: $countryIsoCode, state: $state) {
+			name
+		}
 	}
 `

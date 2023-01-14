@@ -445,7 +445,8 @@ export default function ThemeViewer() {
 						</HStack>
 						<Button
 							isDisabled={
-								rAuthorizationVar.DeviceProfile.Profile.ThemeManager.ProfileTheme.themeId === theme.id
+								rAuthorizationVar?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].themeId ===
+								theme.id
 							}
 							px={10}
 							variant={'solid'}
@@ -453,26 +454,29 @@ export default function ThemeViewer() {
 								opacity: 1,
 							}}
 							startIcon={
-								rAuthorizationVar.DeviceProfile.Profile.ThemeManager.ProfileTheme.themeId === theme.id ? (
+								rAuthorizationVar?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].themeId ===
+								theme.id ? (
 									<Icon as={AntDesign} size={'md'} name={'checkcircle'} />
 								) : null
 							}
 							colorScheme={
-								rAuthorizationVar.DeviceProfile.Profile.ThemeManager.ProfileTheme.themeId === theme.id
+								rAuthorizationVar?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].themeId ===
+								theme.id
 									? 'primary'
 									: 'tertiary'
 							}
 							onPress={() => {
 								updateThemeManagerSwitchTheme({
 									variables: {
-										id: rAuthorizationVar.DeviceProfile.Profile.ThemeManager.id,
+										id: String(rAuthorizationVar?.DeviceProfile.Profile.ThemeManager?.id),
 										themeId: theme.id,
 									},
 								})
 							}}
 						>
 							<Text fontSize={'xl'}>
-								{rAuthorizationVar.DeviceProfile.Profile.ThemeManager.ProfileTheme.themeId === theme.id
+								{rAuthorizationVar?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].themeId ===
+								theme.id
 									? 'Active theme'
 									: 'Set theme'}
 							</Text>

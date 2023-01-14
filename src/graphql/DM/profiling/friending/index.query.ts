@@ -37,7 +37,6 @@ export const GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY = gql`
 		}
 	}
 `
-
 export const GET_SECURE_DATA_QRCODE_FRIENDING_QUERY = gql`
 	query getSecureFriendQRCodeData {
 		getSecureFriendQRCodeData

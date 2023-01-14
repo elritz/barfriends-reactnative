@@ -30,7 +30,7 @@ const EmojimoodScreen = () => {
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data.switchDeviceProfile.__typename === 'DeviceManager') {
+				if (data.switchDeviceProfile?.__typename === 'DeviceManager') {
 					const deviceManager = data.switchDeviceProfile as DeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					navigation.navigate('HomeTabNavigator', {
@@ -46,13 +46,14 @@ const EmojimoodScreen = () => {
 	const [createProfilePersonal, { loading }] = useCreatePersonalProfileMutation({
 		variables: {
 			data: {
-				PrivacyPolicyId: credentialPersonalProfileVar.PrivacyId,
-				ServicesId: credentialPersonalProfileVar.ServiceId,
+				PrivacyPolicyId: String(credentialPersonalProfileVar.PrivacyId),
+				ServicesId: String(credentialPersonalProfileVar.ServiceId),
 				birthday: credentialPersonalProfileVar.birthday,
-				password: credentialPersonalProfileVar.password,
-				username: credentialPersonalProfileVar.username,
+				password: String(credentialPersonalProfileVar.password),
+				username: String(credentialPersonalProfileVar.username),
 				fullname: credentialPersonalProfileVar.name,
-				emojimood: parseInt(credentialPersonalProfileVar.emojimood.id),
+				emojimood: String(credentialPersonalProfileVar.emojimood?.id),
+				address: '',
 				EmailInput: {
 					email: credentialPersonalProfileVar.email,
 				},
@@ -62,17 +63,17 @@ const EmojimoodScreen = () => {
 				photos: {
 					data: [
 						{
-							url: credentialPersonalProfileVar.photo.url,
+							url: String(credentialPersonalProfileVar?.photo?.url),
 						},
 					],
 				},
 			},
 		},
 		onCompleted: async data => {
-			if (data.createPersonalProfile.__typename === 'CreateProfileResponse') {
+			if (data.createPersonalProfile?.__typename === 'Profile') {
 				switchDeviceProfileMutation({
 					variables: {
-						profileId: data.createPersonalProfile.Profile.id,
+						profileId: String(data?.createPersonalProfile.id),
 						profileType: ProfileType.Personal,
 					},
 				})
@@ -110,8 +111,9 @@ const EmojimoodScreen = () => {
 					<LinearGradient id='grad' x1='1' y1='0' x2='1' y2='1'>
 						<Stop
 							offset='0.25'
+							// stopColor={credentialPersonalProfileVar?.emojimood?.colors?[0] ? credentialPersonalProfileVar.emojimood.colors[0]: themeContext.palette.primary.background.default }
 							stopColor={
-								credentialPersonalProfileVar.emojimood.colors[0]
+								credentialPersonalProfileVar?.emojimood?.colors?.length
 									? credentialPersonalProfileVar.emojimood.colors[0]
 									: themeContext.palette.primary.background.default
 							}
@@ -120,7 +122,7 @@ const EmojimoodScreen = () => {
 						<Stop
 							offset='1'
 							stopColor={
-								credentialPersonalProfileVar.emojimood.colors[1]
+								credentialPersonalProfileVar?.emojimood?.colors?.length
 									? credentialPersonalProfileVar.emojimood.colors[1]
 									: themeContext.palette.primary.background.default
 							}
@@ -141,7 +143,7 @@ const EmojimoodScreen = () => {
 				numColumns={3}
 				contentInset={{ top: window.width + 20, bottom: 120, left: 0, right: 0 }}
 				contentInsetAdjustmentBehavior='automatic'
-				data={emojiData.emojimoods}
+				data={emojiData?.emojimoods}
 				renderItem={({ item }: any) => {
 					return (
 						<Pressable onPress={() => onPressEmojimood(item)}>
@@ -159,7 +161,7 @@ const EmojimoodScreen = () => {
 										rx={window.width / 10}
 										ry={window.width / 10}
 										fill='url(#grad)'
-										stroke={credentialPersonalProfileVar.emojimood.id === item.id ? 'white' : '#FFFFFF00'}
+										stroke={credentialPersonalProfileVar.emojimood?.id === item.id ? 'white' : '#FFFFFF00'}
 										strokeWidth='2'
 									/>
 								</Svg>
@@ -189,8 +191,8 @@ const EmojimoodScreen = () => {
 			/>
 			<ExpoLinearGradient
 				colors={[
-					credentialPersonalProfileVar.emojimood.colors[0]
-						? credentialPersonalProfileVar.emojimood.colors[0]
+					credentialPersonalProfileVar.emojimood?.colors?.length
+						? credentialPersonalProfileVar?.emojimood.colors[0]
 						: themeContext.palette.primary.background.default,
 					'transparent',
 				]}
@@ -206,14 +208,14 @@ const EmojimoodScreen = () => {
 					position: 'absolute',
 					marginVertical: 20,
 					borderRadius: 20,
-					borderColor: credentialPersonalProfileVar.emojimood.colors[0]
+					borderColor: credentialPersonalProfileVar.emojimood?.colors?.length
 						? credentialPersonalProfileVar.emojimood.colors[0]
 						: 'transparent',
 					borderWidth: 2,
 				}}
 				height={window.width / 1.2}
 				width={window.width / 1.3}
-				source={{ uri: credentialPersonalProfileVar.photo.uri }}
+				source={{ uri: credentialPersonalProfileVar.photo?.uri }}
 				alt={'Profile Photo'}
 			/>
 			<SafeAreaView
@@ -244,7 +246,7 @@ const EmojimoodScreen = () => {
 					icon={<Icon color={'white'} name='arrow-right' size={'2xl'} as={Feather} />}
 				>
 					<Text color={'primary.500'} fontSize={'lg'}>
-						{loading ? 'Completing' : !credentialPersonalProfileVar.emojimood.id ? 'Skip' : 'Complete'}
+						{loading ? 'Completing' : !credentialPersonalProfileVar.emojimood?.id ? 'Skip' : 'Complete'}
 					</Text>
 				</IconButton>
 			</SafeAreaView>

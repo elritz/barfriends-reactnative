@@ -1,9 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CameraModal from '@components/molecules/modals/cameramodal/CameraModal'
-import {
-	useGetSecureFriendQrCodeDataLazyQuery,
-	useGetSecureFriendQrCodeDataQuery,
-} from '@graphql/generated'
+import { useGetSecureFriendQrCodeDataQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Box, Heading, Pressable, useDisclose, VStack } from 'native-base'
 import { useState } from 'react'
@@ -24,7 +21,14 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 	const [dataQR, setDataQR] = useState('')
 
 	const { data, loading, error } = useGetSecureFriendQrCodeDataQuery({
+		onError: error => {
+			console.log('errror', error)
+		},
 		onCompleted: data => {
+			console.log('🚀 ---------------------------------------------------------------------🚀')
+			console.log('🚀 ~ file: QuickBarfriendCard.tsx:25 ~ QuickBarfriendCard ~ data', data)
+			console.log('🚀 ---------------------------------------------------------------------🚀')
+
 			const dataQRString = JSON.stringify({
 				dataHash: data.getSecureFriendQRCodeData,
 				qrCodeProfileId: rAuthorizationVar?.DeviceProfile?.Profile?.id,

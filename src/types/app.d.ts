@@ -327,11 +327,37 @@ export type ProfileTokenType = {
 	refreshToken?: string | undefined
 }
 
-export type MeTokenType = {
-	active: boolean | undefined
-	me: Personal | Venue
-	authorization?: string | undefined
-	refreshToken?: string | undefined
+export type ClientDeviceManager = {
+	id: string
+	createdAt: Date
+	updatedAt: Date
+	Device: Device
+	DeviceProfile: DeviceProfile
+}
+
+// Managing Service types
+
+export type Device = {
+	id: string
+	deviceManagerId: number
+	deviceType: string | null
+	createdAt: Date
+	updatedAt: Date
+}
+
+export type DeviceProfile = {
+	id: number
+	AppType: AppType | null
+	deviceManagerId: string
+	isActive: boolean
+	profileId: string
+	Profile: Profile
+	accesstoken: string
+	refreshtoken: string
+}
+
+export type Profile = {
+	id: string
 }
 
 export type ProfileListRenderType = {

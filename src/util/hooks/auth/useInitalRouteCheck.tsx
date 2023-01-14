@@ -1,22 +1,16 @@
 import { authorizationParseToken } from './useAuthorizationToken'
 import { AUTHORIZATION, DEVICE_TOKEN } from '@constants/StorageConstants'
-import { MeReactiveVar } from '@reactive'
 import { secureStorageItemDelete } from '@util/hooks/local/useSecureStorage'
 import { useEffect } from 'react'
 
 const useInitalRouteCheck = async () => {
 	// const { state: appState, dispatch: appDispatch } = useContext(AppContext);
-	const rMeReactiveVar = MeReactiveVar()
 
 	// const [meQuery, { data, loading, error }] = useMeLazyQuery({
 	//   fetchPolicy: 'network-only',
 	//   onCompleted: async (data) => {
 	//     const { activeprofile } = await authorizationParseToken();
 	//     if (data && data.me?.success) {
-	//       MeReactiveVar({
-	//         activeProfile: activeprofile,
-	//         profile: data.me.Profile,
-	//       });
 	//     }
 	//   },
 	// });

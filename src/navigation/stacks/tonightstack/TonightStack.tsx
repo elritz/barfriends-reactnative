@@ -3,10 +3,17 @@ import EmojimoodScreen from '@navigation/screens/editors/emojimoodscreen/Emojimo
 import TonightScreen from '@navigation/screens/hometabs/tonight/Tonight'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { TonightTabStackParamList } from '@types'
+import { useForm } from 'react-hook-form'
 
 const ScreenStack = createNativeStackNavigator<TonightTabStackParamList>()
-
 function TonightNavigator() {
+	const methods = useForm({
+		defaultValues: {
+			searchtext: '',
+			done: false,
+		},
+	})
+
 	return (
 		<ScreenStack.Navigator>
 			<ScreenStack.Screen

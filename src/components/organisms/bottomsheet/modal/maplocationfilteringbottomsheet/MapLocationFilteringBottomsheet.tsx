@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import FadeBottomSheetBackground from '@components/atoms/backgrounds/FadeBottomSheetBackground'
 import SearchAreaFilltering from '@components/templates/SearchAreaFilltering/SearchAreaFilltering'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { MapBottomSheetRefVar } from '@reactive'
@@ -20,7 +19,6 @@ const MapLocationFillteringBottomSheet = () => {
 		<BottomSheetModal
 			ref={mapBottomSheetRef}
 			index={1}
-			backgroundComponent={FadeBottomSheetBackground}
 			snapPoints={snapPoints}
 			enableContentPanningGesture={false}
 			handleStyle={{

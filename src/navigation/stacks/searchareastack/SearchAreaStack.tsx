@@ -67,10 +67,10 @@ function SearchAreaStackNavigation() {
 	const methods = useForm({
 		defaultValues: {
 			searchtext: '',
-			country: '' || rSearchAreaVar.country,
-			state: '' || rSearchAreaVar.state,
-			city: '' || rSearchAreaVar.city,
-			isoCode: '' || rSearchAreaVar.isoCode,
+			country: '' || rSearchAreaVar?.country,
+			state: '' || rSearchAreaVar?.state,
+			city: '' || rSearchAreaVar?.city,
+			isoCode: '' || rSearchAreaVar?.isoCode,
 			latitude: '',
 			longitude: '',
 			done: false,

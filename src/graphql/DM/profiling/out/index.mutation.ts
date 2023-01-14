@@ -1,18 +1,18 @@
 import { gql } from '@apollo/client'
 
-export const UPSERT_TONGIHT_PATH_OR_PATH = gql`
-	mutation UpsertTonightPathOrPath(
-		$latitude: Float!
-		$longitude: Float!
-		$profileIdPersonal: String!
-	) {
-		upsertTonightPathOrPath(
-			latitude: $latitude
-			longitude: $longitude
-			profileIdPersonal: $profileIdPersonal
-		)
-	}
-`
+// export const UPSERT_TONGIHT_PATH_OR_PATH = gql`
+// 	mutation UpsertTonightPathOrPath(
+// 		$latitude: Float!
+// 		$longitude: Float!
+// 		$profileIdPersonal: String!
+// 	) {
+// 		upsertTonightPathOrPath(
+// 			latitude: $latitude
+// 			longitude: $longitude
+// 			profileIdPersonal: $profileIdPersonal
+// 		)
+// 	}
+// `
 
 export const ADD_PERSONAL_TOTALS_VENUE_MUTATION = gql`
 	mutation addPersonalTotalsVenue($profileIdPersonal: String!, $profileIdVenue: String!) {

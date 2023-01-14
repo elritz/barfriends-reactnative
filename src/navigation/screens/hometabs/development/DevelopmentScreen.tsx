@@ -185,8 +185,8 @@ const DevelopmentScreen = () => {
 					borderRadius={'lg'}
 					borderWidth={2}
 					borderColor={
-						AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme?.Theme.id ===
-						item.id
+						AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0]?.Theme
+							.id === item.id
 							? 'primary.400'
 							: 'transparent'
 					}

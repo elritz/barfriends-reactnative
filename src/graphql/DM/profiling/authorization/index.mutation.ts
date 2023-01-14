@@ -4,7 +4,7 @@ import { ERROR_PROFILING_FRAGMENT, CODE_FRAGMENT } from '@graphql/DM/fragments/i
 export const AUTHENTICATION_DEVICE_OWNER_CODE_MUTATION = gql`
 	${CODE_FRAGMENT}
 	${ERROR_PROFILING_FRAGMENT}
-	mutation sendAuthenticatorDeviceOwnerCode($data: CodeData, $where: CodeWhere) {
+	mutation sendAuthenticatorDeviceOwnerCode($data: CodeDataInput, $where: CustomCodeWhereInput) {
 		sendAuthenticatorDeviceOwnerCode(data: $data, where: $where) {
 			... on Code {
 				...CODE_FRAGMENT

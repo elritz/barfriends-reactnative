@@ -129,7 +129,7 @@ export const PROFILE_FRAGMENT = gql`
 			createdAt
 			updatedAt
 		}
-		Story {
+		tonightStory {
 			id
 			photos {
 				id
@@ -166,7 +166,7 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 		Relationships {
 			...RELATIONSHIP_FRAGMENT
 		}
-		photos {
+		photo {
 			id
 			url
 			type
@@ -266,7 +266,7 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 			createdAt
 			updatedAt
 		}
-		Story {
+		tonightStory {
 			id
 			photos {
 				id
