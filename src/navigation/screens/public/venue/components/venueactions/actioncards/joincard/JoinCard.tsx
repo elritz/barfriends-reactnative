@@ -22,7 +22,7 @@ export default function JoinCard() {
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: route.params.profileId,
-				profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
@@ -43,14 +43,16 @@ export default function JoinCard() {
 		fetchPolicy: 'network-only',
 		variables: {
 			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile.id,
+				id: {
+					equals: String(rAuthorizationVar?.DeviceProfile?.Profile.id),
+				},
 			},
 		},
 	})
 
 	useEffect(() => {
 		const totaledToVenue =
-			rAuthorizationVar.DeviceProfile.Profile.Personal.LiveOutPersonal.totaled.map(item => {
+			rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
 				return item.venueProfileId
 			})
 

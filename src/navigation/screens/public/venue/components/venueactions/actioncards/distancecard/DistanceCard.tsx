@@ -8,7 +8,7 @@ export default function DistanceCard() {
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	return (
 		<Box flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
-			{rPermissionLocationVar.granted ? <CurrentLocationFromVenueDistance /> : <LocationPermission />}
+			{rPermissionLocationVar?.granted ? <CurrentLocationFromVenueDistance /> : <LocationPermission />}
 		</Box>
 	)
 }

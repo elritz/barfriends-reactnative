@@ -29,7 +29,9 @@ const VenueActions = () => {
 		fetchPolicy: 'network-only',
 		variables: {
 			where: {
-				id: route.params.profileId,
+				id: {
+					equals: route.params.profileId,
+				},
 			},
 		},
 		onCompleted: data => {

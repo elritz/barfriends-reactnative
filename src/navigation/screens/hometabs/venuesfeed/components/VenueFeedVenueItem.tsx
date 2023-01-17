@@ -49,7 +49,7 @@ const VenueFeedVenueItem = (props: Props) => {
 					params: {
 						screen: 'PublicVenueScreen',
 						params: {
-							profileId: props.item.id,
+							profileId: String(props.item.id),
 						},
 					},
 				})
@@ -67,7 +67,7 @@ const VenueFeedVenueItem = (props: Props) => {
 			>
 				{!props.loading ? (
 					<Image
-						source={{ uri: props.item.photos?.url }}
+						source={{ uri: props.item.photo?.url }}
 						resizeMode='cover'
 						onLoadEnd={() => setHideBlur(true)}
 						style={{
@@ -80,7 +80,7 @@ const VenueFeedVenueItem = (props: Props) => {
 				) : null}
 				{!hideBlur && (
 					<Blurhash
-						blurhash={String(props.item.photos?.blurhash)}
+						blurhash={String(props.item.photo?.blurhash)}
 						style={{
 							flex: 1,
 						}}

@@ -17,7 +17,9 @@ const VenueHeader = (props: Props) => {
 		skip: !props.profileId,
 		variables: {
 			where: {
-				id: props.profileId,
+				id: {
+					equals: props.profileId,
+				},
 			},
 		},
 		onCompleted: data => {},
@@ -52,7 +54,7 @@ const VenueHeader = (props: Props) => {
 			}}
 		>
 			<Image
-				source={{ uri: venueData?.photos?.url }}
+				source={{ uri: venueData?.photo.url }}
 				style={{
 					position: 'absolute',
 					width: width,

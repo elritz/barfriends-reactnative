@@ -20,7 +20,9 @@ const VenueScreen = (props: any) => {
 		skip: !route.params.profileId,
 		variables: {
 			where: {
-				id: route.params.profileId,
+				id: {
+					equals: route.params.profileId,
+				},
 			},
 		},
 		onCompleted: data => {},

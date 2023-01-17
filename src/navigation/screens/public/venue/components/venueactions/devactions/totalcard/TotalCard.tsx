@@ -1,6 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
 	Profile,
 	useAddPersonalTotalsVenueMutation,
 	useCurrentVenueLazyQuery,
@@ -25,27 +27,32 @@ export default function TotalCard() {
 		{ data: APTVData, loading: APTVLoading, error: APTVError },
 	] = useAddPersonalTotalsVenueMutation({
 		variables: {
-			profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: route.params.profileId,
 		},
 		onCompleted: async data => {
 			profileQuery({
 				variables: {
 					where: {
-						id: rAuthorizationVar.DeviceProfile?.Profile.id,
+						id: {
+							equals: rAuthorizationVar?.DeviceProfile?.Profile.id,
+						},
 					},
 				},
 				onCompleted: data => {
 					if (data.profile) {
 						const profile = data.profile as Profile
+						const deviceManager = rAuthorizationVar as ClientDeviceManager
+						const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 						AuthorizationReactiveVar({
-							...rAuthorizationVar,
+							...deviceManager,
 							DeviceProfile: {
-								...rAuthorizationVar.DeviceProfile,
+								...deviceprofile,
 								Profile: profile,
 							},
 						})
-						const totaledToVenue = data.profile.Personal.LiveOutPersonal.totaled.map(item => {
+						const totaledToVenue = data?.profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
 							return item.venueProfileId
 						})
 
@@ -68,7 +75,7 @@ export default function TotalCard() {
 		{ data: RPTVData, loading: RPTVLoading, error: RPTVError },
 	] = useRemovePersonalTotalsVenueMutation({
 		variables: {
-			profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: route.params.profileId,
 		},
 
@@ -76,20 +83,25 @@ export default function TotalCard() {
 			profileQuery({
 				variables: {
 					where: {
-						id: rAuthorizationVar.DeviceProfile.Profile?.id,
+						id: {
+							equals: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
+						},
 					},
 				},
 				onCompleted: data => {
 					if (data.profile) {
 						const profile = data.profile as Profile
+						const deviceManager = rAuthorizationVar as ClientDeviceManager
+						const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 						AuthorizationReactiveVar({
-							...rAuthorizationVar,
+							...deviceManager,
 							DeviceProfile: {
-								...rAuthorizationVar.DeviceProfile,
+								...deviceprofile,
 								Profile: profile,
 							},
 						})
-						const totaledToVenue = data.profile.Personal.LiveOutPersonal.totaled.map(item => {
+						const totaledToVenue = data?.profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
 							return item.venueProfileId
 						})
 
@@ -111,7 +123,7 @@ export default function TotalCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery()
 
 	useEffect(() => {
-		if (rAuthorizationVar.DeviceProfile.Profile.Personal) {
+		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
 			const totaledToVenue =
 				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
 					return item.venueProfileId
@@ -126,7 +138,7 @@ export default function TotalCard() {
 			<Box>
 				<Button
 					onPress={() => {
-						if (rAuthorizationVar.DeviceProfile) {
+						if (rAuthorizationVar?.DeviceProfile) {
 							!isTotaled ? addPersonalTotalsVenueMutation() : removePersonalTotalsVenueMutation()
 						}
 					}}

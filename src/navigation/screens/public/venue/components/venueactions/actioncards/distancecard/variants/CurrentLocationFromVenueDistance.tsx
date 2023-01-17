@@ -28,7 +28,7 @@ const CurrentLocationFromVenueDistance = () => {
 		{ data: APTVData, loading: APTVLoading, error: APTVError },
 	] = useAddPersonalTotalsVenueMutation({
 		variables: {
-			profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: route.params.profileId,
 		},
 	})
@@ -37,7 +37,9 @@ const CurrentLocationFromVenueDistance = () => {
 		skip: !route.params.profileId,
 		variables: {
 			where: {
-				id: route.params.profileId,
+				id: {
+					equals: route.params.profileId,
+				},
 			},
 		},
 		onCompleted: async data => {
@@ -47,8 +49,8 @@ const CurrentLocationFromVenueDistance = () => {
 			const dist = getDistance(
 				{ latitude: currentPosition.coords.latitude, longitude: currentPosition.coords.longitude },
 				{
-					latitude: data.profile.Venue.Location.Geometry.latitude,
-					longitude: data.profile.Venue.Location.Geometry.longitude,
+					latitude: Number(data?.profile?.Venue?.Location?.Geometry?.latitude),
+					longitude: Number(data?.profile?.Venue?.Location?.Geometry?.longitude),
 				},
 			)
 
@@ -93,8 +95,8 @@ const CurrentLocationFromVenueDistance = () => {
 			const dist = getDistance(
 				{ latitude: coords.latitude, longitude: coords.longitude },
 				{
-					latitude: data.profile.Venue.Location.Geometry.latitude,
-					longitude: data.profile.Venue.Location.Geometry.longitude,
+					latitude: Number(data?.profile?.Venue?.Location?.Geometry?.latitude),
+					longitude: Number(data?.profile?.Venue?.Location?.Geometry?.longitude),
 				},
 			)
 			if (dist > 1000) {
@@ -102,7 +104,7 @@ const CurrentLocationFromVenueDistance = () => {
 				setMetric('km')
 			} else {
 				if (distance < 20) {
-					if (rAuthorizationVar.DeviceProfile) {
+					if (rAuthorizationVar?.DeviceProfile) {
 						addPersonalTotalsVenueMutation()
 					}
 				}
@@ -119,7 +121,7 @@ const CurrentLocationFromVenueDistance = () => {
 	return (
 		<>
 			{metric === 'm' && distance > 10 ? (
-				<>{rAuthorizationVar.DeviceProfile?.Profile ? <JoinCard /> : <SignupCard />}</>
+				<>{rAuthorizationVar?.DeviceProfile?.Profile ? <JoinCard /> : <SignupCard />}</>
 			) : (
 				<Box height={'100%'} justifyContent={'space-around'}>
 					<Heading

@@ -1,6 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
 	Profile,
 	useAddPersonalJoinsVenueMutation,
 	useProfileLazyQuery,
@@ -23,7 +25,7 @@ export default function JoinCard() {
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: route.params.profileId,
-				profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
@@ -45,7 +47,7 @@ export default function JoinCard() {
 		{ data: RPJVData, loading: RPJVLoading, error: RPJVError },
 	] = useRemovePersonalJoinsVenueMutation({
 		variables: {
-			profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: route.params.profileId,
 		},
 		onCompleted: async () => {
@@ -64,16 +66,21 @@ export default function JoinCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
 		variables: {
 			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile?.id,
+				id: {
+					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+				},
 			},
 		},
 		onCompleted: data => {
 			if (data.profile) {
 				const profile = data.profile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
+						...deviceprofile,
 						Profile: profile,
 					},
 				})
@@ -82,7 +89,7 @@ export default function JoinCard() {
 	})
 
 	useEffect(() => {
-		if (rAuthorizationVar.DeviceProfile.Profile.Personal) {
+		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
 			const joinedToVenue =
 				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.joined.map(item => {
 					return item.venueProfileId

@@ -22,7 +22,7 @@ export default function LeaveCard() {
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useRemovePersonalJoinsVenueMutation({
 			variables: {
-				profileIdPersonal: rAuthorizationVar.DeviceProfile.Profile?.id,
+				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 				profileIdVenue: route.params.profileId,
 			},
 			onCompleted: async () => {
@@ -41,7 +41,9 @@ export default function LeaveCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
 		variables: {
 			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile?.id,
+				id: {
+					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+				},
 			},
 		},
 		onCompleted: data => {
@@ -59,9 +61,9 @@ export default function LeaveCard() {
 	})
 
 	useEffect(() => {
-		if (rAuthorizationVar.DeviceProfile.Profile.Personal) {
+		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
 			const joinedToVenue =
-				rAuthorizationVar.DeviceProfile.Profile?.Personal.LiveOutPersonal.joined.map(item => {
+				rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.map(item => {
 					return item.venueProfileId
 				})
 

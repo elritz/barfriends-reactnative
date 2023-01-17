@@ -3,7 +3,7 @@ import { PUBLIC_PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments
 
 export const CURRENT_VENUE_QUERY = gql`
 	${PUBLIC_PROFILE_FRAGMENT}
-	query profile($where: ProfileWhereInput) {
+	query currentVenue($where: ProfileWhereInput) {
 		profile(where: $where) {
 			...PUBLIC_PROFILE_FRAGMENT
 		}

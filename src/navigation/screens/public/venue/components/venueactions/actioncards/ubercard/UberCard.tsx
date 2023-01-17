@@ -21,7 +21,7 @@ export default function UberCard() {
 		fetchPolicy: 'network-only',
 		variables: {
 			where: {
-				id: route.params.profileId,
+				id: { equals: route.params.profileId },
 			},
 		},
 	})

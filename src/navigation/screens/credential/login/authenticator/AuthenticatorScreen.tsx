@@ -17,7 +17,6 @@ export type FormType = {
 }
 
 export default function AuthenticatorScreen() {
-	// const inputRef = useRef<TextInput | null>(null)
 	const inputAccessoryViewID = 'phonenumberAccessoryID'
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
@@ -72,14 +71,14 @@ export default function AuthenticatorScreen() {
 			const formValues = getValues()
 			const replaced = formValues.authenticator.replace(/\D/g, '')
 
-			if (data.authorizedProfiles.__typename === 'ProfileTypesResponse') {
+			if (data.authorizedProfiles?.__typename === 'ProfilesResponse') {
 				if (data.authorizedProfiles?.username.length) {
 					navigation.navigate('CredentialNavigator', {
 						screen: 'LoginCredentialStack',
 						params: {
 							screen: 'PasswordLoginScreen',
 							params: {
-								profile: data.authorizedProfiles?.username[0].id,
+								profile: String(data.authorizedProfiles?.username[0].id),
 							},
 						},
 					})
@@ -111,7 +110,8 @@ export default function AuthenticatorScreen() {
 						})
 					}
 				}
-			} else {
+			}
+			if (data.authorizedProfiles?.__typename === 'ErrorProfiling') {
 				setError('authenticator', { message: data.authorizedProfiles.message })
 			}
 		},
@@ -124,15 +124,13 @@ export default function AuthenticatorScreen() {
 		authorizedProfilesV2Query({
 			variables: {
 				where: {
-					Profiles: [
-						{
-							username: username,
-							email: data.authenticator,
-							Phone: {
-								number: numberOnly,
-							},
+					profiles: {
+						username: username,
+						email: data.authenticator,
+						Phone: {
+							number: numberOnly,
 						},
-					],
+					},
 				},
 			},
 		})
@@ -240,6 +238,12 @@ export default function AuthenticatorScreen() {
 					alignContent={'space-around'}
 					height={'90px'}
 					px={'2.5%'}
+					_light={{
+						bg: 'light.100',
+					}}
+					_dark={{
+						bg: 'dark.200',
+					}}
 				>
 					<View
 						style={{

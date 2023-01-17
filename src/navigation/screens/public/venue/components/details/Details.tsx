@@ -28,7 +28,9 @@ export default function Details(props: Props) {
 		skip: !props.profileId,
 		variables: {
 			where: {
-				id: props.profileId,
+				id: {
+					equals: props.profileId,
+				},
 			},
 		},
 		onCompleted: data => {},
