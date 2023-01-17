@@ -25,10 +25,6 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 			console.log('errror', error)
 		},
 		onCompleted: data => {
-			console.log('🚀 ---------------------------------------------------------------------🚀')
-			console.log('🚀 ~ file: QuickBarfriendCard.tsx:25 ~ QuickBarfriendCard ~ data', data)
-			console.log('🚀 ---------------------------------------------------------------------🚀')
-
 			const dataQRString = JSON.stringify({
 				dataHash: data.getSecureFriendQRCodeData,
 				qrCodeProfileId: rAuthorizationVar?.DeviceProfile?.Profile?.id,

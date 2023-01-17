@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import {
-	DeviceManager,
+	ClientDeviceManager,
 	ProfileType,
 	useCreatePersonalProfileMutation,
 	useEmojimoodsQuery,
@@ -14,7 +14,7 @@ import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { Text, Icon, Center, IconButton, Box, Image } from 'native-base'
 import { useContext } from 'react'
-import { FlatList, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
+import { FlatList, Pressable, SafeAreaView, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, Ellipse, LinearGradient, Rect, Stop } from 'react-native-svg'
 import { ThemeContext } from 'styled-components/native'
@@ -30,9 +30,10 @@ const EmojimoodScreen = () => {
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data.switchDeviceProfile?.__typename === 'DeviceManager') {
-					const deviceManager = data.switchDeviceProfile as DeviceManager
+				if (data.switchDeviceProfile.__typename === 'ClientDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
+
 					navigation.navigate('HomeTabNavigator', {
 						screen: 'VenueFeedStack',
 						params: {
@@ -70,6 +71,7 @@ const EmojimoodScreen = () => {
 			},
 		},
 		onCompleted: async data => {
+			console.log('========>', JSON.stringify(data.createPersonalProfile?.__typename, null, 4))
 			if (data.createPersonalProfile?.__typename === 'Profile') {
 				switchDeviceProfileMutation({
 					variables: {

@@ -1,5 +1,5 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { Text, Icon, Image, Box, HStack, IconButton, VStack, Heading } from 'native-base'
+import { Text, Icon, Image, Box, HStack, VStack, Heading } from 'native-base'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {

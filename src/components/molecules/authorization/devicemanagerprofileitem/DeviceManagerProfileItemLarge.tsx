@@ -31,7 +31,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 		>
 			<HStack alignItems={'center'}>
 				<Image
-					source={{ uri: item?.photos?.url }}
+					source={{ uri: item?.photos[0].url }}
 					style={{ width: 40, height: 40 }}
 					borderRadius={'lg'}
 					alt={'Profile photo'}

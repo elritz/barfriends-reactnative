@@ -1,15 +1,12 @@
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
+import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-	PermissionForegroundLocationReactiveVar,
-	SearchAreaReactiveVar,
-	SearchAreaType,
-} from '@reactive'
+import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { Alert, Linking, Platform } from 'react-native'
 
-const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
+const useSetSearchAreaWithLocation = async () => {
 	const status = await Location.getForegroundPermissionsAsync()
 	const rSearchAreaVar = SearchAreaReactiveVar()
 	const rPermissionLocationVar = PermissionForegroundLocationReactiveVar()
@@ -23,6 +20,7 @@ const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 			const currentLastKnownLocation = await Location.getLastKnownPositionAsync({
 				requiredAccuracy: 3,
 			})
+
 			if (!currentLastKnownLocation) {
 				return false
 			}
@@ -37,6 +35,9 @@ const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 				useCurrentLocation: true,
 				country: reverseGeocode[0].country,
 				state: reverseGeocode[0].region,
+				isoCode: reverseGeocode[0].isoCountryCode,
+				distance: 30,
+				kRing: 3,
 				city: reverseGeocode[0].city,
 				coords: {
 					latitude: currentLastKnownLocation.coords.latitude,
@@ -44,14 +45,18 @@ const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 				},
 			})
 
-			const valueSearchArea: SearchAreaType = {
+			const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
 				...rSearchAreaVar,
+				useCurrentLocation: true,
 				country: reverseGeocode[0].country,
 				state: reverseGeocode[0].region,
 				city: reverseGeocode[0].city,
+				isoCode: reverseGeocode[0].isoCountryCode,
+				distance: 30,
+				kRing: 3,
 				coords: {
-					latitude: currentLocation.coords.latitude,
-					longitude: currentLocation.coords.longitude,
+					latitude: currentLastKnownLocation.coords.latitude,
+					longitude: currentLastKnownLocation.coords.longitude,
 				},
 			}
 
@@ -66,20 +71,45 @@ const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 			longitude: currentLocation.coords.longitude,
 		})
 
-		const valueSearchArea: SearchAreaType = {
-			...rSearchAreaVar,
+		const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
 			useCurrentLocation: true,
-			country: reverseGeocode[0].country,
-			state: reverseGeocode[0].region,
-			city: reverseGeocode[0].city,
-			coords: {
-				latitude: currentLocation.coords.latitude,
-				longitude: currentLocation.coords.longitude,
+			kRing: {
+				value: 2,
+				distance: 60,
+			},
+			searchArea: {
+				country: {
+					name: String(reverseGeocode[0].country),
+					coords: {
+						latitude: currentLocation.coords.latitude,
+						longitude: currentLocation.coords.longitude,
+					},
+					isoCode: String(reverseGeocode[0].isoCountryCode),
+				},
+				state: {
+					name: String(reverseGeocode[0].country),
+					coords: {
+						latitude: currentLocation.coords.latitude,
+						longitude: currentLocation.coords.longitude,
+					},
+					isoCode: String(reverseGeocode[0].region),
+				},
+				city: {
+					name: String(reverseGeocode[0].city),
+					coords: {
+						latitude: currentLocation.coords.latitude,
+						longitude: currentLocation.coords.longitude,
+					},
+					isoCode: '',
+				},
+				coords: {
+					latitude: currentLocation.coords.latitude,
+					longitude: currentLocation.coords.longitude,
+				},
 			},
 		}
 
 		SearchAreaReactiveVar({
-			...rSearchAreaVar,
 			...valueSearchArea,
 		})
 
@@ -91,7 +121,7 @@ const useSetSearchAreaWithLocation = async (): Promise<Boolean> => {
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Location Permission Status',
-			`Currently you location permission is${rPermissionLocationVar.status}. Go to settings to change this.`,
+			`Currently you location permission is${rPermissionLocationVar?.status}. Go to settings to change this.`,
 			[
 				{
 					text: 'Cancel',

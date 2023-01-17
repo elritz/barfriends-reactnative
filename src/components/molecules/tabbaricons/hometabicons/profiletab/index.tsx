@@ -103,7 +103,7 @@ const ProfileTab = (props: TabProps) => {
 						<>
 							{rAuthorizationVar?.DeviceProfile?.Profile?.photos ? (
 								<Image
-									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos?.url }}
+									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
 									style={{
 										width: HEIGHT,
 										height: HEIGHT,

@@ -2,6 +2,8 @@ import { useReactiveVar } from '@apollo/client'
 import WithDeviceProfiles from '@components/molecules/asks/signinup/withdeviceprofiles/WithDeviceProfiles'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
 	DeviceManager,
 	DeviceProfile,
 	Profile,
@@ -20,14 +22,17 @@ import { SafeAreaView, View, ScrollView } from 'react-native'
 export default function DeviceManagerModal() {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [profiles, setProfiles] = useState<Array<DeviceProfile>>([])
+	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
+		onError: error => {
+			console.log('==========+>', error)
+		},
 		onCompleted: data => {
 			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
-				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles
+				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles as Array<ClientDeviceProfile>
 				setProfiles(deviceProfiles)
 			}
 		},
@@ -36,8 +41,8 @@ export default function DeviceManagerModal() {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data?.switchDeviceProfile?.__typename === 'DeviceManager') {
-					const deviceManager = data.switchDeviceProfile as DeviceManager
+				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
 					// navigation.navigate('HomeTabNavigator', {

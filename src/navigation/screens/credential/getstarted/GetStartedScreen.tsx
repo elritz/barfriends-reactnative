@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import { Feather } from '@expo/vector-icons'
-import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
+import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
 import { Button, Icon } from 'native-base'
@@ -21,41 +21,7 @@ const GetStartedScreen = () => {
 		rProfilesBottomSheetVar?.current?.close()
 	}
 
-	const {
-		data: PTSData,
-		loading: PTSLoading,
-		error: PTSError,
-	} = useDocumentsQuery({
-		variables: {
-			where: {
-				TypeOfDocument: {
-					equals: TypeOfDocument.ProfileTermsOfService,
-				},
-			},
-			orderBy: {
-				createdAt: SortOrder.Desc,
-			},
-			first: 1,
-		},
-	})
-
-	const {
-		data: PPPData,
-		loading: PPPLoading,
-		error: PPPError,
-	} = useDocumentsQuery({
-		variables: {
-			where: {
-				TypeOfDocument: {
-					equals: TypeOfDocument.ProfilePrivacyPolicy,
-				},
-			},
-			orderBy: {
-				createdAt: SortOrder.Desc,
-			},
-			first: 1,
-		},
-	})
+	const { data: PTSData, loading: PTSLoading, error: PTSError } = usePrivacyTermsDocumentsQuery()
 
 	return (
 		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={'5%'}>
@@ -92,14 +58,14 @@ const GetStartedScreen = () => {
 				</Pressable>
 			</Box>
 			<Box>
-				{!PTSLoading && !PPPLoading && PPPData ? (
+				{!PTSLoading ? (
 					<Button
 						bg={'tertiary.500'}
 						onPress={() => {
 							CredentialPersonalProfileReactiveVar({
 								...credentialPersonalProfileVar,
-								PrivacyId: String(PPPData?.documents[0].id),
-								ServiceId: String(PTSData?.documents[0].id),
+								ServiceId: PTSData?.privacyTermsDocuments.termsofservice.id,
+								PrivacyId: PTSData?.privacyTermsDocuments.privacy.id,
 							})
 							navigation.navigate('CredentialNavigator', {
 								screen: 'PersonalCredentialStack',

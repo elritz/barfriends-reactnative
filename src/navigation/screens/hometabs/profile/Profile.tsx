@@ -1,10 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
-import {
-	ProfileType,
-	useGetNotificationsLazyQuery,
-	useGetNotificationsQuery,
-} from '@graphql/generated'
+import { ProfileType, useGetNotificationsLazyQuery } from '@graphql/generated'
 import PersonalScreen from '@navigation/screens/hometabs/profile/PersonalProfile/PersonalProfile'
 import VenueScreen from '@navigation/screens/hometabs/profile/VenueProfile/VenueProfile'
 import { AuthorizationReactiveVar } from '@reactive'

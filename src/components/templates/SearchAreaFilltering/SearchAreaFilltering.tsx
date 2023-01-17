@@ -18,9 +18,9 @@ const SearchAreaFilltering = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const searchAreaLocation = [
-		{ name: 'Country', value: rSearchAreaVar?.country },
-		{ name: 'State', value: rSearchAreaVar?.state },
-		{ name: 'City', value: rSearchAreaVar?.city },
+		{ name: 'Country', value: rSearchAreaVar?.searchArea.country.name },
+		{ name: 'State', value: rSearchAreaVar?.searchArea.state.name },
+		{ name: 'City', value: rSearchAreaVar?.searchArea.city.name },
 	]
 
 	const searchAreaDistances = [
@@ -32,8 +32,10 @@ const SearchAreaFilltering = () => {
 	const handleSearchAreaKRing = async item => {
 		SearchAreaReactiveVar({
 			...rSearchAreaVar,
-			kRing: item.kRing,
-			distance: item.distance,
+			kRing: {
+				distance: item.distance,
+				value: item.kRing,
+			},
 		})
 		await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(rSearchAreaVar))
 	}
@@ -47,8 +49,8 @@ const SearchAreaFilltering = () => {
 						params: {
 							screen: 'SearchStateCitiesTextScreen',
 							params: {
-								country: rSearchAreaVar?.country,
-								state: rSearchAreaVar?.state,
+								country: rSearchAreaVar.country.isoCode,
+								state: rSearchAreaVar.state.isoCode,
 							},
 						},
 					})
@@ -72,31 +74,39 @@ const SearchAreaFilltering = () => {
 			<Box my={4}>
 				<Heading size={'lg'}>Search area</Heading>
 				<HStack my={2} space={3}>
-					{searchAreaLocation.map((item, index) => {
-						return (
-							<Button
-								key={index}
-								colorScheme={'primary'}
-								variant={'solid'}
-								_text={{
-									ellipsizeMode: 'tail',
-									numberOfLines: 1,
-									_dark: {
-										color: 'white',
-									},
-									_light: {
-										color: 'white',
-									},
-									fontWeight: 'medium',
-								}}
-								onPress={() => switchRouter(item.name)}
-								flex={1}
-								height={50}
-							>
-								{item.value}
-							</Button>
-						)
-					})}
+					{!rSearchAreaVar?.searchArea.country.name ||
+					!rSearchAreaVar?.searchArea.state.name ||
+					!rSearchAreaVar?.searchArea.city.name ? (
+						<></>
+					) : (
+						<>
+							{searchAreaLocation.map((item, index) => {
+								return (
+									<Button
+										key={index}
+										colorScheme={'primary'}
+										variant={'solid'}
+										_text={{
+											ellipsizeMode: 'tail',
+											numberOfLines: 1,
+											_dark: {
+												color: 'white',
+											},
+											_light: {
+												color: 'white',
+											},
+											fontWeight: 'medium',
+										}}
+										onPress={() => switchRouter(item.name)}
+										flex={1}
+										height={50}
+									>
+										{item.value}
+									</Button>
+								)
+							})}
+						</>
+					)}
 				</HStack>
 				<Box mt={4}>
 					<LocationPermissionItem />
@@ -109,25 +119,25 @@ const SearchAreaFilltering = () => {
 		<Box mx={scrollViewMarginX} flex={1}>
 			<Box my={4}>
 				<Heading size={'lg'}>Distance</Heading>
-				<Text fontSize={'lg'}>Up to&nbsp;{rSearchAreaVar.distance}&nbsp;km away</Text>
+				<Text fontSize={'lg'}>Up to&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away</Text>
 				<HStack my={2} space={3}>
 					{searchAreaDistances.map((item, index) => {
 						return (
 							<Button
 								key={index}
-								variant={rSearchAreaVar?.kRing === item.kRing ? 'solid' : 'outline'}
-								colorScheme={rSearchAreaVar?.kRing === item.kRing ? 'primary' : 'white'}
+								variant={rSearchAreaVar?.kRing.value === item.kRing ? 'solid' : 'outline'}
+								colorScheme={rSearchAreaVar?.kRing.value === item.kRing ? 'primary' : 'white'}
 								_text={{
 									_dark: {
-										color: rSearchAreaVar?.kRing === item.kRing ? 'white' : 'red.200',
+										color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'red.200',
 									},
 									_light: {
-										color: rSearchAreaVar?.kRing === item.kRing ? 'white' : 'coolGray.900',
+										color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'coolGray.900',
 									},
-									fontWeight: rSearchAreaVar?.kRing === item.kRing ? 'medium' : 'medium',
+									fontWeight: rSearchAreaVar?.kRing.value === item.kRing ? 'medium' : 'medium',
 								}}
 								style={{
-									borderColor: rSearchAreaVar?.kRing === item.kRing ? '#ff700000' : '#ff7000',
+									borderColor: rSearchAreaVar?.kRing.value === item.kRing ? '#ff700000' : '#ff7000',
 									borderWidth: 1,
 								}}
 								onPress={() => handleSearchAreaKRing(item)}
@@ -141,8 +151,8 @@ const SearchAreaFilltering = () => {
 				</HStack>
 				<ListheaderComponent />
 			</Box>
-			<ScrollView>
-				<Button
+			{/* <ScrollView> */}
+			{/* <Button
 					_stack={{
 						paddingY: 0,
 						paddingX: 2,
@@ -169,10 +179,11 @@ const SearchAreaFilltering = () => {
 						numberOfLines={1}
 						ellipsizeMode={'tail'}
 					>
-						{rSearchAreaVar?.country}, {rSearchAreaVar?.state}, {rSearchAreaVar?.city}
+						{rSearchAreaVar?.searchArea.country.name}, {rSearchAreaVar?.searchArea.state.name},{' '}
+						{rSearchAreaVar?.searchArea.city.name}
 					</Text>
-				</Button>
-			</ScrollView>
+				</Button> */}
+			{/* </ScrollView> */}
 		</Box>
 	)
 }

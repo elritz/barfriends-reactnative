@@ -3,7 +3,7 @@ import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import { FriendsList } from '@components/organisms/list/friendslist/FriendsList'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
-import { GetNotificationsQuery, ProfileType, useGetNotificationsQuery } from '@graphql/generated'
+import { GetNotificationsQuery, ProfileType } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Image, Button, Divider, Heading, Box, View } from 'native-base'
@@ -34,7 +34,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 					width={165}
 					height={170}
 					borderRadius={15}
-					source={{ uri: rAuthorizationVar?.DeviceProfile?.Profile?.photos?.url }}
+					source={{ uri: rAuthorizationVar?.DeviceProfile?.Profile?.photos[0].url }}
 					alt={'Profile Photo'}
 				/>
 				<View style={{ marginVertical: 20 }}>

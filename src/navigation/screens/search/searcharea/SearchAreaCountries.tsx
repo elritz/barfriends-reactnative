@@ -1,12 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import { useGetAllCountriesQuery } from '@graphql/generated'
-import { HorizontalCountryItemProps } from '@navigation/stacks/searchareastack/SearchAreaStack'
+import {
+	Form,
+	HorizontalCountryItemProps,
+} from '@navigation/stacks/searchareastack/SearchAreaStack'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
 import { filter } from 'lodash'
 import { Button, Icon, Text } from 'native-base'
-import { useContext, useEffect, useState } from 'react'
+import { SetStateAction, useContext, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList, Pressable, ListRenderItemInfo } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -15,21 +18,23 @@ export default function SearchAreaCountries() {
 	const { bottom } = useSafeAreaInsets()
 	const navigation = useNavigation()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const [countries, setCountries] = useState<Array<HorizontalCountryItemProps>>([])
+	const [countries, setCountries] = useState<HorizontalCountryItemProps[]>([])
 	const [pagination, setPagination] = useState<number>()
 
-	const formContext = useFormContext()
+	const formContext = useFormContext<Form>()
 	const { watch, setValue } = formContext
 
 	const { data, loading, error } = useGetAllCountriesQuery({
 		onCompleted: data => {
-			setCountries(data.getAllCountries)
-			setPagination(data.getAllCountries.length / 4)
+			if (data.getAllCountries) {
+				setCountries(data.getAllCountries)
+				setPagination(data.getAllCountries.length / 4)
+			}
 		},
 	})
 
 	const filterList = text => {
-		if (!watch('searchtext').length && data.getAllCountries.length) {
+		if (!watch('searchtext').length && data?.getAllCountries.length) {
 			setCountries(data.getAllCountries)
 		}
 
@@ -52,7 +57,9 @@ export default function SearchAreaCountries() {
 		}
 	}, [watch('searchtext')])
 
-	if (loading) return null
+	if (loading) {
+		return <Text>Loading......</Text>
+	}
 
 	return (
 		<FlatList
@@ -85,19 +92,28 @@ export default function SearchAreaCountries() {
 						}}
 						rounded={'full'}
 						endIcon={
-							rSearchAreaVar.country === item.name ? (
+							watch('country.name') === item.name ? (
 								<Icon color={'secondary.600'} size={'lg'} as={Feather} name={'check'} />
 							) : null
 						}
 						onPress={() => {
+							setValue('country', {
+								name: item.name,
+								isoCode: item.isoCode,
+								coords: {
+									latitude: Number(item.latitude),
+									longitude: Number(item.longitude),
+								},
+							})
 							setValue('searchtext', '')
-							setValue('country', item.name)
-							setValue('isoCode', item.isoCode)
 							navigation.dispatch(StackActions.pop())
 							navigation.navigate('ModalNavigator', {
 								screen: 'SearchAreaModalStack',
 								params: {
 									screen: 'SearchCountryStatesTextScreen',
+									params: {
+										country: item.isoCode,
+									},
 								},
 							})
 						}}

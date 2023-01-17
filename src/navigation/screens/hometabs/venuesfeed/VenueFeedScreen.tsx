@@ -3,31 +3,22 @@ import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
 import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
 import VenuesFeedVenuesEmptyState from './components/VenuesFeedVenuesEmptyState'
-import { useReactiveVar, useSubscription } from '@apollo/client'
+import { useReactiveVar } from '@apollo/client'
 import BackgroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/BackgroundLocationPermissionFullSection'
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
-import PreferenceNotificationPermission from '@components/molecules/preferences/preferencenotificationpermission/PreferenceNotificationPermission'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
-import {
-	ProfileType,
-	useCreateFriendRequestMutation,
-	useVenuesNearbyLazyQuery,
-} from '@graphql/generated'
-import { useNumberIncrementedSubscription } from '@graphql/generated/subindex'
-import { GRETTINGS_SUBSCRIPTION } from '@graphql/subscriptions/index.subscription'
+import { ProfileType, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
 import { useIsFocused } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	PermissionBackgroundLocationReactiveVar,
 	PermissionForegroundLocationReactiveVar,
-	PermissionNotificationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
-import { createClient } from 'graphql-sse'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
 import { Box, Center, VStack, FlatList, Text, Button } from 'native-base'
@@ -54,17 +45,23 @@ const VenueFeedScreen = () => {
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
-			latitude: Number(rSearchAreaVar?.coords.latitude),
-			longitude: Number(rSearchAreaVar?.coords.longitude),
+			latitude: Number(rSearchAreaVar?.searchArea.coords.latitude),
+			longitude: Number(rSearchAreaVar?.searchArea.coords.longitude),
+			countryIsoCode: rSearchAreaVar?.searchArea.country.isoCode,
+			stateIsoCode: rSearchAreaVar?.searchArea.state.isoCode,
+		},
+		onError: error => {
+			console.log('error :>> ', error)
 		},
 		onCompleted: async data => {
+			console.log('======>', data?.venuesNearby.venuesNearby)
 			const status = await Location.getForegroundPermissionsAsync()
 			if (status.granted) {
 				const currentLocation = await Location.getCurrentPositionAsync({
 					accuracy: LocationAccuracy.BestForNavigation,
 				})
 
-				const venues = data?.venuesNearby?.map(item => {
+				const venues = data?.venuesNearby?.venuesNearby.map(item => {
 					return {
 						...item,
 						latitude: item?.Venue?.Location?.Geometry?.latitude,
@@ -88,15 +85,15 @@ const VenueFeedScreen = () => {
 				})
 				setVenues(withDistance)
 			} else {
-				setVenues(data?.venuesNearby)
+				setVenues(data?.venuesNearby.venuesNearby)
 			}
 		},
 	})
 
 	const fnMemoed = async () => {
 		if (
-			rSearchAreaVar?.coords.latitude !== undefined &&
-			rSearchAreaVar?.coords.longitude !== undefined
+			rSearchAreaVar?.searchArea.coords.latitude !== undefined &&
+			rSearchAreaVar?.searchArea.coords.longitude !== undefined
 		) {
 			return venuesNearby()
 		}
@@ -104,15 +101,14 @@ const VenueFeedScreen = () => {
 
 	const memoizedResultes = useMemo(
 		async () => await fnMemoed(),
-		[rSearchAreaVar?.coords.latitude, rSearchAreaVar?.coords.longitude],
+		[rSearchAreaVar?.searchArea.coords.latitude, rSearchAreaVar?.searchArea.coords.longitude],
 	)
 
 	useEffect(() => {
 		if (
 			!data &&
-			!data?.venuesNearby.length &&
-			rSearchAreaVar?.coords.latitude &&
-			rSearchAreaVar?.coords?.longitude
+			rSearchAreaVar?.searchArea.coords.latitude &&
+			rSearchAreaVar?.searchArea.coords?.longitude
 		) {
 			venuesNearby()
 		}
@@ -139,7 +135,8 @@ const VenueFeedScreen = () => {
 		return (
 			<Center>
 				<VStack w={'full'} space={4}>
-					{!rSearchAreaVar?.coords.latitude || !rSearchAreaVar?.coords.longitude ? (
+					{!rSearchAreaVar?.searchArea.coords.latitude ||
+					!rSearchAreaVar?.searchArea.coords.longitude ? (
 						<VenueFeedSearchAreaEmptyState />
 					) : (
 						<>

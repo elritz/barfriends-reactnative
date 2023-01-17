@@ -121,11 +121,7 @@ function PersonalStack() {
 					},
 				},
 			],
-			onError: error => {
-				console.log('🚀 --------------------------------------------------------------🚀')
-				console.log('🚀 ~ file: PersonalStack.tsx:148 ~ PersonalStack ~ error', error)
-				console.log('🚀 --------------------------------------------------------------🚀')
-			},
+			onError: error => {},
 		})
 
 	if (GRFRSLoading || !GRFRSData) return null

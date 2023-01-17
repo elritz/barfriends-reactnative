@@ -1295,6 +1295,12 @@ export type ContactInput = {
   value: Scalars['String'];
 };
 
+export type Coords = {
+  __typename?: 'Coords';
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+};
+
 export type CountryResponseObject = {
   __typename?: 'CountryResponseObject';
   currency: Scalars['String'];
@@ -9945,6 +9951,13 @@ export type PhotoWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
 };
 
+export type PlaceType = {
+  __typename?: 'PlaceType';
+  coords: Coords;
+  isoCode: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type PluseCode = {
   __typename?: 'PluseCode';
   compoundCode?: Maybe<Scalars['String']>;
@@ -12210,7 +12223,7 @@ export type Query = {
   sendAuthenticatorDeviceOwnerCode: Scalars['Boolean'];
   venue?: Maybe<Venue>;
   venues: Array<Venue>;
-  venuesNearby: Array<Profile>;
+  venuesNearby: VenuesNearbyResponse;
 };
 
 
@@ -12246,7 +12259,7 @@ export type QueryExploreSearchArgs = {
 
 export type QueryGetAllCitiesByStateArgs = {
   countryIsoCode: Scalars['String'];
-  state: Scalars['String'];
+  stateIsoCode: Scalars['String'];
 };
 
 
@@ -12323,9 +12336,11 @@ export type QueryVenuesArgs = {
 
 
 export type QueryVenuesNearbyArgs = {
+  countryIsoCode: Scalars['String'];
   kRing?: InputMaybe<Scalars['Int']>;
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
+  stateIsoCode: Scalars['String'];
 };
 
 export enum QueryMode {
@@ -12766,6 +12781,14 @@ export type RelationshipWhereInput = {
 
 export type RelationshipWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
+};
+
+export type SearchAreaResponse = {
+  __typename?: 'SearchAreaResponse';
+  city: PlaceType;
+  coords: Coords;
+  country: PlaceType;
+  state: PlaceType;
 };
 
 export enum SecureDataType {
@@ -15179,6 +15202,12 @@ export type VenueScalarWhereWithAggregatesInput = {
   venueStatsId?: InputMaybe<StringWithAggregatesFilter>;
 };
 
+export type VenuesNearbyResponse = {
+  __typename?: 'VenuesNearbyResponse';
+  searchArea: SearchAreaResponse;
+  venuesNearby: Array<Profile>;
+};
+
 export type VenueStats = {
   __typename?: 'VenueStats';
   createdAt: Scalars['DateTime'];
@@ -15634,7 +15663,7 @@ export type AuthorizedProfilesQuery = { __typename?: 'Query', authorizedProfiles
 export type PrivacyTermsDocumentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PrivacyTermsDocumentsQuery = { __typename?: 'Query', privacyTermsDocuments: { __typename?: 'PrivacyAndTermsDocumentResponse', privacy: { __typename?: 'Document', id: string }, termsofservice: { __typename?: 'Document', id: string } } };
+export type PrivacyTermsDocumentsQuery = { __typename?: 'Query', privacyTermsDocuments: { __typename?: 'PrivacyAndTermsDocumentResponse', privacy: { __typename?: 'Document', id: string, TypeOfDocument: TypeOfDocument, createdAt: any, updatedAt: any, content: string, LegalAgreement: Array<{ __typename?: 'LegalAgreement', id: string }> }, termsofservice: { __typename?: 'Document', id: string, TypeOfDocument: TypeOfDocument, createdAt: any, updatedAt: any, content: string, LegalAgreement: Array<{ __typename?: 'LegalAgreement', id: string }> } } };
 
 export type LoginPasswordQueryVariables = Exact<{
   username: Scalars['String'];
@@ -15810,30 +15839,33 @@ export type UpdateOneProfileMutation = { __typename?: 'Mutation', updateOneProfi
 export type VenuesNearbyQueryVariables = Exact<{
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
+  countryIsoCode: Scalars['String'];
+  stateIsoCode: Scalars['String'];
+  kRing?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: Array<{ __typename: 'Profile', id?: string | null, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile: { __typename?: 'Profile', id?: string | null, ProfileType: ProfileType, photo: { __typename?: 'Photo', id: string, url: string, type?: string | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: string | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: string | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId: string }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId: string }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null }> };
+export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'VenuesNearbyResponse', venuesNearby: Array<{ __typename: 'Profile', id?: string | null, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile: { __typename?: 'Profile', id?: string | null, ProfileType: ProfileType, photo: { __typename?: 'Photo', id: string, url: string, type?: string | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: string | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: string | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId: string }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, joined: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId: string }>, totaled: Array<{ __typename?: 'TotaledOut', id: string, venueProfileId: string, personalProfileId: string }> } | null, VenueStats: { __typename?: 'VenueStats', id: string, joinedVenueHistory: Array<{ __typename?: 'JoinedOut', id: string, venueProfileId: string, personalProfileId: string, createdAt: any, updatedAt: any }>, totaledVenueHistory: Array<{ __typename?: 'TotaledOut', id: string, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> }, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null }>, searchArea: { __typename?: 'SearchAreaResponse', coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null }, city: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } }, country: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } }, state: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } } } } };
 
 export type GetAllCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCountriesQuery = { __typename?: 'Query', getAllCountries: Array<{ __typename?: 'CountryResponseObject', name: string }> };
+export type GetAllCountriesQuery = { __typename?: 'Query', getAllCountries: Array<{ __typename?: 'CountryResponseObject', name: string, phonecode: string, isoCode: string, flag: string, currency: string, latitude: string, longitude: string }> };
 
 export type GetAllStatesByCountryQueryVariables = Exact<{
   countryIsoCode: Scalars['String'];
 }>;
 
 
-export type GetAllStatesByCountryQuery = { __typename?: 'Query', getAllStatesByCountry: Array<{ __typename?: 'StateResponseObject', name: string }> };
+export type GetAllStatesByCountryQuery = { __typename?: 'Query', getAllStatesByCountry: Array<{ __typename?: 'StateResponseObject', name: string, isoCode: string, countryCode: string, latitude?: string | null, longitude?: string | null }> };
 
 export type GetAllCitiesByStateQueryVariables = Exact<{
   countryIsoCode: Scalars['String'];
-  state: Scalars['String'];
+  stateIsoCode: Scalars['String'];
 }>;
 
 
-export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: Array<{ __typename?: 'CityResponseObject', name: string }> };
+export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, countryCode: string, latitude?: string | null, longitude?: string | null }> };
 
 export type UpdateStoryPhotosMutationVariables = Exact<{
   disconnectId: Scalars['String'];
@@ -16714,9 +16746,23 @@ export const PrivacyTermsDocumentsDocument = gql`
   privacyTermsDocuments {
     privacy {
       id
+      LegalAgreement {
+        id
+      }
+      TypeOfDocument
+      createdAt
+      updatedAt
+      content
     }
     termsofservice {
       id
+      LegalAgreement {
+        id
+      }
+      TypeOfDocument
+      createdAt
+      updatedAt
+      content
     }
   }
 }
@@ -17704,9 +17750,41 @@ export type UpdateOneProfileMutationHookResult = ReturnType<typeof useUpdateOneP
 export type UpdateOneProfileMutationResult = Apollo.MutationResult<UpdateOneProfileMutation>;
 export type UpdateOneProfileMutationOptions = Apollo.BaseMutationOptions<UpdateOneProfileMutation, UpdateOneProfileMutationVariables>;
 export const VenuesNearbyDocument = gql`
-    query venuesNearby($latitude: Float!, $longitude: Float!) {
-  venuesNearby(latitude: $latitude, longitude: $longitude) {
-    ...PROFILE_FRAGMENT
+    query venuesNearby($latitude: Float!, $longitude: Float!, $countryIsoCode: String!, $stateIsoCode: String!, $kRing: Int) {
+  venuesNearby(latitude: $latitude, longitude: $longitude, countryIsoCode: $countryIsoCode, stateIsoCode: $stateIsoCode, kRing: $kRing) {
+    venuesNearby {
+      ...PROFILE_FRAGMENT
+    }
+    searchArea {
+      coords {
+        latitude
+        longitude
+      }
+      city {
+        coords {
+          latitude
+          longitude
+        }
+        isoCode
+        name
+      }
+      country {
+        coords {
+          latitude
+          longitude
+        }
+        isoCode
+        name
+      }
+      state {
+        coords {
+          latitude
+          longitude
+        }
+        isoCode
+        name
+      }
+    }
   }
 }
     ${Profile_FragmentFragmentDoc}`;
@@ -17725,6 +17803,9 @@ export const VenuesNearbyDocument = gql`
  *   variables: {
  *      latitude: // value for 'latitude'
  *      longitude: // value for 'longitude'
+ *      countryIsoCode: // value for 'countryIsoCode'
+ *      stateIsoCode: // value for 'stateIsoCode'
+ *      kRing: // value for 'kRing'
  *   },
  * });
  */
@@ -17743,6 +17824,12 @@ export const GetAllCountriesDocument = gql`
     query getAllCountries {
   getAllCountries {
     name
+    phonecode
+    isoCode
+    flag
+    currency
+    latitude
+    longitude
   }
 }
     `;
@@ -17777,6 +17864,10 @@ export const GetAllStatesByCountryDocument = gql`
     query getAllStatesByCountry($countryIsoCode: String!) {
   getAllStatesByCountry(countryIsoCode: $countryIsoCode) {
     name
+    isoCode
+    countryCode
+    latitude
+    longitude
   }
 }
     `;
@@ -17809,9 +17900,13 @@ export type GetAllStatesByCountryQueryHookResult = ReturnType<typeof useGetAllSt
 export type GetAllStatesByCountryLazyQueryHookResult = ReturnType<typeof useGetAllStatesByCountryLazyQuery>;
 export type GetAllStatesByCountryQueryResult = Apollo.QueryResult<GetAllStatesByCountryQuery, GetAllStatesByCountryQueryVariables>;
 export const GetAllCitiesByStateDocument = gql`
-    query getAllCitiesByState($countryIsoCode: String!, $state: String!) {
-  getAllCitiesByState(countryIsoCode: $countryIsoCode, state: $state) {
+    query getAllCitiesByState($countryIsoCode: String!, $stateIsoCode: String!) {
+  getAllCitiesByState(countryIsoCode: $countryIsoCode, stateIsoCode: $stateIsoCode) {
     name
+    stateCode
+    countryCode
+    latitude
+    longitude
   }
 }
     `;
@@ -17829,7 +17924,7 @@ export const GetAllCitiesByStateDocument = gql`
  * const { data, loading, error } = useGetAllCitiesByStateQuery({
  *   variables: {
  *      countryIsoCode: // value for 'countryIsoCode'
- *      state: // value for 'state'
+ *      stateIsoCode: // value for 'stateIsoCode'
  *   },
  * });
  */

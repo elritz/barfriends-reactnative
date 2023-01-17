@@ -94,7 +94,7 @@ const PhotoScreen = () => {
 	}
 
 	const _pickMediaPicker = async () => {
-		if (!rPermissionMediaReactiveVar.granted) {
+		if (!rPermissionMediaReactiveVar?.granted) {
 			navigation.navigate('PermissionNavigator', {
 				screen: 'MediaLibraryPermissionScreen',
 			})
@@ -169,7 +169,7 @@ const PhotoScreen = () => {
 	}
 
 	useEffect(() => {
-		if (rPermissionMediaReactiveVar.granted) {
+		if (rPermissionMediaReactiveVar?.granted) {
 			if (!photoLibrary.length) {
 				loadMediaAsync()
 			}
@@ -308,16 +308,8 @@ const PhotoScreen = () => {
 									height: window.width / 3,
 									width: window.width / 3,
 									justifyContent: 'center',
-									// borderWidth: 3,
-									// borderRadius: 5,
 								}}
 								alt={'Image'}
-								// _light={{
-								// 	borderColor: watchValues?.photo?.uri === item.uri ? 'black' : 'light.300',
-								// }}
-								// _dark={{
-								// 	borderColor: watchValues?.photo?.uri === item.uri ? 'white' : 'black.300',
-								// }}
 								source={{ uri: item.uri }}
 							/>
 							{watchValues?.photo?.uri === item.uri && (

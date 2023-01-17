@@ -1,4 +1,4 @@
-import { SortOrder, TypeOfDocument, useDocumentsQuery } from '@graphql/generated'
+import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { Text } from 'native-base'
 import { useContext } from 'react'
 import { SafeAreaView, ScrollView } from 'react-native'
@@ -10,26 +10,14 @@ const Privacy = () => {
 	const { width } = useWindowDimensions()
 	const themeContext = useContext(ThemeContext)
 
-	const { data, loading, error } = useDocumentsQuery({
-		variables: {
-			where: {
-				TypeOfDocument: {
-					equals: TypeOfDocument.ProfilePrivacyPolicy,
-				},
-			},
-			orderBy: {
-				createdAt: SortOrder.Desc,
-			},
-			first: 1,
-		},
-	})
+	const { data, loading, error } = usePrivacyTermsDocumentsQuery()
 
 	if (loading && data) {
 		return <Text>Loading Terms of Service...</Text>
 	}
 
 	const source = {
-		html: data.documents[0].content,
+		html: data?.privacyTermsDocuments.privacy.content,
 	}
 
 	return (

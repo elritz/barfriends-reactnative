@@ -70,9 +70,23 @@ export const GET_LATEST_TERMS_AND_SERVICES = gql`
 		privacyTermsDocuments {
 			privacy {
 				id
+				LegalAgreement {
+					id
+				}
+				TypeOfDocument
+				createdAt
+				updatedAt
+				content
 			}
 			termsofservice {
 				id
+				LegalAgreement {
+					id
+				}
+				TypeOfDocument
+				createdAt
+				updatedAt
+				content
 			}
 		}
 	}

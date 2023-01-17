@@ -6,6 +6,7 @@ import SearchAreaModal from '@navigation/screens/modals/searcharea/SearchAreaMod
 import SearchAreaCountries from '@navigation/screens/search/searcharea/SearchAreaCountries'
 import SearchAreaCountryStates from '@navigation/screens/search/searcharea/SearchAreaCountryStates'
 import SearchAreaStateCities from '@navigation/screens/search/searcharea/SearchAreaStateCities'
+import { LocalStoragePreferenceSearchAreaType2, PlaceType } from '@preferences'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { SearchAreaReactiveVar } from '@reactive'
@@ -55,6 +56,14 @@ type Timezone = {
 	tzName: string
 	zoneName: string
 }
+
+export type Form = {
+	searchtext?: string
+	country: PlaceType
+	state: PlaceType
+	city: PlaceType
+	done: boolean
+}
 export type SearchAreaStackRouteProp = RouteProp<ModalNavigatorParamList, 'SearchAreaModalStack'>
 
 function SearchAreaStackNavigation() {
@@ -64,15 +73,33 @@ function SearchAreaStackNavigation() {
 	const colorScheme = useThemeColorScheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
-	const methods = useForm({
+	const methods = useForm<Form>({
 		defaultValues: {
 			searchtext: '',
-			country: '' || rSearchAreaVar?.country,
-			state: '' || rSearchAreaVar?.state,
-			city: '' || rSearchAreaVar?.city,
-			isoCode: '' || rSearchAreaVar?.isoCode,
-			latitude: '',
-			longitude: '',
+			country: {
+				name: '',
+				isoCode: '',
+				coords: {
+					latitude: 0,
+					longitude: 0,
+				},
+			},
+			state: {
+				name: '',
+				isoCode: '',
+				coords: {
+					latitude: 0,
+					longitude: 0,
+				},
+			},
+			city: {
+				name: '',
+				isoCode: '',
+				coords: {
+					latitude: 0,
+					longitude: 0,
+				},
+			},
 			done: false,
 		},
 	})
@@ -80,10 +107,9 @@ function SearchAreaStackNavigation() {
 	const getData = async () => {
 		try {
 			if (rSearchAreaVar != null) {
-				methods.setValue('city', rSearchAreaVar.city)
-				methods.setValue('country', rSearchAreaVar.country)
-				methods.setValue('state', rSearchAreaVar.state)
-				methods.setValue('isoCode', rSearchAreaVar.state)
+				methods.setValue('city', rSearchAreaVar.searchArea.city)
+				methods.setValue('country', rSearchAreaVar.searchArea.country)
+				methods.setValue('state', rSearchAreaVar.searchArea.state)
 			} else {
 				console.log('TODO')
 			}

@@ -1237,6 +1237,11 @@ input ContactInput {
   value: String!
 }
 
+type Coords {
+  latitude: Float
+  longitude: Float
+}
+
 type CountryResponseObject {
   currency: String!
   flag: String!
@@ -9609,6 +9614,12 @@ input PhotoWhereUniqueInput {
   id: String
 }
 
+type PlaceType {
+  coords: Coords!
+  isoCode: String!
+  name: String!
+}
+
 type PluseCode {
   compoundCode: String
   globalCode: String!
@@ -11852,7 +11863,7 @@ type Query {
   emojimoods(cursor: EmojimoodWhereUniqueInput, distinct: [EmojimoodScalarFieldEnum!], orderBy: [EmojimoodOrderByWithRelationInput!], skip: Int, take: Int, where: EmojimoodWhereInput): [Emojimood!]!
   exploreSearch(search: String!): ExploreResponse!
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion!
-  getAllCitiesByState(countryIsoCode: String!, state: String!): [CityResponseObject!]!
+  getAllCitiesByState(countryIsoCode: String!, stateIsoCode: String!): [CityResponseObject!]!
   getAllCountries: [CountryResponseObject!]!
   getAllStatesByCountry(countryIsoCode: String!): [StateResponseObject!]!
   getAllThemes: [Theme!]!
@@ -11869,7 +11880,7 @@ type Query {
   sendAuthenticatorDeviceOwnerCode: Boolean!
   venue(cursor: VenueWhereUniqueInput, distinct: [VenueScalarFieldEnum!], orderBy: [VenueOrderByWithRelationInput!], skip: Int, take: Int, where: VenueWhereInput): Venue
   venues(cursor: VenueWhereUniqueInput, distinct: [VenueScalarFieldEnum!], orderBy: [VenueOrderByWithRelationInput!], skip: Int, take: Int, where: VenueWhereInput): [Venue!]!
-  venuesNearby(kRing: Int, latitude: Float!, longitude: Float!): [Profile!]!
+  venuesNearby(countryIsoCode: String!, kRing: Int, latitude: Float!, longitude: Float!, stateIsoCode: String!): VenuesNearbyResponse!
 }
 
 enum QueryMode {
@@ -12307,6 +12318,13 @@ input RelationshipWhereInput {
 
 input RelationshipWhereUniqueInput {
   id: String
+}
+
+type SearchAreaResponse {
+  city: PlaceType!
+  coords: Coords!
+  country: PlaceType!
+  state: PlaceType!
 }
 
 enum SecureDataType {
@@ -14700,6 +14718,11 @@ input VenueScalarWhereWithAggregatesInput {
   profileId: StringWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
   venueStatsId: StringWithAggregatesFilter
+}
+
+type VenuesNearbyResponse {
+  searchArea: SearchAreaResponse!
+  venuesNearby: [Profile!]!
 }
 
 type VenueStats {

@@ -17,7 +17,7 @@ import {
 import Navigator from '@navigation/navigators/Navigator'
 import {
 	LocalStoragePreferenceNotificationPermissionType,
-	LocalStoragePreferenceSearchAreaType,
+	LocalStoragePreferenceSearchAreaType2,
 	LocalStoragePreferenceThemeType,
 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -32,6 +32,7 @@ import {
 	ThemeReactiveVar,
 	PermissionNotificationReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
+	searchAreaInitialState,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
@@ -70,47 +71,28 @@ const Navigation = () => {
 		PermissionNotificationReactiveVar(notificationPermission)
 	}
 
-	const setLocalStorageData = async () => {
+	const setPreferencesLocalStorageData = async () => {
 		try {
 			// SEARCH AREA
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
 			if (getLocalStorageSearchArea !== null) {
-				const values: LocalStoragePreferenceSearchAreaType = JSON.parse(getLocalStorageSearchArea)
+				const values: LocalStoragePreferenceSearchAreaType2 = JSON.parse(getLocalStorageSearchArea)
+
 				if (values) {
 					if (values.useCurrentLocation) {
 						await useSetSearchAreaWithLocation()
 					} else {
 						SearchAreaReactiveVar({
 							...rSearchAreaVar,
-							useCurrentLocation: false,
-							city: values.city,
-							country: values.country,
-							isoCode: values.isoCode,
-							state: values.state,
-							coords: {
-								latitude: Number(values.coords.latitude),
-								longitude: Number(values.coords.longitude),
-							},
-							distance: values.distance,
-							kRing: 2,
+							...values,
 						})
 					}
 				}
 			} else {
 				const newSearchAreaValue = JSON.stringify({
-					...rSearchAreaVar,
-					useCurrentLocation: false,
-					country: '',
-					distance: 60,
-					kRing: 2,
-					state: '',
-					isoCode: '',
-					city: '',
-					coords: {
-						latitude: 0,
-						longitude: 0,
-					},
-				} as LocalStoragePreferenceSearchAreaType)
+					...searchAreaInitialState,
+				} as LocalStoragePreferenceSearchAreaType2)
+
 				await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchAreaValue)
 			}
 			// THEME
@@ -174,12 +156,6 @@ const Navigation = () => {
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
-					console.log('🚀 -------------------------------------------------------------------🚀')
-					console.log(
-						'🚀 ~ file: index.tsx:177 ~ Navigation ~ deviceManager',
-						JSON.stringify(deviceManager, null, 4),
-					)
-					console.log('🚀 -------------------------------------------------------------------🚀')
 
 					AuthorizationReactiveVar(deviceManager)
 				}
@@ -212,9 +188,8 @@ const Navigation = () => {
 			},
 			onCompleted: async data => {
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
-
 				if (!deviceManager) {
-					console.log('NO Device Manager')
+					console.log('What to do about no device manager!')
 				} else {
 					AuthorizationReactiveVar(deviceManager)
 					updateOneProfileMutation({
@@ -254,7 +229,7 @@ const Navigation = () => {
 
 	useEffect(() => {
 		setPermissions()
-		setLocalStorageData()
+		setPreferencesLocalStorageData()
 		applicationAuthorization()
 	}, [])
 

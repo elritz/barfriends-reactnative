@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
+import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
@@ -14,11 +15,10 @@ import { ThemeContext } from 'styled-components/native'
 // TODO: UX() location icon when searchArea is using Currently Location over preset
 
 const LocationPermissionItem = () => {
-	const themeContext = useContext(ThemeContext)
 	const rForegroundPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
-	const newSearchArea = {
+	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
 		...rSearchAreaVar,
 		useCurrentLocation: false,
 	}
@@ -26,7 +26,7 @@ const LocationPermissionItem = () => {
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Barfriends Location Permission',
-			capitalizeFirstLetter(rForegroundPermissionLocationVar.status),
+			capitalizeFirstLetter(rForegroundPermissionLocationVar?.status),
 			[
 				{
 					text: 'Cancel',
@@ -54,7 +54,10 @@ const LocationPermissionItem = () => {
 							? await useSetSearchAreaWithLocation()
 							: createTwoButtonAlert()
 						: await useSetSearchAreaWithLocation()
-					: (SearchAreaReactiveVar(newSearchArea),
+					: (SearchAreaReactiveVar({
+							...newSearchArea,
+							useCurrentLocation: false,
+					  }),
 					  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
 			}}
 			rounded={'xl'}
@@ -114,49 +117,3 @@ const LocationPermissionItem = () => {
 }
 
 export default LocationPermissionItem
-
-{
-	/* <Button
-	 	size={'lg'}
-	 	w={'full'}
-	 	h={55}
-	 	rounded={'lg'}
-	 	onPress={async () => {
-	 		!rSearchAreaVar.useCurrentLocation
-	 			? !rForegroundPermissionLocationVar.granted
-	 				? rForegroundPermissionLocationVar?.canAskAgain && !rForegroundPermissionLocationVar.granted
-	 					? await useSetSearchAreaWithLocation()
-	 					: createTwoButtonAlert()
-	 				: await useSetSearchAreaWithLocation()
-	 			: (SearchAreaReactiveVar(newSearchArea),
-	 			  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
-	 	}}
-	 	rightIcon={
-	 		<IconButton
-	 			icon={
-	 				<Icon
-	 					size={'sm'}
-	 					as={FontAwesome5}
-	 					rounded={'full'}
-	 					name={'location-arrow'}
-	 					color={rSearchAreaVar.useCurrentLocation ? 'white' : 'blue.400'}
-	 				/>
-	 			}
-	 			bg={rSearchAreaVar.useCurrentLocation ? 'blue.600' : 'secondary.700'}
-	 			rounded={'full'}
-	 		/>
-	 	}
-	 >
-	 	
-	 	<Text
-	 		textAlign={'left'}
-	 		fontWeight={'semibold'}
-	 		fontSize={'lg'}
-	 		numberOfLines={1}
-	 		ellipsizeMode={'tail'}
-	 	>
-	 		{rSearchAreaVar.useCurrentLocation ? 'Using current location' : 'Use current location'}
-	 	</Text>
- 	
-		 </Button> */
-}

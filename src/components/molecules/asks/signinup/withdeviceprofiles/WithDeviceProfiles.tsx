@@ -4,12 +4,9 @@ import GetSignInUpText from '@helpers/data/SignupinText'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Box, Text, Center, Button, Divider } from 'native-base'
-import React, { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
 
 export default function WithDeviceProfiles() {
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
 	const authorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const { data, loading, error } = useGetADeviceManagerQuery({

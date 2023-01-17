@@ -1,11 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { Feather } from '@expo/vector-icons'
-import { useGetAllCitiesByStateQuery } from '@graphql/generated'
-import { HorizontalCityItemProps } from '@navigation/stacks/searchareastack/SearchAreaStack'
+import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/generated'
+import { Form } from '@navigation/stacks/searchareastack/SearchAreaStack'
+import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
+import { SearchAreaStackParamList } from '@types'
 import { filter } from 'lodash'
 import { Button, Text, Icon, Center } from 'native-base'
 import { useEffect, useState } from 'react'
@@ -15,24 +17,28 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(When done save this data to the backend as recent SearchAreas)
 
+export type SearchStateCitiesTextScreenRouteProp = RouteProp<
+	SearchAreaStackParamList,
+	'SearchStateCitiesTextScreen'
+>
 export default function SearchAreaStateCities() {
 	const { bottom } = useSafeAreaInsets()
 	const navigation = useNavigation()
+	const route = useRoute<SearchStateCitiesTextScreenRouteProp>()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const [stateCities, setStateCities] = useState<Array<HorizontalCityItemProps>>([])
-	const [pagination, setPagination] = useState<number>()
-	const formContext = useFormContext()
+	const [stateCities, setStateCities] = useState<CityResponseObject[]>([])
+	const [pagination, setPagination] = useState<number>(10)
+	const formContext = useFormContext<Form>()
 
 	const { watch, getValues, setValue, handleSubmit } = formContext
 
 	const { data, loading, error } = useGetAllCitiesByStateQuery({
-		skip: !getValues('state') || !getValues('country'),
+		skip: !route.params.country || !route.params.state,
 		variables: {
-			countryIsoCode: getValues('isoCode'),
-			state: getValues('state'),
+			countryIsoCode: route.params.country,
+			stateIsoCode: route.params.state,
 		},
 		onCompleted: data => {
-			setStateCities(data.getAllCitiesByState)
 			if (data.getAllCitiesByState.length > 100) {
 				setPagination(data.getAllCitiesByState.length / 4)
 			} else {
@@ -42,11 +48,13 @@ export default function SearchAreaStateCities() {
 	})
 
 	const filterList = text => {
-		if (!watch('searchtext').length && data.getAllCitiesByState.length) {
-			setStateCities(data.getAllCitiesByState)
+		if (!watch('searchtext').length && data?.getAllCitiesByState.length) {
+			if (data.getAllCitiesByState) {
+				setStateCities(data.getAllCitiesByState)
+			}
 		}
 
-		const filteredData = filter(data.getAllCitiesByState, state => {
+		const filteredData = filter(data?.getAllCitiesByState, state => {
 			return contains(state, text.toLowerCase())
 		})
 		setStateCities(filteredData)
@@ -65,14 +73,13 @@ export default function SearchAreaStateCities() {
 		}
 	}, [watch('searchtext')])
 
-	if (!getValues('state')) {
+	if (!data || loading) {
 		return (
-			<Center p={10}>
-				<Text fontSize={'lg'}> No state provided</Text>
-			</Center>
+			<>
+				<Text>loading.....</Text>
+			</>
 		)
 	}
-	if (!data || loading) return null
 
 	const onSubmit = async (): Promise<void | null> => {
 		setValue('searchtext', '')
@@ -111,39 +118,40 @@ export default function SearchAreaStateCities() {
 						}}
 						rounded={'full'}
 						endIcon={
-							watch('city') === item.name ? (
+							watch('city.name') === item.name ? (
 								<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
-							) : null
+							) : undefined
 						}
 						onPress={async () => {
-							setValue('city', item.name)
-							setValue('latitude', item.latitude)
-							setValue('longitude', item.longitude)
-							setValue('distance', 30)
+							setValue('city', {
+								name: item.name,
+								isoCode: '',
+								coords: {
+									latitude: Number(item.latitude),
+									longitude: Number(item.longitude),
+								},
+							})
 							setValue('done', true)
-							const { country, state, city, latitude, longitude } = getValues()
-							const newSearchAreaValue = JSON.stringify({
+							const { country, state, city } = getValues()
+							const newSearchAreaValue: LocalStoragePreferenceSearchAreaType2 = {
 								...rSearchAreaVar,
-								country,
-								state,
-								city,
-								coords: {
-									latitude,
-									longitude,
+								searchArea: {
+									country,
+									state,
+									city,
+									coords: {
+										latitude: city.coords.latitude,
+										longitude: city.coords.longitude,
+									},
 								},
-							})
-							await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchAreaValue)
+							}
+
+							await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchAreaValue))
+							// Setting Static SearchArea (Use city as Coord lat,lng)
 							SearchAreaReactiveVar({
-								...rSearchAreaVar,
-								country,
-								state,
-								city,
-								coords: {
-									latitude: Number(latitude),
-									longitude: Number(longitude),
-								},
-								useCurrentLocation: false,
+								...newSearchAreaValue,
 							})
+
 							navigation.dispatch(StackActions.popToTop())
 						}}
 					>
