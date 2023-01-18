@@ -54,7 +54,6 @@ const VenueFeedScreen = () => {
 			console.log('error :>> ', error)
 		},
 		onCompleted: async data => {
-			console.log('======>', JSON.stringify(data?.venuesNearby.venuesNearby, null, 4))
 			const status = await Location.getForegroundPermissionsAsync()
 			if (status.granted) {
 				const currentLocation = await Location.getCurrentPositionAsync({

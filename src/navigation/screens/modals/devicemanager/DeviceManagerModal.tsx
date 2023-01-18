@@ -27,10 +27,9 @@ export default function DeviceManagerModal() {
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
-		onError: error => {
-			console.log('==========+>', error)
-		},
+		onError: error => {},
 		onCompleted: data => {
+			console.log('data.getADeviceManager', data.getADeviceManager)
 			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
 				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles as Array<ClientDeviceProfile>
 				setProfiles(deviceProfiles)

@@ -166,10 +166,7 @@ const Navigation = () => {
 		})
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
-		onError: error => {
-			console.log('HERE')
-			console.log('ERROR =========+>', error)
-		},
+		onError: error => {},
 		onCompleted: async data => {
 			if (data?.createGuestProfile.__typename === 'Profile') {
 				createADeviceManagerMutation({
@@ -183,9 +180,7 @@ const Navigation = () => {
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
-			onError: error => {
-				console.log('===============+>', error)
-			},
+			onError: error => {},
 			onCompleted: async data => {
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
 				if (!deviceManager) {
@@ -219,10 +214,9 @@ const Navigation = () => {
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
-			console.log('createGuest ===================>')
 			createGuestProfileMutation()
 		} else {
-			console.log('refresh ===================>')
+			console.log('reresh')
 			refreshDeviceManagerMutation()
 		}
 	}

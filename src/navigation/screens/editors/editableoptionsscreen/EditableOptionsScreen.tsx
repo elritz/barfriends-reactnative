@@ -15,15 +15,17 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
-	const rIdentifiableInformation = rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation
+	const rIdentifiableInformation = rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation
 	const date = new Date(
-		rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.birthday,
+		rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.birthday,
 	).toLocaleDateString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' })
 
 	const { data, loading, error } = useProfileQuery({
 		variables: {
 			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile.id,
+				id: {
+					equals: rAuthorizationVar?.DeviceProfile?.Profile.id,
+				},
 			},
 		},
 	})
@@ -73,8 +75,8 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Full name'
 			>
-				<Text fontSize={'xl'}>{rIdentifiableInformation.fullname}</Text>
-				{rIdentifiableInformation.nickname && (
+				<Text fontSize={'xl'}>{rIdentifiableInformation?.fullname}</Text>
+				{rIdentifiableInformation?.nickname && (
 					<>
 						<Text fontSize={'xl'} py={2}>
 							Nick name
@@ -91,7 +93,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Username'
 			>
-				<Text fontSize={'xl'}>{rIdentifiableInformation.username}</Text>
+				<Text fontSize={'xl'}>{rIdentifiableInformation?.username}</Text>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
@@ -101,10 +103,10 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				}
 				title='Emojimood'
 			>
-				{rAuthorizationVar.DeviceProfile.Profile.Story ? (
+				{rAuthorizationVar?.DeviceProfile?.Profile.tonightStory ? (
 					<Heading fontSize={'sm'}>
-						{rAuthorizationVar.DeviceProfile.Profile.Story[0].emojimood.emoji}{' '}
-						{rAuthorizationVar.DeviceProfile.Profile.Story[0].emojimood.emojiname}
+						{rAuthorizationVar.DeviceProfile.Profile.tonightStory[0].emojimood.emoji}{' '}
+						{rAuthorizationVar.DeviceProfile.Profile.tonightStory[0].emojimood.emojiname}
 					</Heading>
 				) : (
 					<Text fontSize={'xl'}>Add your emojimood tonight</Text>
@@ -129,7 +131,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				title='About me'
 			>
 				<Text fontSize={'xl'} numberOfLines={4} ellipsizeMode='tail'>
-					{!rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description
+					{!rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.description
 						? 'Add description'
 						: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description}
 				</Text>
@@ -184,7 +186,8 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				title={`I am a ...`}
 			>
 				<Text fontSize={'xl'}>
-					{rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.gender || 'Set your gender'}
+					{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.gender ||
+						'Set your gender'}
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
@@ -196,7 +199,7 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				title={`I'm looking for a ...`}
 			>
 				<Text fontSize={'xl'} numberOfLines={1}>
-					{rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.lookfor ||
+					{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.lookfor ||
 						'Set the vibes your looking for'}
 				</Text>
 			</RoundedListItem>

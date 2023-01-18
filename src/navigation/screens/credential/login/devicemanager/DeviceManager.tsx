@@ -1,8 +1,13 @@
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
-import { useAuthorizedProfilesQuery } from '@graphql/generated'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import {
+	ClientDeviceManager,
+	useAuthorizedProfilesQuery,
+	useSwitchDeviceProfileMutation,
+} from '@graphql/generated'
+import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
+import { AuthorizationReactiveVar } from '@reactive'
 import { Heading, Text } from 'native-base'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
 import { LoginStackParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
@@ -13,20 +18,19 @@ export default function DeviceManagerScreen() {
 	const navigation = useNavigation()
 	const route = useRoute<DeviceManagerScreenRouteProp>()
 	const themeContext = useContext(ThemeContext)
+	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const { data, loading, error } = useAuthorizedProfilesQuery({
 		skip: !route.params.authenticator,
 		fetchPolicy: 'network-only',
 		variables: {
 			where: {
-				Profiles: [
-					{
-						email: route.params.authenticator,
-						Phone: {
-							number: route.params.authenticator.replace(/\D/g, ''),
-						},
+				profiles: {
+					email: route.params.authenticator,
+					Phone: {
+						number: route.params.authenticator.replace(/\D/g, ''),
 					},
-				],
+				},
 			},
 		},
 	})
@@ -43,6 +47,45 @@ export default function DeviceManagerScreen() {
 		})
 	}
 
+	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
+		useSwitchDeviceProfileMutation({
+			onCompleted: data => {
+				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
+					AuthorizationReactiveVar(deviceManager)
+					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
+					// navigation.navigate('HomeTabNavigator', {
+					// 	screen: 'VenueFeedStack',
+					// 	params: {
+					// 		screen: 'VenueFeedScreen',
+					// 	},
+					// })
+				}
+			},
+		})
+
+	const switchProfile = item => {
+		if (item.isActive) {
+			const guestProfile = profiles.filter(item => item?.Profile?.ProfileType === ProfileType.Guest)
+
+			setSelectedProfileId(String(guestProfile[0]?.Profile?.id))
+			switchDeviceProfileMutation({
+				variables: {
+					profileId: String(guestProfile[0]?.Profile?.id),
+					profileType: ProfileType.Guest,
+				},
+			})
+		} else {
+			setSelectedProfileId(item.Profile.id)
+			switchDeviceProfileMutation({
+				variables: {
+					profileId: item.Profile.id,
+					profileType: item.Profile.profileType,
+				},
+			})
+		}
+	}
+
 	if (loading) return null
 
 	if (data?.authorizedProfiles?.__typename === 'ErrorProfiling') {
@@ -53,7 +96,7 @@ export default function DeviceManagerScreen() {
 		)
 	}
 
-	if (data?.authorizedProfiles?.__typename === 'ProfileTypesResponse') {
+	if (data?.authorizedProfiles?.__typename === 'ProfilesResponse') {
 		const emailProfiles = data?.authorizedProfiles?.phone?.filter(item => {
 			if (item.ProfileType === 'GUEST') {
 				return null

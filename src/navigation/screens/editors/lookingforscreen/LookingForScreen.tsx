@@ -1,5 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Profile, useUpdateProfileIdentifiableInformationMutation } from '@graphql/generated'
+import { Ionicons } from '@expo/vector-icons'
+import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
+	Profile,
+	useUpdateProfileIdentifiableInformationMutation,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Text, Button, Icon } from 'native-base'
 import { useContext } from 'react'
@@ -35,15 +41,18 @@ const LookingForScreen = ({}) => {
 	] = useUpdateProfileIdentifiableInformationMutation({
 		onCompleted: data => {
 			if (data.updateProfileIdentifiableInformation.__typename === 'Profile') {
-				const Profile = data.updateProfileIdentifiableInformation as Profile
+				const profile = data.updateProfileIdentifiableInformation as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
-						Profile,
+						...deviceprofile,
+						Profile: profile,
 					},
 				})
-				reset({ lookfor: data.updateProfileIdentifiableInformation.IdentifiableInformation.lookfor })
+				reset({ lookfor: data.updateProfileIdentifiableInformation.IdentifiableInformation?.lookfor })
 			}
 			if (data.updateProfileIdentifiableInformation.__typename === 'ErrorProfiling') {
 				setError('lookfor', { message: data.updateProfileIdentifiableInformation.message })
@@ -59,7 +68,7 @@ const LookingForScreen = ({}) => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			lookfor: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.lookfor,
+			lookfor: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.lookfor,
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -74,9 +83,6 @@ const LookingForScreen = ({}) => {
 		if (dirtyFields.lookfor) {
 			updateProfileIdentifiableInfmationMutation({
 				variables: {
-					where: {
-						profileId: rAuthorizationVar.DeviceProfile.Profile.id,
-					},
 					data: {
 						lookfor: {
 							set: data.lookfor,
@@ -119,8 +125,8 @@ const LookingForScreen = ({}) => {
 											}}
 										>
 											<Text>{item}</Text>
-											{(rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.lookfor === item ||
-												value === item) && <Icon type='ionicon' name='checkmark-sharp' size={25} />}
+											{(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.lookfor === item ||
+												value === item) && <Icon as={Ionicons} name='checkmark-sharp' size={25} />}
 										</Pressable>
 									)
 								})}

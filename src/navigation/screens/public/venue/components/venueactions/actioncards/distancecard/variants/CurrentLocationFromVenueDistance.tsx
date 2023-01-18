@@ -7,18 +7,17 @@ import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as Location from 'expo-location'
-import { LocationAccuracy, LocationObjectCoords } from 'expo-location'
+import { LocationAccuracy, LocationObjectCoords, LocationSubscription } from 'expo-location'
 import { getDistance } from 'geolib'
-import { Box, Heading, Icon } from 'native-base'
-import { useContext, useEffect, useState } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { Box, Heading, Icon, Spinner } from 'native-base'
+import { useEffect, useState } from 'react'
 
 // TODO: FN(When a useris joined to a venue action must be different)
-
 const CurrentLocationFromVenueDistance = () => {
+	let foregroundSubscription: LocationSubscription | null = null
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const themeContext = useContext(ThemeContext)
 	const route = useRoute<VenueScreenRouteProp>()
+	const [isLoading, setLoading] = useState<boolean>(true)
 	const [distance, setDistance] = useState<number | undefined>()
 	const [metric, setMetric] = useState<'km' | 'm' | undefined>('km')
 	const [coords, setCoords] = useState<LocationObjectCoords | undefined>()
@@ -64,30 +63,38 @@ const CurrentLocationFromVenueDistance = () => {
 		},
 	})
 
+	const watchPositionChanges = async () => {
+		let { status } = await Location.requestForegroundPermissionsAsync()
+
+		if (status !== 'granted') {
+			return
+		}
+
+		//let location = await Location.getCurrentPositionAsync({});
+		foregroundSubscription?.remove()
+		const currentLocation = await Location.getCurrentPositionAsync({
+			accuracy: Location.Accuracy.High,
+			timeInterval: 5000,
+			distanceInterval: 20,
+		})
+
+		foregroundSubscription = await Location.watchPositionAsync(
+			{
+				accuracy: Location.Accuracy.High,
+				distanceInterval: 50,
+				timeInterval: 20000,
+			},
+			location => {
+				setCoords(location.coords)
+			},
+		)
+	}
+
 	useEffect(() => {
-		;(async () => {
-			let { status } = await Location.requestForegroundPermissionsAsync()
-
-			if (status !== 'granted') {
-				console.log('Permission to access location was denied')
-				return
-			}
-
-			//let location = await Location.getCurrentPositionAsync({});
-
-			let foregroundSubscrition = Location.watchPositionAsync(
-				{
-					// Tracking options
-					accuracy: Location.Accuracy.High,
-					distanceInterval: 5,
-					timeInterval: 1000,
-				},
-
-				location => {
-					setCoords(location.coords)
-				},
-			)
-		})()
+		watchPositionChanges()
+		return function cleanup() {
+			if (foregroundSubscription) foregroundSubscription.remove()
+		}
 	}, [])
 
 	useEffect(() => {
@@ -102,6 +109,7 @@ const CurrentLocationFromVenueDistance = () => {
 			if (dist > 1000) {
 				setDistance(parseInt((dist / 1000).toFixed(1)))
 				setMetric('km')
+				setLoading(false)
 			} else {
 				if (distance < 20) {
 					if (rAuthorizationVar?.DeviceProfile) {
@@ -133,12 +141,16 @@ const CurrentLocationFromVenueDistance = () => {
 					>
 						{metric === 'km' ? `We are in your area` : `You're super close!`}
 					</Heading>
-					<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'} alignItems={'center'}>
-						<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
-						<Heading fontWeight={'900'}>
-							{distance}&nbsp;{metric}
-						</Heading>
-					</Box>
+					{isLoading ? (
+						<Spinner accessibilityLabel='Loading distance' />
+					) : (
+						<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'} alignItems={'center'}>
+							<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
+							<Heading fontWeight={'900'}>
+								{distance}&nbsp;{metric}
+							</Heading>
+						</Box>
+					)}
 				</Box>
 			)}
 		</>

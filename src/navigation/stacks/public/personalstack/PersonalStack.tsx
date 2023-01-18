@@ -285,7 +285,6 @@ function PersonalStack() {
 					headerStyle: {
 						backgroundColor: colorScheme === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
 						shadowOpacity: 0,
-						// height: 80,
 					},
 					// headerTitle: () => <LogoTransparent height={30} width={192} />,
 					headerTitle: '',

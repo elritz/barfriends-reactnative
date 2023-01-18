@@ -67,7 +67,7 @@ const VenueFeedVenueItem = (props: Props) => {
 			>
 				{!props.loading ? (
 					<Image
-						source={{ uri: props.item.photo?.url }}
+						source={{ uri: props.item.photos[0]?.url }}
 						resizeMode='cover'
 						onLoadEnd={() => setHideBlur(true)}
 						style={{

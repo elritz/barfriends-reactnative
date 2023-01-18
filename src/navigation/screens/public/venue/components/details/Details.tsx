@@ -62,7 +62,7 @@ export default function Details(props: Props) {
 						return (
 							<Badge
 								key={item}
-								mx={2}
+								mx={1}
 								my={2}
 								px={2}
 								colorScheme='success'

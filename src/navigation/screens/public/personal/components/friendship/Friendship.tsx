@@ -39,16 +39,6 @@ export default function Friendship() {
 			case 'RejectedFriendsResponse':
 				return null
 			case 'Relationship': {
-				console.log(
-					'🚀 ----------------------------------------------------------------------------------------------------------------------------------🚀',
-				)
-				console.log(
-					'🚀 ~ file: Friendship.tsx:46 ~ Friends ~ GRFRSData.getRelationshipFriendRequestStatus',
-					JSON.stringify(GRFRSData.getRelationshipFriendRequestStatus, null, 4),
-				)
-				console.log(
-					'🚀 ----------------------------------------------------------------------------------------------------------------------------------🚀',
-				)
 				const created = DateTime.fromISO(
 					GRFRSData.getRelationshipFriendRequestStatus.createdAt,
 				).toFormat('yyyy LLL dd')

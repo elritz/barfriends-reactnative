@@ -120,7 +120,6 @@ export default function AuthenticatorScreen() {
 	const onSubmit = data => {
 		const username = data.authenticator.replace(/[^a-zA-Z0-9]/g, '')
 		const numberOnly = data.authenticator.replace(/\D/g, '')
-
 		authorizedProfilesV2Query({
 			variables: {
 				where: {
@@ -139,9 +138,19 @@ export default function AuthenticatorScreen() {
 	const RightIcon = () => {
 		switch (keyboardType) {
 			case 'number-pad':
-				return <Icon onPress={() => setKeyboardType('email')} name='email' as={Entypo} />
+				return (
+					<Icon onPress={() => setKeyboardType('email')} size={'md'} name='email' as={Entypo} mr={4} />
+				)
 			case 'email':
-				return <Icon onPress={() => setKeyboardType('number-pad')} name='dial-pad' as={Entypo} />
+				return (
+					<Icon
+						onPress={() => setKeyboardType('number-pad')}
+						size={'md'}
+						name='dial-pad'
+						as={Entypo}
+						mr={4}
+					/>
+				)
 		}
 	}
 
@@ -166,54 +175,52 @@ export default function AuthenticatorScreen() {
 				marginHorizontal: '5%',
 			}}
 		>
-			{focusKeyboard && (
-				<Controller
-					name='authenticator'
-					control={control}
-					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
-							// ref={inputRef}
-							key='authenticator'
-							keyboardAppearance={colorScheme}
-							variant={'underlined'}
-							returnKeyType='done'
-							textContentType='telephoneNumber'
-							autoComplete={keyboardType === 'number-pad' ? 'tel' : 'email'}
-							keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
-							numberOfLines={1}
-							placeholder='Email, number or username '
-							inputAccessoryViewID={inputAccessoryViewID}
-							rightElement={<RightIcon />}
-							autoCapitalize='none'
-							autoFocus={focusKeyboard}
-							mt={'1/6'}
-							py={2}
-							_input={{
-								fontSize: '2xl',
-								fontWeight: 'medium',
-							}}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							value={value.toLowerCase()}
-							onChangeText={value => {
-								if (keyboardType === 'number-pad') {
-									onChange(value.toLowerCase())
-									setValue('authenticator', value)
-								} else {
-									onChange(value)
-									setValue('authenticator', value.trim())
-								}
-							}}
-						/>
-					)}
-					rules={{
-						required: {
-							value: true,
-							message: '',
-						},
-					}}
-				/>
-			)}
+			<Controller
+				name='authenticator'
+				control={control}
+				render={({ field: { onChange, onBlur, value } }) => (
+					<Input
+						// ref={inputRef}
+						key='authenticator'
+						keyboardAppearance={colorScheme}
+						variant={'underlined'}
+						returnKeyType='done'
+						textContentType='telephoneNumber'
+						autoComplete={keyboardType === 'number-pad' ? 'tel' : 'email'}
+						keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
+						numberOfLines={1}
+						placeholder='Email, number or username '
+						inputAccessoryViewID={inputAccessoryViewID}
+						rightElement={<RightIcon />}
+						autoCapitalize='none'
+						autoFocus
+						mt={'1/6'}
+						py={2}
+						_input={{
+							fontSize: '2xl',
+							fontWeight: 'medium',
+						}}
+						onSubmitEditing={handleSubmit(onSubmit)}
+						onBlur={onBlur}
+						value={value.toLowerCase()}
+						onChangeText={value => {
+							if (keyboardType === 'number-pad') {
+								onChange(value.toLowerCase())
+								setValue('authenticator', value)
+							} else {
+								onChange(value)
+								setValue('authenticator', value.trim())
+							}
+						}}
+					/>
+				)}
+				rules={{
+					required: {
+						value: true,
+						message: '',
+					},
+				}}
+			/>
 			{errors?.authenticator?.message ? (
 				<Button
 					onPress={() => {

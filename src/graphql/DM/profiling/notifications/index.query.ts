@@ -27,7 +27,7 @@ export const NOTIFICATIONS_QUERY = gql`
 				receiverProfileId
 				senderProfile {
 					id
-					photo {
+					photos {
 						id
 						type
 						url
@@ -40,7 +40,7 @@ export const NOTIFICATIONS_QUERY = gql`
 				}
 				receiverProfile {
 					id
-					photo {
+					photos {
 						id
 						type
 						url

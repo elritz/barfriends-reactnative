@@ -71,7 +71,6 @@ const EmojimoodScreen = () => {
 			},
 		},
 		onCompleted: async data => {
-			console.log('========>', JSON.stringify(data.createPersonalProfile?.__typename, null, 4))
 			if (data.createPersonalProfile?.__typename === 'Profile') {
 				switchDeviceProfileMutation({
 					variables: {

@@ -83,6 +83,7 @@ function ExploreStack() {
 			/>
 			<ScreenStack.Screen
 				name='SearchTextScreen'
+				component={SearchTextScreen}
 				options={{
 					headerTransparent: true,
 					header: () => {
@@ -102,7 +103,6 @@ function ExploreStack() {
 						)
 					},
 				}}
-				component={SearchTextScreen}
 			/>
 
 			<ScreenStack.Screen

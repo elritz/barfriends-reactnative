@@ -8,12 +8,13 @@ export const EXPLORE_SEARCH_QUERY = gql`
 				Profile {
 					id
 					IdentifiableInformation {
+						id
 						fullname
 						firstname
 						lastname
 						username
 					}
-					photo {
+					photos {
 						id
 						active
 						blurhash
@@ -26,12 +27,13 @@ export const EXPLORE_SEARCH_QUERY = gql`
 				Profile {
 					id
 					IdentifiableInformation {
+						id
 						fullname
 						firstname
 						lastname
 						username
 					}
-					photo {
+					photos {
 						id
 						active
 						blurhash

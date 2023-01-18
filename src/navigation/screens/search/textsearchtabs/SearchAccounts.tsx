@@ -22,7 +22,6 @@ export default function SearchAccounts() {
 		<Box style={{ flex: 1 }}>
 			<ScrollView>
 				{params?.data?.people?.map(item => {
-					console.log('========>', item)
 					return <SearchCard item={item} />
 				})}
 			</ScrollView>

@@ -11,7 +11,7 @@ export const GET_A_DEVICE_MANAGER_QUERY = gql`
 					AppType
 					isActive
 					accesstoken
-					# refreshtoken
+					refreshtoken
 					Profile {
 						...PROFILE_FRAGMENT
 					}

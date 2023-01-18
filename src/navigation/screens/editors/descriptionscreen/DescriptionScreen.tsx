@@ -1,5 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
-import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
+import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
+	Profile,
+	useUpdateOneProfileMutation,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, Button, Input, KeyboardAvoidingView, Text } from 'native-base'
@@ -25,7 +30,7 @@ const DescriptionScreen = () => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			description: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description || '',
+			description: rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.description || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -38,16 +43,19 @@ const DescriptionScreen = () => {
 	const [updateOneProfileMutation, { data, loading: UOPLoading }] = useUpdateOneProfileMutation({
 		onCompleted: data => {
 			if (data.updateOneProfile) {
-				const Profile = data.updateOneProfile as Profile
+				const profile = data.updateOneProfile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
-						Profile,
+						...deviceprofile,
+						Profile: profile,
 					},
 				})
 				reset({
-					description: data.updateOneProfile.DetailInformation.description,
+					description: String(data?.updateOneProfile?.DetailInformation?.description),
 				})
 			} else {
 				setError('description', { message: 'Couldnt update profile' })
@@ -59,11 +67,11 @@ const DescriptionScreen = () => {
 		switch (value) {
 			case 'description':
 				reset({
-					description: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description,
+					description: String(rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.description),
 				})
 			default:
 				reset({
-					description: rAuthorizationVar.DeviceProfile.Profile.DetailInformation.description,
+					description: String(rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.description),
 				})
 		}
 	}
@@ -73,7 +81,7 @@ const DescriptionScreen = () => {
 			updateOneProfileMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar.DeviceProfile.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
 					},
 					data: {
 						DetailInformation: {

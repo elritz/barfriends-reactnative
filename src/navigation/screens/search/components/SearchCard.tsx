@@ -6,6 +6,7 @@ export default function SearchCard({ item }) {
 
 	return (
 		<Pressable
+			key={item.id}
 			onPress={() => {
 				switch (item.__typename) {
 					case 'Personal':
@@ -50,15 +51,15 @@ export default function SearchCard({ item }) {
 						h={'45px'}
 						bg={'blue.300'}
 						borderRadius={'lg'}
-						source={{ uri: item.Profile.photos.url }}
+						source={{ uri: item.Profile.photos[0].url }}
 						alt={'Profile picture'}
 					/>
 
 					<VStack ml={2}>
-						<Text fontWeight={'bold'} lineHeight={'xs'} fontSize={'sm'}>
+						<Text fontWeight={'bold'} lineHeight={'xs'} fontSize={'md'}>
 							{item.Profile.IdentifiableInformation.fullname}
 						</Text>
-						<Text lineHeight={'xs'} fontSize={'xs'}>
+						<Text lineHeight={'xs'} fontSize={'sm'}>
 							{item.Profile.IdentifiableInformation.username}
 						</Text>
 					</VStack>

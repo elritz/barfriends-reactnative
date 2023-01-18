@@ -1,6 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
-import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
+import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
+	Profile,
+	useUpdateOneProfileMutation,
+} from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
@@ -25,10 +30,13 @@ const BirthdayScreen = () => {
 			},
 			onCompleted: data => {
 				const profile = data.updateOneProfile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
+						...deviceprofile,
 						Profile: profile,
 					},
 				})

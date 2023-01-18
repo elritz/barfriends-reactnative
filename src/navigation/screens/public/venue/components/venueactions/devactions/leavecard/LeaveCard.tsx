@@ -1,6 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
 	Profile,
 	useProfileLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
@@ -49,10 +51,13 @@ export default function LeaveCard() {
 		onCompleted: data => {
 			if (data.profile) {
 				const profile = data.profile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
+						...deviceprofile,
 						Profile: profile,
 					},
 				})

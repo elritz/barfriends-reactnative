@@ -610,17 +610,6 @@ const DevelopmentScreen = () => {
 									onPress={async () => {
 										onToggleProfileId()
 										await Clipboard.setStringAsync(String(rAuthorizationVar?.DeviceProfile?.Profile?.id))
-										console.log(
-											'🚀 ----------------------------------------------------------------------------------------------------------------------------------------------🚀',
-										)
-										console.log(
-											'🚀 ~ file: DevelopmentScreen.tsx:613 ~ onPress={ ~ rAuthorizationVar?.DeviceProfile?.Profile?.id',
-											rAuthorizationVar?.DeviceProfile?.Profile?.id,
-										)
-										console.log(
-											'🚀 ----------------------------------------------------------------------------------------------------------------------------------------------🚀',
-										)
-
 										setTimeout(() => onCloseProfileId(), 500)
 									}}
 								>

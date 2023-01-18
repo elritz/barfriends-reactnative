@@ -23,7 +23,9 @@ const PersonalScreen = (props: any) => {
 		skip: !route.params?.profileId,
 		variables: {
 			where: {
-				id: route.params?.profileId,
+				id: {
+					equals: route.params.profileId,
+				},
 			},
 		},
 		onCompleted: data => {},
@@ -33,7 +35,7 @@ const PersonalScreen = (props: any) => {
 
 	return (
 		<NBScrollView pt={4} mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-			<Photos story={PQData?.profile?.Story} photo={PQData?.profile?.photos} />
+			<Photos story={PQData?.profile?.tonightStory} photo={PQData?.profile?.photos[0]} />
 			<VStack space={3}>
 				<Actions profile={PQData?.profile} />
 				<HStack space={3} h={200}>

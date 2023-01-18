@@ -48,7 +48,11 @@ const SearchTextScreenInput = () => {
 	})
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
+		onError: error => {
+			console.log('error :>> ', error)
+		},
 		onCompleted: data => {
+			console.log('data.exploreSearch :>> ', data)
 			navigation.dispatch(CommonActions.setParams({ data: data.exploreSearch }))
 		},
 	})
@@ -88,7 +92,7 @@ const SearchTextScreenInput = () => {
 		navigation.dispatch(CommonActions.setParams({ searchText: text }))
 	}
 
-	const debouncedSearchResults = useDebounce(watch().searchText, 500)
+	const debouncedSearchResults = useDebounce(watch().searchText, 700)
 
 	useMemo(() => {
 		if (watch().searchText.length) {

@@ -111,7 +111,7 @@ function SearchAreaStackNavigation() {
 				methods.setValue('country', rSearchAreaVar.searchArea.country)
 				methods.setValue('state', rSearchAreaVar.searchArea.state)
 			} else {
-				console.log('TODO')
+				console.log('TODO =========>')
 			}
 		} catch (e) {
 			// error reading value
@@ -122,7 +122,7 @@ function SearchAreaStackNavigation() {
 		getData()
 	}, [])
 
-	const onSubmit = data => console.log(data)
+	const onSubmit = data => console.log()
 
 	const handleNavigationToNewSearchAreaForm = () => {
 		navigation.navigate('ModalNavigator', {

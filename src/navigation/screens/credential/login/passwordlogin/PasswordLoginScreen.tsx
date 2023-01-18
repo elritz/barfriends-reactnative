@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons'
 import {
+	ClientDeviceManager,
 	DeviceManager,
 	Profile,
 	ProfileType,
@@ -82,7 +83,9 @@ const PasswordLoginScreen = () => {
 		skip: !route.params.profile,
 		variables: {
 			where: {
-				id: route.params.profile,
+				id: {
+					equals: route.params.profile,
+				},
 			},
 		},
 	})
@@ -92,8 +95,8 @@ const PasswordLoginScreen = () => {
 			onCompleted: data => {
 				if (!data || !data.switchDeviceProfile) {
 					return null
-				} else if (data.switchDeviceProfile.__typename == 'DeviceManager') {
-					const deviceManager = data.switchDeviceProfile as DeviceManager
+				} else if (data.switchDeviceProfile.__typename == 'ClientDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					navigation.navigate('HomeTabNavigator', {
 						screen: 'VenueFeedStack',
@@ -157,7 +160,7 @@ const PasswordLoginScreen = () => {
 						height={`${IMAGE_SIZE}px`}
 						width={`${IMAGE_SIZE}px`}
 						borderRadius={'lg'}
-						source={{ uri: PQData?.profile?.photos?.url }}
+						source={{ uri: PQData?.profile?.photos[0].url }}
 						alt={'Profile Photo'}
 					/>
 				)}
@@ -190,7 +193,6 @@ const PasswordLoginScreen = () => {
 								blurOnSubmit={false}
 								autoComplete={'password-new'}
 								autoFocus
-								placeholder='Password'
 								returnKeyType='next'
 								autoCorrect={false}
 								inputAccessoryViewID={inputAccessoryViewID}

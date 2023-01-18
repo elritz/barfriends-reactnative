@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
+	ClientDeviceManager,
 	DeviceManager,
 	DeviceProfile,
 	Profile,
@@ -32,8 +33,8 @@ const DeviceManagerProfiles = () => {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
-				if (data.switchDeviceProfile?.__typename == 'DeviceManager') {
-					const deviceManager = data.switchDeviceProfile as DeviceManager
+				if (data.switchDeviceProfile?.__typename == 'ClientDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 				}
 			},
@@ -64,8 +65,6 @@ const DeviceManagerProfiles = () => {
 	}
 
 	if (loading) return null
-
-	console.log(profiles)
 
 	return (
 		<Center>

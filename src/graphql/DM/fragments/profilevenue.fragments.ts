@@ -20,7 +20,7 @@ export const PROFILE_VENUE_FRAGMENT = gql`
 		DetailInformation {
 			...DETAIL_INFORMATION_FRAGMENT
 		}
-		photo {
+		photos {
 			id
 			url
 			type
@@ -31,14 +31,48 @@ export const PROFILE_VENUE_FRAGMENT = gql`
 			createdAt
 			updatedAt
 		}
-		photos {
+		Personal {
 			id
-			url
-			type
-			position
-			active
-			ratio
-			blurhash
+			Profile {
+				id
+				createdAt
+				updatedAt
+			}
+			profileId
+			PersonalStats {
+				id
+				joinedVenueHistory {
+					id
+					personalProfileId
+					venueProfileId
+					createdAt
+					updatedAt
+				}
+				totaledVenueHistory {
+					id
+					venueProfileId
+					personalProfileId
+					createdAt
+					updatedAt
+				}
+				createdAt
+				updatedAt
+			}
+			LiveOutPersonal {
+				id
+				joined {
+					id
+					venueProfileId
+					personalProfileId
+				}
+				totaled {
+					id
+					venueProfileId
+					personalProfileId
+				}
+				createdAt
+				updatedAt
+			}
 			createdAt
 			updatedAt
 		}

@@ -185,6 +185,12 @@ const ConfirmationCodeScreen = () => {
 					alignContent={'space-around'}
 					height={'90px'}
 					px={'2.5%'}
+					_light={{
+						bg: 'light.100',
+					}}
+					_dark={{
+						bg: 'dark.200',
+					}}
 				>
 					<Box flexDir={'column'} justifyContent={'space-around'} my={2} flex={1}>
 						{complete ? (

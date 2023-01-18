@@ -1,7 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
-import { useUpdateProfileIdentifiableInformationMutation, Profile } from '@graphql/generated'
+import {
+	useUpdateProfileIdentifiableInformationMutation,
+	Profile,
+	ClientDeviceManager,
+	ClientDeviceProfile,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, Input, KeyboardAvoidingView, Text, Icon, Button } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -29,26 +35,28 @@ const GenderScreen = ({}: GenderScreenProps) => {
 		{ data: UPIIData, loading: UPIILoading, error: UPIIError },
 	] = useUpdateProfileIdentifiableInformationMutation({
 		variables: {
-			where: {
-				profileId: rAuthorizationVar.DeviceProfile.Profile.id,
-			},
 			data: {
 				gender: {
-					set: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.gender,
+					set: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.gender,
 				},
 			},
 		},
 		onCompleted: data => {
 			if (data.updateProfileIdentifiableInformation.__typename === 'Profile') {
-				const Profile = data.updateProfileIdentifiableInformation as Profile
+				const profile = data.updateProfileIdentifiableInformation as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
-						Profile,
+						...deviceprofile,
+						Profile: profile,
 					},
 				})
-				reset({ gender: data.updateProfileIdentifiableInformation.IdentifiableInformation.gender })
+				reset({
+					gender: String(data?.updateProfileIdentifiableInformation?.IdentifiableInformation?.gender),
+				})
 			}
 			if (data.updateProfileIdentifiableInformation.__typename === 'ErrorProfiling') {
 				setError('gender', { message: data.updateProfileIdentifiableInformation.message })
@@ -64,7 +72,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			gender: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.gender || '',
+			gender: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.gender || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -79,9 +87,6 @@ const GenderScreen = ({}: GenderScreenProps) => {
 		if (dirtyFields.gender) {
 			updateProfileIdentifiableInfmationMutation({
 				variables: {
-					where: {
-						profileId: rAuthorizationVar.DeviceProfile.Profile.id,
-					},
 					data: {
 						gender: {
 							set: data.gender,

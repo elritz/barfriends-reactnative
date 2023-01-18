@@ -23,7 +23,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 // const queryClient = new QueryClient()
 // Define the background task for location tracking
 TaskManager.defineTask(GEOFENCING_LOCATION_TASK_NAME, async ({ data, error }: any) => {
-	console.log('reun')
 	if (error) {
 		console.error(error)
 		return

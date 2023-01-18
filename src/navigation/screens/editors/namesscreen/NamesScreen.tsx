@@ -1,5 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
-import { Profile, useUpdateOneProfileMutation } from '@graphql/generated'
+import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
+	Profile,
+	useUpdateOneProfileMutation,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input, KeyboardAvoidingView, Text } from 'native-base'
@@ -24,8 +29,8 @@ const NamesScreen = () => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			fullname: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.fullname || '',
-			nickname: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.nickname || '',
+			fullname: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.fullname || '',
+			nickname: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.nickname || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -42,19 +47,22 @@ const NamesScreen = () => {
 				setError('fullname', error)
 			},
 			onCompleted: data => {
-				if (data.updateOneProfile.__typename === 'Profile') {
+				if (data.updateOneProfile) {
 					const profile = data.updateOneProfile as Profile
+					const deviceManager = rAuthorizationVar as ClientDeviceManager
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 					AuthorizationReactiveVar({
-						...rAuthorizationVar,
+						...deviceManager,
 						DeviceProfile: {
-							...rAuthorizationVar.DeviceProfile,
+							...deviceprofile,
 							Profile: profile,
 						},
 					})
 
 					reset({
-						fullname: data.updateOneProfile.IdentifiableInformation.fullname,
-						nickname: data.updateOneProfile.IdentifiableInformation.nickname,
+						fullname: String(data?.updateOneProfile?.IdentifiableInformation?.fullname),
+						nickname: String(data?.updateOneProfile?.IdentifiableInformation?.nickname),
 					})
 				}
 			},
@@ -63,12 +71,20 @@ const NamesScreen = () => {
 	const resetInput = (value: String) => {
 		switch (value) {
 			case 'fullname':
-				reset({ fullname: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.fullname })
+				reset({
+					fullname: String(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.fullname),
+				})
 			case 'nickname':
-				reset({ nickname: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.nickname })
+				reset({
+					nickname: String(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.nickname),
+				})
 			default:
-				reset({ fullname: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.fullname })
-				reset({ nickname: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.nickname })
+				reset({
+					fullname: String(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.fullname),
+				})
+				reset({
+					nickname: String(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.nickname),
+				})
 		}
 	}
 
@@ -78,7 +94,7 @@ const NamesScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar.DeviceProfile.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
 					},
 					data: {
 						IdentifiableInformation: {
@@ -96,7 +112,7 @@ const NamesScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar.DeviceProfile.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
 					},
 					data: {
 						IdentifiableInformation: {

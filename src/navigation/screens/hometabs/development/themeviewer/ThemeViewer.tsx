@@ -2,6 +2,8 @@ import { useReactiveVar } from '@apollo/client'
 import { AntDesign } from '@expo/vector-icons'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
 	Profile,
 	Theme,
 	useGetAllThemesQuery,
@@ -356,10 +358,13 @@ export default function ThemeViewer() {
 		onCompleted: async data => {
 			if (data.profile) {
 				const profile = data.profile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
+						...deviceprofile,
 						Profile: profile,
 					},
 				})

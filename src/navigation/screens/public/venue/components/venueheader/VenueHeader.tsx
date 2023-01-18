@@ -54,7 +54,7 @@ const VenueHeader = (props: Props) => {
 			}}
 		>
 			<Image
-				source={{ uri: venueData?.photo.url }}
+				source={{ uri: venueData?.photos[0].url }}
 				style={{
 					position: 'absolute',
 					width: width,

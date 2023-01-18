@@ -67,6 +67,8 @@ export const PROFILE_FRAGMENT = gql`
 					createdAt
 					updatedAt
 				}
+				createdAt
+				updatedAt
 			}
 			LiveOutPersonal {
 				id
@@ -166,7 +168,7 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 		Relationships {
 			...RELATIONSHIP_FRAGMENT
 		}
-		photo {
+		photos {
 			id
 			url
 			type
@@ -268,18 +270,31 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 		}
 		tonightStory {
 			id
-			photos {
-				id
-				position
-				url
-			}
+			date
+
 			emojimood {
-				__typename
 				id
-				colors
 				emojiname
 				emoji
+				colors
 			}
+			Profile {
+				id
+			}
+			photos {
+				id
+				url
+				active
+				blurhash
+				ratio
+				type
+				position
+				createdAt
+				updatedAt
+			}
+			startDate
+			createdAt
+			updatedAt
 		}
 	}
 `

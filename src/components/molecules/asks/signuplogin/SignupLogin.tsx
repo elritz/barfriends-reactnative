@@ -13,7 +13,6 @@ type Props = {
 
 const CardPleaseSignup = (props: Props) => {
 	const navigation = useNavigation()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const handleSignupNavigation = () => {
 		navigation.navigate('CredentialNavigator', {

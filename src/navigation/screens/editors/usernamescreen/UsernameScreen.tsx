@@ -1,5 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Profile, useCheckUsernameLazyQuery, useUpdateOneProfileMutation } from '@graphql/generated'
+import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
+	Profile,
+	useCheckUsernameLazyQuery,
+	useUpdateOneProfileMutation,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Input } from 'native-base'
@@ -72,10 +78,13 @@ const UsernameScreen = () => {
 			},
 			onCompleted: data => {
 				const profile = data.updateOneProfile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar.DeviceProfile,
+						...deviceprofile,
 						Profile: profile,
 					},
 				})
@@ -88,7 +97,7 @@ const UsernameScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar.DeviceProfile.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
 					},
 					data: {
 						IdentifiableInformation: {
@@ -107,7 +116,7 @@ const UsernameScreen = () => {
 	const InputRightIcon = () => {}
 
 	const resetInput = (value: String) => {
-		reset({ username: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.username })
+		reset({ username: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username })
 	}
 
 	return (

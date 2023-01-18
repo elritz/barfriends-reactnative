@@ -3337,7 +3337,7 @@ type ErrorProfiling {
 }
 
 type ExploreResponse {
-  events: [Json!]!
+  events: [Json!]
   people: [Personal!]!
   venues: [Venue!]!
 }
@@ -14728,9 +14728,10 @@ type VenuesNearbyResponse {
 type VenueStats {
   createdAt: DateTime!
   id: ID!
-  joinedVenueHistory: [JoinedOut!]!
-  totaledVenueHistory: [TotaledOut!]!
+  joinedVenueHistory(cursor: JoinedOutWhereUniqueInput, distinct: [JoinedOutScalarFieldEnum!], orderBy: [JoinedOutOrderByWithRelationInput!], skip: Int, take: Int, where: JoinedOutWhereInput): [JoinedOut!]!
+  totaledVenueHistory(cursor: TotaledOutWhereUniqueInput, distinct: [TotaledOutScalarFieldEnum!], orderBy: [TotaledOutOrderByWithRelationInput!], skip: Int, take: Int, where: TotaledOutWhereInput): [TotaledOut!]!
   updatedAt: DateTime!
+  Venue: Venue
 }
 
 input VenueStatsCountOrderByAggregateInput {

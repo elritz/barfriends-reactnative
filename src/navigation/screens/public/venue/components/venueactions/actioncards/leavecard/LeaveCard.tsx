@@ -2,6 +2,8 @@ import ActionCard from '../../ActionCard'
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
+	ClientDeviceManager,
+	ClientDeviceProfile,
 	Profile,
 	useProfileLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
@@ -22,7 +24,7 @@ export default function LeaveCard() {
 		{ data: RPJVData, loading: RPJVLoading, error: RPJVError },
 	] = useRemovePersonalJoinsVenueMutation({
 		variables: {
-			profileIdPersonal: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: route.params.profileId,
 		},
 		onCompleted: async () => {
@@ -41,16 +43,21 @@ export default function LeaveCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
 		variables: {
 			where: {
-				id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+				id: {
+					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+				},
 			},
 		},
 		onCompleted: data => {
 			if (data.profile) {
 				const profile = data.profile as Profile
+				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+
 				AuthorizationReactiveVar({
-					...rAuthorizationVar,
+					...deviceManager,
 					DeviceProfile: {
-						...rAuthorizationVar?.DeviceProfile,
+						...deviceprofile,
 						Profile: profile,
 					},
 				})
