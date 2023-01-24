@@ -166,8 +166,14 @@ const Navigation = () => {
 		})
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
-		onError: error => {},
+		onError: error => {
+			console.log('error :>> ', error)
+		},
+
 		onCompleted: async data => {
+			console.log('🚀 -------------------------------------------------🚀')
+			console.log('🚀 ~ file: index.tsx:181 ~ Navigation ~ data', data)
+			console.log('🚀 -------------------------------------------------🚀')
 			if (data?.createGuestProfile.__typename === 'Profile') {
 				createADeviceManagerMutation({
 					variables: {
@@ -214,6 +220,7 @@ const Navigation = () => {
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
+			console.log('create GUET')
 			createGuestProfileMutation()
 		} else {
 			console.log('reresh')
@@ -229,7 +236,7 @@ const Navigation = () => {
 
 	useEffect(() => {
 		const subscription = Notifications.addPushTokenListener(e => {
-			console.log('e =======>', e, 'e =======>')
+			console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
 		})
 		return () => subscription.remove()
 	}, [])
@@ -243,9 +250,9 @@ const Navigation = () => {
 	}
 
 	return (
-		<AnimatedAppLoader assets={assets}>
-			<Navigator />
-		</AnimatedAppLoader>
+		// <AnimatedAppLoader assets={assets}>
+		<Navigator />
+		// </AnimatedAppLoader>
 	)
 }
 

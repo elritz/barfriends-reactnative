@@ -25,7 +25,7 @@ const VenueActions = () => {
 		loading: PLoading,
 		error: PError,
 	} = useCurrentVenueQuery({
-		skip: !route.params.profileId || !rAuthorizationVar,
+		skip: !route.params.profileId,
 		fetchPolicy: 'network-only',
 		variables: {
 			where: {
@@ -33,6 +33,11 @@ const VenueActions = () => {
 					equals: route.params.profileId,
 				},
 			},
+		},
+		onError: error => {
+			console.log('🚀 -----------------------------------------------------------🚀')
+			console.log('🚀 ~ file: VenueActions.tsx:39 ~ VenueActions ~ error', error)
+			console.log('🚀 -----------------------------------------------------------🚀')
 		},
 		onCompleted: data => {
 			if (data?.profile?.Venue?.LiveOutVenue) {
@@ -42,27 +47,30 @@ const VenueActions = () => {
 			}
 		},
 	})
+
 	if (PLoading) return null
 
 	return (
 		<VStack m={1} mt={5}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-				<HStack space={2}>
-					<ActionCard numColumns={numColumns}>
-						<UberCard />
-					</ActionCard>
-					<ActionCard numColumns={numColumns}>
-						<DistanceCard />
-					</ActionCard>
-				</HStack>
-
-				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
-
-				{ENVIRONMENT === 'development' && (
+				{ENVIRONMENT !== 'development' && (
 					<ActionCard numColumns={1}>
 						<DevActions />
 					</ActionCard>
 				)}
+				<HStack space={2}>
+					<ActionCard numColumns={numColumns}>
+						<UberCard />
+					</ActionCard>
+					{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]
+						?.venueProfileId === route.params.profileId ? null : (
+						<ActionCard numColumns={numColumns}>
+							<DistanceCard />
+						</ActionCard>
+					)}
+				</HStack>
+
+				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
 
 				<HStack space={2}>
 					<ActionCard bg={'#ff7000'} numColumns={numColumns}>

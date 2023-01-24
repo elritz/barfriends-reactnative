@@ -39,7 +39,9 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 		<Pressable onPress={onOpen}>
 			<CameraModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 			<VStack flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
-				<Heading fontWeight={'black'}>BFS</Heading>
+				<Heading fontWeight={'black'} fontSize={'2xl'}>
+					Quick BF
+				</Heading>
 				<Box mt={2} alignItems={'center'} justifyContent={'center'}>
 					{dataQR && (
 						<QRCode

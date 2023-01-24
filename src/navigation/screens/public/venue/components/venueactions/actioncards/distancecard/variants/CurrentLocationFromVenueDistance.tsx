@@ -22,6 +22,15 @@ const CurrentLocationFromVenueDistance = () => {
 	const [metric, setMetric] = useState<'km' | 'm' | undefined>('km')
 	const [coords, setCoords] = useState<LocationObjectCoords | undefined>()
 
+	console.log(
+		'rAuthorizationVar?.DeviceProfile?.Profile.Personal?.LiveOutPersonal?.joined',
+		JSON.stringify(
+			rAuthorizationVar?.DeviceProfile?.Profile.Personal?.LiveOutPersonal?.joined,
+			null,
+			4,
+		),
+	)
+
 	const [
 		addPersonalTotalsVenueMutation,
 		{ data: APTVData, loading: APTVLoading, error: APTVError },

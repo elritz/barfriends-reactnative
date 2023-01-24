@@ -3824,6 +3824,15 @@ input GeometryWhereUniqueInput {
   id: Int
 }
 
+type Group {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  photos(cursor: PhotoWhereUniqueInput, distinct: [PhotoScalarFieldEnum!], orderBy: [PhotoOrderByWithRelationInput!], skip: Int, take: Int, where: PhotoWhereInput): [Photo!]!
+  Profile(cursor: ProfileWhereUniqueInput, distinct: [ProfileScalarFieldEnum!], orderBy: [ProfileOrderByWithRelationInput!], skip: Int, take: Int, where: ProfileWhereInput): [Profile!]!
+  updatedAt: DateTime!
+}
+
 input GroupCountOrderByAggregateInput {
   createdAt: SortOrder
   id: SortOrder
@@ -4728,13 +4737,18 @@ input IntWithAggregatesFilter {
 type JoinedOut {
   createdAt: DateTime!
   id: ID!
-  liveOutPersonalId: String!
-  liveOutVenueId: String!
-  personalProfileId: String!
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonal
+  liveOutPersonalId: String
+  LiveOutVenue: LiveOutVenue
+  liveOutVenueId: String
+  personalProfileId: String
+  PersonalStats: PersonalStats
+  personalStatsId: String
   updatedAt: DateTime!
   venueProfileId: String!
-  VenueStats: VenueStats!
-  venueStatsId: String!
+  VenueStats: VenueStats
+  venueStatsId: String
 }
 
 input JoinedOutCountOrderByAggregateInput {
@@ -9874,7 +9888,6 @@ type Profile {
   id: String
   IdentifiableInformation: IdentifiableInformation
   Personal: Personal
-  photo: Photo!
   photos: [Photo!]!
   ProfileType: ProfileType!
   Relationships: [Relationship!]!
@@ -13957,13 +13970,18 @@ input TonightPathWhereUniqueInput {
 type TotaledOut {
   createdAt: DateTime!
   id: ID!
-  liveOutPersonalId: String!
-  liveOutVenueId: String!
+  leftAt: DateTime
+  LiveOutPersonal: LiveOutPersonal
+  liveOutPersonalId: String
+  LiveOutVenue: LiveOutVenue
+  liveOutVenueId: String
   personalProfileId: String!
+  PersonalStats: PersonalStats
+  personalStatsId: String
   updatedAt: DateTime!
   venueProfileId: String!
-  VenueStats: VenueStats!
-  venueStatsId: String!
+  VenueStats: VenueStats
+  venueStatsId: String
 }
 
 input TotaledOutCountOrderByAggregateInput {

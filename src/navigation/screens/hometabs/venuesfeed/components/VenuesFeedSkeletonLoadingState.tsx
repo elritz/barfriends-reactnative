@@ -13,7 +13,7 @@ export default function VenueFeedSkeletonLoadingState() {
 	return (
 		<Center>
 			<VStack space={2}>
-				<Skeleton
+				{/* <Skeleton
 					speed={0.25}
 					rounded='xl'
 					_dark={{
@@ -26,7 +26,7 @@ export default function VenueFeedSkeletonLoadingState() {
 					}}
 					h='280'
 					w={loadingSkelHeight}
-				/>
+				/> */}
 				<Skeleton
 					speed={0.25}
 					rounded='xl'

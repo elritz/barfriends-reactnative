@@ -3,9 +3,11 @@ import PersonalAtVenue from './components/peopleatvenue/PersonalAtVenue'
 import VenueActions from './components/venueactions/VenueActions'
 import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
+import { useReactiveVar } from '@apollo/client'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { Text, FlatList, VStack } from 'native-base'
+import { AuthorizationReactiveVar } from '@reactive'
+import { Text, FlatList, VStack, Heading, Box, useDisclose } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { VenueProfileStackParamList } from 'src/types/app'
 
@@ -15,6 +17,8 @@ const VenueScreen = (props: any) => {
 	// const users = GenerateUserData(3)
 	const users = []
 	const route = useRoute<VenueScreenRouteProp>()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const { isOpen, onOpen, onClose } = useDisclose()
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !route.params.profileId,
@@ -25,7 +29,14 @@ const VenueScreen = (props: any) => {
 				},
 			},
 		},
-		onCompleted: data => {},
+		onError(error) {
+			console.log('error :>> ', error)
+		},
+		onCompleted: data => {
+			console.log('🚀 -------------------------------------------------🚀')
+			console.log('🚀 ~ file: Venue.tsx:33 ~ VenueScreen ~ data', data)
+			console.log('🚀 -------------------------------------------------🚀')
+		},
 	})
 
 	if (loading || !data) return null
@@ -39,17 +50,39 @@ const VenueScreen = (props: any) => {
 		)
 	}
 
+	const venueData = data?.profile
+	const name = venueData?.IdentifiableInformation?.fullname
+	const username = venueData?.IdentifiableInformation?.username
+
 	return (
 		<SafeAreaView>
 			<FlatList
-				// estimatedItemSize={50}
 				data={users}
 				numColumns={2}
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
 					<VStack mb={5}>
 						<VenueHeader profileId={props.route.params.profileId} />
-						<VenueTotals />
+						<Box
+							_light={{
+								bg: 'light.50',
+							}}
+							_dark={{
+								bg: 'dark.50',
+							}}
+							py={4}
+							borderBottomRadius={'lg'}
+						>
+							<Box px={2}>
+								<Heading size={'md'} numberOfLines={1}>
+									{name}
+								</Heading>
+								<Heading size={'sm'} fontWeight={900} numberOfLines={1}>
+									@{username}
+								</Heading>
+							</Box>
+							<VenueTotals />
+						</Box>
 						{/* <LocationPermissionCard /> */}
 						<VenueActions />
 					</VStack>

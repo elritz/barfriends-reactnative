@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
-import { PROFILE_VENUE_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
+import { PROFILE_VENUES_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
 
 export const VENUES_NEARBY_QUERY = gql`
-	${PROFILE_VENUE_FRAGMENT}
+	${PROFILE_VENUES_FRAGMENT}
 	query venuesNearby(
 		$latitude: Float!
 		$longitude: Float!
@@ -18,7 +18,7 @@ export const VENUES_NEARBY_QUERY = gql`
 			kRing: $kRing
 		) {
 			venuesNearby {
-				...PROFILE_VENUE_FRAGMENT
+				...PROFILE_VENUES_FRAGMENT
 			}
 			searchArea {
 				coords {

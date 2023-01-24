@@ -1,5 +1,6 @@
 import ActionCard from '../../ActionCard'
 import { useReactiveVar } from '@apollo/client'
+import { Ionicons } from '@expo/vector-icons'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	ClientDeviceManager,
@@ -11,7 +12,7 @@ import {
 import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Heading, Button, VStack, Box } from 'native-base'
+import { Heading, Button, VStack, Box, Icon } from 'native-base'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
@@ -64,20 +65,22 @@ export default function LeaveCard() {
 			}
 		},
 	})
+
 	if (
 		rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]
 			?.venueProfileId === route.params.profileId
 	) {
 		return (
-			<ActionCard numColumns={1}>
+			<ActionCard numColumns={2}>
 				<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
-					<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
+					<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
 						You've joined here{'\n'}
 						<Heading
 							fontWeight={'900'}
 							color={'red.600'}
 							textAlign={'center'}
 							textTransform={'uppercase'}
+							fontSize={'lg'}
 						>
 							Leave now
 						</Heading>
@@ -94,6 +97,7 @@ export default function LeaveCard() {
 								fontWeight: '700',
 								fontSize: 'md',
 							}}
+							leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
 							w={'100'}
 						>
 							Leave

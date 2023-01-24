@@ -3,14 +3,13 @@ import { CREDENTIALS_FRAGMENT } from '@graphql/DM/fragments/credentials.fragment
 import { DETAIL_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/detail_information.fragments'
 import { INDETIFIABLE_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/identifiable_information.fragments'
 import { LOCATION_FRAGMENT } from '@graphql/DM/fragments/location.fragments'
-import { RELATIONSHIP_FRAGMENT } from '@graphql/DM/fragments/relationship.fragments'
 
-export const PROFILE_VENUE_FRAGMENT = gql`
+export const PROFILE_VENUES_FRAGMENT = gql`
 	${CREDENTIALS_FRAGMENT}
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
 	${DETAIL_INFORMATION_FRAGMENT}
 	${LOCATION_FRAGMENT}
-	fragment PROFILE_VENUE_FRAGMENT on Profile {
+	fragment PROFILE_VENUES_FRAGMENT on Profile {
 		__typename
 		id
 		ProfileType
@@ -41,35 +40,11 @@ export const PROFILE_VENUE_FRAGMENT = gql`
 			profileId
 			PersonalStats {
 				id
-				joinedVenueHistory {
-					id
-					personalProfileId
-					venueProfileId
-					createdAt
-					updatedAt
-				}
-				totaledVenueHistory {
-					id
-					venueProfileId
-					personalProfileId
-					createdAt
-					updatedAt
-				}
 				createdAt
 				updatedAt
 			}
 			LiveOutPersonal {
 				id
-				joined {
-					id
-					venueProfileId
-					personalProfileId
-				}
-				totaled {
-					id
-					venueProfileId
-					personalProfileId
-				}
 				createdAt
 				updatedAt
 			}
@@ -94,23 +69,6 @@ export const PROFILE_VENUE_FRAGMENT = gql`
 					id
 					venueProfileId
 					personalProfileId
-				}
-			}
-			VenueStats {
-				id
-				joinedVenueHistory {
-					id
-					venueProfileId
-					personalProfileId
-					createdAt
-					updatedAt
-				}
-				totaledVenueHistory {
-					id
-					personalProfileId
-					venueProfileId
-					createdAt
-					updatedAt
 				}
 			}
 			Location {

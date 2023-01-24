@@ -16,7 +16,7 @@ function AnimatedSplashScreen({ children, assets }) {
 
 	useEffect(() => {
 		if (isAppReady) {
-			setTimeout(() => setAnimationComplete(true), 2000)
+			setTimeout(() => setAnimationComplete(true), 1000)
 		}
 	}, [isAppReady])
 

@@ -29,7 +29,6 @@ export default function VenueTotals() {
 
 	const { data, loading, error } = useGetLiveVenueTotalsQuery({
 		skip: !route.params.profileId,
-		fetchPolicy: 'network-only',
 		variables: {
 			profileIdVenue: route.params.profileId,
 		},
@@ -47,20 +46,23 @@ export default function VenueTotals() {
 				flexDirection: 'row',
 				justifyContent: 'space-around',
 			}}
-			mt={5}
+			mt={4}
+			mx={2}
 		>
 			{[friends, total, joined].map(item => {
 				return (
 					<Box
 						key={item.name}
 						_light={{
-							bg: item.name !== 'friends' ? 'light.50' : 'primary.600',
+							bg: item.name !== 'friends' ? 'light.200' : 'primary.600',
+							opacity: loading ? 50 : 100,
 						}}
 						_dark={{
-							bg: item.name !== 'friends' ? 'light.900' : 'primary.600',
+							bg: item.name !== 'friends' ? 'dark.100' : 'primary.600',
+							opacity: loading ? 50 : 100,
 						}}
 						style={{
-							height: 75,
+							height: 65,
 							width: (width - itemPadding) / 3,
 							borderRadius: 17,
 							alignItems: 'center',
@@ -71,12 +73,18 @@ export default function VenueTotals() {
 							numberOfLines={1}
 							allowFontScaling
 							minimumFontScale={0.5}
-							size={'2xl'}
-							style={{ fontWeight: '900', letterSpacing: 0.01 }}
+							size={'xl'}
+							lineHeight={'xs'}
+							style={{ fontWeight: '800', letterSpacing: 0.01 }}
 						>
 							{item.value}
 						</Heading>
-						<Text fontWeight={'black'} fontSize={'xs'} style={{ textTransform: 'uppercase' }}>
+						<Text
+							fontWeight={'black'}
+							lineHeight={'xs'}
+							fontSize={'xs'}
+							style={{ textTransform: 'uppercase' }}
+						>
 							{item.name}
 						</Text>
 					</Box>

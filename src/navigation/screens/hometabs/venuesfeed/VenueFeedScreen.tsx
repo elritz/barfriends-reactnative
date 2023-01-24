@@ -1,3 +1,4 @@
+import CurrentVenue from './components/CurrentVenue'
 import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
@@ -21,10 +22,10 @@ import { LocationAccuracy } from 'expo-location'
 import { getDistance, orderByDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, Center, VStack, FlatList, Text, Button } from 'native-base'
+import { Box, Center, VStack, FlatList, Text, Button, Heading } from 'native-base'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(handleAppStateChange) check if location permission is enabled and go somewhere with it
 // TODO: UX() Workflow isn't quite working good enough for production
@@ -54,6 +55,13 @@ const VenueFeedScreen = () => {
 			console.log('error :>> ', error)
 		},
 		onCompleted: async data => {
+			console.log('🚀 ---------------------------------------------------------------🚀')
+			console.log(
+				'🚀 ~ file: VenueFeedScreen.tsx:58 ~ VenueFeedScreen ~ data',
+				data.venuesNearby.venuesNearby.length,
+			)
+			console.log('🚀 ---------------------------------------------------------------🚀')
+
 			const status = await Location.getForegroundPermissionsAsync()
 			if (status.granted) {
 				const currentLocation = await Location.getCurrentPositionAsync({
@@ -88,6 +96,9 @@ const VenueFeedScreen = () => {
 			}
 		},
 	})
+	console.log('🚀 ---------------------------------------------------------------------🚀')
+	console.log('🚀 ~ file: VenueFeedScreen.tsx:96 ~ VenueFeedScreen ~ loading', loading)
+	console.log('🚀 ---------------------------------------------------------------------🚀')
 
 	const fnMemoed = async () => {
 		if (
@@ -111,7 +122,7 @@ const VenueFeedScreen = () => {
 		) {
 			venuesNearby()
 		}
-	}, [isFocused])
+	}, [])
 
 	useEffect(() => {
 		const subscription = AppState.addEventListener('change', handleAppStateChange)
@@ -132,42 +143,44 @@ const VenueFeedScreen = () => {
 
 	const listHeaderComponent = () => {
 		return (
-			<Center>
-				<VStack w={'full'} space={4}>
-					{!rSearchAreaVar?.searchArea.coords.latitude ||
-					!rSearchAreaVar?.searchArea.coords.longitude ? (
-						<VenueFeedSearchAreaEmptyState />
-					) : (
-						<>
-							{loading || (!data && !data?.venuesNearby) ? (
-								<VenueFeedSkeletonLoadingState />
-							) : (
-								<AnimatePresence key={uniqueId()}>
-									<Box mx={VenueFeedScreenMarginX} my={scrollViewItemsMarginY}>
-										{!rForegroundLocationVar?.granted ? (
-											<ForegroundLocationPermissionFullSection />
-										) : !rBackgroundLocationVar?.granted ? (
-											<BackgroundLocationPermissionFullSection />
-										) : null}
-									</Box>
-								</AnimatePresence>
-							)}
-						</>
-					)}
+			<VStack w={'full'} space={4}>
+				{!loading && data && data?.venuesNearby && <VenuesFeedSearchAreaHeader />}
+				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+					<VenueFeedSignupCard />
+				)}
+				{!rSearchAreaVar?.searchArea.coords.latitude || !rSearchAreaVar?.searchArea.coords.longitude ? (
+					<VenueFeedSearchAreaEmptyState />
+				) : (
+					<>
+						{(!data && !data?.venuesNearby) || loading ? (
+							<VenueFeedSkeletonLoadingState />
+						) : (
+							<AnimatePresence key={uniqueId()}>
+								<Box
+									mx={VenueFeedScreenMarginX}
+									//  my={scrollViewItemsMarginY}
+								>
+									{!rForegroundLocationVar?.granted ? (
+										<ForegroundLocationPermissionFullSection />
+									) : !rBackgroundLocationVar?.granted ? (
+										<BackgroundLocationPermissionFullSection />
+									) : null}
+								</Box>
+							</AnimatePresence>
+						)}
+					</>
+				)}
 
-					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-						<VenueFeedSignupCard />
-					)}
-
-					{!loading && data && data?.venuesNearby && <VenuesFeedSearchAreaHeader />}
-					{!venues.length && <VenuesFeedVenuesEmptyState />}
-				</VStack>
-			</Center>
+				{!loading && !venues.length && <VenuesFeedVenuesEmptyState />}
+				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.length && (
+					<CurrentVenue />
+				)}
+			</VStack>
 		)
 	}
 
 	return (
-		<Box>
+		<SafeAreaView>
 			<FlatList
 				onRefresh={fnMemoed}
 				refreshing={loading}
@@ -181,8 +194,7 @@ const VenueFeedScreen = () => {
 				keyExtractor={item => item.id}
 				ListHeaderComponent={listHeaderComponent}
 				ListHeaderComponentStyle={{
-					// marginTop: 105,
-					paddingTop: HOME_TAB_TOP_NAIGATION_HEIGHT + 15,
+					paddingTop: HOME_TAB_TOP_NAIGATION_HEIGHT,
 				}}
 				contentInset={{
 					top: 0,
@@ -191,7 +203,7 @@ const VenueFeedScreen = () => {
 					right: 0,
 				}}
 			/>
-		</Box>
+		</SafeAreaView>
 	)
 }
 

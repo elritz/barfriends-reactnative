@@ -21,13 +21,13 @@ export default function VenueFeedSignupCard() {
 				}}
 			>
 				<Box
-					_dark={{ backgroundColor: 'dark.100' }}
-					_light={{ backgroundColor: 'light.100' }}
+					_dark={{ backgroundColor: 'dark.50' }}
+					_light={{ backgroundColor: 'light.50' }}
 					px={5}
 					pb={15}
 					pt={35}
 					mx={2}
-					borderRadius={13}
+					borderRadius={'lg'}
 				>
 					<CardPleaseSignup signupTextId={1} />
 				</Box>

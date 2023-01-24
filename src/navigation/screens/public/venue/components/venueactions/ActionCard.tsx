@@ -23,7 +23,7 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',
-				height: 215,
+				height: 185,
 				borderRadius: 20,
 				marginVertical: 5,
 			}}

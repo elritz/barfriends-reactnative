@@ -80,7 +80,7 @@ const VenueFeedVenueItem = (props: Props) => {
 				) : null}
 				{!hideBlur && (
 					<Blurhash
-						blurhash={String(props.item.photo?.blurhash)}
+						blurhash={String(props.item.photos[0].blurhash)}
 						style={{
 							flex: 1,
 						}}

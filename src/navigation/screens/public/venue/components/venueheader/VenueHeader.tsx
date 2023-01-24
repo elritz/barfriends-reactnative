@@ -9,12 +9,13 @@ type Props = {
 }
 
 const VenueHeader = (props: Props) => {
-	const HEADER_IMAGE_HEIGHT = 235
+	const HEADER_IMAGE_HEIGHT = 195
 	const { width } = useWindowDimensions()
 	const colorScheme = useThemeColorScheme()
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !props.profileId,
+		fetchPolicy: 'cache-first',
 		variables: {
 			where: {
 				id: {
@@ -34,16 +35,24 @@ const VenueHeader = (props: Props) => {
 					height: HEADER_IMAGE_HEIGHT,
 					overflow: 'hidden',
 				}}
-				borderBottomLeftRadius={'xl'}
-				borderBottomRightRadius={'xl'}
+				_light={{
+					bg: 'light.50',
+				}}
+				_dark={{
+					bg: 'dark.50',
+				}}
 			/>
 		)
 	}
 
 	const venueData = data?.profile
+
 	const name = venueData?.IdentifiableInformation?.fullname
 	const username = venueData?.IdentifiableInformation?.username
-	console.log(venueData)
+	console.log('🚀 -----------------------------------------------------------------🚀')
+	console.log('🚀 ~ file: VenueHeader.tsx:49 ~ VenueHeader ~ venueData', venueData)
+	console.log('🚀 -----------------------------------------------------------------🚀')
+
 	return (
 		<Box
 			style={{
@@ -51,6 +60,12 @@ const VenueHeader = (props: Props) => {
 				justifyContent: 'flex-end',
 				height: HEADER_IMAGE_HEIGHT,
 				overflow: 'hidden',
+			}}
+			_light={{
+				bg: 'light.50',
+			}}
+			_dark={{
+				bg: 'dark.50',
 			}}
 		>
 			<Image
@@ -62,14 +77,6 @@ const VenueHeader = (props: Props) => {
 				}}
 				alt={'Profile Photo'}
 			/>
-			<BlurView tint={colorScheme} intensity={40} style={{ padding: 5 }}>
-				<Heading size={'lg'} numberOfLines={1}>
-					{name}
-				</Heading>
-				<Heading size={'sm'} fontWeight={900} numberOfLines={1}>
-					@{username}
-				</Heading>
-			</BlurView>
 		</Box>
 	)
 }

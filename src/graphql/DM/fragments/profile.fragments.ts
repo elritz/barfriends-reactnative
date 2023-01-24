@@ -108,23 +108,6 @@ export const PROFILE_FRAGMENT = gql`
 					personalProfileId
 				}
 			}
-			VenueStats {
-				id
-				joinedVenueHistory {
-					id
-					venueProfileId
-					personalProfileId
-					createdAt
-					updatedAt
-				}
-				totaledVenueHistory {
-					id
-					personalProfileId
-					venueProfileId
-					createdAt
-					updatedAt
-				}
-			}
 			Location {
 				...LOCATION_FRAGMENT
 			}
@@ -243,23 +226,6 @@ export const PUBLIC_PROFILE_FRAGMENT = gql`
 					id
 					venueProfileId
 					personalProfileId
-				}
-			}
-			VenueStats {
-				id
-				joinedVenueHistory {
-					id
-					venueProfileId
-					personalProfileId
-					createdAt
-					updatedAt
-				}
-				totaledVenueHistory {
-					id
-					personalProfileId
-					venueProfileId
-					createdAt
-					updatedAt
 				}
 			}
 			Location {

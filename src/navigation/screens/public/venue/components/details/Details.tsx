@@ -1,5 +1,5 @@
 import { useCurrentVenueQuery, useProfileQuery } from '@graphql/generated'
-import { Badge } from 'native-base'
+import { Badge, useColorMode } from 'native-base'
 import { Box, Button, Container, HStack, Text, VStack } from 'native-base'
 import { useContext, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components/native'
@@ -22,6 +22,11 @@ const DetailTitle = (props: DetailTitleProps) => {
 
 export default function Details(props: Props) {
 	const [showMore, setShowMore] = useState(false)
+	const colorMode = useColorMode()
+	console.log('🚀 ---------------------------------------------------------🚀')
+	console.log('🚀 ~ file: Details.tsx:26 ~ Details ~ colorMode', colorMode.colorMode)
+	console.log('🚀 ---------------------------------------------------------🚀')
+
 	const themeContext = useContext(ThemeContext)
 
 	const { data, loading, error } = useCurrentVenueQuery({
@@ -52,7 +57,7 @@ export default function Details(props: Props) {
 			<Box>
 				<DetailTitle title={'Address'} />
 				<Text fontSize={'xl'} fontWeight={'medium'}>
-					157 Queen St N
+					{data?.profile?.Venue?.Location?.Address?.formattedAddress}
 				</Text>
 			</Box>
 			<Box>
@@ -64,12 +69,13 @@ export default function Details(props: Props) {
 								key={item}
 								mx={1}
 								my={2}
-								px={2}
-								colorScheme='success'
+								px={3}
+								py={2}
+								colorScheme={colorMode.colorMode === 'light' ? 'dark' : 'light'}
 								_text={{
 									fontSize: 'lg',
 								}}
-								rounded={'full'}
+								rounded={'lg'}
 							>
 								{item}
 							</Badge>
@@ -85,7 +91,7 @@ export default function Details(props: Props) {
 			</Box>
 			<Box flex={1}>
 				<DetailTitle title={'Description'} />
-				{data.profile.DetailInformation?.description ? (
+				{data?.profile?.DetailInformation?.description ? (
 					<Box>
 						{!showMore ? (
 							<Text fontSize={'lg'} numberOfLines={4} isTruncated={true}>
