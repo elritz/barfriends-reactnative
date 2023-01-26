@@ -33,9 +33,7 @@ const VenueScreen = (props: any) => {
 			console.log('error :>> ', error)
 		},
 		onCompleted: data => {
-			console.log('🚀 -------------------------------------------------🚀')
 			console.log('🚀 ~ file: Venue.tsx:33 ~ VenueScreen ~ data', data)
-			console.log('🚀 -------------------------------------------------🚀')
 		},
 	})
 

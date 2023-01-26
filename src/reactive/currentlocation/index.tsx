@@ -1,11 +1,5 @@
 import { makeVar } from '@apollo/client'
-import {
-	LocationGeocodedAddress,
-	LocationObject,
-	LocationOptions,
-	Accuracy,
-} from 'expo-location'
-
+import { LocationGeocodedAddress, LocationObject, LocationOptions, Accuracy } from 'expo-location'
 
 type LocationType = {
 	watchPosition?: LocationOptions
@@ -25,8 +19,8 @@ export const locationInitialState: LocationType = {
 			altitude: null,
 			altitudeAccuracy: null,
 			heading: null,
-			latitude: 43.455951884844424,
-			longitude: -80.48376329470184,
+			latitude: 0,
+			longitude: 0,
 			speed: null,
 		},
 		timestamp: 0,

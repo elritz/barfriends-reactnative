@@ -16,7 +16,7 @@ function AnimatedSplashScreen({ children, assets }) {
 
 	useEffect(() => {
 		if (isAppReady) {
-			setTimeout(() => setAnimationComplete(true), 1000)
+			setTimeout(() => setAnimationComplete(true), 0)
 		}
 	}, [isAppReady])
 
@@ -40,7 +40,7 @@ function AnimatedSplashScreen({ children, assets }) {
 	const onImageLoaded = useCallback(async () => {
 		try {
 			// Load stuff
-			setTimeout(() => SplashScreen.hideAsync(), 2000)
+			setTimeout(() => SplashScreen.hideAsync(), 0)
 
 			// Load stuff
 			// await Promise.all([loadResourcesAndDataAsync])

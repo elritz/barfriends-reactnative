@@ -1,7 +1,9 @@
 // export default STORYBOOK_START ? require('./storybook').default : require('./src/index').default
 // import * as Sentry from 'sentry-expo'
+import { DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import * as SplashScreen from 'expo-splash-screen'
 import 'expo-splash-screen'
+import * as TaskManager from 'expo-task-manager'
 import { LogBox } from 'react-native'
 
 const STORYBOOK_START = false
@@ -9,15 +11,28 @@ const STORYBOOK_START = false
 LogBox.ignoreLogs([
 	"No native splash screen registered for given view controller. Call 'SplashScreen.show' for given view controller first.",
 ])
-// LogBox.ignoreAllLogs()
-// Sentry.init({
-// 	dsn: 'https://dd97920eeec34856af296a809960a8ab@o4504095880118272.ingest.sentry.io/4504095974817792',
-// 	tracesSampleRate: 0.1,
-// 	enableNative: false,
-// 	enableInExpoDevelopment: true,
-// 	debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+
+// TaskManager.defineTask(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, ({ data, error }: any) => {
+// 	console.log('🚀 -----------------------------------------------🚀')
+// 	console.log('🚀 ~ file: DevelopmentScreen.tsx:62 ~ data', data)
+// 	console.log('🚀 -----------------------------------------------🚀')
+
+// 	if (error) {
+// 		// check `error.message` for more details.
+// 		return
+// 	}
+// 	if (data) {
+// 		// console.log('🚀 ~ file: index.tsx ~ line 59 ~ TaskManager.defineTask ~ data', data)
+// 		// Extract location coordinates from data
+// 		// const { locations }: any = data
+// 		const location = data.locations[0]
+// 		if (location) {
+// 			console.log('Location in foreground', JSON.stringify(location.coords, null, 4))
+// 			return
+// 		}
+// 	}
 // })
-// SplashScreen.preventAutoHideAsync()
+
 SplashScreen.preventAutoHideAsync().catch(() => {
 	/* reloading the app might trigger some race conditions, ignore them */
 })

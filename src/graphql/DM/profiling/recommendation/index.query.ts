@@ -4,15 +4,15 @@ import { PROFILE_VENUES_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
 export const VENUES_NEARBY_QUERY = gql`
 	${PROFILE_VENUES_FRAGMENT}
 	query venuesNearby(
-		$latitude: Float!
-		$longitude: Float!
 		$countryIsoCode: String!
 		$stateIsoCode: String!
 		$kRing: Int
+		$currentLocationCoords: CoordsInput
+		$searchAreaCoords: CoordsInput!
 	) {
 		venuesNearby(
-			latitude: $latitude
-			longitude: $longitude
+			currentLocationCoords: $currentLocationCoords
+			searchAreaCoords: $searchAreaCoords
 			countryIsoCode: $countryIsoCode
 			stateIsoCode: $stateIsoCode
 			kRing: $kRing

@@ -1242,6 +1242,11 @@ type Coords {
   longitude: Float
 }
 
+input CoordsInput {
+  latitude: Float!
+  longitude: Float!
+}
+
 type CountryResponseObject {
   currency: String!
   flag: String!
@@ -7131,6 +7136,7 @@ type Mutation {
   deleteFriendRequest(friendRequestId: String!): Boolean!
   qrAddFriend(dataHash: String!, qrCodeProfileId: String!): Relationship!
   refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion!
+  removeAllFromVenue(profileIdVenue: String): Boolean!
   removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType): Boolean!
   removeFriend(relationshipId: String!): Boolean!
   removePersonalJoinsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
@@ -11893,7 +11899,7 @@ type Query {
   sendAuthenticatorDeviceOwnerCode: Boolean!
   venue(cursor: VenueWhereUniqueInput, distinct: [VenueScalarFieldEnum!], orderBy: [VenueOrderByWithRelationInput!], skip: Int, take: Int, where: VenueWhereInput): Venue
   venues(cursor: VenueWhereUniqueInput, distinct: [VenueScalarFieldEnum!], orderBy: [VenueOrderByWithRelationInput!], skip: Int, take: Int, where: VenueWhereInput): [Venue!]!
-  venuesNearby(countryIsoCode: String!, kRing: Int, latitude: Float!, longitude: Float!, stateIsoCode: String!): VenuesNearbyResponse!
+  venuesNearby(countryIsoCode: String!, currentLocationCoords: CoordsInput, kRing: Int, searchAreaCoords: CoordsInput!, stateIsoCode: String!): VenuesNearbyResponse!
 }
 
 enum QueryMode {

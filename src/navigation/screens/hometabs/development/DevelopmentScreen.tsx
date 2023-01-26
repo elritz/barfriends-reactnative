@@ -4,7 +4,10 @@ import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 } from '@constants/StorageConstants'
-import { LOCATION_TASK_NAME, GEOFENCING_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
+import {
+	DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME,
+	DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME,
+} from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
@@ -21,6 +24,7 @@ import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/loca
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import * as Application from 'expo-application'
+import * as BackgroundFetch from 'expo-background-fetch'
 import * as Clipboard from 'expo-clipboard'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
@@ -40,13 +44,12 @@ import {
 	VStack,
 	Pressable,
 	Stack,
-	IconButton,
 	Tooltip,
 	useDisclose,
 	SectionList,
 } from 'native-base'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Platform, Linking, useColorScheme, ColorSchemeName } from 'react-native'
+import { Platform, Linking, useColorScheme, ColorSchemeName, AppState } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { AuthorizationDecoded } from 'src/types/app'
 
@@ -54,19 +57,113 @@ import { AuthorizationDecoded } from 'src/types/app'
 
 let foregroundSubscription = null
 
+const BACKGROUND_FETCH_TASK = 'background-fetch'
+
+let l1
+let l2
+
+// 1. Define the task by providing a name and the function that should be executed
+// Note: This needs to be called in the global scope (e.g outside of your React components)
+TaskManager.defineTask(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, async ({ data, error }: any) => {
+	if (error) {
+		console.log('LOCATION_TRACKING task ERROR:', error)
+		return
+	}
+	if (data) {
+		const { locations } = data
+		let lat = locations[0].coords.latitude
+		let long = locations[0].coords.longitude
+
+		l1 = lat
+		l2 = long
+
+		console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`)
+	}
+})
+TaskManager.defineTask(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
+	const now = Date.now()
+
+	// console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`)
+	console.log('data DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME :>> ', data)
+	if (data) {
+		if (data.locations) {
+			// console.log('data.locations :>> ', JSON.stringify(data.locations, null, 4))
+		}
+	}
+
+	// Be sure to return the successful result type!
+	return BackgroundFetch.BackgroundFetchResult.NewData
+})
+
+// 2. Register the task at some point in your app by providing the same name,
+// and some configuration options for how the background fetch should behave
+// Note: This does NOT need to be in the global scope and CAN be used in your React components!
+async function registerBackgroundFetchAsync() {
+	await Location.startLocationUpdatesAsync(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, {
+		accuracy: Location.Accuracy.Balanced,
+		deferredUpdatesDistance: 15,
+		timeInterval: 5000,
+		showsBackgroundLocationIndicator: true,
+		deferredUpdatesInterval: ENVIRONMENT === 'development' ? 1000 : 5000,
+		distanceInterval: ENVIRONMENT === 'development' ? 0 : 20,
+		foregroundService: {
+			notificationTitle: 'Location',
+			notificationBody: 'Location tracking in background',
+			notificationColor: '#fff',
+		},
+	})
+}
+
+async function registerForegroundFetchAsync() {
+	await Location.startLocationUpdatesAsync(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, {
+		accuracy: Location.Accuracy.Balanced,
+		deferredUpdatesDistance: 25,
+		timeInterval: 5000,
+		showsBackgroundLocationIndicator: true,
+		deferredUpdatesInterval: ENVIRONMENT === 'development' ? 1000 : 5000,
+		distanceInterval: ENVIRONMENT === 'development' ? 0 : 20,
+		foregroundService: {
+			notificationTitle: 'Location',
+			notificationBody: 'Location tracking in background',
+			notificationColor: '#fff',
+		},
+	})
+}
+
+// 3. (Optional) Unregister tasks by specifying the task name
+// This will cancel any future background fetch calls that match the given name
+// Note: This does NOT need to be in the global scope and CAN be used in your React components!
+async function unregisterBackgroundFetchAsync() {
+	return Location.stopLocationUpdatesAsync(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME)
+}
+
 const DevelopmentScreen = () => {
+	const ITEM_HEIGHT = 50
 	const navigation = useNavigation()
-	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const bottomSheetThemeModalRef = useRef<BottomSheetModal>(null)
 	const bottomSheetThemePermissionRef = useRef<BottomSheetModal>(null)
 	const colorScheme = useThemeColorScheme()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
-	const [currentPosition, setCurrentPosition] = useState<LocationObject>()
 	const [toggleThemes] = useToggleTheme()
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
 	const [token, setToken] = useState('')
 	const [pushNotificationToken, setPushNotificationToken] = useState('')
+	const [appState, setAppState] = useState(AppState.currentState)
+
+	const {
+		isOpen: isForegroundLocationOn,
+		onOpen: onOpenForegroundLocationOn,
+		onClose: onCloseForegroundLocationOn,
+		onToggle: onToggleForegroundLocationOn,
+	} = useDisclose()
+
+	const {
+		isOpen: isBackgroundLocationOn,
+		onOpen: onOpenBackgroundLocationOn,
+		onClose: onCloseBackgroundLocationOn,
+		onToggle: onToggleBackgroundLocationOn,
+	} = useDisclose()
 
 	const {
 		isOpen: isOpenToken,
@@ -88,6 +185,33 @@ const DevelopmentScreen = () => {
 		onClose: onClosePushNotif,
 		onToggle: onTogglePushNotif,
 	} = useDisclose()
+
+	const appStateHandleBackgroundLocation = async nextAppState => {
+		const hasStarted = await Location.hasStartedLocationUpdatesAsync(
+			DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME,
+		)
+
+		if (isBackgroundLocationOn) {
+			if (!hasStarted && nextAppState === 'inactive') {
+				console.log('Background location started ...')
+				await registerBackgroundFetchAsync()
+			}
+			if (appState !== nextAppState) {
+				if (appState.match(/inactive|background/) && nextAppState === 'active') {
+					console.log('Background Location Stopped in foreground ...')
+					await unregisterBackgroundFetchAsync()
+				}
+			}
+		}
+
+		if (!isBackgroundLocationOn && hasStarted) {
+			console.log('Background Location stopped...')
+			await unregisterBackgroundFetchAsync()
+		}
+
+		AppState.currentState = nextAppState
+		setAppState(AppState.currentState)
+	}
 
 	async function getApplicationAuthorization() {
 		const getAuthorization = await secureStorageItemRead({
@@ -113,21 +237,18 @@ const DevelopmentScreen = () => {
 		getPushNotificationToken()
 	}, [])
 
+	useEffect(() => {
+		const appStateListen = AppState.addEventListener('change', appStateHandleBackgroundLocation)
+		return () => {
+			appStateListen.remove()
+		}
+	}, [isBackgroundLocationOn])
+
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
 
 	const setTheme = async ({ colorScheme }: { colorScheme: 'light' | 'dark' | 'system' }) => {
 		await toggleThemes({ colorScheme })
 	}
-
-	const handleBottomSheetPermissionSnapPress = useCallback(index => {
-		bottomSheetThemePermissionRef.current?.present()
-		bottomSheetThemePermissionRef.current?.snapToIndex(index)
-	}, [])
-
-	const handleBottomSheetThemeSnapPress = useCallback(index => {
-		bottomSheetThemeModalRef.current?.present()
-		bottomSheetThemeModalRef.current?.snapToIndex(index)
-	}, [])
 
 	// render
 	const renderItem = useCallback(
@@ -328,7 +449,15 @@ const DevelopmentScreen = () => {
 		[rThemeVar.colorScheme],
 	)
 
-	const ITEM_HEIGHT = 50
+	const handleBottomSheetPermissionSnapPress = useCallback(index => {
+		bottomSheetThemePermissionRef.current?.present()
+		bottomSheetThemePermissionRef.current?.snapToIndex(index)
+	}, [])
+
+	const handleBottomSheetThemeSnapPress = useCallback(index => {
+		bottomSheetThemeModalRef.current?.present()
+		bottomSheetThemeModalRef.current?.snapToIndex(index)
+	}, [])
 
 	const handleOpenPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {
@@ -338,78 +467,14 @@ const DevelopmentScreen = () => {
 		}
 	}
 
-	const startForegroundUpdate = async () => {
-		const { granted } = await Location.getForegroundPermissionsAsync()
-		if (!granted) {
-			console.log('TODO: location tracking denied')
-			return
-		}
-
-		// Make sure that foreground location tracking is not running
-		foregroundSubscription?.remove()
-
-		// Start watching position in real-time
-		foregroundSubscription = await Location.watchPositionAsync(
-			{
-				// For better logs, we set the accuracy to the most sensitive option
-				accuracy: Location.Accuracy.BestForNavigation,
-			},
-			location => {
-				setCurrentPosition(location)
-			},
+	const toggleForegroundLocationTask = async () => {
+		const hasStarted = await Location.hasStartedLocationUpdatesAsync(
+			DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME,
 		)
-	}
-
-	// Stop location tracking in foreground
-	const stopForegroundUpdate = () => {
-		foregroundSubscription?.remove()
-		setCurrentPosition(null)
-	}
-
-	// Start location tracking in background
-	const startBackgroundUpdate = async () => {
-		// Don't track position if permission is not granted
-		const { granted } = await Location.getBackgroundPermissionsAsync()
-		if (!granted) {
-			console.log('TODO:location tracking denied')
-			return
-		}
-
-		// Make sure the task is defined otherwise do not start tracking
-		const isTaskDefined = await TaskManager.isTaskDefined(LOCATION_TASK_NAME)
-		if (!isTaskDefined) {
-			console.log('TODO: Task is not defined')
-			return
-		}
-
-		// Don't track if it is already running in background
-		const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
 		if (hasStarted) {
-			console.log('TODO:Already started')
-			return
-		}
-
-		await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-			// For better logs, we set the accuracy to the most sensitive option
-			accuracy: Location.Accuracy.BestForNavigation,
-			// Make sure to enable this notification if you want to consistently track in the background
-			showsBackgroundLocationIndicator: true,
-			deferredUpdatesInterval: ENVIRONMENT === 'development' ? 1000 : 5000,
-			distanceInterval: ENVIRONMENT === 'development' ? 0 : 20,
-			foregroundService: {
-				notificationTitle: 'Location',
-				notificationBody: 'Location tracking in background',
-				notificationColor: '#fff',
-			},
-		})
-	}
-
-	// Stop location tracking in background
-	const stopBackgroundUpdate = async () => {
-		const hasStarted = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME)
-		if (hasStarted) {
-			await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME)
-			console.log('TODO:Location tacking stopped')
+			await unregisterBackgroundFetchAsync()
+		} else {
+			await registerBackgroundFetchAsync()
 		}
 	}
 
@@ -420,8 +485,6 @@ const DevelopmentScreen = () => {
 			Updates.reloadAsync()
 		}
 	}, [])
-
-	const onPermissionsPress = useCallback(() => {}, [])
 
 	if (GATLoading) return null
 
@@ -698,19 +761,37 @@ const DevelopmentScreen = () => {
 								<Divider my={3} />
 							</Box>
 							<VStack space={2} w={'full'} px={10} my={3}>
-								<Button onPress={startForegroundUpdate} color='green'>
+								<Button
+									onPress={toggleForegroundLocationTask}
+									isDisabled={isForegroundLocationOn}
+									colorScheme={'green'}
+								>
 									Start in foreground
 								</Button>
 								<Divider />
-								<Button onPress={stopForegroundUpdate} color='red'>
+								<Button
+									onPress={toggleForegroundLocationTask}
+									isDisabled={!isForegroundLocationOn}
+									colorScheme={'red'}
+								>
 									Stop in foreground
 								</Button>
 								<Divider />
-								<Button onPress={startBackgroundUpdate} color='green'>
+								<Button
+									onPress={onToggleBackgroundLocationOn}
+									isDisabled={isBackgroundLocationOn}
+									colorScheme={'green'}
+									color='green'
+								>
 									Start in background
 								</Button>
 								<Divider />
-								<Button onPress={stopBackgroundUpdate} color='red'>
+								<Button
+									onPress={onToggleBackgroundLocationOn}
+									isDisabled={!isBackgroundLocationOn}
+									colorScheme={'red'}
+									color='red'
+								>
 									Stop in background
 								</Button>
 							</VStack>

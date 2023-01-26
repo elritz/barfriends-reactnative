@@ -42,6 +42,7 @@ import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
+import * as TaskManager from 'expo-task-manager'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
 import { AuthorizationDecoded } from 'src/types/app'
@@ -169,11 +170,7 @@ const Navigation = () => {
 		onError: error => {
 			console.log('error :>> ', error)
 		},
-
 		onCompleted: async data => {
-			console.log('🚀 -------------------------------------------------🚀')
-			console.log('🚀 ~ file: index.tsx:181 ~ Navigation ~ data', data)
-			console.log('🚀 -------------------------------------------------🚀')
 			if (data?.createGuestProfile.__typename === 'Profile') {
 				createADeviceManagerMutation({
 					variables: {
@@ -223,7 +220,6 @@ const Navigation = () => {
 			console.log('create GUET')
 			createGuestProfileMutation()
 		} else {
-			console.log('reresh')
 			refreshDeviceManagerMutation()
 		}
 	}
@@ -234,25 +230,21 @@ const Navigation = () => {
 		applicationAuthorization()
 	}, [])
 
-	useEffect(() => {
-		const subscription = Notifications.addPushTokenListener(e => {
-			console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
-		})
-		return () => subscription.remove()
-	}, [])
+	// useEffect(() => {
+	// 	const subscription = Notifications.addPushTokenListener(e => {
+	// 		console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
+	// 	})
+	// 	return () => subscription.remove()
+	// }, [])
 
-	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) {
-		return null
-	}
-
-	if (!assets) {
+	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar || !assets) {
 		return null
 	}
 
 	return (
-		// <AnimatedAppLoader assets={assets}>
-		<Navigator />
-		// </AnimatedAppLoader>
+		<AnimatedAppLoader assets={assets}>
+			<Navigator />
+		</AnimatedAppLoader>
 	)
 }
 

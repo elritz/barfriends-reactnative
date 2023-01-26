@@ -1,8 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import {
-	LOCATION_TASK_NAME,
 	BACKGROUND_NOTIFICATION_TASK,
-	GEOFENCING_LOCATION_TASK_NAME,
+	DEVELOPMENT_FOREGROUND_GEOFENCING_TASK_NAME,
 } from '@constants/TaskManagerConstants'
 import gateaWayClient from '@library/gateway-apollo-server'
 import Navigation from '@navigation/index'
@@ -22,67 +21,54 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 // const queryClient = new QueryClient()
 // Define the background task for location tracking
-TaskManager.defineTask(GEOFENCING_LOCATION_TASK_NAME, async ({ data, error }: any) => {
-	if (error) {
-		console.error(error)
-		return
-	}
-	if (data.eventType === GeofencingEventType.Enter) {
-		// console.log(TODO:"You've entered region:", data.region)
-		// console.log("TODO:You've entered region:", data)
-		// Alert.alert('You have entered a region', `${data.region.identifier}`, [
-		// 	{
-		// 		text: 'Cancel',
-		// 		onPress: () => null,
-		// 		style: 'cancel',
-		// 	},
-		// 	{ text: 'ok', style: 'destructive' },
-		// ])
-		console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
-	} else if (data.eventType === GeofencingEventType.Exit) {
-		console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
-		// console.log("TODO:You've left region:")
-		// Alert.alert('You have Left a region', `SOMETHING HAS TO BE DONE${data.region.identifier}`, [
-		// 	{
-		// 		text: 'Cancel',
-		// 		onPress: () => null,
-		// 		style: 'cancel',
-		// 	},
-		// 	{ text: 'ok', style: 'destructive' },
-		// ])
-	}
-})
+// TaskManager.defineTask(
+// 	DEVELOPMENT_FOREGROUND_GEOFENCING_TASK_NAME,
+// 	async ({ data, error }: any) => {
+// 		if (error) {
+// 			console.error(error)
+// 			return
+// 		}
+// 		if (data.eventType === GeofencingEventType.Enter) {
+// 			// console.log(TODO:"You've entered region:", data.region)
+// 			// console.log("TODO:You've entered region:", data)
+// 			// Alert.alert('You have entered a region', `${data.region.identifier}`, [
+// 			// 	{
+// 			// 		text: 'Cancel',
+// 			// 		onPress: () => null,
+// 			// 		style: 'cancel',
+// 			// 	},
+// 			// 	{ text: 'ok', style: 'destructive' },
+// 			// ])
+// 			console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
+// 		} else if (data.eventType === GeofencingEventType.Exit) {
+// 			console.log('🚀 ~ file: index.tsx ~ line 40 ~ TaskManager.defineTask ~ data', data)
+// 			// console.log("TODO:You've left region:")
+// 			// Alert.alert('You have Left a region', `SOMETHING HAS TO BE DONE${data.region.identifier}`, [
+// 			// 	{
+// 			// 		text: 'Cancel',
+// 			// 		onPress: () => null,
+// 			// 		style: 'cancel',
+// 			// 	},
+// 			// 	{ text: 'ok', style: 'destructive' },
+// 			// ])
+// 		}
+// 	},
+// )
 
-TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }: any) => {
-	if (error) {
-		console.error(error)
-		return
-	}
-	if (data) {
-		// console.log('🚀 ~ file: index.tsx ~ line 59 ~ TaskManager.defineTask ~ data', data)
-		// Extract location coordinates from data
-		const { locations }: any = data
-		const location = locations[0]
-		if (location) {
-			console.log('Location in background', location.coords)
-		}
-	}
-})
-
-TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
-	console.log('TODO: Received a notification in the background!')
-	// Do something with the notification data
-	if (error) {
-		console.log('error occurred')
-	}
-	if (data) {
-		console.log('Received a notification in the background!')
-		console.log(
-			'TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data',
-			JSON.stringify(data, null, 4),
-		)
-	}
-})
+// TaskManager.defineTask(BACKGROUND_NOTIFICATION_TASK, ({ data, error, executionInfo }) => {
+// 	console.log('TODO: Received a notification in the background!')
+// 	// Do something with the notification data
+// 	if (error) {
+// 		console.log('error occurred')
+// 	}
+// 	if (data) {
+// 		console.log('Received a notification in the background!')
+// 		console.log(
+// 			'TODO:🚀 ~ file: index.tsx ~ line 80 ~ TaskManager.defineTask ~ data',
+// 			JSON.stringify(data, null, 4),
+// 		)
+// 	}
+// })
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -97,9 +83,7 @@ Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
 export default function App() {
 	// useEffect(() => {
 	// 	const subscription = Notifications.addNotificationReceivedListener(notification => {
-	// 		console.log('🚀 -------------------------------------------------------------------------🚀')
 	// 		console.log('🚀 ~ file: index.tsx ~ line 84 ~ subscription ~ notification', notification)
-	// 		console.log('🚀 -------------------------------------------------------------------------🚀')
 	// 	})
 
 	// 	return () => subscription.remove()

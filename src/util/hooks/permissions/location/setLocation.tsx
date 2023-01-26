@@ -1,10 +1,9 @@
-import * as Location from 'expo-location'
-
 import { CurrentLocationReactiveVar } from '@reactive'
+import * as Location from 'expo-location'
 
 export const setLocation = async (): Promise<void> => {
 	const currentLocation = await Location.getCurrentPositionAsync({
-		accuracy: 150,
+		accuracy: Location.LocationAccuracy.Balanced,
 	})
 
 	if (!currentLocation) {

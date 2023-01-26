@@ -1,8 +1,8 @@
-import { useCurrentVenueQuery, useProfileQuery } from '@graphql/generated'
+import { useCurrentVenueQuery } from '@graphql/generated'
 import { Badge, useColorMode } from 'native-base'
-import { Box, Button, Container, HStack, Text, VStack } from 'native-base'
+import { Box, Button, HStack, Text, VStack } from 'native-base'
 import { useContext, useState } from 'react'
-import styled, { ThemeContext } from 'styled-components/native'
+import { ThemeContext } from 'styled-components/native'
 
 type Props = {
 	profileId: string
@@ -21,13 +21,9 @@ const DetailTitle = (props: DetailTitleProps) => {
 }
 
 export default function Details(props: Props) {
-	const [showMore, setShowMore] = useState(false)
 	const colorMode = useColorMode()
-	console.log('🚀 ---------------------------------------------------------🚀')
-	console.log('🚀 ~ file: Details.tsx:26 ~ Details ~ colorMode', colorMode.colorMode)
-	console.log('🚀 ---------------------------------------------------------🚀')
-
 	const themeContext = useContext(ThemeContext)
+	const [showMore, setShowMore] = useState(false)
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !props.profileId,
@@ -63,10 +59,10 @@ export default function Details(props: Props) {
 			<Box>
 				<DetailTitle title={'Type'} />
 				<HStack flexWrap={'wrap'} justifyContent={'flex-start'}>
-					{['country', 'dance', 'live-music', 'sports'].map(item => {
+					{data?.profile?.DetailInformation?.Tags.map((item, index) => {
 						return (
 							<Badge
-								key={item}
+								key={index}
 								mx={1}
 								my={2}
 								px={3}
@@ -77,7 +73,7 @@ export default function Details(props: Props) {
 								}}
 								rounded={'lg'}
 							>
-								{item}
+								{`${item.emoji} ${item.name}`}
 							</Badge>
 						)
 					})}
@@ -86,7 +82,7 @@ export default function Details(props: Props) {
 			<Box>
 				<DetailTitle title={'Capacity'} />
 				<Text fontSize={'xl'} fontWeight={'medium'}>
-					256
+					{data?.profile?.DetailInformation?.capacity}
 				</Text>
 			</Box>
 			<Box flex={1}>

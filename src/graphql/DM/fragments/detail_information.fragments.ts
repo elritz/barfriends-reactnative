@@ -8,6 +8,7 @@ export const DETAIL_INFORMATION_FRAGMENT = gql`
 			emoji
 			name
 		}
+		capacity
 		description
 		established
 		profileId

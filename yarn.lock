@@ -10754,6 +10754,13 @@ expo-av@~13.0.2:
   resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-13.0.2.tgz#06c2c5140b334319ed2844823181f7b88092da13"
   integrity sha512-u+y9wUBodp08UjRZYckNWzr9zEQHK6eScRBkhdTd9Rq48SEZ7eN6xXn79hubvk0P5nj7lFS+hdKjmx9T5XHGww==
 
+expo-background-fetch@~11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/expo-background-fetch/-/expo-background-fetch-11.0.1.tgz#fc9574f090172184459d618b5404e279efff43e8"
+  integrity sha512-Tp6JrqH+aexgpttuDq/hjoTqLjTo0ery+FZTtiL6zL9YNt7Q0LtiC+icfob/bD7ooIEWrTiG/+J0gnzlCiPSmg==
+  dependencies:
+    expo-task-manager "~11.0.0"
+
 expo-barcode-scanner@~12.1.0:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/expo-barcode-scanner/-/expo-barcode-scanner-12.1.0.tgz#3758b20e82bf1e30ad420df4106c8e868ed7b139"
@@ -11064,7 +11071,7 @@ expo-structured-headers@~3.0.0:
   resolved "https://registry.yarnpkg.com/expo-structured-headers/-/expo-structured-headers-3.0.1.tgz#291596c61acd2a45839ad6c6798c3d5cfc1eb4e9"
   integrity sha512-x6hkzuQL5HJoyB+xQyBf9M04ZUmrjFWqEW7gzIYWN/6LA+dgyaV4fF6U9++Re+GgGjF03vHJFqR1xYaosKKZYQ==
 
-expo-task-manager@~11.0.1:
+expo-task-manager@~11.0.0, expo-task-manager@~11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-11.0.1.tgz#0c131c74dba46eb97989841336d3c8bdbf9c2a28"
   integrity sha512-9KXWkQyzldiTBz0+wRe7ypQQ0m02j838f8j0pDRrDbW2X5hBUJWzDGq7OItJ5F9vDjJ3oRZikOAhFGj+wxh3EA==

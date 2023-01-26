@@ -6,10 +6,10 @@ module.exports = {
 			`./src/graphql/generated/schema.graphql`,
 			`./src/graphql/generated/schema.graphql.json`,
 		],
-		// service: 'barfriends',
-		service: {
-			name: 'barfriends',
-			url: 'http://192.168.86.23:4000/graphql',
-		},
+		service: 'barfriends',
+		// service: {
+		// 	name: 'barfriends',
+		// 	url: 'http://192.168.86.23:4000/graphql',
+		// },
 	},
 }
