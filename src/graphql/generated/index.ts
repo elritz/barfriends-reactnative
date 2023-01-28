@@ -15918,6 +15918,9 @@ export type ProfileQuery = { __typename?: 'Query', profile?: { __typename: 'Prof
 
 export type ProfilesQueryVariables = Exact<{
   where?: InputMaybe<ProfileWhereInput>;
+  take?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  distinct?: InputMaybe<Array<ProfileScalarFieldEnum> | ProfileScalarFieldEnum>;
 }>;
 
 
@@ -17933,8 +17936,8 @@ export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
 export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
 export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const ProfilesDocument = gql`
-    query profiles($where: ProfileWhereInput) {
-  profiles(where: $where) {
+    query profiles($where: ProfileWhereInput, $take: Int, $skip: Int, $distinct: [ProfileScalarFieldEnum!]) {
+  profiles(where: $where, take: $take, skip: $skip, distinct: $distinct) {
     ...PUBLIC_PROFILE_FRAGMENT
   }
 }
@@ -17953,6 +17956,9 @@ export const ProfilesDocument = gql`
  * const { data, loading, error } = useProfilesQuery({
  *   variables: {
  *      where: // value for 'where'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
  *   },
  * });
  */

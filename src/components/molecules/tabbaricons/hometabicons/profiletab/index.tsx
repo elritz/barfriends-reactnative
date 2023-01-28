@@ -50,7 +50,7 @@ const ProfileTab = (props: TabProps) => {
 		return (
 			<Pressable
 				delayLongPress={200}
-				style={{ zIndex: 100 }}
+				style={{ zIndex: 100, marginTop: -5 }}
 				onPress={() => {
 					StackActions.pop(0)
 					navigation.dispatch(
@@ -132,7 +132,7 @@ const ProfileTab = (props: TabProps) => {
 			{
 				<Box
 					// position={'absolute'}
-					// bottom={-3}
+					// bottom={3}
 					bg={numNotification > 0 ? 'red.500' : 'transparent'}
 					h={'4.25px'}
 					w={'4.25px'}

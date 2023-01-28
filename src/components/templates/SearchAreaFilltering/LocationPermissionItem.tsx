@@ -8,9 +8,7 @@ import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
 import { Pressable, HStack, Icon, IconButton, Text } from 'native-base'
-import { useContext } from 'react'
 import { Alert, Linking, Platform } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 // TODO: UX() location icon when searchArea is using Currently Location over preset
 

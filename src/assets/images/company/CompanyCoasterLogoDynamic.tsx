@@ -41,7 +41,7 @@ const CompanyCoasterLogoDynamic: React.FC<Props> = ({
 		<Svg
 			width={width}
 			height={height}
-			viewBox='0 0 508 508'
+			viewBox='0 0 520 520'
 			fill='none'
 			xmlns='http://www.w3.org/2000/svg'
 		>

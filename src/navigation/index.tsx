@@ -38,6 +38,7 @@ import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/loca
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useAssets } from 'expo-asset'
 import { Camera } from 'expo-camera'
+import * as Contacts from 'expo-contacts'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
@@ -57,6 +58,7 @@ const Navigation = () => {
 	])
 
 	const setPermissions = async () => {
+		const contactsPermission = await Contacts.getPermissionsAsync()
 		const cameraPermission = await Camera.getCameraPermissionsAsync()
 		const microphonePermission = await Camera.getMicrophonePermissionsAsync()
 		const foregroundLocationPermission = await getForegroundPermissionsAsync()
@@ -168,7 +170,7 @@ const Navigation = () => {
 
 	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
 		onError: error => {
-			console.log('error :>> ', error)
+			console.log('error createGuestProfileMutation :>> ', error)
 		},
 		onCompleted: async data => {
 			if (data?.createGuestProfile.__typename === 'Profile') {
@@ -183,7 +185,9 @@ const Navigation = () => {
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
-			onError: error => {},
+			onError: error => {
+				console.log('error', error)
+			},
 			onCompleted: async data => {
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
 				if (!deviceManager) {
@@ -217,7 +221,7 @@ const Navigation = () => {
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
-			console.log('create GUET')
+			// console.log('create GUET')
 			createGuestProfileMutation()
 		} else {
 			refreshDeviceManagerMutation()

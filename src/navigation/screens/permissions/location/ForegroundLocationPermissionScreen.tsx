@@ -45,7 +45,7 @@ const ForegroundLocationPermissionScreen = () => {
 	const isFocused = useIsFocused()
 	const themeContext = useContext(ThemeContext)
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
-	const { start, seconds, started } = useTimer2('0:2')
+	const { start, seconds, started, finished } = useTimer2('0:2')
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(
@@ -71,17 +71,13 @@ const ForegroundLocationPermissionScreen = () => {
 		}
 	}
 
-	const handleRequestPermission = async () => {
-		const status = await Location.requestForegroundPermissionsAsync()
-		if (status.granted) {
-			PermissionForegroundLocationReactiveVar(status)
-			navigation.goBack()
-		}
-	}
-
 	const handleRequestForegroundLocationPermission = async () => {
 		const status = await Location.requestForegroundPermissionsAsync()
 		if (status.granted) {
+			PermissionForegroundLocationReactiveVar(status)
+			if (!started) {
+				start()
+			}
 		}
 	}
 
@@ -109,14 +105,17 @@ const ForegroundLocationPermissionScreen = () => {
 			const locationpermission = await Location.getForegroundPermissionsAsync()
 			PermissionForegroundLocationReactiveVar(locationpermission)
 			if (locationpermission.granted && locationpermission.status === 'granted') {
-				setTimeout(() => {
-					navigation.goBack()
-				}, 1500)
+				if (!started) {
+					start()
+				}
 			}
-			start()
 		}
 		appStateRef.current = nextAppState
 	}
+
+	finished(() => {
+		navigation.goBack()
+	})
 
 	return (
 		<Box style={{ flex: 1 }}>

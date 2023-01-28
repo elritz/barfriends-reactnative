@@ -11,8 +11,13 @@ export const PROFILE = gql`
 `
 export const PROFILES = gql`
 	${PUBLIC_PROFILE_FRAGMENT}
-	query profiles($where: ProfileWhereInput) {
-		profiles(where: $where) {
+	query profiles(
+		$where: ProfileWhereInput
+		$take: Int
+		$skip: Int
+		$distinct: [ProfileScalarFieldEnum!]
+	) {
+		profiles(where: $where, take: $take, skip: $skip, distinct: $distinct) {
 			...PUBLIC_PROFILE_FRAGMENT
 		}
 	}

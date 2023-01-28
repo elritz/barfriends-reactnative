@@ -4,6 +4,7 @@ import VenueActions from './components/venueactions/VenueActions'
 import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
 import { useReactiveVar } from '@apollo/client'
+import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -32,9 +33,7 @@ const VenueScreen = (props: any) => {
 		onError(error) {
 			console.log('error :>> ', error)
 		},
-		onCompleted: data => {
-			console.log('🚀 ~ file: Venue.tsx:33 ~ VenueScreen ~ data', data)
-		},
+		onCompleted: data => {},
 	})
 
 	if (loading || !data) return null
@@ -90,6 +89,9 @@ const VenueScreen = (props: any) => {
 				contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 1 }}
 				ListFooterComponent={<Details profileId={props.route.params.profileId} />}
 				renderItem={item => <PersonalAtVenue item={item} />}
+				contentInset={{
+					bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+				}}
 			/>
 		</SafeAreaView>
 	)

@@ -52,7 +52,6 @@ const SearchTextScreenInput = () => {
 			console.log('error :>> ', error)
 		},
 		onCompleted: data => {
-			console.log('data.exploreSearch :>> ', data)
 			navigation.dispatch(CommonActions.setParams({ data: data.exploreSearch }))
 		},
 	})

@@ -28,7 +28,16 @@ const PersonalScreen = (props: any) => {
 				},
 			},
 		},
-		onCompleted: data => {},
+		onCompleted: data => {
+			console.log(
+				'data',
+				JSON.stringify(data.profile?.Personal?.PersonalStats?.joinedVenueHistory.length, null, 4),
+			)
+			console.log(
+				'data',
+				JSON.stringify(data.profile?.Personal?.PersonalStats?.totaledVenueHistory.length, null, 4),
+			)
+		},
 	})
 
 	if (PQLoading && !PQData?.profile) return null

@@ -17,6 +17,7 @@ import ProfileStack from '@navigation/stacks/home/profilestack/ProfileStack'
 import VenueFeedStack from '@navigation/stacks/home/venuefeedstack/VenueFeedStack'
 import TonightStack from '@navigation/stacks/tonightstack/TonightStack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { AuthorizationReactiveVar } from '@reactive'
 import { HomeTabNavigatorParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
@@ -34,6 +35,7 @@ function HomeTabNavigator() {
 	const colorScheme = useThemeColorScheme()
 	const insets = useSafeAreaInsets()
 	const themeContext = useContext(ThemeContext)
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	return (
 		<ScreenStack.Navigator
@@ -42,7 +44,7 @@ function HomeTabNavigator() {
 				tabBarBackground: () => (
 					<>
 						{Platform.OS === 'ios' ? (
-							<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={100} />
+							<BlurView style={[StyleSheet.absoluteFill]} tint={colorScheme} intensity={100}></BlurView>
 						) : (
 							<View
 								style={[
@@ -61,6 +63,12 @@ function HomeTabNavigator() {
 					position: 'absolute',
 					alignItems: 'center',
 					paddingVertical: 10,
+					elevation: 0, // for Android
+					borderTopWidth: 0,
+					// shadowOffset: {
+					// 	width: 0,
+					// 	height: 0, // for iOS
+					// },
 				},
 				tabBarShowLabel: false,
 			}}
@@ -88,15 +96,17 @@ function HomeTabNavigator() {
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
 				}}
 			/>
-			<ScreenStack.Screen
-				name='TonightStack'
-				component={TonightStack}
-				options={{
-					headerShown: false,
-					tabBarLabel: 'tonight',
-					tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
-				}}
-			/>
+			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' ? (
+				<ScreenStack.Screen
+					name='TonightStack'
+					component={TonightStack}
+					options={{
+						headerShown: false,
+						tabBarLabel: 'tonight',
+						tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
+					}}
+				/>
+			) : null}
 			<ScreenStack.Screen
 				name='MessagesStack'
 				component={MessagesStack}
@@ -115,7 +125,7 @@ function HomeTabNavigator() {
 					tabBarLabel: 'profile',
 				}}
 			/>
-			{ENVIRONMENT === 'development' && (
+			{ENVIRONMENT !== 'development' && (
 				<ScreenStack.Screen
 					name='DevelopmentStack'
 					component={DevelopmentStack}
