@@ -14,9 +14,44 @@ export default function VenueFeedSearchAreaEmptyState() {
 			borderRadius={'lg'}
 			p={5}
 		>
-			<Heading size={'2xl'} textAlign={'center'} fontWeight={'black'} lineHeight={'xs'} mb={5}>
-				Welcome to Barfriends
-			</Heading>
+			<Text
+				numberOfLines={3}
+				ellipsizeMode='tail'
+				adjustsFontSizeToFit
+				minimumFontScale={0.5}
+				pb={2}
+				w={275}
+				maxW={'85%'}
+				style={{
+					alignSelf: 'center',
+					textAlign: 'center',
+					textTransform: 'uppercase',
+				}}
+				fontWeight={'black'}
+				lineHeight={'xs'}
+				fontSize={'xl'}
+			>
+				Welcome
+			</Text>
+			<Text
+				numberOfLines={3}
+				ellipsizeMode='tail'
+				adjustsFontSizeToFit
+				minimumFontScale={0.5}
+				pb={2}
+				w={275}
+				maxW={'85%'}
+				style={{
+					alignSelf: 'center',
+					textAlign: 'center',
+					textTransform: 'uppercase',
+				}}
+				fontWeight={'black'}
+				lineHeight={'xs'}
+				fontSize={'xl'}
+			>
+				to Barfriends
+			</Text>
 			<Text>
 				Continue to find venues using location using your device location, or find venues with Search
 				Area.
@@ -33,11 +68,19 @@ export default function VenueFeedSearchAreaEmptyState() {
 							},
 						})
 					}}
-					w={'85%'}
-					variant={'ghost'}
-					size={'lg'}
+					variant={'unstyled'}
+					w={'95%'}
 					_text={{
+						textTransform: 'uppercase',
+						fontWeight: '700',
 						fontSize: 'lg',
+						_dark: {
+							color: 'light.50',
+						},
+						_light: {
+							color: 'light.900',
+						},
+						// underline: true,
 					}}
 				>
 					Find area

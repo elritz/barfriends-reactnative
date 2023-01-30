@@ -52,7 +52,7 @@ const PasswordCreateScreen = () => {
 		navigation.navigate('CredentialNavigator', {
 			screen: 'PersonalCredentialStack',
 			params: {
-				screen: 'PhotoScreen',
+				screen: 'PersonalCreationComplete',
 			},
 		})
 	}

@@ -3,6 +3,7 @@ import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import BirthdayScreen from '@navigation/screens/credential/birthday/BirthdayScreen'
 import ConfirmationCodeScreen from '@navigation/screens/credential/code/CodeScreen'
+import CongratulationsScreen from '@navigation/screens/credential/congratulations/CongratulationsScreen'
 import EmojimoodScreen from '@navigation/screens/credential/emojimood/EmojimoodScreen'
 import GetStartedScreen from '@navigation/screens/credential/getstarted/GetStartedScreen'
 import NameScreen from '@navigation/screens/credential/name/NameScreen'
@@ -95,23 +96,11 @@ function PersonalCredentialStack() {
 				}}
 			/>
 			<ScreenStack.Screen
-				name='PhotoScreen'
-				component={PhotoScreen}
+				name='PersonalCreationComplete'
+				component={CongratulationsScreen}
 				options={{
 					headerStyle: {
 						backgroundColor: 'transparent',
-					},
-				}}
-			/>
-			<ScreenStack.Screen
-				name='EmojimoodScreen'
-				component={EmojimoodScreen}
-				options={{
-					headerShadowVisible: false,
-					headerStyle: {
-						backgroundColor: credentialPersonalProfileVar?.emojimood?.colors[0]
-							? credentialPersonalProfileVar?.emojimood?.colors[0]
-							: 'transparent',
 					},
 				}}
 			/>

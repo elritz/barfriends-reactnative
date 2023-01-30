@@ -82,6 +82,10 @@ const EmojimoodScreen = () => {
 		},
 	})
 
+	const onSubmit = async () => {
+		createProfilePersonal()
+	}
+
 	const onPressEmojimood = (item: any) => {
 		CredentialPersonalProfileReactiveVar({
 			...credentialPersonalProfileVar,
@@ -89,10 +93,6 @@ const EmojimoodScreen = () => {
 				...item,
 			},
 		})
-	}
-
-	const onSubmit = async () => {
-		createProfilePersonal()
 	}
 
 	const { data: emojiData, loading: emojiLoading, error: emojiError } = useEmojimoodsQuery()

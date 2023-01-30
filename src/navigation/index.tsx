@@ -5,6 +5,7 @@ import {
 	AUTHORIZATION,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 } from '@constants/StorageConstants'
 import {
 	DeviceManager,
@@ -31,7 +32,7 @@ import {
 	PermissionMediaReactiveVar,
 	ThemeReactiveVar,
 	PermissionNotificationReactiveVar,
-	PreferencePermissionNotificationReactiveVar,
+	PreferenceNotificationPermissionReactiveVar,
 	searchAreaInitialState,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
@@ -132,6 +133,7 @@ const Navigation = () => {
 			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 			)
+
 			if (!getLocalStorageNotificationPermissionsPreference) {
 				const initialNotificationPermissionPreferenceState = JSON.stringify({
 					canShowAgain: true,
@@ -143,13 +145,35 @@ const Navigation = () => {
 					initialNotificationPermissionPreferenceState,
 				)
 			} else {
+				// using local_storage values set the correct information
 				const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
 					getLocalStorageNotificationPermissionsPreference,
 				)
-				PreferencePermissionNotificationReactiveVar({
+				PreferenceNotificationPermissionReactiveVar({
 					...values,
 				})
 			}
+			const getLocalStorageSystemOfUnitsPreference = await AsyncStorage.getItem(
+				LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
+			)
+
+			// if (!getLocalStorageSystemOfUnitsPreference) {
+			// 	const initialSystemOfUnits = JSON.stringify({
+			// 		system: SystemsOfUnits.Metric,
+			// 	} )
+
+			// 	await AsyncStorage.setItem(
+			// 		LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+			// 		initialSystemOfUnits,
+			// 	)
+			// } else {
+			// 	const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
+			// 		getLocalStorageSystemOfUnitsPreference,
+			// 	)
+			// 	// PreferenceSystemsOfUnitsReactiveVar({
+			// 	// 	...values,
+			// 	// })
+			// }
 		} catch (e) {}
 	}
 

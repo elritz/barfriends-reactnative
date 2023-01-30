@@ -227,8 +227,7 @@ export type PersonalCredentialStackParamList = {
 	NameScreen: undefined
 	UsernameScreen: undefined
 	PasswordCreateScreen: undefined
-	PhotoScreen: undefined
-	EmojimoodScreen: undefined
+	PersonalCreationComplete: undefined
 	TermsServicePrivacyTabStack:
 		| NavigatorScreenParams<TermsServicePrivacyTabStackParamList>
 		| undefined

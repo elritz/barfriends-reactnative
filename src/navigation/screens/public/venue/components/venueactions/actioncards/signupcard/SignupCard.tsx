@@ -9,8 +9,8 @@ export default function SignupCard() {
 	return (
 		<>
 			<Heading
-				fontSize={'2xl'}
-				numberOfLines={4}
+				fontSize={'md'}
+				numberOfLines={3}
 				ellipsizeMode='tail'
 				adjustsFontSizeToFit
 				minimumFontScale={0.5}

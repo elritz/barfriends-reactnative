@@ -14,17 +14,6 @@ export type CredentialPersoanl = {
 		countryCallingCode?: string
 		countryCode?: string
 	}
-	photo?: {
-		id?: string
-		uri?: string
-		url?: string
-	}
-	emojimood?: {
-		id?: string
-		name?: string
-		emoji?: string
-		colors?: string[]
-	}
 }
 
 export const CredentialPersonalProfileReactiveVar = makeVar<CredentialPersoanl>({
@@ -35,21 +24,10 @@ export const CredentialPersonalProfileReactiveVar = makeVar<CredentialPersoanl>(
 	name: '',
 	password: '',
 	username: '',
-	photo: {
-		url: '',
-		id: '',
-		uri: '',
-	},
 	phone: {
 		number: '',
 		completeNumber: '',
 		countryCallingCode: '',
 		countryCode: '',
-	},
-	emojimood: {
-		id: '',
-		name: '',
-		emoji: '',
-		colors: [],
 	},
 })

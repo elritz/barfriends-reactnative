@@ -14,28 +14,10 @@ type Props = {
 const CardPleaseSignup = (props: Props) => {
 	const navigation = useNavigation()
 
-	const handleSignupNavigation = () => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'PersonalCredentialStack',
-			params: {
-				screen: 'GetStartedScreen',
-			},
-		})
-	}
-
-	const handleSigninNavigation = () => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'LoginCredentialStack',
-			params: {
-				screen: 'AuthenticatorScreen',
-			},
-		})
-	}
-
 	return (
 		<Box>
 			<Text
-				numberOfLines={4}
+				numberOfLines={3}
 				ellipsizeMode='tail'
 				adjustsFontSizeToFit
 				minimumFontScale={0.5}
@@ -49,7 +31,7 @@ const CardPleaseSignup = (props: Props) => {
 				}}
 				fontWeight={'black'}
 				lineHeight={'md'}
-				fontSize={'2xl'}
+				fontSize={'xl'}
 			>
 				{text[props.signupTextId ?? 1].title}
 			</Text>
@@ -71,8 +53,14 @@ const CardPleaseSignup = (props: Props) => {
 				}}
 			>
 				<Button
-					onPressIn={handleSignupNavigation}
-					onPress={handleSignupNavigation}
+					onPress={() =>
+						navigation.navigate('CredentialNavigator', {
+							screen: 'PersonalCredentialStack',
+							params: {
+								screen: 'PersonalCreationComplete',
+							},
+						})
+					}
 					w={'95%'}
 					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
 					borderRadius={'xl'}
@@ -80,8 +68,15 @@ const CardPleaseSignup = (props: Props) => {
 					Sign up
 				</Button>
 				<Button
+					onPress={() => {
+						navigation.navigate('CredentialNavigator', {
+							screen: 'LoginCredentialStack',
+							params: {
+								screen: 'AuthenticatorScreen',
+							},
+						})
+					}}
 					variant={'unstyled'}
-					onPress={handleSigninNavigation}
 					w={'95%'}
 					_text={{
 						textTransform: 'uppercase',

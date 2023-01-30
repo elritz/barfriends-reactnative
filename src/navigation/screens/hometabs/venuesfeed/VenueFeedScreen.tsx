@@ -134,7 +134,12 @@ const VenueFeedScreen = () => {
 					</>
 				)}
 
-				{!loading && !data?.venuesNearby.venuesNearby.length && <VenuesFeedVenuesEmptyState />}
+				{rSearchAreaVar?.searchArea.coords.latitude || rSearchAreaVar?.searchArea.coords.longitude ? (
+					<>{!loading && !data?.venuesNearby.venuesNearby.length && <VenuesFeedVenuesEmptyState />}</>
+				) : (
+					<></>
+				)}
+
 				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.length && (
 					<CurrentVenue />
 				)}
@@ -145,7 +150,7 @@ const VenueFeedScreen = () => {
 	const listFooterComponent = () => {
 		return (
 			<>
-				{!loading && (
+				{!loading && data?.venuesNearby.searchArea.city.name && (
 					<VStack w={'full'} space={1} m={2}>
 						<Heading lineHeight={'sm'} fontSize={'md'}>
 							venues from

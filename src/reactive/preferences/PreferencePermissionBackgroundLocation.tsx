@@ -7,7 +7,7 @@ export const PreferenceNotificationPermissionInitialState: LocalStoragePreferenc
 		canShowAgain: true,
 	}
 
-export const PreferencePermissionNotificationReactiveVar =
+export const PreferenceNotificationPermissionReactiveVar =
 	makeVar<LocalStoragePreferenceNotificationPermissionType | null>(
 		PreferenceNotificationPermissionInitialState,
 	)

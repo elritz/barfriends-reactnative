@@ -1,14 +1,19 @@
 import { useReactiveVar } from '@apollo/client'
+import { LOCAL_STORAGE_ASK_BACKGROUND_LOCATION } from '@constants/StorageConstants'
 import { EvilIcons } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { PermissionBackgroundLocationReactiveVar } from '@reactive'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, VStack } from 'native-base'
+import { useEffect } from 'react'
 
 export default function BackgroundLocationPermissionFullSection() {
 	const navigation = useNavigation()
 	const rBackgroundPermissionLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
+
+	useEffect(() => {}, [])
 
 	return (
 		<Box key={uniqueId()}>
@@ -49,8 +54,8 @@ export default function BackgroundLocationPermissionFullSection() {
 							Enable More Features
 						</Heading>
 						<Text textAlign={'center'} fontSize={'md'} style={{ width: '90%' }}>
-							Turn on "always allow" and your nightlife experience enhances by finding better deals venues
-							and people near you.
+							Turn on "always allow" and find better deals at venues, be notified when you can join, and
+							when friends near you are going out.
 						</Text>
 						<Button
 							onPress={() =>
