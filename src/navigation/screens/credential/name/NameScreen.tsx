@@ -5,16 +5,7 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import {
-	Box,
-	Input,
-	KeyboardAvoidingView,
-	Text,
-	Button,
-	Icon,
-	IInputProps,
-	useTheme,
-} from 'native-base'
+import { Box, Input, KeyboardAvoidingView, Text, Button, Icon, IInputProps } from 'native-base'
 import React, { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -24,7 +15,6 @@ const NameScreen = () => {
 	const headerHeight = useHeaderHeight()
 	const navigation = useNavigation()
 	const colorScheme = useThemeColorScheme()
-	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const nameRef = useRef<IInputProps | null>(null)
 
@@ -134,20 +124,20 @@ const NameScreen = () => {
 					<Button
 						onPress={handleSubmit(onSubmit)}
 						disabled={!!errors.name}
+						borderRadius={'full'}
 						style={{
-							backgroundColor: errors.name ? theme.colors.gray[300] : theme.colors.primary[500],
-							borderRadius: 50,
-							height: 70,
-							width: 70,
-							paddingHorizontal: 20,
 							justifyContent: 'center',
+							height: 60,
+							width: 60,
+							paddingHorizontal: 20,
+							alignSelf: 'center',
 						}}
 						rightIcon={
 							<Icon
 								as={Feather}
 								name='arrow-right'
-								size={35}
-								color={errors.name ? theme.colors.gray[500] : 'white'}
+								size={'xl'}
+								color={errors.name ? 'primary.700' : 'white'}
 							/>
 						}
 					/>

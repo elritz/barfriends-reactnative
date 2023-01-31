@@ -1,4 +1,4 @@
-import { Pressable, View } from 'native-base'
+import { View } from 'native-base'
 import * as React from 'react'
 
 interface OuterViewStyleProps {

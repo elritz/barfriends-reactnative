@@ -1,16 +1,13 @@
 import { Profile } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { BlurView } from 'expo-blur'
 import { Image, VStack } from 'native-base'
-import { Box, Heading, Text } from 'native-base'
-import { useContext, useEffect, useState } from 'react'
+import { Box, Heading } from 'native-base'
+import { useContext, useState } from 'react'
 import { Dimensions, Pressable, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 import { ThemeContext } from 'styled-components/native'
 
-const margin = 2
-const borderRadius = 5
 const width = Dimensions.get('window').width / 2.15
 
 const height = 280
@@ -109,33 +106,3 @@ const VenueFeedVenueItem = (props: Props) => {
 }
 
 export default VenueFeedVenueItem
-
-/* <View
-					style={{
-						backgroundColor: themeContext.palette.background.paper,
-						flexDirection: 'column',
-						justifyContent: 'space-around',
-						paddingVertical: 5,
-					}}
-				> */
-
-/* <BlurView
-					intensity={60}
-					tint={colorScheme}
-					style={{
-						justifyContent: 'space-around',
-						height: 65,
-					}}
-				>
-					<Heading
-						color={'black'}
-						size={'md'}
-						fontWeight={'700'}
-						textAlign={'center'}
-						numberOfLines={2}
-						alignSelf={'center'}
-						ellipsizeMode='tail'
-					>
-						{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
-					</Heading>
-				</BlurView> */

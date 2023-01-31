@@ -30,7 +30,6 @@ const Profile = () => {
 	}, [])
 
 	const onRefresh = useCallback(() => {
-		console.log('refresh')
 		setRefreshing(true)
 	}, [])
 

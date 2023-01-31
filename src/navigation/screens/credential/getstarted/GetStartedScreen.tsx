@@ -24,7 +24,7 @@ const GetStartedScreen = () => {
 	const { data: PTSData, loading: PTSLoading, error: PTSError } = usePrivacyTermsDocumentsQuery()
 
 	return (
-		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={'5%'}>
+		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={4}>
 			<Box justifyContent={'center'} height={'lg'}>
 				<CompanyCoasterLogoDynamic />
 				<Text testID={'title-text'} mt={4} fontWeight={'black'} lineHeight={35} fontSize={'4xl'}>
@@ -77,11 +77,12 @@ const GetStartedScreen = () => {
 								},
 							})
 						}}
+						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
 						variant={'solid'}
 						px={10}
-						mb={2}
-						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={30} />}
 						size={'lg'}
+						w={'1/2'}
+						h={60}
 						fontSize={'lg'}
 					>
 						Continue

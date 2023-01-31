@@ -4,9 +4,6 @@ import DeviceManagerProfileItemLarge from '@components/molecules/authorization/d
 import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
-	DeviceManager,
-	DeviceProfile,
-	Profile,
 	ProfileType,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,

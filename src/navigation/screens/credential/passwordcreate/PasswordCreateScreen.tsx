@@ -76,15 +76,6 @@ const PasswordCreateScreen = () => {
 		/>
 	)
 
-	const RightIcon = () => (
-		<Icon
-			as={Feather}
-			name='arrow-right'
-			size={'xl'}
-			color={errors.password ? theme.colors.primary[500] : 'white'}
-		/>
-	)
-
 	return (
 		<KeyboardAvoidingView
 			height={'auto'}
@@ -174,15 +165,22 @@ const PasswordCreateScreen = () => {
 							<Button
 								onPress={handleSubmit(onSubmit)}
 								isDisabled={!!errors.password}
+								borderRadius={'full'}
 								style={{
 									justifyContent: 'center',
-									backgroundColor: errors.password ? theme.colors.gray[300] : theme.colors.primary[500],
-									height: 70,
-									width: 70,
+									height: 60,
+									width: 60,
 									paddingHorizontal: 20,
-									borderRadius: 50,
+									alignSelf: 'center',
 								}}
-								endIcon={<RightIcon />}
+								endIcon={
+									<Icon
+										as={Feather}
+										name='arrow-right'
+										size={'xl'}
+										color={errors.password ? 'primary.700' : 'white'}
+									/>
+								}
 							/>
 						</View>
 					</Box>

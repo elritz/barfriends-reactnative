@@ -1,4 +1,3 @@
-import CurrentVenue from './components/CurrentVenue'
 import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
@@ -10,7 +9,6 @@ import ForegroundLocationPermissionFullSection from '@components/molecules/permi
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ProfileType, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
-import { useIsFocused } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
@@ -18,11 +16,10 @@ import {
 	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
-import * as Location from 'expo-location'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, Center, VStack, FlatList, Text, Button, Heading } from 'native-base'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { Box, VStack, FlatList, Heading } from 'native-base'
+import React, { useEffect, useRef } from 'react'
 import { AppState, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -115,7 +112,7 @@ const VenueFeedScreen = () => {
 					<VenueFeedSearchAreaEmptyState />
 				) : (
 					<>
-						{(!data && !data?.venuesNearby) || loading ? (
+						{!data?.venuesNearby || loading ? (
 							<VenueFeedSkeletonLoadingState />
 						) : (
 							<AnimatePresence key={uniqueId()}>
@@ -135,14 +132,16 @@ const VenueFeedScreen = () => {
 				)}
 
 				{rSearchAreaVar?.searchArea.coords.latitude || rSearchAreaVar?.searchArea.coords.longitude ? (
-					<>{!loading && !data?.venuesNearby.venuesNearby.length && <VenuesFeedVenuesEmptyState />}</>
+					<Box>
+						{!loading && !data?.venuesNearby.venuesNearby.length && <VenuesFeedVenuesEmptyState />}
+					</Box>
 				) : (
-					<></>
+					<Box></Box>
 				)}
 
-				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.length && (
+				{/* {rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.length && (
 					<CurrentVenue />
-				)}
+				)} */}
 			</VStack>
 		)
 	}

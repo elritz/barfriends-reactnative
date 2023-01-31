@@ -34,7 +34,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 					width={165}
 					height={170}
 					borderRadius={15}
-					source={{ uri: rAuthorizationVar?.DeviceProfile?.Profile?.photos[0].url }}
+					source={{ uri: rAuthorizationVar?.DeviceProfile?.Profile?.photos[0]?.url }}
 					alt={'Profile Photo'}
 				/>
 				<View style={{ marginVertical: 20 }}>

@@ -3,9 +3,6 @@ import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { BlurView } from 'expo-blur'
-import { MotiPressable, useMotiPressable } from 'moti/interactions'
 import {
 	Box,
 	Button,
@@ -16,7 +13,6 @@ import {
 	IconButton,
 	Image,
 	Pressable,
-	Text,
 	useDisclose,
 } from 'native-base'
 import { useState } from 'react'
@@ -25,7 +21,6 @@ import { Blurhash } from 'react-native-blurhash'
 
 export default function CurrentVenue() {
 	const navigation = useNavigation()
-	const colorScheme = useThemeColorScheme()
 	const [hideBlur, setHideBlur] = useState(false)
 	const { isOpen, onClose, onOpen, onToggle } = useDisclose()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -110,14 +105,7 @@ export default function CurrentVenue() {
 							}}
 						/>
 					)}
-					{/* <View
-					style={{
-						backgroundColor: themeContext.palette.background.paper,
-						flexDirection: 'column',
-						justifyContent: 'space-around',
-						paddingVertical: 5,
-					}}
-				> */}
+
 					<HStack
 						_light={{
 							bg: 'light.50',
@@ -130,11 +118,7 @@ export default function CurrentVenue() {
 						}}
 						p={2}
 					>
-						<Box
-							// bg={'amber.400'}
-							flex={1}
-							alignSelf={'center'}
-						>
+						<Box flex={1} alignSelf={'center'}>
 							<Heading
 								size={'sm'}
 								fontWeight={'500'}
@@ -143,15 +127,10 @@ export default function CurrentVenue() {
 								alignSelf={'flex-start'}
 								ellipsizeMode='tail'
 							>
-								{getTitleCase(data.profile?.IdentifiableInformation?.fullname)}sadlkasns asdasd
+								{getTitleCase(data.profile?.IdentifiableInformation?.fullname)}
 							</Heading>
 						</Box>
-						<Box
-							// bg={'blue.400'}
-							alignContent={'center'}
-							justifyContent={'center'}
-							px={2}
-						>
+						<Box alignContent={'center'} justifyContent={'center'} px={2}>
 							<Button.Group borderRadius={'lg'} isAttached colorScheme={'primary'}>
 								<Button
 									_light={{

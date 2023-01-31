@@ -181,20 +181,20 @@ const UsernameScreen = () => {
 						<Button
 							onPress={handleSubmit(onSubmit)}
 							isDisabled={!!errors.username}
+							borderRadius={'full'}
 							style={{
 								justifyContent: 'center',
-								backgroundColor: errors.username ? theme.colors.gray[300] : theme.colors.primary[500],
-								borderRadius: 50,
-								height: 70,
-								width: 70,
+								height: 60,
+								width: 60,
 								paddingHorizontal: 20,
+								alignSelf: 'center',
 							}}
 							rightIcon={
 								<Icon
 									as={Feather}
 									name='arrow-right'
-									size={35}
-									color={errors.username ? theme.colors.primary[500] : 'white'}
+									size={'xl'}
+									color={errors.username ? 'primary.700' : 'white'}
 								/>
 							}
 						/>

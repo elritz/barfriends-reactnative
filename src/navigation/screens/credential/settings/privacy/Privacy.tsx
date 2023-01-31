@@ -1,5 +1,5 @@
+import TermsLoadingState from '../TermsLoadingState'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
-import { Text } from 'native-base'
 import { useContext } from 'react'
 import { SafeAreaView, ScrollView } from 'react-native'
 import { useWindowDimensions } from 'react-native'
@@ -13,7 +13,7 @@ const Privacy = () => {
 	const { data, loading, error } = usePrivacyTermsDocumentsQuery()
 
 	if (loading && data) {
-		return <Text>Loading Terms of Service...</Text>
+		return <TermsLoadingState />
 	}
 
 	const source = {

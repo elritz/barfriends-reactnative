@@ -57,7 +57,7 @@ const CardPleaseSignup = (props: Props) => {
 						navigation.navigate('CredentialNavigator', {
 							screen: 'PersonalCredentialStack',
 							params: {
-								screen: 'PersonalCreationComplete',
+								screen: 'GetStartedScreen',
 							},
 						})
 					}
@@ -88,7 +88,6 @@ const CardPleaseSignup = (props: Props) => {
 						_light: {
 							color: 'light.900',
 						},
-						// underline: true,
 					}}
 				>
 					Log in

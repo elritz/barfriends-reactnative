@@ -222,11 +222,11 @@ const PhoneScreen = () => {
 						variant={'solid'}
 						color={'primary.500'}
 						isDisabled={!!errors.mobileNumber?.completeNumber || loading}
+						borderRadius={'full'}
 						style={{
 							justifyContent: 'center',
-							borderRadius: 50,
-							height: 70,
-							width: 70,
+							height: 60,
+							width: 60,
 							paddingHorizontal: 20,
 							alignSelf: 'center',
 						}}
@@ -234,8 +234,8 @@ const PhoneScreen = () => {
 							<Icon
 								as={Feather}
 								name='arrow-right'
-								size={'2xl'}
-								color={errors.mobileNumber ? 'light.800' : 'white'}
+								size={'xl'}
+								color={errors.mobileNumber ? 'primary.700' : 'white'}
 							/>
 						}
 					/>

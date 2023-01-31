@@ -1,19 +1,15 @@
-import { useReactiveVar } from '@apollo/client'
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import BirthdayScreen from '@navigation/screens/credential/birthday/BirthdayScreen'
 import ConfirmationCodeScreen from '@navigation/screens/credential/code/CodeScreen'
 import CongratulationsScreen from '@navigation/screens/credential/congratulations/CongratulationsScreen'
-import EmojimoodScreen from '@navigation/screens/credential/emojimood/EmojimoodScreen'
 import GetStartedScreen from '@navigation/screens/credential/getstarted/GetStartedScreen'
 import NameScreen from '@navigation/screens/credential/name/NameScreen'
 import PasswordCreateScreen from '@navigation/screens/credential/passwordcreate/PasswordCreateScreen'
-import PhotoScreen from '@navigation/screens/credential/photo/PhotoScreen'
 import UsernameScreen from '@navigation/screens/credential/username/UsernameScreen'
 import EmailPhoneTabStack from '@navigation/stacks/credential/emailandphonetabstack/EmailPhoneTabStack'
 import TermsServicePrivacyTabStack from '@navigation/stacks/settingsstack/TermsServicePrivacyTabStack'
 import { createStackNavigator } from '@react-navigation/stack'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { PersonalCredentialStackParamList } from '@types'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
@@ -22,7 +18,7 @@ const ScreenStack = createStackNavigator<PersonalCredentialStackParamList>()
 
 function PersonalCredentialStack() {
 	const themeContext = useContext(ThemeContext)
-	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+
 	return (
 		<ScreenStack.Navigator
 			screenOptions={{
@@ -102,6 +98,7 @@ function PersonalCredentialStack() {
 					headerStyle: {
 						backgroundColor: 'transparent',
 					},
+					headerTitle: '',
 				}}
 			/>
 			<ScreenStack.Screen

@@ -32,7 +32,7 @@ import {
 	PermissionMediaReactiveVar,
 	ThemeReactiveVar,
 	PermissionNotificationReactiveVar,
-	PreferenceNotificationPermissionReactiveVar,
+	PreferencePermissionNotificationReactiveVar,
 	searchAreaInitialState,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
@@ -149,7 +149,7 @@ const Navigation = () => {
 				const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
 					getLocalStorageNotificationPermissionsPreference,
 				)
-				PreferenceNotificationPermissionReactiveVar({
+				PreferencePermissionNotificationReactiveVar({
 					...values,
 				})
 			}

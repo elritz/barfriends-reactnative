@@ -78,7 +78,6 @@ const ProfileTab = (props: TabProps) => {
 			</Pressable>
 		)
 	}
-
 	return (
 		<>
 			<TabBarIcon
@@ -88,20 +87,12 @@ const ProfileTab = (props: TabProps) => {
 						delayLongPress={200}
 						style={{ zIndex: 100 }}
 						onPress={() => {
-							navigation.dispatch(
-								TabActions.jumpTo('ProfileStack'),
-								// StackActions.replace('HomeTabNavigator', {
-								// 	screen: 'ProfileStack',
-								// 	params: {
-								// 		screen: 'UserProfileScreen',
-								// 	},
-								// }),
-							)
+							navigation.dispatch(TabActions.jumpTo('ProfileStack'))
 						}}
 						onLongPress={() => onLongPressProfileIcon()}
 					>
 						<>
-							{rAuthorizationVar?.DeviceProfile?.Profile?.photos ? (
+							{rAuthorizationVar?.DeviceProfile?.Profile?.photos.length ? (
 								<Image
 									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
 									style={{

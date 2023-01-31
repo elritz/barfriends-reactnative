@@ -6,14 +6,12 @@ import { HomeTabStackParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, VStack } from 'native-base'
-import { Platform, StyleSheet, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Platform, StyleSheet } from 'react-native'
 
 const ScreenStack = createStackNavigator<HomeTabStackParamList>()
 
 function VenueFeedStack() {
 	const colorScheme = useThemeColorScheme()
-	const insets = useSafeAreaInsets()
 
 	return (
 		<ScreenStack.Navigator initialRouteName='VenueFeedScreen'>

@@ -6,10 +6,20 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import Countdown from '@util/hooks/useTimer'
-import { IconButton, Icon, Box, Text, VStack, KeyboardAvoidingView, Heading } from 'native-base'
+import {
+	IconButton,
+	Icon,
+	Box,
+	Text,
+	VStack,
+	KeyboardAvoidingView,
+	Heading,
+	Button,
+	useDisclose,
+} from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { InputAccessoryView, Platform, Pressable, View } from 'react-native'
+import { InputAccessoryView, Platform, View } from 'react-native'
 import {
 	CodeField,
 	Cursor,
@@ -36,6 +46,8 @@ const CodeScreen = () => {
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const colorScheme = useThemeColorScheme()
+
+	const { isOpen, onOpen, onClose } = useDisclose()
 
 	const CELL_COUNT = route.params.code.length
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
@@ -196,25 +208,26 @@ const CodeScreen = () => {
 				>
 					<Box justifyContent={'space-around'}>
 						{complete ? (
-							<VStack space={2} justifyContent={'space-around'}>
-								<Pressable onPress={() => null}>
-									<Text fontSize={'lg'}>Resend code</Text>
-								</Pressable>
-								<Pressable
-									onPress={() =>
-										navigation.navigate('CredentialNavigator', {
-											screen: 'PersonalCredentialStack',
-											params: {
-												screen: 'EmailPhoneTabStack',
-												params: {
-													screen: 'PhoneScreen',
-												},
-											},
-										})
-									}
+							<VStack space={0} justifyContent={'space-around'}>
+								<Button
+									variant={'ghost'}
+									size={'xs'}
+									_text={{ fontSize: 'lg' }}
+									justifyContent={'flex-start'}
+									onPress={() => navigation.goBack()}
 								>
-									<Text fontSize={'lg'}>Update phone number</Text>
-								</Pressable>
+									{/* <Text fontSize={'lg'}>Resend code</Text> */}
+									Resend code
+								</Button>
+								<Button
+									variant={'ghost'}
+									_text={{ fontSize: 'lg' }}
+									size={'xs'}
+									justifyContent={'flex-start'}
+									onPress={() => navigation.goBack()}
+								>
+									Update phone number
+								</Button>
 							</VStack>
 						) : (
 							<Text>
@@ -230,11 +243,11 @@ const CodeScreen = () => {
 							variant={'solid'}
 							color={'primary.500'}
 							isDisabled={!!errors.code}
+							borderRadius={'full'}
 							style={{
 								justifyContent: 'center',
-								borderRadius: 50,
-								height: 70,
-								width: 70,
+								height: 60,
+								width: 60,
 								paddingHorizontal: 20,
 								alignSelf: 'center',
 							}}
@@ -242,7 +255,7 @@ const CodeScreen = () => {
 								<Icon
 									as={Feather}
 									name='arrow-right'
-									size={'2xl'}
+									size={'xl'}
 									color={errors.code ? 'light.800' : 'white'}
 								/>
 							}

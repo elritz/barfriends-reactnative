@@ -2,24 +2,17 @@ import { fitRect, getPointAtLength, PathGeometry } from './Geometry'
 import type { SkiaValue, SkPath, Vector, Line, SkPaint } from '@shopify/react-native-skia'
 import {
 	clamp,
-	SkContourMeasure,
-	Path,
 	TileMode,
-	mix,
 	dist,
 	PaintStyle,
 	Drawing,
 	interpolateColors,
 	StrokeJoin,
 	StrokeCap,
-	vec,
 	Group,
 	rect,
-	fitbox,
-	processTransform2d,
 	Skia,
 } from '@shopify/react-native-skia'
-import React from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 
 const strokeWidth = 15

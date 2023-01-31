@@ -7,15 +7,13 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 const EmailScreen = () => {
 	const navigation = useNavigation()
 	const headerHeight = useHeaderHeight()
-	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
@@ -184,11 +182,11 @@ const EmailScreen = () => {
 						variant={'solid'}
 						color={'primary.500'}
 						isDisabled={!!errors.email}
+						borderRadius={'full'}
 						style={{
 							justifyContent: 'center',
-							borderRadius: 50,
-							height: 70,
-							width: 70,
+							height: 60,
+							width: 60,
 							paddingHorizontal: 20,
 							alignSelf: 'center',
 						}}
@@ -197,7 +195,7 @@ const EmailScreen = () => {
 								as={Feather}
 								name='arrow-right'
 								size={'2xl'}
-								color={errors.email ? 'light.800' : 'white'}
+								color={errors.email ? 'primary.700' : 'white'}
 							/>
 						}
 					/>
