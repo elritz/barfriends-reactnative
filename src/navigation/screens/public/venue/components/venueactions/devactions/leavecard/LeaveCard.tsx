@@ -4,7 +4,6 @@ import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
 	Profile,
-	useProfileLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
@@ -20,15 +19,55 @@ export default function LeaveCard() {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isLeaving, setIsLeaving] = useState(false)
 	const [isJoined, setIsJoined] = useState(false)
+	const [outId, setOutId] = useState('')
+
+	useEffect(() => {
+		const joinedToVenue =
+			rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
+				return item.venueProfileId
+			})
+		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
+			item => item.venueProfileId === route.params.profileId,
+		)
+		if (out) {
+			setOutId(out.id)
+		}
+
+		setIsJoined(joinedToVenue.includes(route.params.profileId))
+	}, [rAuthorizationVar, isJoined])
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useRemovePersonalJoinsVenueMutation({
 			variables: {
-				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-				profileIdVenue: route.params.profileId,
+				outId,
 			},
-			onCompleted: async () => {
-				profileQuery()
+			onCompleted: async data => {
+				if (data.removePersonalJoinsVenue) {
+					const profile = data.removePersonalJoinsVenue as Profile
+					const deviceManager = rAuthorizationVar as ClientDeviceManager
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+					if (
+						profile?.Personal?.LiveOutPersonal?.Out &&
+						deviceprofile?.Profile?.Personal?.LiveOutPersonal
+					) {
+						AuthorizationReactiveVar({
+							...deviceManager,
+							DeviceProfile: {
+								...deviceprofile,
+								Profile: {
+									...deviceprofile.Profile,
+									Personal: {
+										...deviceprofile.Profile.Personal,
+										LiveOutPersonal: {
+											...deviceprofile.Profile.Personal.LiveOutPersonal,
+											Out: profile.Personal.LiveOutPersonal.Out,
+										},
+									},
+								},
+							},
+						})
+					}
+				}
 			},
 			refetchQueries: [
 				{
@@ -39,42 +78,6 @@ export default function LeaveCard() {
 				},
 			],
 		})
-
-	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
-		variables: {
-			where: {
-				id: {
-					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
-				},
-			},
-		},
-		onCompleted: data => {
-			if (data.profile) {
-				const profile = data.profile as Profile
-				const deviceManager = rAuthorizationVar as ClientDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
-
-				AuthorizationReactiveVar({
-					...deviceManager,
-					DeviceProfile: {
-						...deviceprofile,
-						Profile: profile,
-					},
-				})
-			}
-		},
-	})
-
-	useEffect(() => {
-		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
-			const joinedToVenue =
-				rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.map(item => {
-					return item.venueProfileId
-				})
-
-			setIsJoined(joinedToVenue.includes(route.params.profileId))
-		}
-	}, [rAuthorizationVar, isJoined])
 
 	return (
 		<VStack>
@@ -91,6 +94,7 @@ export default function LeaveCard() {
 						fontSize: 'md',
 					}}
 					isDisabled={!isJoined}
+					isLoading={JVLoading}
 					w={'100'}
 				>
 					{isLeaving ? 'Leaving' : 'Leave'}

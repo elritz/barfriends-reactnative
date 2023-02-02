@@ -29,14 +29,8 @@ const PersonalScreen = (props: any) => {
 			},
 		},
 		onCompleted: data => {
-			console.log(
-				'data',
-				JSON.stringify(data.profile?.Personal?.PersonalStats?.joinedVenueHistory.length, null, 4),
-			)
-			console.log(
-				'data',
-				JSON.stringify(data.profile?.Personal?.PersonalStats?.totaledVenueHistory.length, null, 4),
-			)
+			console.log('data', JSON.stringify(data.profile?.Personal?.PersonalStats?.Out.length, null, 4))
+			console.log('data', JSON.stringify(data.profile?.Personal?.PersonalStats?.Out.length, null, 4))
 		},
 	})
 
@@ -48,7 +42,7 @@ const PersonalScreen = (props: any) => {
 			<VStack space={3}>
 				<Actions profile={PQData?.profile} />
 				<HStack space={3} h={200}>
-					{PQData?.profile?.Personal?.LiveOutPersonal?.joined.length ? <CurrentVenue /> : null}
+					{PQData?.profile?.Personal?.LiveOutPersonal?.Out.length ? <CurrentVenue /> : null}
 					<Relationships />
 				</HStack>
 			</VStack>

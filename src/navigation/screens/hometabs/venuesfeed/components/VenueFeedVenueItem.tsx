@@ -6,7 +6,6 @@ import { Box, Heading } from 'native-base'
 import { useContext, useState } from 'react'
 import { Dimensions, Pressable, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
-import { ThemeContext } from 'styled-components/native'
 
 const width = Dimensions.get('window').width / 2.15
 
@@ -19,8 +18,6 @@ type Props = {
 
 const VenueFeedVenueItem = (props: Props) => {
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
-	const colorScheme = useThemeColorScheme()
 	const [hideBlur, setHideBlur] = useState(false)
 
 	if (!props.item || props.loading) return null
@@ -47,6 +44,8 @@ const VenueFeedVenueItem = (props: Props) => {
 						screen: 'PublicVenueScreen',
 						params: {
 							profileId: String(props.item.id),
+							latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
+							longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
 						},
 					},
 				})

@@ -1,7 +1,5 @@
 import { useCurrentVenueQuery } from '@graphql/generated'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { BlurView } from 'expo-blur'
-import { Box, Heading, Image } from 'native-base'
+import { Box, Image } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {
@@ -11,7 +9,6 @@ type Props = {
 const VenueHeader = (props: Props) => {
 	const HEADER_IMAGE_HEIGHT = 195
 	const { width } = useWindowDimensions()
-	const colorScheme = useThemeColorScheme()
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !props.profileId,
@@ -23,7 +20,6 @@ const VenueHeader = (props: Props) => {
 				},
 			},
 		},
-		onCompleted: data => {},
 	})
 
 	if (loading) {
@@ -46,12 +42,6 @@ const VenueHeader = (props: Props) => {
 	}
 
 	const venueData = data?.profile
-
-	const name = venueData?.IdentifiableInformation?.fullname
-	const username = venueData?.IdentifiableInformation?.username
-	console.log('🚀 -----------------------------------------------------------------🚀')
-	console.log('🚀 ~ file: VenueHeader.tsx:49 ~ VenueHeader ~ venueData', venueData)
-	console.log('🚀 -----------------------------------------------------------------🚀')
 
 	return (
 		<Box

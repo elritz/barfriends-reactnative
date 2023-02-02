@@ -19,6 +19,7 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 
 	return (
 		<Pressable
+			key={item.id}
 			maxW={'1/2'}
 			flexGrow={1}
 			mx={1}
@@ -34,7 +35,7 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 			}}
 		>
 			<Image
-				source={{ uri: item.avatar }}
+				source={{ uri: item.photos[0].url }}
 				alt={'User image'}
 				borderRadius={'xl'}
 				style={{

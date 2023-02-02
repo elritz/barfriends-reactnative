@@ -61,7 +61,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 						bg: 'light.50',
 					}}
 					_dark={{
-						bg: 'light.800',
+						bg: 'dark.50',
 					}}
 					h={h}
 					w={w}
@@ -172,7 +172,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 						bg: 'light.50',
 					}}
 					_dark={{
-						bg: 'light.800',
+						bg: 'dark.50',
 					}}
 					h={h}
 					w={w}

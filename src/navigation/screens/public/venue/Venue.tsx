@@ -15,11 +15,8 @@ import { VenueProfileStackParamList } from 'src/types/app'
 export type VenueScreenRouteProp = RouteProp<VenueProfileStackParamList, 'PublicVenueScreen'>
 
 const VenueScreen = (props: any) => {
-	// const users = GenerateUserData(3)
-	const users = []
 	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const { isOpen, onOpen, onClose } = useDisclose()
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !route.params.profileId,
@@ -38,7 +35,7 @@ const VenueScreen = (props: any) => {
 
 	if (loading || !data) return null
 
-	const handleEmpty = () => {
+	const HandleEmpty = () => {
 		return (
 			<Text textAlign={'center'} fontSize={'2xl'}>
 				{' '}
@@ -54,7 +51,7 @@ const VenueScreen = (props: any) => {
 	return (
 		<SafeAreaView>
 			<FlatList
-				data={users}
+				data={[]}
 				numColumns={2}
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
@@ -84,10 +81,11 @@ const VenueScreen = (props: any) => {
 						<VenueActions />
 					</VStack>
 				}
-				// ListEmptyComponent={handleEmpty}
+				ListEmptyComponent={!loading && <HandleEmpty />}
 				columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
 				contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 1 }}
 				ListFooterComponent={<Details profileId={props.route.params.profileId} />}
+				keyExtractor={item => item}
 				renderItem={item => <PersonalAtVenue item={item} />}
 				contentInset={{
 					bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,

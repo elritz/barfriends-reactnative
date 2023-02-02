@@ -4,6 +4,7 @@ import { Personal, Profile, Theme, Venue } from '@graphql/generated'
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs'
 import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { Float } from 'react-native/Libraries/Types/CodegenTypes'
 
 export type AuthorizationDecoded =
 	| {
@@ -117,6 +118,8 @@ export type PersonalProfileStackParamList = {
 export type VenueProfileStackParamList = {
 	PublicVenueScreen: {
 		profileId: string
+		latitude: number
+		longitude: number
 	}
 	MessagingStack: NavigatorScreenParams<MessagingStackParamList> | undefined
 	NotFound: undefined

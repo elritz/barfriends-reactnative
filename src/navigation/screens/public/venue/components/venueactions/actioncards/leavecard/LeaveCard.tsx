@@ -13,68 +13,80 @@ import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Heading, Button, VStack, Box, Icon } from 'native-base'
+import { useEffect, useState } from 'react'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function LeaveCard() {
 	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const [outId, setOutId] = useState('')
 
-	const [
-		removePersonalJoinsVenueMutation,
-		{ data: RPJVData, loading: RPJVLoading, error: RPJVError },
-	] = useRemovePersonalJoinsVenueMutation({
-		variables: {
-			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-			profileIdVenue: route.params.profileId,
-		},
-		onCompleted: async () => {
-			profileQuery()
-		},
-		refetchQueries: [
-			{
-				query: GET_LIVE_VENUE_TOTALS_QUERY,
-				variables: {
-					profileIdVenue: route.params.profileId,
-				},
+	useEffect(() => {
+		const joinedToVenue =
+			rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
+				return item.venueProfileId
+			})
+		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
+			item => item.venueProfileId === route.params.profileId,
+		)
+		if (out) {
+			setOutId(out.id)
+		}
+	}, [rAuthorizationVar])
+
+	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
+		useRemovePersonalJoinsVenueMutation({
+			variables: {
+				outId,
 			},
-		],
-	})
-
-	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
-		variables: {
-			where: {
-				id: {
-					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
-				},
+			onCompleted: async data => {
+				if (data.removePersonalJoinsVenue) {
+					const profile = data.removePersonalJoinsVenue as Profile
+					const deviceManager = rAuthorizationVar as ClientDeviceManager
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+					if (
+						profile?.Personal?.LiveOutPersonal?.Out &&
+						deviceprofile?.Profile?.Personal?.LiveOutPersonal
+					) {
+						AuthorizationReactiveVar({
+							...deviceManager,
+							DeviceProfile: {
+								...deviceprofile,
+								Profile: {
+									...deviceprofile.Profile,
+									Personal: {
+										...deviceprofile.Profile.Personal,
+										LiveOutPersonal: {
+											...deviceprofile.Profile.Personal.LiveOutPersonal,
+											Out: profile.Personal.LiveOutPersonal.Out,
+										},
+									},
+								},
+							},
+						})
+					}
+				}
 			},
-		},
-		onCompleted: data => {
-			if (data.profile) {
-				const profile = data.profile as Profile
-				const deviceManager = rAuthorizationVar as ClientDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
-
-				AuthorizationReactiveVar({
-					...deviceManager,
-					DeviceProfile: {
-						...deviceprofile,
-						Profile: profile,
+			refetchQueries: [
+				{
+					query: GET_LIVE_VENUE_TOTALS_QUERY,
+					variables: {
+						profileIdVenue: route.params.profileId,
 					},
-				})
-			}
-		},
-	})
+				},
+			],
+		})
 
 	if (
-		rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]
-			?.venueProfileId === route.params.profileId
+		rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out[0]?.venueProfileId ===
+		route.params.profileId
 	) {
 		return (
 			<ActionCard numColumns={2}>
 				<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
 					<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
-						You've joined here{'\n'}
+						You're joined{'\n'}
 						<Heading
 							fontWeight={'900'}
 							color={'red.600'}
@@ -90,6 +102,7 @@ export default function LeaveCard() {
 							onPress={() => {
 								removePersonalJoinsVenueMutation()
 							}}
+							size={'xs'}
 							textAlign={'center'}
 							colorScheme={'error'}
 							borderRadius={'lg'}
@@ -98,7 +111,8 @@ export default function LeaveCard() {
 								fontSize: 'md',
 							}}
 							leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
-							w={'100'}
+							isLoading={JVLoading}
+							isLoadingText='Leaving'
 						>
 							Leave
 						</Button>

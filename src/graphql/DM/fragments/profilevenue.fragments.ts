@@ -30,27 +30,6 @@ export const PROFILE_VENUES_FRAGMENT = gql`
 			createdAt
 			updatedAt
 		}
-		Personal {
-			id
-			Profile {
-				id
-				createdAt
-				updatedAt
-			}
-			profileId
-			PersonalStats {
-				id
-				createdAt
-				updatedAt
-			}
-			LiveOutPersonal {
-				id
-				createdAt
-				updatedAt
-			}
-			createdAt
-			updatedAt
-		}
 		Venue {
 			id
 			Profile {
@@ -60,12 +39,7 @@ export const PROFILE_VENUES_FRAGMENT = gql`
 			}
 			LiveOutVenue {
 				id
-				joined {
-					id
-					venueProfileId
-					personalProfileId
-				}
-				totaled {
+				Out {
 					id
 					venueProfileId
 					personalProfileId

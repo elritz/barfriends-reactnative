@@ -183,7 +183,8 @@ const Navigation = () => {
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
-
+					console.log('ME ID :>> ', deviceManager.DeviceProfile?.Profile.id)
+					console.log('ME PROFILE TYPE :>> ', deviceManager.DeviceProfile?.Profile.ProfileType)
 					AuthorizationReactiveVar(deviceManager)
 				}
 				if (data.refreshDeviceManager?.__typename === 'ErrorManaging') {

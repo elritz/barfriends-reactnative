@@ -4,7 +4,7 @@ import { LocationGeocodedAddress, LocationObject } from 'expo-location'
 
 type SearchType = {
 	searchText: string
-	searchRegion: {
+	searchRegion?: {
 		radius: number
 		coords: {
 			latitude: number

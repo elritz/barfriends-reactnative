@@ -49,10 +49,10 @@ export default function VenueTotals() {
 			mt={4}
 			mx={2}
 		>
-			{[friends, total, joined].map(item => {
+			{[friends, total, joined].map((item, index) => {
 				return (
 					<Box
-						key={item.name}
+						key={index}
 						_light={{
 							bg: item.name !== 'friends' ? 'light.200' : 'primary.600',
 							opacity: loading ? 50 : 100,

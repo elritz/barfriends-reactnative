@@ -32,12 +32,15 @@ const ExploreSearchInput = () => {
 			screen: 'ExploreStack',
 			params: {
 				screen: 'ExploreScreen',
+				params: {
+					searchText: '',
+				},
 			},
 		})
 	}
 
 	const clearSearchInput = () => {
-		_searchInputRef.current.clear()
+		_searchInputRef?.current?.clear()
 		SearchReactiveVar({
 			...rSearch,
 			searchText: '',

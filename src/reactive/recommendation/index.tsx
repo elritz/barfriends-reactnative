@@ -41,6 +41,3 @@ export const searchAreaInitialState: LocalStoragePreferenceSearchAreaType2 = {
 
 export const SearchAreaReactiveVar =
 	makeVar<LocalStoragePreferenceSearchAreaType2>(searchAreaInitialState)
-
-// export const SearchAreaReactiveVar =
-// 	makeVar<LocalStoragePreferenceSearchAreaType>(searchAreaInitialState)

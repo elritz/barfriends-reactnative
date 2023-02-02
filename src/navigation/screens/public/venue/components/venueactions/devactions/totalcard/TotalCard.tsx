@@ -125,7 +125,7 @@ export default function TotalCard() {
 	useEffect(() => {
 		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
 			const totaledToVenue =
-				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
+				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
 					return item.venueProfileId
 				})
 

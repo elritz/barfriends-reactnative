@@ -35,13 +35,12 @@ const VenueActions = () => {
 			},
 		},
 		onError: error => {
-			console.log('🚀 -----------------------------------------------------------🚀')
 			console.log('🚀 ~ file: VenueActions.tsx:39 ~ VenueActions ~ error', error)
 			console.log('🚀 -----------------------------------------------------------🚀')
 		},
 		onCompleted: data => {
 			if (data?.profile?.Venue?.LiveOutVenue) {
-				const peopleAtVenue = data.profile.Venue.LiveOutVenue.joined.some(item => {
+				const peopleAtVenue = data.profile.Venue.LiveOutVenue.Out.some(item => {
 					item.personalProfileId === rAuthorizationVar?.DeviceProfile?.Profile?.id
 				})
 			}
@@ -53,7 +52,7 @@ const VenueActions = () => {
 	return (
 		<VStack m={1} mt={5}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-				{ENVIRONMENT !== 'development' && (
+				{ENVIRONMENT === 'development' && (
 					<ActionCard numColumns={1}>
 						<DevActions />
 					</ActionCard>
@@ -62,7 +61,7 @@ const VenueActions = () => {
 					<ActionCard numColumns={numColumns}>
 						<UberCard />
 					</ActionCard>
-					{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]
+					{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out[0]
 						?.venueProfileId === route.params.profileId ? null : (
 						<ActionCard numColumns={numColumns}>
 							<DistanceCard />

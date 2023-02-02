@@ -3,6 +3,8 @@ import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.que
 import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
+	LiveOutPersonal,
+	Out,
 	Profile,
 	useAddPersonalJoinsVenueMutation,
 	useProfileLazyQuery,
@@ -21,6 +23,16 @@ export default function JoinCard() {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isJoined, setIsJoined] = useState(false)
 
+	useEffect(() => {
+		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
+			const joinedToVenue =
+				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
+					return item.venueProfileId
+				})
+			setIsJoined(joinedToVenue.includes(route.params.profileId))
+		}
+	}, [])
+
 	const [addPersonalJoinVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useAddPersonalJoinsVenueMutation({
 			variables: {
@@ -29,7 +41,31 @@ export default function JoinCard() {
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
-					profileQuery()
+					const profile = data.addPersonalJoinsVenue as Profile
+					const deviceManager = rAuthorizationVar as ClientDeviceManager
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+					if (
+						profile?.Personal?.LiveOutPersonal?.Out &&
+						deviceprofile?.Profile?.Personal?.LiveOutPersonal
+					) {
+						AuthorizationReactiveVar({
+							...deviceManager,
+							DeviceProfile: {
+								...deviceprofile,
+								Profile: {
+									...deviceprofile.Profile,
+									Personal: {
+										...deviceprofile.Profile.Personal,
+										LiveOutPersonal: {
+											...deviceprofile.Profile.Personal.LiveOutPersonal,
+											Out: profile.Personal.LiveOutPersonal.Out,
+										},
+									},
+								},
+							},
+						})
+					}
+					setIsJoined(true)
 				}
 			},
 			refetchQueries: [
@@ -51,7 +87,7 @@ export default function JoinCard() {
 			profileIdVenue: route.params.profileId,
 		},
 		onCompleted: async () => {
-			profileQuery()
+			setIsJoined(false)
 		},
 		refetchQueries: [
 			{
@@ -63,51 +99,16 @@ export default function JoinCard() {
 		],
 	})
 
-	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
-		variables: {
-			where: {
-				id: {
-					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
-				},
-			},
-		},
-		onCompleted: data => {
-			if (data.profile) {
-				const profile = data.profile as Profile
-				const deviceManager = rAuthorizationVar as ClientDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
-
-				AuthorizationReactiveVar({
-					...deviceManager,
-					DeviceProfile: {
-						...deviceprofile,
-						Profile: profile,
-					},
-				})
-			}
-		},
-	})
-
-	useEffect(() => {
-		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
-			const joinedToVenue =
-				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.joined.map(item => {
-					return item.venueProfileId
-				})
-
-			setIsJoined(joinedToVenue.includes(route.params.profileId))
-		}
-	}, [rAuthorizationVar])
-
 	return (
 		<VStack>
 			<Box>
 				<Button
 					onPress={() => {
-						if (rAuthorizationVar.DeviceProfile) {
+						if (rAuthorizationVar?.DeviceProfile) {
 							isJoined ? removePersonalJoinsVenueMutation() : addPersonalJoinVenueMutation()
 						}
 					}}
+					isLoading={JVLoading || RPJVLoading}
 					colorScheme={'primary'}
 					borderRadius={'lg'}
 					textAlign={'center'}
