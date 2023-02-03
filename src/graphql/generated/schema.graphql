@@ -11536,6 +11536,23 @@ input ProfileUpsertWithWhereUniqueWithoutGroupsInput {
   where: ProfileWhereUniqueInput!
 }
 
+type ProfileVenue {
+  bfsprofileid: String!
+  createdAt: DateTime!
+  Credentials: Credentials!
+  DetailInformation: DetailInformation
+  distanceInM: String
+  id: String!
+  IdentifiableInformation: IdentifiableInformation
+  photos: [Photo!]!
+  ProfileType: ProfileType!
+  Relationships: [Relationship!]!
+  ThemeManager: ThemeManager
+  tonightStory: Story
+  updatedAt: DateTime!
+  Venue: Venue
+}
+
 input ProfileWhereInput {
   AND: [ProfileWhereInput!]
   bfsprofileid: StringFilter
@@ -11792,6 +11809,7 @@ input PushTokenWhereUniqueInput {
 type Query {
   authorizedProfiles(where: AuthorizedProfilesWhereInput!): AuthorizedProfilesResponseUnion
   checkUsername(username: String!): Boolean!
+  currentVenue(currentLocationCoords: CoordsInput, cursor: ProfileWhereUniqueInput, distinct: [ProfileScalarFieldEnum!], orderBy: [ProfileOrderByWithRelationInput!], skip: Int, take: Int, where: ProfileWhereInput): ProfileVenue
   emojimood(where: EmojimoodWhereUniqueInput!): Emojimood
   emojimoods(cursor: EmojimoodWhereUniqueInput, distinct: [EmojimoodScalarFieldEnum!], orderBy: [EmojimoodOrderByWithRelationInput!], skip: Int, take: Int, where: EmojimoodWhereInput): [Emojimood!]!
   exploreSearch(search: String!): ExploreResponse!
@@ -14118,7 +14136,7 @@ input VenueScalarWhereWithAggregatesInput {
 
 type VenuesNearbyResponse {
   searchArea: SearchAreaResponse!
-  venuesNearby: [Profile!]!
+  venuesNearby: [ProfileVenue!]!
 }
 
 type VenueStats {

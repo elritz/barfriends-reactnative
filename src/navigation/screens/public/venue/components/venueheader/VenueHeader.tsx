@@ -1,28 +1,18 @@
-import { useCurrentVenueQuery } from '@graphql/generated'
+import { Photo } from '@graphql/generated'
 import { Box, Image } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {
-	profileId: string
+	loading: boolean
+	photos: Array<Photo> | undefined
 }
 
+const HEADER_IMAGE_HEIGHT = 195
+
 const VenueHeader = (props: Props) => {
-	const HEADER_IMAGE_HEIGHT = 195
 	const { width } = useWindowDimensions()
 
-	const { data, loading, error } = useCurrentVenueQuery({
-		skip: !props.profileId,
-		fetchPolicy: 'cache-first',
-		variables: {
-			where: {
-				id: {
-					equals: props.profileId,
-				},
-			},
-		},
-	})
-
-	if (loading) {
+	if (props.loading || !props.photos?.length) {
 		return (
 			<Box
 				style={{
@@ -41,8 +31,6 @@ const VenueHeader = (props: Props) => {
 		)
 	}
 
-	const venueData = data?.profile
-
 	return (
 		<Box
 			style={{
@@ -59,13 +47,13 @@ const VenueHeader = (props: Props) => {
 			}}
 		>
 			<Image
-				source={{ uri: venueData?.photos[0].url }}
+				source={{ uri: props.photos[0].url }}
 				style={{
 					position: 'absolute',
 					width: width,
 					height: HEADER_IMAGE_HEIGHT,
 				}}
-				alt={'Profile Photo'}
+				alt={'Venue Profile Photo'}
 			/>
 		</Box>
 	)

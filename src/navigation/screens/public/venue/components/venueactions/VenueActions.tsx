@@ -8,7 +8,6 @@ import UberCard from './actioncards/ubercard/UberCard'
 import DevActions from './devactions/DevActions'
 import { useReactiveVar } from '@apollo/client'
 import { ENVIRONMENT } from '@env'
-import { useCurrentVenueQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { HStack, VStack } from 'native-base'
@@ -19,35 +18,6 @@ const VenueActions = () => {
 	const numColumns = 2
 	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-
-	const {
-		data: PData,
-		loading: PLoading,
-		error: PError,
-	} = useCurrentVenueQuery({
-		skip: !route.params.profileId,
-		fetchPolicy: 'network-only',
-		variables: {
-			where: {
-				id: {
-					equals: route.params.profileId,
-				},
-			},
-		},
-		onError: error => {
-			console.log('🚀 ~ file: VenueActions.tsx:39 ~ VenueActions ~ error', error)
-			console.log('🚀 -----------------------------------------------------------🚀')
-		},
-		onCompleted: data => {
-			if (data?.profile?.Venue?.LiveOutVenue) {
-				const peopleAtVenue = data.profile.Venue.LiveOutVenue.Out.some(item => {
-					item.personalProfileId === rAuthorizationVar?.DeviceProfile?.Profile?.id
-				})
-			}
-		},
-	})
-
-	if (PLoading) return null
 
 	return (
 		<VStack m={1} mt={5}>

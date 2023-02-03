@@ -22,6 +22,7 @@ export default function JoinCard() {
 	const route = useRoute<VenueScreenRouteProp>()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isJoined, setIsJoined] = useState(false)
+	const [outId, setOutId] = useState('')
 
 	useEffect(() => {
 		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
@@ -29,9 +30,15 @@ export default function JoinCard() {
 				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
 					return item.venueProfileId
 				})
+			const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
+				item => item.venueProfileId === route.params.profileId,
+			)
+			if (out) {
+				setOutId(out.id)
+			}
 			setIsJoined(joinedToVenue.includes(route.params.profileId))
 		}
-	}, [])
+	}, [rAuthorizationVar, isJoined])
 
 	const [addPersonalJoinVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useAddPersonalJoinsVenueMutation({
@@ -83,8 +90,7 @@ export default function JoinCard() {
 		{ data: RPJVData, loading: RPJVLoading, error: RPJVError },
 	] = useRemovePersonalJoinsVenueMutation({
 		variables: {
-			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-			profileIdVenue: route.params.profileId,
+			outId,
 		},
 		onCompleted: async () => {
 			setIsJoined(false)

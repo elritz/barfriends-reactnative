@@ -27,13 +27,13 @@ export default function CurrentVenue() {
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip:
-			!rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]?.venueProfileId,
+			!rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out[0]?.venueProfileId,
+		fetchPolicy: 'cache-only',
 		variables: {
 			where: {
 				id: {
 					equals:
-						rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined[0]
-							?.venueProfileId,
+						rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out[0]?.venueProfileId,
 				},
 			},
 		},
@@ -70,6 +70,8 @@ export default function CurrentVenue() {
 							screen: 'PublicVenueScreen',
 							params: {
 								profileId: String(data.profile?.id),
+								latitude: Number(data.profile?.Venue?.Location?.Geometry?.latitude),
+								longitude: Number(data.profile?.Venue?.Location?.Geometry?.longitude),
 							},
 						},
 					})

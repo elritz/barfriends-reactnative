@@ -1,9 +1,5 @@
 import { gql } from '@apollo/client'
-import {
-	PROFILE_VENUES_FRAGMENT,
-	PUBLIC_PROFILE_FRAGMENT,
-	VENUE_FRAGMENT,
-} from '@graphql/DM/fragments/index.fragments'
+import { PUBLIC_PROFILE_FRAGMENT, VENUE_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
 
 export const PROFILE = gql`
 	${PUBLIC_PROFILE_FRAGMENT}
@@ -15,10 +11,10 @@ export const PROFILE = gql`
 `
 
 export const PROFILE_VENUE = gql`
-	${PROFILE_VENUES_FRAGMENT}
+	${PUBLIC_PROFILE_FRAGMENT}
 	query profileVenue($where: ProfileWhereInput) {
 		profile(where: $where) {
-			...PROFILE_VENUES_FRAGMENT
+			...PUBLIC_PROFILE_FRAGMENT
 		}
 	}
 `

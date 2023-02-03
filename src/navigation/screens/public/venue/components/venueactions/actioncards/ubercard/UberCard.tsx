@@ -18,7 +18,7 @@ export default function UberCard() {
 		error: PError,
 	} = useCurrentVenueQuery({
 		skip: !route.params.profileId || !rAuthorizationVar,
-		fetchPolicy: 'network-only',
+		fetchPolicy: 'cache-only',
 		variables: {
 			where: {
 				id: { equals: route.params.profileId },

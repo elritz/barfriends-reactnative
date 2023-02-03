@@ -27,6 +27,7 @@ export default function Details(props: Props) {
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !props.profileId,
+		fetchPolicy: 'cache-only',
 		variables: {
 			where: {
 				id: {
@@ -34,7 +35,6 @@ export default function Details(props: Props) {
 				},
 			},
 		},
-		onCompleted: data => {},
 	})
 
 	if (loading || !data) return null
@@ -53,13 +53,13 @@ export default function Details(props: Props) {
 			<Box>
 				<DetailTitle title={'Address'} />
 				<Text fontSize={'xl'} fontWeight={'medium'}>
-					{data?.profile?.Venue?.Location?.Address?.formattedAddress}
+					{data?.currentVenue?.Venue?.Location?.Address?.formattedAddress}
 				</Text>
 			</Box>
 			<Box>
 				<DetailTitle title={'Type'} />
 				<HStack flexWrap={'wrap'} justifyContent={'flex-start'}>
-					{data?.profile?.DetailInformation?.Tags.map((item, index) => {
+					{data?.currentVenue?.DetailInformation?.Tags.map((item, index) => {
 						return (
 							<Badge
 								key={index}
@@ -82,19 +82,19 @@ export default function Details(props: Props) {
 			<Box>
 				<DetailTitle title={'Capacity'} />
 				<Text fontSize={'xl'} fontWeight={'medium'}>
-					{data?.profile?.DetailInformation?.capacity}
+					{data?.currentVenue?.DetailInformation?.capacity}
 				</Text>
 			</Box>
 			<Box flex={1}>
 				<DetailTitle title={'Description'} />
-				{data?.profile?.DetailInformation?.description ? (
+				{data?.currentVenue?.DetailInformation?.description ? (
 					<Box>
 						{!showMore ? (
 							<Text fontSize={'lg'} numberOfLines={4} isTruncated={true}>
-								{data.profile.DetailInformation?.description}
+								{data.currentVenue.DetailInformation?.description}
 							</Text>
 						) : (
-							<Text fontSize={'lg'}>{data.profile.DetailInformation?.description}</Text>
+							<Text fontSize={'lg'}>{data.currentVenue.DetailInformation?.description}</Text>
 						)}
 						<Button mt={2} onPress={() => setShowMore(!showMore)} variant={'ghost'}>
 							{showMore ? 'Show Less' : 'Show More'}

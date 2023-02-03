@@ -104,13 +104,9 @@ export default function App() {
 	return (
 		<SafeAreaProvider>
 			<KeyboardProvider statusBarTranslucent>
-				{/* <QueryClientProvider client={queryClient}> */}
 				<ApolloProvider client={gateaWayClient}>
-					{/* <AnimatedAppLoader assets={assets}> */}
 					<Navigation />
-					{/* </AnimatedAppLoader> */}
 				</ApolloProvider>
-				{/* </QueryClientProvider> */}
 			</KeyboardProvider>
 		</SafeAreaProvider>
 	)

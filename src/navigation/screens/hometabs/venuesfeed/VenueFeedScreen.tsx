@@ -1,3 +1,5 @@
+import CurrentVenue from './components/CurrentVenue'
+import HorizontalVenueFeedVenueItem from './components/HorizontalVenueFeedVenueItem'
 import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
@@ -8,7 +10,7 @@ import BackgroundLocationPermissionFullSection from '@components/molecules/permi
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ProfileType, useVenuesNearbyLazyQuery } from '@graphql/generated'
-import VenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VenueFeedVenueItem'
+import VerticalVenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
@@ -58,6 +60,8 @@ const VenueFeedScreen = () => {
 			countryIsoCode: rSearchAreaVar?.searchArea.country.isoCode,
 			stateIsoCode: rSearchAreaVar?.searchArea.state.isoCode,
 		},
+		onError(error) {},
+		onCompleted(data) {},
 	})
 	// useEffect(() => {
 	// 	const subscription = AppState.addEventListener('change', handleAppStateChange)
@@ -75,31 +79,6 @@ const VenueFeedScreen = () => {
 			venuesNearby()
 		}
 	}, [])
-
-	// const handleAppStateChange = async (nextAppState: any) => {
-	// 	if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
-	// 		const locationpermission = await Location.getForegroundPermissionsAsync()
-	// 		PermissionForegroundLocationReactiveVar(locationpermission)
-	// 		if (locationpermission.granted && locationpermission.status === 'granted') {
-	// 			// await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-	// 			// 	accuracy: Location.Accuracy.Balanced,
-	// 			// });
-	// 		}
-	// 			// const currentLocation = await Location.getCurrentPositionAsync({
-	// 			// 	timeInterval: 5000,
-	// 			// 	distanceInterval: 5,
-	// 			// })
-
-	// 			// CurrentLocationReactiveVar({
-	// 			// 	...rCurrentLocationVar,
-	// 			// 	current: {
-	// 			// 		...currentLocation,
-	// 			// 	},
-	// 			// })
-	// 		}
-	// 	}
-	// 	appStateRef.current = nextAppState
-	// }
 
 	const listHeaderComponent = () => {
 		return (
@@ -138,10 +117,6 @@ const VenueFeedScreen = () => {
 				) : (
 					<Box></Box>
 				)}
-
-				{/* {rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.joined.length && (
-					<CurrentVenue />
-				)} */}
 			</VStack>
 		)
 	}
@@ -170,10 +145,12 @@ const VenueFeedScreen = () => {
 				refreshing={loading}
 				showsVerticalScrollIndicator={false}
 				numColumns={2}
+				// numColumns={1}
 				style={{ height: '100%' }}
 				columnWrapperStyle={{ justifyContent: 'space-around' }}
 				data={data?.venuesNearby.venuesNearby}
-				renderItem={({ item }) => <VenueFeedVenueItem loading={loading} item={item} />}
+				// renderItem={({ item }) => <HorizontalVenueFeedVenueItem loading={loading} item={item} />}
+				renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
 				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={listHeaderComponent}

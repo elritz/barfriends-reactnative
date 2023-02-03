@@ -24,11 +24,7 @@ export default function JoinCard() {
 				profileIdVenue: route.params.profileId,
 				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
-			onCompleted: async data => {
-				if (data.addPersonalJoinsVenue) {
-					profileQuery()
-				}
-			},
+			onCompleted: async data => {},
 			refetchQueries: [
 				{
 					query: GET_LIVE_VENUE_TOTALS_QUERY,
@@ -38,17 +34,6 @@ export default function JoinCard() {
 				},
 			],
 		})
-
-	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
-		fetchPolicy: 'network-only',
-		variables: {
-			where: {
-				id: {
-					equals: String(rAuthorizationVar?.DeviceProfile?.Profile.id),
-				},
-			},
-		},
-	})
 
 	useEffect(() => {
 		const totaledToVenue =

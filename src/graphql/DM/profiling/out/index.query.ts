@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client'
-import { PUBLIC_PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
+import { PROFILE_VENUES_FRAGMENT } from '@graphql/DM/fragments/profilevenue.fragments'
 
 export const CURRENT_VENUE_QUERY = gql`
-	${PUBLIC_PROFILE_FRAGMENT}
-	query currentVenue($where: ProfileWhereInput) {
-		profile(where: $where) {
-			...PUBLIC_PROFILE_FRAGMENT
+	${PROFILE_VENUES_FRAGMENT}
+	query currentVenue($where: ProfileWhereInput, $currentLocationCoords: CoordsInput) {
+		currentVenue(where: $where, currentLocationCoords: $currentLocationCoords) {
+			...PROFILE_VENUES_FRAGMENT
 		}
 	}
 `

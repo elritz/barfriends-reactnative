@@ -1,22 +1,19 @@
 import { Profile } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Image, VStack } from 'native-base'
 import { Box, Heading } from 'native-base'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Dimensions, Pressable, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
 const width = Dimensions.get('window').width / 2.15
-
-const height = 280
 
 type Props = {
 	item: Profile
 	loading: boolean
 }
 
-const VenueFeedVenueItem = (props: Props) => {
+const VerticalVenueFeedVenueItem = (props: Props) => {
 	const navigation = useNavigation()
 	const [hideBlur, setHideBlur] = useState(false)
 
@@ -104,4 +101,4 @@ const VenueFeedVenueItem = (props: Props) => {
 	)
 }
 
-export default VenueFeedVenueItem
+export default VerticalVenueFeedVenueItem

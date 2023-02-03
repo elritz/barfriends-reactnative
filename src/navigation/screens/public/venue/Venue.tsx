@@ -7,7 +7,7 @@ import { useReactiveVar } from '@apollo/client'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { Text, FlatList, VStack, Heading, Box, useDisclose } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { VenueProfileStackParamList } from 'src/types/app'
@@ -16,7 +16,7 @@ export type VenueScreenRouteProp = RouteProp<VenueProfileStackParamList, 'Public
 
 const VenueScreen = (props: any) => {
 	const route = useRoute<VenueScreenRouteProp>()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !route.params.profileId,
@@ -26,11 +26,14 @@ const VenueScreen = (props: any) => {
 					equals: route.params.profileId,
 				},
 			},
+			currentLocationCoords: {
+				latitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.latitude : 0,
+				longitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.longitude : 0,
+			},
 		},
 		onError(error) {
 			console.log('error :>> ', error)
 		},
-		onCompleted: data => {},
 	})
 
 	if (loading || !data) return null
@@ -44,7 +47,7 @@ const VenueScreen = (props: any) => {
 		)
 	}
 
-	const venueData = data?.profile
+	const venueData = data?.currentVenue
 	const name = venueData?.IdentifiableInformation?.fullname
 	const username = venueData?.IdentifiableInformation?.username
 
@@ -56,7 +59,7 @@ const VenueScreen = (props: any) => {
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
 					<VStack mb={5}>
-						<VenueHeader profileId={props.route.params.profileId} />
+						<VenueHeader loading={loading} photos={data.currentVenue?.photos} />
 						<Box
 							_light={{
 								bg: 'light.50',

@@ -9,13 +9,14 @@ export const PROFILE_VENUES_FRAGMENT = gql`
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
 	${DETAIL_INFORMATION_FRAGMENT}
 	${LOCATION_FRAGMENT}
-	fragment PROFILE_VENUES_FRAGMENT on Profile {
+	fragment PROFILE_VENUES_FRAGMENT on ProfileVenue {
 		__typename
 		id
 		ProfileType
 		IdentifiableInformation {
 			...INDETIFIABLE_INFORMATION_FRAGMENT
 		}
+		distanceInM
 		DetailInformation {
 			...DETAIL_INFORMATION_FRAGMENT
 		}
