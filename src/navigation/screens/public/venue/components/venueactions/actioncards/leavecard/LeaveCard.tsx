@@ -83,7 +83,7 @@ export default function LeaveCard() {
 		route.params.profileId
 	) {
 		return (
-			<ActionCard numColumns={2}>
+			<ActionCard key={'eft'} numColumns={2}>
 				<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
 					<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
 						You're joined{'\n'}

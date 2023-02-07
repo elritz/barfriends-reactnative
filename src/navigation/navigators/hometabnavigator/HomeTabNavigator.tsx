@@ -125,7 +125,7 @@ function HomeTabNavigator() {
 					tabBarLabel: 'profile',
 				}}
 			/>
-			{ENVIRONMENT !== 'development' && (
+			{ENVIRONMENT === 'development' && (
 				<ScreenStack.Screen
 					name='DevelopmentStack'
 					component={DevelopmentStack}

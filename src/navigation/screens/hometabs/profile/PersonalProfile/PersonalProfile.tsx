@@ -1,7 +1,8 @@
+import { FriendsList } from '../friendslist'
+import ProfilePhoto from '../profilephoto'
 import { useReactiveVar } from '@apollo/client'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
-import { FriendsList } from '@components/organisms/list/friendslist/FriendsList'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import { GetNotificationsQuery, ProfileType } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
@@ -30,13 +31,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 	return (
 		<Box>
 			<View style={{ alignItems: 'center', marginVertical: 20 }}>
-				<Image
-					width={165}
-					height={170}
-					borderRadius={15}
-					source={{ uri: rAuthorizationVar?.DeviceProfile?.Profile?.photos[0]?.url }}
-					alt={'Profile Photo'}
-				/>
+				<ProfilePhoto photo={rAuthorizationVar?.DeviceProfile?.Profile.profilePhoto} />
 				<View style={{ marginVertical: 20 }}>
 					<Heading
 						fontSize={'3xl'}
@@ -49,17 +44,6 @@ const PersonalScreen = ({ notifications }: Props) => {
 						@{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 					</Heading>
 				</View>
-				<Button
-					onPress={() =>
-						navigation.navigate('ProfileEditorNavigator', {
-							screen: 'EditableOptionsScreen',
-						})
-					}
-					borderRadius={'lg'}
-					width={'80%'}
-				>
-					Edit Profile
-				</Button>
 				<Divider style={{ marginVertical: 20 }} />
 			</View>
 			<Box mx={2}>

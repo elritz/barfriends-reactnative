@@ -84,7 +84,7 @@ export default function WithDeviceProfiles() {
 								color: 'light.50',
 							},
 							_light: {
-								color: 'light.900',
+								color: 'dark.50',
 							},
 							lineHeight: 'lg',
 						}}

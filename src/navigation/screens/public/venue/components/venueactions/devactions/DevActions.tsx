@@ -5,7 +5,7 @@ import { Text, Heading, HStack, VStack, Box } from 'native-base'
 
 export default function DevActions() {
 	return (
-		<VStack my={2} space={4} justifyContent={'space-between'}>
+		<VStack space={4} justifyContent={'space-between'}>
 			<Box>
 				<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
 					You are in {'\n'}
@@ -13,12 +13,12 @@ export default function DevActions() {
 						Dev Mode!
 					</Heading>
 				</Heading>
-				<Text fontSize={'md'} px={5} textAlign={'center'}>
+				<Text fontSize={'md'} mx={2} textAlign={'center'}>
 					This section is for quick actions that we may need for testing! As developers!
 				</Text>
 			</Box>
 
-			<HStack space={5} justifyContent={'space-around'}>
+			<HStack space={2} pb={2} mx={3} justifyContent={'space-around'}>
 				<TotalCard />
 				<JoinCard />
 				<LeaveCard />

@@ -78,7 +78,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 							color: 'light.50',
 						},
 						_light: {
-							color: 'light.900',
+							color: 'dark.50',
 						},
 						// underline: true,
 					}}

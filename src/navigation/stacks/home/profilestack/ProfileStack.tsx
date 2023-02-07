@@ -1,10 +1,12 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { useReactiveVar } from '@apollo/client'
+import { FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import UserProfileScreen from '@navigation/screens/hometabs/profile/Profile'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { AuthorizationReactiveVar } from '@reactive'
 import { ProfileTabStackParamList } from '@types'
 import * as Haptics from 'expo-haptics'
-import { Icon, IconButton, Pressable } from 'native-base'
+import { HStack, Icon, IconButton, Pressable, Text, useColorMode, useTheme } from 'native-base'
 import { View } from 'react-native'
 
 // TODO: UX(need to navigate to a setting page for application level setting ie Push Notifications, Location, Network History Deletion)
@@ -13,6 +15,9 @@ const ScreenStack = createStackNavigator<ProfileTabStackParamList>()
 
 function PublicPersonalStackNavigation() {
 	const navigation = useNavigation()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const theme = useTheme()
+	const colorScheme = useColorMode()
 
 	const onPressProfileTitle = async () => {
 		await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
@@ -26,23 +31,40 @@ function PublicPersonalStackNavigation() {
 			screenOptions={{
 				gestureEnabled: false,
 				headerStyle: {
-					backgroundColor: 'transparent',
+					backgroundColor:
+						colorScheme.colorMode === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
 				},
-				headerTitle: '',
+				headerTitle: () => {
+					return (
+						<Pressable onPress={onPressProfileTitle}>
+							<HStack space={2} alignItems={'center'}>
+								<Text fontWeight={'bold'} fontSize={'lg'} maxW={'165px'} ellipsizeMode={'tail'}>
+									{rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username}
+								</Text>
+								<Icon
+									as={FontAwesome}
+									name={'caret-down'}
+									size={'25px'}
+									position={'absolute'}
+									right={-20}
+								/>
+							</HStack>
+						</Pressable>
+					)
+				},
 				headerLeft: () => null,
 				headerRight: () => (
-					<View
-						style={{ display: 'flex', flexDirection: 'row', width: 90, justifyContent: 'space-around' }}
-					>
-						<IconButton
-							onPress={() => onPressProfileTitle()}
-							icon={<Icon as={MaterialCommunityIcons} name={'account-multiple'} size={30} />}
-						/>
-						<IconButton
-							onPress={() => console.log('TODO')}
-							icon={<Icon as={Ionicons} name={'settings-sharp'} size={27} />}
-						/>
-					</View>
+					<IconButton
+						onPress={() =>
+							navigation.navigate('ProfileEditorNavigator', {
+								screen: 'EditableOptionsScreen',
+							})
+						}
+						_pressed={{
+							bg: 'transparent',
+						}}
+						icon={<Icon as={MaterialCommunityIcons} name={'dots-horizontal'} size={30} />}
+					/>
 				),
 			}}
 		>

@@ -33,28 +33,29 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	if (loading) return null
 
 	const RoundedListItem = ({ children, ...props }) => (
-		<Box
-			{...props}
-			_light={{
-				bg: 'light.100',
-			}}
-			_dark={{
-				bg: 'dark.200',
-			}}
-			my={2}
-			px={2}
-			py={3}
-			borderRadius={'lg'}
-			alignItems={'flex-start'}
-			flexDirection={'column'}
-		>
-			{props.title && (
-				<Heading fontSize={'md'} pb={3}>
-					{props.title}
-				</Heading>
-			)}
-			{children}
-		</Box>
+		<Pressable onPress={props.onPress}>
+			<Box
+				_light={{
+					bg: 'light.100',
+				}}
+				_dark={{
+					bg: 'dark.200',
+				}}
+				my={2}
+				px={2}
+				py={3}
+				borderRadius={'lg'}
+				alignItems={'flex-start'}
+				flexDirection={'column'}
+			>
+				{props.title && (
+					<Heading fontSize={'md'} pb={3}>
+						{props.title}
+					</Heading>
+				)}
+				{children}
+			</Box>
+		</Pressable>
 	)
 
 	return (
@@ -68,11 +69,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			contentInsetAdjustmentBehavior='scrollableAxes'
 		>
 			<RoundedListItem
-				onPress={() =>
+				onPress={() => {
 					navigation.navigate('ProfileEditorNavigator', {
 						screen: 'NamesScreen',
 					})
-				}
+				}}
 				title='Full name'
 			>
 				<Text fontSize={'xl'}>{rIdentifiableInformation?.fullname}</Text>

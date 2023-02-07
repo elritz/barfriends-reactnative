@@ -20,7 +20,7 @@ const VenueActions = () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	return (
-		<VStack m={1} mt={5}>
+		<VStack m={2} mt={5}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 				{ENVIRONMENT === 'development' && (
 					<ActionCard numColumns={1}>
@@ -33,7 +33,7 @@ const VenueActions = () => {
 					</ActionCard>
 					{rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out[0]
 						?.venueProfileId === route.params.profileId ? null : (
-						<ActionCard numColumns={numColumns}>
+						<ActionCard key={'hij'} numColumns={numColumns}>
 							<DistanceCard />
 						</ActionCard>
 					)}

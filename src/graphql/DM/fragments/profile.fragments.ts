@@ -31,6 +31,17 @@ export const PROFILE_FRAGMENT = gql`
 		Relationships {
 			...RELATIONSHIP_FRAGMENT
 		}
+		profilePhoto {
+			id
+			url
+			type
+			position
+			active
+			ratio
+			blurhash
+			createdAt
+			updatedAt
+		}
 		photos {
 			id
 			url

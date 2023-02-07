@@ -36,7 +36,7 @@ const VenueScreen = (props: any) => {
 		},
 	})
 
-	if (loading || !data) return null
+	if (loading || !data?.currentVenue) return null
 
 	const HandleEmpty = () => {
 		return (
@@ -47,9 +47,9 @@ const VenueScreen = (props: any) => {
 		)
 	}
 
-	const venueData = data?.currentVenue
-	const name = venueData?.IdentifiableInformation?.fullname
-	const username = venueData?.IdentifiableInformation?.username
+	const venueData = data.currentVenue
+	const name = venueData.IdentifiableInformation?.fullname
+	const username = venueData.IdentifiableInformation?.username
 
 	return (
 		<SafeAreaView>
@@ -59,8 +59,9 @@ const VenueScreen = (props: any) => {
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
 					<VStack mb={5}>
-						<VenueHeader loading={loading} photos={data.currentVenue?.photos} />
+						<VenueHeader key={'abc'} loading={loading} photos={data.currentVenue?.photos} />
 						<Box
+							key={'edf'}
 							_light={{
 								bg: 'light.50',
 							}}
@@ -81,13 +82,13 @@ const VenueScreen = (props: any) => {
 							<VenueTotals />
 						</Box>
 						{/* <LocationPermissionCard /> */}
-						<VenueActions />
+						<VenueActions key={'kol'} />
 					</VStack>
 				}
 				ListEmptyComponent={!loading && <HandleEmpty />}
 				columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
-				contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 1 }}
-				ListFooterComponent={<Details profileId={props.route.params.profileId} />}
+				contentContainerStyle={{ flexGrow: 1 }}
+				ListFooterComponent={<Details tags={venueData?.DetailInformation?.Tags} />}
 				keyExtractor={item => item}
 				renderItem={item => <PersonalAtVenue item={item} />}
 				contentInset={{

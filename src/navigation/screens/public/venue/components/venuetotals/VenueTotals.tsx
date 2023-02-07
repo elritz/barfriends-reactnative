@@ -46,8 +46,8 @@ export default function VenueTotals() {
 				flexDirection: 'row',
 				justifyContent: 'space-around',
 			}}
-			mt={4}
-			mx={2}
+			mt={3}
+			mx={1}
 		>
 			{[friends, total, joined].map((item, index) => {
 				return (
@@ -61,10 +61,10 @@ export default function VenueTotals() {
 							bg: item.name !== 'friends' ? 'dark.100' : 'primary.600',
 							opacity: loading ? 50 : 100,
 						}}
+						borderRadius={'xl'}
 						style={{
 							height: 65,
 							width: (width - itemPadding) / 3,
-							borderRadius: 17,
 							alignItems: 'center',
 							justifyContent: 'center',
 						}}

@@ -27,6 +27,11 @@ export const AUTHORIZED_PROFILES_QUERY = gql`
 				phone {
 					id
 					ProfileType
+					profilePhoto {
+						id
+						blurhash
+						url
+					}
 					photos {
 						id
 						blurhash
@@ -49,6 +54,11 @@ export const AUTHORIZED_PROFILES_QUERY = gql`
 				username {
 					id
 					ProfileType
+					profilePhoto {
+						id
+						blurhash
+						url
+					}
 					photos {
 						id
 						blurhash

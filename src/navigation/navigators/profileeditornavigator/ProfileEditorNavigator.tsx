@@ -15,24 +15,22 @@ import StatusScreen from '@navigation/screens/editors/statusscreen/StatusScreen'
 import UsernameScreen from '@navigation/screens/editors/usernamescreen/UsernameScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ProfileEditorNavigatorParamList } from '@types'
-import { Heading } from 'native-base'
+import { Box, Heading, useColorMode, useTheme } from 'native-base'
 import { View } from 'react-native'
 
 const ScreenStack = createNativeStackNavigator<ProfileEditorNavigatorParamList>()
 
-const ScreenHeader = ({ title }: { title: string }) => (
-	<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-		<ChevronBackArrow />
-		<Heading fontWeight={'bold'} style={{ textTransform: 'uppercase' }}>
-			{title}
-		</Heading>
-	</View>
-)
-
 function ProfileProfileEditorNavigator() {
+	const theme = useTheme()
+	const colorScheme = useColorMode()
+
 	return (
 		<ScreenStack.Navigator
 			screenOptions={{
+				headerStyle: {
+					backgroundColor:
+						colorScheme.colorMode === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
+				},
 				headerTitle: () => <LogoTransparent height={30} width={192} />,
 				headerLeft: () => <ChevronBackArrow />,
 			}}
@@ -44,80 +42,80 @@ function ProfileProfileEditorNavigator() {
 				component={NamesScreen}
 				options={{
 					// headerShown: false,
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Name' />,
+					headerTitle: 'Name',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='UsernameScreen'
 				component={UsernameScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Username' />,
+					headerTitle: 'Username',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='EmojimoodScreen'
 				component={EmojimoodScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Emojimood' />,
+					headerTitle: 'Emojimood',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='BirthdayScreen'
 				component={BirthdayScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Birthday' />,
+					headerTitle: 'Birthday',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='DescriptionScreen'
 				component={DescriptionScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='About' />,
+					headerTitle: 'About',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='InterestScreen'
 				component={InterestScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Interests' />,
+					headerTitle: 'Interests',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='GenderScreen'
 				component={GenderScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Gender' />,
+					headerTitle: 'Gender',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='SexualPreferenceScreen'
 				component={SexualPreferenceScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Sexual Preference' />,
+					headerTitle: 'Sexual Preference',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='StatusScreen'
 				component={StatusScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Status' />,
+					headerTitle: 'Relationship',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='HometownScreen'
 				component={HomeTownScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Hometown' />,
+					headerTitle: 'Hometown',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 
@@ -125,16 +123,16 @@ function ProfileProfileEditorNavigator() {
 				name='LookingForScreen'
 				component={LookingForScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Looking For' />,
+					headerTitle: 'Look for',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 			<ScreenStack.Screen
 				name='CurentPlaceScreen'
 				component={CurrentPlacceScreen}
 				options={{
-					headerTitle: '',
-					headerLeft: () => <ScreenHeader title='Current Place' />,
+					headerTitle: 'Current place',
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 		</ScreenStack.Navigator>

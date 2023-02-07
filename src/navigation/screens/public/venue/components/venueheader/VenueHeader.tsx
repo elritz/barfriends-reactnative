@@ -49,7 +49,6 @@ const VenueHeader = (props: Props) => {
 			<Image
 				source={{ uri: props.photos[0].url }}
 				style={{
-					position: 'absolute',
 					width: width,
 					height: HEADER_IMAGE_HEIGHT,
 				}}

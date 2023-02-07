@@ -8986,12 +8986,20 @@ type Photo {
   active: Boolean!
   blurhash: String
   createdAt: DateTime!
+  Group: Group
+  groupId: String
+  height: Int
   id: ID!
   position: Int
+  Profile: Profile
+  profileId: String
   ratio: String
-  type: String
+  Story: Story
+  storyId: String
+  type: PhotoType
   updatedAt: DateTime!
   url: String!
+  width: Int
 }
 
 input PhotoAvgOrderByAggregateInput {
@@ -9805,10 +9813,12 @@ type Profile {
   createdAt: DateTime!
   Credentials: Credentials!
   DetailInformation: DetailInformation
+  hellow: String!
   id: String
   IdentifiableInformation: IdentifiableInformation
   Personal: Personal
-  photos: [Photo!]!
+  photos: [Photo!]
+  profilePhoto: Photo
   ProfileType: ProfileType!
   Relationships: [Relationship!]!
   ThemeManager: ThemeManager
@@ -11545,6 +11555,7 @@ type ProfileVenue {
   id: String!
   IdentifiableInformation: IdentifiableInformation
   photos: [Photo!]!
+  profilePhoto: Photo
   ProfileType: ProfileType!
   Relationships: [Relationship!]!
   ThemeManager: ThemeManager

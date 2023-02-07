@@ -1,4 +1,4 @@
-import TonightImages from './images'
+import Photos from './photos'
 import ProfileActivityAndStatusCards from '@components/organisms/ProfileActivityAndStatusCards/ProfileActivityAndStatusCards'
 import { ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -18,7 +18,8 @@ const Tonight = () => {
 					right: 0,
 				}}
 			>
-				<TonightImages />
+				{/* <TonightImages /> */}
+				<Photos />
 				<ProfileActivityAndStatusCards />
 			</ScrollView>
 		</SafeAreaView>

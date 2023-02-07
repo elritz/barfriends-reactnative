@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { Heading, Button, Icon, Text, Box } from 'native-base'
 
-export const EmptyStateFriendsList = () => {
+export const FriendsListEmptyState = () => {
 	const navigation = useNavigation()
 
 	return (

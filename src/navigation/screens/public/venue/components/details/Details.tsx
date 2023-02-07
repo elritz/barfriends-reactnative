@@ -1,12 +1,12 @@
+import { VenueScreenRouteProp } from '../../Venue'
+import { useReactiveVar } from '@apollo/client'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { Badge, useColorMode } from 'native-base'
+import { useRoute } from '@react-navigation/native'
+import { SearchAreaReactiveVar } from '@reactive'
+import { Badge, useColorMode, useTheme } from 'native-base'
 import { Box, Button, HStack, Text, VStack } from 'native-base'
 import { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components/native'
-
-type Props = {
-	profileId: string
-}
 
 type DetailTitleProps = {
 	title: string
@@ -20,20 +20,31 @@ const DetailTitle = (props: DetailTitleProps) => {
 	)
 }
 
-export default function Details(props: Props) {
+export default function Details(props) {
 	const colorMode = useColorMode()
 	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const [showMore, setShowMore] = useState(false)
 
+	const route = useRoute<VenueScreenRouteProp>()
+	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+
 	const { data, loading, error } = useCurrentVenueQuery({
-		skip: !props.profileId,
-		fetchPolicy: 'cache-only',
+		skip: !route.params.profileId,
+		fetchPolicy: 'cache-first',
 		variables: {
 			where: {
 				id: {
-					equals: props.profileId,
+					equals: route.params.profileId,
 				},
 			},
+			currentLocationCoords: {
+				latitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.latitude : 0,
+				longitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.longitude : 0,
+			},
+		},
+		onError(error) {
+			console.log('error :>> ', error)
 		},
 	})
 
@@ -42,7 +53,12 @@ export default function Details(props: Props) {
 	return (
 		<VStack
 			space={3}
-			bg={themeContext.palette.background.paper}
+			_light={{
+				bg: 'light.50',
+			}}
+			_dark={{
+				bg: 'dark.50',
+			}}
 			flex={1}
 			py={4}
 			px={3}
@@ -59,7 +75,7 @@ export default function Details(props: Props) {
 			<Box>
 				<DetailTitle title={'Type'} />
 				<HStack flexWrap={'wrap'} justifyContent={'flex-start'}>
-					{data?.currentVenue?.DetailInformation?.Tags.map((item, index) => {
+					{data.currentVenue?.DetailInformation?.Tags.map((item, index) => {
 						return (
 							<Badge
 								key={index}

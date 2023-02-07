@@ -162,13 +162,14 @@ const NamesScreen = () => {
 								numberOfLines={1}
 								autoComplete='name'
 								keyboardType='default'
+								variant={'filled'}
 								style={{
 									alignSelf: 'center',
-									backgroundColor: themeContext.palette.secondary.background.default,
 									height: 55,
 									padding: 10,
-									borderRadius: 13,
 								}}
+								fontSize={'md'}
+								borderRadius={'lg'}
 								rightElement={
 									<Box ml={3}>
 										{UOPLoading && dirtyFields.fullname ? (
@@ -213,18 +214,13 @@ const NamesScreen = () => {
 								placeholder='Nickname'
 								returnKeyType='done'
 								autoCapitalize='none'
+								variant={'filled'}
 								numberOfLines={1}
 								autoComplete='name'
 								keyboardType='default'
-								style={{
-									alignSelf: 'center',
-									backgroundColor: themeContext.palette.secondary.background.default,
-									height: 55,
-									padding: 10,
-									borderRadius: 13,
-									borderBottomColor: 'transparent',
-									borderBottomWidth: 0,
-								}}
+								fontSize={'md'}
+								p={4}
+								borderRadius={'lg'}
 								rightElement={
 									<Box ml={3}>
 										{UOPLoading && dirtyFields.nickname ? (

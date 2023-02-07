@@ -1,6 +1,7 @@
 import Actions from './components/actions/Actions'
 import CurrentVenue from './components/currentvenue/CurrentVenue'
-import Photos from './components/photos'
+import ProfilePhoto from './components/profilephoto'
+import Photos from './components/profilephoto'
 import Relationships from './components/relationship/Relationships'
 import { useProfileQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
@@ -38,7 +39,8 @@ const PersonalScreen = (props: any) => {
 
 	return (
 		<NBScrollView pt={4} mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-			<Photos story={PQData?.profile?.tonightStory} photo={PQData?.profile?.photos[0]} />
+			{/* <Photos story={PQData?.profile?.tonightStory} photo={PQData?.profile?.photos[0]} /> */}
+			{/* <ProfilePhoto /> */}
 			<VStack space={3}>
 				<Actions profile={PQData?.profile} />
 				<HStack space={3} h={200}>

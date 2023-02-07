@@ -180,6 +180,13 @@ const Navigation = () => {
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
+			onError(error) {
+				console.log(
+					'error REFRESH DEVICE MANANGER ERRROR:>> ',
+					error,
+					'error REFRESH DEVICE MANANGER ERRROR:>>',
+				)
+			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
