@@ -90,7 +90,28 @@ const NamesScreen = () => {
 
 	const onSubmit = () => {
 		const data = getValues()
-		if (dirtyFields.fullname) {
+		if (dirtyFields.fullname && dirtyFields.nickname) {
+			updateOneProfilMutation({
+				variables: {
+					where: {
+						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+					},
+					data: {
+						IdentifiableInformation: {
+							update: {
+								fullname: {
+									set: data.fullname,
+								},
+								nickname: {
+									set: data.nickname,
+								},
+							},
+						},
+					},
+				},
+			})
+		}
+		if (dirtyFields.fullname && !dirtyFields.nickname) {
 			updateOneProfilMutation({
 				variables: {
 					where: {
@@ -108,7 +129,7 @@ const NamesScreen = () => {
 				},
 			})
 		}
-		if (dirtyFields.nickname) {
+		if (dirtyFields.nickname && !dirtyFields.fullname) {
 			updateOneProfilMutation({
 				variables: {
 					where: {
@@ -134,7 +155,7 @@ const NamesScreen = () => {
 			keyboardShouldPersistTaps={'always'}
 			extraScrollHeight={100}
 		>
-			<KeyboardAvoidingView flexDirection={'column'} justifyContent={'flex-start'} my={2} mx={'2%'}>
+			<KeyboardAvoidingView flexDirection={'column'} justifyContent={'flex-start'} my={2} mx={2}>
 				<Controller
 					name='fullname'
 					control={control}
@@ -171,7 +192,7 @@ const NamesScreen = () => {
 								fontSize={'md'}
 								borderRadius={'lg'}
 								rightElement={
-									<Box ml={3}>
+									<Box mr={3}>
 										{UOPLoading && dirtyFields.fullname ? (
 											<ActivityIndicator
 												size='small'
@@ -222,7 +243,7 @@ const NamesScreen = () => {
 								p={4}
 								borderRadius={'lg'}
 								rightElement={
-									<Box ml={3}>
+									<Box mr={3}>
 										{UOPLoading && dirtyFields.nickname ? (
 											<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
 										) : (

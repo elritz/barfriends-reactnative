@@ -31,26 +31,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 				lineHeight={'xs'}
 				fontSize={'xl'}
 			>
-				Welcome
-			</Text>
-			<Text
-				numberOfLines={3}
-				ellipsizeMode='tail'
-				adjustsFontSizeToFit
-				minimumFontScale={0.5}
-				pb={2}
-				w={275}
-				maxW={'85%'}
-				style={{
-					alignSelf: 'center',
-					textAlign: 'center',
-					textTransform: 'uppercase',
-				}}
-				fontWeight={'black'}
-				lineHeight={'xs'}
-				fontSize={'xl'}
-			>
-				to Barfriends
+				Where are your venues?
 			</Text>
 			<Text>
 				Continue to find venues using location using your device location, or find venues with Search

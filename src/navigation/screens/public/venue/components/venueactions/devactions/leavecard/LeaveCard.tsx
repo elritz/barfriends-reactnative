@@ -33,7 +33,7 @@ export default function LeaveCard() {
 			setOutId(out.id)
 		}
 
-		setIsJoined(joinedToVenue.includes(route.params.profileId))
+		setIsJoined(joinedToVenue?.includes(route.params.profileId))
 	}, [rAuthorizationVar, isJoined])
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =

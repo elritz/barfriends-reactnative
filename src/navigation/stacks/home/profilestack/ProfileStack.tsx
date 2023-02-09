@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import UserProfileScreen from '@navigation/screens/hometabs/profile/Profile'
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AuthorizationReactiveVar } from '@reactive'
 import { ProfileTabStackParamList } from '@types'
@@ -56,9 +56,11 @@ function PublicPersonalStackNavigation() {
 				headerRight: () => (
 					<IconButton
 						onPress={() =>
-							navigation.navigate('ProfileEditorNavigator', {
-								screen: 'EditableOptionsScreen',
-							})
+							navigation.dispatch(
+								StackActions.push('ProfileEditorNavigator', {
+									screen: 'EditableOptionsScreen',
+								}),
+							)
 						}
 						_pressed={{
 							bg: 'transparent',

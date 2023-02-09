@@ -895,6 +895,141 @@ export type BoolWithAggregatesFilter = {
   not?: InputMaybe<NestedBoolWithAggregatesFilter>;
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  Tags: Array<Tag>;
+};
+
+
+export type CategoryTagsArgs = {
+  cursor?: InputMaybe<TagWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TagScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TagOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TagWhereInput>;
+};
+
+export type CategoryCountOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+};
+
+export type CategoryCreateInput = {
+  id?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  Tags?: InputMaybe<TagCreateNestedManyWithoutCategoryInput>;
+};
+
+export type CategoryCreateManyInput = {
+  id?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+};
+
+export type CategoryCreateNestedOneWithoutTagsInput = {
+  connect?: InputMaybe<CategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CategoryCreateOrConnectWithoutTagsInput>;
+  create?: InputMaybe<CategoryCreateWithoutTagsInput>;
+};
+
+export type CategoryCreateOrConnectWithoutTagsInput = {
+  create: CategoryCreateWithoutTagsInput;
+  where: CategoryWhereUniqueInput;
+};
+
+export type CategoryCreateWithoutTagsInput = {
+  id?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+};
+
+export type CategoryMaxOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+};
+
+export type CategoryMinOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+};
+
+export type CategoryOrderByWithAggregationInput = {
+  _count?: InputMaybe<CategoryCountOrderByAggregateInput>;
+  _max?: InputMaybe<CategoryMaxOrderByAggregateInput>;
+  _min?: InputMaybe<CategoryMinOrderByAggregateInput>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+};
+
+export type CategoryOrderByWithRelationInput = {
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  Tags?: InputMaybe<TagOrderByRelationAggregateInput>;
+};
+
+export type CategoryRelationFilter = {
+  is?: InputMaybe<CategoryWhereInput>;
+  isNot?: InputMaybe<CategoryWhereInput>;
+};
+
+export enum CategoryScalarFieldEnum {
+  Id = 'id',
+  Name = 'name'
+}
+
+export type CategoryScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<CategoryScalarWhereWithAggregatesInput>>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  name?: InputMaybe<StringWithAggregatesFilter>;
+  NOT?: InputMaybe<Array<CategoryScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<CategoryScalarWhereWithAggregatesInput>>;
+};
+
+export type CategoryUpdateInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  Tags?: InputMaybe<TagUpdateManyWithoutCategoryNestedInput>;
+};
+
+export type CategoryUpdateManyMutationInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type CategoryUpdateOneWithoutTagsNestedInput = {
+  connect?: InputMaybe<CategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CategoryCreateOrConnectWithoutTagsInput>;
+  create?: InputMaybe<CategoryCreateWithoutTagsInput>;
+  delete?: InputMaybe<Scalars['Boolean']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  update?: InputMaybe<CategoryUpdateWithoutTagsInput>;
+  upsert?: InputMaybe<CategoryUpsertWithoutTagsInput>;
+};
+
+export type CategoryUpdateWithoutTagsInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type CategoryUpsertWithoutTagsInput = {
+  create: CategoryCreateWithoutTagsInput;
+  update: CategoryUpdateWithoutTagsInput;
+};
+
+export type CategoryWhereInput = {
+  AND?: InputMaybe<Array<CategoryWhereInput>>;
+  id?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  NOT?: InputMaybe<Array<CategoryWhereInput>>;
+  OR?: InputMaybe<Array<CategoryWhereInput>>;
+  Tags?: InputMaybe<TagListRelationFilter>;
+};
+
+export type CategoryWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']>;
+};
+
 export type ChatroomCountOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
 };
@@ -3410,27 +3545,6 @@ export type EnumSecureDataTypeWithAggregatesFilter = {
   in?: InputMaybe<Array<SecureDataType>>;
   not?: InputMaybe<SecureDataType>;
   notIn?: InputMaybe<Array<SecureDataType>>;
-};
-
-export type EnumTagTypeFieldUpdateOperationsInput = {
-  set?: InputMaybe<TagType>;
-};
-
-export type EnumTagTypeFilter = {
-  equals?: InputMaybe<TagType>;
-  in?: InputMaybe<Array<TagType>>;
-  not?: InputMaybe<TagType>;
-  notIn?: InputMaybe<Array<TagType>>;
-};
-
-export type EnumTagTypeWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntFilter>;
-  _max?: InputMaybe<NestedEnumTagTypeFilter>;
-  _min?: InputMaybe<NestedEnumTagTypeFilter>;
-  equals?: InputMaybe<TagType>;
-  in?: InputMaybe<Array<TagType>>;
-  not?: InputMaybe<TagType>;
-  notIn?: InputMaybe<Array<TagType>>;
 };
 
 export type EnumTypeOfDocumentFieldUpdateOperationsInput = {
@@ -6993,23 +7107,6 @@ export type NestedEnumSecureDataTypeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<SecureDataType>>;
 };
 
-export type NestedEnumTagTypeFilter = {
-  equals?: InputMaybe<TagType>;
-  in?: InputMaybe<Array<TagType>>;
-  not?: InputMaybe<TagType>;
-  notIn?: InputMaybe<Array<TagType>>;
-};
-
-export type NestedEnumTagTypeWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntFilter>;
-  _max?: InputMaybe<NestedEnumTagTypeFilter>;
-  _min?: InputMaybe<NestedEnumTagTypeFilter>;
-  equals?: InputMaybe<TagType>;
-  in?: InputMaybe<Array<TagType>>;
-  not?: InputMaybe<TagType>;
-  notIn?: InputMaybe<Array<TagType>>;
-};
-
 export type NestedEnumTypeOfDocumentFilter = {
   equals?: InputMaybe<TypeOfDocument>;
   in?: InputMaybe<Array<TypeOfDocument>>;
@@ -10147,7 +10244,6 @@ export type Profile = {
   createdAt: Scalars['DateTime'];
   Credentials: Credentials;
   DetailInformation?: Maybe<DetailInformation>;
-  hellow: Scalars['String'];
   id?: Maybe<Scalars['String']>;
   IdentifiableInformation?: Maybe<IdentifiableInformation>;
   Personal?: Maybe<Personal>;
@@ -11888,7 +11984,7 @@ export type ProfileVenue = {
   createdAt: Scalars['DateTime'];
   Credentials: Credentials;
   DetailInformation?: Maybe<DetailInformation>;
-  distanceInM?: Maybe<Scalars['String']>;
+  distanceInM?: Maybe<Scalars['Int']>;
   id: Scalars['String'];
   IdentifiableInformation?: Maybe<IdentifiableInformation>;
   photos: Array<Photo>;
@@ -12167,6 +12263,7 @@ export type Query = {
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion;
   getAllCitiesByState: Array<CityResponseObject>;
   getAllCountries: Array<CountryResponseObject>;
+  getAllInterrests: Array<Scalars['Json']>;
   getAllStatesByCountry: Array<StateResponseObject>;
   getAllThemes: Array<Theme>;
   getLiveVenueTotals: LiveVenueTotals;
@@ -13593,11 +13690,12 @@ export type StringWithAggregatesFilter = {
 
 export type Tag = {
   __typename?: 'Tag';
+  Category?: Maybe<Category>;
+  categoryId?: Maybe<Scalars['String']>;
   DetailInformation: Array<DetailInformation>;
   emoji?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  type: TagType;
 };
 
 
@@ -13615,24 +13713,42 @@ export type TagAvgOrderByAggregateInput = {
 };
 
 export type TagCountOrderByAggregateInput = {
+  categoryId?: InputMaybe<SortOrder>;
   emoji?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
 };
 
 export type TagCreateInput = {
+  Category?: InputMaybe<CategoryCreateNestedOneWithoutTagsInput>;
   DetailInformation?: InputMaybe<DetailInformationCreateNestedManyWithoutTagsInput>;
   emoji?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  type: TagType;
 };
 
-export type TagCreateManyInput = {
+export type TagCreateManyCategoryInput = {
   emoji?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   name: Scalars['String'];
-  type: TagType;
+};
+
+export type TagCreateManyCategoryInputEnvelope = {
+  data: Array<TagCreateManyCategoryInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TagCreateManyInput = {
+  categoryId?: InputMaybe<Scalars['String']>;
+  emoji?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+};
+
+export type TagCreateNestedManyWithoutCategoryInput = {
+  connect?: InputMaybe<Array<TagWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutCategoryInput>>;
+  create?: InputMaybe<TagCreateWithoutCategoryInput>;
+  createMany?: InputMaybe<TagCreateManyCategoryInputEnvelope>;
 };
 
 export type TagCreateNestedManyWithoutDetailInformationInput = {
@@ -13641,15 +13757,26 @@ export type TagCreateNestedManyWithoutDetailInformationInput = {
   create?: InputMaybe<TagCreateWithoutDetailInformationInput>;
 };
 
+export type TagCreateOrConnectWithoutCategoryInput = {
+  create: TagCreateWithoutCategoryInput;
+  where: TagWhereUniqueInput;
+};
+
 export type TagCreateOrConnectWithoutDetailInformationInput = {
   create: TagCreateWithoutDetailInformationInput;
   where: TagWhereUniqueInput;
 };
 
-export type TagCreateWithoutDetailInformationInput = {
+export type TagCreateWithoutCategoryInput = {
+  DetailInformation?: InputMaybe<DetailInformationCreateNestedManyWithoutTagsInput>;
   emoji?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  type: TagType;
+};
+
+export type TagCreateWithoutDetailInformationInput = {
+  Category?: InputMaybe<CategoryCreateNestedOneWithoutTagsInput>;
+  emoji?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
 };
 
 export type TagListRelationFilter = {
@@ -13659,17 +13786,17 @@ export type TagListRelationFilter = {
 };
 
 export type TagMaxOrderByAggregateInput = {
+  categoryId?: InputMaybe<SortOrder>;
   emoji?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
 };
 
 export type TagMinOrderByAggregateInput = {
+  categoryId?: InputMaybe<SortOrder>;
   emoji?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
 };
 
 export type TagOrderByRelationAggregateInput = {
@@ -13682,67 +13809,76 @@ export type TagOrderByWithAggregationInput = {
   _max?: InputMaybe<TagMaxOrderByAggregateInput>;
   _min?: InputMaybe<TagMinOrderByAggregateInput>;
   _sum?: InputMaybe<TagSumOrderByAggregateInput>;
+  categoryId?: InputMaybe<SortOrder>;
   emoji?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
 };
 
 export type TagOrderByWithRelationInput = {
+  Category?: InputMaybe<CategoryOrderByWithRelationInput>;
+  categoryId?: InputMaybe<SortOrder>;
   DetailInformation?: InputMaybe<DetailInformationOrderByRelationAggregateInput>;
   emoji?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
 };
 
 export enum TagScalarFieldEnum {
+  CategoryId = 'categoryId',
   Emoji = 'emoji',
   Id = 'id',
-  Name = 'name',
-  Type = 'type'
+  Name = 'name'
 }
 
 export type TagScalarWhereInput = {
   AND?: InputMaybe<Array<TagScalarWhereInput>>;
+  categoryId?: InputMaybe<StringNullableFilter>;
   emoji?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
   NOT?: InputMaybe<Array<TagScalarWhereInput>>;
   OR?: InputMaybe<Array<TagScalarWhereInput>>;
-  type?: InputMaybe<EnumTagTypeFilter>;
 };
 
 export type TagScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<TagScalarWhereWithAggregatesInput>>;
+  categoryId?: InputMaybe<StringNullableWithAggregatesFilter>;
   emoji?: InputMaybe<StringNullableWithAggregatesFilter>;
   id?: InputMaybe<IntWithAggregatesFilter>;
   name?: InputMaybe<StringWithAggregatesFilter>;
   NOT?: InputMaybe<Array<TagScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<TagScalarWhereWithAggregatesInput>>;
-  type?: InputMaybe<EnumTagTypeWithAggregatesFilter>;
 };
 
 export type TagSumOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
 };
 
-export enum TagType {
-  Activity = 'ACTIVITY',
-  Type = 'TYPE'
-}
-
 export type TagUpdateInput = {
+  Category?: InputMaybe<CategoryUpdateOneWithoutTagsNestedInput>;
   DetailInformation?: InputMaybe<DetailInformationUpdateManyWithoutTagsNestedInput>;
   emoji?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  type?: InputMaybe<EnumTagTypeFieldUpdateOperationsInput>;
 };
 
 export type TagUpdateManyMutationInput = {
   emoji?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  type?: InputMaybe<EnumTagTypeFieldUpdateOperationsInput>;
+};
+
+export type TagUpdateManyWithoutCategoryNestedInput = {
+  connect?: InputMaybe<Array<TagWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutCategoryInput>>;
+  create?: InputMaybe<TagCreateWithoutCategoryInput>;
+  createMany?: InputMaybe<TagCreateManyCategoryInputEnvelope>;
+  delete?: InputMaybe<Array<TagWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TagScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TagWhereUniqueInput>>;
+  set?: InputMaybe<Array<TagWhereUniqueInput>>;
+  update?: InputMaybe<Array<TagUpdateWithWhereUniqueWithoutCategoryInput>>;
+  updateMany?: InputMaybe<Array<TagUpdateManyWithWhereWithoutCategoryInput>>;
+  upsert?: InputMaybe<Array<TagUpsertWithWhereUniqueWithoutCategoryInput>>;
 };
 
 export type TagUpdateManyWithoutDetailInformationNestedInput = {
@@ -13758,19 +13894,41 @@ export type TagUpdateManyWithoutDetailInformationNestedInput = {
   upsert?: InputMaybe<Array<TagUpsertWithWhereUniqueWithoutDetailInformationInput>>;
 };
 
+export type TagUpdateManyWithWhereWithoutCategoryInput = {
+  data: TagUpdateManyMutationInput;
+  where: TagScalarWhereInput;
+};
+
 export type TagUpdateManyWithWhereWithoutDetailInformationInput = {
   data: TagUpdateManyMutationInput;
   where: TagScalarWhereInput;
 };
 
-export type TagUpdateWithoutDetailInformationInput = {
+export type TagUpdateWithoutCategoryInput = {
+  DetailInformation?: InputMaybe<DetailInformationUpdateManyWithoutTagsNestedInput>;
   emoji?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  type?: InputMaybe<EnumTagTypeFieldUpdateOperationsInput>;
+};
+
+export type TagUpdateWithoutDetailInformationInput = {
+  Category?: InputMaybe<CategoryUpdateOneWithoutTagsNestedInput>;
+  emoji?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TagUpdateWithWhereUniqueWithoutCategoryInput = {
+  data: TagUpdateWithoutCategoryInput;
+  where: TagWhereUniqueInput;
 };
 
 export type TagUpdateWithWhereUniqueWithoutDetailInformationInput = {
   data: TagUpdateWithoutDetailInformationInput;
+  where: TagWhereUniqueInput;
+};
+
+export type TagUpsertWithWhereUniqueWithoutCategoryInput = {
+  create: TagCreateWithoutCategoryInput;
+  update: TagUpdateWithoutCategoryInput;
   where: TagWhereUniqueInput;
 };
 
@@ -13782,13 +13940,14 @@ export type TagUpsertWithWhereUniqueWithoutDetailInformationInput = {
 
 export type TagWhereInput = {
   AND?: InputMaybe<Array<TagWhereInput>>;
+  Category?: InputMaybe<CategoryWhereInput>;
+  categoryId?: InputMaybe<StringNullableFilter>;
   DetailInformation?: InputMaybe<DetailInformationListRelationFilter>;
   emoji?: InputMaybe<StringNullableFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
   NOT?: InputMaybe<Array<TagWhereInput>>;
   OR?: InputMaybe<Array<TagWhereInput>>;
-  type?: InputMaybe<EnumTagTypeFilter>;
 };
 
 export type TagWhereUniqueInput = {
@@ -14999,7 +15158,7 @@ export type Profile_FragmentFragment = { __typename: 'Profile', id?: string | nu
 
 export type Public_Profile_FragmentFragment = { __typename: 'Profile', id?: string | null, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile: { __typename?: 'Profile', id?: string | null, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } }>, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, createdAt: any, updatedAt: any }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, date: any, startDate: any, createdAt: any, updatedAt?: any | null, emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, Profile: { __typename?: 'Profile', id?: string | null }, photos: Array<{ __typename?: 'Photo', id: string, url: string, active: boolean, blurhash?: string | null, ratio?: string | null, type?: PhotoType | null, position?: number | null, createdAt: any, updatedAt: any }> } | null };
 
-export type Profile_Venues_FragmentFragment = { __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: string | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null };
+export type Profile_Venues_FragmentFragment = { __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null };
 
 export type Relationship_FragmentFragment = { __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile: { __typename?: 'Profile', id?: string | null, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } };
 
@@ -15200,7 +15359,7 @@ export type CurrentVenueQueryVariables = Exact<{
 }>;
 
 
-export type CurrentVenueQuery = { __typename?: 'Query', currentVenue?: { __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: string | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null } | null };
+export type CurrentVenueQuery = { __typename?: 'Query', currentVenue?: { __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null } | null };
 
 export type GetLiveVenueTotalsQueryVariables = Exact<{
   profileIdVenue: Scalars['String'];
@@ -15283,7 +15442,7 @@ export type VenuesNearbyQueryVariables = Exact<{
 }>;
 
 
-export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'VenuesNearbyResponse', venuesNearby: Array<{ __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: string | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null }>, searchArea: { __typename?: 'SearchAreaResponse', coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null }, city: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } }, country: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } }, state: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } } } } };
+export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'VenuesNearbyResponse', venuesNearby: Array<{ __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id?: string | null, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number, type: string } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null }>, searchArea: { __typename?: 'SearchAreaResponse', coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null }, city: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } }, country: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } }, state: { __typename?: 'PlaceType', isoCode: string, name: string, coords: { __typename?: 'Coords', latitude?: number | null, longitude?: number | null } } } } };
 
 export type GetAllCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 

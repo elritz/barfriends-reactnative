@@ -43,7 +43,7 @@ export type Coords = {
 
 export type PlaceType = {
 	name: string
-	isoCode: string
+	isoCode: string | null
 	coords: Coords
 }
 

@@ -7,7 +7,11 @@ import { useReactiveVar } from '@apollo/client'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import {
+	AuthorizationReactiveVar,
+	CurrentLocationReactiveVar,
+	SearchAreaReactiveVar,
+} from '@reactive'
 import { Text, FlatList, VStack, Heading, Box, useDisclose } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { VenueProfileStackParamList } from 'src/types/app'
@@ -17,9 +21,13 @@ export type VenueScreenRouteProp = RouteProp<VenueProfileStackParamList, 'Public
 const VenueScreen = (props: any) => {
 	const route = useRoute<VenueScreenRouteProp>()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
+
+	console.log(route.params.profileId)
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !route.params.profileId,
+		fetchPolicy: 'network-only',
 		variables: {
 			where: {
 				id: {
@@ -27,13 +35,18 @@ const VenueScreen = (props: any) => {
 				},
 			},
 			currentLocationCoords: {
-				latitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.latitude : 0,
-				longitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.longitude : 0,
+				latitude: rSearchAreaVar.useCurrentLocation
+					? Number(rCurrentLocationVar?.current?.coords.latitude)
+					: Number(rSearchAreaVar?.searchArea.coords.latitude),
+				longitude: rSearchAreaVar.useCurrentLocation
+					? Number(rCurrentLocationVar?.current?.coords.longitude)
+					: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
 		},
 		onError(error) {
 			console.log('error :>> ', error)
 		},
+		onCompleted: data => {},
 	})
 
 	if (loading || !data?.currentVenue) return null

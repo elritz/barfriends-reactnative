@@ -18,6 +18,7 @@ import {
 	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
+import { log } from 'console'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
 import { Box, VStack, FlatList, Heading } from 'native-base'
@@ -41,24 +42,21 @@ const VenueFeedScreen = () => {
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
-		fetchPolicy: 'cache-first',
 		variables: {
 			searchAreaCoords: {
 				latitude: Number(rSearchAreaVar?.searchArea.coords.latitude),
 				longitude: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
 			currentLocationCoords: {
-				latitude:
-					rCurrentLocationVar?.current?.coords.latitude !== 0
-						? Number(rCurrentLocationVar?.current?.coords.latitude)
-						: Number(rSearchAreaVar?.searchArea.coords.latitude),
-				longitude:
-					rCurrentLocationVar?.current?.coords.longitude !== 0
-						? Number(rCurrentLocationVar?.current?.coords.longitude)
-						: Number(rSearchAreaVar?.searchArea.coords.longitude),
+				latitude: rSearchAreaVar.useCurrentLocation
+					? Number(rCurrentLocationVar?.current?.coords.latitude)
+					: Number(rSearchAreaVar?.searchArea.coords.latitude),
+				longitude: rSearchAreaVar.useCurrentLocation
+					? Number(rCurrentLocationVar?.current?.coords.longitude)
+					: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
-			countryIsoCode: rSearchAreaVar?.searchArea.country.isoCode,
-			stateIsoCode: rSearchAreaVar?.searchArea.state.isoCode,
+			countryIsoCode: String(rSearchAreaVar?.searchArea.country.isoCode),
+			stateIsoCode: String(rSearchAreaVar?.searchArea.state.isoCode),
 		},
 		onError(error) {},
 		onCompleted(data) {},
@@ -145,11 +143,9 @@ const VenueFeedScreen = () => {
 				refreshing={loading}
 				showsVerticalScrollIndicator={false}
 				numColumns={2}
-				// numColumns={1}
 				style={{ height: '100%' }}
 				columnWrapperStyle={{ justifyContent: 'space-around' }}
 				data={data?.venuesNearby.venuesNearby}
-				// renderItem={({ item }) => <HorizontalVenueFeedVenueItem loading={loading} item={item} />}
 				renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
 				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 				keyExtractor={item => item.id}

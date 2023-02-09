@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Ionicons } from '@expo/vector-icons'
 import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
@@ -8,7 +9,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Input } from 'native-base'
+import { Icon, Input } from 'native-base'
 import { Box, Button, Heading, KeyboardAvoidingView, Text } from 'native-base'
 import { useContext } from 'react'
 import { useForm, Controller, ValidateResult } from 'react-hook-form'
@@ -31,7 +32,7 @@ const UsernameScreen = () => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			username: rAuthorizationVar.DeviceProfile.Profile.IdentifiableInformation.username || '',
+			username: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -58,18 +59,6 @@ const UsernameScreen = () => {
 				}
 			},
 		})
-
-	const validateCheckUsername = async (value: string): Promise<ValidateResult> => {
-		setTimeout(() => {
-			checkUsername()
-		}, 500)
-		if (!CULoading && CUData?.checkUsername) {
-			return true
-		} else {
-			setError('username', { type: 'validate', message: 'Username has been taken' })
-			return false
-		}
-	}
 
 	const [updateOneProfilMutation, { data: UOPData, loading: UOPLoading, error: UOPError }] =
 		useUpdateOneProfileMutation({
@@ -113,10 +102,38 @@ const UsernameScreen = () => {
 		}
 	}
 
-	const InputRightIcon = () => {}
-
 	const resetInput = (value: String) => {
 		reset({ username: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username })
+	}
+
+	const validateCheckUsername = async (value: string): Promise<ValidateResult> => {
+		setTimeout(() => {
+			checkUsername()
+		}, 500)
+		if (!CULoading && CUData?.checkUsername) {
+			return true
+		} else {
+			setError('username', { type: 'validate', message: 'Username has been taken' })
+			return false
+		}
+	}
+
+	const InputRightIcon = () => {
+		return CULoading ? (
+			<ActivityIndicator
+				style={{ marginRight: 4 }}
+				size='small'
+				color={themeContext.palette.primary.color.default}
+			/>
+		) : (
+			<Icon
+				as={Ionicons}
+				name='checkmark-circle'
+				size={'lg'}
+				color={errors.username || !CUData?.checkUsername ? 'error.600' : 'success.700'}
+				mr={2}
+			/>
+		)
 	}
 
 	return (
@@ -129,7 +146,8 @@ const UsernameScreen = () => {
 				flexDir={'column'}
 				justifyContent={'space-between'}
 				alignItems={'center'}
-				my={20}
+				my={2}
+				mx={2}
 			>
 				<Controller
 					name='username'
@@ -144,41 +162,27 @@ const UsernameScreen = () => {
 						},
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<Box flexDir={'column'} alignItems={'flex-start'} width={'95%'}>
-							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
-								Username
-							</Heading>
-							<Input
-								key='username'
-								value={value}
-								keyboardAppearance={colorScheme}
-								secureTextEntry
-								onChangeText={value => onChange(value)}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								autoCapitalize='none'
-								size={'xl'}
-								numberOfLines={1}
-								textContentType='password'
-								blurOnSubmit={false}
-								autoFocus
-								placeholder='Password'
-								returnKeyType='done'
-								autoCorrect={false}
-								rightElement={
-									UOPLoading && dirtyFields.username ? (
-										<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
-									) : (
-										dirtyFields.username && (
-											<Pressable onPress={() => resetInput('nickname')}>
-												<Text>Reset</Text>
-											</Pressable>
-										)
-									)
-								}
-							/>
-							<Text>{errors?.username?.message}</Text>
-						</Box>
+						<Input
+							key='username'
+							value={value}
+							keyboardAppearance={colorScheme}
+							variant={'filled'}
+							onChangeText={value => onChange(value)}
+							onSubmitEditing={handleSubmit(onSubmit)}
+							onBlur={onBlur}
+							autoCapitalize='none'
+							numberOfLines={1}
+							textContentType='username'
+							blurOnSubmit={false}
+							autoFocus
+							placeholder='Username'
+							returnKeyType='done'
+							autoCorrect={false}
+							fontSize={'md'}
+							p={4}
+							borderRadius={'lg'}
+							InputRightElement={<InputRightIcon />}
+						/>
 					)}
 				/>
 			</KeyboardAvoidingView>
@@ -190,7 +194,7 @@ const UsernameScreen = () => {
 					onPress={handleSubmit(onSubmit)}
 					borderRadius={'lg'}
 					style={{
-						backgroundColor: themeContext.palette.bfscompany.primary,
+						// backgroundColor: themeContext.palette.bfscompany.primary,
 						alignSelf: 'center',
 						width: '50%',
 					}}

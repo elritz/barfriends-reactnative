@@ -43,14 +43,14 @@ const SearchAreaFilltering = () => {
 	const switchRouter = value => {
 		switch (value) {
 			case 'City':
-				if (rSearchAreaVar?.country && rSearchAreaVar?.state) {
+				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					navigation.navigate('ModalNavigator', {
 						screen: 'SearchAreaModalStack',
 						params: {
 							screen: 'SearchStateCitiesTextScreen',
 							params: {
-								country: rSearchAreaVar.country.isoCode,
-								state: rSearchAreaVar.state.isoCode,
+								country: rSearchAreaVar?.searchArea.country.isoCode,
+								state: rSearchAreaVar.searchArea.state.isoCode,
 							},
 						},
 					})
@@ -81,6 +81,7 @@ const SearchAreaFilltering = () => {
 					) : (
 						<>
 							{searchAreaLocation.map((item, index) => {
+								console.log('item :>> ', item)
 								return (
 									<Button
 										key={index}
@@ -151,39 +152,6 @@ const SearchAreaFilltering = () => {
 				</HStack>
 				<ListheaderComponent />
 			</Box>
-			{/* <ScrollView> */}
-			{/* <Button
-					_stack={{
-						paddingY: 0,
-						paddingX: 2,
-						marginY: 1,
-						marginX: 2,
-						w: '100%',
-						justifyContent: 'space-between',
-					}}
-					my={1}
-					_light={{
-						bg: 'light.200',
-					}}
-					_dark={{
-						bg: 'dark.100',
-					}}
-					rounded={'full'}
-					endIcon={<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />}
-				>
-					<Text
-						mt={-0.5}
-						textAlign={'center'}
-						fontWeight={'medium'}
-						fontSize={'lg'}
-						numberOfLines={1}
-						ellipsizeMode={'tail'}
-					>
-						{rSearchAreaVar?.searchArea.country.name}, {rSearchAreaVar?.searchArea.state.name},{' '}
-						{rSearchAreaVar?.searchArea.city.name}
-					</Text>
-				</Button> */}
-			{/* </ScrollView> */}
 		</Box>
 	)
 }

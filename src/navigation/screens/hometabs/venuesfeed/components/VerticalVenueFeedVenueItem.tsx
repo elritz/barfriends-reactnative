@@ -1,4 +1,4 @@
-import { Profile } from '@graphql/generated'
+import { Profile, ProfileVenue } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { Image, VStack } from 'native-base'
 import { Box, Heading } from 'native-base'
@@ -9,7 +9,7 @@ import { Blurhash } from 'react-native-blurhash'
 const width = Dimensions.get('window').width / 2.15
 
 type Props = {
-	item: Profile
+	item: ProfileVenue
 	loading: boolean
 }
 
@@ -41,6 +41,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						screen: 'PublicVenueScreen',
 						params: {
 							profileId: String(props.item.id),
+							distanceInM: Number(props.item.distanceInM),
 							latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
 							longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
 						},

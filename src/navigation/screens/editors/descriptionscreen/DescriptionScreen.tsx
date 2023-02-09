@@ -7,7 +7,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Box, Button, Input, KeyboardAvoidingView, Text } from 'native-base'
+import { Box, Button, Input, Text, View } from 'native-base'
 import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -40,6 +40,7 @@ const DescriptionScreen = () => {
 		shouldFocusError: true,
 		shouldUnregister: true,
 	})
+
 	const [updateOneProfileMutation, { data, loading: UOPLoading }] = useUpdateOneProfileMutation({
 		onCompleted: data => {
 			if (data.updateOneProfile) {
@@ -98,70 +99,56 @@ const DescriptionScreen = () => {
 	}
 
 	return (
-		<KeyboardAvoidingView
-			flexDir={'column'}
-			justifyContent={'space-between'}
-			alignItems={'center'}
-			my={'20px'}
+		// <KeyboardAvoidingView flexDir={'column'} justifyContent={'space-between'} alignItems={'center'}>
+		<KeyboardAwareScrollView
+			keyboardDismissMode='none'
+			keyboardShouldPersistTaps={'always'}
+			extraScrollHeight={0}
+			style={{ width: '95%', alignSelf: 'center' }}
 		>
-			<KeyboardAwareScrollView
-				keyboardDismissMode='none'
-				keyboardShouldPersistTaps={'always'}
-				extraScrollHeight={0}
-				style={{ width: '100%', height: '100%' }}
-			>
-				<Controller
-					name='description'
-					control={control}
-					rules={{
-						required: true,
-						validate: {
-							maxLength: value =>
-								value.length <= DESCRIPTION_LENGTH || 'Description must be less than 200 characters',
-						},
-					}}
-					render={({ field: { onChange, onBlur, value } }) => (
-						<KeyboardAvoidingView
-							flexDir={'column'}
-							alignItems={'flex-start'}
-							height={'100%'}
-							width={'100%'}
-						>
+			<Controller
+				name='description'
+				control={control}
+				rules={{
+					required: true,
+					validate: {
+						maxLength: value =>
+							value.length <= DESCRIPTION_LENGTH || 'Description must be less than 200 characters',
+					},
+				}}
+				render={({ field: { onChange, onBlur, value } }) => {
+					return (
+						<View my={2} flexDir={'column'} flex={1}>
 							<Input
+								key={'description'}
 								multiline={true}
 								maxLength={DESCRIPTION_LENGTH}
 								keyboardAppearance={colorScheme}
 								onBlur={onBlur}
-								onChange={onChange}
+								onChangeText={onChange}
+								blurOnSubmit={true}
 								value={value}
-								blurOnSubmit={false}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								autoFocus
-								placeholder='Write a description about yourself'
+								placeholder='Description text'
 								returnKeyType='done'
 								autoCapitalize='none'
 								autoComplete='off'
+								variant={'underlined'}
 								keyboardType='default'
-								style={{
-									alignSelf: 'center',
-									borderColor: 'black',
-									borderBottomWidth: 1,
-									padding: 5,
-									borderRadius: 13,
-									borderBottomColor: 'transparent',
+								fontSize={'lg'}
+								size={'lg'}
+								py={2}
+								_input={{
+									fontSize: 'xl',
+									fontWeight: 'medium',
+									minHeight: '100%',
 								}}
 							/>
 							<Text>{errors?.description?.message}</Text>
-							<Box
-								flexDir={'row'}
-								justifyContent={'space-between'}
-								alignItems={'center'}
-								width={'100%'}
-								padding={'10px'}
-								minHeight={'70px'}
-							>
+							<Box flexDir={'row'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
 								<Text mx={3} alignSelf={'center'}>
-									{value.length} /{DESCRIPTION_LENGTH}
+									{value.length} / {DESCRIPTION_LENGTH}
 								</Text>
 								{(dirtyFields.description || !!errors.description) && (
 									<Button
@@ -171,7 +158,6 @@ const DescriptionScreen = () => {
 										onPress={handleSubmit(onSubmit)}
 										borderRadius={'lg'}
 										style={{
-											backgroundColor: themeContext.palette.bfscompany.primary,
 											alignSelf: 'center',
 											width: '50%',
 										}}
@@ -182,11 +168,12 @@ const DescriptionScreen = () => {
 									</Button>
 								)}
 							</Box>
-						</KeyboardAvoidingView>
-					)}
-				/>
-			</KeyboardAwareScrollView>
-		</KeyboardAvoidingView>
+						</View>
+					)
+				}}
+			/>
+		</KeyboardAwareScrollView>
+		// </KeyboardAvoidingView>
 	)
 }
 

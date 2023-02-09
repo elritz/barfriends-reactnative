@@ -1,8 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import { Ionicons } from '@expo/vector-icons'
 import { useProfileQuery } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/core'
+import { StackActions, useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Badge, Box, Heading, Text, VStack } from 'native-base'
+import { Badge, Box, HStack, Heading, Icon, Text, VStack } from 'native-base'
 import { useContext } from 'react'
 import { ScrollView, Pressable } from 'react-native'
 import { ThemeContext } from 'styled-components/native'
@@ -36,10 +37,10 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 		<Pressable onPress={props.onPress}>
 			<Box
 				_light={{
-					bg: 'light.100',
+					bg: 'light.50',
 				}}
 				_dark={{
-					bg: 'dark.200',
+					bg: 'dark.50',
 				}}
 				my={2}
 				px={2}
@@ -70,9 +71,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 		>
 			<RoundedListItem
 				onPress={() => {
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'NamesScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'NamesScreen',
+						}),
+					)
 				}}
 				title='Full name'
 			>
@@ -96,38 +99,21 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			>
 				<Text fontSize={'xl'}>{rIdentifiableInformation?.username}</Text>
 			</RoundedListItem>
-			<RoundedListItem
-				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'EmojimoodScreen',
-					})
-				}
-				title='Emojimood'
-			>
-				{rAuthorizationVar?.DeviceProfile?.Profile.tonightStory ? (
-					<Heading fontSize={'sm'}>
-						{rAuthorizationVar.DeviceProfile.Profile.tonightStory[0].emojimood.emoji}{' '}
-						{rAuthorizationVar.DeviceProfile.Profile.tonightStory[0].emojimood.emojiname}
-					</Heading>
-				) : (
-					<Text fontSize={'xl'}>Add your emojimood tonight</Text>
-				)}
+			<RoundedListItem title='Birthday 🥳'>
+				<HStack justifyContent={'space-between'} w={'100%'} alignItems={'center'}>
+					<Text color={'light.400'} fontSize={'xl'}>
+						{date}
+					</Text>
+					<Icon as={Ionicons} name={'md-lock-closed'} color={'light.400'} size={'sm'} />
+				</HStack>
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'BirthdayScreen',
-					})
-				}
-				title='Birthday 🥳'
-			>
-				<Text fontSize={'xl'}>{date}</Text>
-			</RoundedListItem>
-			<RoundedListItem
-				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'DescriptionScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'DescriptionScreen',
+						}),
+					)
 				}
 				title='About me'
 			>
@@ -139,18 +125,22 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'InterestScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'InterestScreen',
+						}),
+					)
 				}
 				title={'My interests'}
 			>
 				<Box>
 					<Pressable
 						onPress={() =>
-							navigation.navigate('ProfileEditorNavigator', {
-								screen: 'InterestScreen',
-							})
+							navigation.dispatch(
+								StackActions.push('ProfileEditorNavigator', {
+									screen: 'InterestScreen',
+								}),
+							)
 						}
 					>
 						<VStack flexDir={'row'} flexWrap={'wrap'}>
@@ -180,9 +170,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</Heading>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'GenderScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'GenderScreen',
+						}),
+					)
 				}
 				title={`I am a ...`}
 			>
@@ -206,9 +198,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'StatusScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'StatusScreen',
+						}),
+					)
 				}
 				title={`Relationship status`}
 			>
@@ -216,9 +210,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'HometownScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'HometownScreen',
+						}),
+					)
 				}
 				title={`Add your hometown`}
 			>
@@ -226,9 +222,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'CurentPlaceScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileEditorNavigator', {
+							screen: 'CurentPlaceScreen',
+						}),
+					)
 				}
 				title={'Add your city'}
 			>

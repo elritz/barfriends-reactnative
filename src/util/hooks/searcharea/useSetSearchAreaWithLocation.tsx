@@ -1,7 +1,11 @@
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import {
+	CurrentLocationReactiveVar,
+	PermissionForegroundLocationReactiveVar,
+	SearchAreaReactiveVar,
+} from '@reactive'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { Alert, Linking, Platform } from 'react-native'
@@ -12,110 +16,132 @@ const useSetSearchAreaWithLocation = async () => {
 	const rPermissionLocationVar = PermissionForegroundLocationReactiveVar()
 
 	const useLocationToSetSearchArea = async (): Promise<Boolean> => {
-		const currentLocation = await Location.getCurrentPositionAsync({
-			accuracy: 3,
+		const getLastKnowPosition = await Location.getLastKnownPositionAsync({
+			requiredAccuracy: 50,
+			maxAge: 1200000,
 		})
 
-		if (!currentLocation) {
-			const currentLastKnownLocation = await Location.getLastKnownPositionAsync({
-				requiredAccuracy: 3,
-			})
-
-			if (!currentLastKnownLocation) {
-				return false
-			}
-
+		if (getLastKnowPosition) {
 			const reverseGeocode = await Location.reverseGeocodeAsync({
-				latitude: currentLastKnownLocation.coords.latitude,
-				longitude: currentLastKnownLocation.coords.longitude,
-			})
-
-			SearchAreaReactiveVar({
-				...rSearchAreaVar,
-				useCurrentLocation: true,
-				country: reverseGeocode[0].country,
-				state: reverseGeocode[0].region,
-				isoCode: reverseGeocode[0].isoCountryCode,
-				distance: 30,
-				kRing: 3,
-				city: reverseGeocode[0].city,
-				coords: {
-					latitude: currentLastKnownLocation.coords.latitude,
-					longitude: currentLastKnownLocation.coords.longitude,
-				},
+				latitude: getLastKnowPosition.coords.latitude,
+				longitude: getLastKnowPosition.coords.longitude,
 			})
 
 			const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
 				...rSearchAreaVar,
 				useCurrentLocation: true,
-				country: reverseGeocode[0].country,
-				state: reverseGeocode[0].region,
-				city: reverseGeocode[0].city,
-				isoCode: reverseGeocode[0].isoCountryCode,
-				distance: 30,
-				kRing: 3,
-				coords: {
-					latitude: currentLastKnownLocation.coords.latitude,
-					longitude: currentLastKnownLocation.coords.longitude,
+				searchArea: {
+					country: {
+						name: String(reverseGeocode[0].country),
+						isoCode: String(reverseGeocode[0].isoCountryCode),
+						coords: {
+							latitude: getLastKnowPosition.coords.latitude,
+							longitude: getLastKnowPosition.coords.longitude,
+						},
+					},
+					state: {
+						name: String(reverseGeocode[0].region),
+						isoCode: String(reverseGeocode[0].region),
+						coords: {
+							latitude: getLastKnowPosition.coords.latitude,
+							longitude: getLastKnowPosition.coords.longitude,
+						},
+					},
+					city: {
+						name: String(reverseGeocode[0].city),
+						isoCode: '',
+						coords: {
+							latitude: getLastKnowPosition.coords.latitude,
+							longitude: getLastKnowPosition.coords.longitude,
+						},
+					},
+					coords: {
+						latitude: getLastKnowPosition.coords.latitude,
+						longitude: getLastKnowPosition.coords.longitude,
+					},
+				},
+				kRing: {
+					distance: 30,
+					value: 3,
 				},
 			}
 
 			const newSearchArea = JSON.stringify(valueSearchArea)
+			CurrentLocationReactiveVar({
+				current: {
+					...getLastKnowPosition,
+				},
+				reverseGeocoded: reverseGeocode[0],
+			})
+			SearchAreaReactiveVar({
+				...valueSearchArea,
+			})
 
+			await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchArea)
+
+			return true
+		} else {
+			const currentLocation = await Location.getCurrentPositionAsync({
+				accuracy: Location.LocationAccuracy.High,
+			})
+
+			const reverseGeocode = await Location.reverseGeocodeAsync({
+				latitude: currentLocation.coords.latitude,
+				longitude: currentLocation.coords.longitude,
+			})
+
+			const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
+				...rSearchAreaVar,
+				useCurrentLocation: true,
+				searchArea: {
+					country: {
+						name: String(reverseGeocode[0].country),
+						isoCode: String(reverseGeocode[0].isoCountryCode),
+						coords: {
+							latitude: currentLocation.coords.latitude,
+							longitude: currentLocation.coords.longitude,
+						},
+					},
+					state: {
+						name: String(reverseGeocode[0].region),
+						isoCode: String(reverseGeocode[0].region),
+						coords: {
+							latitude: currentLocation.coords.latitude,
+							longitude: currentLocation.coords.longitude,
+						},
+					},
+					city: {
+						name: String(reverseGeocode[0].city),
+						isoCode: '',
+						coords: {
+							latitude: currentLocation.coords.latitude,
+							longitude: currentLocation.coords.longitude,
+						},
+					},
+					coords: {
+						latitude: currentLocation.coords.latitude,
+						longitude: currentLocation.coords.longitude,
+					},
+				},
+				kRing: {
+					distance: 30,
+					value: 3,
+				},
+			}
+
+			const newSearchArea = JSON.stringify(valueSearchArea)
+			CurrentLocationReactiveVar({
+				current: {
+					...currentLocation,
+				},
+				reverseGeocoded: reverseGeocode[0],
+			})
+			SearchAreaReactiveVar({
+				...valueSearchArea,
+			})
 			await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchArea)
 			return true
 		}
-
-		const reverseGeocode = await Location.reverseGeocodeAsync({
-			latitude: currentLocation.coords.latitude,
-			longitude: currentLocation.coords.longitude,
-		})
-
-		const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
-			useCurrentLocation: true,
-			kRing: {
-				value: 2,
-				distance: 60,
-			},
-			searchArea: {
-				country: {
-					name: String(reverseGeocode[0].country),
-					coords: {
-						latitude: currentLocation.coords.latitude,
-						longitude: currentLocation.coords.longitude,
-					},
-					isoCode: String(reverseGeocode[0].isoCountryCode),
-				},
-				state: {
-					name: String(reverseGeocode[0].country),
-					coords: {
-						latitude: currentLocation.coords.latitude,
-						longitude: currentLocation.coords.longitude,
-					},
-					isoCode: String(reverseGeocode[0].region),
-				},
-				city: {
-					name: String(reverseGeocode[0].city),
-					coords: {
-						latitude: currentLocation.coords.latitude,
-						longitude: currentLocation.coords.longitude,
-					},
-					isoCode: '',
-				},
-				coords: {
-					latitude: currentLocation.coords.latitude,
-					longitude: currentLocation.coords.longitude,
-				},
-			},
-		}
-
-		SearchAreaReactiveVar({
-			...valueSearchArea,
-		})
-
-		await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(valueSearchArea))
-
-		return true
 	}
 
 	const createTwoButtonAlert = () =>

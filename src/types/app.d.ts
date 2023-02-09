@@ -118,6 +118,7 @@ export type PersonalProfileStackParamList = {
 export type VenueProfileStackParamList = {
 	PublicVenueScreen: {
 		profileId: string
+		distanceInM: number
 		latitude: number
 		longitude: number
 	}

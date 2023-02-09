@@ -8,7 +8,11 @@ import { useCurrentVenueLazyQuery, useCurrentVenueQuery } from '@graphql/generat
 import { cache } from '@library/apollo/cache'
 import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useIsFocused, useRoute } from '@react-navigation/native'
-import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import {
+	AuthorizationReactiveVar,
+	CurrentLocationReactiveVar,
+	SearchAreaReactiveVar,
+} from '@reactive'
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
@@ -62,6 +66,7 @@ const CurrentLocationFromVenueDistance = () => {
 	const theme = useTheme()
 	const isFocused = useIsFocused()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const [isLoading, setLoading] = useState<boolean>(true)
 	const [distance, setDistance] = useState<number | undefined>()
@@ -75,7 +80,7 @@ const CurrentLocationFromVenueDistance = () => {
 	} = useDisclose()
 
 	const { data, loading, error } = useCurrentVenueQuery({
-		fetchPolicy: 'cache-only',
+		fetchPolicy: 'cache-first',
 		variables: {
 			where: {
 				id: {
@@ -83,20 +88,28 @@ const CurrentLocationFromVenueDistance = () => {
 				},
 			},
 			currentLocationCoords: {
-				latitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.latitude : 0,
-				longitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.longitude : 0,
+				latitude: rSearchAreaVar.useCurrentLocation
+					? Number(rCurrentLocationVar?.current?.coords.latitude)
+					: Number(rSearchAreaVar?.searchArea.coords.latitude),
+				longitude: rSearchAreaVar.useCurrentLocation
+					? Number(rCurrentLocationVar?.current?.coords.longitude)
+					: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
 		},
 		onError(error) {
 			console.log('error :>> ', error)
 		},
 		onCompleted: data => {
-			if (Number(data?.currentVenue?.distanceInM) > 1000) {
-				setDistance(parseInt((Number(data.currentVenue?.distanceInM) / 1000).toFixed(1)))
-				setMetric('km')
-			} else {
-				setDistance(Number(data.currentVenue?.distanceInM))
-				setMetric('m')
+			console.log('data?.currentVenue?.distanceInM :>> ', data?.currentVenue?.distanceInM)
+			if (data?.currentVenue?.distanceInM) {
+				if (data?.currentVenue?.distanceInM > 1000) {
+					const val = parseInt((data.currentVenue?.distanceInM / 1000).toFixed(1))
+					setDistance(val)
+					setMetric('km')
+				} else {
+					setDistance(data?.currentVenue?.distanceInM)
+					setMetric('m')
+				}
 			}
 			setTimeout(() => setLoading(false), 3000)
 		},
@@ -133,7 +146,8 @@ const CurrentLocationFromVenueDistance = () => {
 					// })
 				}
 				if (dist > 1000) {
-					setDistance(parseInt((dist / 1000).toFixed(1)))
+					const val = parseInt((dist / 1000).toFixed(1))
+					setDistance(val)
 					setMetric('km')
 				} else {
 					setDistance(dist)
@@ -164,7 +178,8 @@ const CurrentLocationFromVenueDistance = () => {
 				// })
 			}
 			if (dist > 1000) {
-				setDistance(parseInt((dist / 1000).toFixed(1)))
+				const val = parseInt((dist / 1000).toFixed(1))
+				setDistance(val)
 				setMetric('km')
 			} else {
 				setDistance(dist)

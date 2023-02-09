@@ -1,10 +1,7 @@
-import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Box, Heading, HStack, Icon, Image, Text, VStack } from 'native-base'
-import { useContext } from 'react'
+import { Box, Center, Heading, HStack, Icon, Image, Text, VStack } from 'native-base'
 import { ActivityIndicator } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 type ProfileItemType = {
 	item: Profile | undefined
@@ -13,7 +10,6 @@ type ProfileItemType = {
 }
 
 const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemType) => {
-	const themeContext = useContext(ThemeContext)
 	return (
 		<Box
 			_light={{
@@ -34,9 +30,9 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 			justifyContent={'space-between'}
 		>
 			<HStack alignItems={'center'}>
-				{item?.photos.length ? (
+				{item?.profilePhoto ? (
 					<Image
-						source={{ uri: item?.photos[0].url }}
+						source={{ uri: item.profilePhoto.url }}
 						style={{ width: 40, height: 40 }}
 						minW={40}
 						minH={40}
@@ -44,20 +40,33 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 						alt={'Profile photo'}
 					/>
 				) : (
-					<CompanyCoasterLogoDynamic
-						width={40}
-						height={40}
-						iconColor={
-							themeContext.theme === 'light'
-								? themeContext.palette.company.soft.primary
-								: themeContext.palette.company.soft.primary
-						}
-						backgroundColor={
-							themeContext.theme === 'light'
-								? themeContext.palette.company.soft.secondary
-								: themeContext.palette.company.soft.secondary
-						}
-					/>
+					<Box
+						w={'40px'}
+						h={'40px'}
+						_light={{
+							bg: 'light.50',
+						}}
+						_dark={{
+							bg: 'dark.50',
+						}}
+						borderRadius={'md'}
+					>
+						<Box h={'100%'} justifyContent={'center'}>
+							<Center>
+								<Icon
+									_light={{
+										color: 'light.300',
+									}}
+									_dark={{
+										color: 'dark.300',
+									}}
+									as={Ionicons}
+									size={'lg'}
+									name={'ios-person'}
+								/>
+							</Center>
+						</Box>
+					</Box>
 				)}
 				<VStack mx={2}>
 					<Text fontSize={'lg'} numberOfLines={1} isTruncated>

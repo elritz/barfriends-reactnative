@@ -73,24 +73,46 @@ export default function ProfilePhotoEmptyState() {
 				<Center>
 					<Icon
 						_light={{
-							color: 'light.100',
+							color: 'light.300',
 						}}
 						_dark={{
-							color: 'dark.100',
+							color: 'dark.300',
 						}}
-						zIndex={10}
 						as={Ionicons}
 						size={'4xl'}
-						name={'ios-person-add-sharp'}
+						name={'ios-person'}
 					/>
 				</Center>
-				<Button
-					isDisabled
-					variant={'ghost'}
-					colorScheme={colorScheme.colorMode === 'light' ? 'light' : 'dark'}
+				<Box
+					_light={{
+						borderColor: 'light.900',
+					}}
+					_dark={{
+						borderColor: 'dark.900',
+					}}
+					borderWidth={1}
+					borderRadius={'full'}
+					alignItems={'center'}
+					justifyContent={'center'}
+					position={'absolute'}
+					bottom={-25}
+					right={-25}
 				>
-					Add photo
-				</Button>
+					<Icon
+						_light={{
+							color: 'light.900',
+						}}
+						_dark={{
+							color: 'dark.900',
+						}}
+						borderWidth={1}
+						borderRadius={'full'}
+						as={Ionicons}
+						name={'ios-arrow-up-circle'}
+						size={'2xl'}
+						zIndex={10}
+					/>
+				</Box>
 			</Box>
 		</Pressable>
 	)

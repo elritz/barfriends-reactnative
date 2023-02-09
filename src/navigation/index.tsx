@@ -79,18 +79,16 @@ const Navigation = () => {
 		try {
 			// SEARCH AREA
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
+
 			if (getLocalStorageSearchArea !== null) {
 				const values: LocalStoragePreferenceSearchAreaType2 = JSON.parse(getLocalStorageSearchArea)
-
-				if (values) {
-					if (values.useCurrentLocation) {
-						await useSetSearchAreaWithLocation()
-					} else {
-						SearchAreaReactiveVar({
-							...rSearchAreaVar,
-							...values,
-						})
-					}
+				if (values && values.useCurrentLocation) {
+					await useSetSearchAreaWithLocation()
+				} else {
+					SearchAreaReactiveVar({
+						...rSearchAreaVar,
+						...values,
+					})
 				}
 			} else {
 				const newSearchAreaValue = JSON.stringify({

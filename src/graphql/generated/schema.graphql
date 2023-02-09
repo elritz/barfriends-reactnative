@@ -841,6 +841,130 @@ input BoolWithAggregatesFilter {
   not: NestedBoolWithAggregatesFilter
 }
 
+type Category {
+  id: ID!
+  name: String!
+  Tags(cursor: TagWhereUniqueInput, distinct: [TagScalarFieldEnum!], orderBy: [TagOrderByWithRelationInput!], skip: Int, take: Int, where: TagWhereInput): [Tag!]!
+}
+
+input CategoryCountOrderByAggregateInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+input CategoryCreateInput {
+  id: String
+  name: String!
+  Tags: TagCreateNestedManyWithoutCategoryInput
+}
+
+input CategoryCreateManyInput {
+  id: String
+  name: String!
+}
+
+input CategoryCreateNestedOneWithoutTagsInput {
+  connect: CategoryWhereUniqueInput
+  connectOrCreate: CategoryCreateOrConnectWithoutTagsInput
+  create: CategoryCreateWithoutTagsInput
+}
+
+input CategoryCreateOrConnectWithoutTagsInput {
+  create: CategoryCreateWithoutTagsInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryCreateWithoutTagsInput {
+  id: String
+  name: String!
+}
+
+input CategoryMaxOrderByAggregateInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+input CategoryMinOrderByAggregateInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+input CategoryOrderByWithAggregationInput {
+  _count: CategoryCountOrderByAggregateInput
+  _max: CategoryMaxOrderByAggregateInput
+  _min: CategoryMinOrderByAggregateInput
+  id: SortOrder
+  name: SortOrder
+}
+
+input CategoryOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  Tags: TagOrderByRelationAggregateInput
+}
+
+input CategoryRelationFilter {
+  is: CategoryWhereInput
+  isNot: CategoryWhereInput
+}
+
+enum CategoryScalarFieldEnum {
+  id
+  name
+}
+
+input CategoryScalarWhereWithAggregatesInput {
+  AND: [CategoryScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  NOT: [CategoryScalarWhereWithAggregatesInput!]
+  OR: [CategoryScalarWhereWithAggregatesInput!]
+}
+
+input CategoryUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  Tags: TagUpdateManyWithoutCategoryNestedInput
+}
+
+input CategoryUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CategoryUpdateOneWithoutTagsNestedInput {
+  connect: CategoryWhereUniqueInput
+  connectOrCreate: CategoryCreateOrConnectWithoutTagsInput
+  create: CategoryCreateWithoutTagsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CategoryUpdateWithoutTagsInput
+  upsert: CategoryUpsertWithoutTagsInput
+}
+
+input CategoryUpdateWithoutTagsInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CategoryUpsertWithoutTagsInput {
+  create: CategoryCreateWithoutTagsInput!
+  update: CategoryUpdateWithoutTagsInput!
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  NOT: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  Tags: TagListRelationFilter
+}
+
+input CategoryWhereUniqueInput {
+  id: String
+}
+
 input ChatroomCountOrderByAggregateInput {
   id: SortOrder
 }
@@ -3304,27 +3428,6 @@ input EnumSecureDataTypeWithAggregatesFilter {
   in: [SecureDataType!]
   not: SecureDataType
   notIn: [SecureDataType!]
-}
-
-input EnumTagTypeFieldUpdateOperationsInput {
-  set: TagType
-}
-
-input EnumTagTypeFilter {
-  equals: TagType
-  in: [TagType!]
-  not: TagType
-  notIn: [TagType!]
-}
-
-input EnumTagTypeWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedEnumTagTypeFilter
-  _min: NestedEnumTagTypeFilter
-  equals: TagType
-  in: [TagType!]
-  not: TagType
-  notIn: [TagType!]
 }
 
 input EnumTypeOfDocumentFieldUpdateOperationsInput {
@@ -6699,23 +6802,6 @@ input NestedEnumSecureDataTypeWithAggregatesFilter {
   notIn: [SecureDataType!]
 }
 
-input NestedEnumTagTypeFilter {
-  equals: TagType
-  in: [TagType!]
-  not: TagType
-  notIn: [TagType!]
-}
-
-input NestedEnumTagTypeWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedEnumTagTypeFilter
-  _min: NestedEnumTagTypeFilter
-  equals: TagType
-  in: [TagType!]
-  not: TagType
-  notIn: [TagType!]
-}
-
 input NestedEnumTypeOfDocumentFilter {
   equals: TypeOfDocument
   in: [TypeOfDocument!]
@@ -9813,7 +9899,6 @@ type Profile {
   createdAt: DateTime!
   Credentials: Credentials!
   DetailInformation: DetailInformation
-  hellow: String!
   id: String
   IdentifiableInformation: IdentifiableInformation
   Personal: Personal
@@ -11551,7 +11636,7 @@ type ProfileVenue {
   createdAt: DateTime!
   Credentials: Credentials!
   DetailInformation: DetailInformation
-  distanceInM: String
+  distanceInM: Int
   id: String!
   IdentifiableInformation: IdentifiableInformation
   photos: [Photo!]!
@@ -11828,6 +11913,7 @@ type Query {
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion!
   getAllCitiesByState(countryIsoCode: String!, stateIsoCode: String!): [CityResponseObject!]!
   getAllCountries: [CountryResponseObject!]!
+  getAllInterrests: [Json!]!
   getAllStatesByCountry(countryIsoCode: String!): [StateResponseObject!]!
   getAllThemes: [Theme!]!
   getLiveVenueTotals(profileIdVenue: String): LiveVenueTotals!
@@ -13114,11 +13200,12 @@ input StringWithAggregatesFilter {
 }
 
 type Tag {
+  Category: Category
+  categoryId: String
   DetailInformation(cursor: DetailInformationWhereUniqueInput, distinct: [DetailInformationScalarFieldEnum!], orderBy: [DetailInformationOrderByWithRelationInput!], skip: Int, take: Int, where: DetailInformationWhereInput): [DetailInformation!]!
   emoji: String
   id: ID!
   name: String!
-  type: TagType!
 }
 
 input TagAvgOrderByAggregateInput {
@@ -13126,24 +13213,42 @@ input TagAvgOrderByAggregateInput {
 }
 
 input TagCountOrderByAggregateInput {
+  categoryId: SortOrder
   emoji: SortOrder
   id: SortOrder
   name: SortOrder
-  type: SortOrder
 }
 
 input TagCreateInput {
+  Category: CategoryCreateNestedOneWithoutTagsInput
   DetailInformation: DetailInformationCreateNestedManyWithoutTagsInput
   emoji: String
   name: String!
-  type: TagType!
 }
 
-input TagCreateManyInput {
+input TagCreateManyCategoryInput {
   emoji: String
   id: Int
   name: String!
-  type: TagType!
+}
+
+input TagCreateManyCategoryInputEnvelope {
+  data: [TagCreateManyCategoryInput!]!
+  skipDuplicates: Boolean
+}
+
+input TagCreateManyInput {
+  categoryId: String
+  emoji: String
+  id: Int
+  name: String!
+}
+
+input TagCreateNestedManyWithoutCategoryInput {
+  connect: [TagWhereUniqueInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutCategoryInput!]
+  create: TagCreateWithoutCategoryInput
+  createMany: TagCreateManyCategoryInputEnvelope
 }
 
 input TagCreateNestedManyWithoutDetailInformationInput {
@@ -13152,15 +13257,26 @@ input TagCreateNestedManyWithoutDetailInformationInput {
   create: TagCreateWithoutDetailInformationInput
 }
 
+input TagCreateOrConnectWithoutCategoryInput {
+  create: TagCreateWithoutCategoryInput!
+  where: TagWhereUniqueInput!
+}
+
 input TagCreateOrConnectWithoutDetailInformationInput {
   create: TagCreateWithoutDetailInformationInput!
   where: TagWhereUniqueInput!
 }
 
-input TagCreateWithoutDetailInformationInput {
+input TagCreateWithoutCategoryInput {
+  DetailInformation: DetailInformationCreateNestedManyWithoutTagsInput
   emoji: String
   name: String!
-  type: TagType!
+}
+
+input TagCreateWithoutDetailInformationInput {
+  Category: CategoryCreateNestedOneWithoutTagsInput
+  emoji: String
+  name: String!
 }
 
 input TagListRelationFilter {
@@ -13170,17 +13286,17 @@ input TagListRelationFilter {
 }
 
 input TagMaxOrderByAggregateInput {
+  categoryId: SortOrder
   emoji: SortOrder
   id: SortOrder
   name: SortOrder
-  type: SortOrder
 }
 
 input TagMinOrderByAggregateInput {
+  categoryId: SortOrder
   emoji: SortOrder
   id: SortOrder
   name: SortOrder
-  type: SortOrder
 }
 
 input TagOrderByRelationAggregateInput {
@@ -13193,67 +13309,76 @@ input TagOrderByWithAggregationInput {
   _max: TagMaxOrderByAggregateInput
   _min: TagMinOrderByAggregateInput
   _sum: TagSumOrderByAggregateInput
+  categoryId: SortOrder
   emoji: SortOrder
   id: SortOrder
   name: SortOrder
-  type: SortOrder
 }
 
 input TagOrderByWithRelationInput {
+  Category: CategoryOrderByWithRelationInput
+  categoryId: SortOrder
   DetailInformation: DetailInformationOrderByRelationAggregateInput
   emoji: SortOrder
   id: SortOrder
   name: SortOrder
-  type: SortOrder
 }
 
 enum TagScalarFieldEnum {
+  categoryId
   emoji
   id
   name
-  type
 }
 
 input TagScalarWhereInput {
   AND: [TagScalarWhereInput!]
+  categoryId: StringNullableFilter
   emoji: StringNullableFilter
   id: IntFilter
   name: StringFilter
   NOT: [TagScalarWhereInput!]
   OR: [TagScalarWhereInput!]
-  type: EnumTagTypeFilter
 }
 
 input TagScalarWhereWithAggregatesInput {
   AND: [TagScalarWhereWithAggregatesInput!]
+  categoryId: StringNullableWithAggregatesFilter
   emoji: StringNullableWithAggregatesFilter
   id: IntWithAggregatesFilter
   name: StringWithAggregatesFilter
   NOT: [TagScalarWhereWithAggregatesInput!]
   OR: [TagScalarWhereWithAggregatesInput!]
-  type: EnumTagTypeWithAggregatesFilter
 }
 
 input TagSumOrderByAggregateInput {
   id: SortOrder
 }
 
-enum TagType {
-  ACTIVITY
-  TYPE
-}
-
 input TagUpdateInput {
+  Category: CategoryUpdateOneWithoutTagsNestedInput
   DetailInformation: DetailInformationUpdateManyWithoutTagsNestedInput
   emoji: NullableStringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  type: EnumTagTypeFieldUpdateOperationsInput
 }
 
 input TagUpdateManyMutationInput {
   emoji: NullableStringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  type: EnumTagTypeFieldUpdateOperationsInput
+}
+
+input TagUpdateManyWithoutCategoryNestedInput {
+  connect: [TagWhereUniqueInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutCategoryInput!]
+  create: TagCreateWithoutCategoryInput
+  createMany: TagCreateManyCategoryInputEnvelope
+  delete: [TagWhereUniqueInput!]
+  deleteMany: [TagScalarWhereInput!]
+  disconnect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutCategoryInput!]
+  updateMany: [TagUpdateManyWithWhereWithoutCategoryInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutCategoryInput!]
 }
 
 input TagUpdateManyWithoutDetailInformationNestedInput {
@@ -13269,19 +13394,41 @@ input TagUpdateManyWithoutDetailInformationNestedInput {
   upsert: [TagUpsertWithWhereUniqueWithoutDetailInformationInput!]
 }
 
+input TagUpdateManyWithWhereWithoutCategoryInput {
+  data: TagUpdateManyMutationInput!
+  where: TagScalarWhereInput!
+}
+
 input TagUpdateManyWithWhereWithoutDetailInformationInput {
   data: TagUpdateManyMutationInput!
   where: TagScalarWhereInput!
 }
 
-input TagUpdateWithoutDetailInformationInput {
+input TagUpdateWithoutCategoryInput {
+  DetailInformation: DetailInformationUpdateManyWithoutTagsNestedInput
   emoji: NullableStringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  type: EnumTagTypeFieldUpdateOperationsInput
+}
+
+input TagUpdateWithoutDetailInformationInput {
+  Category: CategoryUpdateOneWithoutTagsNestedInput
+  emoji: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutCategoryInput {
+  data: TagUpdateWithoutCategoryInput!
+  where: TagWhereUniqueInput!
 }
 
 input TagUpdateWithWhereUniqueWithoutDetailInformationInput {
   data: TagUpdateWithoutDetailInformationInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutCategoryInput {
+  create: TagCreateWithoutCategoryInput!
+  update: TagUpdateWithoutCategoryInput!
   where: TagWhereUniqueInput!
 }
 
@@ -13293,13 +13440,14 @@ input TagUpsertWithWhereUniqueWithoutDetailInformationInput {
 
 input TagWhereInput {
   AND: [TagWhereInput!]
+  Category: CategoryWhereInput
+  categoryId: StringNullableFilter
   DetailInformation: DetailInformationListRelationFilter
   emoji: StringNullableFilter
   id: IntFilter
   name: StringFilter
   NOT: [TagWhereInput!]
   OR: [TagWhereInput!]
-  type: EnumTagTypeFilter
 }
 
 input TagWhereUniqueInput {

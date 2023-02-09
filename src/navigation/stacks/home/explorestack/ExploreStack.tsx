@@ -54,26 +54,17 @@ function ExploreStack() {
 									/>
 								)}
 								<ExploreSearchInputDisabled
-									onPress={
-										() =>
-											navigation.navigate('HomeTabNavigator', {
-												screen: 'ExploreStack',
+									onPress={() =>
+										navigation.navigate('HomeTabNavigator', {
+											screen: 'ExploreStack',
+											params: {
+												screen: 'SearchTextScreen',
 												params: {
-													screen: 'SearchTextScreen',
-													params: {
-														searchText: '',
-														data: [],
-													},
+													searchText: '',
+													data: [],
 												},
-											})
-										// navigation.dispatch(
-										// 	StackActions.push('HomeTabNavigator', {
-										// 		screen: 'ExploreStack',
-										// 		params: {
-										// 			screen: 'SearchTextScreen',
-										// 		},
-										// 	}),
-										// )
+											},
+										})
 									}
 								/>
 							</VStack>

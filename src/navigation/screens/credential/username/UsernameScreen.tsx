@@ -119,7 +119,6 @@ const UsernameScreen = () => {
 							value={value}
 							key='username'
 							placeholder='Username'
-							variant={'underlined'}
 							keyboardAppearance={colorScheme}
 							onChangeText={onChange}
 							onSubmitEditing={handleSubmit(onSubmit)}
@@ -129,9 +128,10 @@ const UsernameScreen = () => {
 							textContentType='username'
 							autoComplete='username-new'
 							returnKeyType='done'
+							variant={'underlined'}
 							py={2}
 							_input={{
-								fontSize: '2xl',
+								fontSize: 'xl',
 								fontWeight: 'medium',
 							}}
 							size={'lg'}
