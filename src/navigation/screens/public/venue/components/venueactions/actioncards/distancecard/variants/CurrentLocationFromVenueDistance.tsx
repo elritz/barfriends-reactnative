@@ -3,9 +3,8 @@ import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
 import { FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
-import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { useCurrentVenueLazyQuery, useCurrentVenueQuery } from '@graphql/generated'
-import { cache } from '@library/apollo/cache'
+import { MaterialIcons } from '@expo/vector-icons'
+import { useCurrentVenueQuery } from '@graphql/generated'
 import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useIsFocused, useRoute } from '@react-navigation/native'
 import {
@@ -18,7 +17,7 @@ import { LocationAccuracy } from 'expo-location'
 import * as TaskManager from 'expo-task-manager'
 import { getDistance } from 'geolib'
 import { MotiView } from 'moti'
-import { Box, Button, Heading, Icon, Spinner, Text, View, useDisclose, useTheme } from 'native-base'
+import { Box, Button, Heading, Icon, Text, View, useDisclose, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
@@ -100,7 +99,6 @@ const CurrentLocationFromVenueDistance = () => {
 			console.log('error :>> ', error)
 		},
 		onCompleted: data => {
-			console.log('data?.currentVenue?.distanceInM :>> ', data?.currentVenue?.distanceInM)
 			if (data?.currentVenue?.distanceInM) {
 				if (data?.currentVenue?.distanceInM > 1000) {
 					const val = parseInt((data.currentVenue?.distanceInM / 1000).toFixed(1))
@@ -111,7 +109,7 @@ const CurrentLocationFromVenueDistance = () => {
 					setMetric('m')
 				}
 			}
-			setTimeout(() => setLoading(false), 3000)
+			setTimeout(() => setLoading(false), 2000)
 		},
 	})
 
@@ -135,21 +133,17 @@ const CurrentLocationFromVenueDistance = () => {
 				)
 				if (data?.currentVenue) {
 					console.log('update', dist)
-					// cache.modify({
-					// 	id: cache.identify(data.currentVenue),
-					// 	fields: {
-					// 		distanceInM: (existingFieldData, { toReference }) => {
-					// 			// return dist
-					// 			return '55000'
-					// 		},
-					// 	},
-					// })
 				}
 				if (dist > 1000) {
 					const val = parseInt((dist / 1000).toFixed(1))
+
 					setDistance(val)
 					setMetric('km')
 				} else {
+					console.log(
+						'🚀 ~ file: CurrentLocationFromVenueDistance.tsx:142 ~ getDistanceFromVenue ~ dist',
+						dist,
+					)
 					setDistance(dist)
 					setMetric('m')
 				}
@@ -177,6 +171,7 @@ const CurrentLocationFromVenueDistance = () => {
 				// 	},
 				// })
 			}
+
 			if (dist > 1000) {
 				const val = parseInt((dist / 1000).toFixed(1))
 				setDistance(val)
@@ -186,7 +181,7 @@ const CurrentLocationFromVenueDistance = () => {
 				setMetric('m')
 			}
 		}
-		setTimeout(() => setLoading(false), 3000)
+		setTimeout(() => setLoading(false), 2000)
 	}
 
 	const appStateHandleForegroundLocation = async nextAppState => {
@@ -327,12 +322,12 @@ const CurrentLocationFromVenueDistance = () => {
 				<Button
 					variant={'ghost'}
 					size={'xs'}
-					onPress={async () =>
+					onPress={async () => {
 						await getDistanceFromVenue({
 							vlat: Number(route.params.latitude),
 							vlng: Number(route.params.longitude),
 						})
-					}
+					}}
 					position={'absolute'}
 					alignSelf={'center'}
 					bottom={1}

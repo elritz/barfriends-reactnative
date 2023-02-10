@@ -24,8 +24,7 @@ export type RootNavigatorParamList = {
 	HomeTabNavigator: NavigatorScreenParams<HomeTabNavigatorParamList> | undefined
 	CredentialNavigator: NavigatorScreenParams<CredentialNavigatorParamList> | undefined
 	PermissionNavigator: NavigatorScreenParams<PermissionNavigatorParamList> | undefined
-	SettingsNavigator: NavigatorScreenParams<SettingsNavigatorParamList> | undefined
-	ProfileEditorNavigator: NavigatorScreenParams<ProfileEditorNavigatorParamList> | undefined
+	ProfileSettingsNavigator: NavigatorScreenParams<ProfileSettingsNavigatorParamList> | undefined
 	PublicNavigator: NavigatorScreenParams<PublicNavigatorParamList> | undefined
 	ModalNavigator: NavigatorScreenParams<ModalNavigatorParamList> | undefined
 	MessageRoomNavigator: NavigatorScreenParams<MessageRoomNavigatorParamList> | undefined
@@ -45,7 +44,15 @@ export type ModalNavigatorParamList = {
 	NotFound: undefined
 }
 
-export type ProfileEditorNavigatorParamList = {
+export type ProfileSettingsNavigatorParamList = {
+	ProfileSettingsOptionsScreen: undefined
+	NotificationsSettingsScreen: undefined
+	SecuritySettingsScreen: undefined
+	AppearanceSettingsScreen: undefined
+	ProfileEditorStack: NavigatorScreenParams<ProfileEditorStackParamList> | undefined
+}
+
+export type ProfileEditorStackParamList = {
 	EditableOptionsScreen: undefined
 	NamesScreen: undefined
 	EmojimoodScreen: undefined
@@ -59,10 +66,6 @@ export type ProfileEditorNavigatorParamList = {
 	SexualPreferenceScreen: undefined
 	HometownScreen: undefined
 	CurentPlaceScreen: undefined
-}
-
-export type SettingsNavigatorParamList = {
-	TermsServicePrivacyTabStack: NavigatorScreenParams<TermsServicePrivacyTabStackParamList>
 }
 
 export type PermissionNavigatorParamList = {

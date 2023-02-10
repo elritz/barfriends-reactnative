@@ -1,10 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import { useGetAllCountriesQuery } from '@graphql/generated'
-import {
-	Form,
-	HorizontalCountryItemProps,
-} from '@navigation/stacks/searchareastack/SearchAreaStack'
+import { Form, HorizontalCountryItemProps } from '@navigation/stacks/searcharea/SearchAreaStack'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
 import { filter } from 'lodash'

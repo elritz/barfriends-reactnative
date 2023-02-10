@@ -4,15 +4,12 @@ import { useProfileQuery } from '@graphql/generated'
 import { StackActions, useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Badge, Box, HStack, Heading, Icon, Text, VStack } from 'native-base'
-import { useContext } from 'react'
 import { ScrollView, Pressable } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 interface EditableOptionsScreenProps {}
 const interests = ['🐶 Dog lover', '🍻 Drinking', '🎤 Singing', '🔥 Athletics', '🏓 Ping pong']
 
-const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
-	const themeContext = useContext(ThemeContext)
+const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
@@ -72,8 +69,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() => {
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'NamesScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'NamesScreen',
+							},
 						}),
 					)
 				}}
@@ -91,9 +91,14 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'UsernameScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'UsernameScreen',
+							},
+						}),
+					)
 				}
 				title='Username'
 			>
@@ -110,8 +115,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'DescriptionScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'DescriptionScreen',
+							},
 						}),
 					)
 				}
@@ -126,8 +134,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'InterestScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'InterestScreen',
+							},
 						}),
 					)
 				}
@@ -137,8 +148,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 					<Pressable
 						onPress={() =>
 							navigation.dispatch(
-								StackActions.push('ProfileEditorNavigator', {
-									screen: 'InterestScreen',
+								StackActions.push('ProfileSettingsNavigator', {
+									screen: 'ProfileEditorStack',
+									params: {
+										screen: 'InterestScreen',
+									},
 								}),
 							)
 						}
@@ -171,8 +185,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'GenderScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'GenderScreen',
+							},
 						}),
 					)
 				}
@@ -185,9 +202,14 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('ProfileEditorNavigator', {
-						screen: 'LookingForScreen',
-					})
+					navigation.dispatch(
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'LookingForScreen',
+							},
+						}),
+					)
 				}
 				title={`I'm looking for a ...`}
 			>
@@ -199,8 +221,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'StatusScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'StatusScreen',
+							},
 						}),
 					)
 				}
@@ -211,8 +236,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'HometownScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'HometownScreen',
+							},
 						}),
 					)
 				}
@@ -223,8 +251,11 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					navigation.dispatch(
-						StackActions.push('ProfileEditorNavigator', {
-							screen: 'CurentPlaceScreen',
+						StackActions.push('ProfileSettingsNavigator', {
+							screen: 'ProfileEditorStack',
+							params: {
+								screen: 'CurentPlaceScreen',
+							},
 						}),
 					)
 				}
@@ -236,4 +267,4 @@ const EditableOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	)
 }
 
-export default EditableOptionsScreen
+export default ProfileEditorOptionsScreen

@@ -21,7 +21,7 @@ const linking: LinkingOptions<RootNavigatorParamList> = {
 	config: {
 		screens: {
 			PermissionNavigator: {},
-			ProfileEditorNavigator: {},
+			ProfileSettingsNavigator: {},
 			ModalNavigator: {},
 			PublicNavigator: {
 				path: 'publicnavigator',

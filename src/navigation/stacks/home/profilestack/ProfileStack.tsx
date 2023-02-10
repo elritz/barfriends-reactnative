@@ -1,13 +1,20 @@
 import { useReactiveVar } from '@apollo/client'
 import { FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import {
+	BottomSheetModal,
+	BottomSheetScrollView,
+	useBottomSheetDynamicSnapPoints,
+} from '@gorhom/bottom-sheet'
 import UserProfileScreen from '@navigation/screens/hometabs/profile/Profile'
+import ProfileSettingsOptionsScreen from '@navigation/screens/settings/profilesettingoptions/ProfileSettingsOptionsScreen'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AuthorizationReactiveVar } from '@reactive'
 import { ProfileTabStackParamList } from '@types'
 import * as Haptics from 'expo-haptics'
 import { HStack, Icon, IconButton, Pressable, Text, useColorMode, useTheme } from 'native-base'
-import { View } from 'react-native'
+import { useCallback, useMemo, useRef } from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
 
 // TODO: UX(need to navigate to a setting page for application level setting ie Push Notifications, Location, Network History Deletion)
 
@@ -34,31 +41,36 @@ function PublicPersonalStackNavigation() {
 					backgroundColor:
 						colorScheme.colorMode === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
 				},
-				headerTitle: () => {
+				headerTitle: '',
+				headerLeft: () => {
 					return (
-						<Pressable onPress={onPressProfileTitle}>
-							<HStack space={2} alignItems={'center'}>
-								<Text fontWeight={'bold'} fontSize={'lg'} maxW={'165px'} ellipsizeMode={'tail'}>
-									{rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username}
-								</Text>
-								<Icon
-									as={FontAwesome}
-									name={'caret-down'}
-									size={'25px'}
-									position={'absolute'}
-									right={-20}
-								/>
-							</HStack>
-						</Pressable>
+						<>
+							{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'GUEST' ? null : (
+								<Pressable onPress={onPressProfileTitle}>
+									<HStack ml={2} space={2} alignItems={'center'}>
+										<Text fontWeight={'medium'} fontSize={'29px'} maxW={'165px'} ellipsizeMode={'tail'}>
+											{rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username}
+										</Text>
+										<Icon
+											as={Ionicons}
+											name={'chevron-down'}
+											size={'23px'}
+											position={'absolute'}
+											top={3}
+											right={-15}
+										/>
+									</HStack>
+								</Pressable>
+							)}
+						</>
 					)
 				},
-				headerLeft: () => null,
 				headerRight: () => (
 					<IconButton
 						onPress={() =>
 							navigation.dispatch(
-								StackActions.push('ProfileEditorNavigator', {
-									screen: 'EditableOptionsScreen',
+								StackActions.push('ProfileSettingsNavigator', {
+									screen: 'ProfileSettingsOptionsScreen',
 								}),
 							)
 						}

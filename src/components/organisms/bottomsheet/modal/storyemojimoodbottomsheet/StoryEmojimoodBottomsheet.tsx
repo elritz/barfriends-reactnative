@@ -8,7 +8,7 @@ import {
 	useUpdateOneProfileMutation,
 	useUpdateStoryEmojimoodMutation,
 } from '@graphql/generated'
-import EmojimoodScreen from '@navigation/screens/editors/emojimoodscreen/EmojimoodScreen'
+import EmojimoodScreen from '@navigation/screens/settings/profileeditor/emojimoodscreen/EmojimoodScreen'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'

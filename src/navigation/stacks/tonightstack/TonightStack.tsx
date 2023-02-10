@@ -1,6 +1,6 @@
 import NavigationDragIcon from '@components/atoms/icons/navigationdragicon/NavigationDragIcon'
-import EmojimoodScreen from '@navigation/screens/editors/emojimoodscreen/EmojimoodScreen'
 import TonightScreen from '@navigation/screens/hometabs/tonight/Tonight'
+import EmojimoodScreen from '@navigation/screens/settings/profileeditor/emojimoodscreen/EmojimoodScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { TonightTabStackParamList } from '@types'
 import { useForm } from 'react-hook-form'

@@ -4,8 +4,7 @@ import CredentialNavigator from '@navigation/navigators/credentialnavigator/Cred
 import HomeTabNavigator from '@navigation/navigators/hometabnavigator/HomeTabNavigator'
 import MessageRoomNavigator from '@navigation/navigators/messageroomnavigator/MessageRoomNavigator'
 import PermissionNavigator from '@navigation/navigators/permissionnavigator/PermissionNavigator'
-import ProfileEditorNavigator from '@navigation/navigators/profileeditornavigator/ProfileEditorNavigator'
-import SettingsNavigator from '@navigation/stacks/settingsstack/SettingsStack'
+import ProfileSettingsNavigator from '@navigation/navigators/profilesettingsnavigator/ProfileSettingsNavigator'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RootNavigatorParamList } from '@types'
 
@@ -16,7 +15,6 @@ function RootNavigator() {
 		<ScreenStack.Navigator screenOptions={{ headerShown: false }}>
 			<ScreenStack.Screen name='HomeTabNavigator' component={HomeTabNavigator} />
 			<ScreenStack.Screen name='CredentialNavigator' component={CredentialNavigator} />
-			<ScreenStack.Screen name='SettingsNavigator' component={SettingsNavigator} />
 			<ScreenStack.Screen
 				name='PermissionNavigator'
 				component={PermissionNavigator}
@@ -31,7 +29,7 @@ function RootNavigator() {
 					presentation: 'modal',
 				}}
 			/>
-			<ScreenStack.Screen name='ProfileEditorNavigator' component={ProfileEditorNavigator} />
+			<ScreenStack.Screen name='ProfileSettingsNavigator' component={ProfileSettingsNavigator} />
 			<ScreenStack.Screen name='MessageRoomNavigator' component={MessageRoomNavigator} />
 			<ScreenStack.Screen name='PublicNavigator' component={PublicNavigator} />
 		</ScreenStack.Navigator>

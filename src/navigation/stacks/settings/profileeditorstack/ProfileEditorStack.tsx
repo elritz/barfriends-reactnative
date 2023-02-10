@@ -1,26 +1,25 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import BirthdayScreen from '@navigation/screens/editors/birthdayscreen/BirthdayScreen'
-import CurrentPlacceScreen from '@navigation/screens/editors/currentplacescreen/CurrentPlacceScreen'
-import DescriptionScreen from '@navigation/screens/editors/descriptionscreen/DescriptionScreen'
-import EditableOptionsScreen from '@navigation/screens/editors/editableoptionsscreen/EditableOptionsScreen'
-import EmojimoodScreen from '@navigation/screens/editors/emojimoodscreen/EmojimoodScreen'
-import GenderScreen from '@navigation/screens/editors/genderscreen/GenderScreen'
-import HomeTownScreen from '@navigation/screens/editors/hometownscreen/HomeTownScreen'
-import InterestScreen from '@navigation/screens/editors/interestscreen/InterestScreen'
-import LookingForScreen from '@navigation/screens/editors/lookingforscreen/LookingForScreen'
-import NamesScreen from '@navigation/screens/editors/namesscreen/NamesScreen'
-import SexualPreferenceScreen from '@navigation/screens/editors/sexualpreferencescreen/SexualPreferenceScreen'
-import StatusScreen from '@navigation/screens/editors/statusscreen/StatusScreen'
-import UsernameScreen from '@navigation/screens/editors/usernamescreen/UsernameScreen'
+import BirthdayScreen from '@navigation/screens/settings/profileeditor/birthdayscreen/BirthdayScreen'
+import CurrentPlacceScreen from '@navigation/screens/settings/profileeditor/currentplacescreen/CurrentPlacceScreen'
+import DescriptionScreen from '@navigation/screens/settings/profileeditor/descriptionscreen/DescriptionScreen'
+import EditableOptionsScreen from '@navigation/screens/settings/profileeditor/editableoptionsscreen/EditableOptionsScreen'
+import EmojimoodScreen from '@navigation/screens/settings/profileeditor/emojimoodscreen/EmojimoodScreen'
+import GenderScreen from '@navigation/screens/settings/profileeditor/genderscreen/GenderScreen'
+import HomeTownScreen from '@navigation/screens/settings/profileeditor/hometownscreen/HomeTownScreen'
+import InterestScreen from '@navigation/screens/settings/profileeditor/interestscreen/InterestScreen'
+import LookingForScreen from '@navigation/screens/settings/profileeditor/lookingforscreen/LookingForScreen'
+import NamesScreen from '@navigation/screens/settings/profileeditor/namesscreen/NamesScreen'
+import SexualPreferenceScreen from '@navigation/screens/settings/profileeditor/sexualpreferencescreen/SexualPreferenceScreen'
+import StatusScreen from '@navigation/screens/settings/profileeditor/statusscreen/StatusScreen'
+import UsernameScreen from '@navigation/screens/settings/profileeditor/usernamescreen/UsernameScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { ProfileEditorNavigatorParamList } from '@types'
-import { Box, Heading, useColorMode, useTheme } from 'native-base'
-import { View } from 'react-native'
+import { ProfileEditorStackParamList } from '@types'
+import { useColorMode, useTheme } from 'native-base'
 
-const ScreenStack = createNativeStackNavigator<ProfileEditorNavigatorParamList>()
+const ScreenStack = createNativeStackNavigator<ProfileEditorStackParamList>()
 
-function ProfileProfileEditorNavigator() {
+function ProfileEditorStack() {
 	const theme = useTheme()
 	const colorScheme = useColorMode()
 
@@ -31,6 +30,7 @@ function ProfileProfileEditorNavigator() {
 					backgroundColor:
 						colorScheme.colorMode === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
 				},
+				headerShown: false,
 				headerTitle: () => <LogoTransparent height={30} width={192} />,
 				headerLeft: () => <ChevronBackArrow />,
 			}}
@@ -139,4 +139,4 @@ function ProfileProfileEditorNavigator() {
 	)
 }
 
-export default ProfileProfileEditorNavigator
+export default ProfileEditorStack

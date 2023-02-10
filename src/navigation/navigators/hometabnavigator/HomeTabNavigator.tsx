@@ -10,7 +10,7 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
 import { ENVIRONMENT } from '@env'
-import DevelopmentStack from '@navigation/stacks/development/DevelopmentStack'
+import DevelopmentStack from '@navigation/stacks/developmentstack/DevelopmentStack'
 import ExploreStack from '@navigation/stacks/home/explorestack/ExploreStack'
 import MessagesStack from '@navigation/stacks/home/messagestack/MessagesStack'
 import ProfileStack from '@navigation/stacks/home/profilestack/ProfileStack'
