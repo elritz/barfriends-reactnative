@@ -48,7 +48,7 @@ function PublicPersonalStackNavigation() {
 							{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'GUEST' ? null : (
 								<Pressable onPress={onPressProfileTitle}>
 									<HStack ml={2} space={2} alignItems={'center'}>
-										<Text fontWeight={'medium'} fontSize={'29px'} maxW={'165px'} ellipsizeMode={'tail'}>
+										<Text fontWeight={'medium'} fontSize={'24px'} maxW={'165px'} ellipsizeMode={'tail'}>
 											{rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username}
 										</Text>
 										<Icon
@@ -56,7 +56,7 @@ function PublicPersonalStackNavigation() {
 											name={'chevron-down'}
 											size={'23px'}
 											position={'absolute'}
-											top={3}
+											top={2}
 											right={-15}
 										/>
 									</HStack>

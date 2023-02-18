@@ -7,8 +7,7 @@ import { VStack, Heading, HStack, Icon, IconButton, Box, View, Pressable } from 
 export default function VenuesFeedSearchAreaHeader() {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const navigation = useNavigation()
-
-	if (!rSearchAreaVar?.city) return null
+	if (!rSearchAreaVar?.searchArea.city.name) return null
 
 	return (
 		<VStack alignItems={'flex-start'} mx={2} mb={3}>
@@ -25,7 +24,7 @@ export default function VenuesFeedSearchAreaHeader() {
 
 				<HStack alignItems={'flex-start'} space={1} mb={1}>
 					<Heading mt={'-5px'} lineHeight={'xs'} size={'2xl'} fontWeight={'black'} numberOfLines={1}>
-						{rSearchAreaVar?.city}
+						{rSearchAreaVar?.searchArea.city.name}
 					</Heading>
 					{rSearchAreaVar?.useCurrentLocation && (
 						<View

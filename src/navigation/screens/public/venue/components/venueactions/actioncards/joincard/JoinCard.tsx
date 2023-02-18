@@ -1,10 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
-import {
-	useAddPersonalJoinsVenueMutation,
-	useProfileLazyQuery,
-	useRemovePersonalJoinsVenueMutation,
-} from '@graphql/generated'
+import { useAddPersonalJoinsVenueMutation } from '@graphql/generated'
 import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -37,17 +33,18 @@ export default function JoinCard() {
 
 	useEffect(() => {
 		const totaledToVenue =
-			rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
+			rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
 				return item.venueProfileId
 			})
-
-		setIsJoined(totaledToVenue.includes(route.params.profileId))
+		if (totaledToVenue) {
+			setIsJoined(totaledToVenue.includes(route.params.profileId))
+		}
 	}, [])
 
 	return (
 		<VStack alignItems={'center'} justifyContent={'space-around'} space={3}>
-			<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
-				You've arrived!{'\n'}
+			<Heading fontSize={'md'} fontWeight={'900'} textAlign={'center'} textTransform={'uppercase'}>
+				You've{'\n'}arrived!{'\n'}
 				<Heading color={'green.500'} fontWeight={'900'}>
 					join now
 				</Heading>

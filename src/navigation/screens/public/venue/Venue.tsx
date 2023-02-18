@@ -65,50 +65,50 @@ const VenueScreen = (props: any) => {
 	const username = venueData.IdentifiableInformation?.username
 
 	return (
-		<SafeAreaView>
-			<FlatList
-				data={[]}
-				numColumns={2}
-				showsVerticalScrollIndicator={false}
-				ListHeaderComponent={
-					<VStack mb={5}>
-						<VenueHeader key={'abc'} loading={loading} photos={data.currentVenue?.photos} />
-						<Box
-							key={'edf'}
-							_light={{
-								bg: 'light.50',
-							}}
-							_dark={{
-								bg: 'dark.50',
-							}}
-							py={4}
-							borderBottomRadius={'lg'}
-						>
-							<Box px={2}>
-								<Heading size={'md'} numberOfLines={1}>
-									{name}
-								</Heading>
-								<Heading size={'sm'} fontWeight={900} numberOfLines={1}>
-									@{username}
-								</Heading>
-							</Box>
-							<VenueTotals />
+		// <SafeAreaView>
+		<FlatList
+			data={[]}
+			numColumns={2}
+			showsVerticalScrollIndicator={false}
+			ListHeaderComponent={
+				<VStack mb={5}>
+					<VenueHeader key={'abc'} loading={loading} photos={data.currentVenue?.photos} />
+					<Box
+						key={'edf'}
+						_light={{
+							bg: 'light.50',
+						}}
+						_dark={{
+							bg: 'dark.50',
+						}}
+						py={4}
+						borderBottomRadius={'lg'}
+					>
+						<Box px={2}>
+							<Heading size={'md'} numberOfLines={1}>
+								{name}
+							</Heading>
+							<Heading size={'sm'} fontWeight={900} numberOfLines={1}>
+								@{username}
+							</Heading>
 						</Box>
-						{/* <LocationPermissionCard /> */}
-						<VenueActions key={'kol'} />
-					</VStack>
-				}
-				ListEmptyComponent={!loading && <HandleEmpty />}
-				columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
-				contentContainerStyle={{ flexGrow: 1 }}
-				ListFooterComponent={<Details tags={venueData?.DetailInformation?.Tags} />}
-				keyExtractor={item => item}
-				renderItem={item => <PersonalAtVenue item={item} />}
-				contentInset={{
-					bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-				}}
-			/>
-		</SafeAreaView>
+						<VenueTotals />
+					</Box>
+					{/* <LocationPermissionCard /> */}
+					<VenueActions key={'kol'} />
+				</VStack>
+			}
+			ListEmptyComponent={!loading && <HandleEmpty />}
+			columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
+			contentContainerStyle={{ flexGrow: 1 }}
+			ListFooterComponent={<Details tags={venueData?.DetailInformation?.Tags} />}
+			keyExtractor={item => item}
+			renderItem={item => <PersonalAtVenue item={item} />}
+			contentInset={{
+				bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+			}}
+		/>
+		// </SafeAreaView>
 	)
 }
 

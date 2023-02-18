@@ -216,7 +216,7 @@ const Navigation = () => {
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
 			onError: error => {
-				console.log('error', error)
+				console.log('error =====>', error)
 			},
 			onCompleted: async data => {
 				const deviceManager = data.createADeviceManager as ClientDeviceManager

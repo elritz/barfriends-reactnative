@@ -6,9 +6,6 @@ const useCloudinaryImageUploading = async (photo: string): Promise<any> => {
 		base64: true,
 	})
 
-	// const cloudName = 'yourCloud'
-	// const uploadPreset = 'yourPreset'
-	// const url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`
 	const base64Img = `data:image/jpg;base64,${base64}`
 	const CloudinaryURL = 'https://api.cloudinary.com/v1_1/ritz/image/upload'
 
@@ -29,6 +26,7 @@ const useCloudinaryImageUploading = async (photo: string): Promise<any> => {
 			return data
 		})
 		.catch(err => err)
+
 	return cloudinaryData
 }
 

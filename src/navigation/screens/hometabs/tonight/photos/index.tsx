@@ -3,6 +3,8 @@ import { useReactiveVar } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Maybe, Photo, Story } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
+import useCloudinaryMultipleImageUploading from '@util/uploading/useCloudinaryURLGenerator'
 import * as ImagePicker from 'expo-image-picker'
 import { MotiView } from 'moti'
 import {
@@ -50,18 +52,35 @@ export default function Photos() {
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
 		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			presentationStyle: ImagePicker.UIImagePickerPresentationStyle.FULL_SCREEN,
+			selectionLimit: 4,
 			aspect: [4, 3],
 			allowsMultipleSelection: true,
 			quality: 1,
 		})
-
 		// console.log('PICTURE RESULTS', JSON.stringify(result.assets, null, 4))
-		result.assets.map(item => {
-			console.log('item.uri', item.uri)
-		})
+		if (result.assets) {
+			const resultSettled = await Promise.allSettled(
+				result.assets.map(async item => {
+					const { secure_url } = await useCloudinaryImageUploading(item.uri)
+
+					return secure_url
+				}),
+			)
+
+			console.log('🚀 ~ file: index.tsx:80 ~ resultSettled.map ~ resultSettled', resultSettled)
+			resultSettled.map((item, index) => {
+				console.log('🚀 ~ file: index.tsx:74 ~ resultSettled.map ~ index', index)
+
+				if (item.status === 'fulfilled') {
+					return item.value
+				}
+			})
+		}
 	}
+
+	const getGitHubUser = async (usernames: []) => {}
 
 	const scrollHandler = useAnimatedScrollHandler({
 		onScroll: event => {

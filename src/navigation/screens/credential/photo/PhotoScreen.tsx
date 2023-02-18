@@ -123,12 +123,6 @@ const PhotoScreen = () => {
 				},
 			})
 			setImageUploading(false)
-			navigation.navigate('CredentialNavigator', {
-				screen: 'PersonalCredentialStack',
-				params: {
-					screen: 'EmojimoodScreen',
-				},
-			})
 		}
 	}
 

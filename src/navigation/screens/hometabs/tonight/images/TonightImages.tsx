@@ -45,71 +45,15 @@ const TonightImages = () => {
 	const handleSelectImage = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			base64: true,
 			allowsEditing: false,
 			aspect: [1, 1],
 			quality: 1,
 		})
 
-		if (!result.cancelled) {
-			const { base64 } = await ImageManipulator.manipulateAsync(
-				result.uri,
-				[{ resize: { width: 300, height: 300 } }],
-				{ compress: 0.6, base64: true },
-			)
+		console.log('🚀 ~ file: TonightImages.tsx:53 ~ handleSelectImage ~ result', result)
 
-			const CloudinaryURL = 'https://api.cloudinary.com/v1_1/ritz/image/upload'
-			const base64Img = `data:image/jpg;base64,${base64}`
-			const data = { file: base64Img, upload_preset: 'barfriends' }
-
-			await fetch(CloudinaryURL, {
-				body: JSON.stringify(data),
-				headers: {
-					'content-type': 'application/json',
-				},
-				method: 'POST',
-			})
-				.then(async r => {
-					const data = await r
-						.json()
-						.then(res => {
-							console.log('TODO: ===========>', res)
-							// ===========> Object {
-							// 	"access_mode": "public",
-							// 	"asset_id": "71f1571bc20005e90d13992cf003e3ce",
-							// 	"bytes": 11386,
-							// 	"created_at": "2022-10-30T17:02:14Z",
-							// 	"eager": Array [
-							// 		Object {
-							// 			"bytes": 29947,
-							// 			"format": "jpg",
-							// 			"height": 1000,
-							// 			"secure_url": "https://res.cloudinary.com/ritz/image/upload/c_scale,w_1000/v1667149334/barfriends/users/plldjwri3nldpgrgmlrm.jpg",
-							// 			"transformation": "c_scale,w_1000",
-							// 			"url": "http://res.cloudinary.com/ritz/image/upload/c_scale,w_1000/v1667149334/barfriends/users/plldjwri3nldpgrgmlrm.jpg",
-							// 			"width": 1000,
-							// 		},
-							// 	],
-							// 	"etag": "00ea73743ec6c27509201822fbdd0345",
-							// 	"folder": "barfriends/users",
-							// 	"format": "jpg",
-							// 	"height": 500,
-							// 	"placeholder": false,
-							// 	"public_id": "barfriends/users/plldjwri3nldpgrgmlrm",
-							// 	"resource_type": "image",
-							// 	"secure_url": "https://res.cloudinary.com/ritz/image/upload/v1667149334/barfriends/users/plldjwri3nldpgrgmlrm.jpg",
-							// 	"signature": "976a7e687fea2c85742236f3c9b0d2179eb1fc40",
-							// 	"tags": Array [],
-							// 	"type": "upload",
-							// 	"url": "http://res.cloudinary.com/ritz/image/upload/v1667149334/barfriends/users/plldjwri3nldpgrgmlrm.jpg",
-							// 	"version": 1667149334,
-							// 	"version_id": "4c8dee2cc09c2215ef1edba5c9ede570",
-							// 	"width": 500,
-							// }
-						})
-						.catch(err => {})
-				})
-				.catch(err => err)
-		}
+		// useCloudinaryImageUploading([])
 	}
 
 	return (

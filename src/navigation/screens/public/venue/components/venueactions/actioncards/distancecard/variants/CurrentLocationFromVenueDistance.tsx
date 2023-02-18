@@ -244,7 +244,7 @@ const CurrentLocationFromVenueDistance = () => {
 
 	return (
 		<>
-			{metric === 'm' && distance && distance > 10 ? (
+			{distance && distance > 10 ? (
 				<>{rAuthorizationVar?.DeviceProfile?.Profile ? <JoinCard /> : <SignupCard />}</>
 			) : (
 				<>
@@ -316,24 +316,24 @@ const CurrentLocationFromVenueDistance = () => {
 							</Box>
 						</Box>
 					)}
+					{!isLoading && (
+						<Button
+							variant={'ghost'}
+							size={'xs'}
+							onPress={async () => {
+								await getDistanceFromVenue({
+									vlat: Number(route.params.latitude),
+									vlng: Number(route.params.longitude),
+								})
+							}}
+							position={'absolute'}
+							alignSelf={'center'}
+							bottom={1}
+						>
+							<Text>Tap to refresh</Text>
+						</Button>
+					)}
 				</>
-			)}
-			{!isLoading && (
-				<Button
-					variant={'ghost'}
-					size={'xs'}
-					onPress={async () => {
-						await getDistanceFromVenue({
-							vlat: Number(route.params.latitude),
-							vlng: Number(route.params.longitude),
-						})
-					}}
-					position={'absolute'}
-					alignSelf={'center'}
-					bottom={1}
-				>
-					<Text>Tap to refresh</Text>
-				</Button>
 			)}
 		</>
 	)

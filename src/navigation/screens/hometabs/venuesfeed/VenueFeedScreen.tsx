@@ -81,7 +81,7 @@ const VenueFeedScreen = () => {
 	const listHeaderComponent = () => {
 		return (
 			<VStack w={'full'} space={4}>
-				{!loading && data && data?.venuesNearby && <VenuesFeedSearchAreaHeader />}
+				{/* {<VenuesFeedSearchAreaHeader />} */}
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 					<VenueFeedSignupCard />
 				)}

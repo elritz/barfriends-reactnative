@@ -13,8 +13,6 @@ export default function ProfilePhoto({ photo }: Props) {
 	const margin = 12
 	const ITEM_WIDTH = width - margin * 2
 
-	console.log(' photo?.url :>> ', photo?.url)
-
 	if (!photo?.id) {
 		return <ProfilePhotoEmptyState />
 	}
