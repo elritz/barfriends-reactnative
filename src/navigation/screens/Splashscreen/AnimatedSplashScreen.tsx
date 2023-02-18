@@ -25,12 +25,6 @@ function AnimatedSplashScreen({ children, assets }) {
 			const imageAssets = cacheImages([])
 			const fontAssets = cacheFonts([...VectorFonts])
 
-			// Load fonts
-			// await Font.loadAsync({
-			// 	// eslint-disable-next-line global-require
-			// 	'space-mono': require('../../../assets/fonts/SpaceMono-Regular.ttf'),
-			// })
-
 			await Promise.all([...imageAssets, ...fontAssets])
 		} catch (e) {
 			console.warn(e)

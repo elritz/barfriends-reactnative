@@ -478,13 +478,21 @@ const DevelopmentScreen = () => {
 		}
 	}
 
-	const onReloadPress = useCallback(() => {
+	// const onReloadPress = useCallback(() => {
+	// 	if (Platform.OS === 'web') {
+	// 		location.reload()
+	// 	} else {
+	// 		Updates.reloadAsync()
+	// 	}
+	// }, [])
+	const onReloadPress = async () => {
 		if (Platform.OS === 'web') {
 			location.reload()
 		} else {
-			Updates.reloadAsync()
+			console.log('here')
+			await Updates.reloadAsync()
 		}
-	}, [])
+	}
 
 	if (GATLoading) return null
 

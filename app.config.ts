@@ -21,41 +21,6 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					policy: 'sdkVersion',
 				},
 				jsEngine: 'hermes',
-				plugins: [
-					'sentry-expo',
-					[
-						'expo-camera',
-						{
-							locationWhenInUsePermission: 'Allow Barfriends to access your location',
-							cameraPermission: 'Allow $(PRODUCT_NAME) to access your camera',
-							microphonePermission: 'Allow $(PRODUCT_NAME) to access your microphone',
-						},
-					],
-					[
-						'expo-media-library',
-						{
-							photosPermission: 'Allow Barfriends to access your photos.',
-							savePhotosPermission: 'Allow Barfriends to save photos.',
-							isAccessMediaLocationEnabled: true,
-						},
-					],
-					[
-						'expo-build-properties',
-						{
-							android: {
-								kotlinVersion: '1.6.21',
-							},
-						},
-					],
-					[
-						'expo-notifications',
-						{
-							icon: './local/assets/notification-icon.png',
-							color: '#0d0d0d',
-							sounds: [],
-						},
-					],
-				],
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
 				icon: './src/assets/images/icon/icon.png',
@@ -165,39 +130,7 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 				runtimeVersion: {
 					policy: 'sdkVersion',
 				},
-				plugins: [
-					'sentry-expo',
-					[
-						'expo-camera',
-						{
-							locationWhenInUsePermission: 'Allow Barfriends to access your location',
-						},
-					],
-					[
-						'expo-media-library',
-						{
-							photosPermission: 'Allow Barfriends to access your photos.',
-							savePhotosPermission: 'Allow Barfriends to save photos.',
-							isAccessMediaLocationEnabled: true,
-						},
-					],
-					[
-						'expo-build-properties',
-						{
-							android: {
-								kotlinVersion: '1.6.21',
-							},
-						},
-					],
-					[
-						'expo-notifications',
-						{
-							icon: './local/assets/notification-icon.png',
-							color: '#0d0d0d',
-							sounds: [],
-						},
-					],
-				],
+
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
 				icon: './src/assets/images/icon/icon.png',
@@ -328,6 +261,22 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 							isAccessMediaLocationEnabled: true,
 						},
 					],
+					[
+						'expo-build-properties',
+						{
+							android: {
+								kotlinVersion: '1.6.21',
+							},
+						},
+					],
+					[
+						'expo-notifications',
+						{
+							icon: './local/assets/notification-icon.png',
+							color: '#0d0d0d',
+							sounds: [],
+						},
+					],
 				],
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
@@ -353,18 +302,18 @@ module.exports = (context: ConfigContext): ExpoConfig => {
 					infoPlist: {
 						LSApplicationQueriesSchemes: ['uber'],
 						NSLocationAlwaysUsageDescription:
-							'Barfriends app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
+							'$(PRODUCT_NAME) app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
 						NSLocationAlwaysAndWhenInUseUsageDescription:
-							'Barfriends app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
+							'$(PRODUCT_NAME) app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
 						NSLocationWhenInUseUsageDescription:
-							'Barfriends app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
+							'$(PRODUCT_NAME) app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
 						NSCameraUsageDescription:
-							'Barfriends app uses the camera to provide a photo for their profile.',
+							'$(PRODUCT_NAME) app uses the camera to provide a photo for their profile.',
 						NSPhotoLibraryUsageDescription:
-							'Barfriends app uses photo library to upload photos and videos.',
+							'$(PRODUCT_NAME) app uses photo library to upload photos and videos.',
 						UIBackgroundModes: ['remote-notification', 'location', 'fetch'],
 						NSPhotoLibraryAddUsageDescription:
-							'Barfriends would access your meida library, so you can add photos for your profile and other social purposes.',
+							'$(PRODUCT_NAME) would access your meida library, so you can add photos for your profile and other social purposes.',
 					},
 				},
 				android: {

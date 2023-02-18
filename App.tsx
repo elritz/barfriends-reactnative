@@ -36,5 +36,6 @@ LogBox.ignoreLogs([
 SplashScreen.preventAutoHideAsync().catch(() => {
 	/* reloading the app might trigger some race conditions, ignore them */
 })
+
 export default require('./src/index').default
 // export default Sentry.Native.wrap(require('./src/index').default)
