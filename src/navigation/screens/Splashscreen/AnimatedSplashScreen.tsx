@@ -67,7 +67,7 @@ function AnimatedSplashScreen({ children, assets }) {
 						onLoad={onImageLoaded}
 						fadeDuration={0}
 						source={
-							rThemeVar.colorScheme === 'system'
+							rThemeVar.localStorageColorScheme === 'system'
 								? deviceColorScheme === 'light'
 									? assets[0]
 									: assets[1]

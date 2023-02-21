@@ -2,7 +2,6 @@ import ExcludedCountries from '../../../constants/Countries'
 import { useReactiveVar } from '@apollo/client'
 import { ThemeReactiveVar } from '@reactive'
 import React from 'react'
-import { View } from 'react-native'
 import CountryPicker, {
 	CountryCode,
 	DARK_THEME,

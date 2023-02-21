@@ -340,7 +340,7 @@ export default function ThemeViewer() {
 					}}
 					bg={colorScheme === 'light' ? 'light.200' : 'dark.100'}
 					flex={1}
-					borderColor={rThemeVar.colorScheme === 'system' && 'primary.300'}
+					borderColor={rThemeVar.localStorageColorScheme === 'system' && 'primary.300'}
 					borderWidth={2}
 				>
 					<Text color={colorScheme === 'light' ? 'black' : 'white'}>System</Text>
@@ -352,7 +352,9 @@ export default function ThemeViewer() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery({
 		variables: {
 			where: {
-				id: rAuthorizationVar.DeviceProfile.Profile?.id,
+				id: {
+					equals: rAuthorizationVar?.DeviceProfile?.Profile?.id,
+				},
 			},
 		},
 		onCompleted: async data => {

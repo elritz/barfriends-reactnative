@@ -17,12 +17,6 @@ import {
 } from '@graphql/generated'
 import Navigator from '@navigation/navigators/Navigator'
 import {
-	LocalStoragePreferenceNotificationPermissionType,
-	LocalStoragePreferenceSearchAreaType2,
-	LocalStoragePreferenceThemeType,
-} from '@preferences'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
 	SearchAreaReactiveVar,
 	AuthorizationReactiveVar,
 	PermissionCameraReactiveVar,
@@ -53,11 +47,6 @@ const Navigation = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
-	const [assets, Aerror] = useAssets([
-		require('../assets/images/splash/splash.light.png'),
-		require('../assets/images/splash/splash.dark.png'),
-	])
-
 	const setPermissions = async () => {
 		const contactsPermission = await Contacts.getPermissionsAsync()
 		const cameraPermission = await Camera.getCameraPermissionsAsync()
@@ -73,106 +62,6 @@ const Navigation = () => {
 		PermissionBackgroundLocationReactiveVar(backgroundLocationPermission)
 		PermissionMediaReactiveVar(mediaLibraryPermission)
 		PermissionNotificationReactiveVar(notificationPermission)
-	}
-
-	const setPreferencesLocalStorageData = async () => {
-		try {
-			// SEARCH AREA
-			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
-
-			if (getLocalStorageSearchArea !== null) {
-				const values: LocalStoragePreferenceSearchAreaType2 = JSON.parse(getLocalStorageSearchArea)
-				if (values && values.useCurrentLocation) {
-					await useSetSearchAreaWithLocation()
-				} else {
-					SearchAreaReactiveVar({
-						...rSearchAreaVar,
-						...values,
-					})
-				}
-			} else {
-				const newSearchAreaValue = JSON.stringify({
-					...searchAreaInitialState,
-				} as LocalStoragePreferenceSearchAreaType2)
-
-				await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchAreaValue)
-			}
-			// THEME
-			const getLocalStorageTheme = await AsyncStorage.getItem(
-				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-			)
-
-			if (!getLocalStorageTheme) {
-				const initialThemeColorSchemeState = JSON.stringify({
-					colorScheme: 'system',
-				} as LocalStoragePreferenceThemeType)
-
-				await AsyncStorage.setItem(
-					LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-					initialThemeColorSchemeState,
-				)
-
-				ThemeReactiveVar({
-					theme: null,
-					localStorageColorScheme: 'system',
-					colorScheme: Appearance.getColorScheme(),
-				})
-			} else {
-				const values: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
-
-				ThemeReactiveVar({
-					theme: null,
-					localStorageColorScheme: values.colorScheme,
-					colorScheme:
-						values.colorScheme === 'system' ? Appearance.getColorScheme() : values.colorScheme,
-				})
-			}
-			// NOTIFICATION_PERMISSION_PREFERENCE
-			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
-				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-			)
-
-			if (!getLocalStorageNotificationPermissionsPreference) {
-				const initialNotificationPermissionPreferenceState = JSON.stringify({
-					canShowAgain: true,
-					dateToShowAgain: Date.now(),
-				} as LocalStoragePreferenceNotificationPermissionType)
-
-				await AsyncStorage.setItem(
-					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-					initialNotificationPermissionPreferenceState,
-				)
-			} else {
-				// using local_storage values set the correct information
-				const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
-					getLocalStorageNotificationPermissionsPreference,
-				)
-				PreferencePermissionNotificationReactiveVar({
-					...values,
-				})
-			}
-			const getLocalStorageSystemOfUnitsPreference = await AsyncStorage.getItem(
-				LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
-			)
-
-			// if (!getLocalStorageSystemOfUnitsPreference) {
-			// 	const initialSystemOfUnits = JSON.stringify({
-			// 		system: SystemsOfUnits.Metric,
-			// 	} )
-
-			// 	await AsyncStorage.setItem(
-			// 		LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-			// 		initialSystemOfUnits,
-			// 	)
-			// } else {
-			// 	const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
-			// 		getLocalStorageSystemOfUnitsPreference,
-			// 	)
-			// 	// PreferenceSystemsOfUnitsReactiveVar({
-			// 	// 	...values,
-			// 	// })
-			// }
-		} catch (e) {}
 	}
 
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
@@ -260,7 +149,6 @@ const Navigation = () => {
 
 	useEffect(() => {
 		setPermissions()
-		setPreferencesLocalStorageData()
 		applicationAuthorization()
 	}, [])
 
@@ -271,15 +159,11 @@ const Navigation = () => {
 	// 	return () => subscription.remove()
 	// }, [])
 
-	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar || !assets) {
+	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) {
 		return null
 	}
 
-	return (
-		<AnimatedAppLoader assets={assets}>
-			<Navigator />
-		</AnimatedAppLoader>
-	)
+	return <Navigator />
 }
 
 export default Navigation

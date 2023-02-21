@@ -1,6 +1,6 @@
-import AddEmoji from '@components/molecules/cards/activity/ask/AddEmoji/AddEmoji'
-import AddRelationship from '@components/molecules/cards/activity/ask/AddRelationship/AddRelationship'
-import JoinVenue from '@components/molecules/cards/activity/ask/JoinVenue/JoinVenue'
+import AddEmoji from '@navigation/screens/hometabs/tonight/activity/ask/AddEmoji/AddEmoji'
+import AddRelationship from '@navigation/screens/hometabs/tonight/activity/ask/AddRelationship/AddRelationship'
+import JoinVenue from '@navigation/screens/hometabs/tonight/activity/ask/JoinVenue/JoinVenue'
 import QuickBarfriendCard from '@navigation/screens/public/venue/components/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
 import { Box, HStack, VStack } from 'native-base'
 

@@ -1,15 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
 import { ThemeReactiveVar } from '@reactive'
-import { useColorScheme } from 'react-native'
+import { ColorSchemeName, useColorScheme } from 'react-native'
 
-const useThemeColorScheme = () => {
+const useThemeColorScheme = (): ColorSchemeName => {
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const deviceColorScheme = useColorScheme()
 
-	if (rThemeVar.colorScheme === 'system') {
+	if (rThemeVar.localStorageColorScheme === 'system') {
 		return deviceColorScheme
 	}
-	return rThemeVar.colorScheme
+	return rThemeVar.localStorageColorScheme
 }
 
 export default useThemeColorScheme

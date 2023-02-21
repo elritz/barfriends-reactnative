@@ -86,11 +86,9 @@ const linking: LinkingOptions<RootNavigatorParamList> = {
 						screens: {
 							BirthdayScreen: 'birthdayscreen',
 							ConfirmationCodeScreen: 'confirmationcodescreen',
-							EmojimoodScreen: 'emojimoodscreen',
 							GetStartedScreen: 'getstartedscreen',
 							UsernameScreen: 'usernamescreen',
 							PasswordCreateScreen: 'passwordcreatescreen',
-							PhotoScreen: 'photoscreen',
 							EmailPhoneTabStack: {
 								path: 'emailphonetabstack',
 								screens: {
