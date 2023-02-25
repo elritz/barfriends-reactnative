@@ -11,6 +11,7 @@ module.exports = function (api) {
 			],
 		],
 		plugins: [
+			require.resolve('expo-router/babel'),
 			'module:react-native-dotenv',
 			[
 				'module-resolver',
@@ -31,9 +32,12 @@ module.exports = function (api) {
 					},
 				},
 			],
-			["babel-plugin-styled-components", {
-				"pure": true
-			},],
+			[
+				'babel-plugin-styled-components',
+				{
+					pure: true,
+				},
+			],
 			'react-native-reanimated/plugin',
 		],
 	}

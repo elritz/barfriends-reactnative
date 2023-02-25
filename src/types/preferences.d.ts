@@ -29,16 +29,16 @@ export type LocalStoragePreferenceSearchAreaType = {
 	city: string
 	isoCode: string
 	coords: {
-		latitude: number
-		longitude: number
+		latitude: number | null
+		longitude: number | null
 	}
 	kRing: number
 	distance: number
 }
 
 export type Coords = {
-	latitude: number
-	longitude: number
+	latitude: number | null
+	longitude: number | null
 }
 
 export type PlaceType = {

@@ -12,9 +12,9 @@ export type IBFSTheme = {
 }
 
 export interface ThemeInterface {
-	localStorageColorScheme: ThemeColorSchemeOptionsType
+	localStorageColorScheme: ThemeColorSchemeOptionsType | null | undefined
 	colorScheme: ColorSchemeName
-	theme: IBFSTheme | null
+	theme: IBFSTheme | null | undefined
 }
 
 export const ThemeEmptyState: ThemeInterface = {

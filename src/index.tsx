@@ -8,10 +8,7 @@ import {
 	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 } from '@constants/StorageConstants'
-import {
-	BACKGROUND_NOTIFICATION_TASK,
-	DEVELOPMENT_FOREGROUND_GEOFENCING_TASK_NAME,
-} from '@constants/TaskManagerConstants'
+import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import gateaWayClient from '@library/gateway-apollo-server'
 import Navigation from '@navigation/index'
@@ -26,7 +23,6 @@ import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAre
 import { useAssets } from 'expo-asset'
 import 'expo-dev-client'
 import * as Notifications from 'expo-notifications'
-import * as TaskManager from 'expo-task-manager'
 import { useEffect } from 'react'
 import { Appearance, Linking } from 'react-native'
 import 'react-native-gesture-handler'
@@ -53,6 +49,7 @@ export default function App() {
 	const setPreferencesLocalStorageData = async () => {
 		try {
 			// SEARCH AREA
+			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
 
 			if (getLocalStorageSearchArea !== null) {

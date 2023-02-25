@@ -20,7 +20,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 				adjustsFontSizeToFit
 				minimumFontScale={0.5}
 				pb={2}
-				w={275}
+				w={265}
 				maxW={'85%'}
 				style={{
 					alignSelf: 'center',
@@ -29,7 +29,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 				}}
 				fontWeight={'black'}
 				lineHeight={'xs'}
-				fontSize={'xl'}
+				fontSize={'2xl'}
 			>
 				Where are your venues?
 			</Text>

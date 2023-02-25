@@ -44,8 +44,8 @@ const VenueFeedScreen = () => {
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
 			searchAreaCoords: {
-				latitude: Number(rSearchAreaVar?.searchArea.coords.latitude),
-				longitude: Number(rSearchAreaVar?.searchArea.coords.longitude),
+				latitude: Number(rSearchAreaVar?.searchArea?.coords.latitude),
+				longitude: Number(rSearchAreaVar?.searchArea?.coords.longitude),
 			},
 			currentLocationCoords: {
 				latitude: rSearchAreaVar.useCurrentLocation
@@ -61,6 +61,20 @@ const VenueFeedScreen = () => {
 		onError(error) {},
 		onCompleted(data) {},
 	})
+
+	const onPullRefresh = () => {
+		if (rSearchAreaVar?.searchArea?.coords.latitude && rSearchAreaVar?.searchArea?.coords.longitude) {
+			venuesNearby()
+		}
+		if (rSearchAreaVar.useCurrentLocation) {
+			if (
+				rCurrentLocationVar?.current?.coords.latitude &&
+				rCurrentLocationVar?.current?.coords.longitude
+			) {
+				venuesNearby()
+			}
+		}
+	}
 	// useEffect(() => {
 	// 	const subscription = AppState.addEventListener('change', handleAppStateChange)
 	// 	return () => {
@@ -139,7 +153,7 @@ const VenueFeedScreen = () => {
 	return (
 		<SafeAreaView>
 			<FlatList
-				onRefresh={venuesNearby}
+				onRefresh={onPullRefresh}
 				refreshing={loading}
 				showsVerticalScrollIndicator={false}
 				numColumns={2}

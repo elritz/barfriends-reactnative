@@ -1,5 +1,6 @@
 // export default STORYBOOK_START ? require('./storybook').default : require('./src/index').default
 // import * as Sentry from 'sentry-expo'
+import 'expo-router/entry'
 import * as SplashScreen from 'expo-splash-screen'
 import { LogBox } from 'react-native'
 

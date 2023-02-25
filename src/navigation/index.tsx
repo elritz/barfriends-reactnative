@@ -1,14 +1,6 @@
-import AnimatedAppLoader from './screens/Splashscreen/AnimatedAppLoader'
 import { useReactiveVar } from '@apollo/client'
+import { AUTHORIZATION, LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import {
-	LOCAL_STORAGE_SEARCH_AREA,
-	AUTHORIZATION,
-	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
-} from '@constants/StorageConstants'
-import {
-	DeviceManager,
 	useRefreshDeviceManagerMutation,
 	useCreateGuestProfileMutation,
 	useCreateADeviceManagerMutation,
@@ -17,34 +9,24 @@ import {
 } from '@graphql/generated'
 import Navigator from '@navigation/navigators/Navigator'
 import {
-	SearchAreaReactiveVar,
 	AuthorizationReactiveVar,
 	PermissionCameraReactiveVar,
 	PermissionMicrophoneReactiveVar,
 	PermissionForegroundLocationReactiveVar,
 	PermissionBackgroundLocationReactiveVar,
 	PermissionMediaReactiveVar,
-	ThemeReactiveVar,
 	PermissionNotificationReactiveVar,
-	PreferencePermissionNotificationReactiveVar,
-	searchAreaInitialState,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
-import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
-import { useAssets } from 'expo-asset'
 import { Camera } from 'expo-camera'
 import * as Contacts from 'expo-contacts'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
-import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import * as TaskManager from 'expo-task-manager'
 import { useEffect } from 'react'
-import { Appearance } from 'react-native'
 import { AuthorizationDecoded } from 'src/types/app'
 
 const Navigation = () => {
-	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const setPermissions = async () => {
@@ -68,17 +50,11 @@ const Navigation = () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error) {
-				console.log(
-					'error REFRESH DEVICE MANANGER ERRROR:>> ',
-					error,
-					'error REFRESH DEVICE MANANGER ERRROR:>>',
-				)
+				console.log('🚀 ~ file: index.tsx:54 ~ onError ~ error:', error)
 			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
-					console.log('ME ID :>> ', deviceManager.DeviceProfile?.Profile.id)
-					console.log('ME PROFILE TYPE :>> ', deviceManager.DeviceProfile?.Profile.ProfileType)
 					AuthorizationReactiveVar(deviceManager)
 				}
 				if (data.refreshDeviceManager?.__typename === 'ErrorManaging') {
@@ -133,6 +109,9 @@ const Navigation = () => {
 	const applicationAuthorization = async () => {
 		// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
 		// 	key: AUTHORIZATION,
+		// })
+		// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
+		// 	key: LOCAL_STORAGE_SEARCH_AREA,
 		// })
 		const getAuthorization = (await secureStorageItemRead({
 			key: AUTHORIZATION,

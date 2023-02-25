@@ -241,6 +241,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				owner: 'barfriends',
 				scheme: 'barfriends',
 				orientation: 'portrait',
+				userInterfaceStyle: 'automatic',
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -265,14 +266,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					bundleIdentifier: 'com.barfriends.dev',
 					supportsTablet: false,
 					icon: `./src/assets/images/icon/icon.png`,
-					userInterfaceStyle: 'automatic',
-
-					// splash: {
-					// 	image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.png`,
-					// 	resizeMode: 'cover',
-					// 	// backgroundColor: '#0D0D0D',
-					// },
-
 					config: {
 						googleMapsApiKey: process.env.GOOGLE_IOS_API_KEY,
 					},
@@ -297,7 +290,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					versionCode: 2,
 					package: 'com.barfriends.christian',
 					backgroundColor: '#0D0D0D',
-					userInterfaceStyle: 'automatic',
 					adaptiveIcon: {
 						foregroundImage: './src/assets/images/adaptive-icon.png',
 					},

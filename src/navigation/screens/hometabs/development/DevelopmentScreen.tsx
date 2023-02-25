@@ -47,6 +47,7 @@ import {
 	Tooltip,
 	useDisclose,
 	SectionList,
+	Spinner,
 } from 'native-base'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Platform, Linking, useColorScheme, ColorSchemeName, AppState } from 'react-native'
@@ -150,6 +151,7 @@ const DevelopmentScreen = () => {
 	const [token, setToken] = useState('')
 	const [pushNotificationToken, setPushNotificationToken] = useState('')
 	const [appState, setAppState] = useState(AppState.currentState)
+	const [searchAreaDeleteLoading, setSearchAreaDeleteLoading] = useState(false)
 
 	const {
 		isOpen: isForegroundLocationOn,
@@ -543,9 +545,14 @@ const DevelopmentScreen = () => {
 			type: 'token',
 			title: 'Search area',
 			icon: 'map',
+			loading: searchAreaDeleteLoading,
 			onPress: async () => {
+				setSearchAreaDeleteLoading(true)
 				await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
 				SearchAreaReactiveVar(searchAreaInitialState)
+				setTimeout(() => {
+					setSearchAreaDeleteLoading(false)
+				}, 1500)
 			},
 		},
 		{
@@ -565,7 +572,7 @@ const DevelopmentScreen = () => {
 		},
 	]
 
-	const Item = ({ item, index }) => {
+	const Item = ({ item, index, loading }) => {
 		switch (item.type) {
 			case 'setting':
 				return (
@@ -594,7 +601,7 @@ const DevelopmentScreen = () => {
 										{item.title}
 									</Heading>
 								</HStack>
-								<Icon mr={3} color={'danger.500'} name={'trash'} as={Feather} />
+								{loading ? <Spinner /> : <Icon mr={3} color={'danger.500'} name={'trash'} as={Feather} />}
 							</HStack>
 							<Divider />
 						</Box>

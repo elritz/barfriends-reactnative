@@ -1,14 +1,12 @@
 import { makeVar } from '@apollo/client'
-import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { LocationGeocodedAddress, LocationObject } from 'expo-location'
 
 type SearchType = {
 	searchText: string
 	searchRegion?: {
 		radius: number
 		coords: {
-			latitude: number
-			longitude: number
+			latitude: number | null
+			longitude: number | null
 		}
 	}
 }
@@ -18,8 +16,8 @@ export const searchInitialState: SearchType = {
 	searchRegion: {
 		radius: 1000,
 		coords: {
-			latitude: 0,
-			longitude: 0,
+			latitude: null,
+			longitude: null,
 		},
 	},
 }
