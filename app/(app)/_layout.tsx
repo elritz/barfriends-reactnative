@@ -1,0 +1,86 @@
+import { useReactiveVar } from '@apollo/client'
+import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { LocalStoragePreferenceThemeType } from '@preferences'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ThemeProvider } from '@react-navigation/native'
+import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
+import { Stack } from 'expo-router'
+import { NativeBaseProvider } from 'native-base'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
+import { AppState, useColorScheme, Appearance, StatusBar } from 'react-native'
+import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
+
+export default () => {
+	const appState = useRef(AppState.currentState)
+	const [appStateVisible, setAppStateVisible] = useState(appState.current)
+	const rThemeVar = useReactiveVar(ThemeReactiveVar)
+	const [toggleThemes] = useToggleTheme()
+	const colorScheme = useThemeColorScheme()
+	const deviceColorScheme = useColorScheme()
+
+	const setTheme = async () => {
+		const localStorageColorScheme = await AsyncStorage.getItem(
+			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+		)
+		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
+			String(localStorageColorScheme),
+		)
+
+		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
+	}
+
+	useEffect(() => {
+		const subscription = AppState.addEventListener('change', nextAppState => {
+			const currentDeviceAppearance = Appearance.getColorScheme()
+			if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+				setTheme()
+			}
+			if (rThemeVar.localStorageColorScheme === 'system') {
+				if (currentDeviceAppearance !== rThemeVar.colorScheme) {
+					setTheme()
+				}
+			}
+			/// beef yaki noodles
+			/// 40 guiza
+
+			appState.current = nextAppState
+		})
+
+		return () => {
+			subscription.remove()
+		}
+	}, [])
+
+	useEffect(() => {
+		setTheme()
+	}, [])
+
+	const memTheme = useMemo(() => {
+		return rThemeVar.theme
+	}, [rThemeVar.theme, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
+
+	if (!memTheme) return null
+
+	return (
+		<ThemeProvider value={memTheme.rn}>
+			<StyledThemeProvider theme={memTheme.styled}>
+				<NativeBaseProvider theme={memTheme.nb}>
+					<BottomSheetModalProvider>
+						<Stack
+							screenOptions={{
+								headerShown: false,
+							}}
+						>
+							<Stack.Screen name={'hometabnavigator'} />
+							<Stack.Screen name={'modalnavigator'} options={{ presentation: 'modal' }} />
+						</Stack>
+						<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
+					</BottomSheetModalProvider>
+				</NativeBaseProvider>
+			</StyledThemeProvider>
+		</ThemeProvider>
+	)
+}

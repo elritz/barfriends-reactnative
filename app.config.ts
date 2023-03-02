@@ -6,10 +6,10 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 		case 'production':
 			return {
 				...context.config,
-				name: 'Barfriends-production',
+				name: 'Barfriends',
 				slug: 'barfriends',
 				owner: 'barfriends',
-				scheme: 'barfriends-production',
+				scheme: 'barfriends',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				primaryColor: '#FF7000',
@@ -23,19 +23,19 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				jsEngine: 'hermes',
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
-				icon: './src/assets/images/icon/icon.png',
+				icon: './assets/images/icon/icon.png',
 				splash: {
-					image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
+					image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
 					resizeMode: 'cover',
 					dark: {
-						image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
+						image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
 						resizeMode: 'cover',
 					},
 				},
 				ios: {
 					bundleIdentifier: 'com.barfriends.production',
 					supportsTablet: false,
-					icon: `./src/assets/images/icon/icon.png`,
+					icon: `./assets/images/icon/icon.png`,
 					jsEngine: 'hermes',
 					// splash: {
 					// 	image: `./src/assets/images/splash/splash.png`,
@@ -66,7 +66,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					package: 'com.barfriends.production',
 					backgroundColor: '#0D0D0D',
 					adaptiveIcon: {
-						foregroundImage: './src/assets/images/adaptive-icon.png',
+						foregroundImage: './assets/images/adaptive-icon.png',
 					},
 					// splash: {
 					// 	image: `./src/assets/images/splash/splash.png`,
@@ -109,7 +109,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					],
 				},
 				web: {
-					favicon: './src/assets/images/favicon.png',
+					favicon: './assets/images/favicon.png',
 				},
 				packagerOpts: {
 					sourceExts: ['cjs'],
@@ -118,7 +118,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 		case 'staging':
 			return {
 				...context.config,
-				name: 'Barfriends (stage)',
+				name: 'Barfriends (stg)',
 				slug: 'barfriends',
 				owner: 'barfriends',
 				scheme: 'barfriends-staging',
@@ -135,19 +135,19 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
-				icon: './src/assets/images/icon/icon.png',
+				icon: './assets/images/icon/icon.png',
 				splash: {
-					image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
+					image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
 					resizeMode: 'cover',
 					dark: {
-						image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
+						image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
 						resizeMode: 'cover',
 					},
 				},
 				ios: {
 					bundleIdentifier: 'com.barfriends.staging',
 					supportsTablet: false,
-					icon: `./src/assets/images/icon/icon.png`,
+					icon: `./assets/images/icon/icon.png`,
 					// splash: {
 					// 	image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.png`,
 					// 	resizeMode: 'cover',
@@ -178,7 +178,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					package: 'com.barfriends.staging',
 					backgroundColor: '#0D0D0D',
 					adaptiveIcon: {
-						foregroundImage: './src/assets/images/adaptive-icon.png',
+						foregroundImage: './assets/images/adaptive-icon.png',
 					},
 					googleServicesFile: './google-services.json',
 					// splash: {
@@ -222,7 +222,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					],
 				},
 				web: {
-					favicon: './src/assets/images/favicon.png',
+					favicon: './assets/images/favicon.png',
 				},
 				packagerOpts: {
 					sourceExts: ['cjs'],
@@ -252,20 +252,23 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				},
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
-				icon: './src/assets/images/icon/icon.png',
+				icon: './assets/images/icon/icon.png',
 				splash: {
-					image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
+					image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
 					resizeMode: 'cover',
 					dark: {
-						image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
+						image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
 						resizeMode: 'cover',
 					},
+				},
+				web: {
+					bundler: 'metro',
 				},
 				ios: {
 					// buildNumber: '2.1.6',
 					bundleIdentifier: 'com.barfriends.dev',
 					supportsTablet: false,
-					icon: `./src/assets/images/icon/icon.png`,
+					icon: `./assets/images/icon/icon.png`,
 					config: {
 						googleMapsApiKey: process.env.GOOGLE_IOS_API_KEY,
 					},
@@ -291,7 +294,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					package: 'com.barfriends.christian',
 					backgroundColor: '#0D0D0D',
 					adaptiveIcon: {
-						foregroundImage: './src/assets/images/adaptive-icon.png',
+						foregroundImage: './assets/images/adaptive-icon.png',
 					},
 					googleServicesFile: './google-services.json',
 					// splash: {
@@ -334,7 +337,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					],
 				},
 				web: {
-					favicon: './src/assets/images/favicon.png',
+					favicon: './assets/images/favicon.png',
 				},
 				packagerOpts: {
 					sourceExts: ['cjs'],
