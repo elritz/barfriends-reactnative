@@ -9,19 +9,18 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
+import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
+import { ThemeProvider } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Tabs } from 'expo-router'
+import { Box, Text } from 'native-base'
 import { useContext } from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
-
-interface IColor {
-	color: string
-}
 
 export default () => {
 	const colorScheme = useThemeColorScheme()
@@ -30,7 +29,6 @@ export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	return (
-		// <Tabs />
 		<Tabs
 			screenOptions={{
 				tabBarBackground: () => (
@@ -57,10 +55,6 @@ export default () => {
 					paddingVertical: 10,
 					elevation: 0, // for Android
 					borderTopWidth: 0,
-					// shadowOffset: {
-					// 	width: 0,
-					// 	height: 0, // for iOS
-					// },
 				},
 				tabBarShowLabel: false,
 			}}
@@ -81,7 +75,7 @@ export default () => {
 					// href: '',
 					// title: '',
 					headerShown: false,
-					tabBarLabel: 'outaboot',
+					tabBarLabel: 'search',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
 				}}
@@ -109,21 +103,38 @@ export default () => {
 				name='profilestack'
 				options={{
 					headerShown: false,
-					tabBarLabel: 'messages',
+					tabBarLabel: 'profile',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <ProfileTab color={color} />,
 				}}
 			/>
-			<Tabs.Screen
-				name='developmentstack'
-				options={{
-					href: ENVIRONMENT === 'development' ? 'developmentstack' : null,
-					headerShown: false,
-					tabBarLabel: 'messages',
-					tabBarShowLabel: false,
-					tabBarIcon: ({ color }: IColor) => <DevelopmentTab color={color} />,
-				}}
-			/>
+			{ENVIRONMENT === 'development' && (
+				<Tabs.Screen
+					name='developmentstack'
+					options={{
+						header: () => {
+							return (
+								<Box safeAreaTop>
+									<Text
+										adjustsFontSizeToFit
+										fontSize={'3xl'}
+										textAlign={'center'}
+										textTransform={'capitalize'}
+										fontWeight={'black'}
+									>
+										{String.fromCharCode(60)}
+										{ENVIRONMENT} {String.fromCharCode(47, 62)}
+									</Text>
+								</Box>
+							)
+						},
+						headerShown: true,
+						tabBarLabel: 'development',
+						tabBarShowLabel: false,
+						tabBarIcon: ({ color }: IColor) => <DevelopmentTab color={color} />,
+					}}
+				/>
+			)}
 		</Tabs>
 	)
 }

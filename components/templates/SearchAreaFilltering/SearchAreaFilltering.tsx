@@ -1,12 +1,10 @@
 import LocationPermissionItem from './LocationPermissionItem'
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
-import { Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
-import { Box, Heading, Text, HStack, Button, ScrollView } from 'native-base'
-import { Icon } from 'native-base'
+import { useRouter } from 'expo-router'
+import { Box, Heading, Text, HStack, Button, Pressable } from 'native-base'
 
 // TODO: FN(Flatlist with data of recent SearchArea with onPress to switch to it)
 // TODO: FN(Use hometown location, Use current town location)
@@ -14,7 +12,7 @@ import { Icon } from 'native-base'
 const scrollViewMarginX = '3'
 
 const SearchAreaFilltering = () => {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const searchAreaLocation = [
@@ -41,30 +39,32 @@ const SearchAreaFilltering = () => {
 	}
 
 	const switchRouter = value => {
+		console.log('🚀 ~ file: SearchAreaFilltering.tsx:44 ~ switchRouter ~ value:', value)
 		switch (value) {
 			case 'City':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
-					navigation.navigate('ModalNavigator', {
-						screen: 'SearchAreaModalStack',
-						params: {
-							screen: 'SearchStateCitiesTextScreen',
-							params: {
-								country: rSearchAreaVar?.searchArea.country.isoCode,
-								state: rSearchAreaVar.searchArea.state.isoCode,
-							},
-						},
+					router.push({
+						pathname: '(app)/modalnavigator/searchareamodalstack/SearchStateCitiesTextScreen',
+					})
+				}
+				break
+			case 'State':
+				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
+					router.push({
+						pathname: '(app)/modalnavigator/searchareamodalstack/SearchCountryStateTextScreen',
+					})
+				}
+				break
+			case 'Country':
+				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
+					router.push({
+						pathname: '(app)/modalnavigator/searchareamodalstack/SearchCountryTextScreen',
 					})
 				}
 				break
 			default:
-				navigation.navigate('ModalNavigator', {
-					screen: 'SearchAreaModalStack',
-					params: {
-						screen: 'SearchCountryTextScreen',
-						params: {
-							searchText: '',
-						},
-					},
+				router.push({
+					pathname: '(app)/modalnavigator/searchareamodalstack/SearchCountryTextScreen',
 				})
 		}
 	}
@@ -72,16 +72,19 @@ const SearchAreaFilltering = () => {
 	const ListheaderComponent = () => {
 		return (
 			<Box my={4}>
-				<Heading size={'lg'}>Search area</Heading>
-				<HStack my={2} space={3}>
+				<HStack alignItems={'center'} justifyContent={'space-between'}>
+					<Heading size={'lg'}>Search area</Heading>
+				</HStack>
+				<HStack my={4} space={3}>
 					{!rSearchAreaVar?.searchArea.country.name ||
 					!rSearchAreaVar?.searchArea.state.name ||
 					!rSearchAreaVar?.searchArea.city.name ? (
-						<></>
+						<Box>
+							<Heading></Heading>
+						</Box>
 					) : (
 						<>
 							{searchAreaLocation.map((item, index) => {
-								console.log('item :>> ', item)
 								return (
 									<Button
 										key={index}
@@ -97,6 +100,10 @@ const SearchAreaFilltering = () => {
 												color: 'white',
 											},
 											fontWeight: 'medium',
+										}}
+										// isDisabled
+										_disabled={{
+											opacity: 1,
 										}}
 										onPress={() => switchRouter(item.name)}
 										flex={1}
@@ -116,6 +123,7 @@ const SearchAreaFilltering = () => {
 		)
 	}
 
+	console.log('rSearchAreaVar?.kRing :>> ', rSearchAreaVar?.kRing)
 	return (
 		<Box mx={scrollViewMarginX} flex={1}>
 			<Box my={4}>

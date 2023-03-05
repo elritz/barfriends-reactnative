@@ -1,10 +1,11 @@
 import PermissionButtonSearchAreaLocation from './PermissionButtonSearchAreaLocation'
 import { FontAwesome5 } from '@expo/vector-icons'
-// import { useNavigation } from '@react-navigation/native'
-import { Box, Heading, Icon, VStack, Button, Text } from 'native-base'
+import { useRouter } from 'expo-router'
+import { Box, Icon, VStack, Button, Text } from 'native-base'
 
 export default function VenueFeedSearchAreaEmptyState() {
 	// const navigation = useNavigation()
+	const route = useRouter()
 	return (
 		<Box
 			mb={2}

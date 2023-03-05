@@ -7,7 +7,7 @@ import { ThemeProvider } from '@react-navigation/native'
 import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
-import { Stack } from 'expo-router'
+import { SplashScreen, Stack } from 'expo-router'
 import { NativeBaseProvider } from 'native-base'
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { AppState, useColorScheme, Appearance, StatusBar } from 'react-native'
@@ -33,6 +33,10 @@ export default () => {
 	}
 
 	useEffect(() => {
+		setTheme()
+	}, [])
+
+	useEffect(() => {
 		const subscription = AppState.addEventListener('change', nextAppState => {
 			const currentDeviceAppearance = Appearance.getColorScheme()
 			if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
@@ -54,20 +58,17 @@ export default () => {
 		}
 	}, [])
 
-	useEffect(() => {
-		setTheme()
-	}, [])
-
 	const memTheme = useMemo(() => {
 		return rThemeVar.theme
 	}, [rThemeVar.theme, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
 
-	if (!memTheme) return null
+	if (!memTheme) return <SplashScreen />
 
 	return (
-		<ThemeProvider value={memTheme.rn}>
+		<ThemeProvider value={{ ...memTheme.rn, dark: true }}>
 			<StyledThemeProvider theme={memTheme.styled}>
 				<NativeBaseProvider theme={memTheme.nb}>
+					<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
 					<BottomSheetModalProvider>
 						<Stack
 							screenOptions={{
@@ -76,8 +77,8 @@ export default () => {
 						>
 							<Stack.Screen name={'hometabnavigator'} />
 							<Stack.Screen name={'modalnavigator'} options={{ presentation: 'modal' }} />
+							<Stack.Screen name={'settingsnavigator'} options={{ presentation: 'modal' }} />
 						</Stack>
-						<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
 					</BottomSheetModalProvider>
 				</NativeBaseProvider>
 			</StyledThemeProvider>

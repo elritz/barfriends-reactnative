@@ -4,7 +4,6 @@ import { ThemeReactiveVar } from '@reactive'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { Divider, Heading, Pressable } from 'native-base'
 import { Icon, VStack, View } from 'native-base'
-import React from 'react'
 
 export default function AppearanceSettingsScreen() {
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)

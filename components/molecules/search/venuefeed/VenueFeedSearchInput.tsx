@@ -1,13 +1,14 @@
 import { FontAwesome5, Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter } from 'expo-router'
 import { Icon, IconButton, Input } from 'native-base'
 import { useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const VenueFeedSearchInput = () => {
-	// const navigation = useNavigation()
+	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
 	const themeContext = useContext(ThemeContext)
 	return (
@@ -35,14 +36,11 @@ const VenueFeedSearchInput = () => {
 			rightElement={
 				<IconButton
 					icon={<Icon as={FontAwesome5} name='filter' />}
-					// onPress={() =>
-					// 	navigation.navigate('ModalNavigator', {
-					// 		screen: 'SearchAreaModalStack',
-					// 		params: {
-					// 			screen: 'SearchAreaModal',
-					// 		},
-					// 	})
-					// }
+					onPress={() =>
+						router.push({
+							pathname: '(app)/modalnavigator/searchareamodalstack',
+						})
+					}
 					rounded={'full'}
 					color={'transparent'}
 				/>

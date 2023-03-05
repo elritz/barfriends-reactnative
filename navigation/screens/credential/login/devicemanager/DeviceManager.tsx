@@ -1,34 +1,32 @@
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	ClientDeviceManager,
+	ProfileType,
 	useAuthorizedProfilesQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter, useSearchParams } from 'expo-router'
 import { Heading, Text } from 'native-base'
 import { useContext, useState } from 'react'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
-import { LoginStackParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
 
-export type DeviceManagerScreenRouteProp = RouteProp<LoginStackParamList, 'DeviceManagerScreen'>
-
 export default function DeviceManagerScreen() {
-	const navigation = useNavigation()
-	const route = useRoute<DeviceManagerScreenRouteProp>()
+	const router = useRouter()
+	const params = useSearchParams()
 	const themeContext = useContext(ThemeContext)
 	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const { data, loading, error } = useAuthorizedProfilesQuery({
-		skip: !route.params.authenticator,
+		skip: !params.authenticator && !params.authenticator,
 		fetchPolicy: 'network-only',
 		variables: {
 			where: {
 				profiles: {
-					email: route.params.authenticator,
+					email: String(params.authenticator),
 					Phone: {
-						number: route.params.authenticator.replace(/\D/g, ''),
+						number: String(params.authenticator).replace(/\D/g, ''),
 					},
 				},
 			},
@@ -36,14 +34,11 @@ export default function DeviceManagerScreen() {
 	})
 
 	const navigateToLogin = item => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'LoginCredentialStack',
+		router.push({
 			params: {
-				screen: 'PasswordLoginScreen',
-				params: {
-					profile: item.id,
-				},
+				profileid: item.id,
 			},
+			pathname: '(app)/credentialnavigator/logincredentialstack/loginpasswordscreen',
 		})
 	}
 
@@ -53,13 +48,7 @@ export default function DeviceManagerScreen() {
 				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
-					// navigation.navigate('HomeTabNavigator', {
-					// 	screen: 'VenueFeedStack',
-					// 	params: {
-					// 		screen: 'VenueFeedScreen',
-					// 	},
-					// })
+					setTimeout(() => router.replace('(app)'), 1000)
 				}
 			},
 		})
@@ -86,7 +75,9 @@ export default function DeviceManagerScreen() {
 		}
 	}
 
-	if (loading) return null
+	if (loading) {
+		return <></>
+	}
 
 	if (data?.authorizedProfiles?.__typename === 'ErrorProfiling') {
 		return (

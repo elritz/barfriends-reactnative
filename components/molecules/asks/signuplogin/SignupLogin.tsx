@@ -1,8 +1,6 @@
 import DeviceManagerProfiles from './DeviceManagerProfiles'
-import { useReactiveVar } from '@apollo/client'
 import GetSignInUpText from '@helpers/data/SignupinText'
-import { useNavigation } from '@react-navigation/native'
-import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { Box, Center, Text, Button } from 'native-base'
 
 const text = GetSignInUpText()
@@ -12,7 +10,7 @@ type Props = {
 }
 
 const CardPleaseSignup = (props: Props) => {
-	// const navigation = useNavigation()
+	const router = useRouter()
 
 	return (
 		<Box>
@@ -54,11 +52,8 @@ const CardPleaseSignup = (props: Props) => {
 			>
 				<Button
 					onPress={() =>
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'GetStartedScreen',
-							},
+						router.push({
+							pathname: '(app)/credentialnavigator/personalcredentialstack/getstarted',
 						})
 					}
 					w={'95%'}
@@ -69,12 +64,9 @@ const CardPleaseSignup = (props: Props) => {
 				</Button>
 				<Button
 					onPress={() => {
-						// navigation.navigate('CredentialNavigator', {
-						// 	screen: 'LoginCredentialStack',
-						// 	params: {
-						// 		screen: 'AuthenticatorScreen',
-						// 	},
-						// })
+						router.push({
+							pathname: '(app)/credentialnavigator/logincredentialstack/authenticatorscreen',
+						})
 					}}
 					variant={'unstyled'}
 					w={'95%'}

@@ -20,7 +20,7 @@
 		"baseUrl": "./",
 		"paths": {
 			"@preferences": ["./types/preferences.d"],
-			"@ctypes": ["./types/*"],
+			"@ctypes/*": ["./types/*"],
 			"@util/*": ["./util/*"],
 			"@helpers/*": ["./helpers/*"],
 			"@navigation/*": ["./navigation/*"],

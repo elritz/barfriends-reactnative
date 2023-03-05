@@ -4,13 +4,11 @@ import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
 	ProfileType,
-	useAuthorizedProfilesQuery,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { StackActions, useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'
-import switchLogoutProfile from '@util/hooks/auth/switchLogoutProfile'
+import { useNavigation, useRouter } from 'expo-router'
 import { ScrollView, Box, HStack, Icon, Text, Pressable, Heading } from 'native-base'
 import { useState } from 'react'
 
@@ -18,6 +16,7 @@ interface EditableOptionsScreenProps {}
 
 const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	const navigation = useNavigation()
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
@@ -39,7 +38,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
+					setTimeout(() => router.replace('(app)/hometabnavigator'), 1000)
 					// navigation.navigate('HomeTabNavigator', {
 					// 	screen: 'VenueFeedStack',
 					// 	params: {
@@ -98,14 +97,17 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'PERSONAL' && (
 				<RoundedListItem
 					onPress={() => {
-						navigation.dispatch(
-							StackActions.push('ProfileSettingsNavigator', {
-								screen: 'ProfileEditorStack',
-								params: {
-									screen: 'EditableOptionsScreen',
-								},
-							}),
-						)
+						router.push({
+							pathname: '',
+						})
+						// navigation.dispatch(
+						// 	StackActions.push('ProfileSettingsNavigator', {
+						// 		screen: 'ProfileEditorStack',
+						// 		params: {
+						// 			screen: 'EditableOptionsScreen',
+						// 		},
+						// 	}),
+						// )
 					}}
 				>
 					<HStack alignItems={'center'} space={2}>
@@ -129,11 +131,9 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			{/* Notifications */}
 			<RoundedListItem
 				onPress={() => {
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'NotificationsSettingsScreen',
-						}),
-					)
+					router.push({
+						pathname: '(app)/settingsnavigator/notificationssettingsscreen',
+					})
 				}}
 			>
 				<HStack alignItems={'center'} space={2}>
@@ -181,11 +181,9 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' && (
 				<RoundedListItem
 					onPress={() => {
-						navigation.dispatch(
-							StackActions.push('ProfileSettingsNavigator', {
-								screen: 'SecuritySettingsScreen',
-							}),
-						)
+						router.push({
+							pathname: '(app)/settingsnavigator/securitysettingsscreen',
+						})
 					}}
 				>
 					<HStack alignItems={'center'} space={2}>
@@ -210,11 +208,9 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			{/* Appearance */}
 			<RoundedListItem
 				onPress={() => {
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'AppearanceSettingsScreen',
-						}),
-					)
+					router.push({
+						pathname: '(app)/settingsnavigator/appearancesettingsscreen',
+					})
 				}}
 			>
 				<HStack alignItems={'center'} space={2}>
@@ -229,7 +225,6 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 						size={'xl'}
 						name={'color-palette'}
 					/>
-					{/* <MaterialCommunityIcons name="" size={24} color="black" /> */}
 					<Text fontWeight={500} fontSize={'lg'}>
 						Appearance
 					</Text>
@@ -241,11 +236,8 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			</Heading>
 			<RoundedListItem
 				onPress={() =>
-					navigation.navigate('CredentialNavigator', {
-						screen: 'LoginCredentialStack',
-						params: {
-							screen: 'AuthenticatorScreen',
-						},
+					router.replace({
+						pathname: '(app)/credentialnavigator/logincredentialstack/authenticatorscreen',
 					})
 				}
 			>

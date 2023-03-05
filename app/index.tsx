@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { AUTHORIZATION, LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
+import { AuthorizationDecoded } from '@ctypes/app'
 import {
 	useRefreshDeviceManagerMutation,
 	useCreateGuestProfileMutation,
@@ -8,6 +9,7 @@ import {
 	ClientDeviceManager,
 } from '@graphql/generated'
 import Navigator from '@navigation/navigators/Navigator'
+import { ThemeProvider } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	PermissionCameraReactiveVar,
@@ -23,10 +25,8 @@ import * as Contacts from 'expo-contacts'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Redirect, Slot, SplashScreen } from 'expo-router'
-// import * as SplashScreen from 'expo-splash-screen'
+import { Redirect, SplashScreen } from 'expo-router'
 import { useEffect } from 'react'
-import { AuthorizationDecoded } from 'src/types/app'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -118,7 +118,6 @@ export default () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
-
 		if (!getAuthorization) {
 			// console.log('create GUET')
 			createGuestProfileMutation()
@@ -144,5 +143,23 @@ export default () => {
 		return <SplashScreen />
 	}
 
-	return <Redirect href={'(app)/hometabnavigator'} />
+	return (
+		// <ThemeProvider
+		// 	value={{
+		// 		colors: {
+		// 			background: '#db69',
+		// 			border: '#db69',
+		// 			card: '#db69',
+		// 			notification: '#db69',
+		// 			primary: '#db69',
+		// 			text: '#db69',
+		// 		},
+		// 		dark: true,
+		// 	}}
+		// >
+		// 	<>
+		<Redirect href={'(app)/hometabnavigator'} />
+		// </>
+		// </ThemeProvider>
+	)
 }

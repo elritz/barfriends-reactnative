@@ -140,7 +140,7 @@ async function unregisterBackgroundFetchAsync() {
 
 const DevelopmentScreen = () => {
 	const ITEM_HEIGHT = 50
-	const navigation = useNavigation()
+	// const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const bottomSheetThemeModalRef = useRef<BottomSheetModal>(null)
 	const bottomSheetThemePermissionRef = useRef<BottomSheetModal>(null)
@@ -317,15 +317,15 @@ const DevelopmentScreen = () => {
 					<Pressable
 						onPress={async () => {
 							bottomSheetThemeModalRef.current?.close()
-							navigation.navigate('HomeTabNavigator', {
-								screen: 'DevelopmentStack',
-								params: {
-									screen: 'ThemeViewer',
-									params: {
-										theme: item,
-									},
-								},
-							})
+							// navigation.navigate('HomeTabNavigator', {
+							// 	screen: 'DevelopmentStack',
+							// 	params: {
+							// 		screen: 'ThemeViewer',
+							// 		params: {
+							// 			theme: item,
+							// 		},
+							// 	},
+							// })
 						}}
 					>
 						<Stack flexDir={'row'} flexWrap={'wrap'} space={2}>
@@ -622,10 +622,6 @@ const DevelopmentScreen = () => {
 				<Text fontSize={'2xl'}>latitude: 43.455957, </Text>
 				<Text fontSize={'2xl'}>longitude: -80.483694</Text> */}
 
-			<Text my={5} adjustsFontSizeToFit fontSize={'2xl'} fontWeight={'black'}>
-				Location Tracking
-			</Text>
-
 			<SectionList
 				showsVerticalScrollIndicator={false}
 				contentInset={{
@@ -635,16 +631,6 @@ const DevelopmentScreen = () => {
 					return (
 						<VStack>
 							<Box my={5}>
-								<Text
-									adjustsFontSizeToFit
-									fontSize={'3xl'}
-									textAlign={'center'}
-									textTransform={'capitalize'}
-									fontWeight={'black'}
-								>
-									{String.fromCharCode(60)}
-									{ENVIRONMENT} {String.fromCharCode(47, 62)}
-								</Text>
 								<Pressable
 									onPress={async () => {
 										onToggleToken()
@@ -852,38 +838,38 @@ const DevelopmentScreen = () => {
 					data={[
 						{
 							name: 'Foreground Location',
-							route: () =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'ForegroundLocationPermissionScreen',
-								}),
+							route: () => {},
+							// navigation.navigate('PermissionNavigator', {
+							// 	screen: 'ForegroundLocationPermissionScreen',
+							// }),
 						},
 						{
 							name: 'Foreground Search Area Location',
-							route: () =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'ForegroundLocationPermissionSearchAreaScreen',
-								}),
+							route: () => {},
+							// navigation.navigate('PermissionNavigator', {
+							// 	screen: 'ForegroundLocationPermissionSearchAreaScreen',
+							// }),
 						},
 						{
 							name: 'Background Location',
-							route: () =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'BackgroundLocationPermissionScreen',
-								}),
+							route: () => {},
+							// navigation.navigate('PermissionNavigator', {
+							// 	screen: 'BackgroundLocationPermissionScreen',
+							// }),
 						},
 						{
 							name: 'Notifications',
-							route: () =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'NotificationsPermissionScreen',
-								}),
+							route: () => {},
+							// navigation.navigate('PermissionNavigator', {
+							// 	screen: 'NotificationsPermissionScreen',
+							// }),
 						},
 						{
 							name: 'Media Library',
-							route: () =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'MediaLibraryPermissionScreen',
-								}),
+							route: () => {},
+							// navigation.navigate('PermissionNavigator', {
+							// 	screen: 'MediaLibraryPermissionScreen',
+							// }),
 						},
 					]}
 					keyExtractor={i => i.name}

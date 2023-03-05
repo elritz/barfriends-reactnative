@@ -23,6 +23,7 @@ import {
 	LocalStoragePreferenceNotificationPermissionType,
 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ThemeProvider } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	PermissionBackgroundLocationReactiveVar,
@@ -45,7 +46,7 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen, Stack } from 'expo-router'
+import { Slot, SplashScreen, Stack, Tabs } from 'expo-router'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'

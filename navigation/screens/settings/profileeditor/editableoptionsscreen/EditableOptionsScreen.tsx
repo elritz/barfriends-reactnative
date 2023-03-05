@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import { useProfileQuery } from '@graphql/generated'
-import { StackActions, useNavigation } from '@react-navigation/core'
+// import { StackActions, useNavigation } from '@react-navigation/core'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Badge, Box, HStack, Heading, Icon, Text, VStack } from 'native-base'
 import { ScrollView, Pressable } from 'react-native'
@@ -10,7 +10,7 @@ interface EditableOptionsScreenProps {}
 const interests = ['🐶 Dog lover', '🍻 Drinking', '🎤 Singing', '🔥 Athletics', '🏓 Ping pong']
 
 const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
-	const navigation = useNavigation()
+	// const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const rIdentifiableInformation = rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation
@@ -68,14 +68,15 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 		>
 			<RoundedListItem
 				onPress={() => {
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'NamesScreen',
-							},
-						}),
-					)
+					console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'NamesScreen',
+					// 		},
+					// 	}),
+					// )
 				}}
 				title='Full name'
 			>
@@ -90,15 +91,16 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				)}
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'UsernameScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'UsernameScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title='Username'
 			>
@@ -113,15 +115,16 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				</HStack>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'DescriptionScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'DescriptionScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title='About me'
 			>
@@ -132,29 +135,31 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'InterestScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'InterestScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title={'My interests'}
 			>
 				<Box>
 					<Pressable
-						onPress={() =>
-							navigation.dispatch(
-								StackActions.push('ProfileSettingsNavigator', {
-									screen: 'ProfileEditorStack',
-									params: {
-										screen: 'InterestScreen',
-									},
-								}),
-							)
+						onPress={
+							() => console.log('object :>> ')
+							// navigation.dispatch(
+							// 	StackActions.push('ProfileSettingsNavigator', {
+							// 		screen: 'ProfileEditorStack',
+							// 		params: {
+							// 			screen: 'InterestScreen',
+							// 		},
+							// 	}),
+							// )
 						}
 					>
 						<VStack flexDir={'row'} flexWrap={'wrap'}>
@@ -183,15 +188,16 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				MY BASIC INFO
 			</Heading>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'GenderScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'GenderScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title={`I am a ...`}
 			>
@@ -201,15 +207,16 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'LookingForScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'LookingForScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title={`I'm looking for a ...`}
 			>
@@ -219,45 +226,48 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'StatusScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'StatusScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title={`Relationship status`}
 			>
 				<Text fontSize={'xl'}>Are you in a relationship</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'HometownScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'HometownScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title={`Add your hometown`}
 			>
 				<Text fontSize={'xl'}>add your hometown</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={() =>
-					navigation.dispatch(
-						StackActions.push('ProfileSettingsNavigator', {
-							screen: 'ProfileEditorStack',
-							params: {
-								screen: 'CurentPlaceScreen',
-							},
-						}),
-					)
+				onPress={
+					() => console.log('object :>> ')
+					// navigation.dispatch(
+					// 	StackActions.push('ProfileSettingsNavigator', {
+					// 		screen: 'ProfileEditorStack',
+					// 		params: {
+					// 			screen: 'CurentPlaceScreen',
+					// 		},
+					// 	}),
+					// )
 				}
 				title={'Add your city'}
 			>

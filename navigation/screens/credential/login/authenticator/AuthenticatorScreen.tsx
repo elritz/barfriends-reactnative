@@ -5,10 +5,10 @@ import {
 	useSendAuthenticatorDeviceOwnerCodeMutation,
 } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { useNavigation } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter } from 'expo-router'
 import { KeyboardAvoidingView, Button, IconButton, Icon, Box, Input } from 'native-base'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, InputAccessoryView, Platform } from 'react-native'
 
@@ -18,11 +18,11 @@ export type FormType = {
 
 export default function AuthenticatorScreen() {
 	const inputAccessoryViewID = 'phonenumberAccessoryID'
-	const navigation = useNavigation()
+	const router = useRouter()
 	const headerHeight = useHeaderHeight()
 	const colorScheme = useThemeColorScheme()
 	const [keyboardType, setKeyboardType] = useState('number-pad')
-	const [focusKeyboard, setFocusKeybaord] = useState(false)
+
 	const keyboardVerticalOffset =
 		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 
@@ -51,15 +51,12 @@ export default function AuthenticatorScreen() {
 		onCompleted: data => {
 			const values = getValues()
 			if (data.sendAuthenticatorDeviceOwnerCode.__typename === 'Code') {
-				navigation.navigate('CredentialNavigator', {
-					screen: 'LoginCredentialStack',
+				router.push({
 					params: {
-						screen: 'ConfirmationCodeScreen',
-						params: {
-							authenticator: values.authenticator,
-							code: data.sendAuthenticatorDeviceOwnerCode.code,
-						},
+						authenticator: values.authenticator,
+						code: data.sendAuthenticatorDeviceOwnerCode.code,
 					},
+					pathname: '../../logincredentialstack/confirmationcodescreen',
 				})
 			}
 		},
@@ -73,14 +70,12 @@ export default function AuthenticatorScreen() {
 
 			if (data.authorizedProfiles?.__typename === 'ProfilesResponse') {
 				if (data.authorizedProfiles?.username.length) {
-					navigation.navigate('CredentialNavigator', {
-						screen: 'LoginCredentialStack',
+					console.log('gere :>> ', data.authorizedProfiles?.username.length)
+					router.push({
 						params: {
-							screen: 'PasswordLoginScreen',
-							params: {
-								profile: String(data.authorizedProfiles?.username[0].id),
-							},
+							profile: String(data.authorizedProfiles?.username[0].id),
 						},
+						pathname: '../../passwordloginscreen',
 					})
 				}
 
@@ -154,13 +149,6 @@ export default function AuthenticatorScreen() {
 		}
 	}
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setFocusKeybaord(true)
-		}, 500)
-		return () => clearTimeout(timer)
-	}, [focusKeyboard])
-
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -224,11 +212,8 @@ export default function AuthenticatorScreen() {
 			{errors?.authenticator?.message ? (
 				<Button
 					onPress={() => {
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'GetStartedScreen',
-							},
+						router.replace({
+							pathname: '(app)/credentialnavigator/personalcredentialstack/termsandservicescreen',
 						})
 					}}
 					my={3}

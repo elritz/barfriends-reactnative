@@ -1,16 +1,15 @@
 import { Feather } from '@expo/vector-icons'
 import {
 	ClientDeviceManager,
-	DeviceManager,
 	Profile,
 	ProfileType,
 	useLoginPasswordLazyQuery,
 	useProfileQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { useRoute, useIsFocused, useNavigation, RouteProp } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter, useSearchParams } from 'expo-router'
 import {
 	Box,
 	Image,
@@ -23,13 +22,11 @@ import {
 	VStack,
 } from 'native-base'
 import { useTheme } from 'native-base'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
-import { LoginStackParamList } from 'src/types/app'
-import { ThemeContext } from 'styled-components/native'
 
-export type PasswordLoginScreenRouteProp = RouteProp<LoginStackParamList, 'PasswordLoginScreen'>
+// export type PasswordLoginScreenRouteProp = RouteProp<LoginStackParamList, 'PasswordLoginScreen'>
 
 type PasswordScreenProps = {
 	Profile?: Profile
@@ -39,10 +36,8 @@ const IMAGE_SIZE = 85
 
 const PasswordLoginScreen = () => {
 	const inputAccessoryViewID = 'uni2que123ID4'
-	const isFocused = useIsFocused()
-	const navigation = useNavigation()
-	const route = useRoute<PasswordLoginScreenRouteProp>()
-	const themeContext = useContext(ThemeContext)
+	const router = useRouter()
+	const params = useSearchParams()
 	const theme = useTheme()
 	const colorScheme = useThemeColorScheme()
 	const passwordRef = useRef(null)
@@ -69,22 +64,16 @@ const PasswordLoginScreen = () => {
 		shouldUnregister: true,
 	})
 
-	useEffect(() => {
-		if (passwordRef && passwordRef.current) {
-			passwordRef.current?.focus()
-		}
-	}, [isFocused])
-
 	const {
 		data: PQData,
 		loading: PQLoading,
 		error: PQError,
 	} = useProfileQuery({
-		skip: !route.params.profile,
+		skip: !params.profileid,
 		variables: {
 			where: {
 				id: {
-					equals: route.params.profile,
+					equals: String(params.profileid),
 				},
 			},
 		},
@@ -98,12 +87,15 @@ const PasswordLoginScreen = () => {
 				} else if (data.switchDeviceProfile.__typename == 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'VenueFeedStack',
-						params: {
-							screen: 'VenueFeedScreen',
-						},
+					router.push({
+						pathname: '(app)/hometabnavigator',
 					})
+					// navigation.navigate('HomeTabNavigator', {
+					// 	screen: 'VenueFeedStack',
+					// 	params: {
+					// 		screen: 'VenueFeedScreen',
+					// 	},
+					// })
 				}
 			},
 		})
@@ -116,7 +108,7 @@ const PasswordLoginScreen = () => {
 				} else {
 					switchDeviceProfileMutation({
 						variables: {
-							profileId: route.params.profile,
+							profileId: String(params.profileid),
 							profileType: ProfileType.Personal,
 						},
 					})

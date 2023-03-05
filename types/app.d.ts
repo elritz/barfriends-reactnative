@@ -6,6 +6,10 @@ import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigatio
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Float } from 'react-native/Libraries/Types/CodegenTypes'
 
+export interface IColor {
+	color: string
+}
+
 export type AuthorizationDecoded =
 	| {
 			devicemanager: string

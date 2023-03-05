@@ -18,7 +18,7 @@ module.exports = function (api) {
 				{
 					root: ['.'],
 					alias: {
-						'@types': './types/app.d.ts',
+						'@ctypes': './types',
 						'@assets': './assets',
 						'@components': './components',
 						'@graphql': './graphql/',

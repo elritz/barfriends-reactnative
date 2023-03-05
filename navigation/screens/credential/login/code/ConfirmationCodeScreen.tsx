@@ -1,10 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
+import { LoginStackParamList } from '@ctypes/app'
 import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import Countdown from '@util/hooks/useTimer'
+import { useRouter, useSearchParams } from 'expo-router'
 import { Box, Heading, KeyboardAvoidingView, Text, Icon, Button, useTheme } from 'native-base'
 import { useContext, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
@@ -15,7 +16,6 @@ import {
 	useBlurOnFulfill,
 	useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
-import { LoginStackParamList } from 'src/types/app'
 import { ThemeContext } from 'styled-components/native'
 
 type CodeInputCellViewType = {
@@ -24,19 +24,15 @@ type CodeInputCellViewType = {
 
 // TODO: FN(Resend code functionality) - ln:172
 
-export type ConfirmationCodeScreenRouteProp = RouteProp<
-	LoginStackParamList,
-	'ConfirmationCodeScreen'
->
-
 const ConfirmationCodeScreen = () => {
-	const route = useRoute<ConfirmationCodeScreenRouteProp>()
-	const navigation = useNavigation()
+	const router = useRouter()
+	const params = useSearchParams()
+
 	const themeContext = useContext(ThemeContext)
 	const theme = useTheme()
 	const headerHeight = useHeaderHeight()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
-	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+
 	const inputAccessoryViewID = 'codeAccessoryViewID'
 	const CELL_COUNT = 4
 	const { num, complete } = Countdown(9)
@@ -70,28 +66,22 @@ const ConfirmationCodeScreen = () => {
 	})
 
 	const navigateToUpdatePhoneNumber = () => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'LoginCredentialStack',
-			params: {
-				screen: 'AuthenticatorScreen',
-			},
+		router.replace({
+			pathname: '(app)/credentialnavigator/logincredentialstack/authenticatorscreen',
 		})
 	}
 
 	const navigateToNextScreen = () => {
-		navigation.navigate('CredentialNavigator', {
-			screen: 'LoginCredentialStack',
+		router.replace({
+			pathname: '(app)/credentialnavigator/logincredentialstack/devicemanagerscreen',
 			params: {
-				screen: 'DeviceManagerScreen',
-				params: {
-					authenticator: route.params.authenticator,
-				},
+				authenticator: params.authenticator,
 			},
 		})
 	}
 
 	const checkFinalCode = (value: string): ValidateResult => {
-		if (value !== route.params.code) {
+		if (value !== params.code) {
 			return false
 		}
 		navigateToNextScreen()
@@ -100,7 +90,7 @@ const ConfirmationCodeScreen = () => {
 
 	const onSubmit = (data: { code: any }) => {
 		const { code } = data
-		if (code !== route.params.code) {
+		if (code !== params.code) {
 			return setError('code', { type: 'validate', message: 'Invalid code' })
 		}
 		clearErrors()
@@ -116,7 +106,7 @@ const ConfirmationCodeScreen = () => {
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
 			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
-				{`Enter the 4-diget code sent to you at ${route.params.authenticator}`}
+				{`Enter the 4-diget code sent to you at ${params.authenticator}`}
 			</Text>
 			<View style={{ marginVertical: '10%', width: '100%' }}>
 				<Controller
@@ -171,7 +161,7 @@ const ConfirmationCodeScreen = () => {
 						validate: {
 							checkLength: value => value.length === CELL_COUNT,
 							checkCompare: value =>
-								value === route.params.code || "The SMS passcode you've entered is incorrect.",
+								value === params.code || "The SMS passcode you've entered is incorrect.",
 							checkFinalCode: value => checkFinalCode(value) || "Code doesn't match.",
 						},
 					}}

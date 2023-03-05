@@ -13,6 +13,18 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				primaryColor: '#FF7000',
+				plugins: [
+					'expo-build-properties',
+					'expo-localization',
+					[
+						'expo-media-library',
+						{
+							photosPermission: 'Allow $(PRODUCT_NAME) to access your photos.',
+							savePhotosPermission: 'Allow $(PRODUCT_NAME) to save photos.',
+							isAccessMediaLocationEnabled: true,
+						},
+					],
+				],
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -20,7 +32,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				runtimeVersion: {
 					policy: 'sdkVersion',
 				},
-				jsEngine: 'hermes',
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
 				icon: './assets/images/icon/icon.png',
@@ -36,7 +47,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					bundleIdentifier: 'com.barfriends.production',
 					supportsTablet: false,
 					icon: `./assets/images/icon/icon.png`,
-					jsEngine: 'hermes',
 					// splash: {
 					// 	image: `./src/assets/images/splash/splash.png`,
 					// 	resizeMode: 'cover',
@@ -124,6 +134,18 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				scheme: 'barfriends-staging',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
+				plugins: [
+					'expo-build-properties',
+					'expo-localization',
+					[
+						'expo-media-library',
+						{
+							photosPermission: 'Allow $(PRODUCT_NAME) to access your photos.',
+							savePhotosPermission: 'Allow $(PRODUCT_NAME) to save photos.',
+							isAccessMediaLocationEnabled: true,
+						},
+					],
+				],
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -242,6 +264,18 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				scheme: 'barfriends',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
+				plugins: [
+					'expo-build-properties',
+					'expo-localization',
+					[
+						'expo-media-library',
+						{
+							photosPermission: 'Allow Barfriends to access your photos.',
+							savePhotosPermission: 'Allow Barfriends to save photos.',
+							isAccessMediaLocationEnabled: true,
+						},
+					],
+				],
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -263,6 +297,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				},
 				web: {
 					bundler: 'metro',
+					favicon: './assets/images/favicon.png',
 				},
 				ios: {
 					// buildNumber: '2.1.6',
@@ -336,9 +371,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						'com.sonyericsson.home.permission.BROADCAST_BADGE',
 					],
 				},
-				web: {
-					favicon: './assets/images/favicon.png',
-				},
+
 				packagerOpts: {
 					sourceExts: ['cjs'],
 				},

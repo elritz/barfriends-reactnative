@@ -2,8 +2,8 @@ import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { Button, Icon } from 'native-base'
 import { Box, Text, VStack } from 'native-base'
 import { useContext } from 'react'
@@ -13,7 +13,7 @@ import { ThemeContext } from 'styled-components/native'
 const GetStartedScreen = () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const rProfilesBottomSheetVar = useReactiveVar(ProfilesBottomSheetRefReactiveVar)
-	const navigation = useNavigation()
+	const router = useRouter()
 	const themeContext = useContext(ThemeContext)
 	const hightlightColor = themeContext.palette.bfscompany.secondary
 
@@ -32,14 +32,8 @@ const GetStartedScreen = () => {
 				</Text>
 				<Pressable
 					onPress={() =>
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'TermsServicePrivacyTabStack',
-								params: {
-									screen: 'ServiceScreen',
-								},
-							},
+						router.push({
+							pathname: '(app)/settingsnavigator/privacytermsservicetabstack',
 						})
 					}
 				>
@@ -67,15 +61,15 @@ const GetStartedScreen = () => {
 								ServiceId: PTSData?.privacyTermsDocuments.termsofservice.id,
 								PrivacyId: PTSData?.privacyTermsDocuments.privacy.id,
 							})
-							navigation.navigate('CredentialNavigator', {
-								screen: 'PersonalCredentialStack',
-								params: {
-									screen: 'EmailPhoneTabStack',
-									params: {
-										screen: 'PhoneScreen',
-									},
-								},
-							})
+							// navigation.navigate('CredentialNavigator', {
+							// 	screen: 'PersonalCredentialStack',
+							// 	params: {
+							// 		screen: 'EmailPhoneTabStack',
+							// 		params: {
+							// 			screen: 'PhoneScreen',
+							// 		},
+							// 	},
+							// })
 						}}
 						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
 						variant={'solid'}

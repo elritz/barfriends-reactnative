@@ -1,13 +1,11 @@
 import SkeletonVenuesHomeScreen from './SkeletonVenuesHomeScreen'
 import { useReactiveVar } from '@apollo/client'
-import { useDimensions } from '@react-native-community/hooks'
 import { SearchAreaReactiveVar } from '@reactive'
 import { VStack, Center, Skeleton } from 'native-base'
+import { useWindowDimensions } from 'react-native'
 
 export default function VenueFeedSkeletonLoadingState() {
-	const {
-		window: { width, height },
-	} = useDimensions()
+	const { width, height } = useWindowDimensions()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const loadingSkelHeight = width - 20

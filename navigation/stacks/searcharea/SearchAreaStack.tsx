@@ -13,6 +13,7 @@ import { SearchAreaReactiveVar } from '@reactive'
 import { ModalNavigatorParamList, SearchAreaStackParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
+import { useRouter } from 'expo-router'
 import { Box, VStack } from 'native-base'
 import { useContext, useEffect, useMemo } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -69,6 +70,7 @@ export type SearchAreaStackRouteProp = RouteProp<ModalNavigatorParamList, 'Searc
 function SearchAreaStackNavigation() {
 	const navigation = useNavigation()
 	const route = useRoute<SearchAreaStackRouteProp>()
+	const router = useRouter()
 	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
@@ -125,15 +127,15 @@ function SearchAreaStackNavigation() {
 	const onSubmit = data => console.log()
 
 	const handleNavigationToNewSearchAreaForm = () => {
-		navigation.navigate('ModalNavigator', {
-			screen: 'SearchAreaModalStack',
-			params: {
-				screen: 'SearchCountryTextScreen',
-				params: {
-					searchText: '',
-				},
-			},
-		})
+		// navigation.navigate('ModalNavigator', {
+		// 	screen: 'SearchAreaModalStack',
+		// 	params: {
+		// 		screen: 'SearchCountryTextScreen',
+		// 		params: {
+		// 			searchText: '',
+		// 		},
+		// 	},
+		// })
 	}
 
 	const searchBarTitle = useMemo(() => {
@@ -168,16 +170,6 @@ function SearchAreaStackNavigation() {
 					header: () => {
 						return (
 							<VStack flexDirection={'column-reverse'} alignItems={'center'}>
-								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
-								) : (
-									<View
-										style={[
-											StyleSheet.absoluteFill,
-											{ backgroundColor: themeContext.palette.primary.background.default },
-										]}
-									/>
-								)}
 								<SearchAreaCountryTextScreenInput
 									name='searchtext'
 									label=''

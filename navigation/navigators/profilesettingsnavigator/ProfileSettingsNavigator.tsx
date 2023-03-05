@@ -1,5 +1,5 @@
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import AppearanceSettingsScreen from '@navigation/screens/settings/appearancesettings/AppearanceSettingsScreen'
+import AppearanceSettingsScreen from '@navigation/screens/settings/appearancesettings'
 import ProfileNotificationsSettingsScreen from '@navigation/screens/settings/profilenotificationssettings/ProfileNotificationsSettingsScreen'
 import ProfileSettingsOptionsScreen from '@navigation/screens/settings/profilesettingoptions/ProfileSettingsOptionsScreen'
 import SecuritySettingsScreen from '@navigation/screens/settings/securitysettings/SecuritySettingsScreen'
