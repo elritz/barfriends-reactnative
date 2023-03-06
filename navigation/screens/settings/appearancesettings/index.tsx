@@ -60,7 +60,7 @@ export default function AppearanceSettingsScreen() {
 				<Divider />
 				<Pressable
 					onPress={async () => {
-						await setTheme({ colorScheme: 'light' })
+						await setTheme({ colorScheme: 'system' })
 					}}
 					px={4}
 					flexDir={'row'}

@@ -4,9 +4,9 @@ import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter } from 'expo-router'
 import parsePhoneNumber, { CountryCode } from 'libphonenumber-js'
 import {
 	Box,
@@ -36,8 +36,7 @@ export type CountrySelector = {
 }
 
 const PhoneScreen = () => {
-	const isFocused = useIsFocused()
-	const navigation = useNavigation()
+	const router = useRouter()
 	const headerHeight = useHeaderHeight()
 	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
@@ -93,11 +92,8 @@ const PhoneScreen = () => {
 						id: data.sendAuthenticatorDeviceOwnerCode.id,
 						code: data.sendAuthenticatorDeviceOwnerCode.code,
 					})
-					navigation.navigate('CredentialNavigator', {
-						screen: 'PersonalCredentialStack',
-						params: {
-							screen: 'ConfirmationCodeScreen',
-						},
+					router.push({
+						pathname: '(app)/credentialnavigator/personalcredentialstack/confirmationcode',
 					})
 					break
 			}
@@ -250,47 +246,45 @@ const PhoneScreen = () => {
 			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
 			<Heading>Enter your mobile number</Heading>
-			{isFocused ? (
-				<View style={{ marginVertical: 20, width: '100%' }}>
-					<Controller
-						name='mobileNumber.completeNumber'
-						control={control}
-						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								ref={phonenumberRef}
-								key='mobileNumber.completeNumber'
-								value={value}
-								keyboardAppearance={colorScheme}
-								onChangeText={value => onChange(value)}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								textContentType='telephoneNumber'
-								blurOnSubmit={false}
-								autoFocus
-								placeholder='Mobile Number'
-								returnKeyType='done'
-								inputAccessoryViewID={inputAccessoryViewID}
-								autoComplete='tel'
-								keyboardType='phone-pad'
-								leftElement={renderInputLeftIcon()}
-							/>
-						)}
-						rules={{
-							required: {
-								value: true,
-								message: 'Hey this is required 🤷‍♂️.',
-							},
-							validate: {
-								formatPhonenumber: async (value: any) =>
-									validateFormatPhonenumber(value) || 'The phone number is invalid 🙅‍♀️.',
-								cleanPhonenumber: async (value: any) =>
-									validateCleanPhonenumber(value) || 'Format not excepted',
-							},
-						}}
-					/>
-					<Text>{errors?.mobileNumber?.number?.message}</Text>
-				</View>
-			) : null}
+			<View style={{ marginVertical: 20, width: '100%' }}>
+				<Controller
+					name='mobileNumber.completeNumber'
+					control={control}
+					render={({ field: { onChange, onBlur, value } }) => (
+						<Input
+							ref={phonenumberRef}
+							key='mobileNumber.completeNumber'
+							value={value}
+							keyboardAppearance={colorScheme}
+							onChangeText={value => onChange(value)}
+							onSubmitEditing={handleSubmit(onSubmit)}
+							onBlur={onBlur}
+							textContentType='telephoneNumber'
+							blurOnSubmit={false}
+							autoFocus
+							placeholder='Mobile Number'
+							returnKeyType='done'
+							inputAccessoryViewID={inputAccessoryViewID}
+							autoComplete='tel'
+							keyboardType='phone-pad'
+							leftElement={renderInputLeftIcon()}
+						/>
+					)}
+					rules={{
+						required: {
+							value: true,
+							message: 'Hey this is required 🤷‍♂️.',
+						},
+						validate: {
+							formatPhonenumber: async (value: any) =>
+								validateFormatPhonenumber(value) || 'The phone number is invalid 🙅‍♀️.',
+							cleanPhonenumber: async (value: any) =>
+								validateCleanPhonenumber(value) || 'Format not excepted',
+						},
+					}}
+				/>
+				<Text>{errors?.mobileNumber?.number?.message}</Text>
+			</View>
 
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box

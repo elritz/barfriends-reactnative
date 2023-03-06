@@ -98,7 +98,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				<RoundedListItem
 					onPress={() => {
 						router.push({
-							pathname: '',
+							pathname: '(app)',
 						})
 						// navigation.dispatch(
 						// 	StackActions.push('ProfileSettingsNavigator', {

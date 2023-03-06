@@ -21,14 +21,7 @@ const VenueFeedTab = (props: TabProps) => {
 					/>
 				}
 			/>
-			<Box
-				// position={'absolute'}
-				// bottom={-3}
-				bg={false ? 'red.500' : 'transparent'}
-				h={'4.25px'}
-				w={'4.25px'}
-				borderRadius={'full'}
-			/>
+			<Box bg={false ? 'red.500' : 'transparent'} h={'4.25px'} w={'4.25px'} borderRadius={'full'} />
 		</>
 	)
 }

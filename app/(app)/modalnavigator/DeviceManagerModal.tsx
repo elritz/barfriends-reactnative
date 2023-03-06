@@ -1,4 +1,3 @@
-import { useReactiveVar } from '@apollo/client'
 import WithDeviceProfiles from '@components/molecules/asks/signinup/withdeviceprofiles/WithDeviceProfiles'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
@@ -8,21 +7,20 @@ import {
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { StackActions, useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, Pressable } from 'native-base'
+import { useRouter } from 'expo-router'
+import { Skeleton } from 'native-base'
+import { Box, Pressable, VStack } from 'native-base'
 import { useState } from 'react'
 import { SafeAreaView, View, ScrollView } from 'react-native'
 
 // TODO: FN(What functionality was suppose to be here)
 
 export default function DeviceManagerModal() {
-	// const navigation = useNavigation()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
-	const [selectedProfileId, setSelectedProfileId] = useState('')
+	const router = useRouter()
 
-	const { data, loading, error } = useGetADeviceManagerQuery({
+	const { loading } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
 		onError: error => {},
 		onCompleted: data => {
@@ -39,13 +37,13 @@ export default function DeviceManagerModal() {
 				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					// setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
-					// navigation.navigate('HomeTabNavigator', {
-					// 	screen: 'VenueFeedStack',
-					// 	params: {
-					// 		screen: 'VenueFeedScreen',
-					// 	},
-					// })
+					setTimeout(
+						() =>
+							router.push({
+								pathname: '(app)/hometabnavigator',
+							}),
+						1000,
+					)
 				}
 			},
 		})
@@ -72,38 +70,41 @@ export default function DeviceManagerModal() {
 		}
 	}
 
-	if (!rAuthorizationVar || loading) {
-		return null
-	}
-
 	return (
 		<SafeAreaView style={{ flex: 1, margin: 10 }}>
 			<Box>
 				<WithDeviceProfiles />
 			</Box>
 			<View style={{ flex: 1 }}>
-				<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-					{profiles.length ? (
-						<>
-							{profiles?.map((item, index) => {
-								if (item.Profile?.ProfileType === ProfileType.Guest) {
-									return null
-								} else {
-									return (
-										<Pressable key={item.id} onPress={() => switchProfile(item)} w={'100%'} h={'80px'}>
-											<DeviceManagerProfileItemLarge
-												item={item.Profile}
-												isActive={item.isActive}
-												loading={SWDPLoading}
-												selectedProfileId={rAuthorizationVar.DeviceProfile?.Profile?.id}
-											/>
-										</Pressable>
-									)
-								}
-							})}
-						</>
-					) : null}
-				</ScrollView>
+				{loading ? (
+					<VStack my={5} space={2} rounded='md' px={2}>
+						{[...Array(3)].map(item => {
+							return <Skeleton rounded='xl' h='80px' w={'100%'} />
+						})}
+					</VStack>
+				) : (
+					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
+						{profiles.length ? (
+							<>
+								{profiles?.map((item, index) => {
+									if (item.Profile?.ProfileType === ProfileType.Guest) {
+										return null
+									} else {
+										return (
+											<Pressable key={item.id} onPress={() => switchProfile(item)} w={'100%'} h={'80px'}>
+												<DeviceManagerProfileItemLarge
+													item={item.Profile}
+													isActive={item.isActive}
+													loading={SWDPLoading}
+												/>
+											</Pressable>
+										)
+									}
+								})}
+							</>
+						) : null}
+					</ScrollView>
+				)}
 			</View>
 		</SafeAreaView>
 	)

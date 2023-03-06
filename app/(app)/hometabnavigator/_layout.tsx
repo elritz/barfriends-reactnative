@@ -11,7 +11,6 @@ import {
 } from '@constants/ReactNavigationConstants'
 import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
-import { ThemeProvider } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
@@ -33,18 +32,20 @@ export default () => {
 			screenOptions={{
 				tabBarBackground: () => (
 					<>
-						{Platform.OS === 'ios' ? (
+						{/* {Platform.OS === 'ios' ? (
 							<BlurView style={[StyleSheet.absoluteFill]} tint={colorScheme} intensity={100}></BlurView>
-						) : (
-							<View
-								style={[
-									StyleSheet.absoluteFill,
-									{ backgroundColor: themeContext.palette.primary.background.default },
-								]}
-							/>
-						)}
+						) : ( */}
+						<View
+							style={[
+								StyleSheet.absoluteFill,
+								{ backgroundColor: themeContext.palette.primary.background.default },
+							]}
+						/>
+						{/* )} */}
 					</>
 				),
+				// tabBarActiveTintColor: themeContext.palette.primary.color.accent,
+				// tabBarInactiveTintColor: themeContext.palette.primary.color.light,
 				tabBarStyle: {
 					height:
 						insets.bottom !== 0

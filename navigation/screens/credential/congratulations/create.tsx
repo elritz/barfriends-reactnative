@@ -11,13 +11,13 @@ import {
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { Text, Icon, IconButton, Box, Heading, Button, VStack } from 'native-base'
 import { SafeAreaView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const CongratulationsScreen = () => {
-	const insets = useSafeAreaInsets()
-	const navigation = useNavigation()
+const Create = () => {
+	const router = useRouter()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
@@ -26,12 +26,8 @@ const CongratulationsScreen = () => {
 				if (data.switchDeviceProfile.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'VenueFeedStack',
-						params: {
-							screen: 'VenueFeedScreen',
-						},
+					router.push({
+						pathname: '(app)/hometabnavigator',
 					})
 				}
 			},
@@ -45,7 +41,7 @@ const CongratulationsScreen = () => {
 				birthday: credentialPersonalProfileVar.birthday,
 				password: String(credentialPersonalProfileVar.password),
 				username: String(credentialPersonalProfileVar.username),
-				fullname: credentialPersonalProfileVar.name,
+				fullname: `${credentialPersonalProfileVar.firstname} ${credentialPersonalProfileVar.firstname}`,
 				address: '',
 				EmailInput: {
 					email: credentialPersonalProfileVar.email,
@@ -73,7 +69,7 @@ const CongratulationsScreen = () => {
 
 	return (
 		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={4}>
-			<VStack space={2} justifyContent={'center'} height={'lg'}>
+			<VStack space={2} alignItems={'center'} justifyContent={'center'} height={'lg'}>
 				<CompanyCoasterLogoDynamic />
 				<Box>
 					<Heading fontWeight={'black'} fontSize={'4xl'}>
@@ -104,4 +100,4 @@ const CongratulationsScreen = () => {
 	)
 }
 
-export default CongratulationsScreen
+export default Create

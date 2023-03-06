@@ -1,25 +1,46 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter } from 'expo-router'
 import { Button, Input, useTheme, Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
 import { useContext, useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
+import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const UsernameScreen = () => {
-	const inputAccessoryViewID = 'uniqsdfweeqweeeeeeqweue1d5'
-	const navigation = useNavigation()
+	const INPUT_ACCESSORY_VIEW_ID = 'un-1298187263'
+	const { bottom } = useSafeAreaInsets()
+	const router = useRouter()
+	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const usernameTextInputRef = useRef(null)
 	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 
-	const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 0
+	const { height: platform } = useReanimatedKeyboardAnimation()
+	const INPUT_CONTAINER_HEIGHT = 90
+
+	const height = useDerivedValue(() => platform.value, [isFocused])
+
+	const textInputContainerStyle = useAnimatedStyle(
+		() => ({
+			width: '100%',
+			position: 'absolute',
+			bottom: 0,
+			paddingBottom: bottom,
+			height: INPUT_CONTAINER_HEIGHT,
+			transform: [{ translateY: height.value }],
+		}),
+		[],
+	)
 
 	const {
 		control,
@@ -63,11 +84,8 @@ const UsernameScreen = () => {
 			...credentialPersonalProfileVar,
 			username: data.username,
 		})
-		navigation.navigate('CredentialNavigator', {
-			screen: 'PersonalCredentialStack',
-			params: {
-				screen: 'PasswordCreateScreen',
-			},
+		router.push({
+			pathname: '(app)/credentialnavigator/personalcredentialstack/password',
 		})
 	}
 
@@ -98,110 +116,159 @@ const UsernameScreen = () => {
 	}
 
 	return (
-		<KeyboardAvoidingView
-			height={'auto'}
-			flexDir={'column'}
-			mx={'5%'}
-			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={keyboardVerticalOffset}
-		>
-			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
-				Choose your username
-			</Text>
-			<View style={{ marginVertical: '10%', width: '100%' }}>
-				<Controller
-					name='username'
-					control={control}
-					defaultValue=''
-					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
-							ref={usernameTextInputRef}
-							value={value}
-							key='username'
-							placeholder='Username'
-							keyboardAppearance={colorScheme}
-							onChangeText={onChange}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							autoCorrect={false}
-							autoFocus
-							textContentType='username'
-							autoComplete='username-new'
-							returnKeyType='done'
-							variant={'underlined'}
-							py={2}
-							_input={{
-								fontSize: 'xl',
-								fontWeight: 'medium',
-							}}
-							size={'lg'}
-							numberOfLines={1}
-							keyboardType='default'
-							autoCapitalize='none'
-							inputAccessoryViewID={inputAccessoryViewID}
-							blurOnSubmit={true}
-							InputRightElement={<InputRightIcon />}
-						/>
-					)}
-					rules={{
-						required: {
-							value: true,
-							message: '',
-						},
-						validate: {
-							greaterThanZero: value => value.length > 0 || '',
-							greaterQualThanFour: value => value.length >= 1 || '',
-							noSpaces: value => /^[\S]+$/.test(value) || 'No spaces are allowed',
-							validateCheckUsername: async value => (await validateCheckUsername(value)) || '',
-						},
-					}}
-				/>
-				<Text>{errors?.username?.message}</Text>
-			</View>
-			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<Box
-					flexDir={'row'}
-					justifyContent={'flex-end'}
-					height={'90px'}
-					px={'2.5%'}
-					_light={{
-						bg: theme.colors.light[100],
-					}}
-					_dark={{
-						bg: theme.colors.dark[200],
-					}}
-				>
+		<Box flex={1}>
+			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
+				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+					Choose your username
+				</Text>
+				<View style={{ marginVertical: '10%', width: '100%' }}>
+					<Controller
+						name='username'
+						control={control}
+						defaultValue=''
+						render={({ field: { onChange, onBlur, value } }) => (
+							<Input
+								ref={usernameTextInputRef}
+								value={value}
+								key='username'
+								placeholder='Username'
+								keyboardAppearance={colorScheme}
+								onChangeText={onChange}
+								onSubmitEditing={handleSubmit(onSubmit)}
+								onBlur={onBlur}
+								autoCorrect={false}
+								autoFocus
+								textContentType='username'
+								autoComplete='username-new'
+								returnKeyType='done'
+								variant={'underlined'}
+								py={2}
+								_input={{
+									fontSize: 'xl',
+									fontWeight: 'medium',
+								}}
+								size={'lg'}
+								numberOfLines={1}
+								keyboardType='default'
+								autoCapitalize='none'
+								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+								blurOnSubmit={true}
+								InputRightElement={<InputRightIcon />}
+							/>
+						)}
+						rules={{
+							required: {
+								value: true,
+								message: '',
+							},
+							validate: {
+								greaterThanZero: value => value.length > 0 || '',
+								greaterQualThanFour: value => value.length >= 1 || '',
+								noSpaces: value => /^[\S]+$/.test(value) || 'No spaces are allowed',
+								validateCheckUsername: async value => (await validateCheckUsername(value)) || '',
+							},
+						}}
+					/>
+					<Text>{errors?.username?.message}</Text>
+				</View>
+			</Reanimated.View>
+			{Platform.OS === 'ios' ? (
+				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
 					<Box
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							justifyContent: 'space-around',
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						height={'90px'}
+						px={'2.5%'}
+						_light={{
+							bg: theme.colors.light[100],
+						}}
+						_dark={{
+							bg: theme.colors.dark[200],
 						}}
 					>
-						<Button
-							onPress={handleSubmit(onSubmit)}
-							isDisabled={!!errors.username}
-							borderRadius={'full'}
+						<Box
 							style={{
-								justifyContent: 'center',
-								height: 60,
-								width: 60,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'space-around',
 							}}
-							rightIcon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'xl'}
-									color={errors.username ? 'primary.700' : 'white'}
-								/>
-							}
-						/>
+						>
+							<Button
+								onPress={handleSubmit(onSubmit)}
+								isDisabled={!!errors.username}
+								borderRadius={'full'}
+								style={{
+									justifyContent: 'center',
+									height: 60,
+									width: 60,
+									paddingHorizontal: 20,
+									alignSelf: 'center',
+								}}
+								rightIcon={
+									<Icon
+										as={Feather}
+										name='arrow-right'
+										size={'xl'}
+										color={errors.username ? 'primary.700' : 'white'}
+									/>
+								}
+							/>
+						</Box>
 					</Box>
-				</Box>
-			</InputAccessoryView>
-		</KeyboardAvoidingView>
+				</InputAccessoryView>
+			) : (
+				<Reanimated.View
+					style={[
+						{
+							height: INPUT_CONTAINER_HEIGHT,
+						},
+						textInputContainerStyle,
+					]}
+				>
+					<Box
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						height={'90px'}
+						px={'2.5%'}
+						_light={{
+							bg: theme.colors.light[100],
+						}}
+						_dark={{
+							bg: theme.colors.dark[200],
+						}}
+					>
+						<Box
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'space-around',
+							}}
+						>
+							<Button
+								onPress={handleSubmit(onSubmit)}
+								isDisabled={!!errors.username}
+								borderRadius={'full'}
+								style={{
+									justifyContent: 'center',
+									height: 60,
+									width: 60,
+									paddingHorizontal: 20,
+									alignSelf: 'center',
+								}}
+								rightIcon={
+									<Icon
+										as={Feather}
+										name='arrow-right'
+										size={'xl'}
+										color={errors.username ? 'primary.700' : 'white'}
+									/>
+								}
+							/>
+						</Box>
+					</Box>
+				</Reanimated.View>
+			)}
+		</Box>
 	)
 }
 

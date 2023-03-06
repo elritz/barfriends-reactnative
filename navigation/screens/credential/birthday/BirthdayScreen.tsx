@@ -1,10 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
 import { Feather } from '@expo/vector-icons'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
+import { useRouter } from 'expo-router'
 import { IconButton, Text, Icon, Box } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -14,7 +15,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 const BirthdayScreen = () => {
 	const insets = useSafeAreaInsets()
 	const isFocused = useIsFocused()
-	const navigation = useNavigation()
+	// const navigation = useNavigation()
+	const router = useRouter()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const [legalAge] = useState<number>(19)
 
@@ -83,11 +85,8 @@ const BirthdayScreen = () => {
 				...credentialPersonalProfileVar,
 				birthday: String(birthday),
 			})
-			navigation.navigate('CredentialNavigator', {
-				screen: 'PersonalCredentialStack',
-				params: {
-					screen: 'NameScreen',
-				},
+			router.push({
+				pathname: '(app)/credentialnavigator/personalcredentialstack/name',
 			})
 		} catch (e) {
 			return setError('date', {
@@ -162,7 +161,6 @@ const BirthdayScreen = () => {
 				flexDir={'row-reverse'}
 				justifyContent={'space-between'}
 				w={'100%'}
-				py={2}
 			>
 				<Box mt={insets.bottom / 2} mb={insets.bottom}>
 					<IconButton

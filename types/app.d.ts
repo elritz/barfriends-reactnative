@@ -231,9 +231,11 @@ export type LoginStackParamList = {
 export type PersonalCredentialStackParamList = {
 	GetStartedScreen: undefined
 	EmailPhoneTabStack: NavigatorScreenParams<EmailPhoneTabStackParamlist> | undefined
-	ConfirmationCodeScreen: {
-		code: string
-	}
+	ConfirmationCodeScreen:
+		| {
+				code: string
+		  }
+		| undefined
 	BirthdayScreen: undefined
 	NameScreen: undefined
 	UsernameScreen: undefined

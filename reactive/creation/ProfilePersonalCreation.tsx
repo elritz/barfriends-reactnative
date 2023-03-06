@@ -7,7 +7,8 @@ export type CredentialPersoanl = {
 	birthday?: string
 	password?: string
 	username?: string
-	name?: string
+	firstname?: string
+	lastname?: string
 	phone?: {
 		number?: string
 		completeNumber?: string
@@ -21,7 +22,8 @@ export const CredentialPersonalProfileReactiveVar = makeVar<CredentialPersoanl>(
 	ServiceId: '',
 	birthday: '',
 	email: '',
-	name: '',
+	firstname: '',
+	lastname: '',
 	password: '',
 	username: '',
 	phone: {

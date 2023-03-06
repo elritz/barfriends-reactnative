@@ -61,15 +61,9 @@ const GetStartedScreen = () => {
 								ServiceId: PTSData?.privacyTermsDocuments.termsofservice.id,
 								PrivacyId: PTSData?.privacyTermsDocuments.privacy.id,
 							})
-							// navigation.navigate('CredentialNavigator', {
-							// 	screen: 'PersonalCredentialStack',
-							// 	params: {
-							// 		screen: 'EmailPhoneTabStack',
-							// 		params: {
-							// 			screen: 'PhoneScreen',
-							// 		},
-							// 	},
-							// })
+							router.push({
+								pathname: '(app)/credentialnavigator/personalcredentialstack/phone',
+							})
 						}}
 						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
 						variant={'solid'}
