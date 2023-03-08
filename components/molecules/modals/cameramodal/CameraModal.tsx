@@ -1,10 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import { useGetSecureFriendQrCodeDataQuery, useQrAddFriendMutation } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, PermissionCameraReactiveVar } from '@reactive'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as Crypto from 'expo-crypto'
 import * as Haptics from 'expo-haptics'
-import { Box, Button, Center, Modal, Text, useDisclose } from 'native-base'
+import { useRouter } from 'expo-router'
+import { Box, Button, Center, Heading, Modal, Text, useDisclose } from 'native-base'
 import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
@@ -12,7 +13,9 @@ import QRCode from 'react-native-qrcode-svg'
 const LOGO_COASTER = require('../../../../assets/images/company/company_coaster.png')
 
 const CameraModal = ({ isOpen, onOpen, onClose }) => {
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rPermissionCamera = useReactiveVar(PermissionCameraReactiveVar)
 	const [hasPermission, setHasPermission] = useState(null)
 	const [scanned, setScanned] = useState(false)
 	const [dataQR, setDataQR] = useState('')
@@ -72,13 +75,6 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 		// alert(`Bar code with type ${type} and data ${data} has been scanned!`)
 	}
 
-	if (hasPermission === null) {
-		return <Text>Requesting for camera permission</Text>
-	}
-	if (hasPermission === false) {
-		return <Text>No access to camera</Text>
-	}
-
 	if (loadingGSFQRCD || !dataGSFQRCD) return null
 
 	return (
@@ -86,11 +82,13 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<Modal.Content h={'70%'} w={'95%'}>
 					<Modal.CloseButton />
-					<BarCodeScanner
-						type={'back'}
-						onBarCodeScanned={async data => (scanned ? undefined : await handleBarCodeScanned(data))}
-						style={StyleSheet.absoluteFillObject}
-					/>
+					{rPermissionCamera?.granted && (
+						<BarCodeScanner
+							type={'back'}
+							onBarCodeScanned={async data => (scanned ? undefined : await handleBarCodeScanned(data))}
+							style={StyleSheet.absoluteFillObject}
+						/>
+					)}
 					<Box h={'100%'} alignItems={'center'} justifyContent={'flex-end'} pb={10}>
 						<Box p={3} borderRadius={'lg'} bg={'dark.50'}>
 							{dataQR && (

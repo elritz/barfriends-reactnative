@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
+import IllustrationDynamicNetwork from '@assets/images/network/IllustrationDynamicNetwork'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { DeviceNetworkInfoReactiveVar, PermissionForegroundLocationReactiveVar } from '@reactive'
-import IllustrationDynamicNetwork from 'assets/images/network/IllustrationDynamicNetwork'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'

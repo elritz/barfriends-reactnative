@@ -1,17 +1,15 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
+import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import {
-	PermissionBackgroundLocationReactiveVar,
-	PermissionForegroundLocationReactiveVar,
-} from '@reactive'
+import { useIsFocused } from '@react-navigation/native'
+import { PermissionBackgroundLocationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
-import IllustrationDynamicLocation from 'assets/images/location/IllustrationDynamicLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
+import { useRouter } from 'expo-router'
 import { Box, VStack, Button, Divider, Heading, Text, ScrollView } from 'native-base'
 import React, { useEffect, useRef, useState } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
@@ -43,7 +41,7 @@ const details = [
 
 const BackgroundLocationPermissionScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
-	const navigation = useNavigation()
+	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rBackgroundLocationPermissionVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const { start, seconds, started } = useTimer2('0:2')
@@ -103,7 +101,7 @@ const BackgroundLocationPermissionScreen = () => {
 			PermissionBackgroundLocationReactiveVar(backgroundlocationpermission)
 			if (backgroundlocationpermission.granted && backgroundlocationpermission.status === 'granted') {
 				setTimeout(() => {
-					navigation.goBack()
+					router.back()
 				}, 1500)
 				start()
 			}
@@ -162,11 +160,11 @@ const BackgroundLocationPermissionScreen = () => {
 						: 'Granted'}
 				</Button>
 				{!started ? (
-					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
 						<Text fontWeight={'medium'}>Close</Text>
 					</Button>
 				) : (
-					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
 						{started && (
 							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
 						)}

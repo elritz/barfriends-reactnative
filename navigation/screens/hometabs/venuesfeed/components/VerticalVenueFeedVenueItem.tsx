@@ -36,31 +36,15 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		<Pressable
 			key={props.item.id}
 			onPress={() => {
-				console.log('hello :>> ', props.item.id)
 				router.push({
 					pathname: `(app)/publicnavigator/venue/${props.item.id}`,
-					// params: {
-					// 	profileid: props.item.id,
-					// },
-					// params: {
-					// 	profileId: String(props.item.id),
-					// 	distanceInM: Number(props.item.distanceInM),
-					// 	latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
-					// 	longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
-					// },
+					params: {
+						profileId: String(props.item.id),
+						distanceInM: Number(props.item.distanceInM),
+						latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
+						longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
+					},
 				})
-				// navigation.navigate('PublicNavigator', {
-				// 	screen: 'VenueStack',
-				// 	params: {
-				// 		screen: 'PublicVenueScreen',
-				// 		params: {
-				// 			profileId: String(props.item.id),
-				// 			distanceInM: Number(props.item.distanceInM),
-				// 			latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
-				// 			longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
-				// 		},
-				// 	},
-				// })
 			}}
 		>
 			<VStack

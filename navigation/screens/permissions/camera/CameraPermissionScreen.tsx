@@ -1,9 +1,9 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
+import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { PermissionCameraReactiveVar } from '@reactive'
-import IllustrationDynamicMedia from 'assets/images/media/IllustrationDynamicMedia'
 import { Camera } from 'expo-camera'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
@@ -114,7 +114,7 @@ const CameraPermissionScreen = () => {
 			<DetailView />
 			<View>
 				<Divider width={0.5} />
-				{rPermissionCamera.granted && (
+				{rPermissionCamera?.granted && (
 					<Button
 						variant='ghost'
 						onPress={() => openCameraApp()}
@@ -129,11 +129,12 @@ const CameraPermissionScreen = () => {
 				)}
 				<Button
 					onPress={() =>
-						rPermissionCamera.canAskAgain && !rPermissionCamera.granted
+						rPermissionCamera?.canAskAgain && !rPermissionCamera.granted
 							? console.log('TODO: handle this state')
 							: openPhoneSettings()
 					}
-					width={'100%'}
+					width={'80%'}
+					alignSelf={'center'}
 					my={3}
 					px={20}
 					bg={themeContext.palette.bfscompany.tertiary}
@@ -144,7 +145,7 @@ const CameraPermissionScreen = () => {
 						fontWeight: 'bold',
 					}}
 				>
-					{rPermissionCamera.canAskAgain && !rPermissionCamera.granted
+					{rPermissionCamera?.canAskAgain && !rPermissionCamera.granted
 						? 'Continue'
 						: 'Go to Phone Settings'}
 				</Button>

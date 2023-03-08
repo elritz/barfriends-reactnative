@@ -5,12 +5,13 @@ import {
 	PermissionNotificationReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
 } from '@reactive'
+import { useRouter } from 'expo-router'
 import { MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, VStack } from 'native-base'
 
 export default function PreferenceNotificationPermission() {
 	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rPreferencePermissionNotificationVar = useReactiveVar(
 		PreferencePermissionNotificationReactiveVar,
 	)
@@ -59,8 +60,8 @@ export default function PreferenceNotificationPermission() {
 						</Text>
 						<Button
 							onPress={() =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'NotificationsPermissionScreen',
+								router.push({
+									pathname: '(app)/permissionnavigator/notifications',
 								})
 							}
 							size={'sm'}

@@ -81,16 +81,16 @@ export default () => {
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
 				}}
 			/>
-			<Tabs.Screen
-				name={'TonightScreen'}
-				options={{
-					href:
-						rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' ? 'TonightScreen' : null,
-					headerShown: false,
-					tabBarLabel: 'tonight',
-					tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
-				}}
-			/>
+			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' && (
+				<Tabs.Screen
+					name={'tonight'}
+					options={{
+						headerShown: false,
+						tabBarLabel: 'tonight',
+						tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
+					}}
+				/>
+			)}
 			<Tabs.Screen
 				name='messagestack'
 				options={{

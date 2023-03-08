@@ -1,9 +1,8 @@
-import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
 import { Heading, Button, Box } from 'native-base'
-import React from 'react'
 
 export default function LocationPermission() {
-	const navigiation = useNavigation()
+	const router = useRouter()
 
 	return (
 		<Box flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
@@ -13,8 +12,8 @@ export default function LocationPermission() {
 			<Button
 				rounded={'full'}
 				onPress={() =>
-					navigiation.navigate('PermissionNavigator', {
-						screen: 'ForegroundLocationPermissionScreen',
+					router.push({
+						pathname: '(app)/permissionnavigator/foregroundlocation',
 					})
 				}
 			>

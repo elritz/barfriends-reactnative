@@ -1,60 +1,66 @@
-import { useNavigation } from '@react-navigation/native'
-import { Box, HStack, Image, Pressable, Text, VStack } from 'native-base'
+import { Ionicons } from '@expo/vector-icons'
+import { Profile } from '@graphql/generated'
+import { Image } from 'expo-image'
+import { useRouter } from 'expo-router'
+import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base'
 
 export default function SearchCard({ item }) {
-	const navigation = useNavigation()
-
+	const router = useRouter()
 	return (
 		<Pressable
 			key={item.id}
 			onPress={() => {
 				switch (item.__typename) {
 					case 'Personal':
-						return navigation.navigate('HomeTabNavigator', {
-							screen: 'ExploreStack',
-							params: {
-								screen: 'PublicNavigator',
-								params: {
-									screen: 'PersonalStack',
-									params: {
-										screen: 'PublicPersonalScreen',
-										params: {
-											profileId: item.Profile.id,
-										},
-									},
-								},
-							},
+						return router.push({
+							pathname: `(app)/publicnavigator/personal/${item.Profile.id}`,
 						})
 					case 'Venue':
-						return navigation.navigate('HomeTabNavigator', {
-							screen: 'ExploreStack',
-							params: {
-								screen: 'PublicNavigator',
-								params: {
-									screen: 'VenueStack',
-									params: {
-										screen: 'PublicVenueScreen',
-										params: {
-											profileId: item.Profile.id,
-										},
-									},
-								},
-							},
+						return router.push({
+							pathname: `(app)/publicnavigator/venue/${item.Profile.id}`,
 						})
 				}
 			}}
 		>
 			<Box h={'65px'} px={3}>
 				<HStack alignItems={'center'} h={'100%'}>
-					<Image
-						w={'45px'}
-						h={'45px'}
-						bg={'blue.300'}
-						borderRadius={'lg'}
-						source={{ uri: item.Profile.photos[0].url }}
-						alt={'Profile picture'}
-					/>
-
+					{item.Profile?.photos[0]?.url ? (
+						<Image
+							style={{
+								height: 45,
+								width: 45,
+								borderRadius: 15,
+							}}
+							placeholder={item.Profile?.photos[0]?.blurhash}
+							source={{ uri: item.Profile?.photos[0]?.url }}
+						/>
+					) : (
+						<Box
+							_light={{
+								bg: 'light.50',
+							}}
+							_dark={{
+								bg: 'dark.50',
+							}}
+							h={45}
+							w={45}
+							alignItems={'center'}
+							justifyContent={'center'}
+							borderRadius={'lg'}
+						>
+							<Icon
+								_light={{
+									color: 'light.300',
+								}}
+								_dark={{
+									color: 'dark.300',
+								}}
+								as={Ionicons}
+								size={'lg'}
+								name={'ios-person'}
+							/>
+						</Box>
+					)}
 					<VStack ml={2}>
 						<Text fontWeight={'bold'} lineHeight={'xs'} fontSize={'md'}>
 							{item.Profile.IdentifiableInformation.fullname}

@@ -64,7 +64,7 @@ const VenueScreen = (props: any) => {
 				<VStack mb={5}>
 					<VenueHeader key={'abc'} loading={loading} photos={data.currentVenue?.photos} />
 					<Box
-						key={'edf'}
+						key={'publicvenues-2kl3b12k3'}
 						_light={{
 							bg: 'light.50',
 						}}
@@ -84,7 +84,6 @@ const VenueScreen = (props: any) => {
 						</Box>
 						<VenueTotals />
 					</Box>
-					{/* <LocationPermissionCard /> */}
 					<VenueActions key={'kol'} />
 				</VStack>
 			}

@@ -1,20 +1,14 @@
-import { GradientAlongPath, prepare } from './PathAlongGrdient'
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import { Feather } from '@expo/vector-icons'
 import {
 	ClientDeviceManager,
 	ProfileType,
 	useCreatePersonalProfileMutation,
-	useEmojimoodsQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Text, Icon, IconButton, Box, Heading, Button, VStack } from 'native-base'
-import { SafeAreaView } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Text, Box, Heading, Button, VStack } from 'native-base'
 
 const Create = () => {
 	const router = useRouter()
@@ -41,7 +35,7 @@ const Create = () => {
 				birthday: credentialPersonalProfileVar.birthday,
 				password: String(credentialPersonalProfileVar.password),
 				username: String(credentialPersonalProfileVar.username),
-				fullname: `${credentialPersonalProfileVar.firstname} ${credentialPersonalProfileVar.firstname}`,
+				fullname: `${credentialPersonalProfileVar.firstname} ${credentialPersonalProfileVar.lastname}`,
 				address: '',
 				EmailInput: {
 					email: credentialPersonalProfileVar.email,

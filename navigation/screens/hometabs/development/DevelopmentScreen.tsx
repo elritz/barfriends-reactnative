@@ -30,6 +30,7 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { LocationObject } from 'expo-location'
 import * as Notifications from 'expo-notifications'
+import { useRouter } from 'expo-router'
 import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
 import {
@@ -140,6 +141,7 @@ async function unregisterBackgroundFetchAsync() {
 
 const DevelopmentScreen = () => {
 	const ITEM_HEIGHT = 50
+	const router = useRouter()
 	// const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const bottomSheetThemeModalRef = useRef<BottomSheetModal>(null)
@@ -487,11 +489,11 @@ const DevelopmentScreen = () => {
 	// 		Updates.reloadAsync()
 	// 	}
 	// }, [])
+
 	const onReloadPress = async () => {
 		if (Platform.OS === 'web') {
 			location.reload()
 		} else {
-			console.log('here')
 			await Updates.reloadAsync()
 		}
 	}
@@ -838,38 +840,35 @@ const DevelopmentScreen = () => {
 					data={[
 						{
 							name: 'Foreground Location',
-							route: () => {},
-							// navigation.navigate('PermissionNavigator', {
-							// 	screen: 'ForegroundLocationPermissionScreen',
-							// }),
-						},
-						{
-							name: 'Foreground Search Area Location',
-							route: () => {},
-							// navigation.navigate('PermissionNavigator', {
-							// 	screen: 'ForegroundLocationPermissionSearchAreaScreen',
-							// }),
+							route: () => {
+								router.push({
+									pathname: '/(app)/permissionnavigator/foregroundlocation',
+								})
+							},
 						},
 						{
 							name: 'Background Location',
-							route: () => {},
-							// navigation.navigate('PermissionNavigator', {
-							// 	screen: 'BackgroundLocationPermissionScreen',
-							// }),
+							route: () => {
+								router.push({
+									pathname: '/(app)/permissionnavigator/backgroundlocation',
+								})
+							},
 						},
 						{
 							name: 'Notifications',
-							route: () => {},
-							// navigation.navigate('PermissionNavigator', {
-							// 	screen: 'NotificationsPermissionScreen',
-							// }),
+							route: () => {
+								router.push({
+									pathname: '/(app)/permissionnavigator/notifications',
+								})
+							},
 						},
 						{
 							name: 'Media Library',
-							route: () => {},
-							// navigation.navigate('PermissionNavigator', {
-							// 	screen: 'MediaLibraryPermissionScreen',
-							// }),
+							route: () => {
+								router.push({
+									pathname: '/(app)/permissionnavigator/medialibrary',
+								})
+							},
 						},
 					]}
 					keyExtractor={i => i.name}

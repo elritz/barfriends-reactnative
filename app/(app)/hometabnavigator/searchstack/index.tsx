@@ -1,11 +1,5 @@
-import { Box } from 'native-base'
-import React from 'react'
-import { View, Text } from 'react-native'
+import ExploreScreen from '@navigation/screens/hometabs/explore/ExploreScreen'
 
 export default () => {
-	return (
-		<Box flex={1} justifyContent={'center'} alignContent={'center'}>
-			<Text>Search</Text>
-		</Box>
-	)
+	return <ExploreScreen />
 }

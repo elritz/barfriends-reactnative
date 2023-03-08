@@ -265,8 +265,8 @@ const AddEmoji = () => {
 					bg: 'light.50',
 				}}
 				_dark={{
-					bg: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].colors[1]
-						? rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].colors[2]
+					bg: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].colors[1]
+						? rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].colors[2]
 						: 'dark.50',
 				}}
 				px={5}

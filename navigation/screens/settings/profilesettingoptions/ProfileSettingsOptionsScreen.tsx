@@ -98,16 +98,8 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				<RoundedListItem
 					onPress={() => {
 						router.push({
-							pathname: '(app)',
+							pathname: '(app)/settingsnavigator/profilesettings/personal',
 						})
-						// navigation.dispatch(
-						// 	StackActions.push('ProfileSettingsNavigator', {
-						// 		screen: 'ProfileEditorStack',
-						// 		params: {
-						// 			screen: 'EditableOptionsScreen',
-						// 		},
-						// 	}),
-						// )
 					}}
 				>
 					<HStack alignItems={'center'} space={2}>

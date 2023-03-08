@@ -1,10 +1,5 @@
-import { Box, Text } from 'native-base'
-import React from 'react'
+import ProfileNotificationsSettingsScreen from '@navigation/screens/settings/profilenotificationssettings/ProfileNotificationsSettingsScreen'
 
 export default () => {
-	return (
-		<Box>
-			<Text>notificationssettingsscreen</Text>
-		</Box>
-	)
+	return <ProfileNotificationsSettingsScreen />
 }

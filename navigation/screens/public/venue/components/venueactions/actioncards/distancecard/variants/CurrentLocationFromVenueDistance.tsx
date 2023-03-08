@@ -5,8 +5,7 @@ import { FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
-import { useIsFocused, useRoute } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
@@ -14,6 +13,7 @@ import {
 } from '@reactive'
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
+import { useSearchParams } from 'expo-router'
 import * as TaskManager from 'expo-task-manager'
 import { getDistance } from 'geolib'
 import { MotiView } from 'moti'
@@ -61,7 +61,7 @@ async function unregisterForegroundFetchAsync() {
 const size = 50
 
 const CurrentLocationFromVenueDistance = () => {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const theme = useTheme()
 	const isFocused = useIsFocused()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -83,7 +83,7 @@ const CurrentLocationFromVenueDistance = () => {
 		variables: {
 			where: {
 				id: {
-					equals: route.params.profileId,
+					equals: String(params.profileid),
 				},
 			},
 			currentLocationCoords: {
@@ -322,8 +322,8 @@ const CurrentLocationFromVenueDistance = () => {
 							size={'xs'}
 							onPress={async () => {
 								await getDistanceFromVenue({
-									vlat: Number(route.params.latitude),
-									vlng: Number(route.params.longitude),
+									vlat: Number(params.latitude),
+									vlng: Number(params.longitude),
 								})
 							}}
 							position={'absolute'}

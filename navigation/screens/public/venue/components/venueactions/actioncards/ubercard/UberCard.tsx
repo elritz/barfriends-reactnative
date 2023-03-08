@@ -1,27 +1,26 @@
 import { useReactiveVar } from '@apollo/client'
 import { UBER_CLIENT_ID_KEY } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as Linking from 'expo-linking'
+import { useSearchParams } from 'expo-router'
 import { Box, Button, Heading, VStack } from 'native-base'
 import { useCallback } from 'react'
 import { Alert } from 'react-native'
 
 export default function UberCard() {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const {
 		data: PData,
 		loading: PLoading,
 		error: PError,
 	} = useCurrentVenueQuery({
-		skip: !route.params.profileId || !rAuthorizationVar,
+		skip: !params.profileId || !rAuthorizationVar,
 		fetchPolicy: 'cache-only',
 		variables: {
 			where: {
-				id: { equals: route.params.profileId },
+				id: { equals: String(params.profileid) },
 			},
 		},
 	})

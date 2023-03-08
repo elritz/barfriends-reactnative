@@ -6,19 +6,18 @@ import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
 	Profile,
-	useProfileLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useSearchParams } from 'expo-router'
 import { Heading, Button, VStack, Box, Icon } from 'native-base'
 import { useEffect, useState } from 'react'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function LeaveCard() {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
+
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')
 
@@ -28,7 +27,7 @@ export default function LeaveCard() {
 				return item.venueProfileId
 			})
 		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
-			item => item.venueProfileId === route.params.profileId,
+			item => item.venueProfileId === String(params.profileid),
 		)
 		if (out) {
 			setOutId(out.id)
@@ -72,7 +71,7 @@ export default function LeaveCard() {
 				{
 					query: GET_LIVE_VENUE_TOTALS_QUERY,
 					variables: {
-						profileIdVenue: route.params.profileId,
+						profileidVenue: params.profileid,
 					},
 				},
 			],
@@ -80,10 +79,10 @@ export default function LeaveCard() {
 
 	if (
 		rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out[0]?.venueProfileId ===
-		route.params.profileId
+		params.profileid
 	) {
 		return (
-			<ActionCard key={'eft'} numColumns={2}>
+			<ActionCard key={'lc-123980172'} numColumns={2}>
 				<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
 					<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
 						You're joined{'\n'}

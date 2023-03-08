@@ -8,7 +8,6 @@ import {
 	useUpdateOneProfileMutation,
 	ClientDeviceManager,
 } from '@graphql/generated'
-import Navigator from '@navigation/navigators/Navigator'
 import { ThemeProvider } from '@react-navigation/native'
 import {
 	AuthorizationReactiveVar,

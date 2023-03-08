@@ -17,17 +17,12 @@ export default function _layout() {
 				headerLeft: () => <ChevronBackArrow />,
 			}}
 		>
-			<Stack.Screen name={'index'} />
-			<Stack.Screen name={'profilesettingsstack'} />
+			<Stack.Screen name={'index'} options={{ presentation: 'modal' }} />
+			<Stack.Screen name={'profilesettings'} />
 			<Stack.Screen name={'securitysettingsscreen'} />
 			<Stack.Screen name={'notificationssettingsscreen'} />
 			<Stack.Screen name={'appearancesettingsscreen'} />
-			<Stack.Screen
-				name={'privacytermsservicetabstack'}
-				options={{
-					presentation: 'modal',
-				}}
-			/>
+			<Stack.Screen name={'privacytermsservicetabstack'} />
 		</Stack>
 	)
 }

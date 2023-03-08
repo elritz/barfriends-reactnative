@@ -1,14 +1,15 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
+import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { StackActions, useIsFocused, useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { PermissionForegroundLocationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
-import IllustrationDynamicLocation from 'assets/images/location/IllustrationDynamicLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
+import { useRouter } from 'expo-router'
 import { Box, VStack, Button, Divider, Text, Heading, ScrollView } from 'native-base'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
@@ -41,9 +42,8 @@ const details = [
 
 const ForegroundLocationPermissionScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
-	const navigation = useNavigation()
+	const router = useRouter()
 	const isFocused = useIsFocused()
-	const themeContext = useContext(ThemeContext)
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const { start, seconds, started, finished } = useTimer2('0:2')
 
@@ -114,7 +114,7 @@ const ForegroundLocationPermissionScreen = () => {
 	}
 
 	finished(() => {
-		navigation.goBack()
+		router.back()
 	})
 
 	return (
@@ -168,11 +168,11 @@ const ForegroundLocationPermissionScreen = () => {
 						: 'Granted'}
 				</Button>
 				{!started ? (
-					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
 						<Text fontWeight={'medium'}>Close</Text>
 					</Button>
 				) : (
-					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
 						{started && (
 							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
 						)}

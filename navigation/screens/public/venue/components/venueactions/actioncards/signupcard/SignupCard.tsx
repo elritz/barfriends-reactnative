@@ -1,11 +1,11 @@
 import GetSignInUpText from '@helpers/data/SignupinText'
-import { useNavigation } from '@react-navigation/native'
+// import { useNavigation } from '@react-navigation/native'
 import { Center, Heading, Button } from 'native-base'
 
 const text = GetSignInUpText()
 
 export default function SignupCard() {
-	const navigation = useNavigation()
+	// const navigation = useNavigation()
 	return (
 		<>
 			<Heading
@@ -25,20 +25,20 @@ export default function SignupCard() {
 			>
 				<Button
 					onPressIn={() => {
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'GetStartedScreen',
-							},
-						})
+						// navigation.navigate('CredentialNavigator', {
+						// 	screen: 'PersonalCredentialStack',
+						// 	params: {
+						// 		screen: 'GetStartedScreen',
+						// 	},
+						// })
 					}}
 					onPress={() => {
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'GetStartedScreen',
-							},
-						})
+						// navigation.navigate('CredentialNavigator', {
+						// 	screen: 'PersonalCredentialStack',
+						// 	params: {
+						// 		screen: 'GetStartedScreen',
+						// 	},
+						// })
 					}}
 					w={'95%'}
 					my={5}

@@ -1,15 +1,16 @@
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
+import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import { PermissionForegroundLocationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import useTimer2 from '@util/hooks/useTimer2'
-import IllustrationDynamicLocation from 'assets/images/location/IllustrationDynamicLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
+import { useRouter } from 'expo-router'
 import { Button, Heading, ScrollView, Text, VStack } from 'native-base'
 import { Box } from 'native-base'
 import { Divider } from 'native-base'
@@ -42,6 +43,7 @@ const details = [
 const ForegroundLocationPermissionSearchAreaScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const navigation = useNavigation()
+	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const { start, seconds, started } = useTimer2('0:2')
@@ -71,6 +73,9 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 	}
 
 	const handleLocationSearchAreaModalNavigation = async () => {
+		router.push({
+			pathname: '(app)/',
+		})
 		navigation.navigate('ModalNavigator', {
 			screen: 'SearchAreaModalStack',
 			params: {
@@ -115,14 +120,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 			const locationpermission = await Location.getForegroundPermissionsAsync()
 			PermissionForegroundLocationReactiveVar(locationpermission)
 			if (locationpermission.granted && locationpermission.status === 'granted') {
-				setTimeout(() => {
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'VenueFeedStack',
-						params: {
-							screen: 'VenueFeedScreen',
-						},
-					})
-				}, 1750)
+				setTimeout(() => {}, 1750)
 				// TODO: UX() check if location permission is enabled and go somewhere with it
 			}
 		}

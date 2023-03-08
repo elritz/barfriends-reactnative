@@ -1,19 +1,19 @@
 import { useReactiveVar } from '@apollo/client'
-import { LOCAL_STORAGE_ASK_BACKGROUND_LOCATION } from '@constants/StorageConstants'
 import { EvilIcons } from '@expo/vector-icons'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import { PermissionBackgroundLocationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { AnimatePresence, MotiView } from 'moti'
+import { MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, VStack } from 'native-base'
 import { useEffect } from 'react'
 
 export default function BackgroundLocationPermissionFullSection() {
-	// const navigation = useNavigation()
+	const router = useRouter()
 	const rBackgroundPermissionLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
-
-	useEffect(() => {}, [])
+	console.log(
+		'rBackgroundPermissionLocationVar',
+		JSON.stringify(rBackgroundPermissionLocationVar, null, 2),
+	)
 
 	return (
 		<Box key={uniqueId()}>
@@ -58,11 +58,11 @@ export default function BackgroundLocationPermissionFullSection() {
 							when friends near you are going out.
 						</Text>
 						<Button
-							// onPress={() =>
-							// 	navigation.navigate('PermissionNavigator', {
-							// 		screen: 'BackgroundLocationPermissionScreen',
-							// 	})
-							// }
+							onPress={() =>
+								router.push({
+									pathname: '(app)/permissionnavigator/backgroundlocation',
+								})
+							}
 							size={'sm'}
 							mt={4}
 							w={'85%'}

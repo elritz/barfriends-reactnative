@@ -1,9 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
-import { Ionicons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
-import { Divider, Heading, Pressable } from 'native-base'
-import { Icon, VStack, View } from 'native-base'
+import { Text } from 'native-base'
+import { View } from 'native-base'
 import React from 'react'
 
 export default function SecuritySettingsScreen() {
@@ -23,6 +22,8 @@ export default function SecuritySettingsScreen() {
 				bg: 'light.50',
 			}}
 			flex={1}
-		></View>
+		>
+			<Text fontSize={'5xl'}>SECURITY</Text>
+		</View>
 	)
 }

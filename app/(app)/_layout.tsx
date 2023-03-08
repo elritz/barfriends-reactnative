@@ -25,6 +25,7 @@ export default () => {
 		const localStorageColorScheme = await AsyncStorage.getItem(
 			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)
+
 		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
 			String(localStorageColorScheme),
 		)
@@ -76,7 +77,8 @@ export default () => {
 						>
 							<Stack.Screen name={'hometabnavigator'} />
 							<Stack.Screen name={'modalnavigator'} options={{ presentation: 'modal' }} />
-							<Stack.Screen name={'settingsnavigator'} options={{ presentation: 'modal' }} />
+							<Stack.Screen name={'permissionnavigator'} options={{ presentation: 'modal' }} />
+							<Stack.Screen name={'settingsnavigator'} options={{ presentation: 'fullScreenModal' }} />
 						</Stack>
 					</BottomSheetModalProvider>
 				</NativeBaseProvider>

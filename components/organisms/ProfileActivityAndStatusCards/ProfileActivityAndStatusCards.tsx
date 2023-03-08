@@ -8,27 +8,27 @@ interface ProfileActivityAndStatusCardsProps {}
 
 const ProfileActivityAndStatusCards = ({}) => {
 	return (
-		<VStack space={2} justifyContent={'space-around'}>
-			<HStack space={2} mx={2} justifyContent={'space-around'}>
+		<VStack mx={3} space={2} justifyContent={'space-around'}>
+			<HStack space={2} justifyContent={'space-around'}>
 				<Box
+					flex={1}
+					h={200}
 					justifyContent={'center'}
 					alignItems={'center'}
 					rounded='lg'
-					overflow='hidden'
 					_light={{
 						bg: 'light.50',
 					}}
 					_dark={{
 						bg: 'dark.50',
 					}}
-					flex={1}
-					p={2}
+					px={5}
 				>
 					<QuickBarfriendCard color={'#ff7000'} showIcon={false} logosize={40} qrcodesize={140} />
 				</Box>
 				<JoinVenue />
 			</HStack>
-			<HStack space={2} mx={2}>
+			<HStack space={2}>
 				<AddRelationship />
 				<AddEmoji />
 			</HStack>
