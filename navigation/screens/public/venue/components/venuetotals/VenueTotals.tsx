@@ -1,6 +1,5 @@
-import { VenueScreenRouteProp } from '../../Venue'
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
-import { useRoute } from '@react-navigation/native'
+import { useSearchParams } from 'expo-router'
 import { Box, Heading, HStack, Text } from 'native-base'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -17,7 +16,7 @@ type Totals = {
 }
 
 export default function VenueTotals() {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const { width } = useWindowDimensions()
 	const numColumns = 3
 	const height = width * (1.15 / numColumns)
@@ -28,14 +27,23 @@ export default function VenueTotals() {
 	const [joined, setJoined] = useState<Totals>({ name: 'joined', value: 0 })
 
 	const { data, loading, error } = useGetLiveVenueTotalsQuery({
-		skip: !route.params.profileId,
+		skip: !String(params.profileid),
 		variables: {
-			profileIdVenue: route.params.profileId,
+			profileIdVenue: String(params.profileid),
+		},
+		onError: error => {
+			console.log('error :>> ', error)
 		},
 		onCompleted: async data => {
 			if (data.getLiveVenueTotals) {
-				setTotal({ ...total, value: data.getLiveVenueTotals.totaled.length })
-				setJoined({ ...joined, value: data.getLiveVenueTotals.joined.length })
+				setTotal({
+					...total,
+					value: data.getLiveVenueTotals.totaled ? data.getLiveVenueTotals.totaled.length : 0,
+				})
+				setJoined({
+					...joined,
+					value: data.getLiveVenueTotals.joined ? data.getLiveVenueTotals.joined.length : 0,
+				})
 			}
 		},
 	})

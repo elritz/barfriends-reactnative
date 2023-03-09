@@ -1,23 +1,22 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import { useAddPersonalJoinsVenueMutation } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useSearchParams } from 'expo-router'
 import { Heading, Button, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function JoinCard() {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isJoined, setIsJoined] = useState(false)
 
 	const [addJoinVenueMutation, { data: AJVData, loading: AJVLoading, error: AJVError }] =
 		useAddPersonalJoinsVenueMutation({
 			variables: {
-				profileIdVenue: route.params.profileId,
+				profileIdVenue: String(params.profileid),
 				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
 			onCompleted: async data => {},
@@ -25,7 +24,7 @@ export default function JoinCard() {
 				{
 					query: GET_LIVE_VENUE_TOTALS_QUERY,
 					variables: {
-						profileIdVenue: route.params.profileId,
+						profileIdVenue: params.profileid,
 					},
 				},
 			],
@@ -37,7 +36,7 @@ export default function JoinCard() {
 				return item.venueProfileId
 			})
 		if (totaledToVenue) {
-			setIsJoined(totaledToVenue.includes(route.params.profileId))
+			setIsJoined(totaledToVenue.includes(String(params.profileid)))
 		}
 	}, [])
 
@@ -50,6 +49,7 @@ export default function JoinCard() {
 				</Heading>
 			</Heading>
 			<Button
+				isLoading={AJVLoading}
 				onPress={() => {
 					addJoinVenueMutation()
 				}}

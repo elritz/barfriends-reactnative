@@ -181,7 +181,7 @@ const CurrentLocationFromVenueDistance = () => {
 				setMetric('m')
 			}
 		}
-		setTimeout(() => setLoading(false), 2000)
+		setTimeout(() => setLoading(false), 1000)
 	}
 
 	const appStateHandleForegroundLocation = async nextAppState => {
@@ -241,6 +241,16 @@ const CurrentLocationFromVenueDistance = () => {
 			backgroundColor: theme.colors.primary[500],
 		},
 	})
+
+	useEffect(() => {
+		if (!distance) {
+			setLoading(true)
+			getDistanceFromVenue({
+				vlat: Number(params.latitude),
+				vlng: Number(params.longitude),
+			})
+		}
+	}, [distance])
 
 	return (
 		<>
@@ -321,6 +331,7 @@ const CurrentLocationFromVenueDistance = () => {
 							variant={'ghost'}
 							size={'xs'}
 							onPress={async () => {
+								setLoading(true)
 								await getDistanceFromVenue({
 									vlat: Number(params.latitude),
 									vlng: Number(params.longitude),

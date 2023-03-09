@@ -10,6 +10,7 @@ import { useReactiveVar } from '@apollo/client'
 import { ENVIRONMENT } from '@env'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useSearchParams } from 'expo-router'
 import { HStack, VStack, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 
@@ -17,19 +18,19 @@ import { useEffect, useState } from 'react'
 // TODO: UX() Item need to be updated for Personal data, loading, error
 const VenueActions = () => {
 	const numColumns = 2
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const theme = useTheme()
 	const [isJoined, setIsJoined] = useState(false)
 
 	useEffect(() => {
-		const isIncluded = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.map(
-			item => item.id,
-		).includes(route.params.profileId)
-		if (isIncluded) {
-			setIsJoined(isIncluded)
+		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
+			item => item.venueProfileId === String(params.profileid),
+		)
+		if (out) {
+			setIsJoined(true)
 		}
-	}, [rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out])
+	}, [rAuthorizationVar])
 
 	return (
 		<VStack m={2} mt={5}>
@@ -50,8 +51,6 @@ const VenueActions = () => {
 						</ActionCard>
 					</HStack>
 				)}
-
-				{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
 
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 					<HStack space={2}>

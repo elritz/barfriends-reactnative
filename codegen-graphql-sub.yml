@@ -2,7 +2,7 @@ overwrite: true
 schema: "ws://localhost:5004/graphql"
 # schema: "https://localhost:5004/graphql/stream"
 # schema: "https://192.168.86.23:5004/graphql/stream"
-documents: "src/graphql/**/*.subscription.ts"
+documents: "graphql/**/*.subscription.ts"
 generates:
   ./src/graphql/generated/subindex.ts:
     schema: ./subschema.graphql

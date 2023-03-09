@@ -1,6 +1,6 @@
 overwrite: true
 schema: "http://192.168.86.23:4000/graphql"
-documents: "src/graphql/DM/**/*.*.ts"
+documents: "graphql/DM/**/*.*.ts"
 generates:
   ./src/graphql/generated/index.ts:
     schema: ./schema.graphql

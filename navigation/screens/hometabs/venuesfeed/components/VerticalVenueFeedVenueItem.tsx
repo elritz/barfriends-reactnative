@@ -14,10 +14,8 @@ type Props = {
 }
 
 const VerticalVenueFeedVenueItem = (props: Props) => {
-	// const navigation = useNavigation()
 	const router = useRouter()
 	const [hideBlur, setHideBlur] = useState(false)
-
 	if (!props.item || props.loading) return null
 
 	const getTitleCase = str => {

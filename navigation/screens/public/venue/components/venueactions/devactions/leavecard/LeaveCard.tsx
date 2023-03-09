@@ -6,16 +6,16 @@ import {
 	Profile,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter, useSearchParams } from 'expo-router'
 import { Button, VStack, Box } from 'native-base'
 import { useEffect, useState } from 'react'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function LeaveCard() {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isLeaving, setIsLeaving] = useState(false)
 	const [isJoined, setIsJoined] = useState(false)
@@ -27,13 +27,13 @@ export default function LeaveCard() {
 				return item.venueProfileId
 			})
 		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
-			item => item.venueProfileId === route.params.profileId,
+			item => item.venueProfileId === String(params.profileid),
 		)
 		if (out) {
 			setOutId(out.id)
 		}
 
-		setIsJoined(joinedToVenue?.includes(route.params.profileId))
+		setIsJoined(joinedToVenue?.includes(String(params.profileid)))
 	}, [rAuthorizationVar, isJoined])
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
@@ -73,7 +73,7 @@ export default function LeaveCard() {
 				{
 					query: GET_LIVE_VENUE_TOTALS_QUERY,
 					variables: {
-						profileIdVenue: route.params.profileId,
+						profileIdVenue: String(params.profileid),
 					},
 				},
 			],

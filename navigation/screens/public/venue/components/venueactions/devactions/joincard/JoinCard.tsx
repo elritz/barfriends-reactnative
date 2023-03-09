@@ -10,16 +10,17 @@ import {
 	useProfileLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useSearchParams } from 'expo-router'
 import { Button, VStack, Box, CheckCircleIcon } from 'native-base'
 import { useEffect, useState } from 'react'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function JoinCard() {
-	const route = useRoute<VenueScreenRouteProp>()
+	// const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isJoined, setIsJoined] = useState(false)
 	const [outId, setOutId] = useState('')
@@ -31,19 +32,19 @@ export default function JoinCard() {
 					return item.venueProfileId
 				})
 			const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
-				item => item.venueProfileId === route.params.profileId,
+				item => item.venueProfileId === params.profileid,
 			)
 			if (out) {
 				setOutId(out.id)
 			}
-			setIsJoined(joinedToVenue.includes(route.params.profileId))
+			setIsJoined(joinedToVenue.includes(String(params.profileid)))
 		}
 	}, [rAuthorizationVar, isJoined])
 
 	const [addPersonalJoinVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useAddPersonalJoinsVenueMutation({
 			variables: {
-				profileIdVenue: route.params.profileId,
+				profileIdVenue: String(params.profileid),
 				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
 			onCompleted: async data => {
@@ -79,7 +80,7 @@ export default function JoinCard() {
 				{
 					query: GET_LIVE_VENUE_TOTALS_QUERY,
 					variables: {
-						profileIdVenue: route.params.profileId,
+						profileIdVenue: params.profileid,
 					},
 				},
 			],
@@ -99,7 +100,7 @@ export default function JoinCard() {
 			{
 				query: GET_LIVE_VENUE_TOTALS_QUERY,
 				variables: {
-					profileIdVenue: route.params.profileId,
+					profileIdVenue: params.profileid,
 				},
 			},
 		],

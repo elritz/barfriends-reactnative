@@ -17,18 +17,14 @@ import { useEffect, useState } from 'react'
 
 export default function LeaveCard() {
 	const params = useSearchParams()
-
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')
 
 	useEffect(() => {
-		const joinedToVenue =
-			rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
-				return item.venueProfileId
-			})
 		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
 			item => item.venueProfileId === String(params.profileid),
 		)
+
 		if (out) {
 			setOutId(out.id)
 		}
@@ -82,42 +78,40 @@ export default function LeaveCard() {
 		params.profileid
 	) {
 		return (
-			<ActionCard key={'lc-123980172'} numColumns={2}>
-				<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
-					<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
-						You're joined{'\n'}
-						<Heading
-							fontWeight={'900'}
-							color={'red.600'}
-							textAlign={'center'}
-							textTransform={'uppercase'}
-							fontSize={'lg'}
-						>
-							Leave now
-						</Heading>
+			<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
+				<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
+					You're joined{'\n'}
+					<Heading
+						fontWeight={'900'}
+						color={'red.600'}
+						textAlign={'center'}
+						textTransform={'uppercase'}
+						fontSize={'lg'}
+					>
+						Leave now
 					</Heading>
-					<Box>
-						<Button
-							onPress={() => {
-								removePersonalJoinsVenueMutation()
-							}}
-							size={'xs'}
-							textAlign={'center'}
-							colorScheme={'error'}
-							borderRadius={'lg'}
-							_text={{
-								fontWeight: '700',
-								fontSize: 'md',
-							}}
-							leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
-							isLoading={JVLoading}
-							isLoadingText='Leaving'
-						>
-							Leave
-						</Button>
-					</Box>
-				</VStack>
-			</ActionCard>
+				</Heading>
+				<Box>
+					<Button
+						onPress={() => {
+							removePersonalJoinsVenueMutation()
+						}}
+						size={'xs'}
+						textAlign={'center'}
+						colorScheme={'error'}
+						borderRadius={'lg'}
+						_text={{
+							fontWeight: '700',
+							fontSize: 'md',
+						}}
+						leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
+						isLoading={JVLoading}
+						isLoadingText='Leaving'
+					>
+						Leave
+					</Button>
+				</Box>
+			</VStack>
 		)
 	} else {
 		return null

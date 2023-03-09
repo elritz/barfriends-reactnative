@@ -5,20 +5,18 @@ import {
 	ClientDeviceProfile,
 	Profile,
 	useAddPersonalTotalsVenueMutation,
-	useCurrentVenueLazyQuery,
 	useProfileLazyQuery,
 	useRemovePersonalTotalsVenueMutation,
 } from '@graphql/generated'
-import { VenueScreenRouteProp } from '@navigation/screens/public/venue/Venue'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Heading, Button, VStack, Box, Icon, CheckIcon, CheckCircleIcon } from 'native-base'
+import { useSearchParams } from 'expo-router'
+import { Button, VStack, Box, CheckCircleIcon } from 'native-base'
 import { useEffect, useState } from 'react'
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function TotalCard() {
-	const route = useRoute<VenueScreenRouteProp>()
+	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isTotaled, setIsTotaled] = useState(false)
 
@@ -28,7 +26,7 @@ export default function TotalCard() {
 	] = useAddPersonalTotalsVenueMutation({
 		variables: {
 			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-			profileIdVenue: route.params.profileId,
+			profileIdVenue: String(params.profileid),
 		},
 		onCompleted: async data => {
 			profileQuery({
@@ -56,7 +54,7 @@ export default function TotalCard() {
 							return item.venueProfileId
 						})
 
-						setIsTotaled(totaledToVenue.includes(route.params.profileId))
+						setIsTotaled(totaledToVenue.includes(params.profileid))
 					}
 				},
 			})
@@ -65,7 +63,7 @@ export default function TotalCard() {
 			{
 				query: GET_LIVE_VENUE_TOTALS_QUERY,
 				variables: {
-					profileIdVenue: route.params.profileId,
+					profileIdVenue: String(params.profileid),
 				},
 			},
 		],
@@ -76,9 +74,8 @@ export default function TotalCard() {
 	] = useRemovePersonalTotalsVenueMutation({
 		variables: {
 			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
-			profileIdVenue: route.params.profileId,
+			profileIdVenue: String(params.profileid),
 		},
-
 		onCompleted: async data => {
 			profileQuery({
 				variables: {
@@ -101,11 +98,11 @@ export default function TotalCard() {
 								Profile: profile,
 							},
 						})
-						const totaledToVenue = data?.profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
+						const totaledToVenue = data?.profile?.Personal?.LiveOutPersonal?.Out.map(item => {
 							return item.venueProfileId
 						})
 
-						setIsTotaled(totaledToVenue.includes(route.params.profileId))
+						setIsTotaled(totaledToVenue.includes(params.profileid))
 					}
 				},
 			})
@@ -114,7 +111,7 @@ export default function TotalCard() {
 			{
 				query: GET_LIVE_VENUE_TOTALS_QUERY,
 				variables: {
-					profileIdVenue: route.params.profileId,
+					profileIdVenue: String(params.profileid),
 				},
 			},
 		],
@@ -129,7 +126,7 @@ export default function TotalCard() {
 					return item.venueProfileId
 				})
 
-			setIsTotaled(totaledToVenue.includes(route.params.profileId))
+			setIsTotaled(totaledToVenue.includes(String(params.profileid)))
 		}
 	}, [])
 
