@@ -29,7 +29,7 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 
 	const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
 		onCompleted: data => {
-			console.log(data)
+			console.log('RELATIONSHIP MODAL', data)
 		},
 	})
 

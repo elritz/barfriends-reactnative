@@ -1,7 +1,7 @@
 import ShowCaseScroll from './ShowCaseScroll'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS } from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
-import { Box, FlatList, Image, Pressable, ScrollView, Text } from 'native-base'
+import { Box, FlatList, Image, Pressable, Text } from 'native-base'
 import { View, useWindowDimensions } from 'react-native'
 
 const ExploreScreen = () => {
@@ -19,7 +19,7 @@ const ExploreScreen = () => {
 			take: 20,
 		},
 		onCompleted: data => {
-			console.log('data', JSON.stringify(data.profiles.length, null, 4))
+			console.log('data EXPLORE SCREEN ====?', JSON.stringify(data.profiles.length, null, 4))
 		},
 	})
 

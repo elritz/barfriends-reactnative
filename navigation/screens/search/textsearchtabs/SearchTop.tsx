@@ -1,17 +1,29 @@
 import SearchCard from '../components/SearchCard'
+import {
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+} from '@constants/ReactNavigationConstants'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { SearchResultTabStackParamList } from '@types'
+import { useRouter } from 'expo-router'
 import { Box, Center, Heading, ScrollView } from 'native-base'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(SearchPage) finish the searching ability on this page using route prop from params
-export type SearchTopTabStackRouteProp = RouteProp<SearchResultTabStackParamList, 'TopScreen'>
 
 export default function SearchTop() {
-	const { params } = useRoute<SearchTopTabStackRouteProp>()
-
+	const router = useRouter()
+	const insets = useSafeAreaInsets()
 	if (params?.data?.people?.length && params?.data?.venues?.length) {
 		return (
-			<Box safeAreaTop>
+			<Box
+				style={{
+					backgroundColor: '#ff4081',
+					marginBottom:
+						insets.bottom !== 0
+							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+				}}
+			>
 				<Center>
 					<Heading>No search results</Heading>
 				</Center>

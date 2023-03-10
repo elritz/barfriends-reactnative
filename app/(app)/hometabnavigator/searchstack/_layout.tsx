@@ -1,3 +1,4 @@
+import SearchTopTabStackInput from '@components/molecules/search/SearchTopTabStackInput'
 import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
 import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
@@ -20,22 +21,6 @@ export default function _layout() {
 				headerShown: true,
 				headerTransparent: true,
 				gestureDirection: 'horizontal',
-				header: () => {
-					return (
-						<VStack height={HOME_TAB_TOP_NAIGATION_HEIGHT} justifyContent={'flex-end'} pb={2}>
-							{Platform.OS === 'ios' ? (
-								<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
-							) : (
-								<Box
-									_light={{ bg: 'light.50' }}
-									_dark={{ bg: 'dark.50' }}
-									style={[StyleSheet.absoluteFill]}
-								/>
-							)}
-							<VenueFeedSearchInput />
-						</VStack>
-					)
-				},
 			}}
 		>
 			<Stack.Screen
@@ -58,7 +43,6 @@ export default function _layout() {
 											pathname: '(app)/hometabnavigator/searchstack/searchtext',
 											params: {
 												searchText: '',
-												data: [],
 											},
 										})
 									}
@@ -86,6 +70,52 @@ export default function _layout() {
 									/>
 								)}
 								<SearchTextScreenInput />
+							</VStack>
+						)
+					},
+				}}
+			/>
+			<Stack.Screen
+				name={'searchresultstabs'}
+				options={{
+					headerTransparent: true,
+					headerShown: true,
+					header: () => {
+						return (
+							<VStack height={90} justifyContent={'flex-end'} pb={2}>
+								{Platform.OS === 'ios' ? (
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+								) : (
+									<Box
+										_light={{ bg: 'light.50' }}
+										_dark={{ bg: 'dark.50' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
+								)}
+								<SearchTextScreenInput />
+							</VStack>
+						)
+					},
+				}}
+			/>
+			<Stack.Screen
+				name={'searchresults'}
+				options={{
+					headerTransparent: true,
+					headerShown: true,
+					header: () => {
+						return (
+							<VStack height={90} justifyContent={'flex-end'} pb={2}>
+								{Platform.OS === 'ios' ? (
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+								) : (
+									<Box
+										_light={{ bg: 'light.50' }}
+										_dark={{ bg: 'dark.50' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
+								)}
+								<SearchTopTabStackInput />
 							</VStack>
 						)
 					},

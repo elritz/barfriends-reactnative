@@ -123,7 +123,6 @@ const SearchAreaFilltering = () => {
 		)
 	}
 
-	console.log('rSearchAreaVar?.kRing :>> ', rSearchAreaVar?.kRing)
 	return (
 		<Box mx={scrollViewMarginX} flex={1}>
 			<Box my={4}>

@@ -9,19 +9,19 @@ import {
 } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useDebounce from '@util/hooks/useDebounce'
+import { useRouter, useSearchParams, useSegments } from 'expo-router'
 import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
 import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ExploreFilterTabParamList } from 'src/types/app'
 
-export type SearchTextScreenRouteProp = RouteProp<ExploreFilterTabParamList, 'SearchTextScreen'>
 // TODO: UX() get the navigation route here as well default values from form
 const SearchTextScreenInput = () => {
-	const navigation = useNavigation()
+	const params = useSearchParams()
+	const router = useRouter()
+	const segments = useSegments()
 	const inset = useSafeAreaInsets()
-	const route = useRoute<SearchTextScreenRouteProp>()
 	const colorScheme = useThemeColorScheme()
 
 	const {
@@ -36,7 +36,7 @@ const SearchTextScreenInput = () => {
 		setFocus,
 	} = useForm({
 		defaultValues: {
-			searchText: route.params?.searchText || '',
+			searchText: '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -49,55 +49,49 @@ const SearchTextScreenInput = () => {
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
 		onError: error => {
-			console.log('error :>> ', error)
+			// console.log('error Explore Search Query  :>> ', error)
 		},
 		onCompleted: data => {
-			navigation.dispatch(CommonActions.setParams({ data: data.exploreSearch }))
+			router.setParams({
+				searchText: String(watch().searchText),
+			})
+			// console.log('data SEARCH SCREEN :>> ', data)
 		},
 	})
 
 	const clearSearchInput = () => {
 		setValue('searchText', '')
-		navigation.dispatch(CommonActions.setParams({ searchText: '' }))
+		router.setParams({
+			searchText: '',
+		})
 	}
 
 	const goBack = () => {
 		Keyboard.dismiss()
-		navigation.dispatch(StackActions.pop())
+		router.back()
 	}
 
 	const handleSearchSubmitEditting = item => {
-		navigation.dispatch(StackActions.pop())
 		const values = getValues()
-		navigation.dispatch(
-			StackActions.push('HomeTabNavigator', {
-				screen: 'ExploreStack',
-				params: {
-					screen: 'SearchResultTabStack',
-					params: {
-						screen: 'TopScreen',
-						params: {
-							searchText: values.searchText,
-							data: data?.exploreSearch,
-						},
-					},
-				},
-			}),
-		)
+		console.log('values.searchText NAVIGATE :>> ', values.searchText)
+		router.push({
+			pathname: '(app)/hometabnavigator/searchstack/searchresults',
+			params: { searchText: String(values.searchText) },
+		})
 	}
 
 	const changeSearchText = (text: string) => {
 		setValue('searchText', text)
-		navigation.dispatch(CommonActions.setParams({ searchText: text }))
+		router.setParams({})
 	}
 
 	const debouncedSearchResults = useDebounce(watch().searchText, 700)
 
 	useMemo(() => {
-		if (watch().searchText.length) {
+		if (watch().searchText) {
 			exploreSearchQuery({
 				variables: {
-					search: debouncedSearchResults,
+					search: String(watch().searchText),
 				},
 			})
 		}
@@ -144,15 +138,11 @@ const SearchTextScreenInput = () => {
 							underlineColorAndroid='transparent'
 							onSubmitEditing={handleSearchSubmitEditting}
 							onPressIn={() => {
-								if (route.name !== 'SearchTextScreen') {
-									navigation.dispatch(
-										StackActions.push('HomeTabNavigator', {
-											screen: 'ExploreStack',
-											params: {
-												screen: 'SearchTextScreen',
-											},
-										}),
-									)
+								if (segments[3] !== 'searchtext') {
+									router.push({
+										pathname: '(app)/hometabnavigator/searchstack?HELLO',
+										params: { searchtext: value },
+									})
 								}
 							}}
 							leftElement={<Icon as={Ionicons} name='ios-search' size={'lg'} ml={1} />}
@@ -176,7 +166,7 @@ const SearchTextScreenInput = () => {
 									<Button
 										onPress={() => {
 											clearSearchInput()
-											navigation.dispatch(StackActions.pop(1))
+											router.back()
 										}}
 										variant={'ghost'}
 									>

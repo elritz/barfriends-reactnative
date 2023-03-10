@@ -1,32 +1,17 @@
 import { Ionicons } from '@expo/vector-icons'
-import {
-	CommonActions,
-	RouteProp,
-	StackActions,
-	useNavigation,
-	useRoute,
-} from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useNavigation, useRouter, useSearchParams } from 'expo-router'
 import { Box, HStack, Icon, Input } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TextInput } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ExploreFilterTabParamList } from 'src/types/app'
-
-export type ExploreFilterTabSearchResultRouteProp = RouteProp<
-	ExploreFilterTabParamList,
-	'SearchResultTabStack'
->
 
 const SearchTopTabStackInput = () => {
+	const router = useRouter()
+	const params = useSearchParams()
 	const _searchInputRef = useRef<TextInput>(null)
-	const inset = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
 	const navigation = useNavigation()
-	const route = useRoute<ExploreFilterTabSearchResultRouteProp>()
-	const params = route.params
-
 	const {
 		control,
 		setError,
@@ -38,7 +23,7 @@ const SearchTopTabStackInput = () => {
 		watch,
 	} = useForm({
 		defaultValues: {
-			searchText: params.params.searchText,
+			searchText: String(params?.searchText) || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -50,50 +35,42 @@ const SearchTopTabStackInput = () => {
 	})
 
 	useEffect(() => {
-		if (params?.params?.searchText) {
-			setValue('searchText', params.params.searchText)
-		}
-	}, [params?.params?.searchText])
+		console.log('params.searchText =======++> :>> ', params.searchText)
+		setValue('searchText', String(params.searchText))
+	}, [params?.searchText])
 
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
-		const pushAction = StackActions.push('HomeTabNavigator', {
-			screen: 'ExploreStack',
+		router.push({
 			params: {
-				screen: 'SearchResultTabStack',
-				params: {
-					screen: 'TopScreen',
-					params: {
-						searchText: values.searchText,
-					},
-				},
+				searchText: values.searchText,
 			},
+			pathname: '(app)/hometabnavigator/searchstack/searchtext',
 		})
-		navigation.dispatch(pushAction)
 	}
 
 	const goBack = () => {
 		Keyboard.dismiss()
 		_searchInputRef.current?.blur()
-		navigation.dispatch(StackActions.pop())
+		router.back()
 	}
 
 	const changeSearchText = (text: string) => {
 		setValue('searchText', text)
-		navigation.dispatch(CommonActions.setParams({ searchText: text }))
+		router.setParams({
+			searchText: text,
+		})
 	}
 
 	const clearSearchInput = () => {
 		setValue('searchText', '')
-		navigation.dispatch(CommonActions.setParams({ searchText: '' }))
+		router.setParams({
+			searchText: '',
+		})
 	}
 
 	return (
-		<Box
-			style={{
-				marginTop: inset.top,
-			}}
-		>
+		<Box>
 			<HStack alignItems={'center'}>
 				<Icon
 					as={Ionicons}
@@ -108,7 +85,7 @@ const SearchTopTabStackInput = () => {
 				<Controller
 					control={control}
 					name='searchText'
-					render={({ field: { value, onChange } }) => (
+					render={({ field: { value } }) => (
 						<Input
 							_light={{ bgColor: 'light.50' }}
 							_dark={{ bgColor: 'dark.50' }}
@@ -122,25 +99,20 @@ const SearchTopTabStackInput = () => {
 							_input={{
 								fontSize: 'lg',
 							}}
-							isReadOnly
 							value={value}
+							isReadOnly
 							onChangeText={(text: string) => changeSearchText(text)}
 							onSubmitEditing={handleSearchSubmitEditting}
 							returnKeyType='search'
 							leftElement={<Icon as={Ionicons} name='ios-search' size={'lg'} ml={2} />}
 							underlineColorAndroid='transparent'
 							onPressIn={() => {
-								navigation.dispatch(
-									StackActions.push('HomeTabNavigator', {
-										screen: 'ExploreStack',
-										params: {
-											screen: 'SearchTextScreen',
-											params: {
-												searchText: value,
-											},
-										},
-									}),
-								)
+								router.push({
+									params: {
+										searchText: value,
+									},
+									pathname: '(app)/hometabnavigator/searchstack/searchtext',
+								})
 							}}
 						/>
 					)}

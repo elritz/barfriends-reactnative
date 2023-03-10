@@ -73,24 +73,24 @@ export default () => {
 			<Tabs.Screen
 				name='searchstack'
 				options={{
-					// href: '',
-					// title: '',
 					headerShown: false,
 					tabBarLabel: 'search',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
 				}}
 			/>
-			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' && (
-				<Tabs.Screen
-					name={'tonight'}
-					options={{
-						headerShown: false,
-						tabBarLabel: 'tonight',
-						tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
-					}}
-				/>
-			)}
+			<Tabs.Screen
+				name={'tonight'}
+				options={{
+					href:
+						rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'PERSONAL'
+							? '(app)/hometabnavigator/tonight'
+							: null,
+					headerShown: false,
+					tabBarLabel: 'tonight',
+					tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
+				}}
+			/>
 			<Tabs.Screen
 				name='messagestack'
 				options={{

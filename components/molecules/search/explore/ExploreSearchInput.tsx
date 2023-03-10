@@ -1,8 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 import { SearchReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter } from 'expo-router'
 import { Input, Icon, IInputProps } from 'native-base'
 import { useRef, useContext, useState } from 'react'
 import { Keyboard } from 'react-native'
@@ -10,8 +10,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const ExploreSearchInput = () => {
+	const router = useRouter()
 	const _searchInputRef = useRef<IInputProps>(null)
-	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const [isSearch, setIsSearch] = useState(false)
 	const colorScheme = useThemeColorScheme()
@@ -28,13 +28,10 @@ const ExploreSearchInput = () => {
 		Keyboard.dismiss()
 		setIsSearch(false)
 		_searchInputRef.current?.blur()
-		navigation.navigate('HomeTabNavigator', {
-			screen: 'ExploreStack',
+		router.push({
+			pathname: '(app)/hometabnavigator/searchstack/searchtext',
 			params: {
-				screen: 'ExploreScreen',
-				params: {
-					searchText: '',
-				},
+				searchText: '',
 			},
 		})
 	}
@@ -71,39 +68,26 @@ const ExploreSearchInput = () => {
 				value={rSearch?.searchText}
 				onChangeText={text => changeSearchText(text)}
 				onSubmitEditing={() => {
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'ExploreStack',
-						params: {
-							screen: 'SearchResultTabStack',
-							params: {
-								screen: 'TopScreen',
-								params: {},
-							},
-						},
+					router.push({
+						pathname: '(app)/hometabnavigator/searchstack/searchresulttabs',
+						params: {},
 					})
-					// navigation.dispatch(StackActions.push('SearchNavigator', { screen: 'SearchTextScreen', params: { text: '123' } }))
 				}}
 				onPressIn={() => {
 					setIsSearch(true)
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'ExploreStack',
-						params: {
-							screen: 'SearchTextScreen',
-							params: {},
-						},
+					router.push({
+						pathname: '(app)/hometabnavigator/searchstack/searchtext',
+						params: {},
 					})
 				}}
 				onFocus={() => {
-					navigation.navigate('HomeTabNavigator', {
-						screen: 'ExploreStack',
-						params: {
-							screen: 'SearchTextScreen',
-							params: {},
-						},
+					router.push({
+						pathname: '(app)/hometabnavigator/searchstack/searchtext',
+						params: {},
 					})
 				}}
 				leftElement={
-					isSearch || rSearch.searchText.length ? (
+					isSearch || rSearch?.searchText.length ? (
 						<Icon
 							as={Ionicons}
 							onPress={goBackToFeed}

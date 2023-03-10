@@ -1,35 +1,137 @@
 import SearchCard from '../components/SearchCard'
-import { SearchTextScreenRouteProp } from '@components/molecules/search/searchtext/SearchTextScreenInput'
-import { useRoute } from '@react-navigation/native'
-import { Box, ScrollView, Text, Center } from 'native-base'
+import { useReactiveVar } from '@apollo/client'
+import { TOP_SEARCH_INPUT_HEIGHT, TOP_TAB_BAR_HEIGHT } from '@constants/Layout'
+import { Ionicons } from '@expo/vector-icons'
+import { useExploreSearchQuery } from '@graphql/generated'
+import { AuthorizationReactiveVar } from '@reactive'
+import { useSearchParams } from 'expo-router'
+import {
+	Box,
+	ScrollView,
+	Text,
+	Center,
+	Heading,
+	IconButton,
+	HStack,
+	Icon,
+	VStack,
+	Skeleton,
+} from 'native-base'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const SearchTextScreen = () => {
-	const route = useRoute<SearchTextScreenRouteProp>()
-	const params = route.params
+	const params = useSearchParams()
+	const insets = useSafeAreaInsets()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
-	if (!params?.data?.venues?.length && !params?.data?.people?.length) {
+	const { data, loading, error } = useExploreSearchQuery({
+		fetchPolicy: 'cache-first',
+		skip: !params.searchText?.length,
+		variables: {
+			search: String(params.searchText),
+		},
+		onError: error => {
+			console.log('error :>> ', error)
+		},
+		onCompleted: data => {},
+	})
+
+	function getUniqueListBy(arr, key) {
+		return [...new Map(arr.map(item => [item[key], item])).values()]
+	}
+
+	const filteredRecentSearches = getUniqueListBy(
+		rAuthorizationVar?.DeviceProfile?.Profile.resentSearches?.searches,
+		'search',
+	)
+
+	if (loading) {
 		return (
-			<Box flex={1} background={'red'}>
-				<Center>
-					<Text>RECENT SESRCHES</Text>
-				</Center>
-			</Box>
+			<ScrollView
+				scrollEnabled={false}
+				contentInset={{ top: insets.top }}
+				keyboardDismissMode='on-drag'
+				automaticallyAdjustKeyboardInsets
+				px={3}
+			>
+				{[...Array(20)].map(() => {
+					return (
+						<HStack px={2} h={'60px'} w='90%'>
+							<Skeleton h='40px' w={'40px'} borderRadius={'md'} />
+							<Skeleton.Text px='4' lines={2} />
+						</HStack>
+					)
+				})}
+			</ScrollView>
+		)
+	}
+
+	if (!params.searchText?.length) {
+		return (
+			<ScrollView
+				scrollEnabled={true}
+				contentInset={{
+					top: insets.top,
+				}}
+				flex={1}
+				background={'red.500'}
+				keyboardDismissMode='on-drag'
+				px={3}
+			>
+				<Heading size={'sm'} my={4}>
+					Recent
+				</Heading>
+				{filteredRecentSearches.map((item: any, index) => {
+					return (
+						<HStack
+							h={'55px'}
+							w={'100%'}
+							bg={'blue.400'}
+							justifyContent={'flex-start'}
+							alignItems={'center'}
+							space={3}
+							px={2}
+						>
+							<IconButton
+								variant={'outline'}
+								size={'sm'}
+								borderRadius={'lg'}
+								icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
+							/>
+							<VStack>
+								<Text fontSize={'md'} fontWeight={'medium'}>
+									{item.search}
+								</Text>
+							</VStack>
+						</HStack>
+					)
+				})}
+			</ScrollView>
 		)
 	}
 
 	return (
 		<Box safeAreaTop flex={1}>
 			<ScrollView
-				contentInset={{ top: 60 }}
+				scrollEnabled={true}
+				contentInset={{ top: insets.top }}
 				automaticallyAdjustKeyboardInsets
 				keyboardDismissMode='on-drag'
 			>
-				{params?.data?.people?.map(item => {
-					return <SearchCard item={item} />
-				})}
-				{params?.data?.venues?.map(item => {
-					return <SearchCard item={item} />
-				})}
+				{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length ? (
+					<Box h={150} alignItems={'center'} justifyContent={'center'}>
+						<Heading>No search results!</Heading>
+					</Box>
+				) : (
+					<>
+						{data?.exploreSearch.people?.map((item, index) => {
+							return <SearchCard key={index} item={item} />
+						})}
+						{data?.exploreSearch.venues?.map((item, index) => {
+							return <SearchCard key={index} item={item} />
+						})}
+					</>
+				)}
 			</ScrollView>
 		</Box>
 	)

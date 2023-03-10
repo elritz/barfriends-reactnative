@@ -38,7 +38,7 @@ export default function CurrentVenue() {
 			},
 		},
 		onCompleted: data => {
-			console.log('data :>> ', data)
+			console.log('data USE CURRENT VENUE :>> ', data)
 		},
 	})
 

@@ -5574,8 +5574,8 @@ input LiveOutVenueWhereUniqueInput {
 }
 
 type LiveVenueTotals {
-  joined: [Out!]!
-  totaled: [Out!]!
+  joined: [Out!]
+  totaled: [Out!]
 }
 
 type Location {
@@ -9906,6 +9906,7 @@ type Profile {
   profilePhoto: Photo
   ProfileType: ProfileType!
   Relationships: [Relationship!]!
+  resentSearches: ProfileSearchesService
   ThemeManager: ThemeManager
   tonightStory: Story
   updatedAt: DateTime!
@@ -10568,6 +10569,13 @@ input ProfileScalarWhereWithAggregatesInput {
   OR: [ProfileScalarWhereWithAggregatesInput!]
   ProfileType: EnumProfileTypeWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
+}
+
+type ProfileSearchesService {
+  id: ID!
+  Profile: Profile!
+  profileId: String!
+  searches: [Json!]!
 }
 
 input ProfileSearchesServiceCountOrderByAggregateInput {
@@ -12116,7 +12124,7 @@ type RejectedFriendsResponse {
 
 type Relationship {
   createdAt: DateTime!
-  friendProfile: Profile!
+  friendProfile: Profile
   friendProfileId: String!
   id: ID!
   Profile: Profile
