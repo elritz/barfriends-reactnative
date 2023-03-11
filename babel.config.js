@@ -11,14 +11,13 @@ module.exports = function (api) {
 			],
 		],
 		plugins: [
-			require.resolve('expo-router/babel'),
-			'module:react-native-dotenv',
+			['module:react-native-dotenv'],
 			[
 				'module-resolver',
 				{
 					root: ['.'],
 					alias: {
-						'@types': './src/types/app',
+						'@ctypes': './src/types',
 						'@assets': './src/assets',
 						'@components': './src/components',
 						'@graphql': './src/graphql/',

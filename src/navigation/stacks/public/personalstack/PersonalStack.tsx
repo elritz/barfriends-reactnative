@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
+// import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import RelationshipModal from '@components/molecules/modals/relationshipmodal/RelationshipModal'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
@@ -137,12 +137,12 @@ function PersonalStack() {
 					<>
 						{isSender ? (
 							<>
-								<CancelFriendNotificationModal
+								{/* <CancelFriendNotificationModal
 									profileId={String(route.params?.params?.profileId)}
 									friendRequestId={GRFRSData.getRelationshipFriendRequestStatus.id}
 									isOpen={isOpenCancelFriendNotification}
 									onClose={onCloseCancelFriendNotification}
-								/>
+								/> */}
 								<Button
 									variant={'outline'}
 									colorScheme={'primary'}

@@ -6,13 +6,25 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 		case 'production':
 			return {
 				...context.config,
-				name: 'Barfriends-production',
+				name: 'Barfriends',
 				slug: 'barfriends',
 				owner: 'barfriends',
-				scheme: 'barfriends-production',
+				scheme: 'barfriends',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				primaryColor: '#FF7000',
+				plugins: [
+					'expo-build-properties',
+					'expo-localization',
+					[
+						'expo-media-library',
+						{
+							photosPermission: 'Allow $(PRODUCT_NAME) to access your photos.',
+							savePhotosPermission: 'Allow $(PRODUCT_NAME) to save photos.',
+							isAccessMediaLocationEnabled: true,
+						},
+					],
+				],
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -20,7 +32,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				runtimeVersion: {
 					policy: 'sdkVersion',
 				},
-				jsEngine: 'hermes',
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
 				icon: './src/assets/images/icon/icon.png',
@@ -36,7 +47,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					bundleIdentifier: 'com.barfriends.production',
 					supportsTablet: false,
 					icon: `./src/assets/images/icon/icon.png`,
-					jsEngine: 'hermes',
 					// splash: {
 					// 	image: `./src/assets/images/splash/splash.png`,
 					// 	resizeMode: 'cover',
@@ -118,12 +128,24 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 		case 'staging':
 			return {
 				...context.config,
-				name: 'Barfriends (stage)',
+				name: 'Barfriends (stg)',
 				slug: 'barfriends',
 				owner: 'barfriends',
 				scheme: 'barfriends-staging',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
+				plugins: [
+					'expo-build-properties',
+					'expo-localization',
+					[
+						'expo-media-library',
+						{
+							photosPermission: 'Allow $(PRODUCT_NAME) to access your photos.',
+							savePhotosPermission: 'Allow $(PRODUCT_NAME) to save photos.',
+							isAccessMediaLocationEnabled: true,
+						},
+					],
+				],
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -157,6 +179,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						googleMapsApiKey: process.env.GOOGLE_IOS_API_KEY,
 					},
 					infoPlist: {
+						CFBundleAllowMixedLocalizations: true,
 						LSApplicationQueriesSchemes: ['uber'],
 						NSLocationAlwaysUsageDescription:
 							'Barfriends app uses location to provide list of available activities at bars clubs and pubs and events near a users in addition to checking them in.',
@@ -242,6 +265,17 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				scheme: 'barfriends',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
+				plugins: [
+					'expo-build-properties',
+					[
+						'expo-media-library',
+						{
+							photosPermission: 'Allow Barfriends to access your photos.',
+							savePhotosPermission: 'Allow Barfriends to save photos.',
+							isAccessMediaLocationEnabled: true,
+						},
+					],
+				],
 				updates: {
 					url: 'https://u.expo.dev/7ba3f00e-9b58-45fa-8a6e-5ba14d4855e4',
 					fallbackToCacheTimeout: 2000,
@@ -261,8 +295,13 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						resizeMode: 'cover',
 					},
 				},
+				web: {
+					bundler: 'metro',
+					favicon: './src/assets/images/favicon.png',
+				},
 				ios: {
 					// buildNumber: '2.1.6',
+					jsEngine: 'hermes',
 					bundleIdentifier: 'com.barfriends.dev',
 					supportsTablet: false,
 					icon: `./src/assets/images/icon/icon.png`,
@@ -333,9 +372,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						'com.sonyericsson.home.permission.BROADCAST_BADGE',
 					],
 				},
-				web: {
-					favicon: './src/assets/images/favicon.png',
-				},
+
 				packagerOpts: {
 					sourceExts: ['cjs'],
 				},

@@ -20,7 +20,7 @@
 		"baseUrl": "./",
 		"paths": {
 			"@preferences": ["./src/types/preferences.d.ts"],
-			"@types": ["./src/types/app.d"],
+			"@ctypes/*": ["./src/types/*"],
 			"@util/*": ["./src/util/*"],
 			"@helpers/*": ["./src/helpers/*"],
 			"@navigation/*": ["./src/navigation/*"],
@@ -30,7 +30,7 @@
 			"@library/*": ["./src/library/*"],
 			"@context/*": ["./src/context/*"],
 			"@constants/*": ["./src/constants/*"],
-			"@reactive": ["src/reactive/index.tsx"]
+			"@reactive": ["./src/reactive/index.tsx"]
 		},
 		"plugins": [
 			{

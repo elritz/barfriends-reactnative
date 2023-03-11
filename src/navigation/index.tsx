@@ -68,6 +68,7 @@ const Navigation = () => {
 			console.log('error createGuestProfileMutation :>> ', error)
 		},
 		onCompleted: async data => {
+			console.log('data :>> ', data)
 			if (data?.createGuestProfile.__typename === 'Profile') {
 				createADeviceManagerMutation({
 					variables: {
@@ -119,7 +120,6 @@ const Navigation = () => {
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
-			// console.log('create GUET')
 			createGuestProfileMutation()
 		} else {
 			refreshDeviceManagerMutation()
