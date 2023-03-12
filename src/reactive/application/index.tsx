@@ -1,6 +1,5 @@
 import { makeVar } from '@apollo/client'
 import * as Application from 'expo-application'
-import { NotificationPermissionsStatus } from 'expo-notifications'
 
 export interface ApplicationInterface {
 	androidId?: typeof Application.androidId

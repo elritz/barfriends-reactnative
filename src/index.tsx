@@ -1,12 +1,10 @@
-import { PreferencePermissionNotificationReactiveVar } from './reactive/preferences'
-import { SearchAreaReactiveVar, searchAreaInitialState } from './reactive/recommendation'
-import { ThemeReactiveVar } from './reactive/theme'
 import { ApolloProvider, useReactiveVar } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
+	LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
 } from '@constants/StorageConstants'
 import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
@@ -16,13 +14,22 @@ import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoade
 import {
 	LocalStoragePreferenceSearchAreaType2,
 	LocalStoragePreferenceThemeType,
-	LocalStoragePreferenceNotificationPermissionType,
+	LocalStoragePreferenceAskNotificationPermissionType,
+	LocalStoragePreferenceAskBackgroundLocationPermissionType,
 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+	PreferenceNotificationPermissionReactiveVar,
+	SearchAreaReactiveVar,
+	searchAreaInitialState,
+	PreferencePermissionNotificationReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useAssets } from 'expo-asset'
 import 'expo-dev-client'
 import * as Notifications from 'expo-notifications'
+import { DateTime } from 'luxon'
 import { useEffect } from 'react'
 import { Appearance, Linking } from 'react-native'
 import 'react-native-gesture-handler'
@@ -99,16 +106,18 @@ export default function App() {
 						values.colorScheme === 'system' ? Appearance.getColorScheme() : values.colorScheme,
 				})
 			}
+
 			// NOTIFICATION_PERMISSION_PREFERENCE
 			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 			)
 
 			if (!getLocalStorageNotificationPermissionsPreference) {
+				const date = DateTime.local().plus({ days: 14 }).toJSDate()
 				const initialNotificationPermissionPreferenceState = JSON.stringify({
 					canShowAgain: true,
-					dateToShowAgain: Date.now(),
-				} as LocalStoragePreferenceNotificationPermissionType)
+					dateToShowAgain: date,
+				} as LocalStoragePreferenceAskNotificationPermissionType)
 
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
@@ -116,13 +125,43 @@ export default function App() {
 				)
 			} else {
 				// using local_storage values set the correct information
-				const values: LocalStoragePreferenceNotificationPermissionType = JSON.parse(
+				const values: LocalStoragePreferenceAskNotificationPermissionType = JSON.parse(
 					getLocalStorageNotificationPermissionsPreference,
 				)
+				PreferenceNotificationPermissionReactiveVar({
+					...values,
+				})
+			}
+
+			// LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION
+			const getLocalStorageAskBackgroundLocationPreference = await AsyncStorage.getItem(
+				LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
+			)
+
+			if (!getLocalStorageAskBackgroundLocationPreference) {
+				const date = DateTime.local().plus({ days: 14 }).toJSDate()
+
+				const initiaAskBackgroundLocationPermissionPreferenceState = JSON.stringify({
+					canShowAgain: true,
+					dateToShowAgain: date,
+				} as LocalStoragePreferenceAskBackgroundLocationPermissionType)
+
+				await AsyncStorage.setItem(
+					LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
+					initiaAskBackgroundLocationPermissionPreferenceState,
+				)
+			} else {
+				// using local_storage values set the correct information
+				const values: LocalStoragePreferenceAskBackgroundLocationPermissionType = JSON.parse(
+					getLocalStorageAskBackgroundLocationPreference,
+				)
+
 				PreferencePermissionNotificationReactiveVar({
 					...values,
 				})
 			}
+
+			/// NEXT
 			const getLocalStorageSystemOfUnitsPreference = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 			)

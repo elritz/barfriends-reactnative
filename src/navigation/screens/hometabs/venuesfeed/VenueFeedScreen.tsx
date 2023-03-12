@@ -1,8 +1,5 @@
-import CurrentVenue from './components/CurrentVenue'
-import HorizontalVenueFeedVenueItem from './components/HorizontalVenueFeedVenueItem'
 import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from './components/VenueFeedSignupCard'
-import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
 import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
 import VenuesFeedVenuesEmptyState from './components/VenuesFeedVenuesEmptyState'
 import { useReactiveVar } from '@apollo/client'
@@ -18,7 +15,6 @@ import {
 	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
-import { log } from 'console'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
 import { Box, VStack, FlatList, Heading } from 'native-base'
@@ -95,7 +91,6 @@ const VenueFeedScreen = () => {
 	const listHeaderComponent = () => {
 		return (
 			<VStack w={'full'} space={4}>
-				{/* {<VenuesFeedSearchAreaHeader />} */}
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 					<VenueFeedSignupCard />
 				)}

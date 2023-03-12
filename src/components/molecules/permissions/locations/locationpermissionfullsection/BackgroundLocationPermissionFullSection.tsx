@@ -1,9 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
-import { LOCAL_STORAGE_ASK_BACKGROUND_LOCATION } from '@constants/StorageConstants'
+import { LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION } from '@constants/StorageConstants'
 import { EvilIcons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { PermissionBackgroundLocationReactiveVar } from '@reactive'
+import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, VStack } from 'native-base'
@@ -12,6 +13,11 @@ import { useEffect } from 'react'
 export default function BackgroundLocationPermissionFullSection() {
 	const navigation = useNavigation()
 	const rBackgroundPermissionLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
+
+	console.log(
+		'🚀 ~ file: BackgroundLocationPermissionFullSection.tsx:17 ~ BackgroundLocationPermissionFullSection ~ rBackgroundPermissionLocationVar:',
+		rBackgroundPermissionLocationVar,
+	)
 
 	useEffect(() => {}, [])
 
@@ -37,6 +43,11 @@ export default function BackgroundLocationPermissionFullSection() {
 						<HStack w={'95%'} justifyContent={'flex-end'}>
 							<Icon
 								onPress={() => {
+									// secureStorageItemCreate({
+									// 	key: LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
+									// 	value: "",
+									// 	options: {}
+									// })
 									console.log('When someone closes save the date to show later')
 								}}
 								as={EvilIcons}
