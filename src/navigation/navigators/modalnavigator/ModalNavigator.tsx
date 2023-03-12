@@ -1,10 +1,10 @@
 import NavigationDragIcon from '@components/atoms/icons/navigationdragicon/NavigationDragIcon'
+import { ModalNavigatorParamList } from '@ctypes/app'
 import DeviceManagerModal from '@navigation/screens/modals/devicemanager/DeviceManagerModal'
 import { MediaLibraryModal } from '@navigation/screens/modals/medialibrary/MediaLibraryModal'
 import InviteStackNavigiation from '@navigation/stacks/invitestack/IniviteStack'
 import SearchAreaStackNavigation from '@navigation/stacks/searcharea/SearchAreaStack'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { ModalNavigatorParamList } from '@types'
 
 const ScreenStack = createNativeStackNavigator<ModalNavigatorParamList>()
 

@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetModalRef } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types'
-import { Personal, Profile, Theme, Venue } from '@graphql/generated'
+import { ExploreSearchQueryResult, Personal, Profile, Theme, Venue } from '@graphql/generated'
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs'
 import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -155,15 +155,15 @@ export type ExploreFilterTabParamList = {
 export type SearchResultTabStackParamList = {
 	TopScreen: {
 		searchText?: string
-		data?: {}
+		data?: []
 	}
 	VenueScreen: {
 		searchText?: string
-		data?: {}
+		data?: []
 	}
 	UserScreen: {
 		searchText?: string
-		data?: {}
+		data?: []
 	}
 	NotFound: undefined
 }
@@ -226,11 +226,12 @@ export type LoginStackParamList = {
 
 export type PersonalCredentialStackParamList = {
 	GetStartedScreen: undefined
-	EmailPhoneTabStack: NavigatorScreenParams<EmailPhoneTabStackParamlist> | undefined
 	ConfirmationCodeScreen: {
 		code: string
 	}
 	BirthdayScreen: undefined
+	EmailScreen: undefined
+	PhoneScreen: undefined
 	NameScreen: undefined
 	UsernameScreen: undefined
 	PasswordCreateScreen: undefined
@@ -244,18 +245,14 @@ export type VenueCredentialStackParamList = {
 	TermsServicePrivacyScreen: NavigatorScreenParams<TermsServicePrivacyTabStackParamList> | undefined
 	LoginScreen: undefined
 	BirthdayScreen: undefined
-	EmailPhoneTabStack: NavigatorScreenParams<EmailPhoneTabStackParamlist> | undefined
+	EmailScreen: undefined
+	PhoneScreen: undefined
 	ConfirmationCodeScreen: undefined
 	PasswordScreen: undefined
 	PhotoScreen: undefined
 	EmojimoodScreen: undefined
 	CongratulationsScreen: undefined
 	NotFound: undefined
-}
-
-export type EmailPhoneTabStackParamlist = {
-	PhoneScreen: undefined
-	EmailScreen: undefined
 }
 
 export type TermsServicePrivacyTabStackParamList = {

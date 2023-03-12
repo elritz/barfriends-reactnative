@@ -1,10 +1,12 @@
+import { TOP_SEARCH_INPUT_HEIGHT } from '@constants/ReactNavigationConstants'
+import { ExploreFilterTabParamList, SearchResultTabStackParamList } from '@ctypes/app'
 import SearchAccounts from '@navigation/screens/search/textsearchtabs/SearchAccounts'
 import SearchTop from '@navigation/screens/search/textsearchtabs/SearchTop'
 import SearchVenues from '@navigation/screens/search/textsearchtabs/SearchVenues'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { ExploreFilterTabParamList, SearchResultTabStackParamList } from '@types'
 import { useContext } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const ScreenStack = createMaterialTopTabNavigator<SearchResultTabStackParamList>()
@@ -20,18 +22,22 @@ export type SearchFilterTabStackRouteProp = RouteProp<
 function SearchFilterTabStack() {
 	const themeContext = useContext(ThemeContext)
 	const route = useRoute<SearchFilterTabStackRouteProp>()
+	const insets = useSafeAreaInsets()
+
 	return (
 		<ScreenStack.Navigator
 			tabBarPosition='top'
 			screenOptions={{
 				tabBarStyle: {
 					backgroundColor: 'themeContext.palette.primary.background.default',
-					marginTop: 105,
+					marginTop: insets.top + TOP_SEARCH_INPUT_HEIGHT,
 				},
 				tabBarShowLabel: true,
 				tabBarContentContainerStyle: {
-					height: 40,
 					alignItems: 'center',
+				},
+				tabBarIconStyle: {
+					height: 20,
 				},
 				tabBarIndicatorStyle: {
 					backgroundColor: themeContext.palette.company.accent,

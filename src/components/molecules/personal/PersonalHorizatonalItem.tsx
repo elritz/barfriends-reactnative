@@ -1,5 +1,5 @@
+import { ItemRenderType } from '@ctypes/app'
 import { Personal } from '@graphql/generated'
-import { ItemRenderType } from '@types'
 import { Avatar, Box, Heading, HStack, Pressable } from 'native-base'
 import { useState, useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
@@ -14,7 +14,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 	if (!profile) return null
 
 	return (
-		<Pressable onPress={profileDisabled ? console.log('TODO:') : console.log('TODO:')}>
+		<Pressable onPress={() => (profileDisabled ? console.log('TODO:') : console.log('TODO:'))}>
 			<Box
 				// ViewComponent={LinearGradient}
 				// linearGradientProps={{

@@ -9,6 +9,7 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
+import { HomeTabNavigatorParamList } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import DevelopmentStack from '@navigation/stacks/developmentstack/DevelopmentStack'
 import ExploreStack from '@navigation/stacks/home/explorestack/ExploreStack'
@@ -18,7 +19,6 @@ import VenueFeedStack from '@navigation/stacks/home/venuefeedstack/VenueFeedStac
 import TonightStack from '@navigation/stacks/tonightstack/TonightStack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AuthorizationReactiveVar } from '@reactive'
-import { HomeTabNavigatorParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { useContext } from 'react'

@@ -1,11 +1,11 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { LoginStackParamList } from '@ctypes/app'
 import AuthenticatorScreen from '@navigation/screens/credential/login/authenticator/AuthenticatorScreen'
 import ConfirmationCodeScreen from '@navigation/screens/credential/login/code/ConfirmationCodeScreen'
 import DeviceManagerScreen from '@navigation/screens/credential/login/devicemanager/DeviceManager'
 import PasswordLoginScreen from '@navigation/screens/credential/login/passwordlogin/PasswordLoginScreen'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginStackParamList } from '@types'
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 

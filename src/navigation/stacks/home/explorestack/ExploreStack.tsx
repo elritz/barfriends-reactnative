@@ -1,19 +1,13 @@
 import SearchFilterTabStack from '../../searchfiltertabstack/SearchFilterTabStack'
-import LogoTransparent from '@assets/images/company/LogoTransparent'
-import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import SearchTopTabStackInput from '@components/molecules/search/SearchTopTabStackInput'
 import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
+import { ExploreFilterTabParamList, HomeTabNavigatorParamList } from '@ctypes/app'
 import PublicNavigator from '@navigation/navigators/publicnavigator/PublicNavigator'
 import ExploreScreen from '@navigation/screens/hometabs/explore/ExploreScreen'
 import SearchTextScreen from '@navigation/screens/search/searchtext/SearchTextScreen'
-import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
-import {
-	CardStyleInterpolators,
-	createStackNavigator,
-	HeaderStyleInterpolators,
-} from '@react-navigation/stack'
-import { ExploreFilterTabParamList, HomeTabNavigatorParamList } from '@types'
+import { RouteProp, useNavigation } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Box, useTheme } from 'native-base'
@@ -21,6 +15,7 @@ import { VStack } from 'native-base'
 import { Platform, StyleSheet } from 'react-native'
 
 const ScreenStack = createStackNavigator<ExploreFilterTabParamList>()
+
 export type ExploreFilterTabSearchResultRouteProp = RouteProp<
 	HomeTabNavigatorParamList,
 	'ExploreStack'
@@ -61,7 +56,6 @@ function ExploreStack() {
 												screen: 'SearchTextScreen',
 												params: {
 													searchText: '',
-													data: [],
 												},
 											},
 										})

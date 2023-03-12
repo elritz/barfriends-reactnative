@@ -1,8 +1,8 @@
+import { VenueProfileStackParamList } from '@ctypes/app'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import VenueScreen from '@navigation/screens/public/venue/Venue'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { VenueProfileStackParamList } from '@types'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { HStack, Icon, IconButton } from 'native-base'
 

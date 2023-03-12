@@ -1,8 +1,7 @@
+import { PublicNavigatorParamList } from '@ctypes/app'
 import PersonalStack from '@navigation/stacks/public/personalstack/PersonalStack'
 import VenueStack from '@navigation/stacks/public/venuestack/VenueStack'
 import { createStackNavigator } from '@react-navigation/stack'
-import { PublicNavigatorParamList } from '@types'
-import React from 'react'
 
 const ScreenStack = createStackNavigator<PublicNavigatorParamList>()
 

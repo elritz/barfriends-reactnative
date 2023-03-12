@@ -1,7 +1,7 @@
-import { RootNavigatorParamList } from '@types';
+import { RootNavigatorParamList } from '@ctypes/app'
 
 declare global {
 	namespace ReactNavigation {
-		interface RootParamList extends RootNavigatorParamList { }
+		interface RootParamList extends RootNavigatorParamList {}
 	}
 }

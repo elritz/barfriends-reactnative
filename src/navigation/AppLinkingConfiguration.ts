@@ -89,13 +89,8 @@ const linking: LinkingOptions<RootNavigatorParamList> = {
 							GetStartedScreen: 'getstartedscreen',
 							UsernameScreen: 'usernamescreen',
 							PasswordCreateScreen: 'passwordcreatescreen',
-							EmailPhoneTabStack: {
-								path: 'emailphonetabstack',
-								screens: {
-									EmailScreen: 'emailscreen',
-									PhoneScreen: 'phonescreen',
-								},
-							},
+							EmailScreen: 'emailscreen',
+							PhoneScreen: 'phonescreen',
 							TermsServicePrivacyTabStack: {
 								path: 'termserviceprivacytabstack',
 								screens: {

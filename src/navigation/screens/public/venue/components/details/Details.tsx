@@ -1,8 +1,9 @@
 import { VenueScreenRouteProp } from '../../Venue'
+import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard'
 import { useReactiveVar } from '@apollo/client'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
-import { SearchAreaReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { Badge, useColorMode, useTheme } from 'native-base'
 import { Box, Button, HStack, Text, VStack } from 'native-base'
 import { useContext, useState } from 'react'
@@ -20,14 +21,23 @@ const DetailTitle = (props: DetailTitleProps) => {
 	)
 }
 
-export default function Details(props) {
+export default props => {
 	const colorMode = useColorMode()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const themeContext = useContext(ThemeContext)
 	const theme = useTheme()
 	const [showMore, setShowMore] = useState(false)
 
 	const route = useRoute<VenueScreenRouteProp>()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const currentLocationCoords = rSearchAreaVar.useCurrentLocation
+		? {
+				currentLocationCoords: {
+					latitude: Number(rSearchAreaVar.searchArea.coords.latitude),
+					longitude: Number(rSearchAreaVar.searchArea.coords.longitude),
+				},
+		  }
+		: null
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !route.params.profileId,
@@ -35,13 +45,10 @@ export default function Details(props) {
 		variables: {
 			where: {
 				id: {
-					equals: route.params.profileId,
+					equals: String(route.params.profileId),
 				},
 			},
-			currentLocationCoords: {
-				latitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.latitude : 0,
-				longitude: rSearchAreaVar.useCurrentLocation ? rSearchAreaVar.searchArea.coords.longitude : 0,
-			},
+			...currentLocationCoords,
 		},
 		onError(error) {
 			console.log('error :>> ', error)
@@ -66,6 +73,7 @@ export default function Details(props) {
 			mx={2}
 			borderRadius={'xl'}
 		>
+			{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
 			<Box>
 				<DetailTitle title={'Address'} />
 				<Text fontSize={'xl'} fontWeight={'medium'}>

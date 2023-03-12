@@ -3,9 +3,9 @@ import CurrentVenue from './components/currentvenue/CurrentVenue'
 import ProfilePhoto from './components/profilephoto'
 import Photos from './components/profilephoto'
 import Relationships from './components/relationship/Relationships'
+import { PersonalProfileStackParamList } from '@ctypes/app'
 import { useProfileQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { PersonalProfileStackParamList } from '@types'
 import { HStack, ScrollView as NBScrollView, VStack } from 'native-base'
 
 export type PublicPersonalRouteProp = RouteProp<

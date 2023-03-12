@@ -1,6 +1,6 @@
 import SearchCard from '../components/SearchCard'
+import { SearchResultTabStackParamList } from '@ctypes/app'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { SearchResultTabStackParamList } from '@types'
 import { Box, Center, Heading, ScrollView } from 'native-base'
 
 // TODO: FN(SearchPage) finish the searching ability on this page using route prop from params
@@ -22,7 +22,7 @@ export default function SearchTop() {
 	return (
 		<Box style={{ flex: 1 }}>
 			<ScrollView>
-				{params?.data?.people?.map(item => {
+				{params?.data?.people.map(item => {
 					return <SearchCard item={item} />
 				})}
 			</ScrollView>

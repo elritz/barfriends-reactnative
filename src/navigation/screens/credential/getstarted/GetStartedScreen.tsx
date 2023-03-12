@@ -70,10 +70,7 @@ const GetStartedScreen = () => {
 							navigation.navigate('CredentialNavigator', {
 								screen: 'PersonalCredentialStack',
 								params: {
-									screen: 'EmailPhoneTabStack',
-									params: {
-										screen: 'PhoneScreen',
-									},
+									screen: 'PhoneScreen',
 								},
 							})
 						}}

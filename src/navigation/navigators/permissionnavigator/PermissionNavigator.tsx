@@ -1,6 +1,7 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import NavigationDragIcon from '@components/atoms/icons/navigationdragicon/NavigationDragIcon'
+import { PermissionNavigatorParamList } from '@ctypes/app'
 import CameraPermissionScreen from '@navigation/screens/permissions/camera/CameraPermissionScreen'
 import BackgroundLocationPermissionScreen from '@navigation/screens/permissions/location/BackgroundLocationPermissionScreen'
 import ForegroundLocationPermissionScreen from '@navigation/screens/permissions/location/ForegroundLocationPermissionScreen'
@@ -9,7 +10,6 @@ import MediaLibraryPermissionScreen from '@navigation/screens/permissions/medial
 import NetworkPermissionScreen from '@navigation/screens/permissions/network/NetworkPermissionScreen'
 import NotificationsPermissionScreen from '@navigation/screens/permissions/notifications/NotificationsPermissionScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { PermissionNavigatorParamList } from '@types'
 
 const ScreenStack = createNativeStackNavigator<PermissionNavigatorParamList>()
 

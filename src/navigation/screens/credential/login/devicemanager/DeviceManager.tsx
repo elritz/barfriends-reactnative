@@ -1,6 +1,7 @@
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	ClientDeviceManager,
+	ProfileType,
 	useAuthorizedProfilesQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
@@ -86,9 +87,14 @@ export default function DeviceManagerScreen() {
 		}
 	}
 
-	if (loading) return null
+	if (loading) {
+		return <></>
+	}
 
-	if (data?.authorizedProfiles?.__typename === 'ErrorProfiling') {
+	if (
+		data?.authorizedProfiles?.__typename === 'ErrorProfiling' ||
+		data?.authorizedProfiles?.__typename !== 'ProfilesResponse'
+	) {
 		return (
 			<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
 				<Heading fontSize={'xl'}>Error finding profiles</Heading>
@@ -96,46 +102,44 @@ export default function DeviceManagerScreen() {
 		)
 	}
 
-	if (data?.authorizedProfiles?.__typename === 'ProfilesResponse') {
-		const emailProfiles = data?.authorizedProfiles?.phone?.filter(item => {
-			if (item.ProfileType === 'GUEST') {
-				return null
-			}
-			return item
-		})
-		const phoneProfiles = data?.authorizedProfiles?.email?.filter(item => {
-			if (item.ProfileType === 'GUEST') {
-				return null
-			}
-			return item
-		})
+	const emailProfiles = data?.authorizedProfiles?.phone?.filter(item => {
+		if (item.ProfileType === 'GUEST') {
+			return null
+		}
+		return item
+	})
+	const phoneProfiles = data?.authorizedProfiles?.email?.filter(item => {
+		if (item.ProfileType === 'GUEST') {
+			return null
+		}
+		return item
+	})
 
-		const finalProfileArray = [...new Set([...emailProfiles, ...phoneProfiles])]
+	const finalProfileArray = [...new Set([...emailProfiles, ...phoneProfiles])]
 
-		return (
-			<SafeAreaView style={{ flex: 1, margin: 10 }}>
-				<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
-					<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
-						Your profiles
-					</Text>
-				</View>
-				<ScrollView
-					showsVerticalScrollIndicator={false}
-					scrollEventThrottle={16}
-					keyboardDismissMode='none'
-					contentInset={{
-						top: 20,
-					}}
-				>
-					{finalProfileArray.map(item => {
-						return (
-							<Pressable key={item.id} onPress={() => navigateToLogin(item)}>
-								<DeviceManagerProfileItemLarge isActive={false} item={item} />
-							</Pressable>
-						)
-					})}
-				</ScrollView>
-			</SafeAreaView>
-		)
-	}
+	return (
+		<SafeAreaView style={{ flex: 1, margin: 10 }}>
+			<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
+				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+					Your profiles
+				</Text>
+			</View>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				scrollEventThrottle={16}
+				keyboardDismissMode='none'
+				contentInset={{
+					top: 20,
+				}}
+			>
+				{finalProfileArray.map(item => {
+					return (
+						<Pressable key={item.id} onPress={() => navigateToLogin(item)}>
+							<DeviceManagerProfileItemLarge isActive={false} item={item} />
+						</Pressable>
+					)
+				})}
+			</ScrollView>
+		</SafeAreaView>
+	)
 }

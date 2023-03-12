@@ -25,6 +25,14 @@ export const PROFILE_FRAGMENT = gql`
 		DetailInformation {
 			...DETAIL_INFORMATION_FRAGMENT
 		}
+		resentSearches {
+			id
+			Profile {
+				id
+			}
+			profileId
+			searches
+		}
 		ThemeManager {
 			...THEME_MANAGER_FRAGMENT
 		}

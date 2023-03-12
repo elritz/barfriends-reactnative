@@ -1,12 +1,12 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { ProfileSettingsNavigatorParamList } from '@ctypes/app'
 import AppearanceSettingsScreen from '@navigation/screens/settings/appearancesettings/AppearanceSettingsScreen'
 import ProfileNotificationsSettingsScreen from '@navigation/screens/settings/profilenotificationssettings/ProfileNotificationsSettingsScreen'
 import ProfileSettingsOptionsScreen from '@navigation/screens/settings/profilesettingoptions/ProfileSettingsOptionsScreen'
 import SecuritySettingsScreen from '@navigation/screens/settings/securitysettings/SecuritySettingsScreen'
 import ProfileEditorStack from '@navigation/stacks/settings/profileeditorstack/ProfileEditorStack'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { ProfileSettingsNavigatorParamList } from '@types'
 import { useColorMode, useTheme } from 'native-base'
 
 const ScreenStack = createNativeStackNavigator<ProfileSettingsNavigatorParamList>()

@@ -1,20 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
+import { ProfileTabStackParamList } from '@ctypes/app'
 import { FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import {
-	BottomSheetModal,
-	BottomSheetScrollView,
-	useBottomSheetDynamicSnapPoints,
-} from '@gorhom/bottom-sheet'
 import UserProfileScreen from '@navigation/screens/hometabs/profile/Profile'
-import ProfileSettingsOptionsScreen from '@navigation/screens/settings/profilesettingoptions/ProfileSettingsOptionsScreen'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AuthorizationReactiveVar } from '@reactive'
-import { ProfileTabStackParamList } from '@types'
 import * as Haptics from 'expo-haptics'
 import { HStack, Icon, IconButton, Pressable, Text, useColorMode, useTheme } from 'native-base'
-import { useCallback, useMemo, useRef } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
 
 // TODO: UX(need to navigate to a setting page for application level setting ie Push Notifications, Location, Network History Deletion)
 

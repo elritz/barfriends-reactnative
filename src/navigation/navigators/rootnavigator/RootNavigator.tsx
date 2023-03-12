@@ -1,12 +1,12 @@
 import ModalNavigator from '../modalnavigator/ModalNavigator'
 import PublicNavigator from '../publicnavigator/PublicNavigator'
+import { RootNavigatorParamList } from '@ctypes/app'
 import CredentialNavigator from '@navigation/navigators/credentialnavigator/CredentialNavigator'
 import HomeTabNavigator from '@navigation/navigators/hometabnavigator/HomeTabNavigator'
 import MessageRoomNavigator from '@navigation/navigators/messageroomnavigator/MessageRoomNavigator'
 import PermissionNavigator from '@navigation/navigators/permissionnavigator/PermissionNavigator'
 import ProfileSettingsNavigator from '@navigation/navigators/profilesettingsnavigator/ProfileSettingsNavigator'
 import { createStackNavigator } from '@react-navigation/stack'
-import { RootNavigatorParamList } from '@types'
 
 const ScreenStack = createStackNavigator<RootNavigatorParamList>()
 

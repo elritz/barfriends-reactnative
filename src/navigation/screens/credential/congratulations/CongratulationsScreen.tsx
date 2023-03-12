@@ -1,18 +1,14 @@
-import { GradientAlongPath, prepare } from './PathAlongGrdient'
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import { Feather } from '@expo/vector-icons'
 import {
 	ClientDeviceManager,
 	ProfileType,
 	useCreatePersonalProfileMutation,
-	useEmojimoodsQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
-import { Text, Icon, IconButton, Box, Heading, Button, VStack } from 'native-base'
-import { SafeAreaView } from 'react-native'
+import { Text, Box, Heading, Button, VStack } from 'native-base'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const CongratulationsScreen = () => {
@@ -73,7 +69,7 @@ const CongratulationsScreen = () => {
 
 	return (
 		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={4}>
-			<VStack space={2} justifyContent={'center'} height={'lg'}>
+			<VStack space={2} alignItems={'center'} justifyContent={'center'} height={'lg'}>
 				<CompanyCoasterLogoDynamic />
 				<Box>
 					<Heading fontWeight={'black'} fontSize={'4xl'}>

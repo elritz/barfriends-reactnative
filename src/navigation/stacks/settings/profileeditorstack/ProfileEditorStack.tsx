@@ -1,5 +1,6 @@
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { ProfileEditorStackParamList } from '@ctypes/app'
 import BirthdayScreen from '@navigation/screens/settings/profileeditor/birthdayscreen/BirthdayScreen'
 import CurrentPlacceScreen from '@navigation/screens/settings/profileeditor/currentplacescreen/CurrentPlacceScreen'
 import DescriptionScreen from '@navigation/screens/settings/profileeditor/descriptionscreen/DescriptionScreen'
@@ -14,7 +15,6 @@ import SexualPreferenceScreen from '@navigation/screens/settings/profileeditor/s
 import StatusScreen from '@navigation/screens/settings/profileeditor/statusscreen/StatusScreen'
 import UsernameScreen from '@navigation/screens/settings/profileeditor/usernamescreen/UsernameScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { ProfileEditorStackParamList } from '@types'
 import { useColorMode, useTheme } from 'native-base'
 
 const ScreenStack = createNativeStackNavigator<ProfileEditorStackParamList>()

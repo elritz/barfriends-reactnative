@@ -245,7 +245,13 @@ const CurrentLocationFromVenueDistance = () => {
 	return (
 		<>
 			{distance && distance > 10 ? (
-				<>{rAuthorizationVar?.DeviceProfile?.Profile ? <JoinCard /> : <SignupCard />}</>
+				<>
+					{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' ? (
+						<JoinCard />
+					) : (
+						<SignupCard />
+					)}
+				</>
 			) : (
 				<>
 					{loading || !data || isLoading ? (

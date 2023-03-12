@@ -1,6 +1,6 @@
+import { MessagesTabStackParamList } from '@ctypes/app'
 import MessagesScreen from '@navigation/screens/hometabs/messages/Messages'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { MessagesTabStackParamList } from '@types'
 
 const ScreenStack = createNativeStackNavigator<MessagesTabStackParamList>()
 

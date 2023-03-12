@@ -164,6 +164,7 @@ const SearchTextScreenInput = () => {
 											_hover={{
 												bg: 'transparent',
 											}}
+											h={'30px'}
 											_focus={{
 												bg: 'transparent',
 											}}

@@ -1,4 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import {
+	ExploreFilterTabParamList,
+	SearchAreaLocationStackModalParamList,
+	SearchAreaStackParamList,
+} from '@ctypes/app'
 import SearchAreaCountries from '@navigation/screens/search/searcharea/SearchAreaCountries'
 import SearchAreaCountryStates from '@navigation/screens/search/searcharea/SearchAreaCountryStates'
 import SearchAreaStateCities from '@navigation/screens/search/searcharea/SearchAreaStateCities'
@@ -8,11 +13,6 @@ import SearchVenues from '@navigation/screens/search/textsearchtabs/SearchVenues
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
-import {
-	ExploreFilterTabParamList,
-	SearchAreaLocationStackModalParamList,
-	SearchAreaStackParamList,
-} from '@types'
 import { useContext } from 'react'
 import { ThemeContext } from 'styled-components/native'
 

@@ -1,9 +1,7 @@
 import { AUTHORIZATION } from '@constants/StorageConstants'
-import { CREATE_DEVICE_MANAGER_MUTATION } from '@graphql/DM/managing/devicemanager/index.mutation'
+import { AuthorizationDecoded } from '@ctypes/app'
 import { DeviceManager } from '@graphql/generated'
-import client from '@library/gateway-apollo-server'
 import { AuthorizationReactiveVar } from '@reactive'
-import { AuthorizationDecoded } from '@types'
 import { secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 
 const useCheckLocalStorageForAuthorizationToken = async (): Promise<boolean> => {

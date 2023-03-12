@@ -1,72 +1,74 @@
-import GetSignInUpText from '@helpers/data/SignupinText'
 import { useNavigation } from '@react-navigation/native'
-import { Center, Heading, Button } from 'native-base'
-
-const text = GetSignInUpText()
+import { Center, Heading, Button, VStack } from 'native-base'
 
 export default function SignupCard() {
 	const navigation = useNavigation()
 	return (
-		<>
+		<VStack justifyContent={'space-around'}>
 			<Heading
-				fontSize={'md'}
-				numberOfLines={3}
+				fontSize={'2xl'}
+				numberOfLines={2}
+				textAlign={'center'}
 				ellipsizeMode='tail'
 				adjustsFontSizeToFit
 				minimumFontScale={0.5}
+				fontWeight={'extrabold'}
 			>
-				{text[3].title}
+				Join the fun tonight
 			</Heading>
 			<Center
 				style={{
 					flexDirection: 'column',
-					marginTop: 15,
 				}}
+				mt={3}
 			>
-				<Button
-					onPressIn={() => {
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'GetStartedScreen',
+				<VStack alignItems={'center'} space={1} mt={2}>
+					<Button
+						onPress={() => {
+							navigation.navigate('CredentialNavigator', {
+								screen: 'PersonalCredentialStack',
+								params: {
+									screen: 'GetStartedScreen',
+								},
+							})
+						}}
+						px={7}
+						_text={{
+							fontSize: 'lg',
+							fontWeight: 'bold',
+							textTransform: 'uppercase',
+						}}
+					>
+						SIGN UP
+					</Button>
+					<Button
+						px={7}
+						variant={'unstyled'}
+						w={'5%'}
+						_text={{
+							textTransform: 'uppercase',
+							fontWeight: '700',
+							fontSize: 'lg',
+							_dark: {
+								color: 'light.50',
 							},
-						})
-					}}
-					onPress={() => {
-						navigation.navigate('CredentialNavigator', {
-							screen: 'PersonalCredentialStack',
-							params: {
-								screen: 'GetStartedScreen',
+							_light: {
+								color: 'light.900',
 							},
-						})
-					}}
-					w={'95%'}
-					my={5}
-					_text={{
-						fontWeight: 'bold',
-						textTransform: 'uppercase',
-					}}
-				>
-					Log in
-				</Button>
-				<Button
-					variant={'ghost'}
-					w={'95%'}
-					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'xl'}
-					onPress={() =>
-						navigation.navigate('CredentialNavigator', {
-							screen: 'LoginCredentialStack',
-							params: {
-								screen: 'AuthenticatorScreen',
-							},
-						})
-					}
-					my={2}
-				>
-					log in
-				</Button>
+						}}
+						onPress={() =>
+							navigation.navigate('CredentialNavigator', {
+								screen: 'LoginCredentialStack',
+								params: {
+									screen: 'AuthenticatorScreen',
+								},
+							})
+						}
+					>
+						log in
+					</Button>
+				</VStack>
 			</Center>
-		</>
+		</VStack>
 	)
 }

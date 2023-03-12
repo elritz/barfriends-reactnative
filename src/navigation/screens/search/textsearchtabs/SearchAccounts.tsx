@@ -1,6 +1,6 @@
 import SearchCard from '../components/SearchCard'
+import { SearchResultTabStackParamList } from '@ctypes/app'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { SearchResultTabStackParamList } from '@types'
 import { Box, Center, Heading, ScrollView } from 'native-base'
 
 export type SearchResultTabStackRouteProp = RouteProp<SearchResultTabStackParamList, 'UserScreen'>

@@ -7,18 +7,13 @@ import { useReactiveVar } from '@apollo/client'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import {
-	AuthorizationReactiveVar,
-	CurrentLocationReactiveVar,
-	SearchAreaReactiveVar,
-} from '@reactive'
-import { Text, FlatList, VStack, Heading, Box, useDisclose } from 'native-base'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import { Text, FlatList, VStack, Heading, Box } from 'native-base'
 import { VenueProfileStackParamList } from 'src/types/app'
 
 export type VenueScreenRouteProp = RouteProp<VenueProfileStackParamList, 'PublicVenueScreen'>
 
-const VenueScreen = (props: any) => {
+export default (props: any) => {
 	const route = useRoute<VenueScreenRouteProp>()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
@@ -48,7 +43,6 @@ const VenueScreen = (props: any) => {
 		},
 		onCompleted: data => {},
 	})
-
 	if (loading || !data?.currentVenue) return null
 
 	const HandleEmpty = () => {
@@ -74,7 +68,7 @@ const VenueScreen = (props: any) => {
 				<VStack mb={5}>
 					<VenueHeader key={'abc'} loading={loading} photos={data.currentVenue?.photos} />
 					<Box
-						key={'edf'}
+						key={'publicvenues-2kl3b12k3'}
 						_light={{
 							bg: 'light.50',
 						}}
@@ -94,7 +88,6 @@ const VenueScreen = (props: any) => {
 						</Box>
 						<VenueTotals />
 					</Box>
-					{/* <LocationPermissionCard /> */}
 					<VenueActions key={'kol'} />
 				</VStack>
 			}
@@ -108,8 +101,5 @@ const VenueScreen = (props: any) => {
 				bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 			}}
 		/>
-		// </SafeAreaView>
 	)
 }
-
-export default VenueScreen

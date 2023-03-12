@@ -7,7 +7,16 @@ import {
 import { useHeaderHeight } from '@react-navigation/elements'
 import { useNavigation } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { KeyboardAvoidingView, Button, IconButton, Icon, Box, Input } from 'native-base'
+import {
+	KeyboardAvoidingView,
+	Button,
+	IconButton,
+	Icon,
+	Box,
+	Input,
+	Pressable,
+	Text,
+} from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, InputAccessoryView, Platform } from 'react-native'
@@ -221,8 +230,28 @@ export default function AuthenticatorScreen() {
 					},
 				}}
 			/>
+			<Pressable
+				mt={3}
+				onPress={() => {
+					navigation.navigate('CredentialNavigator', {
+						screen: 'PersonalCredentialStack',
+						params: {
+							screen: 'GetStartedScreen',
+						},
+					})
+				}}
+				size={'md'}
+				w={100}
+				h={'auto'}
+				pb={3}
+				variant={'link'}
+			>
+				<Text fontSize={'md'} fontWeight={'500'} color={'primary.500'}>
+					Sign up
+				</Text>
+			</Pressable>
 			{errors?.authenticator?.message ? (
-				<Button
+				<Pressable
 					onPress={() => {
 						navigation.navigate('CredentialNavigator', {
 							screen: 'PersonalCredentialStack',
@@ -231,12 +260,16 @@ export default function AuthenticatorScreen() {
 							},
 						})
 					}}
-					my={3}
-					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'xl'}
+					size={'md'}
+					w={100}
+					h={'auto'}
+					pb={3}
+					variant={'link'}
 				>
-					Sign up
-				</Button>
+					<Text fontSize={'md'} fontWeight={'500'} color={'primary.500'}>
+						Sign up
+					</Text>
+				</Pressable>
 			) : null}
 			<InputAccessoryView nativeID={inputAccessoryViewID}>
 				<Box

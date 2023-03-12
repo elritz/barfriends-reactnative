@@ -1,10 +1,10 @@
+import { PersonalProfileStackParamList } from '@ctypes/app'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import {
 	useGetRelationshipFriendRequestStatusLazyQuery,
 	useRemoveFriendMutation,
 } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { PersonalProfileStackParamList } from '@types'
 import { DateTime } from 'luxon'
 import { Box, Button, HStack, Modal, Text, VStack } from 'native-base'
 import { ReactElement, useEffect } from 'react'

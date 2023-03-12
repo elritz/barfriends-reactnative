@@ -6,7 +6,16 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
+import {
+	Text,
+	Icon,
+	IconButton,
+	Input,
+	KeyboardAvoidingView,
+	Box,
+	Heading,
+	Pressable,
+} from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
@@ -88,7 +97,6 @@ const EmailScreen = () => {
 			},
 		})
 	}
-
 	useEffect(() => {
 		if (isFocused && emailRef.current) {
 			InteractionManager.runAfterInteractions(() => {
@@ -113,9 +121,30 @@ const EmailScreen = () => {
 				marginHorizontal: '5%',
 			}}
 		>
-			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
-				Enter your email
-			</Text>
+			<Box h={'110px'}>
+				<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
+					Enter your email
+				</Heading>
+				<Pressable
+					onPress={() => {
+						navigation.navigate('CredentialNavigator', {
+							screen: 'PersonalCredentialStack',
+							params: {
+								screen: 'PhoneScreen',
+							},
+						})
+					}}
+					size={'md'}
+					w={100}
+					h={'auto'}
+					pb={3}
+					variant={'link'}
+				>
+					<Text fontSize={'md'} fontWeight={'500'} color={'primary.500'}>
+						Use phone
+					</Text>
+				</Pressable>
+			</Box>
 			<View style={{ marginVertical: 20, width: '100%' }}>
 				<Controller
 					name='email'

@@ -6,7 +6,7 @@ import {
 	ProfileTokenType,
 	ReturnParseTokenAuthorization,
 	ReturnProfileAuthentication,
-} from '@types'
+} from '@ctypes/app'
 import {
 	secureStorageItemCreate,
 	secureStorageItemDelete,
