@@ -40,8 +40,6 @@ const CodeScreen = () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
-	const { isOpen, onOpen, onClose } = useDisclose()
-
 	const CELL_COUNT = route.params.code.length
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 

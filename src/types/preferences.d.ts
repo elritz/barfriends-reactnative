@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import { ColorSchemeName } from 'react-native'
 
 export type ThemeColorSchemeOptionsType = 'light' | 'dark' | 'system'
@@ -8,7 +9,7 @@ export enum SystemsOfUnits {
 }
 
 export type DefaultPreferenceToPermission = {
-	dateToShowAgain: Date
+	dateToShowAgain: DateTime
 	canShowAgain: boolean
 }
 
@@ -16,9 +17,6 @@ export interface LocalStoragePreferenceAskNotificationPermissionType
 	extends DefaultPreferenceToPermission {}
 
 export interface LocalStoragePreferenceAskBackgroundLocationPermissionType
-	extends DefaultPreferenceToPermission {}
-
-export interface LocalStoragePreferenceBackgroundLocationPermissionType
 	extends DefaultPreferenceToPermission {}
 
 export type LocalStoragePreferenceThemeType = {

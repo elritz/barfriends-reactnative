@@ -38,7 +38,7 @@ const SearchTopTabStackInput = () => {
 		watch,
 	} = useForm({
 		defaultValues: {
-			searchText: params.params.searchText,
+			searchText: params?.params?.searchText || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',

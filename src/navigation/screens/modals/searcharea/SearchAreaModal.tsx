@@ -1,4 +1,4 @@
-import SearchAreaFilltering from '@components/templates/SearchAreaFilltering/SearchAreaFilltering'
+import SearchAreaFilltering from '@components/organisms/list/SearchAreaFilltering/SearchAreaFilltering'
 
 const SearchAreaModal = () => <SearchAreaFilltering />
 

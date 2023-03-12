@@ -34,6 +34,3 @@ const Total = (props: Props) => {
 }
 
 export default Total
-{
-	/* <Text>{props.totalType}</Text> */
-}

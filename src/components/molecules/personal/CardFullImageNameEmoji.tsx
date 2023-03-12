@@ -24,7 +24,7 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 					params: {
 						screen: 'PublicPersonalScreen',
 						params: {
-							profileId: item?.friendProfile?.id,
+							profileId: String(item?.friendProfile?.id),
 						},
 					},
 				})

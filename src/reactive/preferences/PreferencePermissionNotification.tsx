@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 
 export const PreferencePermissionNotificationInitialState: LocalStoragePreferenceAskNotificationPermissionType =
 	{
-		dateToShowAgain: DateTime.local().toJSDate(),
+		dateToShowAgain: DateTime.now(),
 		canShowAgain: true,
 	}
 

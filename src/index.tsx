@@ -4,7 +4,7 @@ import {
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
-	LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
+	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 } from '@constants/StorageConstants'
 import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
@@ -19,17 +19,20 @@ import {
 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
-	PreferenceNotificationPermissionReactiveVar,
+	PreferenceBackgroundLocationPermissionReactiveVar,
 	SearchAreaReactiveVar,
 	searchAreaInitialState,
 	PreferencePermissionNotificationReactiveVar,
 	ThemeReactiveVar,
+	PreferenceBackgroundLocationPermissionInitialState,
+	PreferencePermissionNotificationInitialState,
 } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useAssets } from 'expo-asset'
 import 'expo-dev-client'
 import * as Notifications from 'expo-notifications'
 import { DateTime } from 'luxon'
+import { stringify } from 'querystring'
 import { useEffect } from 'react'
 import { Appearance, Linking } from 'react-native'
 import 'react-native-gesture-handler'
@@ -55,7 +58,7 @@ export default function App() {
 
 	const setPreferencesLocalStorageData = async () => {
 		try {
-			// SEARCH AREA
+			// SEARCH AREA ~ START
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
 
@@ -76,7 +79,10 @@ export default function App() {
 
 				await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, newSearchAreaValue)
 			}
-			// THEME
+
+			// SEARCH AREA ~ END
+
+			// THEME ~ START
 			const getLocalStorageTheme = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 			)
@@ -107,56 +113,50 @@ export default function App() {
 				})
 			}
 
-			// NOTIFICATION_PERMISSION_PREFERENCE
+			// THEME ~ END
+
+			// NOTIFICATION_PERMISSION ~ START
 			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 			)
+			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION)
 
 			if (!getLocalStorageNotificationPermissionsPreference) {
-				const date = DateTime.local().plus({ days: 14 }).toJSDate()
-				const initialNotificationPermissionPreferenceState = JSON.stringify({
-					canShowAgain: true,
-					dateToShowAgain: date,
-				} as LocalStoragePreferenceAskNotificationPermissionType)
-
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-					initialNotificationPermissionPreferenceState,
+					JSON.stringify(PreferencePermissionNotificationInitialState),
 				)
 			} else {
 				// using local_storage values set the correct information
 				const values: LocalStoragePreferenceAskNotificationPermissionType = JSON.parse(
 					getLocalStorageNotificationPermissionsPreference,
 				)
-				PreferenceNotificationPermissionReactiveVar({
+				PreferencePermissionNotificationReactiveVar({
 					...values,
 				})
 			}
+			// NOTIFICATION_PERMISSION ~ END
 
-			// LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION
-			const getLocalStorageAskBackgroundLocationPreference = await AsyncStorage.getItem(
-				LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
+			// NOTIFICATION_PERMISSION_PREFERENCE
+
+			// AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION)
+			// LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION
+			const getLocalStoragePreferenceBackgroundLocationPreference = await AsyncStorage.getItem(
+				LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 			)
 
-			if (!getLocalStorageAskBackgroundLocationPreference) {
-				const date = DateTime.local().plus({ days: 14 }).toJSDate()
-
-				const initiaAskBackgroundLocationPermissionPreferenceState = JSON.stringify({
-					canShowAgain: true,
-					dateToShowAgain: date,
-				} as LocalStoragePreferenceAskBackgroundLocationPermissionType)
-
+			if (!getLocalStoragePreferenceBackgroundLocationPreference) {
 				await AsyncStorage.setItem(
-					LOCAL_STORAGE_PREFERENCE_ASK_BACKGROUND_LOCATION,
-					initiaAskBackgroundLocationPermissionPreferenceState,
+					LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
+					JSON.stringify(PreferenceBackgroundLocationPermissionInitialState),
 				)
 			} else {
 				// using local_storage values set the correct information
 				const values: LocalStoragePreferenceAskBackgroundLocationPermissionType = JSON.parse(
-					getLocalStorageAskBackgroundLocationPreference,
+					getLocalStoragePreferenceBackgroundLocationPreference,
 				)
 
-				PreferencePermissionNotificationReactiveVar({
+				PreferenceBackgroundLocationPermissionReactiveVar({
 					...values,
 				})
 			}

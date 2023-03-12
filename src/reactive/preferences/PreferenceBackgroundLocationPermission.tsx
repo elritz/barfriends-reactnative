@@ -2,13 +2,13 @@ import { makeVar } from '@apollo/client'
 import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@preferences'
 import { DateTime } from 'luxon'
 
-export const PreferenceNotificationPermissionInitialState: LocalStoragePreferenceAskBackgroundLocationPermissionType =
+export const PreferenceBackgroundLocationPermissionInitialState: LocalStoragePreferenceAskBackgroundLocationPermissionType =
 	{
-		dateToShowAgain: DateTime.local().toJSDate(),
+		dateToShowAgain: DateTime.now(),
 		canShowAgain: true,
 	}
 
-export const PreferenceNotificationPermissionReactiveVar =
+export const PreferenceBackgroundLocationPermissionReactiveVar =
 	makeVar<LocalStoragePreferenceAskBackgroundLocationPermissionType | null>(
-		PreferenceNotificationPermissionInitialState,
+		PreferenceBackgroundLocationPermissionInitialState,
 	)

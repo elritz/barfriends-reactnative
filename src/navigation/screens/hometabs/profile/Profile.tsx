@@ -4,8 +4,14 @@ import PreferenceNotificationPermission from '@components/molecules/preferences/
 import { ProfileType, useGetNotificationsLazyQuery } from '@graphql/generated'
 import PersonalScreen from '@navigation/screens/hometabs/profile/PersonalProfile/PersonalProfile'
 import VenueScreen from '@navigation/screens/hometabs/profile/VenueProfile/VenueProfile'
-import { AuthorizationReactiveVar } from '@reactive'
+import {
+	AuthorizationReactiveVar,
+	PermissionNotificationReactiveVar,
+	PreferencePermissionNotificationInitialState,
+	PreferencePermissionNotificationReactiveVar,
+} from '@reactive'
 import { uniqueId } from 'lodash'
+import { DateTime } from 'luxon'
 import { AnimatePresence } from 'moti'
 import { Box, Divider, ScrollView, View } from 'native-base'
 import { useCallback, useEffect, useState } from 'react'
@@ -14,6 +20,10 @@ import { RefreshControl } from 'react-native'
 const Profile = () => {
 	const [refreshing, setRefreshing] = useState(false)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rPreferenceNotificationPermission = useReactiveVar(
+		PreferencePermissionNotificationReactiveVar,
+	)
+	const rNotificationPermission = useReactiveVar(PermissionNotificationReactiveVar)
 
 	const [getNotificationQuery, { data: GNData, loading: GNLoading, error }] =
 		useGetNotificationsLazyQuery({
@@ -54,7 +64,10 @@ const Profile = () => {
 				return null
 		}
 	}
-
+	console.log(
+		'rPreferenceNotificationPermission?.dateToShowAgain :>> ',
+		rPreferenceNotificationPermission?.dateToShowAgain,
+	)
 	return (
 		<ScrollView
 			contentInset={{ top: 0, left: 0, bottom: 150, right: 0 }}
@@ -62,9 +75,16 @@ const Profile = () => {
 			scrollEventThrottle={16}
 			refreshControl={<RefreshControl refreshing={GNLoading} onRefresh={onRefresh} />}
 		>
-			<AnimatePresence key={uniqueId()}>
-				<PreferenceNotificationPermission />
-			</AnimatePresence>
+			{!rNotificationPermission?.granted && (
+				<>
+					{rPreferenceNotificationPermission?.canShowAgain &&
+					DateTime.fromISO(rPreferenceNotificationPermission?.dateToShowAgain) <= DateTime.now() ? (
+						<AnimatePresence key={uniqueId()}>
+							<PreferenceNotificationPermission />
+						</AnimatePresence>
+					) : null}
+				</>
+			)}
 			{renderProfile(rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType as ProfileType)}
 		</ScrollView>
 	)
