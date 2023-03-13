@@ -8,14 +8,17 @@ export enum SystemsOfUnits {
 }
 
 export type DefaultPreferenceToPermission = {
-	dateToShowAgain: number
+	dateToShowAgain: DateTime
 	canShowAgain: boolean
 }
 
-export interface LocalStoragePreferenceNotificationPermissionType
+export interface LocalStoragePreferenceAskNotificationPermissionType
 	extends DefaultPreferenceToPermission {}
 
-export interface LocalStoragePreferenceBackgroundLocationPermissionType
+export interface LocalStoragePreferenceAskBackgroundLocationPermissionType
+	extends DefaultPreferenceToPermission {}
+
+export interface LocalStoragePreferenceAskSystemOfUnitsPermissionType
 	extends DefaultPreferenceToPermission {}
 
 export type LocalStoragePreferenceThemeType = {

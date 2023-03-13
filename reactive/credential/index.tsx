@@ -1,2 +1,1 @@
-export * from '../creation/ProfilePersonalCreation'
-export * from './AuthenticatorConfirmation'
+export * from './ConfirmationCode'

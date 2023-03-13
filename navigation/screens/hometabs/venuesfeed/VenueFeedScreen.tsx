@@ -1,13 +1,10 @@
-import CurrentVenue from './components/CurrentVenue'
-import HorizontalVenueFeedVenueItem from './components/HorizontalVenueFeedVenueItem'
 import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from './components/VenueFeedSignupCard'
-import VenuesFeedSearchAreaHeader from './components/VenuesFeedSearchAreaHeader'
 import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
 import VenuesFeedVenuesEmptyState from './components/VenuesFeedVenuesEmptyState'
 import { useReactiveVar } from '@apollo/client'
-import BackgroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/BackgroundLocationPermissionFullSection'
-import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/locations/locationpermissionfullsection/ForegroundLocationPermissionFullSection'
+import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferencceForegroundLocationPermissionFullSection'
+import PreferenceBackgroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceBackgroundLocationPermissionFullSection'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ProfileType, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import VerticalVenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
@@ -114,7 +111,7 @@ const VenueFeedScreen = () => {
 									{!rForegroundLocationVar?.granted ? (
 										<ForegroundLocationPermissionFullSection />
 									) : !rBackgroundLocationVar?.granted ? (
-										<BackgroundLocationPermissionFullSection />
+										<PreferenceBackgroundLocationPermissionFullSection />
 									) : null}
 								</Box>
 							</AnimatePresence>

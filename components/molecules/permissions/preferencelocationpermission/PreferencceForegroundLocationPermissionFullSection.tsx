@@ -1,11 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import { useNavigation } from '@react-navigation/native'
 import { PermissionForegroundLocationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import { Box, Button, Heading, Text } from 'native-base'
 
 export default function ForegroundLocationPermissionFullSection() {
+	const router = useRouter()
 	const navigation = useNavigation()
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 
@@ -46,8 +48,8 @@ export default function ForegroundLocationPermissionFullSection() {
 						</Text>
 						<Button
 							onPress={() =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'ForegroundLocationPermissionScreen',
+								router.push({
+									pathname: '(app)/permissionnavigator/foregroundlocation',
 								})
 							}
 							size={'sm'}

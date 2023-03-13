@@ -13,9 +13,11 @@ const { getDefaultConfig } = require('expo/metro-config')
 
 const config = getDefaultConfig(__dirname)
 
-config.transformer.minifierPath = 'metro-minify-esbuild'
+config.transformer.minifierPath = require.resolve('metro-minify-esbuild')
+
 config.transformer.minifierConfig = {
 	// ESBuild options...
+	drop: ['console'],
 }
 
 // 1. Watch all files within the monorepo

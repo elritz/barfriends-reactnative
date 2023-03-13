@@ -1,24 +1,24 @@
 import { useReactiveVar } from '@apollo/client'
 import { EvilIcons } from '@expo/vector-icons'
-import { PermissionBackgroundLocationReactiveVar } from '@reactive'
-import { useRouter } from 'expo-router'
-import { uniqueId } from 'lodash'
+import { useNavigation } from '@react-navigation/native'
+import {
+	PermissionNotificationReactiveVar,
+	PreferencePermissionNotificationReactiveVar,
+} from '@reactive'
 import { MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, VStack } from 'native-base'
-import { useEffect } from 'react'
 
-export default function BackgroundLocationPermissionFullSection() {
-	const router = useRouter()
-	const rBackgroundPermissionLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
-	console.log(
-		'rBackgroundPermissionLocationVar',
-		JSON.stringify(rBackgroundPermissionLocationVar, null, 2),
+export default function PreferenceNotificationPermission() {
+	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
+	const navigation = useNavigation()
+	const rPreferencePermissionNotificationVar = useReactiveVar(
+		PreferencePermissionNotificationReactiveVar,
 	)
 
 	return (
-		<Box key={uniqueId()}>
+		<Box>
 			<Divider />
-			{!rBackgroundPermissionLocationVar?.granted && (
+			{!rPermissionNotificationVar?.granted && (
 				<MotiView
 					from={{
 						opacity: 0,
@@ -51,16 +51,16 @@ export default function BackgroundLocationPermissionFullSection() {
 								width: '100%',
 							}}
 						>
-							Enable More Features
+							Stay Up to Date
 						</Heading>
 						<Text textAlign={'center'} fontSize={'md'} style={{ width: '90%' }}>
-							Turn on "always allow" and find better deals at venues, be notified when you can join, and
-							when friends near you are going out.
+							Turn on notification to know right away when people friend you, invit you out or send you a
+							message.
 						</Text>
 						<Button
 							onPress={() =>
-								router.push({
-									pathname: '(app)/permissionnavigator/backgroundlocation',
+								navigation.navigate('PermissionNavigator', {
+									screen: 'NotificationsPermissionScreen',
 								})
 							}
 							size={'sm'}
@@ -71,7 +71,7 @@ export default function BackgroundLocationPermissionFullSection() {
 								fontSize: 'sm',
 							}}
 						>
-							Use "always allow"
+							Turn on Notifications
 						</Button>
 						<Button
 							w={'90%'}

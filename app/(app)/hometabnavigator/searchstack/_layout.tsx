@@ -1,6 +1,6 @@
-import SearchTopTabStackInput from '@components/molecules/search/SearchTopTabStackInput'
 import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
+import SearchTopTabStackInput from '@components/molecules/search/searchtoptabs/SearchTopTabStackInput'
 import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'

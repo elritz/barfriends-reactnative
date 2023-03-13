@@ -1,4 +1,4 @@
-import SearchTopTabStackInput from '@components/molecules/search/SearchTopTabStackInput'
+import SearchTopTabStackInput from '@components/molecules/search/searchtoptabs/SearchTopTabStackInput'
 import {
 	TOP_SEARCH_INPUT_HEIGHT,
 	TOP_TAB_BAR_HEIGHT,

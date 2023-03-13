@@ -1,4 +1,4 @@
-import SearchAreaFilltering from '@components/templates/SearchAreaFilltering/SearchAreaFilltering'
+import SearchAreaFilltering from '@components/organisms/list/searchareafiltering/SearchAreaFilltering'
 
 export default () => {
 	return <SearchAreaFilltering />
