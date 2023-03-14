@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router'
-import { Divider, FlatList, HStack, Heading } from 'native-base'
-import { Pressable } from 'react-native'
+import { Pressable, Divider, FlatList, HStack, Heading } from 'native-base'
 
 export default function Preferences() {
 	const router = useRouter()
@@ -51,7 +50,9 @@ export default function Preferences() {
 					<Pressable onPressIn={item.route}>
 						<Divider />
 						<HStack h={'45px'} flex={1} alignItems={'center'}>
-							<Heading fontSize={'md'}>{item.name}</Heading>
+							<Heading px={4} fontSize={'md'}>
+								{item.name}
+							</Heading>
 						</HStack>
 						<Divider />
 					</Pressable>

@@ -113,23 +113,7 @@ export default () => {
 				<Tabs.Screen
 					name='developmentstack'
 					options={{
-						header: () => {
-							return (
-								<Box safeAreaTop>
-									<Text
-										adjustsFontSizeToFit
-										fontSize={'3xl'}
-										textAlign={'center'}
-										textTransform={'capitalize'}
-										fontWeight={'black'}
-									>
-										{String.fromCharCode(60)}
-										{ENVIRONMENT} {String.fromCharCode(47, 62)}
-									</Text>
-								</Box>
-							)
-						},
-						headerShown: true,
+						headerShown: false,
 						tabBarLabel: 'development',
 						tabBarShowLabel: false,
 						tabBarIcon: ({ color }: IColor) => <DevelopmentTab color={color} />,

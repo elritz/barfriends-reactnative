@@ -3,7 +3,10 @@ import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { PermissionBackgroundLocationReactiveVar } from '@reactive'
+import {
+	PermissionBackgroundLocationReactiveVar,
+	PreferenceBackgroundLocationPermissionReactiveVar,
+} from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
@@ -44,6 +47,7 @@ const BackgroundLocationPermissionScreen = () => {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rBackgroundLocationPermissionVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
+
 	const { start, seconds, started } = useTimer2('0:2')
 	const createTwoButtonAlert = () =>
 		Alert.alert(

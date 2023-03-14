@@ -17,6 +17,8 @@ export interface LocalStoragePreferenceAskNotificationPermissionType
 
 export interface LocalStoragePreferenceAskBackgroundLocationPermissionType
 	extends DefaultPreferenceToPermission {}
+export interface LocalStoragePreferenceAskForegroundLocationPermissionType
+	extends DefaultPreferenceToPermission {}
 
 export interface LocalStoragePreferenceAskSystemOfUnitsPermissionType
 	extends DefaultPreferenceToPermission {}

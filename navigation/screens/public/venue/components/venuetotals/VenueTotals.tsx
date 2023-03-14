@@ -71,7 +71,7 @@ export default function VenueTotals() {
 						}}
 						borderRadius={'xl'}
 						style={{
-							height: 65,
+							height: 55,
 							width: (width - itemPadding) / 3,
 							alignItems: 'center',
 							justifyContent: 'center',
@@ -81,7 +81,7 @@ export default function VenueTotals() {
 							numberOfLines={1}
 							allowFontScaling
 							minimumFontScale={0.5}
-							size={'xl'}
+							size={'lg'}
 							lineHeight={'xs'}
 							style={{ fontWeight: '800', letterSpacing: 0.01 }}
 						>

@@ -1,72 +1,59 @@
-import GetSignInUpText from '@helpers/data/SignupinText'
-// import { useNavigation } from '@react-navigation/native'
-import { Center, Heading, Button } from 'native-base'
-
-const text = GetSignInUpText()
+import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
+import { Center, Heading, Button, VStack } from 'native-base'
 
 export default function SignupCard() {
 	// const navigation = useNavigation()
+	const router = useRouter()
 	return (
-		<>
+		<VStack justifyContent={'space-around'}>
 			<Heading
-				fontSize={'md'}
-				numberOfLines={3}
+				fontSize={'2xl'}
+				numberOfLines={2}
+				textAlign={'center'}
 				ellipsizeMode='tail'
 				adjustsFontSizeToFit
 				minimumFontScale={0.5}
+				fontWeight={'extrabold'}
 			>
-				{text[3].title}
+				Join the fun tonight
 			</Heading>
 			<Center
 				style={{
 					flexDirection: 'column',
-					marginTop: 15,
 				}}
+				mt={3}
 			>
-				<Button
-					onPressIn={() => {
-						// navigation.navigate('CredentialNavigator', {
-						// 	screen: 'PersonalCredentialStack',
-						// 	params: {
-						// 		screen: 'GetStartedScreen',
-						// 	},
-						// })
-					}}
-					onPress={() => {
-						// navigation.navigate('CredentialNavigator', {
-						// 	screen: 'PersonalCredentialStack',
-						// 	params: {
-						// 		screen: 'GetStartedScreen',
-						// 	},
-						// })
-					}}
-					w={'95%'}
-					my={5}
-					_text={{
-						fontWeight: 'bold',
-						textTransform: 'uppercase',
-					}}
-				>
-					Log in
-				</Button>
-				<Button
-					variant={'ghost'}
-					w={'95%'}
-					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'xl'}
-					onPress={() =>
-						navigation.navigate('CredentialNavigator', {
-							screen: 'LoginCredentialStack',
-							params: {
-								screen: 'AuthenticatorScreen',
-							},
-						})
-					}
-					my={2}
-				>
-					log in
-				</Button>
+				<VStack space={1}>
+					<Button
+						onPress={() => {
+							router.push({ pathname: '(app)/credentialnavigator/personalcredentialstack/getstarted' })
+						}}
+						px={7}
+						_text={{
+							fontSize: 'lg',
+							fontWeight: 'bold',
+							textTransform: 'uppercase',
+						}}
+					>
+						SIGN UP
+					</Button>
+					<Button
+						px={7}
+						variant={'unstyled'}
+						_text={{
+							textTransform: 'uppercase',
+							fontWeight: '700',
+							fontSize: 'lg',
+						}}
+						onPress={() =>
+							router.push({ pathname: '(app)/credentialnavigator/logincredentialstack/authenticator' })
+						}
+					>
+						log in
+					</Button>
+				</VStack>
 			</Center>
-		</>
+		</VStack>
 	)
 }

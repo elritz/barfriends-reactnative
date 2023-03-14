@@ -67,7 +67,7 @@ const ConfirmationCodeScreen = () => {
 
 	const navigateToUpdatePhoneNumber = () => {
 		router.replace({
-			pathname: '(app)/credentialnavigator/logincredentialstack/authenticatorscreen',
+			pathname: '(app)/credentialnavigator/logincredentialstack/authenticator',
 		})
 	}
 

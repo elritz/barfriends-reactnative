@@ -42,7 +42,7 @@ export default function WithDeviceProfiles() {
 					variant={'ghost'}
 					onPress={() =>
 						router.push({
-							pathname: '(app)/credentialnavigator/logincredentialstack/authenticatorscreen',
+							pathname: '(app)/credentialnavigator/logincredentialstack/authenticator',
 						})
 					}
 					w={'95%'}

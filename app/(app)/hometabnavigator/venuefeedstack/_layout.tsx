@@ -13,7 +13,7 @@ export default function _layout() {
 		<Stack
 			initialRouteName='index'
 			screenOptions={{
-				headerShown: true,
+				headerShown: false,
 				headerTransparent: true,
 				gestureDirection: 'horizontal',
 				header: () => {

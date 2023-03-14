@@ -75,10 +75,10 @@ const VenueScreen = (props: any) => {
 						borderBottomRadius={'lg'}
 					>
 						<Box px={2}>
-							<Heading size={'md'} numberOfLines={1}>
+							<Heading size={'lg'} fontWeight={'black'} numberOfLines={1}>
 								{name}
 							</Heading>
-							<Heading size={'sm'} fontWeight={900} numberOfLines={1}>
+							<Heading size={'sm'} fontWeight={700} numberOfLines={1}>
 								@{username}
 							</Heading>
 						</Box>

@@ -229,7 +229,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() =>
 					router.replace({
-						pathname: '(app)/credentialnavigator/logincredentialstack/authenticatorscreen',
+						pathname: '(app)/credentialnavigator/logincredentialstack/authenticator',
 					})
 				}
 			>

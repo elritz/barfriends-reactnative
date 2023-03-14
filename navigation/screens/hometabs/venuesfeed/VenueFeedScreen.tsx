@@ -8,6 +8,7 @@ import PreferenceBackgroundLocationPermissionFullSection from '@components/molec
 import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ProfileType, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import VerticalVenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
+import UberButton from '@navigation/screens/public/venue/components/venueactions/actioncards/ubercard/UberButton'
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
@@ -16,12 +17,13 @@ import {
 	SearchAreaReactiveVar,
 } from '@reactive'
 import { log } from 'console'
+import { Image } from 'expo-image'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, VStack, FlatList, Heading } from 'native-base'
+import { Box, VStack, FlatList, Heading, Text, Button, HStack } from 'native-base'
 import React, { useEffect, useRef } from 'react'
-import { AppState, View } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { AppState, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(handleAppStateChange) check if location permission is enabled and go somewhere with it
 // TODO: UX() Workflow isn't quite working good enough for production
@@ -32,6 +34,7 @@ export const VenueFeedScreenMarginX = '2'
 const VenueFeedScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
+	const { height } = useWindowDimensions()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
@@ -89,9 +92,44 @@ const VenueFeedScreen = () => {
 		}
 	}, [])
 
+	const blurhash =
+		'|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj['
+
 	const listHeaderComponent = () => {
 		return (
 			<VStack w={'full'} space={4}>
+				<VStack h={height * 0.6}>
+					<Image
+						style={{
+							flex: 1,
+							width: '100%',
+							backgroundColor: '#0553',
+						}}
+						source='https://picsum.photos/seed/696/3000/2000'
+						placeholder={blurhash}
+						contentFit='cover'
+						transition={1000}
+					/>
+					<Box
+						px={2}
+						height={100}
+						_dark={{ backgroundColor: 'dark.50' }}
+						_light={{ backgroundColor: 'light.50' }}
+					>
+						<Box>
+							<Heading size={'lg'} fontWeight={'black'} numberOfLines={1}>
+								THE SHED
+							</Heading>
+							<Heading size={'sm'} fontWeight={700} numberOfLines={1}>
+								#THE SHED
+							</Heading>
+						</Box>
+						<HStack>
+							<UberButton params={{ profileid: 'VENUE ID' }} />
+							<UberButton params={{ profileid: 'VENUE ID' }} />
+						</HStack>
+					</Box>
+				</VStack>
 				{/* {<VenuesFeedSearchAreaHeader />} */}
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 					<VenueFeedSignupCard />
@@ -148,7 +186,7 @@ const VenueFeedScreen = () => {
 	}
 
 	return (
-		<SafeAreaView>
+		<>
 			<FlatList
 				onRefresh={onPullRefresh}
 				refreshing={loading}
@@ -162,9 +200,9 @@ const VenueFeedScreen = () => {
 				keyExtractor={item => item.id}
 				ListHeaderComponent={listHeaderComponent}
 				ListFooterComponent={listFooterComponent}
-				ListHeaderComponentStyle={{
-					paddingTop: HOME_TAB_TOP_NAIGATION_HEIGHT,
-				}}
+				// ListHeaderComponentStyle={{
+				// 	paddingTop: HOME_TAB_TOP_NAIGATION_HEIGHT,
+				// }}
 				contentInset={{
 					top: 0,
 					left: 0,
@@ -172,7 +210,7 @@ const VenueFeedScreen = () => {
 					right: 0,
 				}}
 			/>
-		</SafeAreaView>
+		</>
 	)
 }
 

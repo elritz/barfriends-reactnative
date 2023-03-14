@@ -5,6 +5,7 @@ import {
 	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
+	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 } from '@constants/StorageConstants'
 import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
@@ -38,6 +39,8 @@ import {
 	PermissionNotificationReactiveVar,
 	PreferenceBackgroundLocationPermissionInitialState,
 	PreferenceBackgroundLocationPermissionReactiveVar,
+	PreferenceForegroundLocationPermissionInitialState,
+	PreferenceForegroundLocationPermissionReactiveVar,
 	PreferencePermissionNotificationInitialState,
 	PreferencePermissionNotificationReactiveVar,
 	PreferenceSystemsOfUnitsInitialState,
@@ -104,6 +107,7 @@ export default () => {
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION)
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS)
+			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION)
 
 			// SEARCHAREA_PREFERENCE ~ START
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
@@ -201,6 +205,28 @@ export default () => {
 				})
 			}
 			// BAKGROUNDLOCATION_PREFERENCE ~ END
+
+			// FOREGROUNDLOCATION_PREFERENCE ~ START
+			const getLocalStoragePreferenceForegroundLocationPreference = await AsyncStorage.getItem(
+				LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
+			)
+
+			if (!getLocalStoragePreferenceForegroundLocationPreference) {
+				await AsyncStorage.setItem(
+					LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
+					JSON.stringify(PreferenceForegroundLocationPermissionInitialState),
+				)
+			} else {
+				// using local_storage values set the correct information
+				const values: LocalStoragePreferenceAskBackgroundLocationPermissionType = JSON.parse(
+					getLocalStoragePreferenceForegroundLocationPreference,
+				)
+
+				PreferenceForegroundLocationPermissionReactiveVar({
+					...values,
+				})
+			}
+			// FOREGROUNDLOCATION_PREFERENCE ~ END
 
 			// SYSTEM_OF_UNITS_PREFERENCE ~ START
 			const getLocalStorageSystemOfUnitsPreference = await AsyncStorage.getItem(
