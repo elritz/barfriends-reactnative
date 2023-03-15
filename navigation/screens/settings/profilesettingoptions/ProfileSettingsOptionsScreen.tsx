@@ -38,8 +38,8 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					setTimeout(() => router.replace('(app)/hometabnavigator'), 1000)
-					// navigation.navigate('HomeTabNavigator', {
+					setTimeout(() => router.replace('(app)/hometab'), 1000)
+					// navigation.navigate('hometab', {
 					// 	screen: 'VenueFeedStack',
 					// 	params: {
 					// 		screen: 'VenueFeedScreen',

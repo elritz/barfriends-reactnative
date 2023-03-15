@@ -25,7 +25,7 @@ const JoinVenue = ({}) => {
 		>
 			<Pressable
 				onPress={() => {
-					navigation.navigate('HomeTabNavigator', {
+					navigation.navigate('hometab', {
 						screen: 'ExploreStack',
 						params: {
 							screen: 'ExploreScreen',

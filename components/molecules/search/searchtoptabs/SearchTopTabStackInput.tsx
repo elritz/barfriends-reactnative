@@ -45,7 +45,7 @@ const SearchTopTabStackInput = () => {
 			params: {
 				searchText: values.searchText,
 			},
-			pathname: '(app)/hometabnavigator/searchstack/searchtext',
+			pathname: '(app)/hometab/searchstack/searchtext',
 		})
 	}
 
@@ -111,7 +111,7 @@ const SearchTopTabStackInput = () => {
 									params: {
 										searchText: value,
 									},
-									pathname: '(app)/hometabnavigator/searchstack/searchtext',
+									pathname: '(app)/hometab/searchstack/searchtext',
 								})
 							}}
 						/>

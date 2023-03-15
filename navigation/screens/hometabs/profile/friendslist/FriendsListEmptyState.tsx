@@ -36,7 +36,7 @@ export const FriendsListEmptyState = () => {
 				borderRadius={'lg'}
 				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
 				onPress={() => {
-					navigation.navigate('HomeTabNavigator', {
+					navigation.navigate('hometab', {
 						screen: 'ExploreStack',
 						params: {
 							screen: 'SearchTextScreen',

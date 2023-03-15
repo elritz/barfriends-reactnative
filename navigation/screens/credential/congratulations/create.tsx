@@ -21,7 +21,7 @@ const Create = () => {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					router.push({
-						pathname: '(app)/hometabnavigator',
+						pathname: '(app)/hometab',
 					})
 				}
 			},

@@ -87,7 +87,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 	const handleRequestForegroundLocationPermission = async () => {
 		const success = await useSetSearchAreaWithLocation()
 		if (success) {
-			navigation.navigate('HomeTabNavigator', {
+			navigation.navigate('hometab', {
 				screen: 'VenueFeedStack',
 				params: {
 					screen: 'VenueFeedScreen',

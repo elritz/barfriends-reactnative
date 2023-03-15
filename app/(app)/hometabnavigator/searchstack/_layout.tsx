@@ -40,7 +40,7 @@ export default function _layout() {
 								<ExploreSearchInputDisabled
 									onPress={() =>
 										router.push({
-											pathname: '(app)/hometabnavigator/searchstack/searchtext',
+											pathname: '(app)/hometab/searchstack/searchtext',
 											params: {
 												searchText: '',
 											},

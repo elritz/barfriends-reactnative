@@ -34,7 +34,7 @@ const EmojimoodScreen = () => {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 
-					navigation.navigate('HomeTabNavigator', {
+					navigation.navigate('hometab', {
 						screen: 'VenueFeedStack',
 						params: {
 							screen: 'VenueFeedScreen',

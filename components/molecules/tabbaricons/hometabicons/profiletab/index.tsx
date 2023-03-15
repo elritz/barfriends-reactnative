@@ -53,7 +53,7 @@ const ProfileTab = (props: TabProps) => {
 				style={{ zIndex: 100, marginTop: -5 }}
 				onPress={() => {
 					router.push({
-						pathname: '(app)/hometabnavigator/profilestack',
+						pathname: '(app)/hometab/profilestack',
 					})
 				}}
 				onLongPress={() => onLongPressProfileIcon()}
@@ -80,7 +80,7 @@ const ProfileTab = (props: TabProps) => {
 						delayLongPress={200}
 						style={{ zIndex: 100 }}
 						onPress={() => {
-							router.push('hometabnavigator/profilestack')
+							router.push('hometab/profilestack')
 						}}
 						onLongPress={() => onLongPressProfileIcon()}
 					>

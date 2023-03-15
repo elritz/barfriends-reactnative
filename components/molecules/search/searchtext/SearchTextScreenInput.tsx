@@ -75,7 +75,7 @@ const SearchTextScreenInput = () => {
 		const values = getValues()
 		console.log('values.searchText NAVIGATE :>> ', values.searchText)
 		router.push({
-			pathname: '(app)/hometabnavigator/searchstack/searchresults',
+			pathname: '(app)/hometab/searchstack/searchresults',
 			params: { searchText: String(values.searchText) },
 		})
 	}
@@ -140,7 +140,7 @@ const SearchTextScreenInput = () => {
 							onPressIn={() => {
 								if (segments[3] !== 'searchtext') {
 									router.push({
-										pathname: '(app)/hometabnavigator/searchstack?HELLO',
+										pathname: '(app)/hometab/searchstack?HELLO',
 										params: { searchtext: value },
 									})
 								}

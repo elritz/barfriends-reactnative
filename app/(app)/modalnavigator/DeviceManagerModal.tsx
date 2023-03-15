@@ -40,7 +40,7 @@ export default function DeviceManagerModal() {
 					setTimeout(
 						() =>
 							router.push({
-								pathname: '(app)/hometabnavigator',
+								pathname: '(app)/hometab',
 							}),
 						1000,
 					)

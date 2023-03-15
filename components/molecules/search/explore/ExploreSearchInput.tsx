@@ -29,7 +29,7 @@ const ExploreSearchInput = () => {
 		setIsSearch(false)
 		_searchInputRef.current?.blur()
 		router.push({
-			pathname: '(app)/hometabnavigator/searchstack/searchtext',
+			pathname: '(app)/hometab/searchstack/searchtext',
 			params: {
 				searchText: '',
 			},
@@ -69,20 +69,20 @@ const ExploreSearchInput = () => {
 				onChangeText={text => changeSearchText(text)}
 				onSubmitEditing={() => {
 					router.push({
-						pathname: '(app)/hometabnavigator/searchstack/searchresulttabs',
+						pathname: '(app)/hometab/searchstack/searchresulttabs',
 						params: {},
 					})
 				}}
 				onPressIn={() => {
 					setIsSearch(true)
 					router.push({
-						pathname: '(app)/hometabnavigator/searchstack/searchtext',
+						pathname: '(app)/hometab/searchstack/searchtext',
 						params: {},
 					})
 				}}
 				onFocus={() => {
 					router.push({
-						pathname: '(app)/hometabnavigator/searchstack/searchtext',
+						pathname: '(app)/hometab/searchstack/searchtext',
 						params: {},
 					})
 				}}

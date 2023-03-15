@@ -31,7 +31,7 @@ import {
 import { useCallback, useMemo, useRef } from 'react'
 import { Pressable, useColorScheme } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { DevelopmentStackParamList, HomeTabNavigatorParamList } from 'src/types/app'
+import { DevelopmentStackParamList, hometabParamList } from 'src/types/app'
 
 export type DevelopmentTabRouteProp = RouteProp<DevelopmentStackParamList, 'ThemeViewer'>
 
@@ -159,7 +159,7 @@ export default function ThemeViewer() {
 					<Pressable
 						onPress={async () => {
 							bottomSheetModalRef.current.close()
-							navigation.navigate('HomeTabNavigator', {
+							navigation.navigate('hometab', {
 								screen: 'DevelopmentStack',
 								params: {
 									screen: 'ThemeViewer',

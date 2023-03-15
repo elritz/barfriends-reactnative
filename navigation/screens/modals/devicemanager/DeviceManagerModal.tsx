@@ -40,7 +40,7 @@ export default function DeviceManagerModal() {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
-					// navigation.navigate('HomeTabNavigator', {
+					// navigation.navigate('hometab', {
 					// 	screen: 'VenueFeedStack',
 					// 	params: {
 					// 		screen: 'VenueFeedScreen',

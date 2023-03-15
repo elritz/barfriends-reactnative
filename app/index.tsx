@@ -106,5 +106,5 @@ export default () => {
 		return <SplashScreen />
 	}
 
-	return <Redirect href={'(app)/hometabnavigator'} />
+	return <Redirect href={'(app)/hometab'} />
 }
