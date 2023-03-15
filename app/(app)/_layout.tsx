@@ -64,6 +64,7 @@ export default () => {
 	}, [rThemeVar.theme, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
 
 	if (!memTheme) return <SplashScreen />
+
 	return (
 		<ThemeProvider value={{ ...memTheme.rn }}>
 			<StyledThemeProvider theme={memTheme.styled}>

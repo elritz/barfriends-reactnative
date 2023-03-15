@@ -62,7 +62,7 @@ const GetStartedScreen = () => {
 								PrivacyId: PTSData?.privacyTermsDocuments.privacy.id,
 							})
 							router.push({
-								pathname: '(app)/credentialnavigator/personalcredentialstack/phone',
+								pathname: '(app)/credential/personalcredentialstack/phone',
 							})
 						}}
 						rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}

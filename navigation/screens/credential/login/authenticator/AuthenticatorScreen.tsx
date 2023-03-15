@@ -213,7 +213,7 @@ export default function AuthenticatorScreen() {
 				<Button
 					onPress={() => {
 						router.replace({
-							pathname: '(app)/credentialnavigator/personalcredentialstack/termsandservicescreen',
+							pathname: '(app)/credential/personalcredentialstack/termsandservicescreen',
 						})
 					}}
 					my={3}

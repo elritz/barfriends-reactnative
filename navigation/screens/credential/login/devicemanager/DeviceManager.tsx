@@ -38,7 +38,7 @@ export default function DeviceManagerScreen() {
 			params: {
 				profileid: item.id,
 			},
-			pathname: '(app)/credentialnavigator/logincredentialstack/loginpasswordscreen',
+			pathname: '(app)/credential/logincredentialstack/loginpasswordscreen',
 		})
 	}
 

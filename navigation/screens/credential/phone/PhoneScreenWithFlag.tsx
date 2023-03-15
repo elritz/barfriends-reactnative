@@ -93,7 +93,7 @@ const PhoneScreen = () => {
 						code: data.sendAuthenticatorDeviceOwnerCode.code,
 					})
 					router.push({
-						pathname: '(app)/credentialnavigator/personalcredentialstack/confirmationcode',
+						pathname: '(app)/credential/personalcredentialstack/confirmationcode',
 					})
 					break
 			}

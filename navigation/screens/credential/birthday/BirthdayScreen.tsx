@@ -86,7 +86,7 @@ const BirthdayScreen = () => {
 				birthday: String(birthday),
 			})
 			router.push({
-				pathname: '(app)/credentialnavigator/personalcredentialstack/name',
+				pathname: '(app)/credential/personalcredentialstack/name',
 			})
 		} catch (e) {
 			return setError('date', {

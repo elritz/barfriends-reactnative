@@ -25,7 +25,7 @@ export default function SignupModal({ isOpen, onClose }: Props) {
 						colorScheme='primary'
 						onPress={() => {
 							onClose()
-							navigation.navigate('CredentialNavigator', {
+							navigation.navigate('credential', {
 								screen: 'PersonalCredentialStack',
 								params: {
 									screen: 'GetStartedScreen',

@@ -1,3 +1,6 @@
+// notification listeners
+// server connection
+// set permissions
 import { ApolloProvider, useReactiveVar } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
@@ -9,13 +12,6 @@ import {
 } from '@constants/StorageConstants'
 import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
-import {
-	useRefreshDeviceManagerMutation,
-	ClientDeviceManager,
-	useCreateGuestProfileMutation,
-	useCreateADeviceManagerMutation,
-	useUpdateOneProfileMutation,
-} from '@graphql/generated'
 import gateaWayClient from '@library/gateway-apollo-server'
 import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
 import {
@@ -23,14 +19,10 @@ import {
 	LocalStoragePreferenceThemeType,
 	LocalStoragePreferenceAskBackgroundLocationPermissionType,
 	LocalStoragePreferenceAskNotificationPermissionType,
-	SystemsOfUnits,
-	LocalStoragePreferenceAskSystemOfUnitsPermissionType,
 	LocalStoragePreferenceSystemsOfUnitsType,
 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ThemeProvider } from '@react-navigation/native'
 import {
-	AuthorizationReactiveVar,
 	PermissionBackgroundLocationReactiveVar,
 	PermissionCameraReactiveVar,
 	PermissionForegroundLocationReactiveVar,
@@ -57,7 +49,7 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen, Stack, Tabs } from 'expo-router'
+import { Slot, SplashScreen } from 'expo-router'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'
@@ -254,6 +246,13 @@ export default () => {
 	useEffect(() => {
 		setPreferencesLocalStorageData()
 	}, [])
+
+	// useEffect(() => {
+	// 	const subscription = Notifications.addPushTokenListener(e => {
+	// 		console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
+	// 	})
+	// 	return () => subscription.remove()
+	// }, [])
 
 	if (!assets) {
 		return <SplashScreen />

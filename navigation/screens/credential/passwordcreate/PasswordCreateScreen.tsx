@@ -72,7 +72,7 @@ const PasswordCreateScreen = () => {
 
 	const navigateToNextScreen = async (): Promise<void | null> => {
 		router.push({
-			pathname: '(app)/credentialnavigator/personalcredentialstack/create',
+			pathname: '(app)/credential/personalcredentialstack/create',
 		})
 	}
 

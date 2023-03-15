@@ -1,5 +1,6 @@
+// authorization
 import { useReactiveVar } from '@apollo/client'
-import { AUTHORIZATION, LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
+import { AUTHORIZATION } from '@constants/StorageConstants'
 import { AuthorizationDecoded } from '@ctypes/app'
 import {
 	useRefreshDeviceManagerMutation,
@@ -8,43 +9,13 @@ import {
 	useUpdateOneProfileMutation,
 	ClientDeviceManager,
 } from '@graphql/generated'
-import { ThemeProvider } from '@react-navigation/native'
-import {
-	AuthorizationReactiveVar,
-	PermissionCameraReactiveVar,
-	PermissionMicrophoneReactiveVar,
-	PermissionForegroundLocationReactiveVar,
-	PermissionBackgroundLocationReactiveVar,
-	PermissionMediaReactiveVar,
-	PermissionNotificationReactiveVar,
-} from '@reactive'
+import { AuthorizationReactiveVar } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
-import { Camera } from 'expo-camera'
-import * as Contacts from 'expo-contacts'
-import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
-import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
-import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
 import { Redirect, SplashScreen } from 'expo-router'
 import { useEffect } from 'react'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const setPermissions = async () => {
-		const contactsPermission = await Contacts.getPermissionsAsync()
-		const cameraPermission = await Camera.getCameraPermissionsAsync()
-		const microphonePermission = await Camera.getMicrophonePermissionsAsync()
-		const foregroundLocationPermission = await getForegroundPermissionsAsync()
-		const backgroundLocationPermission = await getBackgroundPermissionsAsync()
-		const mediaLibraryPermission = await getMeidaPermissionAsync()
-		const notificationPermission = await getNotificiationPermissionAsync()
-
-		PermissionCameraReactiveVar(cameraPermission)
-		PermissionMicrophoneReactiveVar(microphonePermission)
-		PermissionForegroundLocationReactiveVar(foregroundLocationPermission)
-		PermissionBackgroundLocationReactiveVar(backgroundLocationPermission)
-		PermissionMediaReactiveVar(mediaLibraryPermission)
-		PermissionNotificationReactiveVar(notificationPermission)
-	}
 
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
@@ -63,20 +34,21 @@ export default () => {
 			},
 		})
 
-	const [createGuestProfileMutation, { data, loading, error }] = useCreateGuestProfileMutation({
-		onError: error => {
-			console.log('error createGuestProfileMutation :>> ', error)
-		},
-		onCompleted: async data => {
-			if (data?.createGuestProfile.__typename === 'Profile') {
-				createADeviceManagerMutation({
-					variables: {
-						profileId: String(data.createGuestProfile.id),
-					},
-				})
-			}
-		},
-	})
+	const [createGuestProfileMutation, { data, loading: CGLoading, error }] =
+		useCreateGuestProfileMutation({
+			onError: error => {
+				console.log('error createGuestProfileMutation :>> ', error)
+			},
+			onCompleted: async data => {
+				if (data?.createGuestProfile.__typename === 'Profile') {
+					createADeviceManagerMutation({
+						variables: {
+							profileId: String(data.createGuestProfile.id),
+						},
+					})
+				}
+			},
+		})
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
@@ -117,8 +89,8 @@ export default () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+
 		if (!getAuthorization) {
-			// console.log('create GUET')
 			createGuestProfileMutation()
 		} else {
 			refreshDeviceManagerMutation()
@@ -127,38 +99,12 @@ export default () => {
 	}
 
 	useEffect(() => {
-		setPermissions()
 		applicationAuthorization()
 	}, [])
 
-	// useEffect(() => {
-	// 	const subscription = Notifications.addPushTokenListener(e => {
-	// 		console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
-	// 	})
-	// 	return () => subscription.remove()
-	// }, [])
-
-	if (!RDMData || RDMLoading || CDMLoading || !rAuthorizationVar) {
+	if (!RDMData || RDMLoading || CDMLoading || CGLoading || UOPLoading || !rAuthorizationVar) {
 		return <SplashScreen />
 	}
 
-	return (
-		// <ThemeProvider
-		// 	value={{
-		// 		colors: {
-		// 			background: '#db69',
-		// 			border: '#db69',
-		// 			card: '#db69',
-		// 			notification: '#db69',
-		// 			primary: '#db69',
-		// 			text: '#db69',
-		// 		},
-		// 		dark: true,
-		// 	}}
-		// >
-		// 	<>
-		<Redirect href={'(app)/hometabnavigator'} />
-		// </>
-		// </ThemeProvider>
-	)
+	return <Redirect href={'(app)/hometabnavigator'} />
 }

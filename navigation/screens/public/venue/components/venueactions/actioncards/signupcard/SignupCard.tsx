@@ -27,7 +27,7 @@ export default function SignupCard() {
 				<VStack space={1}>
 					<Button
 						onPress={() => {
-							router.push({ pathname: '(app)/credentialnavigator/personalcredentialstack/getstarted' })
+							router.push({ pathname: '(app)/credential/personalcredentialstack/getstarted' })
 						}}
 						px={7}
 						_text={{
@@ -47,7 +47,7 @@ export default function SignupCard() {
 							fontSize: 'lg',
 						}}
 						onPress={() =>
-							router.push({ pathname: '(app)/credentialnavigator/logincredentialstack/authenticator' })
+							router.push({ pathname: '(app)/credential/logincredentialstack/authenticator' })
 						}
 					>
 						log in

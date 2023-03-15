@@ -85,7 +85,7 @@ const UsernameScreen = () => {
 			username: data.username,
 		})
 		router.push({
-			pathname: '(app)/credentialnavigator/personalcredentialstack/password',
+			pathname: '(app)/credential/personalcredentialstack/password',
 		})
 	}
 

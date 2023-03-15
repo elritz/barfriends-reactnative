@@ -53,7 +53,7 @@ const CardPleaseSignup = (props: Props) => {
 				<Button
 					onPress={() =>
 						router.push({
-							pathname: '(app)/credentialnavigator/personalcredentialstack/getstarted',
+							pathname: '(app)/credential/personalcredentialstack/getstarted',
 						})
 					}
 					w={'95%'}
@@ -65,7 +65,7 @@ const CardPleaseSignup = (props: Props) => {
 				<Button
 					onPress={() => {
 						router.push({
-							pathname: '(app)/credentialnavigator/logincredentialstack/authenticator',
+							pathname: '(app)/credential/logincredentialstack/authenticator',
 						})
 					}}
 					variant={'unstyled'}

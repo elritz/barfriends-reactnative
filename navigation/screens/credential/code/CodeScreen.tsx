@@ -101,7 +101,7 @@ const CodeScreen = () => {
 		clearErrors()
 		if (checkFinalCode(code)) {
 			router.push({
-				pathname: '(app)/credentialnavigator/personalcredentialstack/birthday',
+				pathname: '(app)/credential/personalcredentialstack/birthday',
 			})
 		} else {
 			setError('code', { type: 'validate', message: 'Wrong code' })

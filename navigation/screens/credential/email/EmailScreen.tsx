@@ -51,7 +51,7 @@ const EmailScreen = () => {
 					})
 					break
 				case 'Code':
-					navigation.navigate('CredentialNavigator', {
+					navigation.navigate('credential', {
 						screen: 'PersonalCredentialStack',
 						params: {
 							screen: 'ConfirmationCodeScreen',

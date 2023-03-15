@@ -91,7 +91,7 @@ const PhoneScreen = () => {
 					break
 				case 'Code':
 					router.push({
-						pathname: '(app)/credentialnavigator/personalcredentialstack/confirmationcode',
+						pathname: '(app)/credential/personalcredentialstack/confirmationcode',
 						params: {
 							code: String(data.sendAuthenticatorDeviceOwnerCode.code),
 						},
@@ -152,7 +152,7 @@ const PhoneScreen = () => {
 					<Pressable
 						onPress={() => {
 							router.push({
-								pathname: '(app)/credentialnavigator/personalcredentialstack/email',
+								pathname: '(app)/credential/personalcredentialstack/email',
 							})
 						}}
 						size={'md'}

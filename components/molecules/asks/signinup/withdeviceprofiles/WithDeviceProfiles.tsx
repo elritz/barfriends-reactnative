@@ -27,7 +27,7 @@ export default function WithDeviceProfiles() {
 				<Button
 					onPress={() =>
 						router.push({
-							pathname: '(app)/credentialnavigator/personalcredentialstack/getstarted',
+							pathname: '(app)/credential/personalcredentialstack/getstarted',
 						})
 					}
 					width={'95%'}
@@ -42,7 +42,7 @@ export default function WithDeviceProfiles() {
 					variant={'ghost'}
 					onPress={() =>
 						router.push({
-							pathname: '(app)/credentialnavigator/logincredentialstack/authenticator',
+							pathname: '(app)/credential/logincredentialstack/authenticator',
 						})
 					}
 					w={'95%'}
