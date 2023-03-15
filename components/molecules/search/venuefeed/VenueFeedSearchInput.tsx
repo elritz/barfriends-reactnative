@@ -38,7 +38,7 @@ const VenueFeedSearchInput = () => {
 					icon={<Icon as={FontAwesome5} name='filter' />}
 					onPress={() =>
 						router.push({
-							pathname: '(app)/modalnavigator/searchareamodalstack',
+							pathname: '(app)/modal/searchareamodalstack',
 						})
 					}
 					rounded={'full'}

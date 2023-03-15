@@ -77,7 +77,7 @@ export default () => {
 							}}
 						>
 							<Stack.Screen name={'hometab'} />
-							<Stack.Screen name={'modalnavigator'} options={{ presentation: 'modal' }} />
+							<Stack.Screen name={'modal'} options={{ presentation: 'modal' }} />
 							<Stack.Screen name={'permissionnavigator'} options={{ presentation: 'modal' }} />
 							<Stack.Screen name={'settingsnavigator'} options={{ presentation: 'fullScreenModal' }} />
 						</Stack>

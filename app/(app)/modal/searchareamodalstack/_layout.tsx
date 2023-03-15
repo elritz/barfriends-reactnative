@@ -12,7 +12,7 @@ export default function _layout() {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const handleNavigationToNewSearchAreaForm = () => {
-		// navigation.navigate('ModalNavigator', {
+		// navigation.navigate('modal', {
 		// 	screen: 'SearchAreaModalStack',
 		// 	params: {
 		// 		screen: 'SearchCountryTextScreen',

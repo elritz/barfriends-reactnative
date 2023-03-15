@@ -126,7 +126,7 @@ export default function SearchAreaCountryStates() {
 								},
 							})
 							navigation.dispatch(StackActions.pop())
-							navigation.navigate('ModalNavigator', {
+							navigation.navigate('modal', {
 								screen: 'SearchAreaModalStack',
 								params: {
 									screen: 'SearchStateCitiesTextScreen',

@@ -13,7 +13,7 @@ export default function _layout() {
 
 	const onPressProfileTitle = async () => {
 		await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
-		router.push('(app)/modalnavigator/DeviceManagerModal')
+		router.push('(app)/modal/DeviceManagerModal')
 	}
 
 	return (

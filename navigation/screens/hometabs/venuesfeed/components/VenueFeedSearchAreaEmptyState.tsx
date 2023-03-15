@@ -43,7 +43,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 				<PermissionButtonSearchAreaLocation />
 				<Button
 					onPress={() => {
-						// navigation.navigate('ModalNavigator', {
+						// navigation.navigate('modal', {
 						// 	screen: 'SearchAreaModalStack',
 						// 	params: {
 						// 		screen: 'SearchAreaModal',

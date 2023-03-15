@@ -104,7 +104,7 @@ export default function SearchAreaCountries() {
 							})
 							setValue('searchtext', '')
 							navigation.dispatch(StackActions.pop())
-							navigation.navigate('ModalNavigator', {
+							navigation.navigate('modal', {
 								screen: 'SearchAreaModalStack',
 								params: {
 									screen: 'SearchCountryStatesTextScreen',

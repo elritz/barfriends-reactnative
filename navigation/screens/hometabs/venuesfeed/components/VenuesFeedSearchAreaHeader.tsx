@@ -13,7 +13,7 @@ export default function VenuesFeedSearchAreaHeader() {
 		<VStack alignItems={'flex-start'} mx={2} mb={3}>
 			<Pressable
 				onPress={() => {
-					// navigation.navigate('ModalNavigator', {
+					// navigation.navigate('modal', {
 					// 	screen: 'SearchAreaModalStack',
 					// })
 				}}

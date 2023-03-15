@@ -76,7 +76,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 		router.push({
 			pathname: '(app)/',
 		})
-		navigation.navigate('ModalNavigator', {
+		navigation.navigate('modal', {
 			screen: 'SearchAreaModalStack',
 			params: {
 				screen: 'SearchAreaModal',

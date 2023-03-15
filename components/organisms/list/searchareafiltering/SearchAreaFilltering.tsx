@@ -44,27 +44,27 @@ const SearchAreaFilltering = () => {
 			case 'City':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					router.push({
-						pathname: '(app)/modalnavigator/searchareamodalstack/SearchStateCitiesTextScreen',
+						pathname: '(app)/modal/searchareamodalstack/SearchStateCitiesTextScreen',
 					})
 				}
 				break
 			case 'State':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					router.push({
-						pathname: '(app)/modalnavigator/searchareamodalstack/SearchCountryStateTextScreen',
+						pathname: '(app)/modal/searchareamodalstack/SearchCountryStateTextScreen',
 					})
 				}
 				break
 			case 'Country':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					router.push({
-						pathname: '(app)/modalnavigator/searchareamodalstack/SearchCountryTextScreen',
+						pathname: '(app)/modal/searchareamodalstack/SearchCountryTextScreen',
 					})
 				}
 				break
 			default:
 				router.push({
-					pathname: '(app)/modalnavigator/searchareamodalstack/SearchCountryTextScreen',
+					pathname: '(app)/modal/searchareamodalstack/SearchCountryTextScreen',
 				})
 		}
 	}
