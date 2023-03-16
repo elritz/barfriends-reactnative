@@ -98,11 +98,7 @@ const SearchTextScreenInput = () => {
 	}, [debouncedSearchResults])
 
 	return (
-		<Box
-			style={{
-				marginTop: inset.top,
-			}}
-		>
+		<Box>
 			<HStack alignItems={'center'}>
 				<Icon
 					as={Ionicons}

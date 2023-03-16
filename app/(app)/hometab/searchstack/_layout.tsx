@@ -1,13 +1,10 @@
 import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
 import SearchTopTabStackInput from '@components/molecules/search/searchtoptabs/SearchTopTabStackInput'
-import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
-import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
 import { Box, VStack } from 'native-base'
-import React from 'react'
 import { Platform, StyleSheet, View } from 'react-native'
 
 export default function _layout() {
@@ -27,7 +24,7 @@ export default function _layout() {
 				options={{
 					header: () => {
 						return (
-							<VStack height={90} justifyContent={'flex-end'} pb={2}>
+							<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
@@ -59,7 +56,7 @@ export default function _layout() {
 					headerTransparent: true,
 					header: () => {
 						return (
-							<VStack height={90} justifyContent={'flex-end'} pb={2}>
+							<VStack safeAreaTop justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
@@ -82,7 +79,7 @@ export default function _layout() {
 					headerShown: true,
 					header: () => {
 						return (
-							<VStack height={90} justifyContent={'flex-end'} pb={2}>
+							<VStack safeAreaTop justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (
@@ -105,7 +102,7 @@ export default function _layout() {
 					headerShown: true,
 					header: () => {
 						return (
-							<VStack height={90} justifyContent={'flex-end'} pb={2}>
+							<VStack safeAreaTop justifyContent={'flex-end'} pb={2}>
 								{Platform.OS === 'ios' ? (
 									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 								) : (

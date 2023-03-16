@@ -1,6 +1,6 @@
 import SearchCard from '../components/SearchCard'
 import { useReactiveVar } from '@apollo/client'
-import { TOP_SEARCH_INPUT_HEIGHT, TOP_TAB_BAR_HEIGHT } from '@constants/Layout'
+import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -9,7 +9,6 @@ import {
 	Box,
 	ScrollView,
 	Text,
-	Center,
 	Heading,
 	IconButton,
 	HStack,
@@ -17,7 +16,7 @@ import {
 	VStack,
 	Skeleton,
 } from 'native-base'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const SearchTextScreen = () => {
 	const params = useSearchParams()
@@ -33,7 +32,6 @@ const SearchTextScreen = () => {
 		onError: error => {
 			console.log('error :>> ', error)
 		},
-		onCompleted: data => {},
 	})
 
 	function getUniqueListBy(arr, key) {
@@ -49,7 +47,7 @@ const SearchTextScreen = () => {
 		return (
 			<ScrollView
 				scrollEnabled={false}
-				contentInset={{ top: insets.top }}
+				contentInset={{ top: HOME_TAB_TOP_NAIGATION_HEIGHT }}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
 				px={3}
@@ -70,23 +68,19 @@ const SearchTextScreen = () => {
 		return (
 			<ScrollView
 				scrollEnabled={true}
-				contentInset={{
-					top: insets.top,
-				}}
+				automaticallyAdjustContentInsets
+				automaticallyAdjustsScrollIndicatorInsets
+				contentInsetAdjustmentBehavior='automatic'
+				contentInset={{ top: insets.top }}
 				flex={1}
-				background={'red.500'}
 				keyboardDismissMode='on-drag'
 				px={3}
 			>
-				<Heading size={'sm'} my={4}>
-					Recent
-				</Heading>
 				{filteredRecentSearches.map((item: any, index) => {
 					return (
 						<HStack
 							h={'55px'}
 							w={'100%'}
-							bg={'blue.400'}
 							justifyContent={'flex-start'}
 							alignItems={'center'}
 							space={3}

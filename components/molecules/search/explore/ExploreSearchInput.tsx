@@ -45,67 +45,65 @@ const ExploreSearchInput = () => {
 	}
 
 	return (
-		<SafeAreaView>
-			<Input
-				ref={_searchInputRef}
-				variant={'filled'}
-				_light={{ bgColor: 'light.50' }}
-				_dark={{ bgColor: 'dark.50' }}
-				w={'85%'}
-				px={3}
-				style={{
-					borderBottomColor: 'transparent',
-					borderRadius: 14,
-				}}
-				_input={{
-					color: themeContext.palette.primary.color.default,
-					fontSize: 'lg',
-				}}
-				returnKeyType='search'
-				underlineColorAndroid='transparent'
-				keyboardAppearance={colorScheme}
-				placeholder='Search'
-				value={rSearch?.searchText}
-				onChangeText={text => changeSearchText(text)}
-				onSubmitEditing={() => {
-					router.push({
-						pathname: '(app)/hometab/searchstack/searchresulttabs',
-						params: {},
-					})
-				}}
-				onPressIn={() => {
-					setIsSearch(true)
-					router.push({
-						pathname: '(app)/hometab/searchstack/searchtext',
-						params: {},
-					})
-				}}
-				onFocus={() => {
-					router.push({
-						pathname: '(app)/hometab/searchstack/searchtext',
-						params: {},
-					})
-				}}
-				leftElement={
-					isSearch || rSearch?.searchText.length ? (
-						<Icon
-							as={Ionicons}
-							onPress={goBackToFeed}
-							name='arrow-back'
-							size={28}
-							color={themeContext.palette.primary.color.default}
-						/>
-					) : (
-						<Icon
-							as={Ionicons}
-							name='ios-search'
-							size={20}
-							color={themeContext.palette.primary.color.default}
-						/>
-					)
-				}
-			/>
-		</SafeAreaView>
+		<Input
+			ref={_searchInputRef}
+			variant={'filled'}
+			_light={{ bgColor: 'light.50' }}
+			_dark={{ bgColor: 'dark.50' }}
+			w={'85%'}
+			px={3}
+			style={{
+				borderBottomColor: 'transparent',
+				borderRadius: 14,
+			}}
+			_input={{
+				color: themeContext.palette.primary.color.default,
+				fontSize: 'lg',
+			}}
+			returnKeyType='search'
+			underlineColorAndroid='transparent'
+			keyboardAppearance={colorScheme}
+			placeholder='Search'
+			value={rSearch?.searchText}
+			onChangeText={text => changeSearchText(text)}
+			onSubmitEditing={() => {
+				router.push({
+					pathname: '(app)/hometab/searchstack/searchresulttabs',
+					params: {},
+				})
+			}}
+			onPressIn={() => {
+				setIsSearch(true)
+				router.push({
+					pathname: '(app)/hometab/searchstack/searchtext',
+					params: {},
+				})
+			}}
+			onFocus={() => {
+				router.push({
+					pathname: '(app)/hometab/searchstack/searchtext',
+					params: {},
+				})
+			}}
+			leftElement={
+				isSearch || rSearch?.searchText.length ? (
+					<Icon
+						as={Ionicons}
+						onPress={goBackToFeed}
+						name='arrow-back'
+						size={28}
+						color={themeContext.palette.primary.color.default}
+					/>
+				) : (
+					<Icon
+						as={Ionicons}
+						name='ios-search'
+						size={20}
+						color={themeContext.palette.primary.color.default}
+					/>
+				)
+			}
+		/>
 	)
 }
 

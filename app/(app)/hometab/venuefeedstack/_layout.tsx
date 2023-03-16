@@ -14,24 +14,6 @@ export default function _layout() {
 			initialRouteName='index'
 			screenOptions={{
 				headerShown: false,
-				headerTransparent: true,
-				gestureDirection: 'horizontal',
-				header: () => {
-					return (
-						<VStack height={HOME_TAB_TOP_NAIGATION_HEIGHT} justifyContent={'flex-end'} pb={2}>
-							{Platform.OS === 'ios' ? (
-								<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
-							) : (
-								<Box
-									_light={{ bg: 'light.50' }}
-									_dark={{ bg: 'dark.50' }}
-									style={[StyleSheet.absoluteFill]}
-								/>
-							)}
-							<VenueFeedSearchInput />
-						</VStack>
-					)
-				},
 			}}
 		>
 			<Stack.Screen name={'index'} />
