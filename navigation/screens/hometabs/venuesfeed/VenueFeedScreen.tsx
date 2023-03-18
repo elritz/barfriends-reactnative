@@ -57,11 +57,8 @@ const VenueFeedScreen = () => {
 			countryIsoCode: String(rSearchAreaVar?.searchArea.country.isoCode),
 			stateIsoCode: String(rSearchAreaVar?.searchArea.state.isoCode),
 		},
-		onError(error) {},
-		onCompleted: data => {
-			setNearbyVenue(data.venuesNearby.venuesNearby[0])
-			console.log('🚀 ~ file: VenueFeedScreen.tsx:66 ~ onCompleted ~ nearbyVenue:', data)
-		},
+		onError: error => {},
+		onCompleted: data => {},
 	})
 
 	const onPullRefresh = () => {
@@ -77,12 +74,6 @@ const VenueFeedScreen = () => {
 			}
 		}
 	}
-	// useEffect(() => {
-	// 	const subscription = AppState.addEventListener('change', handleAppStateChange)
-	// 	return () => {
-	// 		subscription.remove()
-	// 	}
-	// }, [])
 
 	useEffect(() => {
 		if (
@@ -98,13 +89,10 @@ const VenueFeedScreen = () => {
 		}
 	}, [])
 
-	const blurhash =
-		'|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj['
-
 	const listHeaderComponent = () => {
 		return (
 			<VStack w={'full'} space={4}>
-				<VStack h={height * 0.6}>
+				{/* <VStack h={height * 0.6}>
 					<Image
 						style={{
 							flex: 1,
@@ -118,7 +106,7 @@ const VenueFeedScreen = () => {
 					/>
 					<Box
 						px={2}
-						height={100}
+						py={3}
 						_dark={{ backgroundColor: 'dark.50' }}
 						_light={{ backgroundColor: 'light.50' }}
 					>
@@ -130,12 +118,12 @@ const VenueFeedScreen = () => {
 								#THE SHED
 							</Heading>
 						</Box>
-						<HStack>
+						<HStack pt={3}>
 							<UberButton params={{ profileid: 'VENUE ID' }} />
 							<UberButton params={{ profileid: 'VENUE ID' }} />
 						</HStack>
 					</Box>
-				</VStack>
+				</VStack> */}
 				{/* {<VenuesFeedSearchAreaHeader />} */}
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 					<VenueFeedSignupCard />
@@ -191,15 +179,13 @@ const VenueFeedScreen = () => {
 		)
 	}
 
-	console.log('===========>', data)
-
 	return (
 		<FlatList
 			onRefresh={onPullRefresh}
 			refreshing={loading}
 			showsVerticalScrollIndicator={false}
 			numColumns={2}
-			style={{ height: '100%' }}
+			style={{ height: '100%', marginTop: insets.top + 20 }}
 			columnWrapperStyle={{ justifyContent: 'space-around' }}
 			data={data?.venuesNearby.venuesNearby}
 			renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}

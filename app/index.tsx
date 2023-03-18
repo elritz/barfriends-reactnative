@@ -21,7 +21,7 @@ export default () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error) {
-				console.log('🚀 ~ file: index.tsx:54 ~ onError ~ error:', error)
+				// console.log('🚀 ~ file: index.tsx:54 ~ onError ~ error:', error)
 			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
@@ -40,6 +40,7 @@ export default () => {
 				console.log('error createGuestProfileMutation :>> ', error)
 			},
 			onCompleted: async data => {
+				// console.log('🚀 ~ file: index.tsx:45 ~ data:', data)
 				if (data?.createGuestProfile.__typename === 'Profile') {
 					createADeviceManagerMutation({
 						variables: {
@@ -53,9 +54,10 @@ export default () => {
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
 			onError: error => {
-				console.log('error =====>', error)
+				// console.log('error =====>', error)
 			},
 			onCompleted: async data => {
+				// console.log('🚀 ~ file: index.tsx:79 ~ data:', data)
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
 				if (!deviceManager) {
 					console.log('What to do about no device manager!')
@@ -95,7 +97,6 @@ export default () => {
 		} else {
 			refreshDeviceManagerMutation()
 		}
-		SplashScreen.hideAsync()
 	}
 
 	useEffect(() => {

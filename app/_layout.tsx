@@ -133,6 +133,11 @@ export default () => {
 					colorScheme: 'system',
 				} as LocalStoragePreferenceThemeType)
 
+				console.log(
+					'🚀 ~ file: _layout.tsx:136 ~ setPreferencesLocalStorageData ~ initialThemeColorSchemeState:',
+					initialThemeColorSchemeState,
+				)
+
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 					initialThemeColorSchemeState,
@@ -144,13 +149,15 @@ export default () => {
 					colorScheme: Appearance.getColorScheme(),
 				})
 			} else {
-				const values: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
+				const localStorageTheme: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
 
 				ThemeReactiveVar({
 					theme: null,
-					localStorageColorScheme: values.colorScheme,
+					localStorageColorScheme: localStorageTheme.colorScheme,
 					colorScheme:
-						values.colorScheme === 'system' ? Appearance.getColorScheme() : values.colorScheme,
+						localStorageTheme.colorScheme === 'system'
+							? Appearance.getColorScheme()
+							: localStorageTheme.colorScheme,
 				})
 			}
 			// THEME_PREFERENCE ~ END

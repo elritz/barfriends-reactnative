@@ -31,22 +31,6 @@ module.exports = function (api) {
 						'@reactive': './reactive/index.tsx',
 					},
 				},
-				// {
-				// 	root: ['.'],
-				// 	alias: {
-				// 		'@types': './src/types/app',
-				// 		'@assets': './src/assets',
-				// 		'@components': './src/components',
-				// 		'@graphql': './src/graphql/',
-				// 		'@library': './src/library',
-				// 		'@context': './src/context',
-				// 		'@util': './src/util',
-				// 		'@helpers': './src/helpers',
-				// 		'@navigation': './src/navigation',
-				// 		'@constants': './src/constants',
-				// 		'@reactive': './src/reactive/index.tsx',
-				// 	},
-				// },
 			],
 			[
 				'babel-plugin-styled-components',

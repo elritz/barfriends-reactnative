@@ -4,16 +4,16 @@ schema: "ws://localhost:5004/graphql"
 # schema: "https://192.168.86.23:5004/graphql/stream"
 documents: "graphql/**/*.subscription.ts"
 generates:
-  ./src/graphql/generated/subindex.ts:
+  ./graphql/generated/subindex.ts:
     schema: ./subschema.graphql
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-  ./src/graphql/generated/subschema.graphql:
+  ./graphql/generated/subschema.graphql:
     plugins:
       - schema-ast
-  ./src/graphql/generated/subschema.graphql.json:
+  ./graphql/generated/subschema.graphql.json:
     plugins:
       - "introspection"
     config:

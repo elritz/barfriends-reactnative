@@ -7,7 +7,7 @@
 		"noImplicitAny": false,
 		"rootDirs": ["src", "stories"],
 		"declaration": true,
-		"typeRoots": ["node_modules/@types", "./src/types/navigation", "./src/types/*"],
+		"typeRoots": ["node_modules/@types", "./types/navigation", "./types/*"],
 		"jsx": "react-native",
 		"lib": ["dom", "esnext"],
 		"moduleResolution": "node",
@@ -32,20 +32,6 @@
 			"@constants/*": ["./constants/*"],
 			"@reactive": ["./reactive/index.tsx"]
 		},
-		// "paths": {
-		// 	"@preferences": ["./src/types/preferences.d.ts"],
-		// 	"@types": ["./src/types/app.d"],
-		// 	"@util/*": ["./src/util/*"],
-		// 	"@helpers/*": ["./src/helpers/*"],
-		// 	"@navigation/*": ["./src/navigation/*"],
-		// 	"@assets/*": ["assets/*"],
-		// 	"@components/*": ["./src/components/*"],
-		// 	"@graphql/*": ["./src/graphql/*"],
-		// 	"@library/*": ["./src/library/*"],
-		// 	"@context/*": ["./src/context/*"],
-		// 	"@constants/*": ["constants/*"],
-		// 	"@reactive": ["src/reactive/index.tsx"]
-		// },
 		"plugins": [
 			{
 				"name": "typescript-styled-plugin",

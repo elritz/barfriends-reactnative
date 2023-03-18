@@ -25,7 +25,6 @@ export default () => {
 		const localStorageColorScheme = await AsyncStorage.getItem(
 			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)
-
 		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
 			String(localStorageColorScheme),
 		)

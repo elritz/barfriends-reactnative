@@ -15,6 +15,13 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				primaryColor: '#FF7000',
 				plugins: [
 					'expo-build-properties',
+					[
+						'expo-camera',
+						{
+							cameraPermission: 'Allow $(PRODUCT_NAME) to access your camera.',
+							microphonePermission: 'Allow $(PRODUCT_NAME) to access your microphone.',
+						},
+					],
 					'expo-localization',
 					[
 						'expo-media-library',
@@ -47,11 +54,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					bundleIdentifier: 'com.barfriends.production',
 					supportsTablet: false,
 					icon: `./assets/images/icon/icon.png`,
-					// splash: {
-					// 	image: `./src/assets/images/splash/splash.png`,
-					// 	resizeMode: 'cover',
-					// 	backgroundColor: '#0D0D0D',
-					// },
 					config: {
 						googleMapsApiKey: process.env.GOOGLE_IOS_API_KEY,
 					},
@@ -78,11 +80,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					adaptiveIcon: {
 						foregroundImage: './assets/images/adaptive-icon.png',
 					},
-					// splash: {
-					// 	image: `./src/assets/images/splash/splash.png`,
-					// 	resizeMode: 'contain',
-					// 	backgroundColor: '#0D0D0D',
-					// },
 					config: {
 						googleMaps: {
 							apiKey: process.env.GOOGLE_ANDROID_API_KEY,
@@ -170,11 +167,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					bundleIdentifier: 'com.barfriends.staging',
 					supportsTablet: false,
 					icon: `./assets/images/icon/icon.png`,
-					// splash: {
-					// 	image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.png`,
-					// 	resizeMode: 'cover',
-					// 	// backgroundColor: '#0D0D0D',
-					// },
 					config: {
 						googleMapsApiKey: process.env.GOOGLE_IOS_API_KEY,
 					},
@@ -203,11 +195,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						foregroundImage: './assets/images/adaptive-icon.png',
 					},
 					googleServicesFile: './google-services.json',
-					// splash: {
-					// 	image: `./src/assets/images/splash/splash.png`,
-					// 	resizeMode: 'contain',
-					// 	backgroundColor: '#0D0D0D',
-					// },
+
 					config: {
 						googleMaps: {
 							apiKey: process.env.GOOGLE_ANDROID_API_KEY,
@@ -332,10 +320,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						foregroundImage: './assets/images/adaptive-icon.png',
 					},
 					googleServicesFile: './google-services.json',
-					// splash: {
-					// 	image: `./src/assets/images/splash/splash.${process.env.ENVIRONMENT}.png`,
-					// 	resizeMode: 'cover',
-					// },
 					config: {
 						googleMaps: {
 							apiKey: process.env.GOOGLE_ANDROID_API_KEY,

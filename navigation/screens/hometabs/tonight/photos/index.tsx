@@ -69,9 +69,9 @@ export default function Photos() {
 				}),
 			)
 
-			console.log('🚀 ~ file: index.tsx:80 ~ resultSettled.map ~ resultSettled', resultSettled)
+			// console.log('🚀 ~ file: index.tsx:80 ~ resultSettled.map ~ resultSettled', resultSettled)
 			resultSettled.map((item, index) => {
-				console.log('🚀 ~ file: index.tsx:74 ~ resultSettled.map ~ index', index)
+				// console.log('🚀 ~ file: index.tsx:74 ~ resultSettled.map ~ index', index)
 
 				if (item.status === 'fulfilled') {
 					return item.value
