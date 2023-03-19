@@ -1,4 +1,4 @@
-import AppearanceSettingsScreen from '@navigation/screens/settings/appearancesettings'
+import AppearanceSettingsScreen from '@screens/settings/appearancesettings'
 
 export default () => {
 	return <AppearanceSettingsScreen />

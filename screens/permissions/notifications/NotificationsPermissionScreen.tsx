@@ -2,7 +2,7 @@ import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { PermissionNotificationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
@@ -11,6 +11,7 @@ import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
+import { useRouter } from 'expo-router'
 import { Box, VStack, Button, Divider, Icon, Text, Heading, ScrollView } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
@@ -42,7 +43,7 @@ const details = [
 
 const NotificationsPermissionScreen = () => {
 	const appStateRef = useRef(AppState.currentState)
-	const navigation = useNavigation()
+	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')
@@ -75,14 +76,6 @@ const NotificationsPermissionScreen = () => {
 	}
 
 	const handleRequestPermission = async () => {
-		const status = await Notifications.getPermissionsAsync()
-		if (status.granted) {
-			PermissionNotificationReactiveVar(status)
-			navigation.goBack()
-		}
-	}
-
-	const handleRequestNotificationsPermission = async () => {
 		if (Device.isDevice) {
 			if (Platform.OS === 'android') {
 				Notifications.setNotificationChannelAsync('default', {
@@ -171,7 +164,7 @@ const NotificationsPermissionScreen = () => {
 			PermissionNotificationReactiveVar(status)
 			if (status.granted && status.status === 'granted') {
 				setTimeout(() => {
-					navigation.goBack()
+					router.back()
 				}, 2000)
 				start()
 			}
@@ -180,7 +173,7 @@ const NotificationsPermissionScreen = () => {
 	}
 
 	finished(() => {
-		navigation.goBack()
+		router.back()
 	})
 
 	return (
@@ -231,7 +224,7 @@ const NotificationsPermissionScreen = () => {
 					onPress={() =>
 						!rNotificationsPermission?.granted
 							? rNotificationsPermission?.canAskAgain && !rNotificationsPermission.granted
-								? handleRequestNotificationsPermission()
+								? handleRequestPermission()
 								: handleOpenPhoneSettings()
 							: createTwoButtonAlert()
 					}
@@ -243,7 +236,7 @@ const NotificationsPermissionScreen = () => {
 						: 'Granted'}
 				</Button>
 				{!started && (
-					<Button size={'lg'} width={'95%'} onPress={() => navigation.goBack()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
 						<Text fontWeight={'medium'}>Close</Text>
 					</Button>
 				)}

@@ -1,4 +1,4 @@
-import PhoneScreen from '@navigation/screens/credential/phone/PhoneScreen'
+import PhoneScreen from '@screens/credential/phone/PhoneScreen'
 
 export default () => {
 	return <PhoneScreen />

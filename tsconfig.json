@@ -23,7 +23,7 @@
 			"@ctypes/*": ["./types/*"],
 			"@util/*": ["./util/*"],
 			"@helpers/*": ["./helpers/*"],
-			"@navigation/*": ["./navigation/*"],
+			"@screens/*": ["./screens/*"],
 			"@assets/*": ["./assets/*"],
 			"@components/*": ["./components/*"],
 			"@graphql/*": ["./graphql/*"],

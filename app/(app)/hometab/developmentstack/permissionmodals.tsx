@@ -38,6 +38,22 @@ export default function Preferences() {
 						})
 					},
 				},
+				{
+					name: 'Camera',
+					route: () => {
+						router.push({
+							pathname: '(app)/permission/camera',
+						})
+					},
+				},
+				{
+					name: 'Microphone',
+					route: () => {
+						router.push({
+							pathname: '(app)/permission/microphone',
+						})
+					},
+				},
 			]}
 			keyExtractor={i => i.name}
 			numColumns={1}

@@ -1,4 +1,4 @@
-import SearchAreaCountryStates from '@navigation/screens/search/searcharea/SearchAreaCountryStates'
+import SearchAreaCountryStates from '@screens/search/searcharea/SearchAreaCountryStates'
 import React from 'react'
 import { View, Text } from 'react-native'
 

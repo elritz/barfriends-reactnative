@@ -5,16 +5,14 @@ import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import { GetNotificationsQuery, ProfileType } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Image, Button, Divider, Heading, Box, View } from 'native-base'
+import { Divider, Heading, Box, View } from 'native-base'
 
 type Props = {
 	notifications: GetNotificationsQuery | undefined
 }
 
 const PersonalScreen = ({ notifications }: Props) => {
-	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest) {

@@ -13,7 +13,6 @@ import {
 import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import gateaWayClient from '@library/gateway-apollo-server'
-import AnimatedAppLoader from '@navigation/screens/Splashscreen/AnimatedAppLoader'
 import {
 	LocalStoragePreferenceSearchAreaType2,
 	LocalStoragePreferenceThemeType,
@@ -40,6 +39,7 @@ import {
 } from '@reactive'
 import { SearchAreaReactiveVar, searchAreaInitialState } from '@reactive'
 import { ThemeReactiveVar } from '@reactive'
+import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useAssets } from 'expo-asset'
 import * as Camera from 'expo-camera'

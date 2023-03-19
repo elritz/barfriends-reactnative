@@ -26,7 +26,7 @@ module.exports = function (api) {
 						'@context': './context',
 						'@util': './util',
 						'@helpers': './helpers',
-						'@navigation': './navigation',
+						'@screens': './screens',
 						'@constants': './constants',
 						'@reactive': './reactive/index.tsx',
 					},

@@ -1,4 +1,4 @@
-import Create from '@navigation/screens/credential/congratulations/create'
+import Create from '@screens/credential/congratulations/create'
 
 export default () => {
 	return <Create />

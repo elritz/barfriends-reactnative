@@ -6,7 +6,6 @@ import { useReactiveVar } from '@apollo/client'
 import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferencceForegroundLocationPermissionFullSection'
 import PreferenceBackgroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceBackgroundLocationPermissionFullSection'
 import { ProfileType, ProfileVenue, useVenuesNearbyLazyQuery } from '@graphql/generated'
-import VerticalVenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
@@ -14,6 +13,7 @@ import {
 	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
+import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
 import { Box, VStack, FlatList, Heading } from 'native-base'

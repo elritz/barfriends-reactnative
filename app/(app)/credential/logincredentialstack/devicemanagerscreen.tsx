@@ -1,4 +1,4 @@
-import DeviceManagerScreen from '@navigation/screens/credential/login/devicemanager/DeviceManager'
+import DeviceManagerScreen from '@screens/credential/login/devicemanager/DeviceManager'
 
 export default () => {
 	return <DeviceManagerScreen />

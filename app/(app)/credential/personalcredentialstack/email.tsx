@@ -1,4 +1,4 @@
-import EmailScreen from '@navigation/screens/credential/email/EmailScreen'
+import EmailScreen from '@screens/credential/email/EmailScreen'
 
 export default () => {
 	return <EmailScreen />

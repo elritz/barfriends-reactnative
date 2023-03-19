@@ -1,4 +1,4 @@
-import UserProfile from '@navigation/screens/hometabs/profile/Profile'
+import UserProfile from '@screens/hometabs/profile/Profile'
 
 export default () => {
 	return <UserProfile />

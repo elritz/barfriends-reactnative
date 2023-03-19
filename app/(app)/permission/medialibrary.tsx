@@ -1,4 +1,4 @@
-import MediaLibraryPermissionScreen from '@navigation/screens/permissions/medialibrary/MediaLibraryPermissionScreen'
+import MediaLibraryPermissionScreen from '@screens/permissions/medialibrary/MediaLibraryPermissionScreen'
 
 export default () => {
 	return <MediaLibraryPermissionScreen />

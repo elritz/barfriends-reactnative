@@ -1,4 +1,4 @@
-import GetStartedScreen from '@navigation/screens/credential/getstarted/GetStartedScreen'
+import GetStartedScreen from '@screens/credential/getstarted/GetStartedScreen'
 
 export default () => {
 	return <GetStartedScreen />

@@ -1,4 +1,4 @@
-import VenueFeedScreen from '@navigation/screens/hometabs/venuesfeed/VenueFeedScreen'
+import VenueFeedScreen from '@screens/hometabs/venuesfeed/VenueFeedScreen'
 
 export default () => {
 	return <VenueFeedScreen />

@@ -1,4 +1,4 @@
-import AnimatedSplashScreen from '@navigation/screens/Splashscreen/AnimatedSplashScreen'
+import AnimatedSplashScreen from '@screens/Splashscreen/AnimatedSplashScreen'
 import { useEffect, useState } from 'react'
 
 function AnimatedAppLoader({ children, assets }) {

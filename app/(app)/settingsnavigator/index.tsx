@@ -1,4 +1,4 @@
-import ProfileSettingsOptionsScreen from '@navigation/screens/settings/profilesettingoptions/ProfileSettingsOptionsScreen'
+import ProfileSettingsOptionsScreen from '@screens/settings/profilesettingoptions/ProfileSettingsOptionsScreen'
 
 export default () => {
 	return <ProfileSettingsOptionsScreen />

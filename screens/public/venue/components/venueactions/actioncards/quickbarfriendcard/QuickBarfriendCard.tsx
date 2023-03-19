@@ -7,7 +7,7 @@ import { Box, Button, Heading, Pressable, useDisclose, VStack } from 'native-bas
 import { useState } from 'react'
 import QRCode from 'react-native-qrcode-svg'
 
-const LOGO_COASTER = require('../../../../../../../../assets/images/company/company_coaster.png')
+const LOGO_COASTER = require('../../../../../../../assets/images/company/company_coaster.png')
 
 type Props = {
 	qrcodesize: number

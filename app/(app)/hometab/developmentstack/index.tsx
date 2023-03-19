@@ -1,4 +1,4 @@
-import DevelopmentScreen from '@navigation/screens/hometabs/development/DevelopmentScreen'
+import DevelopmentScreen from '@screens/hometabs/development/DevelopmentScreen'
 
 export default () => {
 	return <DevelopmentScreen />

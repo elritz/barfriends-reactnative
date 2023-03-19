@@ -1,4 +1,4 @@
-import CodeScreen from '@navigation/screens/credential/code/CodeScreen'
+import CodeScreen from '@screens/credential/code/CodeScreen'
 
 export default () => {
 	return <CodeScreen />

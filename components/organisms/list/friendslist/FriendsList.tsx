@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { CardFullImageNameEmoji } from '@components/molecules/personal/CardFullImageNameEmoji'
-import { FriendsListEmptyState } from '@navigation/screens/hometabs/profile/friendslist/FriendsListEmptyState'
 import { AuthorizationReactiveVar } from '@reactive'
+import { FriendsListEmptyState } from '@screens/hometabs/profile/friendslist/FriendsListEmptyState'
 import { Box, Divider, HStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 

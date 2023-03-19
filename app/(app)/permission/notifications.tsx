@@ -1,4 +1,4 @@
-import NotificationsPermissionScreen from '@navigation/screens/permissions/notifications/NotificationsPermissionScreen'
+import NotificationsPermissionScreen from '@screens/permissions/notifications/NotificationsPermissionScreen'
 
 export default () => {
 	return <NotificationsPermissionScreen />

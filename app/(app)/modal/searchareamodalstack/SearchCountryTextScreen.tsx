@@ -1,4 +1,4 @@
-import SearchAreaCountries from '@navigation/screens/search/searcharea/SearchAreaCountries'
+import SearchAreaCountries from '@screens/search/searcharea/SearchAreaCountries'
 
 export default function SearchCountryTextScreen() {
 	return <SearchAreaCountries />
