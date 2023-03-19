@@ -19,12 +19,6 @@ const HomeTownScreen = ({}: HomeTownScreenProps) => {
 	const colorScheme = useThemeColorScheme()
 	const [search, setSearch] = useState<string>('')
 
-	const handleLocationPermissionNavigation = async () => {
-		navigation.navigate('PermissionNavigator', {
-			screen: 'ForegroundLocationPermissionScreen',
-		})
-	}
-
 	const {
 		control,
 		setError,

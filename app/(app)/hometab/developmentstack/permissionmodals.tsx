@@ -10,7 +10,7 @@ export default function Preferences() {
 					name: 'Foreground Location',
 					route: () => {
 						router.push({
-							pathname: '/(app)/permissionnavigator/foregroundlocation',
+							pathname: '(app)/permission/foregroundlocation',
 						})
 					},
 				},
@@ -18,7 +18,7 @@ export default function Preferences() {
 					name: 'Background Location',
 					route: () => {
 						router.push({
-							pathname: '/(app)/permissionnavigator/backgroundlocation',
+							pathname: '(app)/permission/backgroundlocation',
 						})
 					},
 				},
@@ -26,7 +26,7 @@ export default function Preferences() {
 					name: 'Notifications',
 					route: () => {
 						router.push({
-							pathname: '/(app)/permissionnavigator/notifications',
+							pathname: '(app)/permission/notifications',
 						})
 					},
 				},
@@ -34,7 +34,7 @@ export default function Preferences() {
 					name: 'Media Library',
 					route: () => {
 						router.push({
-							pathname: '/(app)/permissionnavigator/medialibrary',
+							pathname: '(app)/permission/medialibrary',
 						})
 					},
 				},

@@ -3,16 +3,17 @@ import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useRouter } from 'expo-router'
 import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
 
 const EmailScreen = () => {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const headerHeight = useHeaderHeight()
 	const colorScheme = useThemeColorScheme()
 	const emailRef = useRef<TextInput>()
@@ -51,13 +52,10 @@ const EmailScreen = () => {
 					})
 					break
 				case 'Code':
-					navigation.navigate('credential', {
-						screen: 'PersonalCredentialStack',
+					router.push({
+						pathname: '(app)/credential/personalcredentialstack/confirmationcode',
 						params: {
-							screen: 'ConfirmationCodeScreen',
-							params: {
-								code: data.sendAuthenticatorDeviceOwnerCode.code,
-							},
+							code: data.sendAuthenticatorDeviceOwnerCode.code,
 						},
 					})
 					break

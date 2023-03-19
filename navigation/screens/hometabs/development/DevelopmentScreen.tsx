@@ -268,7 +268,7 @@ const DevelopmentScreen = () => {
 			icon: 'albums',
 			onPress: () =>
 				router.push({
-					pathname: '/(app)/hometab/developmentstack/preferences',
+					pathname: '(app)/hometab/developmentstack/preferences',
 				}),
 		},
 		{
@@ -277,7 +277,7 @@ const DevelopmentScreen = () => {
 			icon: 'bookmarks',
 			onPress: () =>
 				router.push({
-					pathname: '/(app)/hometab/developmentstack/permissionmodals',
+					pathname: '(app)/hometab/developmentstack/permissionmodals',
 				}),
 		},
 		{
@@ -286,7 +286,7 @@ const DevelopmentScreen = () => {
 			icon: 'color-palette-sharp',
 			onPress: () =>
 				router.push({
-					pathname: '/(app)/hometab/developmentstack/theme',
+					pathname: '(app)/hometab/developmentstack/theme',
 				}),
 		},
 		{
@@ -310,7 +310,7 @@ const DevelopmentScreen = () => {
 			icon: 'color-palette-sharp',
 			onPress: () =>
 				router.push({
-					pathname: '/(app)/hometab/developmentstack/theme',
+					pathname: '(app)/hometab/developmentstack/theme',
 				}),
 		},
 		{

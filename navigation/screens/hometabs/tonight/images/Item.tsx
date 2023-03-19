@@ -1,8 +1,8 @@
 import { MARGIN, SIZE } from './Config'
 import { useReactiveVar } from '@apollo/client'
 import { MaterialIcons } from '@expo/vector-icons'
-import { StackActions, useIsFocused, useNavigation } from '@react-navigation/native'
 import { PermissionMediaReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { Image, Box, Icon, Text } from 'native-base'
 import { StyleSheet, View, Pressable, AppState } from 'react-native'
 
@@ -20,19 +20,17 @@ interface TileProps {
 }
 
 const Item = ({ uri, onPress }: TileProps) => {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rPermissionMedia = useReactiveVar(PermissionMediaReactiveVar)
 
 	return (
 		<Pressable
 			onPress={() => {
-				rPermissionMedia.granted
+				rPermissionMedia?.granted
 					? onPress()
-					: navigation.dispatch(
-							StackActions.push('PermissionNavigator', {
-								screen: 'MediaLibraryPermissionScreen',
-							}),
-					  )
+					: router.push({
+							pathname: '(app)/permission/medialibrary',
+					  })
 			}}
 		>
 			<View style={styles.container} pointerEvents='none'>

@@ -1,21 +1,21 @@
 import { useReactiveVar } from '@apollo/client'
 import { FontAwesome5 } from '@expo/vector-icons'
-// import { useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
-import { VStack, Heading, HStack, Icon, IconButton, Box, View, Pressable } from 'native-base'
+import { useRouter } from 'expo-router'
+import { VStack, Heading, HStack, Icon, View, Pressable } from 'native-base'
 
 export default function VenuesFeedSearchAreaHeader() {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	// const navigation = useNavigation()
+	const router = useRouter()
 	if (!rSearchAreaVar?.searchArea.city.name) return null
 
 	return (
 		<VStack alignItems={'flex-start'} mx={2} mb={3}>
 			<Pressable
 				onPress={() => {
-					// navigation.navigate('modal', {
-					// 	screen: 'SearchAreaModalStack',
-					// })
+					router.push({
+						pathname: '(app)/modal/searchareamodal',
+					})
 				}}
 			>
 				<Heading lineHeight={'xs'} fontSize={'md'} fontWeight={'bold'}>

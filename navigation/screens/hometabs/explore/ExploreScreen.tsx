@@ -1,12 +1,13 @@
 import ShowCaseScroll from './ShowCaseScroll'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS } from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
+import { useRouter } from 'expo-router'
 import { Box, FlatList, Image, Pressable, Text } from 'native-base'
 import { View, useWindowDimensions } from 'react-native'
 
 const ExploreScreen = () => {
 	const { width } = useWindowDimensions()
-
+	const router = useRouter()
 	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
 	const height = width * (1.25 / numColumns)
 	const { data, loading, error } = useProfilesQuery({
@@ -46,13 +47,12 @@ const ExploreScreen = () => {
 									flex={1}
 									alignSelf={''}
 									onPress={() => {
-										console.log('navigate to personal page')
-										// navigation.navigate('PublicNavigator', {
-										// 	screen: 'PersonalStack',
-										// 	params: {
-										// 		screen: 'PublicPersonalScreen',
-										// 	},
-										// })
+										router.push({
+											pathname: '(app)/public/personal',
+											params: {
+												profileid: item.item.id,
+											},
+										})
 									}}
 								>
 									<Image

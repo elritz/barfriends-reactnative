@@ -7,7 +7,6 @@ import ForegroundLocationPermissionFullSection from '@components/molecules/permi
 import PreferenceBackgroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceBackgroundLocationPermissionFullSection'
 import { ProfileType, ProfileVenue, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import VerticalVenueFeedVenueItem from '@navigation/screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
-import UberButton from '@navigation/screens/public/venue/components/venueactions/actioncards/ubercard/UberButton'
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
@@ -15,10 +14,9 @@ import {
 	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
-import { Image } from 'expo-image'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, VStack, FlatList, Heading, HStack } from 'native-base'
+import { Box, VStack, FlatList, Heading } from 'native-base'
 import React, { useEffect, useRef, useState } from 'react'
 import { AppState, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -92,39 +90,6 @@ const VenueFeedScreen = () => {
 	const listHeaderComponent = () => {
 		return (
 			<VStack w={'full'} space={4}>
-				{/* <VStack h={height * 0.6}>
-					<Image
-						style={{
-							flex: 1,
-							width: '100%',
-							backgroundColor: '#0553',
-						}}
-						source='https://picsum.photos/seed/696/3000/2000'
-						placeholder={blurhash}
-						contentFit='cover'
-						transition={1000}
-					/>
-					<Box
-						px={2}
-						py={3}
-						_dark={{ backgroundColor: 'dark.50' }}
-						_light={{ backgroundColor: 'light.50' }}
-					>
-						<Box>
-							<Heading size={'lg'} fontWeight={'black'} numberOfLines={1}>
-								THE SHED
-							</Heading>
-							<Heading size={'sm'} fontWeight={700} numberOfLines={1}>
-								#THE SHED
-							</Heading>
-						</Box>
-						<HStack pt={3}>
-							<UberButton params={{ profileid: 'VENUE ID' }} />
-							<UberButton params={{ profileid: 'VENUE ID' }} />
-						</HStack>
-					</Box>
-				</VStack> */}
-				{/* {<VenuesFeedSearchAreaHeader />} */}
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 					<VenueFeedSignupCard />
 				)}

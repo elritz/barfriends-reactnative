@@ -27,7 +27,7 @@ export type ConfigurationParamList = {
 export type RootNavigatorParamList = {
 	HomeTabNavigator: NavigatorScreenParams<HomeTabNavigatorParamList> | undefined
 	CredentialNavigator: NavigatorScreenParams<CredentialNavigatorParamList> | undefined
-	PermissionNavigator: NavigatorScreenParams<PermissionNavigatorParamList> | undefined
+	permission: NavigatorScreenParams<permissionParamList> | undefined
 	ProfileSettingsNavigator: NavigatorScreenParams<ProfileSettingsNavigatorParamList> | undefined
 	PublicNavigator: NavigatorScreenParams<PublicNavigatorParamList> | undefined
 	ModalNavigator: NavigatorScreenParams<ModalNavigatorParamList> | undefined

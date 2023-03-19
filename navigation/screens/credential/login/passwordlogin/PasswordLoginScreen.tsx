@@ -88,14 +88,8 @@ const PasswordLoginScreen = () => {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					router.push({
-						pathname: '(app)/hometab',
+						pathname: '(app)/hometab/venuefeedstack',
 					})
-					// navigation.navigate('hometab', {
-					// 	screen: 'VenueFeedStack',
-					// 	params: {
-					// 		screen: 'VenueFeedScreen',
-					// 	},
-					// })
 				}
 			},
 		})

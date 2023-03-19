@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { Profile, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { HStack, useDisclose, IconButton, Icon, VStack, Box, Button, Text } from 'native-base'
 import { useState } from 'react'
 
@@ -14,7 +15,7 @@ type Props = {
 }
 
 export default function Actions({ profile }: Props) {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [showMore, setShowMore] = useState(false)
 	const {
@@ -82,10 +83,10 @@ export default function Actions({ profile }: Props) {
 					onPress={() => {
 						isGuest
 							? onOpenSignupModal()
-							: navigation.navigate('MessageRoomNavigator', {
-									screen: 'MessagingRoomScreen',
+							: router.push({
+									pathname: '(app)/messages',
 									params: {
-										messageroomId: '',
+										roomid: '',
 									},
 							  })
 					}}

@@ -61,7 +61,7 @@ export default function PreferenceNotificationPermission() {
 						<Button
 							onPress={() =>
 								router.push({
-									pathname: '(app)/permissionnavigator/notifications',
+									pathname: '(app)/permission/notifications',
 								})
 							}
 							size={'sm'}

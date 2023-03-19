@@ -169,7 +169,7 @@ const PhotoScreen = () => {
 			}
 		} else {
 			router.push({
-				pathname: '(app)/permission/medialibrary',
+				pathname: '(app)/permissions/medialibrary',
 			})
 		}
 	}, [rPermissionMediaReactiveVar, mediaLoading])

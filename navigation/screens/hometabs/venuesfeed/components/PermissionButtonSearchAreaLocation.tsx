@@ -13,9 +13,6 @@ export default function PermissionButtonSearchAreaLocation() {
 		route.push({
 			pathname: 'modal/searchareamodalstack',
 		})
-		// navigation.navigate('PermissionNavigator', {
-		// 	screen: 'ForegroundLocationPermissionSearchAreaScreen',
-		// })
 	}
 
 	return (

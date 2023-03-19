@@ -1,10 +1,9 @@
 import { Profile } from '@graphql/generated'
-// import { useNavigation } from '@react-navigation/native'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
+import { useRouter } from 'expo-router'
 import { Image, VStack } from 'native-base'
 import { Box, Heading } from 'native-base'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Dimensions, Pressable, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -18,7 +17,7 @@ type Props = {
 }
 
 const HorizontalVenueFeedVenueItem = (props: Props) => {
-	// const navigation = useNavigation()
+	const router = useRouter()
 	const [hideBlur, setHideBlur] = useState(false)
 
 	if (!props.item || props.loading) return null
@@ -39,17 +38,14 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 		<Pressable
 			key={props.item.id}
 			onPress={() => {
-				// navigation.navigate('PublicNavigator', {
-				// 	screen: 'VenueStack',
-				// 	params: {
-				// 		screen: 'PublicVenueScreen',
-				// 		params: {
-				// 			profileId: String(props.item.id),
-				// 			latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
-				// 			longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
-				// 		},
-				// 	},
-				// })
+				router.push({
+					pathname: '(app)/public/venue',
+					params: {
+						profileid: String(props.item.id),
+						latitude: Number(props.item.Venue?.Location?.Geometry?.latitude),
+						longitude: Number(props.item.Venue?.Location?.Geometry?.longitude),
+					},
+				})
 			}}
 		>
 			<VStack

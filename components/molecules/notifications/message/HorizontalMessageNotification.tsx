@@ -43,12 +43,10 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 		>
 			<Pressable
 				onPress={() => {
-					navigation.navigate('MessageRoomNavigator', {
-						screen: 'MessagingRoomScreen',
-						params: {
-							messageroomId: 'HELLO',
-						},
-					})
+					console.warn('TODO -> Create message navigator')
+					// router.push({
+					// 	pathname: '(app)/permission/medialibrary',
+					// })
 				}}
 				h={'75px'}
 			>

@@ -1,10 +1,9 @@
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
 import { Heading, Button, Icon, Text, Box } from 'native-base'
 
 export const FriendsListEmptyState = () => {
-	const navigation = useNavigation()
-
+	const router = useRouter()
 	return (
 		<Box
 			my={5}
@@ -36,13 +35,10 @@ export const FriendsListEmptyState = () => {
 				borderRadius={'lg'}
 				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
 				onPress={() => {
-					navigation.navigate('hometab', {
-						screen: 'ExploreStack',
+					router.push({
+						pathname: '(app)/hometab/expore/explorestack/searchtext',
 						params: {
-							screen: 'SearchTextScreen',
-							params: {
-								searchText: '',
-							},
+							searchText: '',
 						},
 					})
 				}}

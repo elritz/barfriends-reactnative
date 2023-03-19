@@ -1,26 +1,21 @@
-import { useReactiveVar } from '@apollo/client'
+import { SearchAreaStackParamList } from '@ctypes/app'
 import { Feather } from '@expo/vector-icons'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
-import { Form, HorizontalStateItemProps } from '@navigation/stacks/searcharea/SearchAreaStack'
-import { RouteProp, StackActions, useNavigation, useRoute } from '@react-navigation/native'
-import { SearchAreaReactiveVar, SearchReactiveVar } from '@reactive'
+import { RouteProp } from '@react-navigation/native'
+import { Form } from 'app/(app)/modal/searchareamodalstack/_layout'
+import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
 import { Button, Text, Icon, Center } from 'native-base'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { SearchAreaStackParamList } from 'src/types/app'
-
-export type SearchCountryStatesTextScreenRouteProp = RouteProp<
-	SearchAreaStackParamList,
-	'SearchCountryStatesTextScreen'
->
 
 export default function SearchAreaCountryStates() {
 	const { bottom } = useSafeAreaInsets()
-	const navigation = useNavigation()
-	const route = useRoute<SearchCountryStatesTextScreenRouteProp>()
+	const router = useRouter()
+	const params = useSearchParams()
+
 	const [countryStates, setCountryStates] = useState<Array<StateResponseObject>>([])
 	const [pagination, setPagination] = useState<number>()
 	const formContext = useFormContext<Form>()
@@ -28,9 +23,9 @@ export default function SearchAreaCountryStates() {
 	const { watch, getValues, setValue } = formContext
 
 	const { data, loading, error } = useGetAllStatesByCountryQuery({
-		skip: !route.params.country,
+		skip: !String(params.params?.country),
 		variables: {
-			countryIsoCode: route.params.country,
+			countryIsoCode: String(params.params?.country),
 		},
 		onCompleted: data => {
 			setCountryStates(data.getAllStatesByCountry)
@@ -66,7 +61,7 @@ export default function SearchAreaCountryStates() {
 		}
 	}, [watch('searchtext')])
 
-	if (!route.params.country) {
+	if (!params.params.country) {
 		return (
 			<Center p={10}>
 				<Text fontSize={'lg'}> No country provided</Text>
@@ -125,15 +120,11 @@ export default function SearchAreaCountryStates() {
 									longitude: Number(item.longitude),
 								},
 							})
-							navigation.dispatch(StackActions.pop())
-							navigation.navigate('modal', {
-								screen: 'SearchAreaModalStack',
+							router.replace({
+								pathname: '(app)/modal/searchareastack/SearchStateCitiesTextScreen',
 								params: {
-									screen: 'SearchStateCitiesTextScreen',
-									params: {
-										country: item.countryCode,
-										state: item.isoCode,
-									},
+									country: item.countryCode,
+									state: item.isoCode,
 								},
 							})
 						}}

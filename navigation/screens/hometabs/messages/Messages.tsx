@@ -2,15 +2,15 @@ import { useReactiveVar } from '@apollo/client'
 import HorizontalMessageNotification from '@components/molecules/notifications/message/HorizontalMessageNotification'
 import { Ionicons } from '@expo/vector-icons'
 import GenerateMessageData from '@helpers/generate/placeholder/GenerateMessagesData'
-import { useNavigation } from '@react-navigation/native'
 import { PermissionNotificationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { Heading, HStack, Icon, FlatList, Box } from 'native-base'
 import { useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Messages = () => {
 	const _flatListView = useRef()
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
 	const data = GenerateMessageData(5, 2)
 
@@ -26,9 +26,8 @@ const Messages = () => {
 						color={'secondary.500'}
 						style={{}}
 						onPress={() =>
-							navigation.navigate('PermissionNavigator', {
-								screen: 'NotificationsPermissionScreen',
-								// screen: 'ForegroundLocationPermissionScreen',
+							router.push({
+								pathname: '(app)/permission/notifications',
 							})
 						}
 					/>

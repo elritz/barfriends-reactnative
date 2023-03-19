@@ -74,24 +74,15 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 
 	const handleLocationSearchAreaModalNavigation = async () => {
 		router.push({
-			pathname: '(app)/',
-		})
-		navigation.navigate('modal', {
-			screen: 'SearchAreaModalStack',
-			params: {
-				screen: 'SearchAreaModal',
-			},
+			pathname: '(app)/modal/searchareamodalstack',
 		})
 	}
 
 	const handleRequestForegroundLocationPermission = async () => {
 		const success = await useSetSearchAreaWithLocation()
 		if (success) {
-			navigation.navigate('hometab', {
-				screen: 'VenueFeedStack',
-				params: {
-					screen: 'VenueFeedScreen',
-				},
+			router.push({
+				pathname: '(app)/hometab',
 			})
 		}
 	}

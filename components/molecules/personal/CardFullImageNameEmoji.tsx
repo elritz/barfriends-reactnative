@@ -2,6 +2,7 @@ import { Relationship } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useRouter } from 'expo-router'
 import { Box, Image, Pressable, Text } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
@@ -12,20 +13,17 @@ interface CardFullImageNameEmojiProps {
 
 export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmojiProps) => {
 	const { width } = useWindowDimensions()
-	const navigation = useNavigation()
+	const router = useRouter()
 	if (!item) {
 		return null
 	}
 	return (
 		<Pressable
 			onPress={() => {
-				navigation.navigate('PublicNavigator', {
-					screen: 'PersonalStack',
+				router.push({
+					pathname: '(app)/public/personal',
 					params: {
-						screen: 'PublicPersonalScreen',
-						params: {
-							profileId: item?.friendProfile?.id,
-						},
+						profileid: item?.friendProfile?.id,
 					},
 				})
 			}}

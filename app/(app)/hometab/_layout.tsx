@@ -71,10 +71,10 @@ export default () => {
 				}}
 			/>
 			<Tabs.Screen
-				name='searchstack'
+				name='explorestack'
 				options={{
 					headerShown: false,
-					tabBarLabel: 'search',
+					tabBarLabel: 'explore',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
 				}}

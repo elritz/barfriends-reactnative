@@ -46,8 +46,8 @@ export default function MediaPermissionFullSection() {
 						</Text>
 						<Button
 							onPress={() =>
-								navigation.navigate('PermissionNavigator', {
-									screen: 'MediaLibraryPermissionScreen',
+								router.push({
+									pathname: '(app)/permission/medialibrary',
 								})
 							}
 							size={'sm'}

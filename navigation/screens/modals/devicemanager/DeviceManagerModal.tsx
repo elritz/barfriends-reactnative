@@ -1,6 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import WithDeviceProfiles from '@components/molecules/asks/signinup/withdeviceprofiles/WithDeviceProfiles'
-import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
@@ -8,16 +6,14 @@ import {
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { StackActions, useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, Pressable } from 'native-base'
+import { useRouter } from 'expo-router'
 import { useState } from 'react'
-import { SafeAreaView, View, ScrollView } from 'react-native'
 
 // TODO: FN(What functionality was suppose to be here)
 
 export default function DeviceManagerModal() {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
@@ -39,13 +35,11 @@ export default function DeviceManagerModal() {
 				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					setTimeout(() => navigation.dispatch(StackActions.popToTop()), 1000)
-					// navigation.navigate('hometab', {
-					// 	screen: 'VenueFeedStack',
-					// 	params: {
-					// 		screen: 'VenueFeedScreen',
-					// 	},
-					// })
+					setTimeout(() => {
+						router.push({
+							pathname: '(app)/hometab',
+						})
+					}, 1000)
 				}
 			},
 		})

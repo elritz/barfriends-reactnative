@@ -1,12 +1,12 @@
 import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskNotificationPermissionType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
 import { DateTime } from 'luxon'
 import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
 const NotificationsNextAskModal = ({ isOpen, onOpen, onClose }) => {
-	const navigation = useNavigation()
+	const router = useRouter()
 
 	const PreferenceNotificationsPermissionInitialState: LocalStoragePreferenceAskNotificationPermissionType =
 		{
@@ -49,8 +49,8 @@ const NotificationsNextAskModal = ({ isOpen, onOpen, onClose }) => {
 							<Divider />
 							<Button
 								onPress={() =>
-									navigation.navigate('PermissionNavigator', {
-										screen: 'NotificationsPermissionScreen',
+									router.push({
+										pathname: '(app)/permission/notifications',
 									})
 								}
 								variant={'ghost'}

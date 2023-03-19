@@ -1,19 +1,19 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import { useGetAllCountriesQuery } from '@graphql/generated'
-import { Form, HorizontalCountryItemProps } from '@navigation/stacks/searcharea/SearchAreaStack'
-import { StackActions, useNavigation } from '@react-navigation/native'
 import { SearchAreaReactiveVar } from '@reactive'
+import { Form, HorizontalCountryItemProps } from 'app/(app)/modal/searchareamodalstack/_layout'
+import { useRouter } from 'expo-router'
 import { filter } from 'lodash'
 import { Button, Icon, Text } from 'native-base'
-import { SetStateAction, useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FlatList, Pressable, ListRenderItemInfo } from 'react-native'
+import { FlatList, ListRenderItemInfo } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchAreaCountries() {
 	const { bottom } = useSafeAreaInsets()
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const [countries, setCountries] = useState<HorizontalCountryItemProps[]>([])
 	const [pagination, setPagination] = useState<number>()
@@ -103,14 +103,10 @@ export default function SearchAreaCountries() {
 								},
 							})
 							setValue('searchtext', '')
-							navigation.dispatch(StackActions.pop())
-							navigation.navigate('modal', {
-								screen: 'SearchAreaModalStack',
+							router.push({
+								pathname: '(app)/modal/searchareamodalstack',
 								params: {
-									screen: 'SearchCountryStatesTextScreen',
-									params: {
-										country: item.isoCode,
-									},
+									country: item.isoCode,
 								},
 							})
 						}}

@@ -61,7 +61,7 @@ export default function PreferenceBackgroundLocationPermissionFullSection() {
 								<Button
 									onPress={() =>
 										router.push({
-											pathname: '(app)/permissionnavigator/bakgroundlocation',
+											pathname: '(app)/permission/bakgroundlocation',
 										})
 									}
 									size={'sm'}

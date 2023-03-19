@@ -1,15 +1,14 @@
-import { LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION } from '@constants/StorageConstants'
-import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@preferences'
+import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION } from '@constants/StorageConstants'
+import { LocalStoragePreferenceAskNotificationPermissionType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { PreferenceForegroundLocationPermissionInitialState } from '@reactive'
 import { useRouter } from 'expo-router'
 import { DateTime } from 'luxon'
 import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
-const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
+const NotificationsNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	const router = useRouter()
 
-	const PreferenceBackgroundLocationPermissionInitialState: LocalStoragePreferenceAskBackgroundLocationPermissionType =
+	const PreferenceNotificationsPermissionInitialState: LocalStoragePreferenceAskNotificationPermissionType =
 		{
 			dateToShowAgain: DateTime.now().plus({ days: 7 }),
 			canShowAgain: true,
@@ -27,14 +26,15 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 						}}
 					>
 						<Text fontSize={'lg'} pb={3}>
-							Allow foreground location, it helps you to go out, join bars and find events.
+							Allow notifications, get notified when your friends invite you out, join bars and events in
+							your area.
 						</Text>
 						<VStack space={2}>
 							<Button
 								onPress={async () => {
 									await AsyncStorage.setItem(
-										LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-										JSON.stringify(PreferenceForegroundLocationPermissionInitialState),
+										LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+										JSON.stringify(PreferenceNotificationsPermissionInitialState),
 									)
 									onClose()
 								}}
@@ -50,7 +50,7 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 							<Button
 								onPress={() =>
 									router.push({
-										pathname: 'permissionnavigator/foregroundlocation',
+										pathname: '(app)/permission/notifications',
 									})
 								}
 								variant={'ghost'}
@@ -69,4 +69,4 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	)
 }
 
-export default ForegroundLocationNextAskModal
+export default NotificationsNextAskModal

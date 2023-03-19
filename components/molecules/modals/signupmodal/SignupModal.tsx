@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
 import { Button, Modal } from 'native-base'
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 	onClose: () => void
 }
 export default function SignupModal({ isOpen, onClose }: Props) {
-	const navigation = useNavigation()
+	const router = useRouter()
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<Modal.Content w={'95%'}>
@@ -25,11 +26,8 @@ export default function SignupModal({ isOpen, onClose }: Props) {
 						colorScheme='primary'
 						onPress={() => {
 							onClose()
-							navigation.navigate('credential', {
-								screen: 'PersonalCredentialStack',
-								params: {
-									screen: 'GetStartedScreen',
-								},
+							router.push({
+								pathname: '(app)/credential/personalcredentialstack/getstarted',
 							})
 						}}
 					>

@@ -10,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
+import { useRouter } from 'expo-router'
 import {
 	Button,
 	IconButton,
@@ -32,7 +33,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 	item,
 }: CondensedHorizontalFriendNotifciationProps) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const navigation = useNavigation()
+	const router = useRouter()
 	const {
 		isOpen: isOpenCancelFriendNotification,
 		onOpen: onOpenCancelFriendNotification,
@@ -102,13 +103,10 @@ export const CondensedHorizontalFriendNotifciation = ({
 				<HStack justifyContent={'space-between'} alignItems={'center'}>
 					<Pressable
 						onPress={() => {
-							navigation.navigate('PublicNavigator', {
-								screen: 'PersonalStack',
+							router.push({
+								pathname: '(app)/public/personal',
 								params: {
-									screen: 'PublicPersonalScreen',
-									params: {
-										profileId: String(item.receiverProfile?.id),
-									},
+									profileid: String(item.receiverProfile?.id),
 								},
 							})
 						}}
@@ -166,13 +164,10 @@ export const CondensedHorizontalFriendNotifciation = ({
 				<HStack justifyContent={'space-between'}>
 					<Pressable
 						onPress={() => {
-							navigation.navigate('PublicNavigator', {
-								screen: 'PersonalStack',
+							router.push({
+								pathname: '(app)/public/personal',
 								params: {
-									screen: 'PublicPersonalScreen',
-									params: {
-										profileId: String(item.senderProfile?.id),
-									},
+									profileid: String(item.senderProfile?.id),
 								},
 							})
 						}}

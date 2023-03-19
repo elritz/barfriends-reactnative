@@ -1,27 +1,56 @@
 import { useReactiveVar } from '@apollo/client'
-import ExploreSearchInputDisabled from '@components/molecules/search/explore/ExploreSearchInputDisabled'
-import { Form } from '@navigation/stacks/searcharea/SearchAreaStack'
+import { PlaceType } from '@preferences'
 import { SearchAreaReactiveVar } from '@reactive'
 import { Stack, useSearchParams } from 'expo-router'
 import { Box, Input } from 'native-base'
 import { useContext, useEffect, useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
+export type HorizontalCityItemProps = {
+	countryCode: string
+	latitude: string
+	longitude: string
+	name: string
+	stateCode: string
+}
+export type HorizontalStateItemProps = {
+	countryCode: string
+	isoCode: string
+	latitude: string
+	longitude: string
+	name: string
+}
+
+export type HorizontalCountryItemProps = {
+	currency: string
+	flag?: string
+	isoCode: string
+	latitude: string
+	longitude: string
+	name: string
+	phonecode: string
+	timezones: Timezone[]
+}
+
+type Timezone = {
+	abbreviation: string
+	gmtOffset: string
+	gmtOffsetName: string
+	tzName: string
+	zoneName: string
+}
+
+export type Form = {
+	searchtext?: string
+	country: PlaceType
+	state: PlaceType
+	city: PlaceType
+	done: boolean
+}
+
 export default function _layout() {
 	const params = useSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-
-	const handleNavigationToNewSearchAreaForm = () => {
-		// navigation.navigate('modal', {
-		// 	screen: 'SearchAreaModalStack',
-		// 	params: {
-		// 		screen: 'SearchCountryTextScreen',
-		// 		params: {
-		// 			searchText: '',
-		// 		},
-		// 	},
-		// })
-	}
 
 	const searchBarTitle = useMemo(() => {
 		switch (params.screen) {

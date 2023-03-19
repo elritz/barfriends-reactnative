@@ -14,6 +14,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
+import { useRouter, useSearchParams } from 'expo-router'
 import { DateTime } from 'luxon'
 import {
 	Box,
@@ -36,10 +37,9 @@ import { DevelopmentStackParamList, hometabParamList } from 'src/types/app'
 export type DevelopmentTabRouteProp = RouteProp<DevelopmentStackParamList, 'ThemeViewer'>
 
 export default function ThemeViewer() {
-	const navigation = useNavigation()
-	const route = useRoute<DevelopmentTabRouteProp>()
+	const router = useRouter()
+	const params = useSearchParams()
 	const colorScheme = useColorScheme()
-	const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [toggleThemes] = useToggleTheme()
@@ -47,7 +47,7 @@ export default function ThemeViewer() {
 
 	const snapPoints = useMemo(() => ['45%', '95%'], [])
 
-	const theme = route.params.theme as Theme
+	const theme = params?.params?.theme as Theme
 	const created = DateTime.fromISO(theme.createdAt).toFormat('yyyy LLL dd')
 	const updated = DateTime.fromISO(theme.updatedAt).toFormat('yyyy LLL dd')
 
@@ -89,11 +89,6 @@ export default function ThemeViewer() {
 			theme.mobile[0].light.styled.palette.bfscompany.tertiary,
 		],
 	}
-
-	const handleSnapPress = useCallback(index => {
-		bottomSheetModalRef.current.present()
-		bottomSheetModalRef.current?.snapToIndex(index)
-	}, [])
 
 	const RenderTheme = useCallback(
 		({ item }) => {
@@ -158,14 +153,10 @@ export default function ThemeViewer() {
 				>
 					<Pressable
 						onPress={async () => {
-							bottomSheetModalRef.current.close()
-							navigation.navigate('hometab', {
-								screen: 'DevelopmentStack',
+							router.push({
+								pathname: '(app)/hometab/developmentstack/themeviewer',
 								params: {
-									screen: 'ThemeViewer',
-									params: {
-										theme: item,
-									},
+									theme: item,
 								},
 							})
 						}}
@@ -387,24 +378,15 @@ export default function ThemeViewer() {
 
 	return (
 		<SafeAreaView>
-			<BottomSheetModal
-				ref={bottomSheetModalRef}
-				snapPoints={snapPoints}
-				backgroundStyle={{
-					backgroundColor: rThemeVar.colorScheme === 'dark' ? 'black' : 'white',
+			<BottomSheetFlatList
+				data={GATData.getAllThemes}
+				keyExtractor={i => i}
+				numColumns={3}
+				renderItem={RenderTheme}
+				ListHeaderComponent={() => {
+					return <ThemeColorScheme />
 				}}
-			>
-				<BottomSheetFlatList
-					data={GATData.getAllThemes}
-					keyExtractor={i => i}
-					numColumns={3}
-					renderItem={RenderTheme}
-					ListHeaderComponent={() => {
-						return <ThemeColorScheme />
-					}}
-				/>
-			</BottomSheetModal>
-
+			/>
 			<ScrollView
 				mt={70}
 				contentInset={{

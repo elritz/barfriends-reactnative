@@ -7,11 +7,11 @@ import {
 	useEmojimoodsQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
+import { useRouter } from 'expo-router'
 import { Text, Icon, Center, IconButton, Box, Image } from 'native-base'
 import { useContext } from 'react'
 import { FlatList, Pressable, SafeAreaView, useWindowDimensions } from 'react-native'
@@ -22,7 +22,7 @@ import { ThemeContext } from 'styled-components/native'
 const EmojimoodScreen = () => {
 	const insets = useSafeAreaInsets()
 	const window = useWindowDimensions()
-	const navigation = useNavigation()
+	const router = useRouter()
 	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const colorScheme = useThemeColorScheme()
@@ -33,12 +33,8 @@ const EmojimoodScreen = () => {
 				if (data.switchDeviceProfile.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-
-					navigation.navigate('hometab', {
-						screen: 'VenueFeedStack',
-						params: {
-							screen: 'VenueFeedScreen',
-						},
+					router.push({
+						pathname: '(app)/hometab/venuefeedstack',
 					})
 				}
 			},

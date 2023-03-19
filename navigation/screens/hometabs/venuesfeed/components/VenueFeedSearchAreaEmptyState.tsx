@@ -4,8 +4,7 @@ import { useRouter } from 'expo-router'
 import { Box, Icon, VStack, Button, Text } from 'native-base'
 
 export default function VenueFeedSearchAreaEmptyState() {
-	// const navigation = useNavigation()
-	const route = useRouter()
+	const router = useRouter()
 	return (
 		<Box
 			mb={2}
@@ -43,12 +42,9 @@ export default function VenueFeedSearchAreaEmptyState() {
 				<PermissionButtonSearchAreaLocation />
 				<Button
 					onPress={() => {
-						// navigation.navigate('modal', {
-						// 	screen: 'SearchAreaModalStack',
-						// 	params: {
-						// 		screen: 'SearchAreaModal',
-						// 	},
-						// })
+						router.push({
+							pathname: '(app)/modal/searchareamodalstack',
+						})
 					}}
 					variant={'unstyled'}
 					w={'95%'}

@@ -1,18 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-// import { useNavigation } from '@react-navigation/native'
 import { PermissionNotificationReactiveVar } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
+import { useRouter } from 'expo-router'
 import { Button } from 'native-base'
 
 export default function SearchAreaLocationPermissionButton() {
-	// const navigation = useNavigation()
+	const router = useRouter()
 	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
-
-	const handleLocationPermissionNavigation = async () => {
-		// navigation.navigate('PermissionNavigator', {
-		// 	screen: 'NotificationsPermissionScreen',
-		// })
-	}
 
 	return (
 		<Button
@@ -20,7 +14,9 @@ export default function SearchAreaLocationPermissionButton() {
 			onPress={async () =>
 				rPermissionNotificationVar?.granted
 					? await useSetSearchAreaWithLocation()
-					: await handleLocationPermissionNavigation()
+					: router.push({
+							pathname: '(app)/permission/notifications',
+					  })
 			}
 			mt={15}
 			w={'85%'}

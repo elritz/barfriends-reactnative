@@ -13,7 +13,7 @@ export default function LocationPermission() {
 				rounded={'full'}
 				onPress={() =>
 					router.push({
-						pathname: '(app)/permissionnavigator/foregroundlocation',
+						pathname: '(app)/permission/foregroundlocation',
 					})
 				}
 			>

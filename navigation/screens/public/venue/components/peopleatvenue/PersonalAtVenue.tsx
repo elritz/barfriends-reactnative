@@ -1,5 +1,6 @@
 import { Personal, Profile } from '@graphql/generated'
 import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
 import { Center, Text, Image, Pressable } from 'native-base'
 import React from 'react'
 import { View, useWindowDimensions } from 'react-native'
@@ -13,7 +14,7 @@ type PersonalAtVenueProps = {
 
 const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 	const { width } = useWindowDimensions()
-	const navigation = useNavigation()
+	const router = useRouter()
 	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
 	const height = width * (1.25 / numColumns)
 
@@ -26,12 +27,12 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 			alignSelf={''}
 			onPress={() => {
 				console.log('navigate to personal page')
-				// navigation.navigate('PublicNavigator', {
-				// 	screen: 'PersonalStack',
-				// 	params: {
-				// 		screen: 'PublicPersonalScreen',
-				// 	},
-				// })
+				router.push({
+					pathname: '(app)/public/venue',
+					params: {
+						profileid: '',
+					},
+				})
 			}}
 		>
 			<Image

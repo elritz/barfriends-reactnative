@@ -1,8 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import {
 	Box,
 	Button,
@@ -20,7 +20,7 @@ import { StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
 export default function CurrentVenue() {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const [hideBlur, setHideBlur] = useState(false)
 	const { isOpen, onClose, onOpen, onToggle } = useDisclose()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -64,17 +64,14 @@ export default function CurrentVenue() {
 		<Box bg={'white'} borderRadius={'lg'} h={220} my={3} mx={2}>
 			<Pressable
 				onPress={() => {
-					// navigation.navigate('PublicNavigator', {
-					// 	screen: 'VenueStack',
-					// 	params: {
-					// 		screen: 'PublicVenueScreen',
-					// 		params: {
-					// 			profileId: String(data.profile?.id),
-					// 			latitude: Number(data.profile?.Venue?.Location?.Geometry?.latitude),
-					// 			longitude: Number(data.profile?.Venue?.Location?.Geometry?.longitude),
-					// 		},
-					// 	},
-					// })
+					router.push({
+						pathname: '(app)/public/venue',
+						params: {
+							profileid: item?.friendProfile?.id,
+							latitude: Number(data.currentVenue?.Venue?.Location?.Geometry?.latitude),
+							longitude: Number(data.currentVenue?.Venue?.Location?.Geometry?.longitude),
+						},
+					})
 				}}
 			>
 				<Box
@@ -88,7 +85,7 @@ export default function CurrentVenue() {
 				>
 					{!loading ? (
 						<Image
-							source={{ uri: data.profile?.photos[0]?.url }}
+							source={{ uri: data.currentVenue?.photos[0]?.url }}
 							resizeMode='cover'
 							onLoadEnd={() => setHideBlur(true)}
 							style={{
@@ -101,7 +98,7 @@ export default function CurrentVenue() {
 					) : null}
 					{!hideBlur && (
 						<Blurhash
-							blurhash={String(data.profile?.photos[0]?.blurhash)}
+							blurhash={String(data.currentVenue?.photos[0]?.blurhash)}
 							style={{
 								flex: 1,
 							}}
@@ -129,7 +126,7 @@ export default function CurrentVenue() {
 								alignSelf={'flex-start'}
 								ellipsizeMode='tail'
 							>
-								{getTitleCase(data.profile?.IdentifiableInformation?.fullname)}
+								{getTitleCase(data.currentVenue?.IdentifiableInformation?.fullname)}
 							</Heading>
 						</Box>
 						<Box alignContent={'center'} justifyContent={'center'} px={2}>

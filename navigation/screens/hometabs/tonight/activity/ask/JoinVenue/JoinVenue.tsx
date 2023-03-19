@@ -1,12 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
 import { Box, Heading, Icon, IconButton } from 'native-base'
 import { Pressable, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
 const JoinVenue = ({}) => {
-	const navigation = useNavigation()
-	const { height, width } = useWindowDimensions()
+	const router = useRouter()
+
 	return (
 		<Box
 			flex={1}
@@ -25,14 +26,8 @@ const JoinVenue = ({}) => {
 		>
 			<Pressable
 				onPress={() => {
-					navigation.navigate('hometab', {
-						screen: 'ExploreStack',
-						params: {
-							screen: 'ExploreScreen',
-							params: {
-								searchText: '',
-							},
-						},
+					router.push({
+						pathname: '(app)/hometab/explorestack',
 					})
 				}}
 			>
