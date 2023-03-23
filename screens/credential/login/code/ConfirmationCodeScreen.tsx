@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { LoginStackParamList } from '@ctypes/app'
 import { Feather } from '@expo/vector-icons'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -37,8 +36,7 @@ const ConfirmationCodeScreen = () => {
 	const CELL_COUNT = 4
 	const { num, complete } = Countdown(9)
 	const [codeValue, setCodeValue] = useState('')
-	const keyboardVerticalOffset =
-		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
+
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 
 	const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -103,7 +101,6 @@ const ConfirmationCodeScreen = () => {
 			flexDir={'column'}
 			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
 			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 				{`Enter the 4-diget code sent to you at ${params.authenticator}`}

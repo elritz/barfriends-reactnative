@@ -1,4 +1,3 @@
-import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Entypo, Feather } from '@expo/vector-icons'
 import {
 	useAuthorizedProfilesLazyQuery,
@@ -22,9 +21,6 @@ export default function AuthenticatorScreen() {
 	const headerHeight = useHeaderHeight()
 	const colorScheme = useThemeColorScheme()
 	const [keyboardType, setKeyboardType] = useState('number-pad')
-
-	const keyboardVerticalOffset =
-		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 
 	const {
 		control,
@@ -152,7 +148,6 @@ export default function AuthenticatorScreen() {
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={keyboardVerticalOffset}
 			flex={1}
 			height={'auto'}
 			flexDirection={'column'}
@@ -168,7 +163,6 @@ export default function AuthenticatorScreen() {
 				control={control}
 				render={({ field: { onChange, onBlur, value } }) => (
 					<Input
-						// ref={inputRef}
 						key='authenticator'
 						keyboardAppearance={colorScheme}
 						variant={'underlined'}

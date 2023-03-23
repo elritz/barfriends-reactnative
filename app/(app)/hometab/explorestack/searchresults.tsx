@@ -1,7 +1,7 @@
-import { TOP_SEARCH_INPUT_HEIGHT, TOP_TAB_BAR_HEIGHT } from '@constants/Layout'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+	SEARCH_BAR_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { Box, ScrollView } from 'native-base'
 import { useState } from 'react'
@@ -39,19 +39,23 @@ const FirstRoute = () => {
 }
 
 const SecondRoute = () => <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+const ThirdRoute = () => <View style={{ flex: 1, backgroundColor: '#455552' }} />
 
 const renderScene = SceneMap({
 	first: FirstRoute,
 	second: SecondRoute,
+	third: ThirdRoute,
 })
 
 export default function searchresulttabs() {
 	const layout = useWindowDimensions()
-
+	const { top } = useSafeAreaInsets()
 	const [index, setIndex] = useState(0)
+
 	const [routes] = useState([
-		{ key: 'first', title: 'First' },
-		{ key: 'second', title: 'Second' },
+		{ key: 'first', title: 'Top' },
+		{ key: 'second', title: 'Account' },
+		{ key: 'third', title: 'Venues' },
 	])
 	return (
 		<TabView
@@ -59,7 +63,7 @@ export default function searchresulttabs() {
 			renderScene={renderScene}
 			onIndexChange={setIndex}
 			style={{
-				top: TOP_SEARCH_INPUT_HEIGHT + TOP_TAB_BAR_HEIGHT,
+				top: top + SEARCH_BAR_HEIGHT + 15,
 			}}
 			initialLayout={{ width: layout.width }}
 		/>

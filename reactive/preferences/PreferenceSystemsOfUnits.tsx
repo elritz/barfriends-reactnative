@@ -1,11 +1,6 @@
 import { makeVar } from '@apollo/client'
-import {
-	LocalStoragePreferenceAskSystemOfUnitsPermissionType,
-	LocalStoragePreferenceSystemsOfUnitsType,
-} from '@preferences'
+import { LocalStoragePreferenceSystemsOfUnitsType } from '@preferences'
 import { DateTime } from 'luxon'
-
-// import { LocalStoragePreferenceSystemsOfUnitsType, SystemsOfUnits } from '@preferences'
 
 export enum SystemsOfUnits {
 	Imperial = 'Imperial',
@@ -14,6 +9,7 @@ export enum SystemsOfUnits {
 
 export const PreferenceSystemsOfUnitsInitialState: LocalStoragePreferenceSystemsOfUnitsType = {
 	canShowAgain: true,
+	numberOfTimesDismissed: 0,
 	dateToShowAgain: DateTime.now(),
 	system: SystemsOfUnits.Metric,
 }

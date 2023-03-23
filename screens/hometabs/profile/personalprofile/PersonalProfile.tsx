@@ -1,7 +1,7 @@
 import { FriendsList } from '../friendslist'
 import ProfilePhoto from '../profilephoto'
 import { useReactiveVar } from '@apollo/client'
-import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
+import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import { GetNotificationsQuery, ProfileType } from '@graphql/generated'

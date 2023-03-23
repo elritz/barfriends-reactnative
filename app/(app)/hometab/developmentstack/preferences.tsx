@@ -2,15 +2,11 @@ import index from '../messagestack'
 import {
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
 } from '@constants/StorageConstants'
 import { Ionicons, Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-	PreferenceBackgroundLocationPermissionInitialState,
-	PreferencePermissionNotificationInitialState,
-	PreferenceForegroundLocationPermissionInitialState,
-} from '@reactive'
+import { NowPreferencePermissionInitialState } from '@reactive'
 import {
 	View,
 	Text,
@@ -34,7 +30,7 @@ export default function Preferences() {
 	const ITEM_HEIGHT = 60
 
 	// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
-	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION)
+	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS)
 	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS)
 	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION)
 	return (
@@ -53,8 +49,8 @@ export default function Preferences() {
 					icon: 'notifications',
 					onPress: async () => {
 						await AsyncStorage.setItem(
-							LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-							JSON.stringify(PreferencePermissionNotificationInitialState),
+							LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
+							JSON.stringify(NowPreferencePermissionInitialState),
 						)
 					},
 				},
@@ -65,7 +61,7 @@ export default function Preferences() {
 					onPress: async () => {
 						await AsyncStorage.setItem(
 							LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-							JSON.stringify(PreferenceForegroundLocationPermissionInitialState),
+							JSON.stringify(NowPreferencePermissionInitialState),
 						)
 					},
 				},
@@ -77,7 +73,7 @@ export default function Preferences() {
 						setIsLoading(true)
 						await AsyncStorage.setItem(
 							LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
-							JSON.stringify(PreferenceBackgroundLocationPermissionInitialState),
+							JSON.stringify(NowPreferencePermissionInitialState),
 						)
 						setTimeout(() => {
 							setIsLoading(false)

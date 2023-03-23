@@ -1,11 +1,15 @@
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
-import { FontAwesome5, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { useRouter } from 'expo-router'
-import { Box, Icon, IconButton, Input } from 'native-base'
+import { Box, Icon, Input } from 'native-base'
+import { useContext } from 'react'
+import { ThemeContext } from 'styled-components/native'
 
-const VenueFeedSearchInput = () => {
-	const router = useRouter()
+type Props = {
+	onPress: () => void
+}
+
+const SearchInputDisabled = (props: Props) => {
 	const colorScheme = useThemeColorScheme()
 
 	return (
@@ -21,37 +25,29 @@ const VenueFeedSearchInput = () => {
 				_dark={{ bgColor: 'dark.200' }}
 				flex={1}
 				mx={2}
-				alignSelf={'center'}
-				placeholder={'Search venues'}
+				keyboardAppearance={colorScheme}
+				placeholder='Search'
+				editable={false}
+				value={''}
+				focusable={false}
+				isReadOnly
+				onFocus={props.onPress}
 				returnKeyType='search'
 				underlineColorAndroid='transparent'
-				keyboardAppearance={colorScheme}
 				InputLeftElement={
 					<Icon
-						as={Ionicons}
 						_light={{ color: 'light.400' }}
 						_dark={{ color: 'dark.400' }}
+						as={Ionicons}
 						name='ios-search'
 						size={'lg'}
 						ml={2}
 					/>
 				}
-				rightElement={
-					<IconButton
-						icon={<Icon as={FontAwesome5} name='filter' size={'md'} />}
-						onPress={() =>
-							router.push({
-								pathname: '(app)/searcharea',
-							})
-						}
-						_pressed={{
-							bg: 'transparent',
-						}}
-					/>
-				}
+				onPressIn={props.onPress}
 			/>
 		</Box>
 	)
 }
 
-export default VenueFeedSearchInput
+export default SearchInputDisabled

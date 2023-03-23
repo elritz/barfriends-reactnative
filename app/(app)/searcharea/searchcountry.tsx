@@ -1,9 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Feather } from '@expo/vector-icons'
 import { useGetAllCountriesQuery } from '@graphql/generated'
 import { SearchAreaReactiveVar } from '@reactive'
-import { Form, HorizontalCountryItemProps } from 'app/(app)/modal/searchareamodalstack/_layout'
-import { useRouter } from 'expo-router'
+import { Form, HorizontalCountryItemProps } from 'app/(app)/searcharea/_layout'
+import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
 import { Button, Icon, Text } from 'native-base'
 import { useEffect, useState } from 'react'
@@ -11,27 +12,26 @@ import { useFormContext } from 'react-hook-form'
 import { FlatList, ListRenderItemInfo } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-export default function SearchAreaCountries() {
-	const { bottom } = useSafeAreaInsets()
+export default function SearchCountryTextScreen() {
+	const { bottom, top } = useSafeAreaInsets()
 	const router = useRouter()
-	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const params = useSearchParams()
 	const [countries, setCountries] = useState<HorizontalCountryItemProps[]>([])
 	const [pagination, setPagination] = useState<number>()
 
-	const formContext = useFormContext<Form>()
-	const { watch, setValue } = formContext
+	const { watch, setValue } = useFormContext<Form>()
 
 	const { data, loading, error } = useGetAllCountriesQuery({
 		onCompleted: data => {
 			if (data.getAllCountries) {
-				setCountries(data.getAllCountries)
+				setCountries(data?.getAllCountries)
 				setPagination(data.getAllCountries.length / 4)
 			}
 		},
 	})
 
 	const filterList = text => {
-		if (!watch('searchtext').length && data?.getAllCountries.length) {
+		if (!params.searchtext.length && data?.getAllCountries.length) {
 			setCountries(data.getAllCountries)
 		}
 
@@ -49,10 +49,10 @@ export default function SearchAreaCountries() {
 	}
 
 	useEffect(() => {
-		if (watch('searchtext')) {
-			filterList(watch('searchtext'))
+		if (params.searchtext) {
+			filterList(params.searchtext)
 		}
-	}, [watch('searchtext')])
+	}, [params.searchtext])
 
 	if (loading) {
 		return <Text>Loading......</Text>
@@ -62,6 +62,7 @@ export default function SearchAreaCountries() {
 		<FlatList
 			data={countries.slice(0, pagination)}
 			contentInset={{
+				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
 			}}
 			onEndReached={() => setPagination(pagination + data.getAllCountries.length / 2)}
@@ -80,7 +81,6 @@ export default function SearchAreaCountries() {
 							justifyContent: 'space-between',
 						}}
 						mx={3}
-						my={1}
 						_light={{
 							bg: 'light.200',
 						}}
@@ -102,11 +102,10 @@ export default function SearchAreaCountries() {
 									longitude: Number(item.longitude),
 								},
 							})
-							setValue('searchtext', '')
 							router.push({
-								pathname: '(app)/modal/searchareamodalstack',
+								pathname: '(app)/searcharea/searchcountrystate',
 								params: {
-									country: item.isoCode,
+									countryIsoCode: item.isoCode,
 								},
 							})
 						}}

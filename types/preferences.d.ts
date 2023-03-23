@@ -9,6 +9,7 @@ export enum SystemsOfUnits {
 
 export type DefaultPreferenceToPermission = {
 	dateToShowAgain: DateTime
+	numberOfTimesDismissed: number
 	canShowAgain: boolean
 }
 
@@ -16,6 +17,8 @@ export interface LocalStoragePreferenceAskNotificationPermissionType
 	extends DefaultPreferenceToPermission {}
 
 export interface LocalStoragePreferenceAskBackgroundLocationPermissionType
+	extends DefaultPreferenceToPermission {}
+export interface LocalStoragePreferenceAskNotificationPermissionType
 	extends DefaultPreferenceToPermission {}
 export interface LocalStoragePreferenceAskForegroundLocationPermissionType
 	extends DefaultPreferenceToPermission {}

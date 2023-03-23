@@ -10,8 +10,10 @@ export default () => {
 				headerStyle: {
 					backgroundColor: 'transparent',
 				},
-				headerTitle: () => <NavigationDragIcon />,
-				headerLeft: () => null,
+				headerShown: false,
+				// headerTitle: () => <NavigationDragIcon />,
+				// headerLeft: () => null,
+				// headerTransparent: true,
 			}}
 		>
 			<Stack.Screen name={'DeviceManagerModal'} />

@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -21,8 +20,6 @@ const EmailScreen = () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
 	const inputAccessoryViewID = 'uniqueID2'
-	const keyboardVerticalOffset =
-		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 
 	const {
 		control,
@@ -103,7 +100,6 @@ const EmailScreen = () => {
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={keyboardVerticalOffset}
 			style={{
 				flex: 1,
 				height: 'auto',

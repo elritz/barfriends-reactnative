@@ -1,7 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Feather } from '@expo/vector-icons'
-import { useHeaderHeight } from '@react-navigation/elements'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'

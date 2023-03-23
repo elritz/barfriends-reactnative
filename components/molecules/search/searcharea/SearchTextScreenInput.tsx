@@ -1,29 +1,29 @@
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
-import { useIsFocused } from '@react-navigation/native'
+import {
+	CommonActions,
+	RouteProp,
+	StackActions,
+	useNavigation,
+	useRoute,
+} from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useDebounce from '@util/hooks/useDebounce'
-import { useRouter, useSegments } from 'expo-router'
+import { useRouter, useSearchParams, useSegments } from 'expo-router'
 import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: UX() get the navigation route here as well default values from form
 const SearchTextScreenInput = () => {
-	const _searchInput = useRef()
+	const params = useSearchParams()
 	const router = useRouter()
 	const segments = useSegments()
-	const isFocused = useIsFocused()
-
+	const inset = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
-
-	useEffect(() => {
-		if (isFocused) {
-			_searchInput?.current.focus()
-		}
-	}, [isFocused])
 
 	const {
 		control,
@@ -67,22 +67,18 @@ const SearchTextScreenInput = () => {
 		})
 	}
 
-	const goBack = () => {
-		Keyboard.dismiss()
-		router.back()
-	}
-
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
 		console.log('values.searchText NAVIGATE :>> ', values.searchText)
 		router.push({
-			pathname: '(app)/hometab/explorestack/searchresults',
-			params: { searchtext: String(values.searchText) },
+			pathname: '(app)/hometab/searchstack/searchresults',
+			params: { searchText: String(values.searchText) },
 		})
 	}
 
 	const changeSearchText = (text: string) => {
 		setValue('searchText', text)
+		router.setParams({})
 	}
 
 	const debouncedSearchResults = useDebounce(watch().searchText, 700)
@@ -97,8 +93,13 @@ const SearchTextScreenInput = () => {
 		}
 	}, [debouncedSearchResults])
 
+	const goBack = () => {
+		Keyboard.dismiss()
+		router.back()
+	}
+
 	return (
-		<Box>
+		<Box h={SEARCH_BAR_HEIGHT}>
 			<HStack alignItems={'center'}>
 				<IconButton
 					isFocusVisible={false}
@@ -116,12 +117,15 @@ const SearchTextScreenInput = () => {
 							as={Ionicons}
 							size={'xl'}
 							name='arrow-back'
-							_light={{ color: 'light.700' }}
+							_light={{ color: 'light.400' }}
 							_dark={{ color: 'dark.400' }}
+							ml={2}
+							style={{
+								width: 35,
+								height: 35,
+							}}
 						/>
 					}
-					w={'50px'}
-					h={35}
 					onPress={goBack}
 				/>
 				<Controller
@@ -129,19 +133,13 @@ const SearchTextScreenInput = () => {
 					name='searchText'
 					render={({ field: { value, onChange } }) => (
 						<Input
-							ref={_searchInput}
-							_light={{ bgColor: 'light.200' }}
-							_dark={{ bgColor: 'dark.200' }}
-							variant={'unstyled'}
-							rounded={'lg'}
+							variant={'filled'}
+							_light={{ bg: 'light.50' }}
+							_dark={{ bg: 'dark.50' }}
 							flex={1}
-							keyboardAppearance={colorScheme}
-							_input={{
-								fontSize: 'md',
-								fontWeight: 'medium',
-							}}
-							h={SEARCH_BAR_HEIGHT}
 							mr={2}
+							rounded={'lg'}
+							keyboardAppearance={colorScheme}
 							autoCapitalize={'none'}
 							placeholder='Search'
 							autoFocus
@@ -153,19 +151,19 @@ const SearchTextScreenInput = () => {
 							onPressIn={() => {
 								if (segments[3] !== 'searchtext') {
 									router.push({
-										pathname: '(app)/hometab/explorestack/searchtext',
+										pathname: '(app)/hometab/searchstack?HELLO',
 										params: { searchtext: value },
 									})
 								}
 							}}
-							leftElement={
+							InputLeftElement={
 								<Icon
-									as={Ionicons}
 									_light={{ color: 'light.400' }}
 									_dark={{ color: 'dark.400' }}
+									as={Ionicons}
 									name='ios-search'
 									size={'lg'}
-									ml={1}
+									ml={2}
 								/>
 							}
 							rightElement={
@@ -173,22 +171,13 @@ const SearchTextScreenInput = () => {
 									{value.length ? (
 										<IconButton
 											variant={'ghost'}
-											_pressed={{
+											_hover={{
 												bg: 'transparent',
 											}}
-											p={1}
-											py={2}
 											_focus={{
 												bg: 'transparent',
 											}}
-											icon={
-												<Icon
-													as={Ionicons}
-													_light={{ color: 'light.600' }}
-													_dark={{ color: 'dark.600' }}
-													name='close-circle'
-												/>
-											}
+											icon={<Icon as={Ionicons} name='close-circle' />}
 											isDisabled={!value.length}
 											onPress={clearSearchInput}
 											shadow={'2'}
@@ -199,12 +188,9 @@ const SearchTextScreenInput = () => {
 											clearSearchInput()
 											router.back()
 										}}
-										_pressed={{
-											bg: 'transparent',
-										}}
 										variant={'ghost'}
 									>
-										<Text lineHeight={'xs'}>Cancel</Text>
+										<Text>Cancel</Text>
 									</Button>
 								</HStack>
 							}

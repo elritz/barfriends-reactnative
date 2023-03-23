@@ -1,3 +1,4 @@
+import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { Photo } from '@graphql/generated'
 import { Box, Image } from 'native-base'
 import { useWindowDimensions } from 'react-native'
@@ -6,8 +7,6 @@ type Props = {
 	loading: boolean
 	photos: Array<Photo> | undefined
 }
-
-const HEADER_IMAGE_HEIGHT = 195
 
 const VenueHeader = (props: Props) => {
 	const { width } = useWindowDimensions()
@@ -18,7 +17,7 @@ const VenueHeader = (props: Props) => {
 				style={{
 					flexDirection: 'column',
 					justifyContent: 'flex-end',
-					height: HEADER_IMAGE_HEIGHT,
+					height: PUBLIC_VENUE_HEADER_IMAGE_HEIGHT,
 					overflow: 'hidden',
 				}}
 				_light={{
@@ -36,7 +35,7 @@ const VenueHeader = (props: Props) => {
 			style={{
 				flexDirection: 'column',
 				justifyContent: 'flex-end',
-				height: HEADER_IMAGE_HEIGHT,
+				height: PUBLIC_VENUE_HEADER_IMAGE_HEIGHT,
 				overflow: 'hidden',
 			}}
 			_light={{
@@ -50,7 +49,7 @@ const VenueHeader = (props: Props) => {
 				source={{ uri: props.photos[0].url }}
 				style={{
 					width: width,
-					height: HEADER_IMAGE_HEIGHT,
+					height: PUBLIC_VENUE_HEADER_IMAGE_HEIGHT,
 				}}
 				alt={'Venue Profile Photo'}
 			/>

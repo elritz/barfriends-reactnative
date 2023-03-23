@@ -52,7 +52,7 @@ export default function _layout() {
 					<IconButton
 						onPress={() =>
 							router.push({
-								pathname: '(app)/settingsnavigator',
+								pathname: '(app)/settings',
 							})
 						}
 						_pressed={{

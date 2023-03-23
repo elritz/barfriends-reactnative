@@ -6,7 +6,7 @@ type Props = {
 	isOpen: boolean
 	onClose: () => void
 }
-export default function SignupModal({ isOpen, onClose }: Props) {
+export default function SignupAskModal({ isOpen, onClose }: Props) {
 	const router = useRouter()
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>

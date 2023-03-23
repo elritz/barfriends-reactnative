@@ -43,7 +43,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 				<Button
 					onPress={() => {
 						router.push({
-							pathname: '(app)/modal/searchareamodalstack',
+							pathname: '(app)/searcharea',
 						})
 					}}
 					variant={'unstyled'}

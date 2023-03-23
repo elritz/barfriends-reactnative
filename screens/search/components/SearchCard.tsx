@@ -13,11 +13,11 @@ export default function SearchCard({ item }) {
 				switch (item.__typename) {
 					case 'Personal':
 						return router.push({
-							pathname: `(app)/publicnavigator/personal/${item.Profile.id}`,
+							pathname: `(app)/public/personal/${item.Profile.id}`,
 						})
 					case 'Venue':
 						return router.push({
-							pathname: `(app)/publicnavigator/venue/${item.Profile.id}`,
+							pathname: `(app)/public/venue/${item.Profile.id}`,
 						})
 				}
 			}}

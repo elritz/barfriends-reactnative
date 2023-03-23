@@ -48,7 +48,7 @@ const ExploreScreen = () => {
 									alignSelf={''}
 									onPress={() => {
 										router.push({
-											pathname: '(app)/public/personal',
+											pathname: `(app)/public/personal/${item.item.id}`,
 											params: {
 												profileid: item.item.id,
 											},

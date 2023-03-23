@@ -1,6 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
 import CountryPicker from '@components/atoms/inputs/CountryPicker'
-import { TAB_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -41,8 +40,6 @@ const PhoneScreen = () => {
 	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const keyboardVerticalOffset =
-		Platform.OS === 'ios' ? headerHeight + TAB_NAVIGATION_HEIGHT + 65 : 0
 	const inputAccessoryViewID = 'phonenumberAccessoryID'
 	const phonenumberRef = useRef<TextInput | null>(null)
 	const [country, setCountry] = useState<CountrySelector>({
@@ -243,7 +240,6 @@ const PhoneScreen = () => {
 			flexDir={'column'}
 			mx={'5%'}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={keyboardVerticalOffset}
 		>
 			<Heading>Enter your mobile number</Heading>
 			<View style={{ marginVertical: 20, width: '100%' }}>

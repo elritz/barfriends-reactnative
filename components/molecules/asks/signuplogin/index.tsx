@@ -8,8 +8,7 @@ const text = GetSignInUpText()
 type Props = {
 	signupTextId?: number
 }
-
-const CardPleaseSignup = (props: Props) => {
+export default (props: Props) => {
 	const router = useRouter()
 
 	return (
@@ -89,4 +88,3 @@ const CardPleaseSignup = (props: Props) => {
 		</Box>
 	)
 }
-export default CardPleaseSignup

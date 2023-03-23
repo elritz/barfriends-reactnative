@@ -1,6 +1,5 @@
 import SearchCard from '../components/SearchCard'
 import { useReactiveVar } from '@apollo/client'
-import { HOME_TAB_TOP_NAIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -47,7 +46,7 @@ const SearchTextScreen = () => {
 		return (
 			<ScrollView
 				scrollEnabled={false}
-				contentInset={{ top: HOME_TAB_TOP_NAIGATION_HEIGHT }}
+				contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
 				px={3}

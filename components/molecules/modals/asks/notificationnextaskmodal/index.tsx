@@ -1,26 +1,27 @@
-import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION } from '@constants/StorageConstants'
+import { useReactiveVar } from '@apollo/client'
+import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskNotificationPermissionType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+	DaysPreferencePermissionInitialState,
+	PreferencePermissionNotificationReactiveVar,
+} from '@reactive'
 import { useRouter } from 'expo-router'
-import { DateTime } from 'luxon'
 import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
-const NotificationsNextAskModal = ({ isOpen, onOpen, onClose }) => {
+const NotificationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	const router = useRouter()
-
-	const PreferenceNotificationsPermissionInitialState: LocalStoragePreferenceAskNotificationPermissionType =
-		{
-			dateToShowAgain: DateTime.now().plus({ days: 7 }),
-			canShowAgain: true,
-		}
-
+	const rPreferenceNotificationPermission = useReactiveVar(
+		PreferencePermissionNotificationReactiveVar,
+	)
 	return (
 		<Center>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<Modal.Content w={'95%'}>
+					<Modal.Header>Notifications</Modal.Header>
 					<Modal.CloseButton />
 					<Modal.Body
-						mt={6}
+						mt={2}
 						_scrollview={{
 							scrollEnabled: false,
 						}}
@@ -33,8 +34,13 @@ const NotificationsNextAskModal = ({ isOpen, onOpen, onClose }) => {
 							<Button
 								onPress={async () => {
 									await AsyncStorage.setItem(
-										LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-										JSON.stringify(PreferenceNotificationsPermissionInitialState),
+										LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
+										JSON.stringify({
+											...DaysPreferencePermissionInitialState,
+											numberOfTimesDismissed: rPreferenceNotificationPermission?.numberOfTimesDismissed
+												? rPreferenceNotificationPermission.numberOfTimesDismissed + 1
+												: 1,
+										} as LocalStoragePreferenceAskNotificationPermissionType),
 									)
 									onClose()
 								}}
@@ -69,4 +75,4 @@ const NotificationsNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	)
 }
 
-export default NotificationsNextAskModal
+export default NotificationNextAskModal

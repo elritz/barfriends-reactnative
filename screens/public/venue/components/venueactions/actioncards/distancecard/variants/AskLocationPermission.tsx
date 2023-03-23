@@ -1,16 +1,23 @@
 import { useRouter } from 'expo-router'
-import { Heading, Button, Box } from 'native-base'
+import { Heading, Button, Box, VStack } from 'native-base'
 
-export default function LocationPermission() {
+export default function AskForegroundLocationPermission() {
 	const router = useRouter()
 
 	return (
-		<Box flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
-			<Heading fontSize={'md'} textTransform={'uppercase'} fontWeight={'black'} lineHeight={'xs'}>
-				Use the join venue feature!
+		<VStack flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
+			<Heading
+				mt={5}
+				fontSize={'lg'}
+				textTransform={'uppercase'}
+				fontWeight={'black'}
+				lineHeight={'xs'}
+				flex={1}
+			>
+				Want to use the join venue feature!
 			</Heading>
 			<Button
-				rounded={'full'}
+				size={'lg'}
 				onPress={() =>
 					router.push({
 						pathname: '(app)/permission/foregroundlocation',
@@ -19,6 +26,6 @@ export default function LocationPermission() {
 			>
 				Continue
 			</Button>
-		</Box>
+		</VStack>
 	)
 }

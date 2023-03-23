@@ -21,7 +21,7 @@ export default () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error) {
-				// console.log('🚀 ~ file: index.tsx:54 ~ onError ~ error:', error)
+				console.log('🚀 ~ file: index.tsx:54 ~ onError ~ error:', error)
 			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
@@ -93,6 +93,7 @@ export default () => {
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
+			console.log('here1')
 			createGuestProfileMutation()
 		} else {
 			refreshDeviceManagerMutation()

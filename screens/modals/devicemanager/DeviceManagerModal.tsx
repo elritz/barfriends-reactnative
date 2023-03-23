@@ -1,4 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
+import WithDeviceProfiles from '@components/molecules/asks/signinup'
+import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	ClientDeviceManager,
 	ClientDeviceProfile,
@@ -8,7 +10,9 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
+import { Box, Pressable, ScrollView } from 'native-base'
 import { useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 // TODO: FN(What functionality was suppose to be here)
 
@@ -75,7 +79,7 @@ export default function DeviceManagerModal() {
 			<Box>
 				<WithDeviceProfiles />
 			</Box>
-			<View style={{ flex: 1 }}>
+			<Box style={{ flex: 1 }}>
 				<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
 					{profiles.length ? (
 						<>
@@ -98,7 +102,7 @@ export default function DeviceManagerModal() {
 						</>
 					) : null}
 				</ScrollView>
-			</View>
+			</Box>
 		</SafeAreaView>
 	)
 }

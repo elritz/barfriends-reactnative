@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { SearchReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
@@ -51,6 +52,7 @@ const ExploreSearchInput = () => {
 			_light={{ bgColor: 'light.50' }}
 			_dark={{ bgColor: 'dark.50' }}
 			w={'85%'}
+			h={SEARCH_BAR_HEIGHT}
 			px={3}
 			style={{
 				borderBottomColor: 'transparent',
@@ -85,14 +87,15 @@ const ExploreSearchInput = () => {
 					params: {},
 				})
 			}}
-			leftElement={
+			InputLeftElement={
 				isSearch || rSearch?.searchText.length ? (
 					<Icon
 						as={Ionicons}
 						onPress={goBackToFeed}
 						name='arrow-back'
 						size={28}
-						color={themeContext.palette.primary.color.default}
+						_light={{ color: 'light.400' }}
+						_dark={{ color: 'dark.400' }}
 					/>
 				) : (
 					<Icon

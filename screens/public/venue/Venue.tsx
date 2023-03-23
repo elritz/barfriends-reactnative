@@ -4,15 +4,22 @@ import VenueActions from './components/venueactions/VenueActions'
 import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
 import { useReactiveVar } from '@apollo/client'
+import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Text, FlatList, VStack, Heading, Box } from 'native-base'
+import { Text, FlatList, VStack, Heading, Box, Skeleton, HStack } from 'native-base'
+import { useWindowDimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+const numColumns = 2
 const VenueScreen = (props: any) => {
+	const { width } = useWindowDimensions()
+	const itemPadding = (width / 33.33) * numColumns
 	const params = useSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const { bottom } = useSafeAreaInsets()
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 
 	const { data, loading, error } = useCurrentVenueQuery({
@@ -39,7 +46,28 @@ const VenueScreen = (props: any) => {
 		onCompleted: data => {},
 	})
 
-	if (loading || !data?.currentVenue) return null
+	if (loading || !data?.currentVenue) {
+		return (
+			<VStack flex={1} space={2}>
+				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
+				<VStack rounded='md' px={2} space={2}>
+					<Skeleton rounded='xl' h={'30px'} width={'3/4'} />
+					<Skeleton rounded='xl' h={'30px'} width={'1/4'} />
+				</VStack>
+				<HStack rounded='md' px={2} space={2}>
+					{[...Array(2)].map(item => {
+						return <Skeleton rounded='xl' h={'220px'} width={(width - itemPadding) / numColumns} />
+					})}
+				</HStack>
+				<HStack rounded='md' px={2} space={2}>
+					{[...Array(2)].map(item => {
+						return <Skeleton rounded='xl' h={'220px'} width={(width - itemPadding) / numColumns} />
+					})}
+				</HStack>
+				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
+			</VStack>
+		)
+	}
 
 	const HandleEmpty = () => {
 		return (
@@ -94,7 +122,7 @@ const VenueScreen = (props: any) => {
 			keyExtractor={item => item}
 			renderItem={item => <PersonalAtVenue item={item} />}
 			contentInset={{
-				bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+				bottom: bottom,
 			}}
 		/>
 	)

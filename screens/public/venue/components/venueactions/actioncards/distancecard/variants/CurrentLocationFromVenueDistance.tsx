@@ -140,10 +140,6 @@ const CurrentLocationFromVenueDistance = () => {
 					setDistance(val)
 					setMetric('km')
 				} else {
-					console.log(
-						'🚀 ~ file: CurrentLocationFromVenueDistance.tsx:142 ~ getDistanceFromVenue ~ dist',
-						dist,
-					)
 					setDistance(dist)
 					setMetric('m')
 				}

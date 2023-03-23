@@ -3,8 +3,10 @@ import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
 import VenuesFeedVenuesEmptyState from './components/VenuesFeedVenuesEmptyState'
 import { useReactiveVar } from '@apollo/client'
-import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferencceForegroundLocationPermissionFullSection'
 import PreferenceBackgroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceBackgroundLocationPermissionFullSection'
+import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceForegroundLocationPermissionFullSection'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { ProfileType, ProfileVenue, useVenuesNearbyLazyQuery } from '@graphql/generated'
 import {
 	AuthorizationReactiveVar,
@@ -14,9 +16,10 @@ import {
 	SearchAreaReactiveVar,
 } from '@reactive'
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
+import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, VStack, FlatList, Heading } from 'native-base'
+import { Box, VStack, FlatList, Heading, HStack, IconButton, Icon } from 'native-base'
 import React, { useEffect, useRef, useState } from 'react'
 import { AppState, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -28,6 +31,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export const VenueFeedScreenMarginX = '2'
 
 const VenueFeedScreen = () => {
+	const router = useRouter()
 	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
 	const { height } = useWindowDimensions()
@@ -79,17 +83,13 @@ const VenueFeedScreen = () => {
 			rSearchAreaVar?.searchArea.coords.latitude &&
 			rSearchAreaVar?.searchArea.coords?.longitude
 		) {
-			venuesNearby({
-				onCompleted: data => {
-					console.log('🚀 ~ file: VenueFeedScreen.tsx:66 ~ onCompleted ~ nearbyVenue:', data)
-				},
-			})
+			venuesNearby()
 		}
 	}, [])
 
 	const listHeaderComponent = () => {
 		return (
-			<VStack w={'full'} space={4}>
+			<VStack safeAreaTop w={'full'} space={4}>
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 					<VenueFeedSignupCard />
 				)}
@@ -123,25 +123,34 @@ const VenueFeedScreen = () => {
 				) : (
 					<Box></Box>
 				)}
+				{!loading && data?.venuesNearby.searchArea.city.name && (
+					<HStack w={'100%'}>
+						<VStack w={'full'} space={1} m={2}>
+							<Heading lineHeight={'sm'} fontSize={'md'}>
+								venues from
+							</Heading>
+							<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
+								{data?.venuesNearby.searchArea.city.name}
+							</Heading>
+						</VStack>
+						<IconButton
+							icon={<Icon as={FontAwesome5} name='filter' />}
+							onPress={() =>
+								router.push({
+									pathname: '(app)/searcharea',
+								})
+							}
+							rounded={'full'}
+							// color={'transparent'}
+						/>
+					</HStack>
+				)}
 			</VStack>
 		)
 	}
 
 	const listFooterComponent = () => {
-		return (
-			<>
-				{!loading && data?.venuesNearby.searchArea.city.name && (
-					<VStack w={'full'} space={1} m={2}>
-						<Heading lineHeight={'sm'} fontSize={'md'}>
-							venues from
-						</Heading>
-						<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
-							{data?.venuesNearby.searchArea.city.name}
-						</Heading>
-					</VStack>
-				)}
-			</>
-		)
+		return null
 	}
 
 	return (
@@ -150,7 +159,7 @@ const VenueFeedScreen = () => {
 			refreshing={loading}
 			showsVerticalScrollIndicator={false}
 			numColumns={2}
-			style={{ height: '100%', marginTop: insets.top + 20 }}
+			style={{ height: '100%' }}
 			columnWrapperStyle={{ justifyContent: 'space-around' }}
 			data={data?.venuesNearby.venuesNearby}
 			renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
@@ -158,8 +167,9 @@ const VenueFeedScreen = () => {
 			keyExtractor={item => item.id}
 			ListHeaderComponent={listHeaderComponent}
 			ListFooterComponent={listFooterComponent}
+			automaticallyAdjustContentInsets
 			contentInset={{
-				top: 0,
+				top: SEARCH_BAR_HEIGHT + 20,
 				left: 0,
 				bottom: 105 + insets.bottom,
 				right: 0,

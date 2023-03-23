@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { useNavigation, useRouter, useSearchParams } from 'expo-router'
-import { Box, HStack, Icon, Input } from 'native-base'
+import { useRouter, useSearchParams } from 'expo-router'
+import { Box, HStack, Icon, IconButton, Input } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TextInput } from 'react-native'
@@ -11,7 +11,7 @@ const SearchTopTabStackInput = () => {
 	const params = useSearchParams()
 	const _searchInputRef = useRef<TextInput>(null)
 	const colorScheme = useThemeColorScheme()
-	const navigation = useNavigation()
+
 	const {
 		control,
 		setError,
@@ -23,7 +23,7 @@ const SearchTopTabStackInput = () => {
 		watch,
 	} = useForm({
 		defaultValues: {
-			searchText: String(params?.searchText) || '',
+			searchText: String(params?.searchtext) || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -35,9 +35,8 @@ const SearchTopTabStackInput = () => {
 	})
 
 	useEffect(() => {
-		console.log('params.searchText =======++> :>> ', params.searchText)
-		setValue('searchText', String(params.searchText))
-	}, [params?.searchText])
+		setValue('searchText', String(params.searchtext))
+	}, [params?.searchtext])
 
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
@@ -72,15 +71,29 @@ const SearchTopTabStackInput = () => {
 	return (
 		<Box>
 			<HStack alignItems={'center'}>
-				<Icon
-					as={Ionicons}
-					onPress={goBack}
-					name='arrow-back'
-					size={'2xl'}
-					ml={2}
-					style={{
-						width: 35,
+				<IconButton
+					isFocusVisible={false}
+					_hover={{
+						bg: 'transparent',
 					}}
+					_pressed={{
+						bg: 'transparent',
+					}}
+					_focus={{
+						bg: 'transparent',
+					}}
+					icon={
+						<Icon
+							as={Ionicons}
+							size={'xl'}
+							name='arrow-back'
+							_light={{ color: 'light.700' }}
+							_dark={{ color: 'dark.400' }}
+						/>
+					}
+					w={'50px'}
+					h={35}
+					onPress={goBack}
 				/>
 				<Controller
 					control={control}
@@ -92,7 +105,7 @@ const SearchTopTabStackInput = () => {
 							variant={'filled'}
 							rounded={'lg'}
 							mr={2}
-							w={'85%'}
+							flex={1}
 							keyboardAppearance={colorScheme}
 							ref={_searchInputRef}
 							placeholder='Search'
@@ -104,14 +117,23 @@ const SearchTopTabStackInput = () => {
 							onChangeText={(text: string) => changeSearchText(text)}
 							onSubmitEditing={handleSearchSubmitEditting}
 							returnKeyType='search'
-							leftElement={<Icon as={Ionicons} name='ios-search' size={'lg'} ml={2} />}
+							leftElement={
+								<Icon
+									as={Ionicons}
+									_light={{ color: 'light.400' }}
+									_dark={{ color: 'dark.400' }}
+									name='ios-search'
+									size={'lg'}
+									ml={2}
+								/>
+							}
 							underlineColorAndroid='transparent'
 							onPressIn={() => {
 								router.push({
 									params: {
-										searchText: value,
+										searchtext: value,
 									},
-									pathname: '(app)/hometab/searchstack/searchtext',
+									pathname: '(app)/hometab/explorestack/searchtext',
 								})
 							}}
 						/>

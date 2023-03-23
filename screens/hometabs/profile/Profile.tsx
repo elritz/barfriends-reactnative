@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
+import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import PreferenceNotificationPermission from '@components/molecules/permissions/preferencenotificationpermission/PreferenceNotificationPermission'
 import { ProfileType, useGetNotificationsLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'

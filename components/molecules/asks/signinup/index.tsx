@@ -2,7 +2,7 @@ import GetSignInUpText from '@helpers/data/SignupinText'
 import { useRouter } from 'expo-router'
 import { Box, Text, Center, Button, Divider } from 'native-base'
 
-export default function WithDeviceProfiles() {
+export default () => {
 	const router = useRouter()
 	const text = GetSignInUpText()
 

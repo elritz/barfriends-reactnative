@@ -36,28 +36,32 @@ const VenueActions = () => {
 		<VStack m={2} mt={5}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 				{ENVIRONMENT === 'development' && (
-					<ActionCard numColumns={1}>
+					<ActionCard key={'dev-344234fg4ed'} numColumns={1}>
 						<DevActions />
 					</ActionCard>
 				)}
 
 				{!isJoined && (
-					<HStack space={2}>
-						<ActionCard numColumns={numColumns}>
+					<HStack space={2} mt={5}>
+						<ActionCard key={'userbcard-2234234fg4ed'} numColumns={numColumns}>
 							<UberCard />
 						</ActionCard>
-						<ActionCard key={'hij'} numColumns={numColumns}>
+						<ActionCard key={'distancecard-i324b2b34i2'} numColumns={numColumns}>
 							<DistanceCard />
 						</ActionCard>
 					</HStack>
 				)}
 
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
-					<HStack space={2}>
-						<ActionCard bg={theme.colors.primary[500]} numColumns={numColumns}>
+					<HStack space={2} mt={5}>
+						<ActionCard
+							key={'quickbfs-2234234fwqe23d23d'}
+							bg={theme.colors.primary[500]}
+							numColumns={numColumns}
+						>
 							<QuickBarfriend logosize={30} qrcodesize={100} />
 						</ActionCard>
-						<ActionCard numColumns={numColumns}>
+						<ActionCard key={'invitecard-223423rger2rfd'} numColumns={numColumns}>
 							<InviteCard />
 						</ActionCard>
 					</HStack>

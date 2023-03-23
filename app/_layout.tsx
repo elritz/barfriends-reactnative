@@ -5,7 +5,7 @@ import { ApolloProvider, useReactiveVar } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
@@ -28,11 +28,9 @@ import {
 	PermissionMediaReactiveVar,
 	PermissionMicrophoneReactiveVar,
 	PermissionNotificationReactiveVar,
-	PreferenceBackgroundLocationPermissionInitialState,
 	PreferenceBackgroundLocationPermissionReactiveVar,
-	PreferenceForegroundLocationPermissionInitialState,
+	NowPreferencePermissionInitialState,
 	PreferenceForegroundLocationPermissionReactiveVar,
-	PreferencePermissionNotificationInitialState,
 	PreferencePermissionNotificationReactiveVar,
 	PreferenceSystemsOfUnitsInitialState,
 	PreferenceSystemsOfUnitsReactiveVar,
@@ -97,9 +95,10 @@ export default () => {
 	const setPreferencesLocalStorageData = async () => {
 		try {
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
-			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION)
+			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS)
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS)
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION)
+			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION)
 
 			// SEARCHAREA_PREFERENCE ~ START
 			const getLocalStorageSearchArea = await AsyncStorage.getItem(LOCAL_STORAGE_SEARCH_AREA)
@@ -133,11 +132,6 @@ export default () => {
 					colorScheme: 'system',
 				} as LocalStoragePreferenceThemeType)
 
-				console.log(
-					'🚀 ~ file: _layout.tsx:136 ~ setPreferencesLocalStorageData ~ initialThemeColorSchemeState:',
-					initialThemeColorSchemeState,
-				)
-
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 					initialThemeColorSchemeState,
@@ -164,13 +158,13 @@ export default () => {
 
 			// NOTIFICATION_PREFERENCE ~ START
 			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
-				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
+				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
 			)
 
 			if (!getLocalStorageNotificationPermissionsPreference) {
 				await AsyncStorage.setItem(
-					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS_PERMISSION,
-					JSON.stringify(PreferencePermissionNotificationInitialState),
+					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
+					JSON.stringify(NowPreferencePermissionInitialState),
 				)
 			} else {
 				// using local_storage values set the correct information
@@ -183,7 +177,7 @@ export default () => {
 			}
 			// NOTIFICATION_PREFERENCE ~ END
 
-			// BAKGROUNDLOCATION_PREFERENCE ~ START
+			// BACKGROUNDLOCATION_PREFERENCE ~ START
 			const getLocalStoragePreferenceBackgroundLocationPreference = await AsyncStorage.getItem(
 				LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 			)
@@ -191,7 +185,7 @@ export default () => {
 			if (!getLocalStoragePreferenceBackgroundLocationPreference) {
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
-					JSON.stringify(PreferenceBackgroundLocationPermissionInitialState),
+					JSON.stringify(NowPreferencePermissionInitialState),
 				)
 			} else {
 				// using local_storage values set the correct information
@@ -203,7 +197,7 @@ export default () => {
 					...values,
 				})
 			}
-			// BAKGROUNDLOCATION_PREFERENCE ~ END
+			// BACKGROUNDLOCATION_PREFERENCE ~ END
 
 			// FOREGROUNDLOCATION_PREFERENCE ~ START
 			const getLocalStoragePreferenceForegroundLocationPreference = await AsyncStorage.getItem(
@@ -213,7 +207,7 @@ export default () => {
 			if (!getLocalStoragePreferenceForegroundLocationPreference) {
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-					JSON.stringify(PreferenceForegroundLocationPermissionInitialState),
+					JSON.stringify(NowPreferencePermissionInitialState),
 				)
 			} else {
 				// using local_storage values set the correct information
@@ -246,7 +240,7 @@ export default () => {
 					...values,
 				})
 			}
-			// BAKGROUNDLOCATION_PREFERENCE ~ START ~ END
+			// BACKGROUNDLOCATION_PREFERENCE ~ START ~ END
 		} catch (e) {}
 	}
 

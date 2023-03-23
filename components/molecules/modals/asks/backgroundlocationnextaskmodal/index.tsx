@@ -1,39 +1,46 @@
+import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION } from '@constants/StorageConstants'
-import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@preferences'
+import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+	DaysPreferencePermissionInitialState,
+	PreferenceBackgroundLocationPermissionReactiveVar,
+} from '@reactive'
 import { useRouter } from 'expo-router'
-import { DateTime } from 'luxon'
 import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
 const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	const router = useRouter()
-
-	const PreferenceBackgroundLocationPermissionInitialState: LocalStoragePreferenceAskBackgroundLocationPermissionType =
-		{
-			dateToShowAgain: DateTime.now().plus({ days: 7 }),
-			canShowAgain: true,
-		}
+	const rPreferenceBackgroundLocationPermission = useReactiveVar(
+		PreferenceBackgroundLocationPermissionReactiveVar,
+	)
 
 	return (
 		<Center>
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<Modal.Content w={'95%'}>
+					<Modal.Header>Background location</Modal.Header>
 					<Modal.CloseButton />
 					<Modal.Body
-						mt={6}
+						mt={2}
 						_scrollview={{
 							scrollEnabled: false,
 						}}
 					>
 						<Text fontSize={'lg'} pb={3}>
-							Allow background location, it helps you to go out, join bars and find events.
+							By enabling background location, it helps you to go out, join bars and find events.
 						</Text>
 						<VStack space={2}>
 							<Button
 								onPress={async () => {
 									await AsyncStorage.setItem(
 										LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
-										JSON.stringify(PreferenceBackgroundLocationPermissionInitialState),
+										JSON.stringify({
+											...DaysPreferencePermissionInitialState,
+											numberOfTimesDismissed: rPreferenceBackgroundLocationPermission?.numberOfTimesDismissed
+												? rPreferenceBackgroundLocationPermission.numberOfTimesDismissed + 1
+												: 1,
+										} as LocalStoragePreferenceAskBackgroundLocationPermissionType),
 									)
 									onClose()
 								}}
@@ -43,13 +50,13 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 									fontSize: 'xl',
 								}}
 							>
-								Ask later
+								Not now
 							</Button>
 							<Divider />
 							<Button
 								onPress={() =>
 									router.push({
-										pathname: '(app)/permission/bakgroundlocation',
+										pathname: '(app)/permission/backgroundlocation',
 									})
 								}
 								variant={'ghost'}
@@ -58,7 +65,7 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 									fontSize: 'xl',
 								}}
 							>
-								Allow
+								Continue
 							</Button>
 						</VStack>
 					</Modal.Body>

@@ -33,7 +33,7 @@ const GetStartedScreen = () => {
 				<Pressable
 					onPress={() =>
 						router.push({
-							pathname: '(app)/settingsnavigator/privacytermsservicetabstack',
+							pathname: '(app)/settings/privacytermsservicetabstack',
 						})
 					}
 				>

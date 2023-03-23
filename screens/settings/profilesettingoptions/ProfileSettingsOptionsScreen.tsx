@@ -92,7 +92,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				<RoundedListItem
 					onPress={() => {
 						router.push({
-							pathname: '(app)/settingsnavigator/profilesettings/personal',
+							pathname: '(app)/settings/profilesettings/personal',
 						})
 					}}
 				>
@@ -118,7 +118,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() => {
 					router.push({
-						pathname: '(app)/settingsnavigator/notificationssettingsscreen',
+						pathname: '(app)/settings/notificationssettingsscreen',
 					})
 				}}
 			>
@@ -168,7 +168,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				<RoundedListItem
 					onPress={() => {
 						router.push({
-							pathname: '(app)/settingsnavigator/securitysettingsscreen',
+							pathname: '(app)/settings/securitysettingsscreen',
 						})
 					}}
 				>
@@ -195,7 +195,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<RoundedListItem
 				onPress={() => {
 					router.push({
-						pathname: '(app)/settingsnavigator/appearancesettingsscreen',
+						pathname: '(app)/settings/appearancesettingsscreen',
 					})
 				}}
 			>

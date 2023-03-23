@@ -1,4 +1,4 @@
-import WithDeviceProfiles from '@components/molecules/asks/signinup/withdeviceprofiles/WithDeviceProfiles'
+import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	ClientDeviceManager,

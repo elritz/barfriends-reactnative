@@ -61,7 +61,6 @@ export default function JoinCard() {
 					fontWeight: '700',
 					fontSize: 'md',
 				}}
-				w={'100'}
 			>
 				Join
 			</Button>

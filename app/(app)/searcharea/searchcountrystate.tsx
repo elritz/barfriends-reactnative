@@ -1,3 +1,4 @@
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { SearchAreaStackParamList } from '@ctypes/app'
 import { Feather } from '@expo/vector-icons'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
@@ -12,7 +13,7 @@ import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchAreaCountryStates() {
-	const { bottom } = useSafeAreaInsets()
+	const { top, bottom } = useSafeAreaInsets()
 	const router = useRouter()
 	const params = useSearchParams()
 
@@ -63,12 +64,12 @@ export default function SearchAreaCountryStates() {
 	}
 
 	useEffect(() => {
-		if (watch('searchtext')) {
-			filterList(watch('searchtext'))
+		if (params.searchtext) {
+			filterList(params.searchtext)
 		}
-	}, [watch('searchtext')])
+	}, [params.searchtext])
 
-	if (!params.params.country) {
+	if (!params.countryIsoCode) {
 		return (
 			<Center p={10}>
 				<Text fontSize={'lg'}> No country provided</Text>
@@ -89,6 +90,7 @@ export default function SearchAreaCountryStates() {
 			keyboardDismissMode={'on-drag'}
 			style={{ flex: 1 }}
 			contentInset={{
+				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
 			}}
 			onEndReached={() => setPagination(pagination + data.getAllStatesByCountry.length / 3)}
@@ -118,7 +120,6 @@ export default function SearchAreaCountryStates() {
 							) : null
 						}
 						onPress={() => {
-							setValue('searchtext', '')
 							setValue('state', {
 								name: item.name,
 								isoCode: item.isoCode,
@@ -128,9 +129,9 @@ export default function SearchAreaCountryStates() {
 								},
 							})
 							router.replace({
-								pathname: '(app)/modal/searchareastack/SearchStateCitiesTextScreen',
+								pathname: '(app)/searcharea/searchstatecities',
 								params: {
-									country: item.countryCode,
+									countryIsoCode: item.countryCode,
 									state: item.isoCode,
 								},
 							})

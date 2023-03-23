@@ -74,7 +74,7 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 
 	const handleLocationSearchAreaModalNavigation = async () => {
 		router.push({
-			pathname: '(app)/modal/searchareamodalstack',
+			pathname: '(app)/searcharea',
 		})
 	}
 

@@ -1,4 +1,4 @@
-import CardPleaseSignup from '@components/molecules/asks/signuplogin/SignupLogin'
+import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import { Box } from 'native-base'

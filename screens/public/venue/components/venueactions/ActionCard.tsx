@@ -23,11 +23,9 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',
-				height: 185,
-				borderRadius: 20,
-				marginVertical: 5,
+				height: 190,
 			}}
-			borderRadius={'lg'}
+			borderRadius={'2xl'}
 		>
 			{children}
 		</OuterView>
@@ -35,7 +33,6 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 }
 
 const OuterView = styled(Box)<{ width: number; numColumns: number }>(props => ({
-	// background: props.theme.palette.background.paper,
 	flexDirection: 'column',
 	padding: 10,
 	justifyContent: 'center',

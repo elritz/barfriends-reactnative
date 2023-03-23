@@ -35,7 +35,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 			key={props.item.id}
 			onPress={() => {
 				router.push({
-					pathname: `(app)/publicnavigator/venue/${props.item.id}`,
+					pathname: `(app)/public/venue/${props.item.id}`,
 					params: {
 						profileId: String(props.item.id),
 						distanceInM: Number(props.item.distanceInM),
