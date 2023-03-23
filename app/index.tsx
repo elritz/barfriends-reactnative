@@ -20,9 +20,7 @@ export default () => {
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
-			onError(error) {
-				console.log('🚀 ~ file: index.tsx:54 ~ onError ~ error:', error)
-			},
+			onError(error) {},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
@@ -36,11 +34,8 @@ export default () => {
 
 	const [createGuestProfileMutation, { data, loading: CGLoading, error }] =
 		useCreateGuestProfileMutation({
-			onError: error => {
-				console.log('error createGuestProfileMutation :>> ', error)
-			},
+			onError: error => {},
 			onCompleted: async data => {
-				// console.log('🚀 ~ file: index.tsx:45 ~ data:', data)
 				if (data?.createGuestProfile.__typename === 'Profile') {
 					createADeviceManagerMutation({
 						variables: {
@@ -53,14 +48,10 @@ export default () => {
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
-			onError: error => {
-				// console.log('error =====>', error)
-			},
+			onError: error => {},
 			onCompleted: async data => {
-				// console.log('🚀 ~ file: index.tsx:79 ~ data:', data)
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
 				if (!deviceManager) {
-					console.log('What to do about no device manager!')
 				} else {
 					AuthorizationReactiveVar(deviceManager)
 					updateOneProfileMutation({
@@ -93,7 +84,6 @@ export default () => {
 		})) as AuthorizationDecoded
 
 		if (!getAuthorization) {
-			console.log('here1')
 			createGuestProfileMutation()
 		} else {
 			refreshDeviceManagerMutation()

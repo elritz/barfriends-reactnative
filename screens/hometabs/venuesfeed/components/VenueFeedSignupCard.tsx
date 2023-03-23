@@ -21,8 +21,8 @@ export default function VenueFeedSignupCard() {
 				}}
 			>
 				<Box
-					_dark={{ backgroundColor: 'dark.50' }}
-					_light={{ backgroundColor: 'light.50' }}
+					_dark={{ backgroundColor: 'dark.100' }}
+					_light={{ backgroundColor: 'light.100' }}
 					px={5}
 					pb={15}
 					pt={25}

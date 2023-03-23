@@ -1,9 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
 import NotificationNextAskModal from '@components/molecules/modals/asks/notificationnextaskmodal'
+import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS } from '@constants/StorageConstants'
+import { DefaultPreferenceToPermission } from '@ctypes/preferences'
 import { EvilIcons } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	PermissionNotificationReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
+	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
 import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
@@ -77,11 +81,19 @@ export default function PreferenceNotificationPermission() {
 										w={'90%'}
 										variant={'unstyled'}
 										_text={{
-											color: 'primary.500',
 											fontWeight: 'bold',
+											fontSize: 'md',
 										}}
-										onPress={() => {
-											console.log('Set it so in the future it knows to show agains')
+										onPress={async () => {
+											await AsyncStorage.setItem(
+												LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
+												JSON.stringify({
+													...TomorrowPreferencePermissionInitialState,
+													numberOfTimesDismissed: rPreferenceNotificationPermission?.numberOfTimesDismissed
+														? rPreferenceNotificationPermission.numberOfTimesDismissed + 1
+														: 1,
+												} as DefaultPreferenceToPermission),
+											)
 										}}
 									>
 										Not now

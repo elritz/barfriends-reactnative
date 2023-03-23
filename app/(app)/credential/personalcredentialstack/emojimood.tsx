@@ -19,7 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, Ellipse, LinearGradient, Rect, Stop } from 'react-native-svg'
 import { ThemeContext } from 'styled-components/native'
 
-const EmojimoodScreen = () => {
+export default () => {
 	const insets = useSafeAreaInsets()
 	const window = useWindowDimensions()
 	const router = useRouter()
@@ -250,5 +250,3 @@ const EmojimoodScreen = () => {
 		</Box>
 	)
 }
-
-export default EmojimoodScreen

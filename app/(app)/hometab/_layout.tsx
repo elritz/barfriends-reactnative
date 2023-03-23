@@ -13,11 +13,9 @@ import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { BlurView } from 'expo-blur'
 import { Tabs } from 'expo-router'
-import { Box, Text } from 'native-base'
 import { useContext } from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
@@ -31,18 +29,12 @@ export default () => {
 		<Tabs
 			screenOptions={{
 				tabBarBackground: () => (
-					<>
-						{/* {Platform.OS === 'ios' ? (
-							<BlurView style={[StyleSheet.absoluteFill]} tint={colorScheme} intensity={100}></BlurView>
-						) : ( */}
-						<View
-							style={[
-								StyleSheet.absoluteFill,
-								{ backgroundColor: themeContext.palette.primary.background.default },
-							]}
-						/>
-						{/* )} */}
-					</>
+					<View
+						style={[
+							StyleSheet.absoluteFill,
+							{ backgroundColor: themeContext.palette.primary.background.default },
+						]}
+					/>
 				),
 				// tabBarActiveTintColor: themeContext.palette.primary.color.accent,
 				// tabBarInactiveTintColor: themeContext.palette.primary.color.light,

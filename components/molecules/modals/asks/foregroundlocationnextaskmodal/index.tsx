@@ -48,7 +48,8 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 								variant={'ghost'}
 								size={'lg'}
 								_text={{
-									fontSize: 'xl',
+									fontWeight: 'bold',
+									fontSize: 'md',
 								}}
 							>
 								Not now
@@ -63,7 +64,7 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 								variant={'ghost'}
 								size={'lg'}
 								_text={{
-									fontSize: 'xl',
+									fontSize: 'md',
 								}}
 							>
 								Continue

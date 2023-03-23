@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { useNavigation } from '@react-navigation/native'
 import { PermissionMediaReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
 import { Box, Button, Heading, Text } from 'native-base'
 
 export default function MediaPermissionFullSection() {
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rPermissionMediaVar = useReactiveVar(PermissionMediaReactiveVar)
 
 	return (

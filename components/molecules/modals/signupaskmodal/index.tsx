@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { useRouter } from 'expo-router'
 import { Button, Modal } from 'native-base'
 

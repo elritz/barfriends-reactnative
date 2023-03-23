@@ -11,7 +11,7 @@ const VenueFeedSearchInput = () => {
 	return (
 		<Box>
 			<Input
-				variant={'filled'}
+				variant={'unstyled'}
 				rounded={'lg'}
 				_input={{
 					fontSize: 'lg',

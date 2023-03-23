@@ -18,6 +18,7 @@ module.exports = function (api) {
 				{
 					root: ['.'],
 					alias: {
+						'@app': './app',
 						'@ctypes': './types',
 						'@assets': './assets',
 						'@components': './components',

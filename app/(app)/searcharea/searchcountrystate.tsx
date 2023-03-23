@@ -21,11 +21,6 @@ export default function SearchAreaCountryStates() {
 	const [pagination, setPagination] = useState<number>()
 	const formContext = useFormContext<Form>()
 
-	console.log(
-		'🚀 ~ file: SearchAreaCountryStates.tsx:19 ~ SearchAreaCountryStates ~ params:',
-		params,
-	)
-
 	const { watch, getValues, setValue } = formContext
 
 	const { data, loading, error } = useGetAllStatesByCountryQuery({
@@ -42,8 +37,6 @@ export default function SearchAreaCountryStates() {
 			}
 		},
 	})
-
-	console.log('🚀 ~ file: SearchAreaCountryStates.tsx:45 ~ SearchAreaCountryStates ~ data:', data)
 
 	const filterList = text => {
 		if (!params?.searchtext.length && data?.getAllStatesByCountry.length) {

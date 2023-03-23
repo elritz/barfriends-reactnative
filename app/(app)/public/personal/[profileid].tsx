@@ -3,9 +3,6 @@ import { Box, ScrollView, Text } from 'native-base'
 
 export default () => {
 	const params = useSearchParams()
-
-	console.log('🚀 ~ file: [profileid].tsx:7 ~ params:', params)
-
 	return (
 		<ScrollView>
 			<Box safeAreaTop h={200} bg={'dark.50'}>

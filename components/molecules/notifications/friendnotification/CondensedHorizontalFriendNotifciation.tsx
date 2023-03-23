@@ -153,7 +153,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 							fontWeight: '800',
 						}}
 						onPress={() => {
-							isSender ? onOpenCancelFriendNotification() : console.log('receiver')
+							isSender && onOpenCancelFriendNotification()
 						}}
 						isLoadingText={'Requested'}
 					>

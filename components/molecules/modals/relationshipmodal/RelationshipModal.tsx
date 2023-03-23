@@ -3,16 +3,10 @@ import {
 	useGetRelationshipFriendRequestStatusLazyQuery,
 	useRemoveFriendMutation,
 } from '@graphql/generated'
-import { RouteProp, useRoute } from '@react-navigation/native'
-import { PersonalProfileStackParamList } from '@types'
+import { useSearchParams } from 'expo-router'
 import { DateTime } from 'luxon'
 import { Box, Button, HStack, Modal, Text, VStack } from 'native-base'
 import { ReactElement, useEffect } from 'react'
-
-export type PublicProfileRouteProp = RouteProp<
-	PersonalProfileStackParamList,
-	'PublicPersonalScreen'
->
 
 type Props = {
 	isOpen: boolean
@@ -20,7 +14,7 @@ type Props = {
 }
 
 export default function RelationshipModal({ isOpen, onClose }: Props) {
-	const route = useRoute<PublicProfileRouteProp>()
+	const params = useSearchParams()
 
 	const [
 		getRelationshipFriendStatusQuery,
@@ -28,16 +22,14 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 	] = useGetRelationshipFriendRequestStatusLazyQuery({})
 
 	const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
-		onCompleted: data => {
-			console.log('RELATIONSHIP MODAL', data)
-		},
+		onCompleted: data => {},
 	})
 
 	useEffect(() => {
 		getRelationshipFriendStatusQuery({
 			fetchPolicy: 'network-only',
 			variables: {
-				profileId: String(route.params.profileId),
+				profileId: String(params.profileid),
 			},
 		})
 	}, [])
@@ -109,7 +101,7 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 											cache.writeQuery({
 												query: GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY,
 												variables: {
-													profileId: String(route.params.profileId),
+													profileId: String(params.profileid),
 												},
 												data: {
 													getRelationshipFriendRequestStatus: {

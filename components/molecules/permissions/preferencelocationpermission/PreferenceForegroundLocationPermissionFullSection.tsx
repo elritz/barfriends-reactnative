@@ -82,8 +82,8 @@ export default function ForegroundLocationPermissionFullSection() {
 										w={'90%'}
 										variant={'unstyled'}
 										_text={{
-											color: 'primary.500',
 											fontWeight: 'bold',
+											fontSize: 'md',
 										}}
 										onPress={async () => {
 											await AsyncStorage.setItem(

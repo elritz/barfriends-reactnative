@@ -34,7 +34,6 @@ const VenueFeedScreen = () => {
 	const router = useRouter()
 	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
-	const { height } = useWindowDimensions()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)

@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Feather, FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import * as ImagePicker from 'expo-image-picker'
@@ -35,7 +35,7 @@ const UserFemaleIllustration = require('@assets/images/illustration/user_female_
 
 // TODO: FN()
 
-const PhotoScreen = () => {
+export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
 	const router = useRouter()
@@ -366,5 +366,3 @@ const PhotoScreen = () => {
 		</SafeAreaView>
 	)
 }
-
-export default PhotoScreen

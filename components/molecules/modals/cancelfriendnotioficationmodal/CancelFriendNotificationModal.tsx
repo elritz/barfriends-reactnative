@@ -80,7 +80,6 @@ export default function CancelFriendNotificationModal({
 					<Button
 						colorScheme='primary'
 						onPress={() => {
-							console.log(friendRequestId)
 							deleteFriendRequestMutation()
 						}}
 						isLoading={loading}

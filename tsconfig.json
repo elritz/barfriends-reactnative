@@ -19,6 +19,7 @@
 		"strict": true,
 		"baseUrl": "./",
 		"paths": {
+			"@app/*": ["./app/*"],
 			"@preferences": ["./types/preferences.d"],
 			"@ctypes/*": ["./types/*"],
 			"@util/*": ["./util/*"],

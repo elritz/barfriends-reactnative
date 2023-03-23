@@ -2,10 +2,8 @@ import { useReactiveVar } from '@apollo/client'
 import { useGetSecureFriendQrCodeDataQuery, useQrAddFriendMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar, PermissionCameraReactiveVar } from '@reactive'
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import * as Crypto from 'expo-crypto'
 import * as Haptics from 'expo-haptics'
-import { useRouter } from 'expo-router'
-import { Box, Button, Center, Heading, Modal, Text, useDisclose } from 'native-base'
+import { Box, Button, Center, Modal } from 'native-base'
 import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
@@ -13,7 +11,6 @@ import QRCode from 'react-native-qrcode-svg'
 const LOGO_COASTER = require('../../../../assets/images/company/company_coaster.png')
 
 const CameraModal = ({ isOpen, onOpen, onClose }) => {
-	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rPermissionCamera = useReactiveVar(PermissionCameraReactiveVar)
 	const [hasPermission, setHasPermission] = useState(null)
@@ -30,7 +27,6 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 		// 		Crypto.CryptoDigestAlgorithm.SHA256,
 		// 		JSON.stringify({ profileid: rAuthorizationVar?.DeviceProfile?.Profile?.id }),
 		// 	)
-		// 	console.log('Digest: ', digest)
 		// 	/* Some crypto operation... */
 		// })()
 		getBarCodeScannerPermissions()

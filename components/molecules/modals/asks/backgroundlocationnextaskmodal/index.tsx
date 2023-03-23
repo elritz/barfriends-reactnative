@@ -45,9 +45,16 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 									onClose()
 								}}
 								variant={'ghost'}
+								_dark={{
+									color: 'dark.900',
+								}}
+								_light={{
+									color: 'dark.900',
+								}}
 								size={'lg'}
 								_text={{
-									fontSize: 'xl',
+									fontWeight: 'bold',
+									fontSize: 'md',
 								}}
 							>
 								Not now
@@ -62,7 +69,7 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 								variant={'ghost'}
 								size={'lg'}
 								_text={{
-									fontSize: 'xl',
+									fontSize: 'md',
 								}}
 							>
 								Continue

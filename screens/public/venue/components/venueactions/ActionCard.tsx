@@ -19,7 +19,12 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 		<OuterView
 			width={width}
 			numColumns={numColumns}
-			bg={bg || themeContext.palette.background.paper}
+			_dark={{
+				bg: bg || 'dark.100',
+			}}
+			_light={{
+				bg: bg || 'light.100',
+			}}
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',

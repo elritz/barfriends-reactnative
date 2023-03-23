@@ -65,7 +65,14 @@ export default () => {
 	if (!memTheme) return <SplashScreen />
 
 	return (
-		<ThemeProvider value={{ ...memTheme.rn }}>
+		<ThemeProvider
+			value={{
+				...memTheme.rn,
+				colors: {
+					...memTheme.rn.colors,
+				},
+			}}
+		>
 			<StyledThemeProvider theme={memTheme.styled}>
 				<NativeBaseProvider theme={memTheme.nb}>
 					<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
