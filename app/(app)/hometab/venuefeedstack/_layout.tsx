@@ -8,9 +8,7 @@ export default function _layout() {
 		<Stack
 			initialRouteName='index'
 			screenOptions={{
-				// headerShown: false,
-				headerTransparent: true,
-				gestureDirection: 'horizontal',
+				headerShown: false,
 				header: () => {
 					return (
 						<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>

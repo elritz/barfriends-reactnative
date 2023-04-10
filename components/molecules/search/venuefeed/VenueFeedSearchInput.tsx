@@ -19,7 +19,7 @@ const VenueFeedSearchInput = () => {
 				h={SEARCH_BAR_HEIGHT}
 				_light={{ bgColor: 'light.200' }}
 				_dark={{ bgColor: 'dark.200' }}
-				flex={1}
+				// flex={1}
 				mx={2}
 				alignSelf={'center'}
 				placeholder={'Search venues'}

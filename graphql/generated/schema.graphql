@@ -451,6 +451,571 @@ enum AppType {
   PETFRIENDS
 }
 
+type Area {
+  City: City!
+  cityId: String!
+  ComingArea: ComingArea
+  Country: Country!
+  countryId: String!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendation
+  H3Index6VenueRecommendation: H3Index6VenueRecommendation
+  id: ID!
+  Location: Location
+  State: State!
+  stateId: String!
+}
+
+input AreaCountOrderByAggregateInput {
+  cityId: SortOrder
+  countryId: SortOrder
+  id: SortOrder
+  stateId: SortOrder
+}
+
+input AreaCreateInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateManyCityInput {
+  countryId: String!
+  id: String
+  stateId: String!
+}
+
+input AreaCreateManyCityInputEnvelope {
+  data: [AreaCreateManyCityInput!]!
+  skipDuplicates: Boolean
+}
+
+input AreaCreateManyCountryInput {
+  cityId: String!
+  id: String
+  stateId: String!
+}
+
+input AreaCreateManyCountryInputEnvelope {
+  data: [AreaCreateManyCountryInput!]!
+  skipDuplicates: Boolean
+}
+
+input AreaCreateManyInput {
+  cityId: String!
+  countryId: String!
+  id: String
+  stateId: String!
+}
+
+input AreaCreateManyStateInput {
+  cityId: String!
+  countryId: String!
+  id: String
+}
+
+input AreaCreateManyStateInputEnvelope {
+  data: [AreaCreateManyStateInput!]!
+  skipDuplicates: Boolean
+}
+
+input AreaCreateNestedManyWithoutCityInput {
+  connect: [AreaWhereUniqueInput!]
+  connectOrCreate: [AreaCreateOrConnectWithoutCityInput!]
+  create: AreaCreateWithoutCityInput
+  createMany: AreaCreateManyCityInputEnvelope
+}
+
+input AreaCreateNestedManyWithoutCountryInput {
+  connect: [AreaWhereUniqueInput!]
+  connectOrCreate: [AreaCreateOrConnectWithoutCountryInput!]
+  create: AreaCreateWithoutCountryInput
+  createMany: AreaCreateManyCountryInputEnvelope
+}
+
+input AreaCreateNestedManyWithoutStateInput {
+  connect: [AreaWhereUniqueInput!]
+  connectOrCreate: [AreaCreateOrConnectWithoutStateInput!]
+  create: AreaCreateWithoutStateInput
+  createMany: AreaCreateManyStateInputEnvelope
+}
+
+input AreaCreateNestedOneWithoutComingAreaInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutComingAreaInput
+  create: AreaCreateWithoutComingAreaInput
+}
+
+input AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutH3Index5VenueRecommendationInput
+  create: AreaCreateWithoutH3Index5VenueRecommendationInput
+}
+
+input AreaCreateNestedOneWithoutH3Index6VenueRecommendationInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutH3Index6VenueRecommendationInput
+  create: AreaCreateWithoutH3Index6VenueRecommendationInput
+}
+
+input AreaCreateNestedOneWithoutLocationInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutLocationInput
+  create: AreaCreateWithoutLocationInput
+}
+
+input AreaCreateOrConnectWithoutCityInput {
+  create: AreaCreateWithoutCityInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateOrConnectWithoutComingAreaInput {
+  create: AreaCreateWithoutComingAreaInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateOrConnectWithoutCountryInput {
+  create: AreaCreateWithoutCountryInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateOrConnectWithoutH3Index5VenueRecommendationInput {
+  create: AreaCreateWithoutH3Index5VenueRecommendationInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateOrConnectWithoutH3Index6VenueRecommendationInput {
+  create: AreaCreateWithoutH3Index6VenueRecommendationInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateOrConnectWithoutLocationInput {
+  create: AreaCreateWithoutLocationInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateOrConnectWithoutStateInput {
+  create: AreaCreateWithoutStateInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaCreateWithoutCityInput {
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateWithoutComingAreaInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateWithoutCountryInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateWithoutH3Index5VenueRecommendationInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateWithoutH3Index6VenueRecommendationInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateWithoutLocationInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  State: StateCreateNestedOneWithoutAreaInput!
+}
+
+input AreaCreateWithoutStateInput {
+  City: CityCreateNestedOneWithoutAreaInput!
+  ComingArea: ComingAreaCreateNestedOneWithoutAreaInput
+  Country: CountryCreateNestedOneWithoutAreaInput!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
+  id: String
+  Location: LocationCreateNestedOneWithoutAreaInput
+}
+
+input AreaListRelationFilter {
+  every: AreaWhereInput
+  none: AreaWhereInput
+  some: AreaWhereInput
+}
+
+input AreaMaxOrderByAggregateInput {
+  cityId: SortOrder
+  countryId: SortOrder
+  id: SortOrder
+  stateId: SortOrder
+}
+
+input AreaMinOrderByAggregateInput {
+  cityId: SortOrder
+  countryId: SortOrder
+  id: SortOrder
+  stateId: SortOrder
+}
+
+input AreaOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input AreaOrderByWithAggregationInput {
+  _count: AreaCountOrderByAggregateInput
+  _max: AreaMaxOrderByAggregateInput
+  _min: AreaMinOrderByAggregateInput
+  cityId: SortOrder
+  countryId: SortOrder
+  id: SortOrder
+  stateId: SortOrder
+}
+
+input AreaOrderByWithRelationInput {
+  City: CityOrderByWithRelationInput
+  cityId: SortOrder
+  ComingArea: ComingAreaOrderByWithRelationInput
+  Country: CountryOrderByWithRelationInput
+  countryId: SortOrder
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationOrderByWithRelationInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationOrderByWithRelationInput
+  id: SortOrder
+  Location: LocationOrderByWithRelationInput
+  State: StateOrderByWithRelationInput
+  stateId: SortOrder
+}
+
+input AreaRelationFilter {
+  is: AreaWhereInput
+  isNot: AreaWhereInput
+}
+
+type AreaResponse {
+  City: City!
+  Country: Country!
+  Geometry: Coords!
+  State: State!
+}
+
+enum AreaScalarFieldEnum {
+  cityId
+  countryId
+  id
+  stateId
+}
+
+input AreaScalarWhereInput {
+  AND: [AreaScalarWhereInput!]
+  cityId: StringFilter
+  countryId: StringFilter
+  id: StringFilter
+  NOT: [AreaScalarWhereInput!]
+  OR: [AreaScalarWhereInput!]
+  stateId: StringFilter
+}
+
+input AreaScalarWhereWithAggregatesInput {
+  AND: [AreaScalarWhereWithAggregatesInput!]
+  cityId: StringWithAggregatesFilter
+  countryId: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  NOT: [AreaScalarWhereWithAggregatesInput!]
+  OR: [AreaScalarWhereWithAggregatesInput!]
+  stateId: StringWithAggregatesFilter
+}
+
+input AreaUpdateInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+}
+
+input AreaUpdateManyWithoutCityNestedInput {
+  connect: [AreaWhereUniqueInput!]
+  connectOrCreate: [AreaCreateOrConnectWithoutCityInput!]
+  create: AreaCreateWithoutCityInput
+  createMany: AreaCreateManyCityInputEnvelope
+  delete: [AreaWhereUniqueInput!]
+  deleteMany: [AreaScalarWhereInput!]
+  disconnect: [AreaWhereUniqueInput!]
+  set: [AreaWhereUniqueInput!]
+  update: [AreaUpdateWithWhereUniqueWithoutCityInput!]
+  updateMany: [AreaUpdateManyWithWhereWithoutCityInput!]
+  upsert: [AreaUpsertWithWhereUniqueWithoutCityInput!]
+}
+
+input AreaUpdateManyWithoutCountryNestedInput {
+  connect: [AreaWhereUniqueInput!]
+  connectOrCreate: [AreaCreateOrConnectWithoutCountryInput!]
+  create: AreaCreateWithoutCountryInput
+  createMany: AreaCreateManyCountryInputEnvelope
+  delete: [AreaWhereUniqueInput!]
+  deleteMany: [AreaScalarWhereInput!]
+  disconnect: [AreaWhereUniqueInput!]
+  set: [AreaWhereUniqueInput!]
+  update: [AreaUpdateWithWhereUniqueWithoutCountryInput!]
+  updateMany: [AreaUpdateManyWithWhereWithoutCountryInput!]
+  upsert: [AreaUpsertWithWhereUniqueWithoutCountryInput!]
+}
+
+input AreaUpdateManyWithoutStateNestedInput {
+  connect: [AreaWhereUniqueInput!]
+  connectOrCreate: [AreaCreateOrConnectWithoutStateInput!]
+  create: AreaCreateWithoutStateInput
+  createMany: AreaCreateManyStateInputEnvelope
+  delete: [AreaWhereUniqueInput!]
+  deleteMany: [AreaScalarWhereInput!]
+  disconnect: [AreaWhereUniqueInput!]
+  set: [AreaWhereUniqueInput!]
+  update: [AreaUpdateWithWhereUniqueWithoutStateInput!]
+  updateMany: [AreaUpdateManyWithWhereWithoutStateInput!]
+  upsert: [AreaUpsertWithWhereUniqueWithoutStateInput!]
+}
+
+input AreaUpdateManyWithWhereWithoutCityInput {
+  data: AreaUpdateManyMutationInput!
+  where: AreaScalarWhereInput!
+}
+
+input AreaUpdateManyWithWhereWithoutCountryInput {
+  data: AreaUpdateManyMutationInput!
+  where: AreaScalarWhereInput!
+}
+
+input AreaUpdateManyWithWhereWithoutStateInput {
+  data: AreaUpdateManyMutationInput!
+  where: AreaScalarWhereInput!
+}
+
+input AreaUpdateOneWithoutComingAreaNestedInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutComingAreaInput
+  create: AreaCreateWithoutComingAreaInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AreaUpdateWithoutComingAreaInput
+  upsert: AreaUpsertWithoutComingAreaInput
+}
+
+input AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutH3Index5VenueRecommendationInput
+  create: AreaCreateWithoutH3Index5VenueRecommendationInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AreaUpdateWithoutH3Index5VenueRecommendationInput
+  upsert: AreaUpsertWithoutH3Index5VenueRecommendationInput
+}
+
+input AreaUpdateOneWithoutH3Index6VenueRecommendationNestedInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutH3Index6VenueRecommendationInput
+  create: AreaCreateWithoutH3Index6VenueRecommendationInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AreaUpdateWithoutH3Index6VenueRecommendationInput
+  upsert: AreaUpsertWithoutH3Index6VenueRecommendationInput
+}
+
+input AreaUpdateOneWithoutLocationNestedInput {
+  connect: AreaWhereUniqueInput
+  connectOrCreate: AreaCreateOrConnectWithoutLocationInput
+  create: AreaCreateWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AreaUpdateWithoutLocationInput
+  upsert: AreaUpsertWithoutLocationInput
+}
+
+input AreaUpdateWithoutCityInput {
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateWithoutComingAreaInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateWithoutCountryInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateWithoutH3Index5VenueRecommendationInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateWithoutH3Index6VenueRecommendationInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateWithoutLocationInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  State: StateUpdateOneRequiredWithoutAreaNestedInput
+}
+
+input AreaUpdateWithoutStateInput {
+  City: CityUpdateOneRequiredWithoutAreaNestedInput
+  ComingArea: ComingAreaUpdateOneWithoutAreaNestedInput
+  Country: CountryUpdateOneRequiredWithoutAreaNestedInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
+  id: StringFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutAreaNestedInput
+}
+
+input AreaUpdateWithWhereUniqueWithoutCityInput {
+  data: AreaUpdateWithoutCityInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaUpdateWithWhereUniqueWithoutCountryInput {
+  data: AreaUpdateWithoutCountryInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaUpdateWithWhereUniqueWithoutStateInput {
+  data: AreaUpdateWithoutStateInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaUpsertWithoutComingAreaInput {
+  create: AreaCreateWithoutComingAreaInput!
+  update: AreaUpdateWithoutComingAreaInput!
+}
+
+input AreaUpsertWithoutH3Index5VenueRecommendationInput {
+  create: AreaCreateWithoutH3Index5VenueRecommendationInput!
+  update: AreaUpdateWithoutH3Index5VenueRecommendationInput!
+}
+
+input AreaUpsertWithoutH3Index6VenueRecommendationInput {
+  create: AreaCreateWithoutH3Index6VenueRecommendationInput!
+  update: AreaUpdateWithoutH3Index6VenueRecommendationInput!
+}
+
+input AreaUpsertWithoutLocationInput {
+  create: AreaCreateWithoutLocationInput!
+  update: AreaUpdateWithoutLocationInput!
+}
+
+input AreaUpsertWithWhereUniqueWithoutCityInput {
+  create: AreaCreateWithoutCityInput!
+  update: AreaUpdateWithoutCityInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaUpsertWithWhereUniqueWithoutCountryInput {
+  create: AreaCreateWithoutCountryInput!
+  update: AreaUpdateWithoutCountryInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaUpsertWithWhereUniqueWithoutStateInput {
+  create: AreaCreateWithoutStateInput!
+  update: AreaUpdateWithoutStateInput!
+  where: AreaWhereUniqueInput!
+}
+
+input AreaWhereInput {
+  AND: [AreaWhereInput!]
+  City: CityWhereInput
+  cityId: StringFilter
+  ComingArea: ComingAreaWhereInput
+  Country: CountryWhereInput
+  countryId: StringFilter
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationWhereInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationWhereInput
+  id: StringFilter
+  Location: LocationWhereInput
+  NOT: [AreaWhereInput!]
+  OR: [AreaWhereInput!]
+  State: StateWhereInput
+  stateId: StringFilter
+}
+
+input AreaWhereUniqueInput {
+  id: String
+}
+
 type AuthenticationProvider {
   codepassword: Code
   Credentials: Credentials
@@ -1142,6 +1707,107 @@ input ChatroomWhereUniqueInput {
   id: String
 }
 
+type City {
+  Area(cursor: AreaWhereUniqueInput, distinct: [AreaScalarFieldEnum!], orderBy: [AreaOrderByWithRelationInput!], skip: Int, take: Int, where: AreaWhereInput): [Area!]!
+  Geometry: Geometry!
+  geometryId: Int!
+  id: ID!
+  name: String!
+}
+
+input CityAvgOrderByAggregateInput {
+  geometryId: SortOrder
+}
+
+input CityCountOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input CityCreateInput {
+  Area: AreaCreateNestedManyWithoutCityInput
+  Geometry: GeometryCreateNestedOneWithoutCityInput!
+  id: String
+  name: String!
+}
+
+input CityCreateManyInput {
+  geometryId: Int!
+  id: String
+  name: String!
+}
+
+input CityCreateNestedOneWithoutAreaInput {
+  connect: CityWhereUniqueInput
+  connectOrCreate: CityCreateOrConnectWithoutAreaInput
+  create: CityCreateWithoutAreaInput
+}
+
+input CityCreateNestedOneWithoutGeometryInput {
+  connect: CityWhereUniqueInput
+  connectOrCreate: CityCreateOrConnectWithoutGeometryInput
+  create: CityCreateWithoutGeometryInput
+}
+
+input CityCreateOrConnectWithoutAreaInput {
+  create: CityCreateWithoutAreaInput!
+  where: CityWhereUniqueInput!
+}
+
+input CityCreateOrConnectWithoutGeometryInput {
+  create: CityCreateWithoutGeometryInput!
+  where: CityWhereUniqueInput!
+}
+
+input CityCreateWithoutAreaInput {
+  Geometry: GeometryCreateNestedOneWithoutCityInput!
+  id: String
+  name: String!
+}
+
+input CityCreateWithoutGeometryInput {
+  Area: AreaCreateNestedManyWithoutCityInput
+  id: String
+  name: String!
+}
+
+input CityMaxOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input CityMinOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input CityOrderByWithAggregationInput {
+  _avg: CityAvgOrderByAggregateInput
+  _count: CityCountOrderByAggregateInput
+  _max: CityMaxOrderByAggregateInput
+  _min: CityMinOrderByAggregateInput
+  _sum: CitySumOrderByAggregateInput
+  geometryId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input CityOrderByWithRelationInput {
+  Area: AreaOrderByRelationAggregateInput
+  Geometry: GeometryOrderByWithRelationInput
+  geometryId: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input CityRelationFilter {
+  is: CityWhereInput
+  isNot: CityWhereInput
+}
+
 type CityResponseObject {
   countryCode: String!
   latitude: String
@@ -1150,12 +1816,100 @@ type CityResponseObject {
   stateCode: String!
 }
 
+enum CityScalarFieldEnum {
+  geometryId
+  id
+  name
+}
+
+input CityScalarWhereWithAggregatesInput {
+  AND: [CityScalarWhereWithAggregatesInput!]
+  geometryId: IntWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  NOT: [CityScalarWhereWithAggregatesInput!]
+  OR: [CityScalarWhereWithAggregatesInput!]
+}
+
+input CitySumOrderByAggregateInput {
+  geometryId: SortOrder
+}
+
+input CityUpdateInput {
+  Area: AreaUpdateManyWithoutCityNestedInput
+  Geometry: GeometryUpdateOneRequiredWithoutCityNestedInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CityUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CityUpdateOneRequiredWithoutAreaNestedInput {
+  connect: CityWhereUniqueInput
+  connectOrCreate: CityCreateOrConnectWithoutAreaInput
+  create: CityCreateWithoutAreaInput
+  update: CityUpdateWithoutAreaInput
+  upsert: CityUpsertWithoutAreaInput
+}
+
+input CityUpdateOneWithoutGeometryNestedInput {
+  connect: CityWhereUniqueInput
+  connectOrCreate: CityCreateOrConnectWithoutGeometryInput
+  create: CityCreateWithoutGeometryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CityUpdateWithoutGeometryInput
+  upsert: CityUpsertWithoutGeometryInput
+}
+
+input CityUpdateWithoutAreaInput {
+  Geometry: GeometryUpdateOneRequiredWithoutCityNestedInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CityUpdateWithoutGeometryInput {
+  Area: AreaUpdateManyWithoutCityNestedInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CityUpsertWithoutAreaInput {
+  create: CityCreateWithoutAreaInput!
+  update: CityUpdateWithoutAreaInput!
+}
+
+input CityUpsertWithoutGeometryInput {
+  create: CityCreateWithoutGeometryInput!
+  update: CityUpdateWithoutGeometryInput!
+}
+
+input CityWhereInput {
+  AND: [CityWhereInput!]
+  Area: AreaListRelationFilter
+  Geometry: GeometryWhereInput
+  geometryId: IntFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [CityWhereInput!]
+  OR: [CityWhereInput!]
+}
+
+input CityWhereUniqueInput {
+  geometryId: Int
+  id: String
+  name: String
+}
+
 type ClientDeviceManager {
-  createdAt: DateTime!
+  createdAt: DateTime
   Device: Device
   DeviceProfile: ClientDeviceProfile
   id: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type ClientDeviceProfile {
@@ -1169,7 +1923,7 @@ type ClientDeviceProfile {
   Profile: Profile!
   profileId: String
   ProfileType: ProfileType
-  refreshtoken: String!
+  refreshtoken: String
   RefreshToken: RefreshToken
   updatedAt: DateTime!
 }
@@ -1227,7 +1981,7 @@ input CodeCreateWithoutAuthenticationProviderInput {
 
 input CodeDataInput {
   """Length is the total numbers that you want the code to be."""
-  length: Int
+  length: Int = 4
 }
 
 input CodeMaxOrderByAggregateInput {
@@ -1356,6 +2110,283 @@ input CodeWhereUniqueInput {
   id: String
 }
 
+type ComingArea {
+  Area: Area
+  areaId: String
+  h3Index5: String!
+  h3Index6: String!
+  id: ID!
+  keywordSuggestions: [String!]!
+  timesRequested: Int!
+  toBeNotifiedProfileIds: [String!]!
+  Vote(cursor: VoteWhereUniqueInput, distinct: [VoteScalarFieldEnum!], orderBy: [VoteOrderByWithRelationInput!], skip: Int, take: Int, where: VoteWhereInput): [Vote!]!
+}
+
+input ComingAreaAvgOrderByAggregateInput {
+  timesRequested: SortOrder
+}
+
+input ComingAreaCountOrderByAggregateInput {
+  areaId: SortOrder
+  h3Index5: SortOrder
+  h3Index6: SortOrder
+  id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
+  toBeNotifiedProfileIds: SortOrder
+}
+
+input ComingAreaCreateInput {
+  Area: AreaCreateNestedOneWithoutComingAreaInput
+  h3Index5: String!
+  h3Index6: String!
+  id: String
+  keywordSuggestions: [String!]
+  timesRequested: Int!
+  toBeNotifiedProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutComingAreaInput
+}
+
+input ComingAreaCreatekeywordSuggestionsInput {
+  set: [String!]!
+}
+
+input ComingAreaCreateManyInput {
+  areaId: String
+  h3Index5: String!
+  h3Index6: String!
+  id: String
+  keywordSuggestions: [String!]
+  timesRequested: Int!
+  toBeNotifiedProfileIds: [String!]
+}
+
+input ComingAreaCreateNestedOneWithoutAreaInput {
+  connect: ComingAreaWhereUniqueInput
+  connectOrCreate: ComingAreaCreateOrConnectWithoutAreaInput
+  create: ComingAreaCreateWithoutAreaInput
+}
+
+input ComingAreaCreateNestedOneWithoutVoteInput {
+  connect: ComingAreaWhereUniqueInput
+  connectOrCreate: ComingAreaCreateOrConnectWithoutVoteInput
+  create: ComingAreaCreateWithoutVoteInput
+}
+
+input ComingAreaCreateOrConnectWithoutAreaInput {
+  create: ComingAreaCreateWithoutAreaInput!
+  where: ComingAreaWhereUniqueInput!
+}
+
+input ComingAreaCreateOrConnectWithoutVoteInput {
+  create: ComingAreaCreateWithoutVoteInput!
+  where: ComingAreaWhereUniqueInput!
+}
+
+input ComingAreaCreatetoBeNotifiedProfileIdsInput {
+  set: [String!]!
+}
+
+input ComingAreaCreateWithoutAreaInput {
+  h3Index5: String!
+  h3Index6: String!
+  id: String
+  keywordSuggestions: [String!]
+  timesRequested: Int!
+  toBeNotifiedProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutComingAreaInput
+}
+
+input ComingAreaCreateWithoutVoteInput {
+  Area: AreaCreateNestedOneWithoutComingAreaInput
+  h3Index5: String!
+  h3Index6: String!
+  id: String
+  keywordSuggestions: [String!]
+  timesRequested: Int!
+  toBeNotifiedProfileIds: [String!]
+}
+
+input ComingAreaMaxOrderByAggregateInput {
+  areaId: SortOrder
+  h3Index5: SortOrder
+  h3Index6: SortOrder
+  id: SortOrder
+  timesRequested: SortOrder
+}
+
+input ComingAreaMinOrderByAggregateInput {
+  areaId: SortOrder
+  h3Index5: SortOrder
+  h3Index6: SortOrder
+  id: SortOrder
+  timesRequested: SortOrder
+}
+
+input ComingAreaOrderByWithAggregationInput {
+  _avg: ComingAreaAvgOrderByAggregateInput
+  _count: ComingAreaCountOrderByAggregateInput
+  _max: ComingAreaMaxOrderByAggregateInput
+  _min: ComingAreaMinOrderByAggregateInput
+  _sum: ComingAreaSumOrderByAggregateInput
+  areaId: SortOrder
+  h3Index5: SortOrder
+  h3Index6: SortOrder
+  id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
+  toBeNotifiedProfileIds: SortOrder
+}
+
+input ComingAreaOrderByWithRelationInput {
+  Area: AreaOrderByWithRelationInput
+  areaId: SortOrder
+  h3Index5: SortOrder
+  h3Index6: SortOrder
+  id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
+  toBeNotifiedProfileIds: SortOrder
+  Vote: VoteOrderByRelationAggregateInput
+}
+
+input ComingAreaRelationFilter {
+  is: ComingAreaWhereInput
+  isNot: ComingAreaWhereInput
+}
+
+type ComingAreaResponse {
+  comingAreas: [ComingArea!]!
+  searchArea: Area
+}
+
+enum ComingAreaScalarFieldEnum {
+  areaId
+  h3Index5
+  h3Index6
+  id
+  keywordSuggestions
+  timesRequested
+  toBeNotifiedProfileIds
+}
+
+input ComingAreaScalarWhereWithAggregatesInput {
+  AND: [ComingAreaScalarWhereWithAggregatesInput!]
+  areaId: StringNullableWithAggregatesFilter
+  h3Index5: StringWithAggregatesFilter
+  h3Index6: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  keywordSuggestions: StringNullableListFilter
+  NOT: [ComingAreaScalarWhereWithAggregatesInput!]
+  OR: [ComingAreaScalarWhereWithAggregatesInput!]
+  timesRequested: IntWithAggregatesFilter
+  toBeNotifiedProfileIds: StringNullableListFilter
+}
+
+input ComingAreaSumOrderByAggregateInput {
+  timesRequested: SortOrder
+}
+
+input ComingAreaUpdateInput {
+  Area: AreaUpdateOneWithoutComingAreaNestedInput
+  h3Index5: StringFieldUpdateOperationsInput
+  h3Index6: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [String!]
+  timesRequested: IntFieldUpdateOperationsInput
+  toBeNotifiedProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutComingAreaNestedInput
+}
+
+input ComingAreaUpdatekeywordSuggestionsInput {
+  push: [String!]
+  set: [String!]
+}
+
+input ComingAreaUpdateManyMutationInput {
+  h3Index5: StringFieldUpdateOperationsInput
+  h3Index6: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [String!]
+  timesRequested: IntFieldUpdateOperationsInput
+  toBeNotifiedProfileIds: [String!]
+}
+
+input ComingAreaUpdateOneWithoutAreaNestedInput {
+  connect: ComingAreaWhereUniqueInput
+  connectOrCreate: ComingAreaCreateOrConnectWithoutAreaInput
+  create: ComingAreaCreateWithoutAreaInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ComingAreaUpdateWithoutAreaInput
+  upsert: ComingAreaUpsertWithoutAreaInput
+}
+
+input ComingAreaUpdateOneWithoutVoteNestedInput {
+  connect: ComingAreaWhereUniqueInput
+  connectOrCreate: ComingAreaCreateOrConnectWithoutVoteInput
+  create: ComingAreaCreateWithoutVoteInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ComingAreaUpdateWithoutVoteInput
+  upsert: ComingAreaUpsertWithoutVoteInput
+}
+
+input ComingAreaUpdatetoBeNotifiedProfileIdsInput {
+  push: [String!]
+  set: [String!]
+}
+
+input ComingAreaUpdateWithoutAreaInput {
+  h3Index5: StringFieldUpdateOperationsInput
+  h3Index6: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [String!]
+  timesRequested: IntFieldUpdateOperationsInput
+  toBeNotifiedProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutComingAreaNestedInput
+}
+
+input ComingAreaUpdateWithoutVoteInput {
+  Area: AreaUpdateOneWithoutComingAreaNestedInput
+  h3Index5: StringFieldUpdateOperationsInput
+  h3Index6: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [String!]
+  timesRequested: IntFieldUpdateOperationsInput
+  toBeNotifiedProfileIds: [String!]
+}
+
+input ComingAreaUpsertWithoutAreaInput {
+  create: ComingAreaCreateWithoutAreaInput!
+  update: ComingAreaUpdateWithoutAreaInput!
+}
+
+input ComingAreaUpsertWithoutVoteInput {
+  create: ComingAreaCreateWithoutVoteInput!
+  update: ComingAreaUpdateWithoutVoteInput!
+}
+
+input ComingAreaWhereInput {
+  AND: [ComingAreaWhereInput!]
+  Area: AreaWhereInput
+  areaId: StringNullableFilter
+  h3Index5: StringFilter
+  h3Index6: StringFilter
+  id: StringFilter
+  keywordSuggestions: StringNullableListFilter
+  NOT: [ComingAreaWhereInput!]
+  OR: [ComingAreaWhereInput!]
+  timesRequested: IntFilter
+  toBeNotifiedProfileIds: StringNullableListFilter
+  Vote: VoteListRelationFilter
+}
+
+input ComingAreaWhereUniqueInput {
+  areaId: String
+  id: String
+}
+
 input ContactInput {
   name: String
   number: String
@@ -1371,6 +2402,117 @@ input CoordsInput {
   longitude: Float!
 }
 
+type Country {
+  Area(cursor: AreaWhereUniqueInput, distinct: [AreaScalarFieldEnum!], orderBy: [AreaOrderByWithRelationInput!], skip: Int, take: Int, where: AreaWhereInput): [Area!]!
+  Geometry: Geometry!
+  geometryId: Int!
+  id: ID!
+  isoCode: String!
+  name: String!
+}
+
+input CountryAvgOrderByAggregateInput {
+  geometryId: SortOrder
+}
+
+input CountryCountOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input CountryCreateInput {
+  Area: AreaCreateNestedManyWithoutCountryInput
+  Geometry: GeometryCreateNestedOneWithoutCountryInput!
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input CountryCreateManyInput {
+  geometryId: Int!
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input CountryCreateNestedOneWithoutAreaInput {
+  connect: CountryWhereUniqueInput
+  connectOrCreate: CountryCreateOrConnectWithoutAreaInput
+  create: CountryCreateWithoutAreaInput
+}
+
+input CountryCreateNestedOneWithoutGeometryInput {
+  connect: CountryWhereUniqueInput
+  connectOrCreate: CountryCreateOrConnectWithoutGeometryInput
+  create: CountryCreateWithoutGeometryInput
+}
+
+input CountryCreateOrConnectWithoutAreaInput {
+  create: CountryCreateWithoutAreaInput!
+  where: CountryWhereUniqueInput!
+}
+
+input CountryCreateOrConnectWithoutGeometryInput {
+  create: CountryCreateWithoutGeometryInput!
+  where: CountryWhereUniqueInput!
+}
+
+input CountryCreateWithoutAreaInput {
+  Geometry: GeometryCreateNestedOneWithoutCountryInput!
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input CountryCreateWithoutGeometryInput {
+  Area: AreaCreateNestedManyWithoutCountryInput
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input CountryMaxOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input CountryMinOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input CountryOrderByWithAggregationInput {
+  _avg: CountryAvgOrderByAggregateInput
+  _count: CountryCountOrderByAggregateInput
+  _max: CountryMaxOrderByAggregateInput
+  _min: CountryMinOrderByAggregateInput
+  _sum: CountrySumOrderByAggregateInput
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input CountryOrderByWithRelationInput {
+  Area: AreaOrderByRelationAggregateInput
+  Geometry: GeometryOrderByWithRelationInput
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input CountryRelationFilter {
+  is: CountryWhereInput
+  isNot: CountryWhereInput
+}
+
 type CountryResponseObject {
   currency: String!
   flag: String!
@@ -1379,6 +2521,102 @@ type CountryResponseObject {
   longitude: String!
   name: String!
   phonecode: String!
+}
+
+enum CountryScalarFieldEnum {
+  geometryId
+  id
+  isoCode
+  name
+}
+
+input CountryScalarWhereWithAggregatesInput {
+  AND: [CountryScalarWhereWithAggregatesInput!]
+  geometryId: IntWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isoCode: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  NOT: [CountryScalarWhereWithAggregatesInput!]
+  OR: [CountryScalarWhereWithAggregatesInput!]
+}
+
+input CountrySumOrderByAggregateInput {
+  geometryId: SortOrder
+}
+
+input CountryUpdateInput {
+  Area: AreaUpdateManyWithoutCountryNestedInput
+  Geometry: GeometryUpdateOneRequiredWithoutCountryNestedInput
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CountryUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CountryUpdateOneRequiredWithoutAreaNestedInput {
+  connect: CountryWhereUniqueInput
+  connectOrCreate: CountryCreateOrConnectWithoutAreaInput
+  create: CountryCreateWithoutAreaInput
+  update: CountryUpdateWithoutAreaInput
+  upsert: CountryUpsertWithoutAreaInput
+}
+
+input CountryUpdateOneWithoutGeometryNestedInput {
+  connect: CountryWhereUniqueInput
+  connectOrCreate: CountryCreateOrConnectWithoutGeometryInput
+  create: CountryCreateWithoutGeometryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CountryUpdateWithoutGeometryInput
+  upsert: CountryUpsertWithoutGeometryInput
+}
+
+input CountryUpdateWithoutAreaInput {
+  Geometry: GeometryUpdateOneRequiredWithoutCountryNestedInput
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CountryUpdateWithoutGeometryInput {
+  Area: AreaUpdateManyWithoutCountryNestedInput
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input CountryUpsertWithoutAreaInput {
+  create: CountryCreateWithoutAreaInput!
+  update: CountryUpdateWithoutAreaInput!
+}
+
+input CountryUpsertWithoutGeometryInput {
+  create: CountryCreateWithoutGeometryInput!
+  update: CountryUpdateWithoutGeometryInput!
+}
+
+input CountryWhereInput {
+  AND: [CountryWhereInput!]
+  Area: AreaListRelationFilter
+  Geometry: GeometryWhereInput
+  geometryId: IntFilter
+  id: StringFilter
+  isoCode: StringFilter
+  name: StringFilter
+  NOT: [CountryWhereInput!]
+  OR: [CountryWhereInput!]
+}
+
+input CountryWhereUniqueInput {
+  geometryId: Int
+  id: String
+  isoCode: String
+  name: String
 }
 
 input CreatePersonalDataInput {
@@ -3774,12 +5012,14 @@ input FriendRequestWhereUniqueInput {
 }
 
 type Geometry {
+  City: City
+  Country: Country
   h3Index15: String
   id: ID!
   latitude: Float!
   Location: Location
   longitude: Float!
-  type: String!
+  State: State
 }
 
 input GeometryAvgOrderByAggregateInput {
@@ -3793,15 +5033,16 @@ input GeometryCountOrderByAggregateInput {
   id: SortOrder
   latitude: SortOrder
   longitude: SortOrder
-  type: SortOrder
 }
 
 input GeometryCreateInput {
+  City: CityCreateNestedOneWithoutGeometryInput
+  Country: CountryCreateNestedOneWithoutGeometryInput
   h3Index15: String
   latitude: Float!
   Location: LocationCreateNestedOneWithoutGeometryInput
   longitude: Float!
-  type: String!
+  State: StateCreateNestedOneWithoutGeometryInput
 }
 
 input GeometryCreateManyInput {
@@ -3809,7 +5050,18 @@ input GeometryCreateManyInput {
   id: Int
   latitude: Float!
   longitude: Float!
-  type: String!
+}
+
+input GeometryCreateNestedOneWithoutCityInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutCityInput
+  create: GeometryCreateWithoutCityInput
+}
+
+input GeometryCreateNestedOneWithoutCountryInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutCountryInput
+  create: GeometryCreateWithoutCountryInput
 }
 
 input GeometryCreateNestedOneWithoutLocationInput {
@@ -3818,16 +5070,66 @@ input GeometryCreateNestedOneWithoutLocationInput {
   create: GeometryCreateWithoutLocationInput
 }
 
+input GeometryCreateNestedOneWithoutStateInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutStateInput
+  create: GeometryCreateWithoutStateInput
+}
+
+input GeometryCreateOrConnectWithoutCityInput {
+  create: GeometryCreateWithoutCityInput!
+  where: GeometryWhereUniqueInput!
+}
+
+input GeometryCreateOrConnectWithoutCountryInput {
+  create: GeometryCreateWithoutCountryInput!
+  where: GeometryWhereUniqueInput!
+}
+
 input GeometryCreateOrConnectWithoutLocationInput {
   create: GeometryCreateWithoutLocationInput!
   where: GeometryWhereUniqueInput!
 }
 
+input GeometryCreateOrConnectWithoutStateInput {
+  create: GeometryCreateWithoutStateInput!
+  where: GeometryWhereUniqueInput!
+}
+
+input GeometryCreateWithoutCityInput {
+  Country: CountryCreateNestedOneWithoutGeometryInput
+  h3Index15: String
+  latitude: Float!
+  Location: LocationCreateNestedOneWithoutGeometryInput
+  longitude: Float!
+  State: StateCreateNestedOneWithoutGeometryInput
+}
+
+input GeometryCreateWithoutCountryInput {
+  City: CityCreateNestedOneWithoutGeometryInput
+  h3Index15: String
+  latitude: Float!
+  Location: LocationCreateNestedOneWithoutGeometryInput
+  longitude: Float!
+  State: StateCreateNestedOneWithoutGeometryInput
+}
+
 input GeometryCreateWithoutLocationInput {
+  City: CityCreateNestedOneWithoutGeometryInput
+  Country: CountryCreateNestedOneWithoutGeometryInput
   h3Index15: String
   latitude: Float!
   longitude: Float!
-  type: String!
+  State: StateCreateNestedOneWithoutGeometryInput
+}
+
+input GeometryCreateWithoutStateInput {
+  City: CityCreateNestedOneWithoutGeometryInput
+  Country: CountryCreateNestedOneWithoutGeometryInput
+  h3Index15: String
+  latitude: Float!
+  Location: LocationCreateNestedOneWithoutGeometryInput
+  longitude: Float!
 }
 
 input GeometryMaxOrderByAggregateInput {
@@ -3835,7 +5137,6 @@ input GeometryMaxOrderByAggregateInput {
   id: SortOrder
   latitude: SortOrder
   longitude: SortOrder
-  type: SortOrder
 }
 
 input GeometryMinOrderByAggregateInput {
@@ -3843,7 +5144,6 @@ input GeometryMinOrderByAggregateInput {
   id: SortOrder
   latitude: SortOrder
   longitude: SortOrder
-  type: SortOrder
 }
 
 input GeometryOrderByWithAggregationInput {
@@ -3856,16 +5156,17 @@ input GeometryOrderByWithAggregationInput {
   id: SortOrder
   latitude: SortOrder
   longitude: SortOrder
-  type: SortOrder
 }
 
 input GeometryOrderByWithRelationInput {
+  City: CityOrderByWithRelationInput
+  Country: CountryOrderByWithRelationInput
   h3Index15: SortOrder
   id: SortOrder
   latitude: SortOrder
   Location: LocationOrderByWithRelationInput
   longitude: SortOrder
-  type: SortOrder
+  State: StateOrderByWithRelationInput
 }
 
 input GeometryRelationFilter {
@@ -3878,7 +5179,6 @@ enum GeometryScalarFieldEnum {
   id
   latitude
   longitude
-  type
 }
 
 input GeometryScalarWhereWithAggregatesInput {
@@ -3889,7 +5189,6 @@ input GeometryScalarWhereWithAggregatesInput {
   longitude: FloatWithAggregatesFilter
   NOT: [GeometryScalarWhereWithAggregatesInput!]
   OR: [GeometryScalarWhereWithAggregatesInput!]
-  type: StringWithAggregatesFilter
 }
 
 input GeometrySumOrderByAggregateInput {
@@ -3899,18 +5198,43 @@ input GeometrySumOrderByAggregateInput {
 }
 
 input GeometryUpdateInput {
+  City: CityUpdateOneWithoutGeometryNestedInput
+  Country: CountryUpdateOneWithoutGeometryNestedInput
   h3Index15: NullableStringFieldUpdateOperationsInput
   latitude: FloatFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutGeometryNestedInput
   longitude: FloatFieldUpdateOperationsInput
-  type: StringFieldUpdateOperationsInput
+  State: StateUpdateOneWithoutGeometryNestedInput
 }
 
 input GeometryUpdateManyMutationInput {
   h3Index15: NullableStringFieldUpdateOperationsInput
   latitude: FloatFieldUpdateOperationsInput
   longitude: FloatFieldUpdateOperationsInput
-  type: StringFieldUpdateOperationsInput
+}
+
+input GeometryUpdateOneRequiredWithoutCityNestedInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutCityInput
+  create: GeometryCreateWithoutCityInput
+  update: GeometryUpdateWithoutCityInput
+  upsert: GeometryUpsertWithoutCityInput
+}
+
+input GeometryUpdateOneRequiredWithoutCountryNestedInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutCountryInput
+  create: GeometryCreateWithoutCountryInput
+  update: GeometryUpdateWithoutCountryInput
+  upsert: GeometryUpsertWithoutCountryInput
+}
+
+input GeometryUpdateOneRequiredWithoutStateNestedInput {
+  connect: GeometryWhereUniqueInput
+  connectOrCreate: GeometryCreateOrConnectWithoutStateInput
+  create: GeometryCreateWithoutStateInput
+  update: GeometryUpdateWithoutStateInput
+  upsert: GeometryUpsertWithoutStateInput
 }
 
 input GeometryUpdateOneWithoutLocationNestedInput {
@@ -3923,11 +5247,50 @@ input GeometryUpdateOneWithoutLocationNestedInput {
   upsert: GeometryUpsertWithoutLocationInput
 }
 
+input GeometryUpdateWithoutCityInput {
+  Country: CountryUpdateOneWithoutGeometryNestedInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  latitude: FloatFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutGeometryNestedInput
+  longitude: FloatFieldUpdateOperationsInput
+  State: StateUpdateOneWithoutGeometryNestedInput
+}
+
+input GeometryUpdateWithoutCountryInput {
+  City: CityUpdateOneWithoutGeometryNestedInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  latitude: FloatFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutGeometryNestedInput
+  longitude: FloatFieldUpdateOperationsInput
+  State: StateUpdateOneWithoutGeometryNestedInput
+}
+
 input GeometryUpdateWithoutLocationInput {
+  City: CityUpdateOneWithoutGeometryNestedInput
+  Country: CountryUpdateOneWithoutGeometryNestedInput
   h3Index15: NullableStringFieldUpdateOperationsInput
   latitude: FloatFieldUpdateOperationsInput
   longitude: FloatFieldUpdateOperationsInput
-  type: StringFieldUpdateOperationsInput
+  State: StateUpdateOneWithoutGeometryNestedInput
+}
+
+input GeometryUpdateWithoutStateInput {
+  City: CityUpdateOneWithoutGeometryNestedInput
+  Country: CountryUpdateOneWithoutGeometryNestedInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  latitude: FloatFieldUpdateOperationsInput
+  Location: LocationUpdateOneWithoutGeometryNestedInput
+  longitude: FloatFieldUpdateOperationsInput
+}
+
+input GeometryUpsertWithoutCityInput {
+  create: GeometryCreateWithoutCityInput!
+  update: GeometryUpdateWithoutCityInput!
+}
+
+input GeometryUpsertWithoutCountryInput {
+  create: GeometryCreateWithoutCountryInput!
+  update: GeometryUpdateWithoutCountryInput!
 }
 
 input GeometryUpsertWithoutLocationInput {
@@ -3935,8 +5298,15 @@ input GeometryUpsertWithoutLocationInput {
   update: GeometryUpdateWithoutLocationInput!
 }
 
+input GeometryUpsertWithoutStateInput {
+  create: GeometryCreateWithoutStateInput!
+  update: GeometryUpdateWithoutStateInput!
+}
+
 input GeometryWhereInput {
   AND: [GeometryWhereInput!]
+  City: CityWhereInput
+  Country: CountryWhereInput
   h3Index15: StringNullableFilter
   id: IntFilter
   latitude: FloatFilter
@@ -3944,7 +5314,7 @@ input GeometryWhereInput {
   longitude: FloatFilter
   NOT: [GeometryWhereInput!]
   OR: [GeometryWhereInput!]
-  type: StringFilter
+  State: StateWhereInput
 }
 
 input GeometryWhereUniqueInput {
@@ -4188,33 +5558,85 @@ input GroupWhereUniqueInput {
   id: String
 }
 
+type H3Index5VenueRecommendation {
+  Area: Area
+  areaId: String
+  h3Index5: String!
+  id: ID!
+  keywordSuggestions: [Json!]!
+  SearchAreaMetrics(cursor: SearchAreaMetricsWhereUniqueInput, distinct: [SearchAreaMetricsScalarFieldEnum!], orderBy: [SearchAreaMetricsOrderByWithRelationInput!], skip: Int, take: Int, where: SearchAreaMetricsWhereInput): [SearchAreaMetrics!]!
+  timesRequested: Int
+  venuesProfileIds: [String!]!
+  Vote(cursor: VoteWhereUniqueInput, distinct: [VoteScalarFieldEnum!], orderBy: [VoteOrderByWithRelationInput!], skip: Int, take: Int, where: VoteWhereInput): [Vote!]!
+}
+
+input H3Index5VenueRecommendationAvgOrderByAggregateInput {
+  timesRequested: SortOrder
+}
+
 input H3Index5VenueRecommendationCountOrderByAggregateInput {
+  areaId: SortOrder
   h3Index5: SortOrder
   id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
   venuesProfileIds: SortOrder
 }
 
 input H3Index5VenueRecommendationCreateInput {
+  Area: AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput
   h3Index5: String!
   id: String
-  MetricsHomeCollection: MetricsHomeCollectionCreateNestedManyWithoutH3Index5VenueRecommendationInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput
+  timesRequested: Int
   venuesProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput
+}
+
+input H3Index5VenueRecommendationCreatekeywordSuggestionsInput {
+  set: [Json!]!
 }
 
 input H3Index5VenueRecommendationCreateManyInput {
+  areaId: String
   h3Index5: String!
   id: String
+  keywordSuggestions: [Json!]
+  timesRequested: Int
   venuesProfileIds: [String!]
 }
 
-input H3Index5VenueRecommendationCreateNestedOneWithoutMetricsHomeCollectionInput {
+input H3Index5VenueRecommendationCreateNestedOneWithoutAreaInput {
   connect: H3Index5VenueRecommendationWhereUniqueInput
-  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutMetricsHomeCollectionInput
-  create: H3Index5VenueRecommendationCreateWithoutMetricsHomeCollectionInput
+  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutAreaInput
+  create: H3Index5VenueRecommendationCreateWithoutAreaInput
 }
 
-input H3Index5VenueRecommendationCreateOrConnectWithoutMetricsHomeCollectionInput {
-  create: H3Index5VenueRecommendationCreateWithoutMetricsHomeCollectionInput!
+input H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput {
+  connect: H3Index5VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutSearchAreaMetricsInput
+  create: H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput
+}
+
+input H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput {
+  connect: H3Index5VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutVoteInput
+  create: H3Index5VenueRecommendationCreateWithoutVoteInput
+}
+
+input H3Index5VenueRecommendationCreateOrConnectWithoutAreaInput {
+  create: H3Index5VenueRecommendationCreateWithoutAreaInput!
+  where: H3Index5VenueRecommendationWhereUniqueInput!
+}
+
+input H3Index5VenueRecommendationCreateOrConnectWithoutSearchAreaMetricsInput {
+  create: H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput!
+  where: H3Index5VenueRecommendationWhereUniqueInput!
+}
+
+input H3Index5VenueRecommendationCreateOrConnectWithoutVoteInput {
+  create: H3Index5VenueRecommendationCreateWithoutVoteInput!
   where: H3Index5VenueRecommendationWhereUniqueInput!
 }
 
@@ -4222,36 +5644,74 @@ input H3Index5VenueRecommendationCreatevenuesProfileIdsInput {
   set: [String!]!
 }
 
-input H3Index5VenueRecommendationCreateWithoutMetricsHomeCollectionInput {
+input H3Index5VenueRecommendationCreateWithoutAreaInput {
   h3Index5: String!
   id: String
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput
+  timesRequested: Int
+  venuesProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput
+}
+
+input H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput {
+  Area: AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput
+  h3Index5: String!
+  id: String
+  keywordSuggestions: [Json!]
+  timesRequested: Int
+  venuesProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput
+}
+
+input H3Index5VenueRecommendationCreateWithoutVoteInput {
+  Area: AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput
+  h3Index5: String!
+  id: String
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput
+  timesRequested: Int
   venuesProfileIds: [String!]
 }
 
 input H3Index5VenueRecommendationMaxOrderByAggregateInput {
+  areaId: SortOrder
   h3Index5: SortOrder
   id: SortOrder
+  timesRequested: SortOrder
 }
 
 input H3Index5VenueRecommendationMinOrderByAggregateInput {
+  areaId: SortOrder
   h3Index5: SortOrder
   id: SortOrder
+  timesRequested: SortOrder
 }
 
 input H3Index5VenueRecommendationOrderByWithAggregationInput {
+  _avg: H3Index5VenueRecommendationAvgOrderByAggregateInput
   _count: H3Index5VenueRecommendationCountOrderByAggregateInput
   _max: H3Index5VenueRecommendationMaxOrderByAggregateInput
   _min: H3Index5VenueRecommendationMinOrderByAggregateInput
+  _sum: H3Index5VenueRecommendationSumOrderByAggregateInput
+  areaId: SortOrder
   h3Index5: SortOrder
   id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
   venuesProfileIds: SortOrder
 }
 
 input H3Index5VenueRecommendationOrderByWithRelationInput {
+  Area: AreaOrderByWithRelationInput
+  areaId: SortOrder
   h3Index5: SortOrder
   id: SortOrder
-  MetricsHomeCollection: MetricsHomeCollectionOrderByRelationAggregateInput
+  keywordSuggestions: SortOrder
+  SearchAreaMetrics: SearchAreaMetricsOrderByRelationAggregateInput
+  timesRequested: SortOrder
   venuesProfileIds: SortOrder
+  Vote: VoteOrderByRelationAggregateInput
 }
 
 input H3Index5VenueRecommendationRelationFilter {
@@ -4260,41 +5720,82 @@ input H3Index5VenueRecommendationRelationFilter {
 }
 
 enum H3Index5VenueRecommendationScalarFieldEnum {
+  areaId
   h3Index5
   id
+  keywordSuggestions
+  timesRequested
   venuesProfileIds
 }
 
 input H3Index5VenueRecommendationScalarWhereWithAggregatesInput {
   AND: [H3Index5VenueRecommendationScalarWhereWithAggregatesInput!]
+  areaId: StringNullableWithAggregatesFilter
   h3Index5: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
+  keywordSuggestions: JsonNullableListFilter
   NOT: [H3Index5VenueRecommendationScalarWhereWithAggregatesInput!]
   OR: [H3Index5VenueRecommendationScalarWhereWithAggregatesInput!]
+  timesRequested: IntNullableWithAggregatesFilter
   venuesProfileIds: StringNullableListFilter
 }
 
+input H3Index5VenueRecommendationSumOrderByAggregateInput {
+  timesRequested: SortOrder
+}
+
 input H3Index5VenueRecommendationUpdateInput {
+  Area: AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  MetricsHomeCollection: MetricsHomeCollectionUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   venuesProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+}
+
+input H3Index5VenueRecommendationUpdatekeywordSuggestionsInput {
+  push: Json
+  set: [Json!]
 }
 
 input H3Index5VenueRecommendationUpdateManyMutationInput {
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  timesRequested: NullableIntFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
-input H3Index5VenueRecommendationUpdateOneWithoutMetricsHomeCollectionNestedInput {
+input H3Index5VenueRecommendationUpdateOneWithoutAreaNestedInput {
   connect: H3Index5VenueRecommendationWhereUniqueInput
-  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutMetricsHomeCollectionInput
-  create: H3Index5VenueRecommendationCreateWithoutMetricsHomeCollectionInput
+  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutAreaInput
+  create: H3Index5VenueRecommendationCreateWithoutAreaInput
   delete: Boolean
   disconnect: Boolean
-  update: H3Index5VenueRecommendationUpdateWithoutMetricsHomeCollectionInput
-  upsert: H3Index5VenueRecommendationUpsertWithoutMetricsHomeCollectionInput
+  update: H3Index5VenueRecommendationUpdateWithoutAreaInput
+  upsert: H3Index5VenueRecommendationUpsertWithoutAreaInput
+}
+
+input H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput {
+  connect: H3Index5VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutSearchAreaMetricsInput
+  create: H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: H3Index5VenueRecommendationUpdateWithoutSearchAreaMetricsInput
+  upsert: H3Index5VenueRecommendationUpsertWithoutSearchAreaMetricsInput
+}
+
+input H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput {
+  connect: H3Index5VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index5VenueRecommendationCreateOrConnectWithoutVoteInput
+  create: H3Index5VenueRecommendationCreateWithoutVoteInput
+  delete: Boolean
+  disconnect: Boolean
+  update: H3Index5VenueRecommendationUpdateWithoutVoteInput
+  upsert: H3Index5VenueRecommendationUpsertWithoutVoteInput
 }
 
 input H3Index5VenueRecommendationUpdatevenuesProfileIdsInput {
@@ -4302,59 +5803,155 @@ input H3Index5VenueRecommendationUpdatevenuesProfileIdsInput {
   set: [String!]
 }
 
-input H3Index5VenueRecommendationUpdateWithoutMetricsHomeCollectionInput {
+input H3Index5VenueRecommendationUpdateWithoutAreaInput {
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
+  venuesProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+}
+
+input H3Index5VenueRecommendationUpdateWithoutSearchAreaMetricsInput {
+  Area: AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput
+  h3Index5: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  timesRequested: NullableIntFieldUpdateOperationsInput
+  venuesProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+}
+
+input H3Index5VenueRecommendationUpdateWithoutVoteInput {
+  Area: AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput
+  h3Index5: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
-input H3Index5VenueRecommendationUpsertWithoutMetricsHomeCollectionInput {
-  create: H3Index5VenueRecommendationCreateWithoutMetricsHomeCollectionInput!
-  update: H3Index5VenueRecommendationUpdateWithoutMetricsHomeCollectionInput!
+input H3Index5VenueRecommendationUpsertWithoutAreaInput {
+  create: H3Index5VenueRecommendationCreateWithoutAreaInput!
+  update: H3Index5VenueRecommendationUpdateWithoutAreaInput!
+}
+
+input H3Index5VenueRecommendationUpsertWithoutSearchAreaMetricsInput {
+  create: H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput!
+  update: H3Index5VenueRecommendationUpdateWithoutSearchAreaMetricsInput!
+}
+
+input H3Index5VenueRecommendationUpsertWithoutVoteInput {
+  create: H3Index5VenueRecommendationCreateWithoutVoteInput!
+  update: H3Index5VenueRecommendationUpdateWithoutVoteInput!
 }
 
 input H3Index5VenueRecommendationWhereInput {
   AND: [H3Index5VenueRecommendationWhereInput!]
+  Area: AreaWhereInput
+  areaId: StringNullableFilter
   h3Index5: StringFilter
   id: StringFilter
-  MetricsHomeCollection: MetricsHomeCollectionListRelationFilter
+  keywordSuggestions: JsonNullableListFilter
   NOT: [H3Index5VenueRecommendationWhereInput!]
   OR: [H3Index5VenueRecommendationWhereInput!]
+  SearchAreaMetrics: SearchAreaMetricsListRelationFilter
+  timesRequested: IntNullableFilter
   venuesProfileIds: StringNullableListFilter
+  Vote: VoteListRelationFilter
 }
 
 input H3Index5VenueRecommendationWhereUniqueInput {
+  areaId: String
   h3Index5: String
   id: String
 }
 
+type H3Index6VenueRecommendation {
+  Area: Area
+  areaId: String
+  createdAt: DateTime!
+  h3Index6: String!
+  id: ID!
+  keywordSuggestions: [Json!]!
+  SearchAreaMetrics(cursor: SearchAreaMetricsWhereUniqueInput, distinct: [SearchAreaMetricsScalarFieldEnum!], orderBy: [SearchAreaMetricsOrderByWithRelationInput!], skip: Int, take: Int, where: SearchAreaMetricsWhereInput): [SearchAreaMetrics!]!
+  timesRequested: Int
+  venuesProfileIds: [String!]!
+  Vote(cursor: VoteWhereUniqueInput, distinct: [VoteScalarFieldEnum!], orderBy: [VoteOrderByWithRelationInput!], skip: Int, take: Int, where: VoteWhereInput): [Vote!]!
+}
+
+input H3Index6VenueRecommendationAvgOrderByAggregateInput {
+  timesRequested: SortOrder
+}
+
 input H3Index6VenueRecommendationCountOrderByAggregateInput {
+  areaId: SortOrder
+  createdAt: SortOrder
   h3Index6: SortOrder
   id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
   venuesProfileIds: SortOrder
 }
 
 input H3Index6VenueRecommendationCreateInput {
+  Area: AreaCreateNestedOneWithoutH3Index6VenueRecommendationInput
+  createdAt: DateTime
   h3Index6: String!
   id: String
-  MetricsCollection: MetricsHomeCollectionCreateNestedManyWithoutH3Index6VenueRecommendationInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput
+  timesRequested: Int
   venuesProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput
+}
+
+input H3Index6VenueRecommendationCreatekeywordSuggestionsInput {
+  set: [Json!]!
 }
 
 input H3Index6VenueRecommendationCreateManyInput {
+  areaId: String
+  createdAt: DateTime
   h3Index6: String!
   id: String
+  keywordSuggestions: [Json!]
+  timesRequested: Int
   venuesProfileIds: [String!]
 }
 
-input H3Index6VenueRecommendationCreateNestedOneWithoutMetricsCollectionInput {
+input H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput {
   connect: H3Index6VenueRecommendationWhereUniqueInput
-  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutMetricsCollectionInput
-  create: H3Index6VenueRecommendationCreateWithoutMetricsCollectionInput
+  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutAreaInput
+  create: H3Index6VenueRecommendationCreateWithoutAreaInput
 }
 
-input H3Index6VenueRecommendationCreateOrConnectWithoutMetricsCollectionInput {
-  create: H3Index6VenueRecommendationCreateWithoutMetricsCollectionInput!
+input H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput {
+  connect: H3Index6VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutSearchAreaMetricsInput
+  create: H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput
+}
+
+input H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput {
+  connect: H3Index6VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutVoteInput
+  create: H3Index6VenueRecommendationCreateWithoutVoteInput
+}
+
+input H3Index6VenueRecommendationCreateOrConnectWithoutAreaInput {
+  create: H3Index6VenueRecommendationCreateWithoutAreaInput!
+  where: H3Index6VenueRecommendationWhereUniqueInput!
+}
+
+input H3Index6VenueRecommendationCreateOrConnectWithoutSearchAreaMetricsInput {
+  create: H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput!
+  where: H3Index6VenueRecommendationWhereUniqueInput!
+}
+
+input H3Index6VenueRecommendationCreateOrConnectWithoutVoteInput {
+  create: H3Index6VenueRecommendationCreateWithoutVoteInput!
   where: H3Index6VenueRecommendationWhereUniqueInput!
 }
 
@@ -4362,36 +5959,81 @@ input H3Index6VenueRecommendationCreatevenuesProfileIdsInput {
   set: [String!]!
 }
 
-input H3Index6VenueRecommendationCreateWithoutMetricsCollectionInput {
+input H3Index6VenueRecommendationCreateWithoutAreaInput {
+  createdAt: DateTime
   h3Index6: String!
   id: String
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput
+  timesRequested: Int
+  venuesProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput
+}
+
+input H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput {
+  Area: AreaCreateNestedOneWithoutH3Index6VenueRecommendationInput
+  createdAt: DateTime
+  h3Index6: String!
+  id: String
+  keywordSuggestions: [Json!]
+  timesRequested: Int
+  venuesProfileIds: [String!]
+  Vote: VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput
+}
+
+input H3Index6VenueRecommendationCreateWithoutVoteInput {
+  Area: AreaCreateNestedOneWithoutH3Index6VenueRecommendationInput
+  createdAt: DateTime
+  h3Index6: String!
+  id: String
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput
+  timesRequested: Int
   venuesProfileIds: [String!]
 }
 
 input H3Index6VenueRecommendationMaxOrderByAggregateInput {
+  areaId: SortOrder
+  createdAt: SortOrder
   h3Index6: SortOrder
   id: SortOrder
+  timesRequested: SortOrder
 }
 
 input H3Index6VenueRecommendationMinOrderByAggregateInput {
+  areaId: SortOrder
+  createdAt: SortOrder
   h3Index6: SortOrder
   id: SortOrder
+  timesRequested: SortOrder
 }
 
 input H3Index6VenueRecommendationOrderByWithAggregationInput {
+  _avg: H3Index6VenueRecommendationAvgOrderByAggregateInput
   _count: H3Index6VenueRecommendationCountOrderByAggregateInput
   _max: H3Index6VenueRecommendationMaxOrderByAggregateInput
   _min: H3Index6VenueRecommendationMinOrderByAggregateInput
+  _sum: H3Index6VenueRecommendationSumOrderByAggregateInput
+  areaId: SortOrder
+  createdAt: SortOrder
   h3Index6: SortOrder
   id: SortOrder
+  keywordSuggestions: SortOrder
+  timesRequested: SortOrder
   venuesProfileIds: SortOrder
 }
 
 input H3Index6VenueRecommendationOrderByWithRelationInput {
+  Area: AreaOrderByWithRelationInput
+  areaId: SortOrder
+  createdAt: SortOrder
   h3Index6: SortOrder
   id: SortOrder
-  MetricsCollection: MetricsHomeCollectionOrderByRelationAggregateInput
+  keywordSuggestions: SortOrder
+  SearchAreaMetrics: SearchAreaMetricsOrderByRelationAggregateInput
+  timesRequested: SortOrder
   venuesProfileIds: SortOrder
+  Vote: VoteOrderByRelationAggregateInput
 }
 
 input H3Index6VenueRecommendationRelationFilter {
@@ -4400,41 +6042,86 @@ input H3Index6VenueRecommendationRelationFilter {
 }
 
 enum H3Index6VenueRecommendationScalarFieldEnum {
+  areaId
+  createdAt
   h3Index6
   id
+  keywordSuggestions
+  timesRequested
   venuesProfileIds
 }
 
 input H3Index6VenueRecommendationScalarWhereWithAggregatesInput {
   AND: [H3Index6VenueRecommendationScalarWhereWithAggregatesInput!]
+  areaId: StringNullableWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
   h3Index6: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
+  keywordSuggestions: JsonNullableListFilter
   NOT: [H3Index6VenueRecommendationScalarWhereWithAggregatesInput!]
   OR: [H3Index6VenueRecommendationScalarWhereWithAggregatesInput!]
+  timesRequested: IntNullableWithAggregatesFilter
   venuesProfileIds: StringNullableListFilter
 }
 
+input H3Index6VenueRecommendationSumOrderByAggregateInput {
+  timesRequested: SortOrder
+}
+
 input H3Index6VenueRecommendationUpdateInput {
+  Area: AreaUpdateOneWithoutH3Index6VenueRecommendationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  MetricsCollection: MetricsHomeCollectionUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   venuesProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+}
+
+input H3Index6VenueRecommendationUpdatekeywordSuggestionsInput {
+  push: Json
+  set: [Json!]
 }
 
 input H3Index6VenueRecommendationUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  timesRequested: NullableIntFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
-input H3Index6VenueRecommendationUpdateOneWithoutMetricsCollectionNestedInput {
+input H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput {
   connect: H3Index6VenueRecommendationWhereUniqueInput
-  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutMetricsCollectionInput
-  create: H3Index6VenueRecommendationCreateWithoutMetricsCollectionInput
+  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutAreaInput
+  create: H3Index6VenueRecommendationCreateWithoutAreaInput
   delete: Boolean
   disconnect: Boolean
-  update: H3Index6VenueRecommendationUpdateWithoutMetricsCollectionInput
-  upsert: H3Index6VenueRecommendationUpsertWithoutMetricsCollectionInput
+  update: H3Index6VenueRecommendationUpdateWithoutAreaInput
+  upsert: H3Index6VenueRecommendationUpsertWithoutAreaInput
+}
+
+input H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput {
+  connect: H3Index6VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutSearchAreaMetricsInput
+  create: H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: H3Index6VenueRecommendationUpdateWithoutSearchAreaMetricsInput
+  upsert: H3Index6VenueRecommendationUpsertWithoutSearchAreaMetricsInput
+}
+
+input H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput {
+  connect: H3Index6VenueRecommendationWhereUniqueInput
+  connectOrCreate: H3Index6VenueRecommendationCreateOrConnectWithoutVoteInput
+  create: H3Index6VenueRecommendationCreateWithoutVoteInput
+  delete: Boolean
+  disconnect: Boolean
+  update: H3Index6VenueRecommendationUpdateWithoutVoteInput
+  upsert: H3Index6VenueRecommendationUpsertWithoutVoteInput
 }
 
 input H3Index6VenueRecommendationUpdatevenuesProfileIdsInput {
@@ -4442,28 +6129,72 @@ input H3Index6VenueRecommendationUpdatevenuesProfileIdsInput {
   set: [String!]
 }
 
-input H3Index6VenueRecommendationUpdateWithoutMetricsCollectionInput {
+input H3Index6VenueRecommendationUpdateWithoutAreaInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
+  venuesProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+}
+
+input H3Index6VenueRecommendationUpdateWithoutSearchAreaMetricsInput {
+  Area: AreaUpdateOneWithoutH3Index6VenueRecommendationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index6: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  timesRequested: NullableIntFieldUpdateOperationsInput
+  venuesProfileIds: [String!]
+  Vote: VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+}
+
+input H3Index6VenueRecommendationUpdateWithoutVoteInput {
+  Area: AreaUpdateOneWithoutH3Index6VenueRecommendationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index6: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  keywordSuggestions: [Json!]
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
-input H3Index6VenueRecommendationUpsertWithoutMetricsCollectionInput {
-  create: H3Index6VenueRecommendationCreateWithoutMetricsCollectionInput!
-  update: H3Index6VenueRecommendationUpdateWithoutMetricsCollectionInput!
+input H3Index6VenueRecommendationUpsertWithoutAreaInput {
+  create: H3Index6VenueRecommendationCreateWithoutAreaInput!
+  update: H3Index6VenueRecommendationUpdateWithoutAreaInput!
+}
+
+input H3Index6VenueRecommendationUpsertWithoutSearchAreaMetricsInput {
+  create: H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput!
+  update: H3Index6VenueRecommendationUpdateWithoutSearchAreaMetricsInput!
+}
+
+input H3Index6VenueRecommendationUpsertWithoutVoteInput {
+  create: H3Index6VenueRecommendationCreateWithoutVoteInput!
+  update: H3Index6VenueRecommendationUpdateWithoutVoteInput!
 }
 
 input H3Index6VenueRecommendationWhereInput {
   AND: [H3Index6VenueRecommendationWhereInput!]
+  Area: AreaWhereInput
+  areaId: StringNullableFilter
+  createdAt: DateTimeFilter
   h3Index6: StringFilter
   id: StringFilter
-  MetricsCollection: MetricsHomeCollectionListRelationFilter
+  keywordSuggestions: JsonNullableListFilter
   NOT: [H3Index6VenueRecommendationWhereInput!]
   OR: [H3Index6VenueRecommendationWhereInput!]
+  SearchAreaMetrics: SearchAreaMetricsListRelationFilter
+  timesRequested: IntNullableFilter
   venuesProfileIds: StringNullableListFilter
+  Vote: VoteListRelationFilter
 }
 
 input H3Index6VenueRecommendationWhereUniqueInput {
+  areaId: String
   h3Index6: String
   id: String
 }
@@ -5581,6 +7312,8 @@ type LiveVenueTotals {
 type Location {
   Address: Address
   addressId: String
+  Area: Area
+  areaId: String
   createdAt: DateTime!
   Geometry: Geometry
   geometryId: Int
@@ -5599,6 +7332,7 @@ input LocationAvgOrderByAggregateInput {
 
 input LocationCountOrderByAggregateInput {
   addressId: SortOrder
+  areaId: SortOrder
   createdAt: SortOrder
   geometryId: SortOrder
   h3Index: SortOrder
@@ -5610,6 +7344,7 @@ input LocationCountOrderByAggregateInput {
 
 input LocationCreateInput {
   Address: AddressCreateNestedOneWithoutLocationInput
+  Area: AreaCreateNestedOneWithoutLocationInput
   createdAt: DateTime
   Geometry: GeometryCreateNestedOneWithoutLocationInput
   h3Index: String!
@@ -5620,6 +7355,7 @@ input LocationCreateInput {
 }
 
 input LocationCreateManyAddressInput {
+  areaId: String
   createdAt: DateTime
   geometryId: Int
   h3Index: String!
@@ -5636,6 +7372,7 @@ input LocationCreateManyAddressInputEnvelope {
 
 input LocationCreateManyInput {
   addressId: String
+  areaId: String
   createdAt: DateTime
   geometryId: Int
   h3Index: String!
@@ -5650,6 +7387,12 @@ input LocationCreateNestedManyWithoutAddressInput {
   connectOrCreate: [LocationCreateOrConnectWithoutAddressInput!]
   create: LocationCreateWithoutAddressInput
   createMany: LocationCreateManyAddressInputEnvelope
+}
+
+input LocationCreateNestedOneWithoutAreaInput {
+  connect: LocationWhereUniqueInput
+  connectOrCreate: LocationCreateOrConnectWithoutAreaInput
+  create: LocationCreateWithoutAreaInput
 }
 
 input LocationCreateNestedOneWithoutGeometryInput {
@@ -5675,6 +7418,11 @@ input LocationCreateOrConnectWithoutAddressInput {
   where: LocationWhereUniqueInput!
 }
 
+input LocationCreateOrConnectWithoutAreaInput {
+  create: LocationCreateWithoutAreaInput!
+  where: LocationWhereUniqueInput!
+}
+
 input LocationCreateOrConnectWithoutGeometryInput {
   create: LocationCreateWithoutGeometryInput!
   where: LocationWhereUniqueInput!
@@ -5691,6 +7439,18 @@ input LocationCreateOrConnectWithoutVenueInput {
 }
 
 input LocationCreateWithoutAddressInput {
+  Area: AreaCreateNestedOneWithoutLocationInput
+  createdAt: DateTime
+  Geometry: GeometryCreateNestedOneWithoutLocationInput
+  h3Index: String!
+  id: String
+  plusCode: PluseCodeCreateNestedOneWithoutLocationInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutLocationInput
+}
+
+input LocationCreateWithoutAreaInput {
+  Address: AddressCreateNestedOneWithoutLocationInput
   createdAt: DateTime
   Geometry: GeometryCreateNestedOneWithoutLocationInput
   h3Index: String!
@@ -5702,6 +7462,7 @@ input LocationCreateWithoutAddressInput {
 
 input LocationCreateWithoutGeometryInput {
   Address: AddressCreateNestedOneWithoutLocationInput
+  Area: AreaCreateNestedOneWithoutLocationInput
   createdAt: DateTime
   h3Index: String!
   id: String
@@ -5712,6 +7473,7 @@ input LocationCreateWithoutGeometryInput {
 
 input LocationCreateWithoutPlusCodeInput {
   Address: AddressCreateNestedOneWithoutLocationInput
+  Area: AreaCreateNestedOneWithoutLocationInput
   createdAt: DateTime
   Geometry: GeometryCreateNestedOneWithoutLocationInput
   h3Index: String!
@@ -5722,6 +7484,7 @@ input LocationCreateWithoutPlusCodeInput {
 
 input LocationCreateWithoutVenueInput {
   Address: AddressCreateNestedOneWithoutLocationInput
+  Area: AreaCreateNestedOneWithoutLocationInput
   createdAt: DateTime
   Geometry: GeometryCreateNestedOneWithoutLocationInput
   h3Index: String!
@@ -5738,6 +7501,7 @@ input LocationListRelationFilter {
 
 input LocationMaxOrderByAggregateInput {
   addressId: SortOrder
+  areaId: SortOrder
   createdAt: SortOrder
   geometryId: SortOrder
   h3Index: SortOrder
@@ -5749,6 +7513,7 @@ input LocationMaxOrderByAggregateInput {
 
 input LocationMinOrderByAggregateInput {
   addressId: SortOrder
+  areaId: SortOrder
   createdAt: SortOrder
   geometryId: SortOrder
   h3Index: SortOrder
@@ -5769,6 +7534,7 @@ input LocationOrderByWithAggregationInput {
   _min: LocationMinOrderByAggregateInput
   _sum: LocationSumOrderByAggregateInput
   addressId: SortOrder
+  areaId: SortOrder
   createdAt: SortOrder
   geometryId: SortOrder
   h3Index: SortOrder
@@ -5781,6 +7547,8 @@ input LocationOrderByWithAggregationInput {
 input LocationOrderByWithRelationInput {
   Address: AddressOrderByWithRelationInput
   addressId: SortOrder
+  Area: AreaOrderByWithRelationInput
+  areaId: SortOrder
   createdAt: SortOrder
   Geometry: GeometryOrderByWithRelationInput
   geometryId: SortOrder
@@ -5800,6 +7568,7 @@ input LocationRelationFilter {
 
 enum LocationScalarFieldEnum {
   addressId
+  areaId
   createdAt
   geometryId
   h3Index
@@ -5812,6 +7581,7 @@ enum LocationScalarFieldEnum {
 input LocationScalarWhereInput {
   addressId: StringNullableFilter
   AND: [LocationScalarWhereInput!]
+  areaId: StringNullableFilter
   createdAt: DateTimeFilter
   geometryId: IntNullableFilter
   h3Index: StringFilter
@@ -5826,6 +7596,7 @@ input LocationScalarWhereInput {
 input LocationScalarWhereWithAggregatesInput {
   addressId: StringNullableWithAggregatesFilter
   AND: [LocationScalarWhereWithAggregatesInput!]
+  areaId: StringNullableWithAggregatesFilter
   createdAt: DateTimeWithAggregatesFilter
   geometryId: IntNullableWithAggregatesFilter
   h3Index: StringWithAggregatesFilter
@@ -5843,6 +7614,7 @@ input LocationSumOrderByAggregateInput {
 
 input LocationUpdateInput {
   Address: AddressUpdateOneWithoutLocationNestedInput
+  Area: AreaUpdateOneWithoutLocationNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Geometry: GeometryUpdateOneWithoutLocationNestedInput
   h3Index: StringFieldUpdateOperationsInput
@@ -5878,6 +7650,16 @@ input LocationUpdateManyWithWhereWithoutAddressInput {
   where: LocationScalarWhereInput!
 }
 
+input LocationUpdateOneWithoutAreaNestedInput {
+  connect: LocationWhereUniqueInput
+  connectOrCreate: LocationCreateOrConnectWithoutAreaInput
+  create: LocationCreateWithoutAreaInput
+  delete: Boolean
+  disconnect: Boolean
+  update: LocationUpdateWithoutAreaInput
+  upsert: LocationUpsertWithoutAreaInput
+}
+
 input LocationUpdateOneWithoutGeometryNestedInput {
   connect: LocationWhereUniqueInput
   connectOrCreate: LocationCreateOrConnectWithoutGeometryInput
@@ -5909,6 +7691,18 @@ input LocationUpdateOneWithoutVenueNestedInput {
 }
 
 input LocationUpdateWithoutAddressInput {
+  Area: AreaUpdateOneWithoutLocationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Geometry: GeometryUpdateOneWithoutLocationNestedInput
+  h3Index: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  plusCode: PluseCodeUpdateOneWithoutLocationNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutLocationNestedInput
+}
+
+input LocationUpdateWithoutAreaInput {
+  Address: AddressUpdateOneWithoutLocationNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Geometry: GeometryUpdateOneWithoutLocationNestedInput
   h3Index: StringFieldUpdateOperationsInput
@@ -5920,6 +7714,7 @@ input LocationUpdateWithoutAddressInput {
 
 input LocationUpdateWithoutGeometryInput {
   Address: AddressUpdateOneWithoutLocationNestedInput
+  Area: AreaUpdateOneWithoutLocationNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   h3Index: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
@@ -5930,6 +7725,7 @@ input LocationUpdateWithoutGeometryInput {
 
 input LocationUpdateWithoutPlusCodeInput {
   Address: AddressUpdateOneWithoutLocationNestedInput
+  Area: AreaUpdateOneWithoutLocationNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Geometry: GeometryUpdateOneWithoutLocationNestedInput
   h3Index: StringFieldUpdateOperationsInput
@@ -5940,6 +7736,7 @@ input LocationUpdateWithoutPlusCodeInput {
 
 input LocationUpdateWithoutVenueInput {
   Address: AddressUpdateOneWithoutLocationNestedInput
+  Area: AreaUpdateOneWithoutLocationNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   Geometry: GeometryUpdateOneWithoutLocationNestedInput
   h3Index: StringFieldUpdateOperationsInput
@@ -5951,6 +7748,11 @@ input LocationUpdateWithoutVenueInput {
 input LocationUpdateWithWhereUniqueWithoutAddressInput {
   data: LocationUpdateWithoutAddressInput!
   where: LocationWhereUniqueInput!
+}
+
+input LocationUpsertWithoutAreaInput {
+  create: LocationCreateWithoutAreaInput!
+  update: LocationUpdateWithoutAreaInput!
 }
 
 input LocationUpsertWithoutGeometryInput {
@@ -5978,6 +7780,8 @@ input LocationWhereInput {
   Address: AddressWhereInput
   addressId: StringNullableFilter
   AND: [LocationWhereInput!]
+  Area: AreaWhereInput
+  areaId: StringNullableFilter
   createdAt: DateTimeFilter
   Geometry: GeometryWhereInput
   geometryId: IntNullableFilter
@@ -5993,6 +7797,7 @@ input LocationWhereInput {
 }
 
 input LocationWhereUniqueInput {
+  areaId: String
   geometryId: Int
   id: String
   pluseCodeId: String
@@ -6322,277 +8127,6 @@ input MessageWhereUniqueInput {
   id: String
 }
 
-input MetricsHomeCollectionAvgOrderByAggregateInput {
-  id: SortOrder
-}
-
-input MetricsHomeCollectionCountOrderByAggregateInput {
-  createdAt: SortOrder
-  h3Index15: SortOrder
-  h3Index5VenueRecommendationId: SortOrder
-  h3Index6VenueRecommendationId: SortOrder
-  id: SortOrder
-}
-
-input MetricsHomeCollectionCreateInput {
-  createdAt: DateTime
-  h3Index15: String
-  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutMetricsHomeCollectionInput
-  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutMetricsCollectionInput
-}
-
-input MetricsHomeCollectionCreateManyH3Index5VenueRecommendationInput {
-  createdAt: DateTime
-  h3Index15: String
-  h3Index6VenueRecommendationId: String
-  id: Int
-}
-
-input MetricsHomeCollectionCreateManyH3Index5VenueRecommendationInputEnvelope {
-  data: [MetricsHomeCollectionCreateManyH3Index5VenueRecommendationInput!]!
-  skipDuplicates: Boolean
-}
-
-input MetricsHomeCollectionCreateManyH3Index6VenueRecommendationInput {
-  createdAt: DateTime
-  h3Index15: String
-  h3Index5VenueRecommendationId: String
-  id: Int
-}
-
-input MetricsHomeCollectionCreateManyH3Index6VenueRecommendationInputEnvelope {
-  data: [MetricsHomeCollectionCreateManyH3Index6VenueRecommendationInput!]!
-  skipDuplicates: Boolean
-}
-
-input MetricsHomeCollectionCreateManyInput {
-  createdAt: DateTime
-  h3Index15: String
-  h3Index5VenueRecommendationId: String
-  h3Index6VenueRecommendationId: String
-  id: Int
-}
-
-input MetricsHomeCollectionCreateNestedManyWithoutH3Index5VenueRecommendationInput {
-  connect: [MetricsHomeCollectionWhereUniqueInput!]
-  connectOrCreate: [MetricsHomeCollectionCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
-  create: MetricsHomeCollectionCreateWithoutH3Index5VenueRecommendationInput
-  createMany: MetricsHomeCollectionCreateManyH3Index5VenueRecommendationInputEnvelope
-}
-
-input MetricsHomeCollectionCreateNestedManyWithoutH3Index6VenueRecommendationInput {
-  connect: [MetricsHomeCollectionWhereUniqueInput!]
-  connectOrCreate: [MetricsHomeCollectionCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
-  create: MetricsHomeCollectionCreateWithoutH3Index6VenueRecommendationInput
-  createMany: MetricsHomeCollectionCreateManyH3Index6VenueRecommendationInputEnvelope
-}
-
-input MetricsHomeCollectionCreateOrConnectWithoutH3Index5VenueRecommendationInput {
-  create: MetricsHomeCollectionCreateWithoutH3Index5VenueRecommendationInput!
-  where: MetricsHomeCollectionWhereUniqueInput!
-}
-
-input MetricsHomeCollectionCreateOrConnectWithoutH3Index6VenueRecommendationInput {
-  create: MetricsHomeCollectionCreateWithoutH3Index6VenueRecommendationInput!
-  where: MetricsHomeCollectionWhereUniqueInput!
-}
-
-input MetricsHomeCollectionCreateWithoutH3Index5VenueRecommendationInput {
-  createdAt: DateTime
-  h3Index15: String
-  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutMetricsCollectionInput
-}
-
-input MetricsHomeCollectionCreateWithoutH3Index6VenueRecommendationInput {
-  createdAt: DateTime
-  h3Index15: String
-  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutMetricsHomeCollectionInput
-}
-
-input MetricsHomeCollectionListRelationFilter {
-  every: MetricsHomeCollectionWhereInput
-  none: MetricsHomeCollectionWhereInput
-  some: MetricsHomeCollectionWhereInput
-}
-
-input MetricsHomeCollectionMaxOrderByAggregateInput {
-  createdAt: SortOrder
-  h3Index15: SortOrder
-  h3Index5VenueRecommendationId: SortOrder
-  h3Index6VenueRecommendationId: SortOrder
-  id: SortOrder
-}
-
-input MetricsHomeCollectionMinOrderByAggregateInput {
-  createdAt: SortOrder
-  h3Index15: SortOrder
-  h3Index5VenueRecommendationId: SortOrder
-  h3Index6VenueRecommendationId: SortOrder
-  id: SortOrder
-}
-
-input MetricsHomeCollectionOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input MetricsHomeCollectionOrderByWithAggregationInput {
-  _avg: MetricsHomeCollectionAvgOrderByAggregateInput
-  _count: MetricsHomeCollectionCountOrderByAggregateInput
-  _max: MetricsHomeCollectionMaxOrderByAggregateInput
-  _min: MetricsHomeCollectionMinOrderByAggregateInput
-  _sum: MetricsHomeCollectionSumOrderByAggregateInput
-  createdAt: SortOrder
-  h3Index15: SortOrder
-  h3Index5VenueRecommendationId: SortOrder
-  h3Index6VenueRecommendationId: SortOrder
-  id: SortOrder
-}
-
-input MetricsHomeCollectionOrderByWithRelationInput {
-  createdAt: SortOrder
-  h3Index15: SortOrder
-  H3Index5VenueRecommendation: H3Index5VenueRecommendationOrderByWithRelationInput
-  h3Index5VenueRecommendationId: SortOrder
-  H3Index6VenueRecommendation: H3Index6VenueRecommendationOrderByWithRelationInput
-  h3Index6VenueRecommendationId: SortOrder
-  id: SortOrder
-}
-
-enum MetricsHomeCollectionScalarFieldEnum {
-  createdAt
-  h3Index15
-  h3Index5VenueRecommendationId
-  h3Index6VenueRecommendationId
-  id
-}
-
-input MetricsHomeCollectionScalarWhereInput {
-  AND: [MetricsHomeCollectionScalarWhereInput!]
-  createdAt: DateTimeFilter
-  h3Index15: StringNullableFilter
-  h3Index5VenueRecommendationId: StringNullableFilter
-  h3Index6VenueRecommendationId: StringNullableFilter
-  id: IntFilter
-  NOT: [MetricsHomeCollectionScalarWhereInput!]
-  OR: [MetricsHomeCollectionScalarWhereInput!]
-}
-
-input MetricsHomeCollectionScalarWhereWithAggregatesInput {
-  AND: [MetricsHomeCollectionScalarWhereWithAggregatesInput!]
-  createdAt: DateTimeWithAggregatesFilter
-  h3Index15: StringNullableWithAggregatesFilter
-  h3Index5VenueRecommendationId: StringNullableWithAggregatesFilter
-  h3Index6VenueRecommendationId: StringNullableWithAggregatesFilter
-  id: IntWithAggregatesFilter
-  NOT: [MetricsHomeCollectionScalarWhereWithAggregatesInput!]
-  OR: [MetricsHomeCollectionScalarWhereWithAggregatesInput!]
-}
-
-input MetricsHomeCollectionSumOrderByAggregateInput {
-  id: SortOrder
-}
-
-input MetricsHomeCollectionUpdateInput {
-  createdAt: DateTimeFieldUpdateOperationsInput
-  h3Index15: NullableStringFieldUpdateOperationsInput
-  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutMetricsHomeCollectionNestedInput
-  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutMetricsCollectionNestedInput
-}
-
-input MetricsHomeCollectionUpdateManyMutationInput {
-  createdAt: DateTimeFieldUpdateOperationsInput
-  h3Index15: NullableStringFieldUpdateOperationsInput
-}
-
-input MetricsHomeCollectionUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
-  connect: [MetricsHomeCollectionWhereUniqueInput!]
-  connectOrCreate: [MetricsHomeCollectionCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
-  create: MetricsHomeCollectionCreateWithoutH3Index5VenueRecommendationInput
-  createMany: MetricsHomeCollectionCreateManyH3Index5VenueRecommendationInputEnvelope
-  delete: [MetricsHomeCollectionWhereUniqueInput!]
-  deleteMany: [MetricsHomeCollectionScalarWhereInput!]
-  disconnect: [MetricsHomeCollectionWhereUniqueInput!]
-  set: [MetricsHomeCollectionWhereUniqueInput!]
-  update: [MetricsHomeCollectionUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput!]
-  updateMany: [MetricsHomeCollectionUpdateManyWithWhereWithoutH3Index5VenueRecommendationInput!]
-  upsert: [MetricsHomeCollectionUpsertWithWhereUniqueWithoutH3Index5VenueRecommendationInput!]
-}
-
-input MetricsHomeCollectionUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
-  connect: [MetricsHomeCollectionWhereUniqueInput!]
-  connectOrCreate: [MetricsHomeCollectionCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
-  create: MetricsHomeCollectionCreateWithoutH3Index6VenueRecommendationInput
-  createMany: MetricsHomeCollectionCreateManyH3Index6VenueRecommendationInputEnvelope
-  delete: [MetricsHomeCollectionWhereUniqueInput!]
-  deleteMany: [MetricsHomeCollectionScalarWhereInput!]
-  disconnect: [MetricsHomeCollectionWhereUniqueInput!]
-  set: [MetricsHomeCollectionWhereUniqueInput!]
-  update: [MetricsHomeCollectionUpdateWithWhereUniqueWithoutH3Index6VenueRecommendationInput!]
-  updateMany: [MetricsHomeCollectionUpdateManyWithWhereWithoutH3Index6VenueRecommendationInput!]
-  upsert: [MetricsHomeCollectionUpsertWithWhereUniqueWithoutH3Index6VenueRecommendationInput!]
-}
-
-input MetricsHomeCollectionUpdateManyWithWhereWithoutH3Index5VenueRecommendationInput {
-  data: MetricsHomeCollectionUpdateManyMutationInput!
-  where: MetricsHomeCollectionScalarWhereInput!
-}
-
-input MetricsHomeCollectionUpdateManyWithWhereWithoutH3Index6VenueRecommendationInput {
-  data: MetricsHomeCollectionUpdateManyMutationInput!
-  where: MetricsHomeCollectionScalarWhereInput!
-}
-
-input MetricsHomeCollectionUpdateWithoutH3Index5VenueRecommendationInput {
-  createdAt: DateTimeFieldUpdateOperationsInput
-  h3Index15: NullableStringFieldUpdateOperationsInput
-  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutMetricsCollectionNestedInput
-}
-
-input MetricsHomeCollectionUpdateWithoutH3Index6VenueRecommendationInput {
-  createdAt: DateTimeFieldUpdateOperationsInput
-  h3Index15: NullableStringFieldUpdateOperationsInput
-  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutMetricsHomeCollectionNestedInput
-}
-
-input MetricsHomeCollectionUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
-  data: MetricsHomeCollectionUpdateWithoutH3Index5VenueRecommendationInput!
-  where: MetricsHomeCollectionWhereUniqueInput!
-}
-
-input MetricsHomeCollectionUpdateWithWhereUniqueWithoutH3Index6VenueRecommendationInput {
-  data: MetricsHomeCollectionUpdateWithoutH3Index6VenueRecommendationInput!
-  where: MetricsHomeCollectionWhereUniqueInput!
-}
-
-input MetricsHomeCollectionUpsertWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
-  create: MetricsHomeCollectionCreateWithoutH3Index5VenueRecommendationInput!
-  update: MetricsHomeCollectionUpdateWithoutH3Index5VenueRecommendationInput!
-  where: MetricsHomeCollectionWhereUniqueInput!
-}
-
-input MetricsHomeCollectionUpsertWithWhereUniqueWithoutH3Index6VenueRecommendationInput {
-  create: MetricsHomeCollectionCreateWithoutH3Index6VenueRecommendationInput!
-  update: MetricsHomeCollectionUpdateWithoutH3Index6VenueRecommendationInput!
-  where: MetricsHomeCollectionWhereUniqueInput!
-}
-
-input MetricsHomeCollectionWhereInput {
-  AND: [MetricsHomeCollectionWhereInput!]
-  createdAt: DateTimeFilter
-  h3Index15: StringNullableFilter
-  H3Index5VenueRecommendation: H3Index5VenueRecommendationWhereInput
-  h3Index5VenueRecommendationId: StringNullableFilter
-  H3Index6VenueRecommendation: H3Index6VenueRecommendationWhereInput
-  h3Index6VenueRecommendationId: StringNullableFilter
-  id: IntFilter
-  NOT: [MetricsHomeCollectionWhereInput!]
-  OR: [MetricsHomeCollectionWhereInput!]
-}
-
-input MetricsHomeCollectionWhereUniqueInput {
-  id: Int
-}
-
 type Mutation {
   acceptFriendRequest(friendRequestId: String!, venueIdMetAt: String): Relationship!
   addPersonalJoinsVenue(profileIdPersonal: String, profileIdVenue: String): Profile!
@@ -6622,6 +8156,8 @@ type Mutation {
   updateStoryPhotos(disconnectId: String, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Boolean!
   updateThemeManagerSwitchTheme(id: String!, themeId: String!): ProfileTheme!
   upsertDevicePushToken(androidToken: String, appleToken: String, expoToken: String): Boolean!
+  upvoteH6ComingArea(comingAreaId: String!): Boolean!
+  upvoteH6VenueRemmendation(venueRecommendationId: String!): Boolean!
 }
 
 input NestedBoolFilter {
@@ -9906,7 +11442,7 @@ type Profile {
   profilePhoto: Photo
   ProfileType: ProfileType!
   Relationships: [Relationship!]!
-  resentSearches: ProfileSearchesService
+  resentSearches: SearchesService
   ThemeManager: ThemeManager
   tonightStory: Story
   updatedAt: DateTime!
@@ -9939,15 +11475,16 @@ input ProfileCreateInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateManyInput {
@@ -10007,16 +11544,16 @@ input ProfileCreateNestedOneWithoutPhotosInput {
   create: ProfileCreateWithoutPhotosInput
 }
 
-input ProfileCreateNestedOneWithoutProfileSearchesServiceInput {
-  connect: ProfileWhereUniqueInput
-  connectOrCreate: ProfileCreateOrConnectWithoutProfileSearchesServiceInput
-  create: ProfileCreateWithoutProfileSearchesServiceInput
-}
-
 input ProfileCreateNestedOneWithoutRelationshipsInput {
   connect: ProfileWhereUniqueInput
   connectOrCreate: ProfileCreateOrConnectWithoutRelationshipsInput
   create: ProfileCreateWithoutRelationshipsInput
+}
+
+input ProfileCreateNestedOneWithoutSearchesServiceInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutSearchesServiceInput
+  create: ProfileCreateWithoutSearchesServiceInput
 }
 
 input ProfileCreateNestedOneWithoutSecuredDataKeysInput {
@@ -10047,6 +11584,12 @@ input ProfileCreateNestedOneWithoutVenueInput {
   connect: ProfileWhereUniqueInput
   connectOrCreate: ProfileCreateOrConnectWithoutVenueInput
   create: ProfileCreateWithoutVenueInput
+}
+
+input ProfileCreateNestedOneWithoutVoteInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutVoteInput
+  create: ProfileCreateWithoutVoteInput
 }
 
 input ProfileCreateOrConnectWithoutChatroomInput {
@@ -10089,13 +11632,13 @@ input ProfileCreateOrConnectWithoutPhotosInput {
   where: ProfileWhereUniqueInput!
 }
 
-input ProfileCreateOrConnectWithoutProfileSearchesServiceInput {
-  create: ProfileCreateWithoutProfileSearchesServiceInput!
+input ProfileCreateOrConnectWithoutRelationshipsInput {
+  create: ProfileCreateWithoutRelationshipsInput!
   where: ProfileWhereUniqueInput!
 }
 
-input ProfileCreateOrConnectWithoutRelationshipsInput {
-  create: ProfileCreateWithoutRelationshipsInput!
+input ProfileCreateOrConnectWithoutSearchesServiceInput {
+  create: ProfileCreateWithoutSearchesServiceInput!
   where: ProfileWhereUniqueInput!
 }
 
@@ -10124,6 +11667,11 @@ input ProfileCreateOrConnectWithoutVenueInput {
   where: ProfileWhereUniqueInput!
 }
 
+input ProfileCreateOrConnectWithoutVoteInput {
+  create: ProfileCreateWithoutVoteInput!
+  where: ProfileWhereUniqueInput!
+}
+
 input ProfileCreateWithoutChatroomInput {
   bfsprofileid: String
   createdAt: DateTime
@@ -10136,15 +11684,16 @@ input ProfileCreateWithoutChatroomInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutCredentialsInput {
@@ -10159,15 +11708,16 @@ input ProfileCreateWithoutCredentialsInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutDetailInformationInput {
@@ -10182,15 +11732,16 @@ input ProfileCreateWithoutDetailInformationInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutGroupsInput {
@@ -10205,15 +11756,16 @@ input ProfileCreateWithoutGroupsInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutIdentifiableInformationInput {
@@ -10228,15 +11780,16 @@ input ProfileCreateWithoutIdentifiableInformationInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutNotificationsInput {
@@ -10251,15 +11804,16 @@ input ProfileCreateWithoutNotificationsInput {
   IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutPersonalInput {
@@ -10274,15 +11828,16 @@ input ProfileCreateWithoutPersonalInput {
   IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutPhotosInput {
@@ -10297,38 +11852,16 @@ input ProfileCreateWithoutPhotosInput {
   IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
-}
-
-input ProfileCreateWithoutProfileSearchesServiceInput {
-  bfsprofileid: String
-  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
-  createdAt: DateTime
-  Credentials: CredentialsCreateNestedOneWithoutProfileInput
-  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
-  DeviceManager: [String!]
-  Groups: GroupCreateNestedManyWithoutProfileInput
-  id: String
-  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
-  Notifications: NotificationsCreateNestedOneWithoutProfileInput
-  Personal: PersonalCreateNestedOneWithoutProfileInput
-  photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileType: ProfileType
-  Relationships: RelationshipCreateNestedManyWithoutProfileInput
-  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
-  Settings: SettingsCreateNestedOneWithoutProfileInput
-  Storys: StoryCreateNestedManyWithoutProfileInput
-  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
-  updatedAt: DateTime
-  Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutRelationshipsInput {
@@ -10344,14 +11877,39 @@ input ProfileCreateWithoutRelationshipsInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
+}
+
+input ProfileCreateWithoutSearchesServiceInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: [String!]
+  Groups: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Notifications: NotificationsCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
+  Settings: SettingsCreateNestedOneWithoutProfileInput
+  Storys: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutSecuredDataKeysInput {
@@ -10367,14 +11925,15 @@ input ProfileCreateWithoutSecuredDataKeysInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutSettingsInput {
@@ -10390,14 +11949,15 @@ input ProfileCreateWithoutSettingsInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutStorysInput {
@@ -10413,14 +11973,15 @@ input ProfileCreateWithoutStorysInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutThemeManagerInput {
@@ -10436,14 +11997,15 @@ input ProfileCreateWithoutThemeManagerInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   updatedAt: DateTime
   Venue: VenueCreateNestedOneWithoutProfileInput
+  Vote: VoteCreateNestedManyWithoutProfileInput
 }
 
 input ProfileCreateWithoutVenueInput {
@@ -10459,14 +12021,39 @@ input ProfileCreateWithoutVenueInput {
   Notifications: NotificationsCreateNestedOneWithoutProfileInput
   Personal: PersonalCreateNestedOneWithoutProfileInput
   photos: PhotoCreateNestedManyWithoutProfileInput
-  ProfileSearchesService: ProfileSearchesServiceCreateNestedOneWithoutProfileInput
   ProfileType: ProfileType
   Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
   SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
   Settings: SettingsCreateNestedOneWithoutProfileInput
   Storys: StoryCreateNestedManyWithoutProfileInput
   ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
   updatedAt: DateTime
+  Vote: VoteCreateNestedManyWithoutProfileInput
+}
+
+input ProfileCreateWithoutVoteInput {
+  bfsprofileid: String
+  Chatroom: ChatroomCreateNestedManyWithoutProfilesInput
+  createdAt: DateTime
+  Credentials: CredentialsCreateNestedOneWithoutProfileInput
+  DetailInformation: DetailInformationCreateNestedOneWithoutProfileInput
+  DeviceManager: [String!]
+  Groups: GroupCreateNestedManyWithoutProfileInput
+  id: String
+  IdentifiableInformation: IdentifiableInformationCreateNestedOneWithoutProfileInput
+  Notifications: NotificationsCreateNestedOneWithoutProfileInput
+  Personal: PersonalCreateNestedOneWithoutProfileInput
+  photos: PhotoCreateNestedManyWithoutProfileInput
+  ProfileType: ProfileType
+  Relationships: RelationshipCreateNestedManyWithoutProfileInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutProfileInput
+  SecuredDataKeys: SecuredDataKeysCreateNestedManyWithoutProfileInput
+  Settings: SettingsCreateNestedOneWithoutProfileInput
+  Storys: StoryCreateNestedManyWithoutProfileInput
+  ThemeManager: ThemeManagerCreateNestedOneWithoutProfileInput
+  updatedAt: DateTime
+  Venue: VenueCreateNestedOneWithoutProfileInput
 }
 
 input ProfileListRelationFilter {
@@ -10520,15 +12107,16 @@ input ProfileOrderByWithRelationInput {
   Notifications: NotificationsOrderByWithRelationInput
   Personal: PersonalOrderByWithRelationInput
   photos: PhotoOrderByRelationAggregateInput
-  ProfileSearchesService: ProfileSearchesServiceOrderByWithRelationInput
   ProfileType: SortOrder
   Relationships: RelationshipOrderByRelationAggregateInput
+  SearchesService: SearchesServiceOrderByWithRelationInput
   SecuredDataKeys: SecuredDataKeysOrderByRelationAggregateInput
   Settings: SettingsOrderByWithRelationInput
   Storys: StoryOrderByRelationAggregateInput
   ThemeManager: ThemeManagerOrderByWithRelationInput
   updatedAt: SortOrder
   Venue: VenueOrderByWithRelationInput
+  Vote: VoteOrderByRelationAggregateInput
 }
 
 input ProfileRelationFilter {
@@ -10569,148 +12157,6 @@ input ProfileScalarWhereWithAggregatesInput {
   OR: [ProfileScalarWhereWithAggregatesInput!]
   ProfileType: EnumProfileTypeWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
-}
-
-type ProfileSearchesService {
-  id: ID!
-  Profile: Profile!
-  profileId: String!
-  searches: [Json!]!
-}
-
-input ProfileSearchesServiceCountOrderByAggregateInput {
-  id: SortOrder
-  profileId: SortOrder
-  searches: SortOrder
-}
-
-input ProfileSearchesServiceCreateInput {
-  id: String
-  Profile: ProfileCreateNestedOneWithoutProfileSearchesServiceInput!
-  searches: [Json!]
-}
-
-input ProfileSearchesServiceCreateManyInput {
-  id: String
-  profileId: String!
-  searches: [Json!]
-}
-
-input ProfileSearchesServiceCreateNestedOneWithoutProfileInput {
-  connect: ProfileSearchesServiceWhereUniqueInput
-  connectOrCreate: ProfileSearchesServiceCreateOrConnectWithoutProfileInput
-  create: ProfileSearchesServiceCreateWithoutProfileInput
-}
-
-input ProfileSearchesServiceCreateOrConnectWithoutProfileInput {
-  create: ProfileSearchesServiceCreateWithoutProfileInput!
-  where: ProfileSearchesServiceWhereUniqueInput!
-}
-
-input ProfileSearchesServiceCreatesearchesInput {
-  set: [Json!]!
-}
-
-input ProfileSearchesServiceCreateWithoutProfileInput {
-  id: String
-  searches: [Json!]
-}
-
-input ProfileSearchesServiceMaxOrderByAggregateInput {
-  id: SortOrder
-  profileId: SortOrder
-}
-
-input ProfileSearchesServiceMinOrderByAggregateInput {
-  id: SortOrder
-  profileId: SortOrder
-}
-
-input ProfileSearchesServiceOrderByWithAggregationInput {
-  _count: ProfileSearchesServiceCountOrderByAggregateInput
-  _max: ProfileSearchesServiceMaxOrderByAggregateInput
-  _min: ProfileSearchesServiceMinOrderByAggregateInput
-  id: SortOrder
-  profileId: SortOrder
-  searches: SortOrder
-}
-
-input ProfileSearchesServiceOrderByWithRelationInput {
-  id: SortOrder
-  Profile: ProfileOrderByWithRelationInput
-  profileId: SortOrder
-  searches: SortOrder
-}
-
-input ProfileSearchesServiceRelationFilter {
-  is: ProfileSearchesServiceWhereInput
-  isNot: ProfileSearchesServiceWhereInput
-}
-
-enum ProfileSearchesServiceScalarFieldEnum {
-  id
-  profileId
-  searches
-}
-
-input ProfileSearchesServiceScalarWhereWithAggregatesInput {
-  AND: [ProfileSearchesServiceScalarWhereWithAggregatesInput!]
-  id: StringWithAggregatesFilter
-  NOT: [ProfileSearchesServiceScalarWhereWithAggregatesInput!]
-  OR: [ProfileSearchesServiceScalarWhereWithAggregatesInput!]
-  profileId: StringWithAggregatesFilter
-  searches: JsonNullableListFilter
-}
-
-input ProfileSearchesServiceUpdateInput {
-  id: StringFieldUpdateOperationsInput
-  Profile: ProfileUpdateOneRequiredWithoutProfileSearchesServiceNestedInput
-  searches: [Json!]
-}
-
-input ProfileSearchesServiceUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  searches: [Json!]
-}
-
-input ProfileSearchesServiceUpdateOneWithoutProfileNestedInput {
-  connect: ProfileSearchesServiceWhereUniqueInput
-  connectOrCreate: ProfileSearchesServiceCreateOrConnectWithoutProfileInput
-  create: ProfileSearchesServiceCreateWithoutProfileInput
-  delete: Boolean
-  disconnect: Boolean
-  update: ProfileSearchesServiceUpdateWithoutProfileInput
-  upsert: ProfileSearchesServiceUpsertWithoutProfileInput
-}
-
-input ProfileSearchesServiceUpdatesearchesInput {
-  push: Json
-  set: [Json!]
-}
-
-input ProfileSearchesServiceUpdateWithoutProfileInput {
-  id: StringFieldUpdateOperationsInput
-  searches: [Json!]
-}
-
-input ProfileSearchesServiceUpsertWithoutProfileInput {
-  create: ProfileSearchesServiceCreateWithoutProfileInput!
-  update: ProfileSearchesServiceUpdateWithoutProfileInput!
-}
-
-input ProfileSearchesServiceWhereInput {
-  AND: [ProfileSearchesServiceWhereInput!]
-  id: StringFilter
-  NOT: [ProfileSearchesServiceWhereInput!]
-  OR: [ProfileSearchesServiceWhereInput!]
-  Profile: ProfileWhereInput
-  profileId: StringFilter
-  searches: JsonNullableListFilter
-}
-
-input ProfileSearchesServiceWhereUniqueInput {
-  id: String
-  profileId: String
 }
 
 type ProfilesResponse {
@@ -11041,15 +12487,16 @@ input ProfileUpdateInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateManyMutationInput {
@@ -11137,12 +12584,12 @@ input ProfileUpdateOneRequiredWithoutPersonalNestedInput {
   upsert: ProfileUpsertWithoutPersonalInput
 }
 
-input ProfileUpdateOneRequiredWithoutProfileSearchesServiceNestedInput {
+input ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput {
   connect: ProfileWhereUniqueInput
-  connectOrCreate: ProfileCreateOrConnectWithoutProfileSearchesServiceInput
-  create: ProfileCreateWithoutProfileSearchesServiceInput
-  update: ProfileUpdateWithoutProfileSearchesServiceInput
-  upsert: ProfileUpsertWithoutProfileSearchesServiceInput
+  connectOrCreate: ProfileCreateOrConnectWithoutSearchesServiceInput
+  create: ProfileCreateWithoutSearchesServiceInput
+  update: ProfileUpdateWithoutSearchesServiceInput
+  upsert: ProfileUpsertWithoutSearchesServiceInput
 }
 
 input ProfileUpdateOneRequiredWithoutSecuredDataKeysNestedInput {
@@ -11175,6 +12622,14 @@ input ProfileUpdateOneRequiredWithoutVenueNestedInput {
   create: ProfileCreateWithoutVenueInput
   update: ProfileUpdateWithoutVenueInput
   upsert: ProfileUpsertWithoutVenueInput
+}
+
+input ProfileUpdateOneRequiredWithoutVoteNestedInput {
+  connect: ProfileWhereUniqueInput
+  connectOrCreate: ProfileCreateOrConnectWithoutVoteInput
+  create: ProfileCreateWithoutVoteInput
+  update: ProfileUpdateWithoutVoteInput
+  upsert: ProfileUpsertWithoutVoteInput
 }
 
 input ProfileUpdateOneWithoutPhotosNestedInput {
@@ -11219,15 +12674,16 @@ input ProfileUpdateWithoutChatroomInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutCredentialsInput {
@@ -11242,15 +12698,16 @@ input ProfileUpdateWithoutCredentialsInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutDetailInformationInput {
@@ -11265,15 +12722,16 @@ input ProfileUpdateWithoutDetailInformationInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutGroupsInput {
@@ -11288,15 +12746,16 @@ input ProfileUpdateWithoutGroupsInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutIdentifiableInformationInput {
@@ -11311,15 +12770,16 @@ input ProfileUpdateWithoutIdentifiableInformationInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutNotificationsInput {
@@ -11334,15 +12794,16 @@ input ProfileUpdateWithoutNotificationsInput {
   IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutPersonalInput {
@@ -11357,15 +12818,16 @@ input ProfileUpdateWithoutPersonalInput {
   IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileNestedInput
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutPhotosInput {
@@ -11380,38 +12842,16 @@ input ProfileUpdateWithoutPhotosInput {
   IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileNestedInput
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
-}
-
-input ProfileUpdateWithoutProfileSearchesServiceInput {
-  bfsprofileid: StringFieldUpdateOperationsInput
-  Chatroom: ChatroomUpdateManyWithoutProfilesNestedInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  Credentials: CredentialsUpdateOneWithoutProfileNestedInput
-  DetailInformation: DetailInformationUpdateOneWithoutProfileNestedInput
-  DeviceManager: [String!]
-  Groups: GroupUpdateManyWithoutProfileNestedInput
-  id: StringFieldUpdateOperationsInput
-  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileNestedInput
-  Notifications: NotificationsUpdateOneWithoutProfileNestedInput
-  Personal: PersonalUpdateOneWithoutProfileNestedInput
-  photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
-  Relationships: RelationshipUpdateManyWithoutProfileNestedInput
-  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
-  Settings: SettingsUpdateOneWithoutProfileNestedInput
-  Storys: StoryUpdateManyWithoutProfileNestedInput
-  ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutRelationshipsInput {
@@ -11427,14 +12867,39 @@ input ProfileUpdateWithoutRelationshipsInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
+}
+
+input ProfileUpdateWithoutSearchesServiceInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileNestedInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileNestedInput
+  DeviceManager: [String!]
+  Groups: GroupUpdateManyWithoutProfileNestedInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileNestedInput
+  Notifications: NotificationsUpdateOneWithoutProfileNestedInput
+  Personal: PersonalUpdateOneWithoutProfileNestedInput
+  photos: PhotoUpdateManyWithoutProfileNestedInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
+  Settings: SettingsUpdateOneWithoutProfileNestedInput
+  Storys: StoryUpdateManyWithoutProfileNestedInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutSecuredDataKeysInput {
@@ -11450,14 +12915,15 @@ input ProfileUpdateWithoutSecuredDataKeysInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutSettingsInput {
@@ -11473,14 +12939,15 @@ input ProfileUpdateWithoutSettingsInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutStorysInput {
@@ -11496,14 +12963,15 @@ input ProfileUpdateWithoutStorysInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutThemeManagerInput {
@@ -11519,14 +12987,15 @@ input ProfileUpdateWithoutThemeManagerInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   Venue: VenueUpdateOneWithoutProfileNestedInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithoutVenueInput {
@@ -11542,14 +13011,39 @@ input ProfileUpdateWithoutVenueInput {
   Notifications: NotificationsUpdateOneWithoutProfileNestedInput
   Personal: PersonalUpdateOneWithoutProfileNestedInput
   photos: PhotoUpdateManyWithoutProfileNestedInput
-  ProfileSearchesService: ProfileSearchesServiceUpdateOneWithoutProfileNestedInput
   ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
   SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
   Settings: SettingsUpdateOneWithoutProfileNestedInput
   Storys: StoryUpdateManyWithoutProfileNestedInput
   ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  Vote: VoteUpdateManyWithoutProfileNestedInput
+}
+
+input ProfileUpdateWithoutVoteInput {
+  bfsprofileid: StringFieldUpdateOperationsInput
+  Chatroom: ChatroomUpdateManyWithoutProfilesNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  Credentials: CredentialsUpdateOneWithoutProfileNestedInput
+  DetailInformation: DetailInformationUpdateOneWithoutProfileNestedInput
+  DeviceManager: [String!]
+  Groups: GroupUpdateManyWithoutProfileNestedInput
+  id: StringFieldUpdateOperationsInput
+  IdentifiableInformation: IdentifiableInformationUpdateOneWithoutProfileNestedInput
+  Notifications: NotificationsUpdateOneWithoutProfileNestedInput
+  Personal: PersonalUpdateOneWithoutProfileNestedInput
+  photos: PhotoUpdateManyWithoutProfileNestedInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
+  Relationships: RelationshipUpdateManyWithoutProfileNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutProfileNestedInput
+  SecuredDataKeys: SecuredDataKeysUpdateManyWithoutProfileNestedInput
+  Settings: SettingsUpdateOneWithoutProfileNestedInput
+  Storys: StoryUpdateManyWithoutProfileNestedInput
+  ThemeManager: ThemeManagerUpdateOneWithoutProfileNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  Venue: VenueUpdateOneWithoutProfileNestedInput
 }
 
 input ProfileUpdateWithWhereUniqueWithoutChatroomInput {
@@ -11592,14 +13086,14 @@ input ProfileUpsertWithoutPhotosInput {
   update: ProfileUpdateWithoutPhotosInput!
 }
 
-input ProfileUpsertWithoutProfileSearchesServiceInput {
-  create: ProfileCreateWithoutProfileSearchesServiceInput!
-  update: ProfileUpdateWithoutProfileSearchesServiceInput!
-}
-
 input ProfileUpsertWithoutRelationshipsInput {
   create: ProfileCreateWithoutRelationshipsInput!
   update: ProfileUpdateWithoutRelationshipsInput!
+}
+
+input ProfileUpsertWithoutSearchesServiceInput {
+  create: ProfileCreateWithoutSearchesServiceInput!
+  update: ProfileUpdateWithoutSearchesServiceInput!
 }
 
 input ProfileUpsertWithoutSecuredDataKeysInput {
@@ -11625,6 +13119,11 @@ input ProfileUpsertWithoutThemeManagerInput {
 input ProfileUpsertWithoutVenueInput {
   create: ProfileCreateWithoutVenueInput!
   update: ProfileUpdateWithoutVenueInput!
+}
+
+input ProfileUpsertWithoutVoteInput {
+  create: ProfileCreateWithoutVoteInput!
+  update: ProfileUpdateWithoutVoteInput!
 }
 
 input ProfileUpsertWithWhereUniqueWithoutChatroomInput {
@@ -11673,15 +13172,16 @@ input ProfileWhereInput {
   OR: [ProfileWhereInput!]
   Personal: PersonalWhereInput
   photos: PhotoListRelationFilter
-  ProfileSearchesService: ProfileSearchesServiceWhereInput
   ProfileType: EnumProfileTypeFilter
   Relationships: RelationshipListRelationFilter
+  SearchesService: SearchesServiceWhereInput
   SecuredDataKeys: SecuredDataKeysListRelationFilter
   Settings: SettingsWhereInput
   Storys: StoryListRelationFilter
   ThemeManager: ThemeManagerWhereInput
   updatedAt: DateTimeFilter
   Venue: VenueWhereInput
+  Vote: VoteListRelationFilter
 }
 
 input ProfileWhereUniqueInput {
@@ -11928,7 +13428,7 @@ type Query {
   getNotifications: NotificationResponse!
   getRelationshipFriendRequestStatus(profileId: String!): NotificationFriendRequestStatusResponse!
   getSecureFriendQRCodeData: String!
-  H3IndexGrid(cell: String!, ringSize: Int!): [String!]!
+  H3IndexGrid(cell: String!, ringSize: Int! = 1): [String!]!
   H3IndexLatLng(cell: String!): [Float!]!
   loginPassword(password: String!, username: String!): Boolean!
   privacyTermsDocuments: PrivacyAndTermsDocumentResponse!
@@ -11937,13 +13437,15 @@ type Query {
   sendAuthenticatorDeviceOwnerCode: Boolean!
   venue(cursor: VenueWhereUniqueInput, distinct: [VenueScalarFieldEnum!], orderBy: [VenueOrderByWithRelationInput!], skip: Int, take: Int, where: VenueWhereInput): Venue
   venues(cursor: VenueWhereUniqueInput, distinct: [VenueScalarFieldEnum!], orderBy: [VenueOrderByWithRelationInput!], skip: Int, take: Int, where: VenueWhereInput): [Venue!]!
-  venuesNearby(countryIsoCode: String!, currentLocationCoords: CoordsInput, kRing: Int, searchAreaCoords: CoordsInput!, stateIsoCode: String!): VenuesNearbyResponse!
+  venuesNearby(countryIsoCode: String!, currentLocationCoords: CoordsInput, kRing: Int = 1, searchAreaCoords: CoordsInput!, stateIsoCode: String!): RecommendationResponseUnion!
 }
 
 enum QueryMode {
   default
   insensitive
 }
+
+union RecommendationResponseUnion = ComingAreaResponse | ErrorProfiling | VenuesNearbyResponse
 
 union RefreshDeviceManagerDeviceManagerResponseUnion = ClientDeviceManager | ErrorManaging
 
@@ -12377,11 +13879,605 @@ input RelationshipWhereUniqueInput {
   id: String
 }
 
-type SearchAreaResponse {
-  city: PlaceType!
-  coords: Coords!
-  country: PlaceType!
-  state: PlaceType!
+type SearchAreaMetrics {
+  createdAt: DateTime!
+  h3Index15: String
+  H3Index5VenueRecommendation: H3Index5VenueRecommendation
+  h3Index5VenueRecommendationId: String
+  H3Index6VenueRecommendation: H3Index6VenueRecommendation
+  h3Index6VenueRecommendationId: String
+  id: ID!
+  SearchesService: SearchesService
+  searchesServiceId: String
+  timesSearched: Int!
+}
+
+input SearchAreaMetricsAvgOrderByAggregateInput {
+  id: SortOrder
+  timesSearched: SortOrder
+}
+
+input SearchAreaMetricsCountOrderByAggregateInput {
+  createdAt: SortOrder
+  h3Index15: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  searchesServiceId: SortOrder
+  timesSearched: SortOrder
+}
+
+input SearchAreaMetricsCreateInput {
+  createdAt: DateTime
+  h3Index15: String
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateManyH3Index5VenueRecommendationInput {
+  createdAt: DateTime
+  h3Index15: String
+  h3Index6VenueRecommendationId: String
+  id: Int
+  searchesServiceId: String
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope {
+  data: [SearchAreaMetricsCreateManyH3Index5VenueRecommendationInput!]!
+  skipDuplicates: Boolean
+}
+
+input SearchAreaMetricsCreateManyH3Index6VenueRecommendationInput {
+  createdAt: DateTime
+  h3Index15: String
+  h3Index5VenueRecommendationId: String
+  id: Int
+  searchesServiceId: String
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope {
+  data: [SearchAreaMetricsCreateManyH3Index6VenueRecommendationInput!]!
+  skipDuplicates: Boolean
+}
+
+input SearchAreaMetricsCreateManyInput {
+  createdAt: DateTime
+  h3Index15: String
+  h3Index5VenueRecommendationId: String
+  h3Index6VenueRecommendationId: String
+  id: Int
+  searchesServiceId: String
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateManySearchesServiceInput {
+  createdAt: DateTime
+  h3Index15: String
+  h3Index5VenueRecommendationId: String
+  h3Index6VenueRecommendationId: String
+  id: Int
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateManySearchesServiceInputEnvelope {
+  data: [SearchAreaMetricsCreateManySearchesServiceInput!]!
+  skipDuplicates: Boolean
+}
+
+input SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput {
+  connect: [SearchAreaMetricsWhereUniqueInput!]
+  connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
+  create: SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput
+  createMany: SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope
+}
+
+input SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput {
+  connect: [SearchAreaMetricsWhereUniqueInput!]
+  connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
+  create: SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput
+  createMany: SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope
+}
+
+input SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput {
+  connect: [SearchAreaMetricsWhereUniqueInput!]
+  connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput!]
+  create: SearchAreaMetricsCreateWithoutSearchesServiceInput
+  createMany: SearchAreaMetricsCreateManySearchesServiceInputEnvelope
+}
+
+input SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput {
+  create: SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput {
+  create: SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput {
+  create: SearchAreaMetricsCreateWithoutSearchesServiceInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput {
+  createdAt: DateTime
+  h3Index15: String
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput {
+  createdAt: DateTime
+  h3Index15: String
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
+  SearchesService: SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput
+  timesSearched: Int
+}
+
+input SearchAreaMetricsCreateWithoutSearchesServiceInput {
+  createdAt: DateTime
+  h3Index15: String
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
+  timesSearched: Int
+}
+
+input SearchAreaMetricsListRelationFilter {
+  every: SearchAreaMetricsWhereInput
+  none: SearchAreaMetricsWhereInput
+  some: SearchAreaMetricsWhereInput
+}
+
+input SearchAreaMetricsMaxOrderByAggregateInput {
+  createdAt: SortOrder
+  h3Index15: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  searchesServiceId: SortOrder
+  timesSearched: SortOrder
+}
+
+input SearchAreaMetricsMinOrderByAggregateInput {
+  createdAt: SortOrder
+  h3Index15: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  searchesServiceId: SortOrder
+  timesSearched: SortOrder
+}
+
+input SearchAreaMetricsOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input SearchAreaMetricsOrderByWithAggregationInput {
+  _avg: SearchAreaMetricsAvgOrderByAggregateInput
+  _count: SearchAreaMetricsCountOrderByAggregateInput
+  _max: SearchAreaMetricsMaxOrderByAggregateInput
+  _min: SearchAreaMetricsMinOrderByAggregateInput
+  _sum: SearchAreaMetricsSumOrderByAggregateInput
+  createdAt: SortOrder
+  h3Index15: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  searchesServiceId: SortOrder
+  timesSearched: SortOrder
+}
+
+input SearchAreaMetricsOrderByWithRelationInput {
+  createdAt: SortOrder
+  h3Index15: SortOrder
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationOrderByWithRelationInput
+  h3Index5VenueRecommendationId: SortOrder
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationOrderByWithRelationInput
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  SearchesService: SearchesServiceOrderByWithRelationInput
+  searchesServiceId: SortOrder
+  timesSearched: SortOrder
+}
+
+enum SearchAreaMetricsScalarFieldEnum {
+  createdAt
+  h3Index15
+  h3Index5VenueRecommendationId
+  h3Index6VenueRecommendationId
+  id
+  searchesServiceId
+  timesSearched
+}
+
+input SearchAreaMetricsScalarWhereInput {
+  AND: [SearchAreaMetricsScalarWhereInput!]
+  createdAt: DateTimeFilter
+  h3Index15: StringNullableFilter
+  h3Index5VenueRecommendationId: StringNullableFilter
+  h3Index6VenueRecommendationId: StringNullableFilter
+  id: IntFilter
+  NOT: [SearchAreaMetricsScalarWhereInput!]
+  OR: [SearchAreaMetricsScalarWhereInput!]
+  searchesServiceId: StringNullableFilter
+  timesSearched: IntFilter
+}
+
+input SearchAreaMetricsScalarWhereWithAggregatesInput {
+  AND: [SearchAreaMetricsScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  h3Index15: StringNullableWithAggregatesFilter
+  h3Index5VenueRecommendationId: StringNullableWithAggregatesFilter
+  h3Index6VenueRecommendationId: StringNullableWithAggregatesFilter
+  id: IntWithAggregatesFilter
+  NOT: [SearchAreaMetricsScalarWhereWithAggregatesInput!]
+  OR: [SearchAreaMetricsScalarWhereWithAggregatesInput!]
+  searchesServiceId: StringNullableWithAggregatesFilter
+  timesSearched: IntWithAggregatesFilter
+}
+
+input SearchAreaMetricsSumOrderByAggregateInput {
+  id: SortOrder
+  timesSearched: SortOrder
+}
+
+input SearchAreaMetricsUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput
+  timesSearched: IntFieldUpdateOperationsInput
+}
+
+input SearchAreaMetricsUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  timesSearched: IntFieldUpdateOperationsInput
+}
+
+input SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
+  connect: [SearchAreaMetricsWhereUniqueInput!]
+  connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
+  create: SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput
+  createMany: SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope
+  delete: [SearchAreaMetricsWhereUniqueInput!]
+  deleteMany: [SearchAreaMetricsScalarWhereInput!]
+  disconnect: [SearchAreaMetricsWhereUniqueInput!]
+  set: [SearchAreaMetricsWhereUniqueInput!]
+  update: [SearchAreaMetricsUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput!]
+  updateMany: [SearchAreaMetricsUpdateManyWithWhereWithoutH3Index5VenueRecommendationInput!]
+  upsert: [SearchAreaMetricsUpsertWithWhereUniqueWithoutH3Index5VenueRecommendationInput!]
+}
+
+input SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
+  connect: [SearchAreaMetricsWhereUniqueInput!]
+  connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
+  create: SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput
+  createMany: SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope
+  delete: [SearchAreaMetricsWhereUniqueInput!]
+  deleteMany: [SearchAreaMetricsScalarWhereInput!]
+  disconnect: [SearchAreaMetricsWhereUniqueInput!]
+  set: [SearchAreaMetricsWhereUniqueInput!]
+  update: [SearchAreaMetricsUpdateWithWhereUniqueWithoutH3Index6VenueRecommendationInput!]
+  updateMany: [SearchAreaMetricsUpdateManyWithWhereWithoutH3Index6VenueRecommendationInput!]
+  upsert: [SearchAreaMetricsUpsertWithWhereUniqueWithoutH3Index6VenueRecommendationInput!]
+}
+
+input SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput {
+  connect: [SearchAreaMetricsWhereUniqueInput!]
+  connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput!]
+  create: SearchAreaMetricsCreateWithoutSearchesServiceInput
+  createMany: SearchAreaMetricsCreateManySearchesServiceInputEnvelope
+  delete: [SearchAreaMetricsWhereUniqueInput!]
+  deleteMany: [SearchAreaMetricsScalarWhereInput!]
+  disconnect: [SearchAreaMetricsWhereUniqueInput!]
+  set: [SearchAreaMetricsWhereUniqueInput!]
+  update: [SearchAreaMetricsUpdateWithWhereUniqueWithoutSearchesServiceInput!]
+  updateMany: [SearchAreaMetricsUpdateManyWithWhereWithoutSearchesServiceInput!]
+  upsert: [SearchAreaMetricsUpsertWithWhereUniqueWithoutSearchesServiceInput!]
+}
+
+input SearchAreaMetricsUpdateManyWithWhereWithoutH3Index5VenueRecommendationInput {
+  data: SearchAreaMetricsUpdateManyMutationInput!
+  where: SearchAreaMetricsScalarWhereInput!
+}
+
+input SearchAreaMetricsUpdateManyWithWhereWithoutH3Index6VenueRecommendationInput {
+  data: SearchAreaMetricsUpdateManyMutationInput!
+  where: SearchAreaMetricsScalarWhereInput!
+}
+
+input SearchAreaMetricsUpdateManyWithWhereWithoutSearchesServiceInput {
+  data: SearchAreaMetricsUpdateManyMutationInput!
+  where: SearchAreaMetricsScalarWhereInput!
+}
+
+input SearchAreaMetricsUpdateWithoutH3Index5VenueRecommendationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput
+  timesSearched: IntFieldUpdateOperationsInput
+}
+
+input SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
+  SearchesService: SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput
+  timesSearched: IntFieldUpdateOperationsInput
+}
+
+input SearchAreaMetricsUpdateWithoutSearchesServiceInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  h3Index15: NullableStringFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
+  timesSearched: IntFieldUpdateOperationsInput
+}
+
+input SearchAreaMetricsUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
+  data: SearchAreaMetricsUpdateWithoutH3Index5VenueRecommendationInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsUpdateWithWhereUniqueWithoutH3Index6VenueRecommendationInput {
+  data: SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsUpdateWithWhereUniqueWithoutSearchesServiceInput {
+  data: SearchAreaMetricsUpdateWithoutSearchesServiceInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsUpsertWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
+  create: SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput!
+  update: SearchAreaMetricsUpdateWithoutH3Index5VenueRecommendationInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsUpsertWithWhereUniqueWithoutH3Index6VenueRecommendationInput {
+  create: SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput!
+  update: SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsUpsertWithWhereUniqueWithoutSearchesServiceInput {
+  create: SearchAreaMetricsCreateWithoutSearchesServiceInput!
+  update: SearchAreaMetricsUpdateWithoutSearchesServiceInput!
+  where: SearchAreaMetricsWhereUniqueInput!
+}
+
+input SearchAreaMetricsWhereInput {
+  AND: [SearchAreaMetricsWhereInput!]
+  createdAt: DateTimeFilter
+  h3Index15: StringNullableFilter
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationWhereInput
+  h3Index5VenueRecommendationId: StringNullableFilter
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationWhereInput
+  h3Index6VenueRecommendationId: StringNullableFilter
+  id: IntFilter
+  NOT: [SearchAreaMetricsWhereInput!]
+  OR: [SearchAreaMetricsWhereInput!]
+  SearchesService: SearchesServiceWhereInput
+  searchesServiceId: StringNullableFilter
+  timesSearched: IntFilter
+}
+
+input SearchAreaMetricsWhereUniqueInput {
+  id: Int
+}
+
+type SearchesService {
+  createdAt: DateTime!
+  id: ID!
+  Profile: Profile!
+  profileId: String!
+  SearchAreaMetrics(cursor: SearchAreaMetricsWhereUniqueInput, distinct: [SearchAreaMetricsScalarFieldEnum!], orderBy: [SearchAreaMetricsOrderByWithRelationInput!], skip: Int, take: Int, where: SearchAreaMetricsWhereInput): [SearchAreaMetrics!]!
+  searches: [Json!]!
+}
+
+input SearchesServiceCountOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+  searches: SortOrder
+}
+
+input SearchesServiceCreateInput {
+  createdAt: DateTime
+  id: String
+  Profile: ProfileCreateNestedOneWithoutSearchesServiceInput!
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput
+  searches: [Json!]
+}
+
+input SearchesServiceCreateManyInput {
+  createdAt: DateTime
+  id: String
+  profileId: String!
+  searches: [Json!]
+}
+
+input SearchesServiceCreateNestedOneWithoutProfileInput {
+  connect: SearchesServiceWhereUniqueInput
+  connectOrCreate: SearchesServiceCreateOrConnectWithoutProfileInput
+  create: SearchesServiceCreateWithoutProfileInput
+}
+
+input SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput {
+  connect: SearchesServiceWhereUniqueInput
+  connectOrCreate: SearchesServiceCreateOrConnectWithoutSearchAreaMetricsInput
+  create: SearchesServiceCreateWithoutSearchAreaMetricsInput
+}
+
+input SearchesServiceCreateOrConnectWithoutProfileInput {
+  create: SearchesServiceCreateWithoutProfileInput!
+  where: SearchesServiceWhereUniqueInput!
+}
+
+input SearchesServiceCreateOrConnectWithoutSearchAreaMetricsInput {
+  create: SearchesServiceCreateWithoutSearchAreaMetricsInput!
+  where: SearchesServiceWhereUniqueInput!
+}
+
+input SearchesServiceCreatesearchesInput {
+  set: [Json!]!
+}
+
+input SearchesServiceCreateWithoutProfileInput {
+  createdAt: DateTime
+  id: String
+  SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput
+  searches: [Json!]
+}
+
+input SearchesServiceCreateWithoutSearchAreaMetricsInput {
+  createdAt: DateTime
+  id: String
+  Profile: ProfileCreateNestedOneWithoutSearchesServiceInput!
+  searches: [Json!]
+}
+
+input SearchesServiceMaxOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+}
+
+input SearchesServiceMinOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+}
+
+input SearchesServiceOrderByWithAggregationInput {
+  _count: SearchesServiceCountOrderByAggregateInput
+  _max: SearchesServiceMaxOrderByAggregateInput
+  _min: SearchesServiceMinOrderByAggregateInput
+  createdAt: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+  searches: SortOrder
+}
+
+input SearchesServiceOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  SearchAreaMetrics: SearchAreaMetricsOrderByRelationAggregateInput
+  searches: SortOrder
+}
+
+input SearchesServiceRelationFilter {
+  is: SearchesServiceWhereInput
+  isNot: SearchesServiceWhereInput
+}
+
+enum SearchesServiceScalarFieldEnum {
+  createdAt
+  id
+  profileId
+  searches
+}
+
+input SearchesServiceScalarWhereWithAggregatesInput {
+  AND: [SearchesServiceScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  NOT: [SearchesServiceScalarWhereWithAggregatesInput!]
+  OR: [SearchesServiceScalarWhereWithAggregatesInput!]
+  profileId: StringWithAggregatesFilter
+  searches: JsonNullableListFilter
+}
+
+input SearchesServiceUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput
+  searches: [Json!]
+}
+
+input SearchesServiceUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  searches: [Json!]
+}
+
+input SearchesServiceUpdateOneWithoutProfileNestedInput {
+  connect: SearchesServiceWhereUniqueInput
+  connectOrCreate: SearchesServiceCreateOrConnectWithoutProfileInput
+  create: SearchesServiceCreateWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SearchesServiceUpdateWithoutProfileInput
+  upsert: SearchesServiceUpsertWithoutProfileInput
+}
+
+input SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput {
+  connect: SearchesServiceWhereUniqueInput
+  connectOrCreate: SearchesServiceCreateOrConnectWithoutSearchAreaMetricsInput
+  create: SearchesServiceCreateWithoutSearchAreaMetricsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SearchesServiceUpdateWithoutSearchAreaMetricsInput
+  upsert: SearchesServiceUpsertWithoutSearchAreaMetricsInput
+}
+
+input SearchesServiceUpdatesearchesInput {
+  push: Json
+  set: [Json!]
+}
+
+input SearchesServiceUpdateWithoutProfileInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput
+  searches: [Json!]
+}
+
+input SearchesServiceUpdateWithoutSearchAreaMetricsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput
+  searches: [Json!]
+}
+
+input SearchesServiceUpsertWithoutProfileInput {
+  create: SearchesServiceCreateWithoutProfileInput!
+  update: SearchesServiceUpdateWithoutProfileInput!
+}
+
+input SearchesServiceUpsertWithoutSearchAreaMetricsInput {
+  create: SearchesServiceCreateWithoutSearchAreaMetricsInput!
+  update: SearchesServiceUpdateWithoutSearchAreaMetricsInput!
+}
+
+input SearchesServiceWhereInput {
+  AND: [SearchesServiceWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [SearchesServiceWhereInput!]
+  OR: [SearchesServiceWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  SearchAreaMetrics: SearchAreaMetricsListRelationFilter
+  searches: JsonNullableListFilter
+}
+
+input SearchesServiceWhereUniqueInput {
+  id: String
+  profileId: String
 }
 
 enum SecureDataType {
@@ -12792,12 +14888,219 @@ enum SortOrder {
   desc
 }
 
+type State {
+  Area(cursor: AreaWhereUniqueInput, distinct: [AreaScalarFieldEnum!], orderBy: [AreaOrderByWithRelationInput!], skip: Int, take: Int, where: AreaWhereInput): [Area!]!
+  Geometry: Geometry!
+  geometryId: Int!
+  id: ID!
+  isoCode: String!
+  name: String!
+}
+
+input StateAvgOrderByAggregateInput {
+  geometryId: SortOrder
+}
+
+input StateCountOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input StateCreateInput {
+  Area: AreaCreateNestedManyWithoutStateInput
+  Geometry: GeometryCreateNestedOneWithoutStateInput!
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input StateCreateManyInput {
+  geometryId: Int!
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input StateCreateNestedOneWithoutAreaInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutAreaInput
+  create: StateCreateWithoutAreaInput
+}
+
+input StateCreateNestedOneWithoutGeometryInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutGeometryInput
+  create: StateCreateWithoutGeometryInput
+}
+
+input StateCreateOrConnectWithoutAreaInput {
+  create: StateCreateWithoutAreaInput!
+  where: StateWhereUniqueInput!
+}
+
+input StateCreateOrConnectWithoutGeometryInput {
+  create: StateCreateWithoutGeometryInput!
+  where: StateWhereUniqueInput!
+}
+
+input StateCreateWithoutAreaInput {
+  Geometry: GeometryCreateNestedOneWithoutStateInput!
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input StateCreateWithoutGeometryInput {
+  Area: AreaCreateNestedManyWithoutStateInput
+  id: String
+  isoCode: String!
+  name: String!
+}
+
+input StateMaxOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input StateMinOrderByAggregateInput {
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input StateOrderByWithAggregationInput {
+  _avg: StateAvgOrderByAggregateInput
+  _count: StateCountOrderByAggregateInput
+  _max: StateMaxOrderByAggregateInput
+  _min: StateMinOrderByAggregateInput
+  _sum: StateSumOrderByAggregateInput
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input StateOrderByWithRelationInput {
+  Area: AreaOrderByRelationAggregateInput
+  Geometry: GeometryOrderByWithRelationInput
+  geometryId: SortOrder
+  id: SortOrder
+  isoCode: SortOrder
+  name: SortOrder
+}
+
+input StateRelationFilter {
+  is: StateWhereInput
+  isNot: StateWhereInput
+}
+
 type StateResponseObject {
   countryCode: String!
   isoCode: String!
   latitude: String
   longitude: String
   name: String!
+}
+
+enum StateScalarFieldEnum {
+  geometryId
+  id
+  isoCode
+  name
+}
+
+input StateScalarWhereWithAggregatesInput {
+  AND: [StateScalarWhereWithAggregatesInput!]
+  geometryId: IntWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  isoCode: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  NOT: [StateScalarWhereWithAggregatesInput!]
+  OR: [StateScalarWhereWithAggregatesInput!]
+}
+
+input StateSumOrderByAggregateInput {
+  geometryId: SortOrder
+}
+
+input StateUpdateInput {
+  Area: AreaUpdateManyWithoutStateNestedInput
+  Geometry: GeometryUpdateOneRequiredWithoutStateNestedInput
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input StateUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input StateUpdateOneRequiredWithoutAreaNestedInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutAreaInput
+  create: StateCreateWithoutAreaInput
+  update: StateUpdateWithoutAreaInput
+  upsert: StateUpsertWithoutAreaInput
+}
+
+input StateUpdateOneWithoutGeometryNestedInput {
+  connect: StateWhereUniqueInput
+  connectOrCreate: StateCreateOrConnectWithoutGeometryInput
+  create: StateCreateWithoutGeometryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: StateUpdateWithoutGeometryInput
+  upsert: StateUpsertWithoutGeometryInput
+}
+
+input StateUpdateWithoutAreaInput {
+  Geometry: GeometryUpdateOneRequiredWithoutStateNestedInput
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input StateUpdateWithoutGeometryInput {
+  Area: AreaUpdateManyWithoutStateNestedInput
+  id: StringFieldUpdateOperationsInput
+  isoCode: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input StateUpsertWithoutAreaInput {
+  create: StateCreateWithoutAreaInput!
+  update: StateUpdateWithoutAreaInput!
+}
+
+input StateUpsertWithoutGeometryInput {
+  create: StateCreateWithoutGeometryInput!
+  update: StateUpdateWithoutGeometryInput!
+}
+
+input StateWhereInput {
+  AND: [StateWhereInput!]
+  Area: AreaListRelationFilter
+  Geometry: GeometryWhereInput
+  geometryId: IntFilter
+  id: StringFilter
+  isoCode: StringFilter
+  name: StringFilter
+  NOT: [StateWhereInput!]
+  OR: [StateWhereInput!]
+}
+
+input StateWhereUniqueInput {
+  geometryId: Int
+  id: String
+  isoCode: String
+  name: String
 }
 
 type Story {
@@ -14302,7 +16605,7 @@ input VenueScalarWhereWithAggregatesInput {
 }
 
 type VenuesNearbyResponse {
-  searchArea: SearchAreaResponse!
+  searchArea: Area
   venuesNearby: [ProfileVenue!]!
 }
 
@@ -14626,4 +16929,474 @@ input VenueWhereUniqueInput {
   id: String
   profileId: String
   venueStatsId: String
+}
+
+type Vote {
+  ComingArea: ComingArea
+  comingAreaId: String
+  createdAt: DateTime!
+  H3Index5VenueRecommendation: H3Index5VenueRecommendation
+  h3Index5VenueRecommendationId: String
+  H3Index6VenueRecommendation: H3Index6VenueRecommendation
+  h3Index6VenueRecommendationId: String
+  id: ID!
+  Profile: Profile!
+  profileId: String!
+  upvote: Boolean!
+}
+
+input VoteCountOrderByAggregateInput {
+  comingAreaId: SortOrder
+  createdAt: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+  upvote: SortOrder
+}
+
+input VoteCreateInput {
+  ComingArea: ComingAreaCreateNestedOneWithoutVoteInput
+  createdAt: DateTime
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
+  id: String
+  Profile: ProfileCreateNestedOneWithoutVoteInput!
+  upvote: Boolean!
+}
+
+input VoteCreateManyComingAreaInput {
+  createdAt: DateTime
+  h3Index5VenueRecommendationId: String
+  h3Index6VenueRecommendationId: String
+  id: String
+  profileId: String!
+  upvote: Boolean!
+}
+
+input VoteCreateManyComingAreaInputEnvelope {
+  data: [VoteCreateManyComingAreaInput!]!
+  skipDuplicates: Boolean
+}
+
+input VoteCreateManyH3Index5VenueRecommendationInput {
+  comingAreaId: String
+  createdAt: DateTime
+  h3Index6VenueRecommendationId: String
+  id: String
+  profileId: String!
+  upvote: Boolean!
+}
+
+input VoteCreateManyH3Index5VenueRecommendationInputEnvelope {
+  data: [VoteCreateManyH3Index5VenueRecommendationInput!]!
+  skipDuplicates: Boolean
+}
+
+input VoteCreateManyH3Index6VenueRecommendationInput {
+  comingAreaId: String
+  createdAt: DateTime
+  h3Index5VenueRecommendationId: String
+  id: String
+  profileId: String!
+  upvote: Boolean!
+}
+
+input VoteCreateManyH3Index6VenueRecommendationInputEnvelope {
+  data: [VoteCreateManyH3Index6VenueRecommendationInput!]!
+  skipDuplicates: Boolean
+}
+
+input VoteCreateManyInput {
+  comingAreaId: String
+  createdAt: DateTime
+  h3Index5VenueRecommendationId: String
+  h3Index6VenueRecommendationId: String
+  id: String
+  profileId: String!
+  upvote: Boolean!
+}
+
+input VoteCreateManyProfileInput {
+  comingAreaId: String
+  createdAt: DateTime
+  h3Index5VenueRecommendationId: String
+  h3Index6VenueRecommendationId: String
+  id: String
+  upvote: Boolean!
+}
+
+input VoteCreateManyProfileInputEnvelope {
+  data: [VoteCreateManyProfileInput!]!
+  skipDuplicates: Boolean
+}
+
+input VoteCreateNestedManyWithoutComingAreaInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutComingAreaInput!]
+  create: VoteCreateWithoutComingAreaInput
+  createMany: VoteCreateManyComingAreaInputEnvelope
+}
+
+input VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
+  create: VoteCreateWithoutH3Index5VenueRecommendationInput
+  createMany: VoteCreateManyH3Index5VenueRecommendationInputEnvelope
+}
+
+input VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
+  create: VoteCreateWithoutH3Index6VenueRecommendationInput
+  createMany: VoteCreateManyH3Index6VenueRecommendationInputEnvelope
+}
+
+input VoteCreateNestedManyWithoutProfileInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutProfileInput!]
+  create: VoteCreateWithoutProfileInput
+  createMany: VoteCreateManyProfileInputEnvelope
+}
+
+input VoteCreateOrConnectWithoutComingAreaInput {
+  create: VoteCreateWithoutComingAreaInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput {
+  create: VoteCreateWithoutH3Index5VenueRecommendationInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput {
+  create: VoteCreateWithoutH3Index6VenueRecommendationInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteCreateOrConnectWithoutProfileInput {
+  create: VoteCreateWithoutProfileInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteCreateWithoutComingAreaInput {
+  createdAt: DateTime
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
+  id: String
+  Profile: ProfileCreateNestedOneWithoutVoteInput!
+  upvote: Boolean!
+}
+
+input VoteCreateWithoutH3Index5VenueRecommendationInput {
+  ComingArea: ComingAreaCreateNestedOneWithoutVoteInput
+  createdAt: DateTime
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
+  id: String
+  Profile: ProfileCreateNestedOneWithoutVoteInput!
+  upvote: Boolean!
+}
+
+input VoteCreateWithoutH3Index6VenueRecommendationInput {
+  ComingArea: ComingAreaCreateNestedOneWithoutVoteInput
+  createdAt: DateTime
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput
+  id: String
+  Profile: ProfileCreateNestedOneWithoutVoteInput!
+  upvote: Boolean!
+}
+
+input VoteCreateWithoutProfileInput {
+  ComingArea: ComingAreaCreateNestedOneWithoutVoteInput
+  createdAt: DateTime
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
+  id: String
+  upvote: Boolean!
+}
+
+input VoteListRelationFilter {
+  every: VoteWhereInput
+  none: VoteWhereInput
+  some: VoteWhereInput
+}
+
+input VoteMaxOrderByAggregateInput {
+  comingAreaId: SortOrder
+  createdAt: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+  upvote: SortOrder
+}
+
+input VoteMinOrderByAggregateInput {
+  comingAreaId: SortOrder
+  createdAt: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+  upvote: SortOrder
+}
+
+input VoteOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input VoteOrderByWithAggregationInput {
+  _count: VoteCountOrderByAggregateInput
+  _max: VoteMaxOrderByAggregateInput
+  _min: VoteMinOrderByAggregateInput
+  comingAreaId: SortOrder
+  createdAt: SortOrder
+  h3Index5VenueRecommendationId: SortOrder
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  profileId: SortOrder
+  upvote: SortOrder
+}
+
+input VoteOrderByWithRelationInput {
+  ComingArea: ComingAreaOrderByWithRelationInput
+  comingAreaId: SortOrder
+  createdAt: SortOrder
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationOrderByWithRelationInput
+  h3Index5VenueRecommendationId: SortOrder
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationOrderByWithRelationInput
+  h3Index6VenueRecommendationId: SortOrder
+  id: SortOrder
+  Profile: ProfileOrderByWithRelationInput
+  profileId: SortOrder
+  upvote: SortOrder
+}
+
+enum VoteScalarFieldEnum {
+  comingAreaId
+  createdAt
+  h3Index5VenueRecommendationId
+  h3Index6VenueRecommendationId
+  id
+  profileId
+  upvote
+}
+
+input VoteScalarWhereInput {
+  AND: [VoteScalarWhereInput!]
+  comingAreaId: StringNullableFilter
+  createdAt: DateTimeFilter
+  h3Index5VenueRecommendationId: StringNullableFilter
+  h3Index6VenueRecommendationId: StringNullableFilter
+  id: StringFilter
+  NOT: [VoteScalarWhereInput!]
+  OR: [VoteScalarWhereInput!]
+  profileId: StringFilter
+  upvote: BoolFilter
+}
+
+input VoteScalarWhereWithAggregatesInput {
+  AND: [VoteScalarWhereWithAggregatesInput!]
+  comingAreaId: StringNullableWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
+  h3Index5VenueRecommendationId: StringNullableWithAggregatesFilter
+  h3Index6VenueRecommendationId: StringNullableWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  NOT: [VoteScalarWhereWithAggregatesInput!]
+  OR: [VoteScalarWhereWithAggregatesInput!]
+  profileId: StringWithAggregatesFilter
+  upvote: BoolWithAggregatesFilter
+}
+
+input VoteUpdateInput {
+  ComingArea: ComingAreaUpdateOneWithoutVoteNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  upvote: BoolFieldUpdateOperationsInput
+}
+
+input VoteUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  upvote: BoolFieldUpdateOperationsInput
+}
+
+input VoteUpdateManyWithoutComingAreaNestedInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutComingAreaInput!]
+  create: VoteCreateWithoutComingAreaInput
+  createMany: VoteCreateManyComingAreaInputEnvelope
+  delete: [VoteWhereUniqueInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutComingAreaInput!]
+  updateMany: [VoteUpdateManyWithWhereWithoutComingAreaInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutComingAreaInput!]
+}
+
+input VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
+  create: VoteCreateWithoutH3Index5VenueRecommendationInput
+  createMany: VoteCreateManyH3Index5VenueRecommendationInputEnvelope
+  delete: [VoteWhereUniqueInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput!]
+  updateMany: [VoteUpdateManyWithWhereWithoutH3Index5VenueRecommendationInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutH3Index5VenueRecommendationInput!]
+}
+
+input VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
+  create: VoteCreateWithoutH3Index6VenueRecommendationInput
+  createMany: VoteCreateManyH3Index6VenueRecommendationInputEnvelope
+  delete: [VoteWhereUniqueInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutH3Index6VenueRecommendationInput!]
+  updateMany: [VoteUpdateManyWithWhereWithoutH3Index6VenueRecommendationInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutH3Index6VenueRecommendationInput!]
+}
+
+input VoteUpdateManyWithoutProfileNestedInput {
+  connect: [VoteWhereUniqueInput!]
+  connectOrCreate: [VoteCreateOrConnectWithoutProfileInput!]
+  create: VoteCreateWithoutProfileInput
+  createMany: VoteCreateManyProfileInputEnvelope
+  delete: [VoteWhereUniqueInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [VoteUpdateManyWithWhereWithoutProfileInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input VoteUpdateManyWithWhereWithoutComingAreaInput {
+  data: VoteUpdateManyMutationInput!
+  where: VoteScalarWhereInput!
+}
+
+input VoteUpdateManyWithWhereWithoutH3Index5VenueRecommendationInput {
+  data: VoteUpdateManyMutationInput!
+  where: VoteScalarWhereInput!
+}
+
+input VoteUpdateManyWithWhereWithoutH3Index6VenueRecommendationInput {
+  data: VoteUpdateManyMutationInput!
+  where: VoteScalarWhereInput!
+}
+
+input VoteUpdateManyWithWhereWithoutProfileInput {
+  data: VoteUpdateManyMutationInput!
+  where: VoteScalarWhereInput!
+}
+
+input VoteUpdateWithoutComingAreaInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  upvote: BoolFieldUpdateOperationsInput
+}
+
+input VoteUpdateWithoutH3Index5VenueRecommendationInput {
+  ComingArea: ComingAreaUpdateOneWithoutVoteNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  upvote: BoolFieldUpdateOperationsInput
+}
+
+input VoteUpdateWithoutH3Index6VenueRecommendationInput {
+  ComingArea: ComingAreaUpdateOneWithoutVoteNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput
+  id: StringFieldUpdateOperationsInput
+  Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  upvote: BoolFieldUpdateOperationsInput
+}
+
+input VoteUpdateWithoutProfileInput {
+  ComingArea: ComingAreaUpdateOneWithoutVoteNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
+  id: StringFieldUpdateOperationsInput
+  upvote: BoolFieldUpdateOperationsInput
+}
+
+input VoteUpdateWithWhereUniqueWithoutComingAreaInput {
+  data: VoteUpdateWithoutComingAreaInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
+  data: VoteUpdateWithoutH3Index5VenueRecommendationInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutH3Index6VenueRecommendationInput {
+  data: VoteUpdateWithoutH3Index6VenueRecommendationInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutProfileInput {
+  data: VoteUpdateWithoutProfileInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutComingAreaInput {
+  create: VoteCreateWithoutComingAreaInput!
+  update: VoteUpdateWithoutComingAreaInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
+  create: VoteCreateWithoutH3Index5VenueRecommendationInput!
+  update: VoteUpdateWithoutH3Index5VenueRecommendationInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutH3Index6VenueRecommendationInput {
+  create: VoteCreateWithoutH3Index6VenueRecommendationInput!
+  update: VoteUpdateWithoutH3Index6VenueRecommendationInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutProfileInput {
+  create: VoteCreateWithoutProfileInput!
+  update: VoteUpdateWithoutProfileInput!
+  where: VoteWhereUniqueInput!
+}
+
+input VoteWhereInput {
+  AND: [VoteWhereInput!]
+  ComingArea: ComingAreaWhereInput
+  comingAreaId: StringNullableFilter
+  createdAt: DateTimeFilter
+  H3Index5VenueRecommendation: H3Index5VenueRecommendationWhereInput
+  h3Index5VenueRecommendationId: StringNullableFilter
+  H3Index6VenueRecommendation: H3Index6VenueRecommendationWhereInput
+  h3Index6VenueRecommendationId: StringNullableFilter
+  id: StringFilter
+  NOT: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  Profile: ProfileWhereInput
+  profileId: StringFilter
+  upvote: BoolFilter
+}
+
+input VoteWhereUniqueInput {
+  id: String
 }

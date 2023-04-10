@@ -7,7 +7,6 @@ import { useRouter } from 'expo-router'
 import { Input, Icon, IInputProps } from 'native-base'
 import { useRef, useContext, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { ThemeContext } from 'styled-components/native'
 
 const ExploreSearchInput = () => {
@@ -48,24 +47,41 @@ const ExploreSearchInput = () => {
 	return (
 		<Input
 			ref={_searchInputRef}
-			variant={'filled'}
-			_light={{ bgColor: 'light.50' }}
-			_dark={{ bgColor: 'dark.50' }}
-			w={'85%'}
-			h={SEARCH_BAR_HEIGHT}
-			px={3}
-			style={{
-				borderBottomColor: 'transparent',
-				borderRadius: 14,
-			}}
+			variant={'unstyled'}
+			rounded={'lg'}
 			_input={{
-				color: themeContext.palette.primary.color.default,
 				fontSize: 'lg',
 			}}
+			h={SEARCH_BAR_HEIGHT}
+			_light={{ bgColor: 'light.200' }}
+			_dark={{ bgColor: 'dark.200' }}
+			mx={2}
+			alignSelf={'center'}
+			placeholder='Search'
 			returnKeyType='search'
 			underlineColorAndroid='transparent'
 			keyboardAppearance={colorScheme}
-			placeholder='Search'
+			InputLeftElement={
+				isSearch || rSearch?.searchText.length ? (
+					<Icon
+						as={Ionicons}
+						onPress={goBackToFeed}
+						name='arrow-back'
+						size={28}
+						_light={{ color: 'light.400' }}
+						_dark={{ color: 'dark.400' }}
+					/>
+				) : (
+					<Icon
+						as={Ionicons}
+						_light={{ color: 'light.400' }}
+						_dark={{ color: 'dark.400' }}
+						name='ios-search'
+						size={'lg'}
+						ml={2}
+					/>
+				)
+			}
 			value={rSearch?.searchText}
 			onChangeText={text => changeSearchText(text)}
 			onSubmitEditing={() => {
@@ -87,25 +103,6 @@ const ExploreSearchInput = () => {
 					params: {},
 				})
 			}}
-			InputLeftElement={
-				isSearch || rSearch?.searchText.length ? (
-					<Icon
-						as={Ionicons}
-						onPress={goBackToFeed}
-						name='arrow-back'
-						size={28}
-						_light={{ color: 'light.400' }}
-						_dark={{ color: 'dark.400' }}
-					/>
-				) : (
-					<Icon
-						as={Ionicons}
-						name='ios-search'
-						size={20}
-						color={themeContext.palette.primary.color.default}
-					/>
-				)
-			}
 		/>
 	)
 }

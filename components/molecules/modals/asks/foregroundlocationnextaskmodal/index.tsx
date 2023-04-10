@@ -4,7 +4,9 @@ import { LocalStoragePreferenceAskForegroundLocationPermissionType } from '@pref
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	DaysFuturePreferenceForegroundLocationPermissionInitialState,
+	DaysPreferencePermissionInitialState,
 	PreferenceForegroundLocationPermissionReactiveVar,
+	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
 import { useRouter } from 'expo-router'
 import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
@@ -34,15 +36,19 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 						<VStack space={2}>
 							<Button
 								onPress={async () => {
+									const values = {
+										...DaysPreferencePermissionInitialState,
+										numberOfTimesDismissed: rPreferenceForegroundLocationPermission?.numberOfTimesDismissed
+											? rPreferenceForegroundLocationPermission.numberOfTimesDismissed + 1
+											: 1,
+									}
 									await AsyncStorage.setItem(
 										LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-										JSON.stringify({
-											...DaysFuturePreferenceForegroundLocationPermissionInitialState,
-											numberOfTimesDismissed: rPreferenceForegroundLocationPermission?.numberOfTimesDismissed
-												? rPreferenceForegroundLocationPermission.numberOfTimesDismissed + 1
-												: 1,
-										} as LocalStoragePreferenceAskForegroundLocationPermissionType),
+										JSON.stringify(values as LocalStoragePreferenceAskForegroundLocationPermissionType),
 									)
+									PreferenceForegroundLocationPermissionReactiveVar({
+										...values,
+									})
 									onClose()
 								}}
 								variant={'ghost'}

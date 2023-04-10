@@ -22,10 +22,15 @@ export default () => {
 			fetchPolicy: 'network-only',
 			onError(error) {},
 			onCompleted: data => {
+				console.log('🚀 ~ file: index.tsx:36 ~ data:', data)
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
+
+					console.log('🚀 ~ file: index.tsx:31 ~ deviceManager:', deviceManager)
+
 					AuthorizationReactiveVar(deviceManager)
 				}
+
 				if (data.refreshDeviceManager?.__typename === 'ErrorManaging') {
 					createADeviceManagerMutation()
 				}
@@ -34,8 +39,12 @@ export default () => {
 
 	const [createGuestProfileMutation, { data, loading: CGLoading, error }] =
 		useCreateGuestProfileMutation({
-			onError: error => {},
+			onError: error => {
+				console.log('🚀 ~ file: index.tsx:39 ~ error:', error)
+			},
+
 			onCompleted: async data => {
+				console.log('🚀 ~ file: index.tsx:53 ~ data:', data)
 				if (data?.createGuestProfile.__typename === 'Profile') {
 					createADeviceManagerMutation({
 						variables: {
@@ -48,8 +57,11 @@ export default () => {
 
 	const [createADeviceManagerMutation, { data: CDMData, loading: CDMLoading, error: CDMError }] =
 		useCreateADeviceManagerMutation({
-			onError: error => {},
+			onError: error => {
+				console.log('🚀 ~ file: index.tsx:39 ~ error:', error)
+			},
 			onCompleted: async data => {
+				console.log('🚀 ~ file: index.tsx:78 ~ data:', data)
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
 				if (!deviceManager) {
 				} else {
@@ -75,17 +87,20 @@ export default () => {
 		// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
 		// 	key: AUTHORIZATION,
 		// })
-		// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
+		// const removeLocalSearchArea = await secureStorageItemDelete({
 		// 	key: LOCAL_STORAGE_SEARCH_AREA,
 		// })
 		const getAuthorization = (await secureStorageItemRead({
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+		console.log('getAuthorization', JSON.stringify(getAuthorization, null, 4))
 
 		if (!getAuthorization) {
+			console.log('HERE1')
 			createGuestProfileMutation()
 		} else {
+			console.log('HERE12')
 			refreshDeviceManagerMutation()
 		}
 	}

@@ -39,7 +39,6 @@ const VenueFeedScreen = () => {
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
-	const [nearbyVenue, setNearbyVenue] = useState<ProfileVenue | null>()
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
@@ -86,95 +85,104 @@ const VenueFeedScreen = () => {
 		}
 	}, [])
 
-	const listHeaderComponent = () => {
-		return (
-			<VStack safeAreaTop w={'full'} space={4}>
-				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-					<VenueFeedSignupCard />
-				)}
-				{!rSearchAreaVar?.searchArea.coords.latitude || !rSearchAreaVar?.searchArea.coords.longitude ? (
-					<VenueFeedSearchAreaEmptyState />
-				) : (
-					<>
-						{!data?.venuesNearby || loading ? (
-							<VenueFeedSkeletonLoadingState />
-						) : (
-							<AnimatePresence key={uniqueId()}>
-								<Box
-									mx={VenueFeedScreenMarginX}
-									//  my={scrollViewItemsMarginY}
-								>
-									{!rForegroundLocationVar?.granted ? (
-										<ForegroundLocationPermissionFullSection />
-									) : !rBackgroundLocationVar?.granted ? (
-										<PreferenceBackgroundLocationPermissionFullSection />
-									) : null}
-								</Box>
-							</AnimatePresence>
-						)}
-					</>
-				)}
-
-				{rSearchAreaVar?.searchArea.coords.latitude || rSearchAreaVar?.searchArea.coords.longitude ? (
-					<Box>
-						{!loading && !data?.venuesNearby.venuesNearby.length && <VenuesFeedVenuesEmptyState />}
-					</Box>
-				) : (
-					<Box></Box>
-				)}
-				{!loading && data?.venuesNearby.searchArea.city.name && (
-					<HStack w={'100%'}>
-						<VStack w={'full'} space={1} m={2}>
-							<Heading lineHeight={'sm'} fontSize={'md'}>
-								venues from
-							</Heading>
-							<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
-								{data?.venuesNearby.searchArea.city.name}
-							</Heading>
-						</VStack>
-						<IconButton
-							icon={<Icon as={FontAwesome5} name='filter' />}
-							onPress={() =>
-								router.push({
-									pathname: '(app)/searcharea',
-								})
-							}
-							rounded={'full'}
-							// color={'transparent'}
-						/>
-					</HStack>
-				)}
-			</VStack>
-		)
-	}
-
-	const listFooterComponent = () => {
+	if (!data) {
 		return null
 	}
 
-	return (
-		<FlatList
-			onRefresh={onPullRefresh}
-			refreshing={loading}
-			showsVerticalScrollIndicator={false}
-			numColumns={2}
-			style={{ height: '100%' }}
-			columnWrapperStyle={{ justifyContent: 'space-around' }}
-			data={data?.venuesNearby.venuesNearby}
-			renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
-			ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-			keyExtractor={item => item.id}
-			ListHeaderComponent={listHeaderComponent}
-			ListFooterComponent={listFooterComponent}
-			automaticallyAdjustContentInsets
-			contentInset={{
-				top: SEARCH_BAR_HEIGHT + 20,
-				left: 0,
-				bottom: 105 + insets.bottom,
-				right: 0,
-			}}
-		/>
-	)
+	if (data.venuesNearby.__typename === 'ComingAreaResponse') {
+		return null
+	}
+	if (data.venuesNearby.__typename === 'VenuesNearbyResponse') {
+		const listFooterComponent = () => {
+			return null
+		}
+
+		const listHeaderComponent = () => {
+			return (
+				<VStack safeAreaTop w={'full'} space={4}>
+					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+						<VenueFeedSignupCard />
+					)}
+					{!rSearchAreaVar?.searchArea.coords.latitude ||
+					!rSearchAreaVar?.searchArea.coords.longitude ? (
+						<VenueFeedSearchAreaEmptyState />
+					) : (
+						<>
+							{!data.venuesNearby || loading ? (
+								<VenueFeedSkeletonLoadingState />
+							) : (
+								<AnimatePresence key={uniqueId()}>
+									<Box
+										mx={VenueFeedScreenMarginX}
+										//  my={scrollViewItemsMarginY}
+									>
+										{!rForegroundLocationVar?.granted ? (
+											<ForegroundLocationPermissionFullSection />
+										) : !rBackgroundLocationVar?.granted ? (
+											<PreferenceBackgroundLocationPermissionFullSection />
+										) : null}
+									</Box>
+								</AnimatePresence>
+							)}
+						</>
+					)}
+
+					{rSearchAreaVar?.searchArea.coords.latitude || rSearchAreaVar?.searchArea.coords.longitude ? (
+						<Box>{!loading && !data.venuesNearby && <VenuesFeedVenuesEmptyState />}</Box>
+					) : (
+						<Box></Box>
+					)}
+
+					{data?.venuesNearby.__typename === 'VenuesNearbyResponse' && (
+						<HStack w={'100%'}>
+							<VStack w={'full'} space={1} m={2}>
+								<Heading lineHeight={'sm'} fontSize={'md'}>
+									venues from
+								</Heading>
+								<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
+									{data.venuesNearby.searchArea?.City.name}
+								</Heading>
+							</VStack>
+							<IconButton
+								icon={<Icon as={FontAwesome5} name='filter' />}
+								onPress={() =>
+									router.push({
+										pathname: '(app)/searcharea',
+									})
+								}
+								rounded={'full'}
+								// color={'transparent'}
+							/>
+						</HStack>
+					)}
+				</VStack>
+			)
+		}
+
+		return (
+			<FlatList
+				onRefresh={onPullRefresh}
+				refreshing={loading}
+				showsVerticalScrollIndicator={false}
+				numColumns={2}
+				style={{ height: '100%' }}
+				columnWrapperStyle={{ justifyContent: 'space-around' }}
+				data={data?.venuesNearby.venuesNearby}
+				renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
+				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+				keyExtractor={item => item.id}
+				ListHeaderComponent={listHeaderComponent}
+				ListFooterComponent={listFooterComponent}
+				automaticallyAdjustContentInsets
+				contentInset={{
+					top: SEARCH_BAR_HEIGHT + 20,
+					left: 0,
+					bottom: 105 + insets.bottom,
+					right: 0,
+				}}
+			/>
+		)
+	}
 }
 
 export default VenueFeedScreen

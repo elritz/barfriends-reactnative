@@ -1,5 +1,4 @@
 import { ProfileVenue } from '@graphql/generated'
-// import { useNavigation } from '@react-navigation/native'
 import { useRouter } from 'expo-router'
 import { Image, VStack, Box, Heading } from 'native-base'
 import { useState } from 'react'

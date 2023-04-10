@@ -86,15 +86,19 @@ export default function ForegroundLocationPermissionFullSection() {
 											fontSize: 'md',
 										}}
 										onPress={async () => {
+											const values = {
+												...TomorrowPreferencePermissionInitialState,
+												numberOfTimesDismissed: rPreferenceForegroundLocationPermission?.numberOfTimesDismissed
+													? rPreferenceForegroundLocationPermission.numberOfTimesDismissed + 1
+													: 1,
+											}
 											await AsyncStorage.setItem(
 												LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-												JSON.stringify({
-													...TomorrowPreferencePermissionInitialState,
-													numberOfTimesDismissed: rPreferenceForegroundLocationPermission?.numberOfTimesDismissed
-														? rPreferenceForegroundLocationPermission.numberOfTimesDismissed + 1
-														: 1,
-												} as LocalStoragePreferenceAskForegroundLocationPermissionType),
+												JSON.stringify(values as LocalStoragePreferenceAskForegroundLocationPermissionType),
 											)
+											PreferenceForegroundLocationPermissionReactiveVar({
+												...values,
+											})
 										}}
 									>
 										Not now

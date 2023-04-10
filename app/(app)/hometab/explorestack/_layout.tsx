@@ -1,22 +1,22 @@
 import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
 import SearchTopTabStackInput from '@components/molecules/search/searchtoptabs/SearchTopTabStackInput'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { BlurView } from 'expo-blur'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Stack, useRouter } from 'expo-router'
-import { Box, VStack } from 'native-base'
-import { Platform, StyleSheet, View } from 'react-native'
+import { VStack } from 'native-base'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function _layout() {
-	const colorScheme = useThemeColorScheme()
 	const router = useRouter()
+	const insets = useSafeAreaInsets()
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const h = insets.top + HEADER_HEIGHT
 
 	return (
 		<Stack
 			initialRouteName='index'
 			screenOptions={{
 				headerShown: true,
-				headerTransparent: true,
 				gestureDirection: 'horizontal',
 			}}
 		>
@@ -24,12 +24,13 @@ export default function _layout() {
 				options={{
 					header: () => {
 						return (
-							<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
-								<Box
-									_light={{ bg: 'light.50' }}
-									_dark={{ bg: 'dark.50' }}
-									style={[StyleSheet.absoluteFill]}
-								/>
+							<VStack
+								justifyContent={'flex-end'}
+								h={h}
+								pb={2}
+								_light={{ bg: 'light.50' }}
+								_dark={{ bg: 'dark.50' }}
+							>
 								<SearchInputDisabled
 									onPress={() =>
 										router.push({
@@ -53,13 +54,13 @@ export default function _layout() {
 					animation: 'fade',
 					header: () => {
 						return (
-							<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
-								<Box
-									_light={{ bg: 'light.50' }}
-									_dark={{ bg: 'dark.50' }}
-									style={[StyleSheet.absoluteFill]}
-								/>
-
+							<VStack
+								justifyContent={'flex-end'}
+								h={h}
+								pb={2}
+								_light={{ bg: 'light.50' }}
+								_dark={{ bg: 'dark.50' }}
+							>
 								<SearchTextScreenInput />
 							</VStack>
 						)
@@ -69,20 +70,15 @@ export default function _layout() {
 			<Stack.Screen
 				name={'searchresults'}
 				options={{
-					headerTransparent: true,
-					headerShown: true,
 					header: () => {
 						return (
-							<VStack safeAreaTop justifyContent={'flex-end'} pb={2}>
-								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
-								) : (
-									<Box
-										_light={{ bg: 'light.50' }}
-										_dark={{ bg: 'dark.50' }}
-										style={[StyleSheet.absoluteFill]}
-									/>
-								)}
+							<VStack
+								justifyContent={'flex-end'}
+								h={h}
+								pb={2}
+								_light={{ bg: 'light.50' }}
+								_dark={{ bg: 'dark.50' }}
+							>
 								<SearchTopTabStackInput />
 							</VStack>
 						)

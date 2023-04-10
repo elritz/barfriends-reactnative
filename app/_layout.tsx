@@ -1,7 +1,7 @@
 // notification listeners
 // server connection
 // set permissions
-import { ApolloProvider, useReactiveVar } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
@@ -37,7 +37,7 @@ import {
 } from '@reactive'
 import { SearchAreaReactiveVar, searchAreaInitialState } from '@reactive'
 import { ThemeReactiveVar } from '@reactive'
-import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
+// import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useAssets } from 'expo-asset'
 import * as Camera from 'expo-camera'
@@ -86,7 +86,6 @@ export default () => {
 		setPermissions()
 	}, [])
 
-	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const [assets, Aerror] = useAssets([
 		require(`../assets/images/splash/splash.${ENVIRONMENT}.light.png`),
 		require(`../assets/images/splash/splash.${ENVIRONMENT}.dark.png`),
@@ -109,7 +108,6 @@ export default () => {
 					await useSetSearchAreaWithLocation()
 				} else {
 					SearchAreaReactiveVar({
-						...rSearchAreaVar,
 						...values,
 					})
 				}
@@ -261,13 +259,13 @@ export default () => {
 
 	return (
 		<ApolloProvider client={gateaWayClient}>
-			<AnimatedAppLoader assets={assets}>
-				<SafeAreaProvider>
-					<KeyboardProvider statusBarTranslucent>
-						<Slot />
-					</KeyboardProvider>
-				</SafeAreaProvider>
-			</AnimatedAppLoader>
+			{/* <AnimatedAppLoader assets={assets}> */}
+			<SafeAreaProvider>
+				<KeyboardProvider statusBarTranslucent>
+					<Slot />
+				</KeyboardProvider>
+			</SafeAreaProvider>
+			{/* </AnimatedAppLoader> */}
 		</ApolloProvider>
 	)
 }

@@ -9,7 +9,6 @@ export const LOCATION_FRAGMENT = gql`
 			h3Index15
 			latitude
 			longitude
-			type
 		}
 		plusCode {
 			compoundCode

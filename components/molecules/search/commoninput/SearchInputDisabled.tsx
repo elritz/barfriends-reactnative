@@ -2,8 +2,6 @@ import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, Icon, Input } from 'native-base'
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
 
 type Props = {
 	onPress: () => void
@@ -15,7 +13,7 @@ const SearchInputDisabled = (props: Props) => {
 	return (
 		<Box>
 			<Input
-				variant={'filled'}
+				variant={'unstyled'}
 				rounded={'lg'}
 				_input={{
 					fontSize: 'lg',
@@ -23,27 +21,23 @@ const SearchInputDisabled = (props: Props) => {
 				h={SEARCH_BAR_HEIGHT}
 				_light={{ bgColor: 'light.200' }}
 				_dark={{ bgColor: 'dark.200' }}
-				flex={1}
 				mx={2}
-				keyboardAppearance={colorScheme}
-				placeholder='Search'
-				editable={false}
-				value={''}
-				focusable={false}
-				isReadOnly
-				onFocus={props.onPress}
+				alignSelf={'center'}
+				placeholder={'Search venues'}
 				returnKeyType='search'
 				underlineColorAndroid='transparent'
+				keyboardAppearance={colorScheme}
 				InputLeftElement={
 					<Icon
+						as={Ionicons}
 						_light={{ color: 'light.400' }}
 						_dark={{ color: 'dark.400' }}
-						as={Ionicons}
 						name='ios-search'
 						size={'lg'}
 						ml={2}
 					/>
 				}
+				onFocus={props.onPress}
 				onPressIn={props.onPress}
 			/>
 		</Box>

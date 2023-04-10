@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client'
-import { PROFILE_VENUES_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
+import { PROFILE_VENUES_FRAGMENT, AREA_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
 
 export const VENUES_NEARBY_QUERY = gql`
 	${PROFILE_VENUES_FRAGMENT}
+	${AREA_FRAGMENT}
 	query venuesNearby(
 		$countryIsoCode: String!
 		$stateIsoCode: String!
@@ -17,37 +18,36 @@ export const VENUES_NEARBY_QUERY = gql`
 			stateIsoCode: $stateIsoCode
 			kRing: $kRing
 		) {
-			venuesNearby {
-				...PROFILE_VENUES_FRAGMENT
+			... on ComingAreaResponse {
+				comingAreas {
+					id
+					h3Index5
+					h3Index6
+					keywordSuggestions
+					timesRequested
+					Area {
+						...AREA_FRAGMENT
+					}
+					Vote {
+						id
+						profileId
+						upvote
+					}
+				}
+				searchArea {
+					...AREA_FRAGMENT
+				}
 			}
-			searchArea {
-				coords {
-					latitude
-					longitude
+			... on ErrorProfiling {
+				errorCode
+				message
+			}
+			... on VenuesNearbyResponse {
+				searchArea {
+					...AREA_FRAGMENT
 				}
-				city {
-					coords {
-						latitude
-						longitude
-					}
-					isoCode
-					name
-				}
-				country {
-					coords {
-						latitude
-						longitude
-					}
-					isoCode
-					name
-				}
-				state {
-					coords {
-						latitude
-						longitude
-					}
-					isoCode
-					name
+				venuesNearby {
+					...PROFILE_VENUES_FRAGMENT
 				}
 			}
 		}

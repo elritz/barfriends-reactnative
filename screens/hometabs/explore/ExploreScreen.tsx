@@ -19,9 +19,6 @@ const ExploreScreen = () => {
 			},
 			take: 20,
 		},
-		onCompleted: data => {
-			console.log('data EXPLORE SCREEN ====?', JSON.stringify(data.profiles.length, null, 4))
-		},
 	})
 
 	return (
