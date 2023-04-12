@@ -9,7 +9,7 @@ import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { SplashScreen, Stack } from 'expo-router'
 import { NativeBaseProvider } from 'native-base'
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect, useMemo } from 'react'
 import { AppState, useColorScheme, Appearance, StatusBar } from 'react-native'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
@@ -62,7 +62,9 @@ export default () => {
 		return rThemeVar.theme
 	}, [rThemeVar.theme, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
 
-	if (!memTheme) return <SplashScreen />
+	if (!memTheme || memTheme === null) {
+		return <SplashScreen />
+	}
 
 	return (
 		<ThemeProvider

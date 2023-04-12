@@ -14,18 +14,14 @@ import {
 import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Tabs } from 'expo-router'
-import { Box, Text, VStack } from 'native-base'
-import { useContext } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Box, VStack } from 'native-base'
+import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
-	const insets = useSafeAreaInsets()
-
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const insets = useSafeAreaInsets()
 	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
 	const h = insets.top + HEADER_HEIGHT
 

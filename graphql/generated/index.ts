@@ -8378,7 +8378,6 @@ export type Mutation = {
   addPersonalJoinsVenue: Profile;
   addPersonalTotalsVenue: Scalars['Boolean'];
   checkManaging: Scalars['Boolean'];
-  checkThePink: Scalars['Boolean'];
   createADeviceManager: ClientDeviceManager;
   createFriendRequest: Scalars['Boolean'];
   createGuestProfile: ProfileResponseUnion;

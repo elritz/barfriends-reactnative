@@ -20,14 +20,13 @@ export default () => {
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
-			onError(error) {},
+			onError(error) {
+				console.log('error :>> ', error)
+			},
 			onCompleted: data => {
 				console.log('🚀 ~ file: index.tsx:36 ~ data:', data)
 				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
-
-					console.log('🚀 ~ file: index.tsx:31 ~ deviceManager:', deviceManager)
-
 					AuthorizationReactiveVar(deviceManager)
 				}
 
@@ -61,7 +60,6 @@ export default () => {
 				console.log('🚀 ~ file: index.tsx:39 ~ error:', error)
 			},
 			onCompleted: async data => {
-				console.log('🚀 ~ file: index.tsx:78 ~ data:', data)
 				const deviceManager = data.createADeviceManager as ClientDeviceManager
 				if (!deviceManager) {
 				} else {
@@ -94,13 +92,14 @@ export default () => {
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
+
 		console.log('getAuthorization', JSON.stringify(getAuthorization, null, 4))
 
 		if (!getAuthorization) {
-			console.log('HERE1')
+			console.log('CREATE GUEST')
 			createGuestProfileMutation()
 		} else {
-			console.log('HERE12')
+			console.log('REFRESH AUTHORIZATION')
 			refreshDeviceManagerMutation()
 		}
 	}

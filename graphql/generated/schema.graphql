@@ -8132,7 +8132,6 @@ type Mutation {
   addPersonalJoinsVenue(profileIdPersonal: String, profileIdVenue: String): Profile!
   addPersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
   checkManaging: Boolean!
-  checkThePink: Boolean!
   createADeviceManager(profileId: String!): ClientDeviceManager!
   createFriendRequest(receiversProfileId: [String!]!, senderProfileId: String!): Boolean!
   createGuestProfile: ProfileResponseUnion!
@@ -8143,13 +8142,13 @@ type Mutation {
   qrAddFriend(dataHash: String!, qrCodeProfileId: String!): Relationship!
   refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion!
   removeAllFromVenue(profileIdVenue: String): Boolean!
-  removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType): Boolean!
+  removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType = GUEST): Boolean!
   removeFriend(relationshipId: String!): Boolean!
   removePersonalJoinsVenue(outId: String!): Profile!
   removePersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
-  switchDeviceProfile(profileId: String!, profileType: ProfileType): RefreshDeviceManagerDeviceManagerResponseUnion!
+  switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): RefreshDeviceManagerDeviceManagerResponseUnion!
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateInput!): ProfileResponseUnion!
   updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean!
