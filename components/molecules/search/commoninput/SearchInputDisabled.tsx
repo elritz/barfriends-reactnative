@@ -14,14 +14,14 @@ const SearchInputDisabled = (props: Props) => {
 		<Box>
 			<Input
 				variant={'unstyled'}
+				_light={{ bgColor: 'light.200' }}
+				_dark={{ bgColor: 'dark.200' }}
 				rounded={'lg'}
+				mx={2}
 				_input={{
 					fontSize: 'lg',
 				}}
 				h={SEARCH_BAR_HEIGHT}
-				_light={{ bgColor: 'light.200' }}
-				_dark={{ bgColor: 'dark.200' }}
-				mx={2}
 				alignSelf={'center'}
 				placeholder={'Search venues'}
 				returnKeyType='search'
@@ -30,10 +30,10 @@ const SearchInputDisabled = (props: Props) => {
 				InputLeftElement={
 					<Icon
 						as={Ionicons}
-						_light={{ color: 'light.400' }}
+						_light={{ color: 'light.600' }}
 						_dark={{ color: 'dark.400' }}
 						name='ios-search'
-						size={'lg'}
+						size={'md'}
 						ml={2}
 					/>
 				}

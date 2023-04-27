@@ -1,10 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import PreferenceBackgroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceBackgroundLocationPermissionFullSection'
-import ForegroundLocationPermissionFullSection from '@components/molecules/permissions/preferencelocationpermission/PreferenceForegroundLocationPermissionFullSection'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
+import { Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
 	VenuesNearbyResponse,
@@ -27,9 +26,18 @@ import VenuesFeedVenuesEmptyState from '@screens/hometabs/venuesfeed/components/
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import ComingAreaItem from '@screens/hometabs/venuesfeed/components/comingarea/ComingAreaItem'
 import { useRouter } from 'expo-router'
-import { uniqueId } from 'lodash'
-import { AnimatePresence } from 'moti'
-import { View, Box, VStack, FlatList, HStack, Text, ScrollView } from 'native-base'
+import {
+	View,
+	Box,
+	VStack,
+	FlatList,
+	HStack,
+	Text,
+	ScrollView,
+	Icon,
+	Pressable,
+	Divider,
+} from 'native-base'
 import { useEffect, useRef } from 'react'
 import { AppState } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
@@ -71,9 +79,12 @@ export default () => {
 		},
 		onError: error => {},
 		onCompleted: data => {
-			console.log('🚀 ~ file: index.tsx:72 ~ data:', JSON.stringify(data, null, 4))
+			// console.log('🚀 ~ file: index.tsx:72 ~ data:', JSON.stringify(data, null, 4))
 		},
 	})
+
+	const [updateComingAreaVoteMutation, { data: UVData, loading: UVLoading, error: UVError }] =
+		useUpvoteH6ComingAreaMutation()
 
 	const onPullRefresh = () => {
 		if (rSearchAreaVar?.searchArea?.coords.latitude && rSearchAreaVar?.searchArea?.coords.longitude) {
@@ -100,7 +111,6 @@ export default () => {
 	}, [])
 
 	if (loading) return null
-	console.log('data.venuesNearby :>> ', data?.venuesNearby)
 
 	if (data?.venuesNearby.__typename === 'ErrorProfiling') {
 		return (
@@ -111,18 +121,91 @@ export default () => {
 			</ScrollView>
 		)
 	}
+
 	if (data?.venuesNearby.__typename === 'ComingAreaResponse') {
 		return (
 			<ScrollView>
 				{data.venuesNearby.comingAreas.map(item => {
+					console.log(item.Vote)
 					return (
-						<Box>
-							<Text>{item.Area?.City.name}</Text>
-							<Box>
-								<Text>
-									{item.Vote.some(item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id)}
-								</Text>
-							</Box>
+						<Box
+							_dark={{ bg: 'dark.100' }}
+							_light={{ bg: 'light.100' }}
+							py={2}
+							mx={2}
+							borderRadius={'xl'}
+						>
+							<HStack justifyContent={'space-between'}>
+								<HStack px={3} space={3} alignItems={'center'}>
+									<CountryFlag size={18} isoCode={String(item.Area?.Country.isoCode)} />
+									<Text fontSize={'xl'}>{item.Area?.City.name}</Text>
+								</HStack>
+								<HStack space={1}>
+									<Pressable
+										px={2}
+										disabled={UVLoading}
+										onPress={() => {
+											updateComingAreaVoteMutation({
+												variables: {
+													comingAreaId: item.id,
+												},
+											})
+										}}
+										alignItems={'center'}
+									>
+										<Icon
+											name='md-caret-up'
+											as={Ionicons}
+											size={'lg'}
+											_light={{
+												color: item.Vote.some(
+													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id,
+												)
+													? 'blue.500'
+													: 'light.500',
+											}}
+											_dark={{
+												color: item.Vote.some(
+													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id,
+												)
+													? 'blue.500'
+													: 'dark.500',
+											}}
+										/>
+										<Text fontWeight={'medium'} fontSize={'lg'}>
+											{item.Vote.length}
+										</Text>
+									</Pressable>
+									<Pressable
+										px={2}
+										onPress={() => {
+											console.log('clicked')
+										}}
+										alignItems={'center'}
+										justifyContent={'center'}
+									>
+										<Icon
+											name='ios-notifications-sharp'
+											as={Ionicons}
+											size={'md'}
+											_light={{
+												color: item.toBeNotifiedProfileIds.some(
+													item => item === rAuthorizationVar?.DeviceProfile?.Profile.id,
+												)
+													? 'blue.500'
+													: 'light.400',
+											}}
+											_dark={{
+												color: item.toBeNotifiedProfileIds.some(
+													item => item === rAuthorizationVar?.DeviceProfile?.Profile.id,
+												)
+													? 'blue.500'
+													: 'dark.400',
+											}}
+										/>
+									</Pressable>
+								</HStack>
+							</HStack>
 						</Box>
 					)
 				})}

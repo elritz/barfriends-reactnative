@@ -1,13 +1,6 @@
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
-import {
-	CommonActions,
-	RouteProp,
-	StackActions,
-	useNavigation,
-	useRoute,
-} from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useDebounce from '@util/hooks/useDebounce'
 import { useRouter, useSearchParams, useSegments } from 'expo-router'
@@ -134,11 +127,12 @@ const SearchTextScreenInput = () => {
 					render={({ field: { value, onChange } }) => (
 						<Input
 							variant={'filled'}
-							_light={{ bg: 'light.50' }}
-							_dark={{ bg: 'dark.50' }}
+							_light={{ bg: 'light.200' }}
+							_dark={{ bg: 'dark.200' }}
 							flex={1}
 							mr={2}
 							rounded={'lg'}
+							h={SEARCH_BAR_HEIGHT}
 							keyboardAppearance={colorScheme}
 							autoCapitalize={'none'}
 							placeholder='Search'
@@ -158,11 +152,11 @@ const SearchTextScreenInput = () => {
 							}}
 							InputLeftElement={
 								<Icon
-									_light={{ color: 'light.400' }}
+									_light={{ color: 'light.600' }}
 									_dark={{ color: 'dark.400' }}
 									as={Ionicons}
 									name='ios-search'
-									size={'lg'}
+									size={'md'}
 									ml={2}
 								/>
 							}

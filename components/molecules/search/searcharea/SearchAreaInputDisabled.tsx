@@ -3,9 +3,7 @@ import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { Box, HStack, Icon, IconButton, Input } from 'native-base'
-import { useContext } from 'react'
 import { Keyboard } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 type Props = {
 	onPress: () => void
@@ -39,21 +37,22 @@ const SearchAreaInputDisabled = (props: Props) => {
 							as={Ionicons}
 							size={'xl'}
 							name='arrow-back'
-							_light={{ color: 'light.700' }}
+							_light={{ color: 'light.600' }}
 							_dark={{ color: 'dark.400' }}
 						/>
 					}
 					w={'50px'}
-					h={35}
+					h={45}
 					onPress={goBack}
 				/>
 				<Input
-					variant={'filled'}
-					_light={{ bg: 'light.50' }}
-					_dark={{ bg: 'dark.50' }}
+					variant={'unstyled'}
+					_light={{ bgColor: 'light.200' }}
+					_dark={{ bgColor: 'dark.200' }}
 					flex={1}
 					mr={2}
 					rounded={'lg'}
+					h={SEARCH_BAR_HEIGHT}
 					_input={{
 						fontSize: 'lg',
 					}}
@@ -65,11 +64,11 @@ const SearchAreaInputDisabled = (props: Props) => {
 					underlineColorAndroid='transparent'
 					InputLeftElement={
 						<Icon
-							_light={{ color: 'light.400' }}
-							_dark={{ color: 'dark.400' }}
 							as={Ionicons}
+							_light={{ color: 'light.600' }}
+							_dark={{ color: 'dark.400' }}
 							name='ios-search'
-							size={'lg'}
+							size={'md'}
 							ml={2}
 						/>
 					}

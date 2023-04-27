@@ -130,9 +130,9 @@ const SearchTextScreenInput = () => {
 					render={({ field: { value, onChange } }) => (
 						<Input
 							ref={_searchInput}
+							variant={'unstyled'}
 							_light={{ bgColor: 'light.200' }}
 							_dark={{ bgColor: 'dark.200' }}
-							variant={'unstyled'}
 							rounded={'lg'}
 							flex={1}
 							keyboardAppearance={colorScheme}
@@ -161,11 +161,11 @@ const SearchTextScreenInput = () => {
 							leftElement={
 								<Icon
 									as={Ionicons}
-									_light={{ color: 'light.400' }}
+									_light={{ color: 'light.600' }}
 									_dark={{ color: 'dark.400' }}
 									name='ios-search'
-									size={'lg'}
-									ml={1}
+									size={'md'}
+									ml={2}
 								/>
 							}
 							rightElement={

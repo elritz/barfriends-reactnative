@@ -120,11 +120,10 @@ const SearchTopTabStackInput = () => {
 							leftElement={
 								<Icon
 									as={Ionicons}
-									_light={{ color: 'light.400' }}
+									_light={{ color: 'light.600' }}
 									_dark={{ color: 'dark.400' }}
 									name='ios-search'
-									size={'lg'}
-									ml={2}
+									size={'md'}
 								/>
 							}
 							underlineColorAndroid='transparent'

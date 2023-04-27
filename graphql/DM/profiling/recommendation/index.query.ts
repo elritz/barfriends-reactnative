@@ -25,6 +25,7 @@ export const VENUES_NEARBY_QUERY = gql`
 					h3Index6
 					keywordSuggestions
 					timesRequested
+					toBeNotifiedProfileIds
 					Area {
 						...AREA_FRAGMENT
 					}

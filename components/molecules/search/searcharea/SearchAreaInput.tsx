@@ -68,12 +68,12 @@ const SearchAreaInput = (props: Props) => {
 							as={Ionicons}
 							size={'xl'}
 							name='arrow-back'
-							_light={{ color: 'light.700' }}
+							_light={{ color: 'light.600' }}
 							_dark={{ color: 'dark.400' }}
 						/>
 					}
 					w={'50px'}
-					h={35}
+					h={45}
 					onPress={goBack}
 				/>
 				<Controller
@@ -81,12 +81,13 @@ const SearchAreaInput = (props: Props) => {
 					name='searchtext'
 					render={({ field: { value, onChange } }) => (
 						<Input
+							variant={'unstyled'}
 							_light={{ bgColor: 'light.200' }}
 							_dark={{ bgColor: 'dark.200' }}
-							variant={'unstyled'}
 							flex={1}
 							mr={2}
 							rounded={'lg'}
+							h={SEARCH_BAR_HEIGHT}
 							_input={{
 								fontSize: 'lg',
 							}}
@@ -98,11 +99,11 @@ const SearchAreaInput = (props: Props) => {
 							underlineColorAndroid='transparent'
 							InputLeftElement={
 								<Icon
-									_light={{ color: 'light.400' }}
-									_dark={{ color: 'dark.400' }}
 									as={Ionicons}
+									_light={{ color: 'light.600' }}
+									_dark={{ color: 'dark.400' }}
 									name='ios-search'
-									size={'lg'}
+									size={'md'}
 									ml={2}
 								/>
 							}

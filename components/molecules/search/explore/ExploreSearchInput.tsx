@@ -67,17 +67,17 @@ const ExploreSearchInput = () => {
 						as={Ionicons}
 						onPress={goBackToFeed}
 						name='arrow-back'
-						size={28}
-						_light={{ color: 'light.400' }}
+						size={'md'}
+						_light={{ color: 'light.600' }}
 						_dark={{ color: 'dark.400' }}
 					/>
 				) : (
 					<Icon
-						as={Ionicons}
-						_light={{ color: 'light.400' }}
+						_light={{ color: 'light.600' }}
 						_dark={{ color: 'dark.400' }}
+						as={Ionicons}
 						name='ios-search'
-						size={'lg'}
+						size={'md'}
 						ml={2}
 					/>
 				)

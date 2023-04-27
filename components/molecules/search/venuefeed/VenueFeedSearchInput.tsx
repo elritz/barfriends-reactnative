@@ -17,10 +17,10 @@ const VenueFeedSearchInput = () => {
 					fontSize: 'lg',
 				}}
 				h={SEARCH_BAR_HEIGHT}
+				mx={2}
 				_light={{ bgColor: 'light.200' }}
 				_dark={{ bgColor: 'dark.200' }}
 				// flex={1}
-				mx={2}
 				alignSelf={'center'}
 				placeholder={'Search venues'}
 				returnKeyType='search'
@@ -29,10 +29,10 @@ const VenueFeedSearchInput = () => {
 				InputLeftElement={
 					<Icon
 						as={Ionicons}
-						_light={{ color: 'light.400' }}
+						_light={{ color: 'light.600' }}
 						_dark={{ color: 'dark.400' }}
 						name='ios-search'
-						size={'lg'}
+						size={'md'}
 						ml={2}
 					/>
 				}
