@@ -102,7 +102,7 @@ export default function AuthenticatorScreen() {
 					}
 				}
 			}
-			if (data.authorizedProfiles?.__typename === 'ErrorProfiling') {
+			if (data.authorizedProfiles?.__typename === 'Error') {
 				setError('authenticator', { message: data.authorizedProfiles.message })
 			}
 		},

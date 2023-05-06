@@ -6,7 +6,7 @@ import { RouteProp } from '@react-navigation/native'
 import { Form } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Text, Icon, Center } from 'native-base'
+import { Button, Text, Icon, Center, Box } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
@@ -86,6 +86,9 @@ export default function SearchAreaCountryStates() {
 				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
 			}}
+			ItemSeparatorComponent={() => {
+				return <Box my={1} />
+			}}
 			onEndReached={() => setPagination(pagination + data.getAllStatesByCountry.length / 3)}
 			renderItem={({ index, item }) => {
 				return (
@@ -99,7 +102,6 @@ export default function SearchAreaCountryStates() {
 							justifyContent: 'space-between',
 						}}
 						mx={3}
-						my={1}
 						_light={{
 							bg: 'light.200',
 						}}
@@ -125,7 +127,7 @@ export default function SearchAreaCountryStates() {
 								pathname: '(app)/searcharea/searchstatecities',
 								params: {
 									countryIsoCode: item.countryCode,
-									state: item.isoCode,
+									stateIsoCode: item.isoCode,
 								},
 							})
 						}}

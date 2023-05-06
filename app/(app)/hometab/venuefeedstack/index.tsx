@@ -7,8 +7,8 @@ import { Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
 	VenuesNearbyResponse,
-	useUpvoteH6ComingAreaMutation,
-	useUpvoteH6VenueRemmendationMutation,
+	useUpdateComingAreaToBeNotifiedMutation, // useUpvoteH6ComingAreaMutation,
+	useUpdateH6ComingAreaVoteMutation,
 	useVenuesNearbyLazyQuery,
 } from '@graphql/generated'
 import {
@@ -56,9 +56,17 @@ export default () => {
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 
 	const [
-		upvoteH6VenueRecommendationMutation,
+		updateH6VenueRecommendationVoteMutation,
 		{ data: UVRData, loading: UVRLoading, error: UVRError },
-	] = useUpvoteH6VenueRemmendationMutation()
+	] = useUpdateH6ComingAreaVoteMutation()
+
+	const [updateToBeNotifiedMutation, { data: UTBNData, loading: UTBNLoading, error: UTBNError }] =
+		useUpdateComingAreaToBeNotifiedMutation({
+			update: (cache, { data }) => {
+				console.log('data :>> ', data)
+				// console.log('cache :>> ', cache)
+			},
+		})
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
@@ -82,9 +90,6 @@ export default () => {
 			// console.log('🚀 ~ file: index.tsx:72 ~ data:', JSON.stringify(data, null, 4))
 		},
 	})
-
-	const [updateComingAreaVoteMutation, { data: UVData, loading: UVLoading, error: UVError }] =
-		useUpvoteH6ComingAreaMutation()
 
 	const onPullRefresh = () => {
 		if (rSearchAreaVar?.searchArea?.coords.latitude && rSearchAreaVar?.searchArea?.coords.longitude) {
@@ -112,7 +117,7 @@ export default () => {
 
 	if (loading) return null
 
-	if (data?.venuesNearby.__typename === 'ErrorProfiling') {
+	if (data?.venuesNearby.__typename === 'Error') {
 		return (
 			<ScrollView>
 				<View>
@@ -121,12 +126,15 @@ export default () => {
 			</ScrollView>
 		)
 	}
+	console.log('data :>> ', data?.venuesNearby.__typename)
 
 	if (data?.venuesNearby.__typename === 'ComingAreaResponse') {
 		return (
 			<ScrollView>
 				{data.venuesNearby.comingAreas.map(item => {
-					console.log(item.Vote)
+					const lengthOfUpvote = item.Vote.filter(item => {
+						return item.upvote
+					}).length
 					return (
 						<Box
 							_dark={{ bg: 'dark.100' }}
@@ -142,10 +150,10 @@ export default () => {
 								</HStack>
 								<HStack space={1}>
 									<Pressable
-										px={2}
-										disabled={UVLoading}
+										mx={2}
+										disabled={UVRLoading}
 										onPress={() => {
-											updateComingAreaVoteMutation({
+											updateH6VenueRecommendationVoteMutation({
 												variables: {
 													comingAreaId: item.id,
 												},
@@ -159,27 +167,32 @@ export default () => {
 											size={'lg'}
 											_light={{
 												color: item.Vote.some(
-													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id,
+													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id && item.upvote,
 												)
 													? 'blue.500'
 													: 'light.500',
 											}}
 											_dark={{
 												color: item.Vote.some(
-													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id,
+													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id && item.upvote,
 												)
 													? 'blue.500'
 													: 'dark.500',
 											}}
 										/>
 										<Text fontWeight={'medium'} fontSize={'lg'}>
-											{item.Vote.length}
+											{lengthOfUpvote}
 										</Text>
 									</Pressable>
 									<Pressable
-										px={2}
+										mx={4}
+										disabled={UTBNLoading}
 										onPress={() => {
-											console.log('clicked')
+											updateToBeNotifiedMutation({
+												variables: {
+													comingAreaId: item.id,
+												},
+											})
 										}}
 										alignItems={'center'}
 										justifyContent={'center'}

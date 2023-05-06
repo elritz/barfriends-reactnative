@@ -39,7 +39,7 @@ export const VENUES_NEARBY_QUERY = gql`
 					...AREA_FRAGMENT
 				}
 			}
-			... on ErrorProfiling {
+			... on Error {
 				errorCode
 				message
 			}

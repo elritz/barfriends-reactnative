@@ -54,7 +54,7 @@ const LookingForScreen = ({}) => {
 				})
 				reset({ lookfor: data.updateProfileIdentifiableInformation.IdentifiableInformation?.lookfor })
 			}
-			if (data.updateProfileIdentifiableInformation.__typename === 'ErrorProfiling') {
+			if (data.updateProfileIdentifiableInformation.__typename === 'Error') {
 				setError('lookfor', { message: data.updateProfileIdentifiableInformation.message })
 			}
 		},

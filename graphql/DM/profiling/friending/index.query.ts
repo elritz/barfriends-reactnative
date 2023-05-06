@@ -5,7 +5,7 @@ export const GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY = gql`
 	${RELATIONSHIP_FRAGMENT}
 	query getRelationshipFriendRequestStatus($profileId: String!) {
 		getRelationshipFriendRequestStatus(profileId: $profileId) {
-			... on ErrorProfiling {
+			... on Error {
 				errorCode
 				message
 			}

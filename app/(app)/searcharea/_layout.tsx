@@ -1,6 +1,8 @@
+import { useReactiveVar } from '@apollo/client'
 import SearchAreaInput from '@components/molecules/search/searcharea/SearchAreaInput'
 import SearchAreaInputDisabled from '@components/molecules/search/searcharea/SearchAreaInputDisabled'
 import { PlaceType } from '@preferences'
+import { SearchAreaReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
@@ -52,33 +54,11 @@ export type Form = {
 export default function _layout() {
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
+	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const methods = useForm<Form>({
 		defaultValues: {
-			country: {
-				name: '',
-				isoCode: '',
-				coords: {
-					latitude: 0,
-					longitude: 0,
-				},
-			},
-			state: {
-				name: '',
-				isoCode: '',
-				coords: {
-					latitude: 0,
-					longitude: 0,
-				},
-			},
-			city: {
-				name: '',
-				isoCode: '',
-				coords: {
-					latitude: 0,
-					longitude: 0,
-				},
-			},
+			...rSearchAreaVar.searchArea,
 			done: false,
 		},
 	})

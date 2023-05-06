@@ -6,7 +6,7 @@ import { SearchAreaReactiveVar } from '@reactive'
 import { Form, HorizontalCountryItemProps } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Icon, Text } from 'native-base'
+import { Box, Button, Icon, Text } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList, ListRenderItemInfo } from 'react-native'
@@ -18,6 +18,7 @@ export default function SearchCountryTextScreen() {
 	const params = useSearchParams()
 	const [countries, setCountries] = useState<HorizontalCountryItemProps[]>([])
 	const [pagination, setPagination] = useState<number>()
+	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const { watch, setValue } = useFormContext<Form>()
 
@@ -68,6 +69,9 @@ export default function SearchCountryTextScreen() {
 			onEndReached={() => setPagination(pagination + data.getAllCountries.length / 2)}
 			onEndReachedThreshold={150}
 			keyboardDismissMode={'on-drag'}
+			ItemSeparatorComponent={() => {
+				return <Box my={1} />
+			}}
 			renderItem={({ index, item }: ListRenderItemInfo<HorizontalCountryItemProps>) => {
 				return (
 					<Button
@@ -87,7 +91,7 @@ export default function SearchCountryTextScreen() {
 						_dark={{
 							bg: 'dark.100',
 						}}
-						rounded={'full'}
+						rounded={'xl'}
 						endIcon={
 							watch('country.name') === item.name ? (
 								<Icon color={'secondary.600'} size={'lg'} as={Feather} name={'check'} />

@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Text, Icon, Center } from 'native-base'
+import { Button, Text, Icon, Center, Box } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
@@ -27,22 +27,25 @@ export default function SearchAreaStateCities() {
 	const formContext = useFormContext<Form>()
 
 	const { watch, getValues, setValue, handleSubmit } = formContext
+	console.log('params', JSON.stringify(params, null, 2))
 
 	const { data, loading, error } = useGetAllCitiesByStateQuery({
-		skip: !params.countryIsoCode || !params.state,
+		skip: !params.countryIsoCode || !params.stateIsoCode,
 		variables: {
 			countryIsoCode: String(params.countryIsoCode),
-			stateIsoCode: String(params.state),
+			stateIsoCode: String(params.stateIsoCode),
 		},
 		onCompleted: data => {
 			setStateCities(data.getAllCitiesByState)
-			if (data.getAllCitiesByState.length > 100) {
+			if (data.getAllCitiesByState.length > 175) {
 				setPagination(data.getAllCitiesByState.length / 4)
 			} else {
 				setPagination(data.getAllCitiesByState.length)
 			}
 		},
 	})
+
+
 
 	const filterList = text => {
 		if (!params?.searchtext.length && data?.getAllCitiesByState.length) {
@@ -86,6 +89,9 @@ export default function SearchAreaStateCities() {
 				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
 			}}
+			ItemSeparatorComponent={() => {
+				return <Box my={1} />
+			}}
 			onEndReached={() => setPagination(pagination + data.getAllCitiesByState.length / 3)}
 			keyboardDismissMode={'on-drag'}
 			renderItem={({ index, item }) => {
@@ -100,7 +106,6 @@ export default function SearchAreaStateCities() {
 							justifyContent: 'space-between',
 						}}
 						mx={3}
-						my={1}
 						_light={{
 							bg: 'light.200',
 						}}

@@ -1,13 +1,14 @@
-import { gql } from '@apollo/client'
-import { ERROR_PROFILING_FRAGMENT, PROFILE_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
+import { gql } from '@apollo/client';
+import { ERROR_FRAGMENT, PROFILE_FRAGMENT } from '@graphql/DM/fragments/index.fragments';
+
 
 export const AUTHORIZED_PROFILES_QUERY = gql`
-	${ERROR_PROFILING_FRAGMENT}
+	${ERROR_FRAGMENT}
 	${PROFILE_FRAGMENT}
 	query authorizedProfiles($where: AuthorizedProfilesWhereInput!) {
 		authorizedProfiles(where: $where) {
-			... on ErrorProfiling {
-				...ERROR_PROFILING_FRAGMENT
+			... on Error {
+				...ERROR_FRAGMENT
 			}
 			... on ProfilesResponse {
 				email {

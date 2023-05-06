@@ -2,30 +2,6 @@ import { gql } from '@apollo/client'
 import { INDETIFIABLE_INFORMATION_FRAGMENT } from '@graphql/DM/fragments/identifiable_information.fragments'
 import { PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
 
-export const CREATE_DEVICE_MANAGER_MUTATION = gql`
-	mutation createADeviceManager($profileId: String!) {
-		createADeviceManager(profileId: $profileId) {
-			id
-			DeviceProfile {
-				id
-				isActive
-				RefreshToken {
-					id
-				}
-				accesstoken
-				AppType
-				DeviceManager {
-					id
-				}
-				deviceManagerId
-				Profile {
-					...PROFILE_FRAGMENT
-				}
-			}
-		}
-	}
-`
-
 export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 	${PROFILE_FRAGMENT}
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
@@ -49,7 +25,7 @@ export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 					}
 				}
 			}
-			... on ErrorManaging {
+			... on Error {
 				errorCode
 				message
 			}
@@ -79,7 +55,7 @@ export const REFRESH_DEVICE_MANAGER_MUTATION = gql`
 					}
 				}
 			}
-			... on ErrorManaging {
+			... on Error {
 				errorCode
 				message
 			}

@@ -58,7 +58,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 					gender: String(data?.updateProfileIdentifiableInformation?.IdentifiableInformation?.gender),
 				})
 			}
-			if (data.updateProfileIdentifiableInformation.__typename === 'ErrorProfiling') {
+			if (data.updateProfileIdentifiableInformation.__typename === 'Error') {
 				setError('gender', { message: data.updateProfileIdentifiableInformation.message })
 			}
 		},

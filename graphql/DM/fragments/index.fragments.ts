@@ -10,6 +10,7 @@ export * from '@graphql/DM/fragments/venue.fragments'
 export * from '@graphql/DM/fragments/profilevenue.fragments'
 export * from '@graphql/DM/fragments/area.fragments'
 export * from '@graphql/DM/fragments/area.fragments'
+export * from '@graphql/DM/fragments/clientdevicemanager.fragments'
 
 export const CODE_FRAGMENT = gql`
 	fragment CODE_FRAGMENT on Code {

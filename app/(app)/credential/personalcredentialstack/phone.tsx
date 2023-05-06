@@ -83,7 +83,7 @@ export default () => {
 	const [sendCode, { data, loading, error }] = useSendAuthenticatorDeviceOwnerCodeMutation({
 		onCompleted: data => {
 			switch (data.sendAuthenticatorDeviceOwnerCode?.__typename) {
-				case 'ErrorProfiling':
+				case 'Error':
 					setError('mobileNumber.number', {
 						type: 'validate',
 						message: 'Unable to send phone number',

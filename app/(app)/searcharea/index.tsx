@@ -39,27 +39,34 @@ export default () => {
 			case 'City':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					router.push({
-						pathname: '(app)/searcharea/SearchStateCitiesTextScreen',
+						pathname: '(app)/searcharea/searchstatecities',
+						params: {
+							countryIsoCode: rSearchAreaVar.searchArea.country.isoCode,
+							stateIsoCode: rSearchAreaVar.searchArea.state.isoCode,
+						},
 					})
 				}
 				break
 			case 'State':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					router.push({
-						pathname: '(app)/searcharea/searchcountrystatetext',
+						pathname: '(app)/searcharea/searchcountrystate',
+						params: {
+							countryIsoCode: rSearchAreaVar.searchArea.country.isoCode,
+						},
 					})
 				}
 				break
 			case 'Country':
 				if (rSearchAreaVar?.searchArea.country.isoCode && rSearchAreaVar?.searchArea.state.isoCode) {
 					router.push({
-						pathname: '(app)/searcharea/searchcountrytext',
+						pathname: '(app)/searcharea/searchcountry',
 					})
 				}
 				break
 			default:
 				router.push({
-					pathname: '(app)/searcharea/searchcountrytext',
+					pathname: '(app)/searcharea/searchcountry',
 				})
 		}
 	}
