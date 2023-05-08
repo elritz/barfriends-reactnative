@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ClientDeviceProfile,
 	Profile,
 	useUpdateOneProfileMutation,
@@ -49,7 +49,7 @@ const NamesScreen = () => {
 			onCompleted: data => {
 				if (data.updateOneProfile) {
 					const profile = data.updateOneProfile as Profile
-					const deviceManager = rAuthorizationVar as ClientDeviceManager
+					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
 
 					AuthorizationReactiveVar({

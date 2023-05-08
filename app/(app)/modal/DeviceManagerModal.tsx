@@ -1,7 +1,7 @@
 import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ClientDeviceProfile,
 	ProfileType,
 	useGetADeviceManagerQuery,
@@ -34,8 +34,8 @@ export default function DeviceManagerModal() {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
-					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
+				if (data?.switchDeviceProfile?.__typename === 'AuthorizationDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					setTimeout(
 						() =>

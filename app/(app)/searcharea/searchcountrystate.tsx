@@ -3,10 +3,11 @@ import { SearchAreaStackParamList } from '@ctypes/app'
 import { Feather } from '@expo/vector-icons'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
 import { RouteProp } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
 import { Form } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Text, Icon, Center, Box } from 'native-base'
+import { Button, Text, Icon, Center, Box, HStack, Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
@@ -69,19 +70,21 @@ export default function SearchAreaCountryStates() {
 			</Center>
 		)
 	}
-	if (!data || loading) {
+
+	if (!loading) {
 		return (
-			<>
-				<Text>loading.....</Text>
-			</>
+			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
+				{[...Array(20)].map(item => {
+					return <Skeleton h='50' rounded='md' my={1} startColor='coolGray.100' />
+				})}
+			</Box>
 		)
 	}
 
 	return (
-		<FlatList
-			data={countryStates.slice(0, pagination)}
+		<FlashList
+			data={countryStates}
 			keyboardDismissMode={'on-drag'}
-			style={{ flex: 1 }}
 			contentInset={{
 				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
@@ -89,7 +92,7 @@ export default function SearchAreaCountryStates() {
 			ItemSeparatorComponent={() => {
 				return <Box my={1} />
 			}}
-			onEndReached={() => setPagination(pagination + data.getAllStatesByCountry.length / 3)}
+			estimatedItemSize={200}
 			renderItem={({ index, item }) => {
 				return (
 					<Button
@@ -109,10 +112,12 @@ export default function SearchAreaCountryStates() {
 							bg: 'dark.100',
 						}}
 						rounded={'full'}
-						endIcon={
-							watch('state.name') === item.name ? (
-								<Icon color={'blueGray.700'} size={'lg'} as={Feather} name={'check'} />
-							) : null
+						rightIcon={
+							<HStack space={3}>
+								{watch('state.name') === item.name && (
+									<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
+								)}
+							</HStack>
 						}
 						onPress={() => {
 							setValue('state', {

@@ -34,14 +34,12 @@ const SearchAreaInput = (props: Props) => {
 		shouldUnregister: true,
 	})
 
-	const debouncedSearchResults = useDebounce(watch().searchtext, 700)
+	const debouncedSearchResults = useDebounce(watch().searchtext, 300)
 
 	useMemo(() => {
-		if (watch().searchtext) {
-			router.setParams({
-				searchtext: watch().searchtext,
-			})
-		}
+		router.setParams({
+			searchtext: watch().searchtext,
+		})
 	}, [debouncedSearchResults])
 
 	const goBack = () => {

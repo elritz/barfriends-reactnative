@@ -1362,13 +1362,37 @@ input AuthenticationProviderWhereUniqueInput {
   id: String
 }
 
+union AuthenticationResponseUnion = AuthorizationDeviceManager | Error
+
 input Authenticators {
   EmailInput: EmailInput
   PhoneInput: PhoneInput
   username: String
 }
 
-union AuthorizedProfilesResponseUnion = ErrorProfiling | ProfilesResponse
+type AuthorizationDeviceManager {
+  Device: Device
+  DeviceProfile: AuthorizationDeviceProfile
+  id: String!
+}
+
+type AuthorizationDeviceProfile {
+  accesstoken: String
+  AppType: AppType!
+  createdAt: DateTime!
+  DeviceManager: DeviceManager!
+  deviceManagerId: String!
+  id: ID!
+  isActive: Boolean!
+  Profile: Profile
+  profileId: String!
+  ProfileType: ProfileType!
+  refreshtoken: String
+  RefreshToken: RefreshToken
+  updatedAt: DateTime!
+}
+
+union AuthorizedProfilesResponseUnion = Error | ProfilesResponse
 
 input AuthorizedProfilesWhereInput {
   profiles: CustomProfileWhereInput!
@@ -1812,6 +1836,7 @@ type CityResponseObject {
   longitude: String
   name: String!
   stateCode: String!
+  venuesInArea: Int
 }
 
 enum CityScalarFieldEnum {
@@ -1900,30 +1925,6 @@ input CityWhereUniqueInput {
   geometryId: Int
   id: String
   name: String
-}
-
-type ClientDeviceManager {
-  createdAt: DateTime
-  Device: Device
-  DeviceProfile: ClientDeviceProfile
-  id: String!
-  updatedAt: DateTime
-}
-
-type ClientDeviceProfile {
-  accesstoken: String
-  AppType: AppType
-  createdAt: DateTime!
-  DeviceManager: DeviceManager!
-  deviceManagerId: String!
-  id: ID!
-  isActive: Boolean!
-  Profile: Profile!
-  profileId: String
-  ProfileType: ProfileType
-  refreshtoken: String
-  RefreshToken: RefreshToken
-  updatedAt: DateTime!
 }
 
 type Code {
@@ -2027,7 +2028,7 @@ input CodeRelationFilter {
   isNot: CodeWhereInput
 }
 
-union CodeResponse = Code | ErrorProfiling
+union CodeResponse = Code | Error
 
 enum CodeScalarFieldEnum {
   authenitcationProviderId
@@ -3237,7 +3238,7 @@ type Device {
   createdAt: DateTime
   DeviceManager: DeviceManager!
   deviceManagerId: String!
-  deviceType: String
+  deviceType: String!
   id: ID!
   PushToken: PushToken
   pushTokenId: String
@@ -3256,7 +3257,7 @@ input DeviceCountOrderByAggregateInput {
 input DeviceCreateInput {
   createdAt: DateTime
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceInput!
-  deviceType: String
+  deviceType: String!
   id: String
   PushToken: PushTokenCreateNestedOneWithoutDeviceInput
   updatedAt: DateTime
@@ -3265,7 +3266,7 @@ input DeviceCreateInput {
 input DeviceCreateManyInput {
   createdAt: DateTime
   deviceManagerId: String!
-  deviceType: String
+  deviceType: String!
   id: String
   pushTokenId: String
   updatedAt: DateTime
@@ -3295,7 +3296,7 @@ input DeviceCreateOrConnectWithoutPushTokenInput {
 
 input DeviceCreateWithoutDeviceManagerInput {
   createdAt: DateTime
-  deviceType: String
+  deviceType: String!
   id: String
   PushToken: PushTokenCreateNestedOneWithoutDeviceInput
   updatedAt: DateTime
@@ -3304,7 +3305,7 @@ input DeviceCreateWithoutDeviceManagerInput {
 input DeviceCreateWithoutPushTokenInput {
   createdAt: DateTime
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceInput!
-  deviceType: String
+  deviceType: String!
   id: String
   updatedAt: DateTime
 }
@@ -3312,7 +3313,7 @@ input DeviceCreateWithoutPushTokenInput {
 type DeviceManager {
   createdAt: DateTime!
   Device: Device
-  DeviceProfile(cursor: DeviceProfileWhereUniqueInput, distinct: [DeviceProfileScalarFieldEnum!], orderBy: [DeviceProfileOrderByWithRelationInput!], skip: Int, take: Int, where: DeviceProfileWhereInput): [ClientDeviceProfile!]!
+  DeviceProfile(cursor: DeviceProfileWhereUniqueInput, distinct: [DeviceProfileScalarFieldEnum!], orderBy: [DeviceProfileOrderByWithRelationInput!], skip: Int, take: Int, where: DeviceProfileWhereInput): [AuthorizationDeviceProfile!]!
   id: ID!
   updatedAt: DateTime!
 }
@@ -3374,10 +3375,10 @@ input DeviceManagerCreateWithoutDeviceProfileInput {
 }
 
 type DeviceManagerDeviceProfiles {
-  DeviceProfiles: [ClientDeviceProfile!]!
+  DeviceProfiles: [AuthorizationDeviceProfile!]!
 }
 
-union DeviceManagerDeviceProfilesResponseUnion = DeviceManagerDeviceProfiles | ErrorManaging
+union DeviceManagerDeviceProfilesResponseUnion = DeviceManagerDeviceProfiles | Error
 
 input DeviceManagerMaxOrderByAggregateInput {
   createdAt: SortOrder
@@ -3552,25 +3553,25 @@ input DeviceProfileCountOrderByAggregateInput {
 
 input DeviceProfileCreateInput {
   accesstoken: String
-  AppType: AppType
+  AppType: AppType!
   createdAt: DateTime
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceProfileInput!
   id: String
   isActive: Boolean!
-  profileId: String
-  ProfileType: ProfileType
+  profileId: String!
+  ProfileType: ProfileType!
   RefreshToken: RefreshTokenCreateNestedOneWithoutDeviceProfileInput
   updatedAt: DateTime
 }
 
 input DeviceProfileCreateManyDeviceManagerInput {
   accesstoken: String
-  AppType: AppType
+  AppType: AppType!
   createdAt: DateTime
   id: String
   isActive: Boolean!
-  profileId: String
-  ProfileType: ProfileType
+  profileId: String!
+  ProfileType: ProfileType!
   updatedAt: DateTime
 }
 
@@ -3581,13 +3582,13 @@ input DeviceProfileCreateManyDeviceManagerInputEnvelope {
 
 input DeviceProfileCreateManyInput {
   accesstoken: String
-  AppType: AppType
+  AppType: AppType!
   createdAt: DateTime
   deviceManagerId: String!
   id: String
   isActive: Boolean!
-  profileId: String
-  ProfileType: ProfileType
+  profileId: String!
+  ProfileType: ProfileType!
   updatedAt: DateTime
 }
 
@@ -3616,25 +3617,25 @@ input DeviceProfileCreateOrConnectWithoutRefreshTokenInput {
 
 input DeviceProfileCreateWithoutDeviceManagerInput {
   accesstoken: String
-  AppType: AppType
+  AppType: AppType!
   createdAt: DateTime
   id: String
   isActive: Boolean!
-  profileId: String
-  ProfileType: ProfileType
+  profileId: String!
+  ProfileType: ProfileType!
   RefreshToken: RefreshTokenCreateNestedOneWithoutDeviceProfileInput
   updatedAt: DateTime
 }
 
 input DeviceProfileCreateWithoutRefreshTokenInput {
   accesstoken: String
-  AppType: AppType
+  AppType: AppType!
   createdAt: DateTime
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceProfileInput!
   id: String
   isActive: Boolean!
-  profileId: String
-  ProfileType: ProfileType
+  profileId: String!
+  ProfileType: ProfileType!
   updatedAt: DateTime
 }
 
@@ -3721,54 +3722,54 @@ enum DeviceProfileScalarFieldEnum {
 input DeviceProfileScalarWhereInput {
   accesstoken: StringNullableFilter
   AND: [DeviceProfileScalarWhereInput!]
-  AppType: EnumAppTypeNullableFilter
+  AppType: EnumAppTypeFilter
   createdAt: DateTimeFilter
   deviceManagerId: StringFilter
   id: StringFilter
   isActive: BoolFilter
   NOT: [DeviceProfileScalarWhereInput!]
   OR: [DeviceProfileScalarWhereInput!]
-  profileId: StringNullableFilter
-  ProfileType: EnumProfileTypeNullableFilter
+  profileId: StringFilter
+  ProfileType: EnumProfileTypeFilter
   updatedAt: DateTimeFilter
 }
 
 input DeviceProfileScalarWhereWithAggregatesInput {
   accesstoken: StringNullableWithAggregatesFilter
   AND: [DeviceProfileScalarWhereWithAggregatesInput!]
-  AppType: EnumAppTypeNullableWithAggregatesFilter
+  AppType: EnumAppTypeWithAggregatesFilter
   createdAt: DateTimeWithAggregatesFilter
   deviceManagerId: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
   isActive: BoolWithAggregatesFilter
   NOT: [DeviceProfileScalarWhereWithAggregatesInput!]
   OR: [DeviceProfileScalarWhereWithAggregatesInput!]
-  profileId: StringNullableWithAggregatesFilter
-  ProfileType: EnumProfileTypeNullableWithAggregatesFilter
+  profileId: StringWithAggregatesFilter
+  ProfileType: EnumProfileTypeWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
 }
 
 input DeviceProfileUpdateInput {
   accesstoken: NullableStringFieldUpdateOperationsInput
-  AppType: NullableEnumAppTypeFieldUpdateOperationsInput
+  AppType: EnumAppTypeFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   DeviceManager: DeviceManagerUpdateOneRequiredWithoutDeviceProfileNestedInput
   id: StringFieldUpdateOperationsInput
   isActive: BoolFieldUpdateOperationsInput
-  profileId: NullableStringFieldUpdateOperationsInput
-  ProfileType: NullableEnumProfileTypeFieldUpdateOperationsInput
+  profileId: StringFieldUpdateOperationsInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   RefreshToken: RefreshTokenUpdateOneWithoutDeviceProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input DeviceProfileUpdateManyMutationInput {
   accesstoken: NullableStringFieldUpdateOperationsInput
-  AppType: NullableEnumAppTypeFieldUpdateOperationsInput
+  AppType: EnumAppTypeFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isActive: BoolFieldUpdateOperationsInput
-  profileId: NullableStringFieldUpdateOperationsInput
-  ProfileType: NullableEnumProfileTypeFieldUpdateOperationsInput
+  profileId: StringFieldUpdateOperationsInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -3803,25 +3804,25 @@ input DeviceProfileUpdateOneWithoutRefreshTokenNestedInput {
 
 input DeviceProfileUpdateWithoutDeviceManagerInput {
   accesstoken: NullableStringFieldUpdateOperationsInput
-  AppType: NullableEnumAppTypeFieldUpdateOperationsInput
+  AppType: EnumAppTypeFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isActive: BoolFieldUpdateOperationsInput
-  profileId: NullableStringFieldUpdateOperationsInput
-  ProfileType: NullableEnumProfileTypeFieldUpdateOperationsInput
+  profileId: StringFieldUpdateOperationsInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   RefreshToken: RefreshTokenUpdateOneWithoutDeviceProfileNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input DeviceProfileUpdateWithoutRefreshTokenInput {
   accesstoken: NullableStringFieldUpdateOperationsInput
-  AppType: NullableEnumAppTypeFieldUpdateOperationsInput
+  AppType: EnumAppTypeFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   DeviceManager: DeviceManagerUpdateOneRequiredWithoutDeviceProfileNestedInput
   id: StringFieldUpdateOperationsInput
   isActive: BoolFieldUpdateOperationsInput
-  profileId: NullableStringFieldUpdateOperationsInput
-  ProfileType: NullableEnumProfileTypeFieldUpdateOperationsInput
+  profileId: StringFieldUpdateOperationsInput
+  ProfileType: EnumProfileTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
@@ -3844,7 +3845,7 @@ input DeviceProfileUpsertWithWhereUniqueWithoutDeviceManagerInput {
 input DeviceProfileWhereInput {
   accesstoken: StringNullableFilter
   AND: [DeviceProfileWhereInput!]
-  AppType: EnumAppTypeNullableFilter
+  AppType: EnumAppTypeFilter
   createdAt: DateTimeFilter
   DeviceManager: DeviceManagerWhereInput
   deviceManagerId: StringFilter
@@ -3852,8 +3853,8 @@ input DeviceProfileWhereInput {
   isActive: BoolFilter
   NOT: [DeviceProfileWhereInput!]
   OR: [DeviceProfileWhereInput!]
-  profileId: StringNullableFilter
-  ProfileType: EnumProfileTypeNullableFilter
+  profileId: StringFilter
+  ProfileType: EnumProfileTypeFilter
   RefreshToken: RefreshTokenWhereInput
   updatedAt: DateTimeFilter
 }
@@ -3880,7 +3881,7 @@ input DeviceScalarWhereWithAggregatesInput {
   AND: [DeviceScalarWhereWithAggregatesInput!]
   createdAt: DateTimeNullableWithAggregatesFilter
   deviceManagerId: StringWithAggregatesFilter
-  deviceType: StringNullableWithAggregatesFilter
+  deviceType: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
   NOT: [DeviceScalarWhereWithAggregatesInput!]
   OR: [DeviceScalarWhereWithAggregatesInput!]
@@ -3891,7 +3892,7 @@ input DeviceScalarWhereWithAggregatesInput {
 input DeviceUpdateInput {
   createdAt: NullableDateTimeFieldUpdateOperationsInput
   DeviceManager: DeviceManagerUpdateOneRequiredWithoutDeviceNestedInput
-  deviceType: NullableStringFieldUpdateOperationsInput
+  deviceType: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   PushToken: PushTokenUpdateOneWithoutDeviceNestedInput
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
@@ -3899,7 +3900,7 @@ input DeviceUpdateInput {
 
 input DeviceUpdateManyMutationInput {
   createdAt: NullableDateTimeFieldUpdateOperationsInput
-  deviceType: NullableStringFieldUpdateOperationsInput
+  deviceType: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
 }
@@ -3926,7 +3927,7 @@ input DeviceUpdateOneWithoutPushTokenNestedInput {
 
 input DeviceUpdateWithoutDeviceManagerInput {
   createdAt: NullableDateTimeFieldUpdateOperationsInput
-  deviceType: NullableStringFieldUpdateOperationsInput
+  deviceType: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   PushToken: PushTokenUpdateOneWithoutDeviceNestedInput
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
@@ -3935,7 +3936,7 @@ input DeviceUpdateWithoutDeviceManagerInput {
 input DeviceUpdateWithoutPushTokenInput {
   createdAt: NullableDateTimeFieldUpdateOperationsInput
   DeviceManager: DeviceManagerUpdateOneRequiredWithoutDeviceNestedInput
-  deviceType: NullableStringFieldUpdateOperationsInput
+  deviceType: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   updatedAt: NullableDateTimeFieldUpdateOperationsInput
 }
@@ -3955,7 +3956,7 @@ input DeviceWhereInput {
   createdAt: DateTimeNullableFilter
   DeviceManager: DeviceManagerWhereInput
   deviceManagerId: StringFilter
-  deviceType: StringNullableFilter
+  deviceType: StringFilter
   id: StringFilter
   NOT: [DeviceWhereInput!]
   OR: [DeviceWhereInput!]
@@ -4544,17 +4545,21 @@ input EmojimoodWhereUniqueInput {
   id: Int
 }
 
-input EnumAppTypeNullableFilter {
+input EnumAppTypeFieldUpdateOperationsInput {
+  set: AppType
+}
+
+input EnumAppTypeFilter {
   equals: AppType
   in: [AppType!]
   not: AppType
   notIn: [AppType!]
 }
 
-input EnumAppTypeNullableWithAggregatesFilter {
-  _count: NestedIntNullableFilter
-  _max: NestedEnumAppTypeNullableFilter
-  _min: NestedEnumAppTypeNullableFilter
+input EnumAppTypeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumAppTypeFilter
+  _min: NestedEnumAppTypeFilter
   equals: AppType
   in: [AppType!]
   not: AppType
@@ -4604,23 +4609,6 @@ input EnumProfileTypeFieldUpdateOperationsInput {
 }
 
 input EnumProfileTypeFilter {
-  equals: ProfileType
-  in: [ProfileType!]
-  not: ProfileType
-  notIn: [ProfileType!]
-}
-
-input EnumProfileTypeNullableFilter {
-  equals: ProfileType
-  in: [ProfileType!]
-  not: ProfileType
-  notIn: [ProfileType!]
-}
-
-input EnumProfileTypeNullableWithAggregatesFilter {
-  _count: NestedIntNullableFilter
-  _max: NestedEnumProfileTypeNullableFilter
-  _min: NestedEnumProfileTypeNullableFilter
   equals: ProfileType
   in: [ProfileType!]
   not: ProfileType
@@ -4688,13 +4676,7 @@ input EnumTypeOfDocumentWithAggregatesFilter {
 }
 
 """Long necks, cool patterns, taller than you."""
-type ErrorManaging {
-  errorCode: String!
-  message: String!
-}
-
-"""Long necks, cool patterns, taller than you."""
-type ErrorProfiling {
+type Error {
   errorCode: String!
   message: String!
 }
@@ -8129,15 +8111,14 @@ type Mutation {
   acceptFriendRequest(friendRequestId: String!, venueIdMetAt: String): Relationship!
   addPersonalJoinsVenue(profileIdPersonal: String, profileIdVenue: String): Profile!
   addPersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
-  createADeviceManager(profileId: String!): ClientDeviceManager!
   createFriendRequest(receiversProfileId: [String!]!, senderProfileId: String!): Boolean!
-  createGuestProfile: ProfileResponseUnion!
-  createPersonalProfile(data: CreatePersonalDataInput): ProfileResponseUnion!
-  createVenueProfile(data: CreateVenueDataInput): ProfileResponseUnion!
+  createGuestProfile: AuthenticationResponseUnion!
+  createPersonalProfile(data: CreatePersonalDataInput): AuthenticationResponseUnion!
+  createVenueProfile(data: CreateVenueDataInput): AuthenticationResponseUnion!
   declineFriendRequest(friendRequestId: String!): Boolean!
   deleteFriendRequest(friendRequestId: String!): Boolean!
   qrAddFriend(dataHash: String!, qrCodeProfileId: String!): Relationship!
-  refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion!
+  refreshDeviceManager: AuthenticationResponseUnion!
   removeAllFromVenue(profileIdVenue: String): Boolean!
   removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType = GUEST): Boolean!
   removeFriend(relationshipId: String!): Boolean!
@@ -8145,7 +8126,7 @@ type Mutation {
   removePersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
-  switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): RefreshDeviceManagerDeviceManagerResponseUnion!
+  switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): AuthenticationResponseUnion!
 
   """Update H6 coming area to be notified"""
   updateH6ComingAreaToBeNotified(comingAreaId: String!): ComingArea!
@@ -8158,7 +8139,7 @@ type Mutation {
   """
   updateH6VenueRemmendation(venueRecommendationId: String!): H3Index6VenueRecommendation!
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
-  updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateInput!): ProfileResponseUnion!
+  updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateInput!): AuthenticationResponseUnion!
   updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean!
   updateStoryPhotos(disconnectId: String, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Boolean!
   updateThemeManagerSwitchTheme(id: String!, themeId: String!): ProfileTheme!
@@ -8241,17 +8222,17 @@ input NestedDateTimeWithAggregatesFilter {
   notIn: [DateTime!]
 }
 
-input NestedEnumAppTypeNullableFilter {
+input NestedEnumAppTypeFilter {
   equals: AppType
   in: [AppType!]
   not: AppType
   notIn: [AppType!]
 }
 
-input NestedEnumAppTypeNullableWithAggregatesFilter {
-  _count: NestedIntNullableFilter
-  _max: NestedEnumAppTypeNullableFilter
-  _min: NestedEnumAppTypeNullableFilter
+input NestedEnumAppTypeWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedEnumAppTypeFilter
+  _min: NestedEnumAppTypeFilter
   equals: AppType
   in: [AppType!]
   not: AppType
@@ -8293,23 +8274,6 @@ input NestedEnumPhotoTypeNullableWithAggregatesFilter {
 }
 
 input NestedEnumProfileTypeFilter {
-  equals: ProfileType
-  in: [ProfileType!]
-  not: ProfileType
-  notIn: [ProfileType!]
-}
-
-input NestedEnumProfileTypeNullableFilter {
-  equals: ProfileType
-  in: [ProfileType!]
-  not: ProfileType
-  notIn: [ProfileType!]
-}
-
-input NestedEnumProfileTypeNullableWithAggregatesFilter {
-  _count: NestedIntNullableFilter
-  _max: NestedEnumProfileTypeNullableFilter
-  _min: NestedEnumProfileTypeNullableFilter
   equals: ProfileType
   in: [ProfileType!]
   not: ProfileType
@@ -8514,7 +8478,7 @@ input NestedStringWithAggregatesFilter {
   startsWith: String
 }
 
-union NotificationFriendRequestStatusResponse = ErrorProfiling | FriendRequest | RejectedFriendsResponse | Relationship
+union NotificationFriendRequestStatusResponse = Error | FriendRequest | RejectedFriendsResponse | Relationship
 
 type NotificationResponse {
   friendRequestNotifications: [FriendRequest!]
@@ -8920,16 +8884,8 @@ input NullableDateTimeFieldUpdateOperationsInput {
   set: DateTime
 }
 
-input NullableEnumAppTypeFieldUpdateOperationsInput {
-  set: AppType
-}
-
 input NullableEnumPhotoTypeFieldUpdateOperationsInput {
   set: PhotoType
-}
-
-input NullableEnumProfileTypeFieldUpdateOperationsInput {
-  set: ProfileType
 }
 
 input NullableIntFieldUpdateOperationsInput {
@@ -12146,8 +12102,6 @@ input ProfileRelationFilter {
   isNot: ProfileWhereInput
 }
 
-union ProfileResponseUnion = ErrorProfiling | Profile
-
 enum ProfileScalarFieldEnum {
   bfsprofileid
   createdAt
@@ -13467,13 +13421,11 @@ enum QueryMode {
   insensitive
 }
 
-union RecommendationResponseUnion = ComingAreaResponse | ErrorProfiling | VenuesNearbyResponse
-
-union RefreshDeviceManagerDeviceManagerResponseUnion = ClientDeviceManager | ErrorManaging
+union RecommendationResponseUnion = ComingAreaResponse | Error | VenuesNearbyResponse
 
 type RefreshToken {
   createdAt: DateTime!
-  DeviceProfile: ClientDeviceProfile
+  DeviceProfile: AuthorizationDeviceProfile
   DeviceProfileId: String
   id: ID!
   token: String!
@@ -16415,7 +16367,7 @@ input UpdateManyNotificationStatusInput {
   notificationStatusIds: [UpdateNotificationStatusInput!]!
 }
 
-union UpdateManyNotificationStatusUnionResponse = ErrorProfiling | UpdateNotificationResponse
+union UpdateManyNotificationStatusUnionResponse = Error | UpdateNotificationResponse
 
 type UpdateNotificationResponse {
   count: Int!

@@ -57,7 +57,7 @@ export default (props: Props) => {
 					}
 					w={'95%'}
 					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'xl'}
+					borderRadius={'md'}
 				>
 					Sign up
 				</Button>

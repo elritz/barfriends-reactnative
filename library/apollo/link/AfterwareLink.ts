@@ -16,7 +16,7 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 		if (headers) {
 			const authorization = headers.get('authorization')
 
-			console.log("🚀 ~ file: AfterwareLink.ts:19 ~ asyncMap ~ authorization:", authorization)
+			// console.log("🚀 ~ file: AfterwareLink.ts:19 ~ asyncMap ~ authorization:", authorization)
 
 			if (authorization) {
 				await secureStorageItemCreate({

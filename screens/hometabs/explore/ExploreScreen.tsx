@@ -1,8 +1,9 @@
 import ShowCaseScroll from './ShowCaseScroll'
 import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS } from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
+import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
-import { Box, FlatList, Image, Pressable, Text } from 'native-base'
+import { Box, FlatList, Pressable, Text } from 'native-base'
 import { View, useWindowDimensions } from 'react-native'
 
 const ExploreScreen = () => {
@@ -32,7 +33,8 @@ const ExploreScreen = () => {
 					bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 				}}
 				numColumns={2}
-				renderItem={item => {
+				renderItem={({ item }) => {
+					console.log('item.item :>> ', item.photos.length)
 					return (
 						<>
 							{loading ? null : (
@@ -45,24 +47,30 @@ const ExploreScreen = () => {
 									alignSelf={''}
 									onPress={() => {
 										router.push({
-											pathname: `(app)/public/personal/${item.item.id}`,
+											pathname: `(app)/public/personal/${item.id}`,
 											params: {
-												profileid: item.item.id,
+												profileid: item.id,
 											},
 										})
 									}}
 								>
-									<Image
-										source={{ uri: item.item.photos[0].url }}
-										alt={'User image'}
-										borderRadius={'xl'}
-										style={{
-											width: '100%',
-											height,
-											borderWidth: 3,
-											borderColor: 'white',
-										}}
-									/>
+									{item.photos.length > 0 && (
+										<Image
+											style={{
+												width: '100%',
+												height,
+												borderWidth: 3,
+												borderColor: 'white',
+											}}
+											source={item.photos[0].url}
+											// placeholder={
+											// 	item?.photos[0].blurhash ? item.photos[0].blurhash : 'LEHV6nWB2yk8pyo0adR*.7kCMdnj'
+											// }
+											placeholder={'LEHV6nWB2yk8pyo0adR*.7kCMdnj'}
+											contentFit='cover'
+											transition={1000}
+										/>
+									)}
 									<View
 										style={{
 											width: '100%',
@@ -70,7 +78,7 @@ const ExploreScreen = () => {
 										}}
 									>
 										<Text textTransform={'capitalize'} fontSize={'sm'}>
-											{item.item.IdentifiableInformation?.fullname}
+											{item.IdentifiableInformation?.fullname}
 										</Text>
 									</View>
 								</Pressable>

@@ -1,9 +1,9 @@
 import { PROFILE_FRAGMENT } from './profile.fragments'
 import { gql } from '@apollo/client'
 
-export const CLIENT_DEVICE_PROFILE_FRAGMENT = gql`
+export const AUTHORIZATION_DEVICE_PROFILE_FRAGMENT = gql`
 	${PROFILE_FRAGMENT}
-	fragment CLIENT_DEVICE_PROFILE_FRAGMENT on ClientDeviceProfile {
+	fragment AUTHORIZATION_DEVICE_PROFILE_FRAGMENT on AuthorizationDeviceProfile {
 		id
 		profileId
 		isActive
@@ -28,17 +28,15 @@ export const CLIENT_DEVICE_PROFILE_FRAGMENT = gql`
 		updatedAt
 	}
 `
-export const CLIENT_DEVICE_MANAGER_FRAGMENT = gql`
-	${CLIENT_DEVICE_PROFILE_FRAGMENT}
-	fragment CLIENT_DEVICE_MANAGER_FRAGMENT on ClientDeviceManager {
+export const AUTHORIZATION_DEVICE_MANAGER_FRAGMENT = gql`
+	${AUTHORIZATION_DEVICE_PROFILE_FRAGMENT}
+	fragment AUTHORIZATION_DEVICE_MANAGER_FRAGMENT on AuthorizationDeviceManager {
 		id
 		DeviceProfile {
-			...CLIENT_DEVICE_PROFILE_FRAGMENT
+			...AUTHORIZATION_DEVICE_PROFILE_FRAGMENT
 		}
 		Device {
 			id
 		}
-		createdAt
-		updatedAt
 	}
 `

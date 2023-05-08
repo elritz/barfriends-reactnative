@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	Profile,
 	ProfileType,
 	useLoginPasswordLazyQuery,
@@ -84,8 +84,8 @@ const PasswordLoginScreen = () => {
 			onCompleted: data => {
 				if (!data || !data.switchDeviceProfile) {
 					return null
-				} else if (data.switchDeviceProfile.__typename == 'ClientDeviceManager') {
-					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
+				} else if (data.switchDeviceProfile.__typename == 'AuthorizationDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					router.push({
 						pathname: '(app)/hometab/venuefeedstack',

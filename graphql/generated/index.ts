@@ -1420,13 +1420,39 @@ export type AuthenticationProviderWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
 };
 
+export type AuthenticationResponseUnion = AuthorizationDeviceManager | Error;
+
 export type Authenticators = {
   EmailInput?: InputMaybe<EmailInput>;
   PhoneInput?: InputMaybe<PhoneInput>;
   username?: InputMaybe<Scalars['String']>;
 };
 
-export type AuthorizedProfilesResponseUnion = ErrorProfiling | ProfilesResponse;
+export type AuthorizationDeviceManager = {
+  __typename?: 'AuthorizationDeviceManager';
+  Device?: Maybe<Device>;
+  DeviceProfile?: Maybe<AuthorizationDeviceProfile>;
+  id: Scalars['String'];
+};
+
+export type AuthorizationDeviceProfile = {
+  __typename?: 'AuthorizationDeviceProfile';
+  accesstoken?: Maybe<Scalars['String']>;
+  AppType: AppType;
+  createdAt: Scalars['DateTime'];
+  DeviceManager: DeviceManager;
+  deviceManagerId: Scalars['String'];
+  id: Scalars['ID'];
+  isActive: Scalars['Boolean'];
+  Profile?: Maybe<Profile>;
+  profileId: Scalars['String'];
+  ProfileType: ProfileType;
+  refreshtoken?: Maybe<Scalars['String']>;
+  RefreshToken?: Maybe<RefreshToken>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type AuthorizedProfilesResponseUnion = Error | ProfilesResponse;
 
 export type AuthorizedProfilesWhereInput = {
   profiles: CustomProfileWhereInput;
@@ -1893,6 +1919,7 @@ export type CityResponseObject = {
   longitude?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   stateCode: Scalars['String'];
+  venuesInArea?: Maybe<Scalars['Int']>;
 };
 
 export enum CityScalarFieldEnum {
@@ -1981,32 +2008,6 @@ export type CityWhereUniqueInput = {
   geometryId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-};
-
-export type ClientDeviceManager = {
-  __typename?: 'ClientDeviceManager';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  Device?: Maybe<Device>;
-  DeviceProfile?: Maybe<ClientDeviceProfile>;
-  id: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type ClientDeviceProfile = {
-  __typename?: 'ClientDeviceProfile';
-  accesstoken?: Maybe<Scalars['String']>;
-  AppType?: Maybe<AppType>;
-  createdAt: Scalars['DateTime'];
-  DeviceManager: DeviceManager;
-  deviceManagerId: Scalars['String'];
-  id: Scalars['ID'];
-  isActive: Scalars['Boolean'];
-  Profile: Profile;
-  profileId?: Maybe<Scalars['String']>;
-  ProfileType?: Maybe<ProfileType>;
-  refreshtoken?: Maybe<Scalars['String']>;
-  RefreshToken?: Maybe<RefreshToken>;
-  updatedAt: Scalars['DateTime'];
 };
 
 export type Code = {
@@ -2111,7 +2112,7 @@ export type CodeRelationFilter = {
   isNot?: InputMaybe<CodeWhereInput>;
 };
 
-export type CodeResponse = Code | ErrorProfiling;
+export type CodeResponse = Code | Error;
 
 export enum CodeScalarFieldEnum {
   AuthenitcationProviderId = 'authenitcationProviderId',
@@ -3367,7 +3368,7 @@ export type Device = {
   createdAt?: Maybe<Scalars['DateTime']>;
   DeviceManager: DeviceManager;
   deviceManagerId: Scalars['String'];
-  deviceType?: Maybe<Scalars['String']>;
+  deviceType: Scalars['String'];
   id: Scalars['ID'];
   PushToken?: Maybe<PushToken>;
   pushTokenId?: Maybe<Scalars['String']>;
@@ -3386,7 +3387,7 @@ export type DeviceCountOrderByAggregateInput = {
 export type DeviceCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceInput;
-  deviceType?: InputMaybe<Scalars['String']>;
+  deviceType: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   PushToken?: InputMaybe<PushTokenCreateNestedOneWithoutDeviceInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3395,7 +3396,7 @@ export type DeviceCreateInput = {
 export type DeviceCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   deviceManagerId: Scalars['String'];
-  deviceType?: InputMaybe<Scalars['String']>;
+  deviceType: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   pushTokenId?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3425,7 +3426,7 @@ export type DeviceCreateOrConnectWithoutPushTokenInput = {
 
 export type DeviceCreateWithoutDeviceManagerInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  deviceType?: InputMaybe<Scalars['String']>;
+  deviceType: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   PushToken?: InputMaybe<PushTokenCreateNestedOneWithoutDeviceInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3434,7 +3435,7 @@ export type DeviceCreateWithoutDeviceManagerInput = {
 export type DeviceCreateWithoutPushTokenInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceInput;
-  deviceType?: InputMaybe<Scalars['String']>;
+  deviceType: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -3443,7 +3444,7 @@ export type DeviceManager = {
   __typename?: 'DeviceManager';
   createdAt: Scalars['DateTime'];
   Device?: Maybe<Device>;
-  DeviceProfile: Array<ClientDeviceProfile>;
+  DeviceProfile: Array<AuthorizationDeviceProfile>;
   id: Scalars['ID'];
   updatedAt: Scalars['DateTime'];
 };
@@ -3516,10 +3517,10 @@ export type DeviceManagerCreateWithoutDeviceProfileInput = {
 
 export type DeviceManagerDeviceProfiles = {
   __typename?: 'DeviceManagerDeviceProfiles';
-  DeviceProfiles: Array<ClientDeviceProfile>;
+  DeviceProfiles: Array<AuthorizationDeviceProfile>;
 };
 
-export type DeviceManagerDeviceProfilesResponseUnion = DeviceManagerDeviceProfiles | ErrorManaging;
+export type DeviceManagerDeviceProfilesResponseUnion = DeviceManagerDeviceProfiles | Error;
 
 export type DeviceManagerMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
@@ -3694,25 +3695,25 @@ export type DeviceProfileCountOrderByAggregateInput = {
 
 export type DeviceProfileCreateInput = {
   accesstoken?: InputMaybe<Scalars['String']>;
-  AppType?: InputMaybe<AppType>;
+  AppType: AppType;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceProfileInput;
   id?: InputMaybe<Scalars['String']>;
   isActive: Scalars['Boolean'];
-  profileId?: InputMaybe<Scalars['String']>;
-  ProfileType?: InputMaybe<ProfileType>;
+  profileId: Scalars['String'];
+  ProfileType: ProfileType;
   RefreshToken?: InputMaybe<RefreshTokenCreateNestedOneWithoutDeviceProfileInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type DeviceProfileCreateManyDeviceManagerInput = {
   accesstoken?: InputMaybe<Scalars['String']>;
-  AppType?: InputMaybe<AppType>;
+  AppType: AppType;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['String']>;
   isActive: Scalars['Boolean'];
-  profileId?: InputMaybe<Scalars['String']>;
-  ProfileType?: InputMaybe<ProfileType>;
+  profileId: Scalars['String'];
+  ProfileType: ProfileType;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -3723,13 +3724,13 @@ export type DeviceProfileCreateManyDeviceManagerInputEnvelope = {
 
 export type DeviceProfileCreateManyInput = {
   accesstoken?: InputMaybe<Scalars['String']>;
-  AppType?: InputMaybe<AppType>;
+  AppType: AppType;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   deviceManagerId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   isActive: Scalars['Boolean'];
-  profileId?: InputMaybe<Scalars['String']>;
-  ProfileType?: InputMaybe<ProfileType>;
+  profileId: Scalars['String'];
+  ProfileType: ProfileType;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -3758,25 +3759,25 @@ export type DeviceProfileCreateOrConnectWithoutRefreshTokenInput = {
 
 export type DeviceProfileCreateWithoutDeviceManagerInput = {
   accesstoken?: InputMaybe<Scalars['String']>;
-  AppType?: InputMaybe<AppType>;
+  AppType: AppType;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['String']>;
   isActive: Scalars['Boolean'];
-  profileId?: InputMaybe<Scalars['String']>;
-  ProfileType?: InputMaybe<ProfileType>;
+  profileId: Scalars['String'];
+  ProfileType: ProfileType;
   RefreshToken?: InputMaybe<RefreshTokenCreateNestedOneWithoutDeviceProfileInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type DeviceProfileCreateWithoutRefreshTokenInput = {
   accesstoken?: InputMaybe<Scalars['String']>;
-  AppType?: InputMaybe<AppType>;
+  AppType: AppType;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   DeviceManager: DeviceManagerCreateNestedOneWithoutDeviceProfileInput;
   id?: InputMaybe<Scalars['String']>;
   isActive: Scalars['Boolean'];
-  profileId?: InputMaybe<Scalars['String']>;
-  ProfileType?: InputMaybe<ProfileType>;
+  profileId: Scalars['String'];
+  ProfileType: ProfileType;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -3863,54 +3864,54 @@ export enum DeviceProfileScalarFieldEnum {
 export type DeviceProfileScalarWhereInput = {
   accesstoken?: InputMaybe<StringNullableFilter>;
   AND?: InputMaybe<Array<DeviceProfileScalarWhereInput>>;
-  AppType?: InputMaybe<EnumAppTypeNullableFilter>;
+  AppType?: InputMaybe<EnumAppTypeFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   deviceManagerId?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   isActive?: InputMaybe<BoolFilter>;
   NOT?: InputMaybe<Array<DeviceProfileScalarWhereInput>>;
   OR?: InputMaybe<Array<DeviceProfileScalarWhereInput>>;
-  profileId?: InputMaybe<StringNullableFilter>;
-  ProfileType?: InputMaybe<EnumProfileTypeNullableFilter>;
+  profileId?: InputMaybe<StringFilter>;
+  ProfileType?: InputMaybe<EnumProfileTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type DeviceProfileScalarWhereWithAggregatesInput = {
   accesstoken?: InputMaybe<StringNullableWithAggregatesFilter>;
   AND?: InputMaybe<Array<DeviceProfileScalarWhereWithAggregatesInput>>;
-  AppType?: InputMaybe<EnumAppTypeNullableWithAggregatesFilter>;
+  AppType?: InputMaybe<EnumAppTypeWithAggregatesFilter>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   deviceManagerId?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   isActive?: InputMaybe<BoolWithAggregatesFilter>;
   NOT?: InputMaybe<Array<DeviceProfileScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<DeviceProfileScalarWhereWithAggregatesInput>>;
-  profileId?: InputMaybe<StringNullableWithAggregatesFilter>;
-  ProfileType?: InputMaybe<EnumProfileTypeNullableWithAggregatesFilter>;
+  profileId?: InputMaybe<StringWithAggregatesFilter>;
+  ProfileType?: InputMaybe<EnumProfileTypeWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
 
 export type DeviceProfileUpdateInput = {
   accesstoken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  AppType?: InputMaybe<NullableEnumAppTypeFieldUpdateOperationsInput>;
+  AppType?: InputMaybe<EnumAppTypeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   DeviceManager?: InputMaybe<DeviceManagerUpdateOneRequiredWithoutDeviceProfileNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   isActive?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  profileId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  ProfileType?: InputMaybe<NullableEnumProfileTypeFieldUpdateOperationsInput>;
+  profileId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   RefreshToken?: InputMaybe<RefreshTokenUpdateOneWithoutDeviceProfileNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type DeviceProfileUpdateManyMutationInput = {
   accesstoken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  AppType?: InputMaybe<NullableEnumAppTypeFieldUpdateOperationsInput>;
+  AppType?: InputMaybe<EnumAppTypeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   isActive?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  profileId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  ProfileType?: InputMaybe<NullableEnumProfileTypeFieldUpdateOperationsInput>;
+  profileId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -3945,25 +3946,25 @@ export type DeviceProfileUpdateOneWithoutRefreshTokenNestedInput = {
 
 export type DeviceProfileUpdateWithoutDeviceManagerInput = {
   accesstoken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  AppType?: InputMaybe<NullableEnumAppTypeFieldUpdateOperationsInput>;
+  AppType?: InputMaybe<EnumAppTypeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   isActive?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  profileId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  ProfileType?: InputMaybe<NullableEnumProfileTypeFieldUpdateOperationsInput>;
+  profileId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   RefreshToken?: InputMaybe<RefreshTokenUpdateOneWithoutDeviceProfileNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type DeviceProfileUpdateWithoutRefreshTokenInput = {
   accesstoken?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  AppType?: InputMaybe<NullableEnumAppTypeFieldUpdateOperationsInput>;
+  AppType?: InputMaybe<EnumAppTypeFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   DeviceManager?: InputMaybe<DeviceManagerUpdateOneRequiredWithoutDeviceProfileNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   isActive?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  profileId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  ProfileType?: InputMaybe<NullableEnumProfileTypeFieldUpdateOperationsInput>;
+  profileId?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -3986,7 +3987,7 @@ export type DeviceProfileUpsertWithWhereUniqueWithoutDeviceManagerInput = {
 export type DeviceProfileWhereInput = {
   accesstoken?: InputMaybe<StringNullableFilter>;
   AND?: InputMaybe<Array<DeviceProfileWhereInput>>;
-  AppType?: InputMaybe<EnumAppTypeNullableFilter>;
+  AppType?: InputMaybe<EnumAppTypeFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   DeviceManager?: InputMaybe<DeviceManagerWhereInput>;
   deviceManagerId?: InputMaybe<StringFilter>;
@@ -3994,8 +3995,8 @@ export type DeviceProfileWhereInput = {
   isActive?: InputMaybe<BoolFilter>;
   NOT?: InputMaybe<Array<DeviceProfileWhereInput>>;
   OR?: InputMaybe<Array<DeviceProfileWhereInput>>;
-  profileId?: InputMaybe<StringNullableFilter>;
-  ProfileType?: InputMaybe<EnumProfileTypeNullableFilter>;
+  profileId?: InputMaybe<StringFilter>;
+  ProfileType?: InputMaybe<EnumProfileTypeFilter>;
   RefreshToken?: InputMaybe<RefreshTokenWhereInput>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -4022,7 +4023,7 @@ export type DeviceScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<DeviceScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeNullableWithAggregatesFilter>;
   deviceManagerId?: InputMaybe<StringWithAggregatesFilter>;
-  deviceType?: InputMaybe<StringNullableWithAggregatesFilter>;
+  deviceType?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   NOT?: InputMaybe<Array<DeviceScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<DeviceScalarWhereWithAggregatesInput>>;
@@ -4033,7 +4034,7 @@ export type DeviceScalarWhereWithAggregatesInput = {
 export type DeviceUpdateInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   DeviceManager?: InputMaybe<DeviceManagerUpdateOneRequiredWithoutDeviceNestedInput>;
-  deviceType?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  deviceType?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   PushToken?: InputMaybe<PushTokenUpdateOneWithoutDeviceNestedInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
@@ -4041,7 +4042,7 @@ export type DeviceUpdateInput = {
 
 export type DeviceUpdateManyMutationInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
-  deviceType?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  deviceType?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
 };
@@ -4068,7 +4069,7 @@ export type DeviceUpdateOneWithoutPushTokenNestedInput = {
 
 export type DeviceUpdateWithoutDeviceManagerInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
-  deviceType?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  deviceType?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   PushToken?: InputMaybe<PushTokenUpdateOneWithoutDeviceNestedInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
@@ -4077,7 +4078,7 @@ export type DeviceUpdateWithoutDeviceManagerInput = {
 export type DeviceUpdateWithoutPushTokenInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   DeviceManager?: InputMaybe<DeviceManagerUpdateOneRequiredWithoutDeviceNestedInput>;
-  deviceType?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  deviceType?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
 };
@@ -4097,7 +4098,7 @@ export type DeviceWhereInput = {
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   DeviceManager?: InputMaybe<DeviceManagerWhereInput>;
   deviceManagerId?: InputMaybe<StringFilter>;
-  deviceType?: InputMaybe<StringNullableFilter>;
+  deviceType?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   NOT?: InputMaybe<Array<DeviceWhereInput>>;
   OR?: InputMaybe<Array<DeviceWhereInput>>;
@@ -4699,17 +4700,21 @@ export type EmojimoodWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
-export type EnumAppTypeNullableFilter = {
+export type EnumAppTypeFieldUpdateOperationsInput = {
+  set?: InputMaybe<AppType>;
+};
+
+export type EnumAppTypeFilter = {
   equals?: InputMaybe<AppType>;
   in?: InputMaybe<Array<AppType>>;
   not?: InputMaybe<AppType>;
   notIn?: InputMaybe<Array<AppType>>;
 };
 
-export type EnumAppTypeNullableWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntNullableFilter>;
-  _max?: InputMaybe<NestedEnumAppTypeNullableFilter>;
-  _min?: InputMaybe<NestedEnumAppTypeNullableFilter>;
+export type EnumAppTypeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumAppTypeFilter>;
+  _min?: InputMaybe<NestedEnumAppTypeFilter>;
   equals?: InputMaybe<AppType>;
   in?: InputMaybe<Array<AppType>>;
   not?: InputMaybe<AppType>;
@@ -4759,23 +4764,6 @@ export type EnumProfileTypeFieldUpdateOperationsInput = {
 };
 
 export type EnumProfileTypeFilter = {
-  equals?: InputMaybe<ProfileType>;
-  in?: InputMaybe<Array<ProfileType>>;
-  not?: InputMaybe<ProfileType>;
-  notIn?: InputMaybe<Array<ProfileType>>;
-};
-
-export type EnumProfileTypeNullableFilter = {
-  equals?: InputMaybe<ProfileType>;
-  in?: InputMaybe<Array<ProfileType>>;
-  not?: InputMaybe<ProfileType>;
-  notIn?: InputMaybe<Array<ProfileType>>;
-};
-
-export type EnumProfileTypeNullableWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntNullableFilter>;
-  _max?: InputMaybe<NestedEnumProfileTypeNullableFilter>;
-  _min?: InputMaybe<NestedEnumProfileTypeNullableFilter>;
   equals?: InputMaybe<ProfileType>;
   in?: InputMaybe<Array<ProfileType>>;
   not?: InputMaybe<ProfileType>;
@@ -4843,15 +4831,8 @@ export type EnumTypeOfDocumentWithAggregatesFilter = {
 };
 
 /** Long necks, cool patterns, taller than you. */
-export type ErrorManaging = {
-  __typename?: 'ErrorManaging';
-  errorCode: Scalars['String'];
-  message: Scalars['String'];
-};
-
-/** Long necks, cool patterns, taller than you. */
-export type ErrorProfiling = {
-  __typename?: 'ErrorProfiling';
+export type Error = {
+  __typename?: 'Error';
   errorCode: Scalars['String'];
   message: Scalars['String'];
 };
@@ -8377,15 +8358,14 @@ export type Mutation = {
   acceptFriendRequest: Relationship;
   addPersonalJoinsVenue: Profile;
   addPersonalTotalsVenue: Scalars['Boolean'];
-  createADeviceManager: ClientDeviceManager;
   createFriendRequest: Scalars['Boolean'];
-  createGuestProfile: ProfileResponseUnion;
-  createPersonalProfile: ProfileResponseUnion;
-  createVenueProfile: ProfileResponseUnion;
+  createGuestProfile: AuthenticationResponseUnion;
+  createPersonalProfile: AuthenticationResponseUnion;
+  createVenueProfile: AuthenticationResponseUnion;
   declineFriendRequest: Scalars['Boolean'];
   deleteFriendRequest: Scalars['Boolean'];
   qrAddFriend: Relationship;
-  refreshDeviceManager: RefreshDeviceManagerDeviceManagerResponseUnion;
+  refreshDeviceManager: AuthenticationResponseUnion;
   removeAllFromVenue: Scalars['Boolean'];
   removeDeviceProfileFromDeviceManager: Scalars['Boolean'];
   removeFriend: Scalars['Boolean'];
@@ -8393,7 +8373,7 @@ export type Mutation = {
   removePersonalTotalsVenue: Scalars['Boolean'];
   sendAuthenticatorDeviceOwnerCode: CodeResponse;
   sendAuthenticatorForgotPasswordCode: CodeResponse;
-  switchDeviceProfile: RefreshDeviceManagerDeviceManagerResponseUnion;
+  switchDeviceProfile: AuthenticationResponseUnion;
   /** Update H6 coming area to be notified */
   updateH6ComingAreaToBeNotified: ComingArea;
   /** Update H6 coming area vote */
@@ -8401,7 +8381,7 @@ export type Mutation = {
   /** This function updates the upvote for a venue recommendation for a H3Index6. If the user has already upvoted, it will be set to false. If the user has not upvoted, it will be set to true. */
   updateH6VenueRemmendation: H3Index6VenueRecommendation;
   updateOneProfile?: Maybe<Profile>;
-  updateProfileIdentifiableInformation: ProfileResponseUnion;
+  updateProfileIdentifiableInformation: AuthenticationResponseUnion;
   updateStoryEmojimood: Scalars['Boolean'];
   updateStoryPhotos: Scalars['Boolean'];
   updateThemeManagerSwitchTheme: ProfileTheme;
@@ -8424,11 +8404,6 @@ export type MutationAddPersonalJoinsVenueArgs = {
 export type MutationAddPersonalTotalsVenueArgs = {
   profileIdPersonal?: InputMaybe<Scalars['String']>;
   profileIdVenue?: InputMaybe<Scalars['String']>;
-};
-
-
-export type MutationCreateADeviceManagerArgs = {
-  profileId: Scalars['String'];
 };
 
 
@@ -8636,17 +8611,17 @@ export type NestedDateTimeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
-export type NestedEnumAppTypeNullableFilter = {
+export type NestedEnumAppTypeFilter = {
   equals?: InputMaybe<AppType>;
   in?: InputMaybe<Array<AppType>>;
   not?: InputMaybe<AppType>;
   notIn?: InputMaybe<Array<AppType>>;
 };
 
-export type NestedEnumAppTypeNullableWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntNullableFilter>;
-  _max?: InputMaybe<NestedEnumAppTypeNullableFilter>;
-  _min?: InputMaybe<NestedEnumAppTypeNullableFilter>;
+export type NestedEnumAppTypeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumAppTypeFilter>;
+  _min?: InputMaybe<NestedEnumAppTypeFilter>;
   equals?: InputMaybe<AppType>;
   in?: InputMaybe<Array<AppType>>;
   not?: InputMaybe<AppType>;
@@ -8688,23 +8663,6 @@ export type NestedEnumPhotoTypeNullableWithAggregatesFilter = {
 };
 
 export type NestedEnumProfileTypeFilter = {
-  equals?: InputMaybe<ProfileType>;
-  in?: InputMaybe<Array<ProfileType>>;
-  not?: InputMaybe<ProfileType>;
-  notIn?: InputMaybe<Array<ProfileType>>;
-};
-
-export type NestedEnumProfileTypeNullableFilter = {
-  equals?: InputMaybe<ProfileType>;
-  in?: InputMaybe<Array<ProfileType>>;
-  not?: InputMaybe<ProfileType>;
-  notIn?: InputMaybe<Array<ProfileType>>;
-};
-
-export type NestedEnumProfileTypeNullableWithAggregatesFilter = {
-  _count?: InputMaybe<NestedIntNullableFilter>;
-  _max?: InputMaybe<NestedEnumProfileTypeNullableFilter>;
-  _min?: InputMaybe<NestedEnumProfileTypeNullableFilter>;
   equals?: InputMaybe<ProfileType>;
   in?: InputMaybe<Array<ProfileType>>;
   not?: InputMaybe<ProfileType>;
@@ -8909,7 +8867,7 @@ export type NestedStringWithAggregatesFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
-export type NotificationFriendRequestStatusResponse = ErrorProfiling | FriendRequest | RejectedFriendsResponse | Relationship;
+export type NotificationFriendRequestStatusResponse = Error | FriendRequest | RejectedFriendsResponse | Relationship;
 
 export type NotificationResponse = {
   __typename?: 'NotificationResponse';
@@ -9328,16 +9286,8 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type NullableEnumAppTypeFieldUpdateOperationsInput = {
-  set?: InputMaybe<AppType>;
-};
-
 export type NullableEnumPhotoTypeFieldUpdateOperationsInput = {
   set?: InputMaybe<PhotoType>;
-};
-
-export type NullableEnumProfileTypeFieldUpdateOperationsInput = {
-  set?: InputMaybe<ProfileType>;
 };
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -12582,8 +12532,6 @@ export type ProfileRelationFilter = {
   isNot?: InputMaybe<ProfileWhereInput>;
 };
 
-export type ProfileResponseUnion = ErrorProfiling | Profile;
-
 export enum ProfileScalarFieldEnum {
   Bfsprofileid = 'bfsprofileid',
   CreatedAt = 'createdAt',
@@ -14041,14 +13989,12 @@ export enum QueryMode {
   Insensitive = 'insensitive'
 }
 
-export type RecommendationResponseUnion = ComingAreaResponse | ErrorProfiling | VenuesNearbyResponse;
-
-export type RefreshDeviceManagerDeviceManagerResponseUnion = ClientDeviceManager | ErrorManaging;
+export type RecommendationResponseUnion = ComingAreaResponse | Error | VenuesNearbyResponse;
 
 export type RefreshToken = {
   __typename?: 'RefreshToken';
   createdAt: Scalars['DateTime'];
-  DeviceProfile?: Maybe<ClientDeviceProfile>;
+  DeviceProfile?: Maybe<AuthorizationDeviceProfile>;
   DeviceProfileId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   token: Scalars['String'];
@@ -17030,7 +16976,7 @@ export type UpdateManyNotificationStatusInput = {
   notificationStatusIds: Array<UpdateNotificationStatusInput>;
 };
 
-export type UpdateManyNotificationStatusUnionResponse = ErrorProfiling | UpdateNotificationResponse;
+export type UpdateManyNotificationStatusUnionResponse = Error | UpdateNotificationResponse;
 
 export type UpdateNotificationResponse = {
   __typename?: 'UpdateNotificationResponse';
@@ -18061,13 +18007,15 @@ export type State_FragmentFragment = { __typename?: 'State', id: string, name: s
 
 export type City_FragmentFragment = { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } };
 
+export type Authorization_Device_Profile_FragmentFragment = { __typename?: 'AuthorizationDeviceProfile', id: string, profileId: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, deviceManagerId: string, AppType: AppType, ProfileType: ProfileType, createdAt: any, updatedAt: any, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null, DeviceManager: { __typename?: 'DeviceManager', id: string }, RefreshToken?: { __typename?: 'RefreshToken', id: string, token: string, createdAt: any, updatedAt: any } | null };
+
+export type Authorization_Device_Manager_FragmentFragment = { __typename?: 'AuthorizationDeviceManager', id: string, DeviceProfile?: { __typename?: 'AuthorizationDeviceProfile', id: string, profileId: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, deviceManagerId: string, AppType: AppType, ProfileType: ProfileType, createdAt: any, updatedAt: any, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null, DeviceManager: { __typename?: 'DeviceManager', id: string }, RefreshToken?: { __typename?: 'RefreshToken', id: string, token: string, createdAt: any, updatedAt: any } | null } | null, Device?: { __typename?: 'Device', id: string } | null };
+
 export type Credentials_FragmentFragment = { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null };
 
 export type Detail_Information_FragmentFragment = { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> };
 
-export type Error_FragmentFragment = { __typename?: 'ErrorManaging', errorCode: string, message: string };
-
-export type Error_Profiling_FragmentFragment = { __typename?: 'ErrorProfiling', errorCode: string, message: string };
+export type Error_FragmentFragment = { __typename?: 'Error', errorCode: string, message: string };
 
 export type Indetifiable_Information_FragmentFragment = { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null };
 
@@ -18104,30 +18052,23 @@ export type UpsertDevicePushTokenMutationVariables = Exact<{
 
 export type UpsertDevicePushTokenMutation = { __typename?: 'Mutation', upsertDevicePushToken: boolean };
 
-export type CreateADeviceManagerMutationVariables = Exact<{
-  profileId: Scalars['String'];
-}>;
-
-
-export type CreateADeviceManagerMutation = { __typename?: 'Mutation', createADeviceManager: { __typename?: 'ClientDeviceManager', id: string, DeviceProfile?: { __typename?: 'ClientDeviceProfile', id: string, isActive: boolean, accesstoken?: string | null, AppType?: AppType | null, deviceManagerId: string, RefreshToken?: { __typename?: 'RefreshToken', id: string } | null, DeviceManager: { __typename?: 'DeviceManager', id: string }, Profile: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } } | null } };
-
 export type SwitchDeviceProfileMutationVariables = Exact<{
   profileId: Scalars['String'];
   profileType?: InputMaybe<ProfileType>;
 }>;
 
 
-export type SwitchDeviceProfileMutation = { __typename?: 'Mutation', switchDeviceProfile: { __typename: 'ClientDeviceManager', id: string, DeviceProfile?: { __typename?: 'ClientDeviceProfile', id: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, AppType?: AppType | null, deviceManagerId: string, DeviceManager: { __typename?: 'DeviceManager', id: string }, Profile: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } } | null } | { __typename?: 'ErrorManaging', errorCode: string, message: string } };
+export type SwitchDeviceProfileMutation = { __typename?: 'Mutation', switchDeviceProfile: { __typename: 'AuthorizationDeviceManager', id: string, DeviceProfile?: { __typename?: 'AuthorizationDeviceProfile', id: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, AppType: AppType, deviceManagerId: string, DeviceManager: { __typename?: 'DeviceManager', id: string }, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null } | null } | { __typename?: 'Error', errorCode: string, message: string } };
 
 export type RefreshDeviceManagerMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RefreshDeviceManagerMutation = { __typename?: 'Mutation', refreshDeviceManager: { __typename: 'ClientDeviceManager', id: string, DeviceProfile?: { __typename?: 'ClientDeviceProfile', id: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, AppType?: AppType | null, deviceManagerId: string, DeviceManager: { __typename?: 'DeviceManager', id: string }, Profile: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } } | null } | { __typename?: 'ErrorManaging', errorCode: string, message: string } };
+export type RefreshDeviceManagerMutation = { __typename?: 'Mutation', refreshDeviceManager: { __typename?: 'AuthorizationDeviceManager', id: string, DeviceProfile?: { __typename?: 'AuthorizationDeviceProfile', id: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, AppType: AppType, deviceManagerId: string, DeviceManager: { __typename?: 'DeviceManager', id: string }, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null } | null } | { __typename?: 'Error', errorCode: string, message: string } };
 
 export type GetADeviceManagerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetADeviceManagerQuery = { __typename?: 'Query', getADeviceManager: { __typename?: 'DeviceManagerDeviceProfiles', DeviceProfiles: Array<{ __typename?: 'ClientDeviceProfile', id: string, AppType?: AppType | null, isActive: boolean, accesstoken?: string | null, refreshtoken?: string | null, Profile: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } }> } | { __typename?: 'ErrorManaging' } };
+export type GetADeviceManagerQuery = { __typename?: 'Query', getADeviceManager: { __typename?: 'DeviceManagerDeviceProfiles', DeviceProfiles: Array<{ __typename?: 'AuthorizationDeviceProfile', id: string, AppType: AppType, isActive: boolean, accesstoken?: string | null, refreshtoken?: string | null, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null }> } | { __typename?: 'Error' } };
 
 export type SendAuthenticatorDeviceOwnerCodeMutationVariables = Exact<{
   data?: InputMaybe<CodeDataInput>;
@@ -18135,14 +18076,14 @@ export type SendAuthenticatorDeviceOwnerCodeMutationVariables = Exact<{
 }>;
 
 
-export type SendAuthenticatorDeviceOwnerCodeMutation = { __typename?: 'Mutation', sendAuthenticatorDeviceOwnerCode: { __typename?: 'Code', id: string, code: string } | { __typename?: 'ErrorProfiling', errorCode: string, message: string } };
+export type SendAuthenticatorDeviceOwnerCodeMutation = { __typename?: 'Mutation', sendAuthenticatorDeviceOwnerCode: { __typename?: 'Code', id: string, code: string } | { __typename?: 'Error', errorCode: string, message: string } };
 
 export type AuthorizedProfilesQueryVariables = Exact<{
   where: AuthorizedProfilesWhereInput;
 }>;
 
 
-export type AuthorizedProfilesQuery = { __typename?: 'Query', authorizedProfiles?: { __typename?: 'ErrorProfiling', errorCode: string, message: string } | { __typename?: 'ProfilesResponse', email: Array<{ __typename?: 'Profile', id: string, ProfileType: ProfileType, photos?: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null }>, phone: Array<{ __typename?: 'Profile', id: string, ProfileType: ProfileType, profilePhoto?: { __typename?: 'Photo', id: string, blurhash?: string | null, url: string } | null, photos?: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null, tonightStory?: { __typename?: 'Story', id: string, emojimood: Array<{ __typename?: 'Emojimood', colors: Array<string>, emoji?: string | null, emojiname?: string | null }> } | null }>, username: Array<{ __typename?: 'Profile', id: string, ProfileType: ProfileType, profilePhoto?: { __typename?: 'Photo', id: string, blurhash?: string | null, url: string } | null, photos?: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null }> } | null };
+export type AuthorizedProfilesQuery = { __typename?: 'Query', authorizedProfiles?: { __typename?: 'Error', errorCode: string, message: string } | { __typename?: 'ProfilesResponse', email: Array<{ __typename?: 'Profile', id: string, ProfileType: ProfileType, photos?: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null }>, phone: Array<{ __typename?: 'Profile', id: string, ProfileType: ProfileType, profilePhoto?: { __typename?: 'Photo', id: string, blurhash?: string | null, url: string } | null, photos?: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null, tonightStory?: { __typename?: 'Story', id: string, emojimood: Array<{ __typename?: 'Emojimood', colors: Array<string>, emoji?: string | null, emojiname?: string | null }> } | null }>, username: Array<{ __typename?: 'Profile', id: string, ProfileType: ProfileType, profilePhoto?: { __typename?: 'Photo', id: string, blurhash?: string | null, url: string } | null, photos?: Array<{ __typename?: 'Photo', id: string, blurhash?: string | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null }> } | null };
 
 export type PrivacyTermsDocumentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -18235,7 +18176,7 @@ export type GetRelationshipFriendRequestStatusQueryVariables = Exact<{
 }>;
 
 
-export type GetRelationshipFriendRequestStatusQuery = { __typename?: 'Query', getRelationshipFriendRequestStatus: { __typename?: 'ErrorProfiling', errorCode: string, message: string } | { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string, profileId: string, Profile: { __typename?: 'Profile', id: string } }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } } | { __typename?: 'RejectedFriendsResponse', friends: boolean } | { __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null } };
+export type GetRelationshipFriendRequestStatusQuery = { __typename?: 'Query', getRelationshipFriendRequestStatus: { __typename?: 'Error', errorCode: string, message: string } | { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string, profileId: string, Profile: { __typename?: 'Profile', id: string } }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean } } | { __typename?: 'RejectedFriendsResponse', friends: boolean } | { __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null } };
 
 export type GetSecureFriendQrCodeDataQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -18298,19 +18239,19 @@ export type CreatePersonalProfileMutationVariables = Exact<{
 }>;
 
 
-export type CreatePersonalProfileMutation = { __typename?: 'Mutation', createPersonalProfile: { __typename?: 'ErrorProfiling', errorCode: string, message: string } | { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } };
+export type CreatePersonalProfileMutation = { __typename?: 'Mutation', createPersonalProfile: { __typename?: 'AuthorizationDeviceManager', id: string, DeviceProfile?: { __typename?: 'AuthorizationDeviceProfile', id: string, profileId: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, deviceManagerId: string, AppType: AppType, ProfileType: ProfileType, createdAt: any, updatedAt: any, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null, DeviceManager: { __typename?: 'DeviceManager', id: string }, RefreshToken?: { __typename?: 'RefreshToken', id: string, token: string, createdAt: any, updatedAt: any } | null } | null, Device?: { __typename?: 'Device', id: string } | null } | { __typename?: 'Error', errorCode: string, message: string } };
 
 export type CreateGuestProfileMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateGuestProfileMutation = { __typename?: 'Mutation', createGuestProfile: { __typename?: 'ErrorProfiling', errorCode: string, message: string } | { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } };
+export type CreateGuestProfileMutation = { __typename?: 'Mutation', createGuestProfile: { __typename?: 'AuthorizationDeviceManager', id: string, DeviceProfile?: { __typename?: 'AuthorizationDeviceProfile', id: string, profileId: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, deviceManagerId: string, AppType: AppType, ProfileType: ProfileType, createdAt: any, updatedAt: any, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null, DeviceManager: { __typename?: 'DeviceManager', id: string }, RefreshToken?: { __typename?: 'RefreshToken', id: string, token: string, createdAt: any, updatedAt: any } | null } | null, Device?: { __typename?: 'Device', id: string } | null } | { __typename?: 'Error', errorCode: string, message: string } };
 
 export type UpdateProfileIdentifiableInformationMutationVariables = Exact<{
   data: IdentifiableInformationUpdateInput;
 }>;
 
 
-export type UpdateProfileIdentifiableInformationMutation = { __typename?: 'Mutation', updateProfileIdentifiableInformation: { __typename?: 'ErrorProfiling', errorCode: string, message: string } | { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } };
+export type UpdateProfileIdentifiableInformationMutation = { __typename?: 'Mutation', updateProfileIdentifiableInformation: { __typename?: 'AuthorizationDeviceManager', id: string, DeviceProfile?: { __typename?: 'AuthorizationDeviceProfile', id: string, profileId: string, isActive: boolean, refreshtoken?: string | null, accesstoken?: string | null, deviceManagerId: string, AppType: AppType, ProfileType: ProfileType, createdAt: any, updatedAt: any, Profile?: { __typename: 'Profile', id: string, ProfileType: ProfileType, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, resentSearches?: { __typename?: 'SearchesService', id: string, profileId: string, searches: Array<any>, Profile: { __typename?: 'Profile', id: string } } | null, ThemeManager?: { __typename?: 'ThemeManager', id: string, ProfileTheme: Array<{ __typename?: 'ProfileTheme', id: string, isActive: boolean, themeId: string, themeManagerId?: string | null, updatedAt: any, createdAt: any, ThemeManager: { __typename?: 'ThemeManager', id: string }, Theme: { __typename?: 'Theme', id: string, name: string, mobile: any, mobileVersions: Array<string>, web: any, webVersions: Array<string>, startDate?: any | null, updatedAt: any, createdAt: any, endDate?: any | null } }> } | null, Relationships: Array<{ __typename?: 'Relationship', id: string, RelationshipStatus: Array<RelationshipStatus>, venueMetAt?: string | null, createdAt: any, updatedAt: any, friendProfile?: { __typename?: 'Profile', id: string, ProfileType: ProfileType, tonightStory?: { __typename?: 'Story', emojimood: Array<{ __typename?: 'Emojimood', id: string, emojiname?: string | null, emoji?: string | null, colors: Array<string> }>, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, active: boolean, position?: number | null, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> } | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, firstname?: string | null, lastname?: string | null, fullname?: string | null, username: string } | null } | null }>, profilePhoto?: { __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any } | null, photos?: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }> | null, Credentials: { __typename?: 'Credentials', id: string, AuthenticationProvider?: { __typename?: 'AuthenticationProvider', id: string, phones: Array<{ __typename?: 'Phone', id: string, number: string, completeNumber?: string | null, countryCode?: string | null, canUseAsRecovery?: boolean | null, countryCallingCode?: string | null, createdAt: any, updatedAt: any }>, emails: Array<{ __typename?: 'Email', id: string, email: string, canUseAsRecovery?: boolean | null, createdAt: any, updatedAt: any }> } | null }, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, PersonalStats?: { __typename?: 'PersonalStats', id: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, personalId: string, createdAt: any, updatedAt: any, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string } } | null } | null, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null, tonightStory?: { __typename?: 'Story', id: string, photos: Array<{ __typename?: 'Photo', id: string, position?: number | null, url: string }>, emojimood: Array<{ __typename: 'Emojimood', id: string, colors: Array<string>, emojiname?: string | null, emoji?: string | null }> } | null } | null, DeviceManager: { __typename?: 'DeviceManager', id: string }, RefreshToken?: { __typename?: 'RefreshToken', id: string, token: string, createdAt: any, updatedAt: any } | null } | null, Device?: { __typename?: 'Device', id: string } | null } | { __typename?: 'Error', errorCode: string, message: string } };
 
 export type UpdateOneProfileMutationVariables = Exact<{
   data: ProfileUpdateInput;
@@ -18388,7 +18329,7 @@ export type VenuesNearbyQueryVariables = Exact<{
 }>;
 
 
-export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'ComingAreaResponse', comingAreas: Array<{ __typename?: 'ComingArea', id: string, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested: number, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, Vote: Array<{ __typename?: 'Vote', id: string, profileId: string, upvote: boolean }> }>, searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null } | { __typename?: 'ErrorProfiling', errorCode: string, message: string } | { __typename?: 'VenuesNearbyResponse', searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, venuesNearby: Array<{ __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null }> } };
+export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'ComingAreaResponse', comingAreas: Array<{ __typename?: 'ComingArea', id: string, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested: number, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, Vote: Array<{ __typename?: 'Vote', id: string, profileId: string, upvote: boolean }> }>, searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null } | { __typename?: 'Error', errorCode: string, message: string } | { __typename?: 'VenuesNearbyResponse', searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, venuesNearby: Array<{ __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null }> } };
 
 export type GetAllCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -18408,7 +18349,7 @@ export type GetAllCitiesByStateQueryVariables = Exact<{
 }>;
 
 
-export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, countryCode: string, latitude?: string | null, longitude?: string | null }> };
+export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, venuesInArea?: number | null, countryCode: string, latitude?: string | null, longitude?: string | null }> };
 
 export type UpdateStoryPhotosMutationVariables = Exact<{
   disconnectId: Scalars['String'];
@@ -18505,24 +18446,6 @@ export const City_FragmentFragmentDoc = gql`
     latitude
     longitude
   }
-}
-    `;
-export const Error_FragmentFragmentDoc = gql`
-    fragment ERROR_FRAGMENT on ErrorManaging {
-  errorCode
-  message
-}
-    `;
-export const Error_Profiling_FragmentFragmentDoc = gql`
-    fragment ERROR_PROFILING_FRAGMENT on ErrorProfiling {
-  errorCode
-  message
-}
-    `;
-export const Code_FragmentFragmentDoc = gql`
-    fragment CODE_FRAGMENT on Code {
-  id
-  code
 }
     `;
 export const Indetifiable_Information_FragmentFragmentDoc = gql`
@@ -18836,6 +18759,55 @@ ${Relationship_FragmentFragmentDoc}
 ${Credentials_FragmentFragmentDoc}
 ${Out_FragmentFragmentDoc}
 ${Location_FragmentFragmentDoc}`;
+export const Authorization_Device_Profile_FragmentFragmentDoc = gql`
+    fragment AUTHORIZATION_DEVICE_PROFILE_FRAGMENT on AuthorizationDeviceProfile {
+  id
+  profileId
+  isActive
+  refreshtoken
+  accesstoken
+  deviceManagerId
+  Profile {
+    ...PROFILE_FRAGMENT
+  }
+  AppType
+  ProfileType
+  DeviceManager {
+    id
+  }
+  RefreshToken {
+    id
+    token
+    createdAt
+    updatedAt
+  }
+  createdAt
+  updatedAt
+}
+    ${Profile_FragmentFragmentDoc}`;
+export const Authorization_Device_Manager_FragmentFragmentDoc = gql`
+    fragment AUTHORIZATION_DEVICE_MANAGER_FRAGMENT on AuthorizationDeviceManager {
+  id
+  DeviceProfile {
+    ...AUTHORIZATION_DEVICE_PROFILE_FRAGMENT
+  }
+  Device {
+    id
+  }
+}
+    ${Authorization_Device_Profile_FragmentFragmentDoc}`;
+export const Error_FragmentFragmentDoc = gql`
+    fragment ERROR_FRAGMENT on Error {
+  errorCode
+  message
+}
+    `;
+export const Code_FragmentFragmentDoc = gql`
+    fragment CODE_FRAGMENT on Code {
+  id
+  code
+}
+    `;
 export const Personal_FragmentFragmentDoc = gql`
     fragment PERSONAL_FRAGMENT on Personal {
   id
@@ -19051,59 +19023,10 @@ export function useUpsertDevicePushTokenMutation(baseOptions?: Apollo.MutationHo
 export type UpsertDevicePushTokenMutationHookResult = ReturnType<typeof useUpsertDevicePushTokenMutation>;
 export type UpsertDevicePushTokenMutationResult = Apollo.MutationResult<UpsertDevicePushTokenMutation>;
 export type UpsertDevicePushTokenMutationOptions = Apollo.BaseMutationOptions<UpsertDevicePushTokenMutation, UpsertDevicePushTokenMutationVariables>;
-export const CreateADeviceManagerDocument = gql`
-    mutation createADeviceManager($profileId: String!) {
-  createADeviceManager(profileId: $profileId) {
-    id
-    DeviceProfile {
-      id
-      isActive
-      RefreshToken {
-        id
-      }
-      accesstoken
-      AppType
-      DeviceManager {
-        id
-      }
-      deviceManagerId
-      Profile {
-        ...PROFILE_FRAGMENT
-      }
-    }
-  }
-}
-    ${Profile_FragmentFragmentDoc}`;
-export type CreateADeviceManagerMutationFn = Apollo.MutationFunction<CreateADeviceManagerMutation, CreateADeviceManagerMutationVariables>;
-
-/**
- * __useCreateADeviceManagerMutation__
- *
- * To run a mutation, you first call `useCreateADeviceManagerMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateADeviceManagerMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createADeviceManagerMutation, { data, loading, error }] = useCreateADeviceManagerMutation({
- *   variables: {
- *      profileId: // value for 'profileId'
- *   },
- * });
- */
-export function useCreateADeviceManagerMutation(baseOptions?: Apollo.MutationHookOptions<CreateADeviceManagerMutation, CreateADeviceManagerMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateADeviceManagerMutation, CreateADeviceManagerMutationVariables>(CreateADeviceManagerDocument, options);
-      }
-export type CreateADeviceManagerMutationHookResult = ReturnType<typeof useCreateADeviceManagerMutation>;
-export type CreateADeviceManagerMutationResult = Apollo.MutationResult<CreateADeviceManagerMutation>;
-export type CreateADeviceManagerMutationOptions = Apollo.BaseMutationOptions<CreateADeviceManagerMutation, CreateADeviceManagerMutationVariables>;
 export const SwitchDeviceProfileDocument = gql`
     mutation switchDeviceProfile($profileId: String!, $profileType: ProfileType) {
   switchDeviceProfile(profileId: $profileId, profileType: $profileType) {
-    ... on ClientDeviceManager {
+    ... on AuthorizationDeviceManager {
       __typename
       id
       DeviceProfile {
@@ -19121,7 +19044,7 @@ export const SwitchDeviceProfileDocument = gql`
         }
       }
     }
-    ... on ErrorManaging {
+    ... on Error {
       errorCode
       message
     }
@@ -19158,8 +19081,7 @@ export type SwitchDeviceProfileMutationOptions = Apollo.BaseMutationOptions<Swit
 export const RefreshDeviceManagerDocument = gql`
     mutation refreshDeviceManager {
   refreshDeviceManager {
-    ... on ClientDeviceManager {
-      __typename
+    ... on AuthorizationDeviceManager {
       id
       DeviceProfile {
         id
@@ -19176,7 +19098,7 @@ export const RefreshDeviceManagerDocument = gql`
         }
       }
     }
-    ... on ErrorManaging {
+    ... on Error {
       errorCode
       message
     }
@@ -19259,13 +19181,13 @@ export const SendAuthenticatorDeviceOwnerCodeDocument = gql`
     ... on Code {
       ...CODE_FRAGMENT
     }
-    ... on ErrorProfiling {
-      ...ERROR_PROFILING_FRAGMENT
+    ... on Error {
+      ...ERROR_FRAGMENT
     }
   }
 }
     ${Code_FragmentFragmentDoc}
-${Error_Profiling_FragmentFragmentDoc}`;
+${Error_FragmentFragmentDoc}`;
 export type SendAuthenticatorDeviceOwnerCodeMutationFn = Apollo.MutationFunction<SendAuthenticatorDeviceOwnerCodeMutation, SendAuthenticatorDeviceOwnerCodeMutationVariables>;
 
 /**
@@ -19296,8 +19218,8 @@ export type SendAuthenticatorDeviceOwnerCodeMutationOptions = Apollo.BaseMutatio
 export const AuthorizedProfilesDocument = gql`
     query authorizedProfiles($where: AuthorizedProfilesWhereInput!) {
   authorizedProfiles(where: $where) {
-    ... on ErrorProfiling {
-      ...ERROR_PROFILING_FRAGMENT
+    ... on Error {
+      ...ERROR_FRAGMENT
     }
     ... on ProfilesResponse {
       email {
@@ -19363,7 +19285,7 @@ export const AuthorizedProfilesDocument = gql`
     }
   }
 }
-    ${Error_Profiling_FragmentFragmentDoc}`;
+    ${Error_FragmentFragmentDoc}`;
 
 /**
  * __useAuthorizedProfilesQuery__
@@ -19871,7 +19793,7 @@ export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFrien
 export const GetRelationshipFriendRequestStatusDocument = gql`
     query getRelationshipFriendRequestStatus($profileId: String!) {
   getRelationshipFriendRequestStatus(profileId: $profileId) {
-    ... on ErrorProfiling {
+    ... on Error {
       errorCode
       message
     }
@@ -20351,16 +20273,16 @@ export type GetLiveVenueTotalsQueryResult = Apollo.QueryResult<GetLiveVenueTotal
 export const CreatePersonalProfileDocument = gql`
     mutation createPersonalProfile($data: CreatePersonalDataInput) {
   createPersonalProfile(data: $data) {
-    ... on ErrorProfiling {
-      ...ERROR_PROFILING_FRAGMENT
+    ... on Error {
+      ...ERROR_FRAGMENT
     }
-    ... on Profile {
-      ...PROFILE_FRAGMENT
+    ... on AuthorizationDeviceManager {
+      ...AUTHORIZATION_DEVICE_MANAGER_FRAGMENT
     }
   }
 }
-    ${Error_Profiling_FragmentFragmentDoc}
-${Profile_FragmentFragmentDoc}`;
+    ${Error_FragmentFragmentDoc}
+${Authorization_Device_Manager_FragmentFragmentDoc}`;
 export type CreatePersonalProfileMutationFn = Apollo.MutationFunction<CreatePersonalProfileMutation, CreatePersonalProfileMutationVariables>;
 
 /**
@@ -20390,16 +20312,16 @@ export type CreatePersonalProfileMutationOptions = Apollo.BaseMutationOptions<Cr
 export const CreateGuestProfileDocument = gql`
     mutation createGuestProfile {
   createGuestProfile {
-    ... on ErrorProfiling {
-      ...ERROR_PROFILING_FRAGMENT
+    ... on Error {
+      ...ERROR_FRAGMENT
     }
-    ... on Profile {
-      ...PROFILE_FRAGMENT
+    ... on AuthorizationDeviceManager {
+      ...AUTHORIZATION_DEVICE_MANAGER_FRAGMENT
     }
   }
 }
-    ${Error_Profiling_FragmentFragmentDoc}
-${Profile_FragmentFragmentDoc}`;
+    ${Error_FragmentFragmentDoc}
+${Authorization_Device_Manager_FragmentFragmentDoc}`;
 export type CreateGuestProfileMutationFn = Apollo.MutationFunction<CreateGuestProfileMutation, CreateGuestProfileMutationVariables>;
 
 /**
@@ -20428,16 +20350,16 @@ export type CreateGuestProfileMutationOptions = Apollo.BaseMutationOptions<Creat
 export const UpdateProfileIdentifiableInformationDocument = gql`
     mutation updateProfileIdentifiableInformation($data: IdentifiableInformationUpdateInput!) {
   updateProfileIdentifiableInformation(data: $data) {
-    ... on ErrorProfiling {
-      ...ERROR_PROFILING_FRAGMENT
+    ... on Error {
+      ...ERROR_FRAGMENT
     }
-    ... on Profile {
-      ...PROFILE_FRAGMENT
+    ... on AuthorizationDeviceManager {
+      ...AUTHORIZATION_DEVICE_MANAGER_FRAGMENT
     }
   }
 }
-    ${Error_Profiling_FragmentFragmentDoc}
-${Profile_FragmentFragmentDoc}`;
+    ${Error_FragmentFragmentDoc}
+${Authorization_Device_Manager_FragmentFragmentDoc}`;
 export type UpdateProfileIdentifiableInformationMutationFn = Apollo.MutationFunction<UpdateProfileIdentifiableInformationMutation, UpdateProfileIdentifiableInformationMutationVariables>;
 
 /**
@@ -20835,7 +20757,7 @@ export const VenuesNearbyDocument = gql`
         ...AREA_FRAGMENT
       }
     }
-    ... on ErrorProfiling {
+    ... on Error {
       errorCode
       message
     }
@@ -20967,6 +20889,7 @@ export const GetAllCitiesByStateDocument = gql`
   getAllCitiesByState(countryIsoCode: $countryIsoCode, stateIsoCode: $stateIsoCode) {
     name
     stateCode
+    venuesInArea
     countryCode
     latitude
     longitude

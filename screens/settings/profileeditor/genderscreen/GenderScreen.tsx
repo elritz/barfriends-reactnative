@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons'
 import {
 	useUpdateProfileIdentifiableInformationMutation,
 	Profile,
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ClientDeviceProfile,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -44,7 +44,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 		onCompleted: data => {
 			if (data.updateProfileIdentifiableInformation.__typename === 'Profile') {
 				const profile = data.updateProfileIdentifiableInformation as Profile
-				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
 
 				AuthorizationReactiveVar({

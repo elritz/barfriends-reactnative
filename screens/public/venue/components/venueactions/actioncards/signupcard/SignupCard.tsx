@@ -30,6 +30,7 @@ export default function SignupCard() {
 							router.push({ pathname: '(app)/credential/personalcredentialstack/getstarted' })
 						}}
 						px={7}
+							borderRadius={'md'}
 						_text={{
 							fontSize: 'lg',
 							fontWeight: 'bold',

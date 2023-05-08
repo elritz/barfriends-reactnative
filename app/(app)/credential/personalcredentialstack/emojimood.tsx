@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ProfileType,
 	useCreatePersonalProfileMutation,
 	useEmojimoodsQuery,
@@ -30,8 +30,8 @@ export default () => {
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data.switchDeviceProfile.__typename === 'ClientDeviceManager') {
-					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
+				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					router.push({
 						pathname: '(app)/hometab/venuefeedstack',

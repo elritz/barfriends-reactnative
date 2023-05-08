@@ -5,12 +5,12 @@ import { HStack, VStack, Heading, IconButton, Icon } from 'native-base'
 export default function SearchAreaHeader({ city }) {
 	const router = useRouter()
 	return (
-		<HStack flex={1} justifyContent={'center'}>
+		<HStack flex={1} mx={2} justifyContent={'center'}>
 			<VStack flex={1} space={1} m={2}>
-				<Heading lineHeight={'sm'} fontSize={'md'}>
+				<Heading lineHeight={'sm'} fontWeight={'medium'} fontSize={'lg'}>
 					from
 				</Heading>
-				<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
+				<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'4xl'}>
 					{city}
 				</Heading>
 			</VStack>

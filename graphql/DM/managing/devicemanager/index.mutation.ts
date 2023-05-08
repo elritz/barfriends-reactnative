@@ -7,7 +7,7 @@ export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
 	mutation switchDeviceProfile($profileId: String!, $profileType: ProfileType) {
 		switchDeviceProfile(profileId: $profileId, profileType: $profileType) {
-			... on ClientDeviceManager {
+			... on AuthorizationDeviceManager {
 				__typename
 				id
 				DeviceProfile {
@@ -37,8 +37,7 @@ export const REFRESH_DEVICE_MANAGER_MUTATION = gql`
 	${PROFILE_FRAGMENT}
 	mutation refreshDeviceManager {
 		refreshDeviceManager {
-			... on ClientDeviceManager {
-				__typename
+			... on AuthorizationDeviceManager {
 				id
 				DeviceProfile {
 					id

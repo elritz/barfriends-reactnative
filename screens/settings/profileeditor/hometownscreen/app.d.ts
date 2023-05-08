@@ -328,7 +328,7 @@ export type ProfileTokenType = {
 	refreshToken?: string | undefined
 }
 
-export type ClientDeviceManager = {
+export type AuthorizationDeviceManager = {
 	id: string
 	createdAt: Date
 	updatedAt: Date

@@ -212,7 +212,7 @@ export default function AuthenticatorScreen() {
 					}}
 					my={3}
 					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'xl'}
+		borderRadius={'md'}
 				>
 					Sign up
 				</Button>

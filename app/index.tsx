@@ -1,18 +1,13 @@
 // authorization
-import { useReactiveVar } from '@apollo/client'
-import { AUTHORIZATION } from '@constants/StorageConstants'
-import { AuthorizationDecoded } from '@ctypes/app'
-import {
-	useRefreshDeviceManagerMutation,
-	useCreateGuestProfileMutation,
-	useCreateADeviceManagerMutation,
-	useUpdateOneProfileMutation,
-	ClientDeviceManager,
-} from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
-import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
-import { Redirect, SplashScreen } from 'expo-router'
-import { useEffect } from 'react'
+import { useReactiveVar } from '@apollo/client';
+import { AUTHORIZATION } from '@constants/StorageConstants';
+import { AuthorizationDecoded } from '@ctypes/app';
+import { useRefreshDeviceManagerMutation, useCreateGuestProfileMutation, AuthorizationDeviceManager } from '@graphql/generated';
+import { AuthorizationReactiveVar } from '@reactive';
+import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage';
+import { Redirect, SplashScreen } from 'expo-router';
+import { useEffect } from 'react';
+
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -24,8 +19,11 @@ export default () => {
 				console.log('error REFRESH DEVICEMANAGER:>> ', error)
 			},
 			onCompleted: data => {
-				if (data.refreshDeviceManager?.__typename === 'ClientDeviceManager') {
-					const deviceManager = data.refreshDeviceManager as ClientDeviceManager
+				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
+					const deviceManager = data.refreshDeviceManager as AuthorizationDeviceManager
+
+					console.log('🚀 ~ file: index.tsx:28 ~ deviceManager:', deviceManager)
+
 					AuthorizationReactiveVar(deviceManager)
 				}
 			},
@@ -38,11 +36,9 @@ export default () => {
 			},
 
 			onCompleted: async data => {
-				console.log('🚀 ~ file: index.tsx:53 ~ data:', data)
-				if (data?.createGuestProfile.__typename === 'Profile') {
-					const deviceManager = data.createGuestProfile as ClientDeviceManager
-					if (!deviceManager) {
-					} else {
+				if (data?.createGuestProfile.__typename === 'AuthorizationDeviceManager') {
+					const deviceManager = data.createGuestProfile as AuthorizationDeviceManager
+					if (deviceManager) {
 						AuthorizationReactiveVar(deviceManager)
 					}
 				}
@@ -50,9 +46,6 @@ export default () => {
 		})
 
 	const applicationAuthorization = async () => {
-		// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
-		// 	key: AUTHORIZATION,
-		// })
 		// const removeLocalSearchArea = await secureStorageItemDelete({
 		// 	key: LOCAL_STORAGE_SEARCH_AREA,
 		// })
@@ -61,12 +54,20 @@ export default () => {
 			decode: true,
 		})) as AuthorizationDecoded
 
-		console.log('getAuthorization', JSON.stringify(getAuthorization, null, 4))
+		console.log(
+			'=== getAuthorization LOCALSTORAGE ===',
+			JSON.stringify(getAuthorization, null, 4),
+			'=== getAuthorization LOCALSTORAGE ===',
+		)
 
 		if (!getAuthorization) {
 			console.log('CREATE GUEST')
 			createGuestProfileMutation()
 		} else {
+			// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
+			// 	key: AUTHORIZATION,
+			// })
+
 			console.log('REFRESH AUTHORIZATION')
 			refreshDeviceManagerMutation()
 		}

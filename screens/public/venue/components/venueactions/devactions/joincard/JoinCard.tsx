@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ClientDeviceProfile,
 	LiveOutPersonal,
 	Out,
@@ -50,7 +50,7 @@ export default function JoinCard() {
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
 					const profile = data.addPersonalJoinsVenue as Profile
-					const deviceManager = rAuthorizationVar as ClientDeviceManager
+					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
 					if (
 						profile?.Personal?.LiveOutPersonal?.Out &&

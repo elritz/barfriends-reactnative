@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManagerManager,
 	ClientDeviceProfile,
 	ProfileType,
 	useGetADeviceManagerQuery,
@@ -35,8 +35,8 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (data?.switchDeviceProfile?.__typename === 'ClientDeviceManager') {
-					const deviceManager = data.switchDeviceProfile as ClientDeviceManager
+				if (data?.switchDeviceProfile?.__typename === 'AuthorizationDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					setTimeout(() => router.replace('(app)/hometab'), 1000)
 				}

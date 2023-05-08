@@ -61,12 +61,7 @@ export default () => {
 	] = useUpdateH6ComingAreaVoteMutation()
 
 	const [updateToBeNotifiedMutation, { data: UTBNData, loading: UTBNLoading, error: UTBNError }] =
-		useUpdateComingAreaToBeNotifiedMutation({
-			update: (cache, { data }) => {
-				console.log('data :>> ', data)
-				// console.log('cache :>> ', cache)
-			},
-		})
+		useUpdateComingAreaToBeNotifiedMutation()
 
 	const [venuesNearby, { data, loading, error }] = useVenuesNearbyLazyQuery({
 		variables: {
@@ -87,7 +82,7 @@ export default () => {
 		},
 		onError: error => {},
 		onCompleted: data => {
-			// console.log('🚀 ~ file: index.tsx:72 ~ data:', JSON.stringify(data, null, 4))
+			console.log('🚀 ~ file: index.tsx:72 ~ data:', JSON.stringify(data, null, 4))
 		},
 	})
 
@@ -115,9 +110,9 @@ export default () => {
 		}
 	}, [])
 
-	if (loading) return null
+	if (!data?.venuesNearby || loading) return null
 
-	if (data?.venuesNearby.__typename === 'Error') {
+	if (data.venuesNearby.__typename === 'Error') {
 		return (
 			<ScrollView>
 				<View>
@@ -126,9 +121,8 @@ export default () => {
 			</ScrollView>
 		)
 	}
-	console.log('data :>> ', data?.venuesNearby.__typename)
 
-	if (data?.venuesNearby.__typename === 'ComingAreaResponse') {
+	if (data.venuesNearby.__typename === 'ComingAreaResponse') {
 		return (
 			<ScrollView>
 				{data.venuesNearby.comingAreas.map(item => {
@@ -226,23 +220,7 @@ export default () => {
 		)
 	}
 
-	if (data?.venuesNearby.__typename === 'VenuesNearbyResponse') {
-		const ListHeaderComponent = (data: VenuesNearbyResponse) => {
-			return (
-				<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-						<VenueFeedSignupCard />
-					)}
-					{data.searchArea?.City.name && <SearchAreaHeader city={data.searchArea.City.name} />}
-					{rSearchAreaVar?.searchArea.coords.latitude || rSearchAreaVar?.searchArea.coords.longitude ? (
-						<Box>{!loading && !data?.venuesNearby.length && <VenuesFeedVenuesEmptyState />}</Box>
-					) : (
-						<Box></Box>
-					)}
-				</VStack>
-			)
-		}
-
+	if (data.venuesNearby.__typename === 'VenuesNearbyResponse') {
 		const listFooterComponent = () => {
 			return null
 		}
@@ -266,7 +244,24 @@ export default () => {
 					renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
 					ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 					keyExtractor={item => item.id}
-					ListHeaderComponent={<ListHeaderComponent data={data?.venuesNearby} />}
+					ListHeaderComponent={() => {
+						return (
+							<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
+								{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+									<VenueFeedSignupCard />
+								)}
+								{data.venuesNearby && (
+									<SearchAreaHeader
+										city={
+											data.venuesNearby.__typename === 'VenuesNearbyResponse'
+												? data.venuesNearby.searchArea?.City.name
+												: ''
+										}
+									/>
+								)}
+							</VStack>
+						)
+					}}
 					ListFooterComponent={listFooterComponent}
 					automaticallyAdjustContentInsets
 				/>

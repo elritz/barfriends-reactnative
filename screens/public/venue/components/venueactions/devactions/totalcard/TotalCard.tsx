@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ClientDeviceProfile,
 	Profile,
 	useAddPersonalTotalsVenueMutation,
@@ -40,7 +40,7 @@ export default function TotalCard() {
 				onCompleted: data => {
 					if (data.profile) {
 						const profile = data.profile as Profile
-						const deviceManager = rAuthorizationVar as ClientDeviceManager
+						const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 						const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
 
 						AuthorizationReactiveVar({
@@ -88,7 +88,7 @@ export default function TotalCard() {
 				onCompleted: data => {
 					if (data.profile) {
 						const profile = data.profile as Profile
-						const deviceManager = rAuthorizationVar as ClientDeviceManager
+						const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 						const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
 
 						AuthorizationReactiveVar({

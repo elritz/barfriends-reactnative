@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import {
-	ClientDeviceManager,
+	AuthorizationDeviceManager,
 	ClientDeviceProfile,
 	Profile,
 	useCheckUsernameLazyQuery,
@@ -67,7 +67,7 @@ const UsernameScreen = () => {
 			},
 			onCompleted: data => {
 				const profile = data.updateOneProfile as Profile
-				const deviceManager = rAuthorizationVar as ClientDeviceManager
+				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
 
 				AuthorizationReactiveVar({

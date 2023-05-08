@@ -328,11 +328,11 @@ export type ProfileTokenType = {
 	refreshToken?: string | undefined
 }
 
-export type ClientDeviceManager = {
+export type AuthorizationDeviceManager = {
 	id: string
-	createdAt: Date
-	updatedAt: Date
 	Device: Device
+	createdAt?: Date
+	updatedAt?: Date
 	DeviceProfile: DeviceProfile
 }
 

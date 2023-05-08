@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client'
-import { PROFILE_VENUES_FRAGMENT, AREA_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
+import { gql } from '@apollo/client';
+import { PROFILE_VENUES_FRAGMENT, AREA_FRAGMENT } from '@graphql/DM/fragments/index.fragments';
+
 
 export const VENUES_NEARBY_QUERY = gql`
 	${PROFILE_VENUES_FRAGMENT}
@@ -86,6 +87,7 @@ export const GET_ALL_CITIES_BY_STATE_QUERY = gql`
 		getAllCitiesByState(countryIsoCode: $countryIsoCode, stateIsoCode: $stateIsoCode) {
 			name
 			stateCode
+			venuesInArea
 			countryCode
 			latitude
 			longitude

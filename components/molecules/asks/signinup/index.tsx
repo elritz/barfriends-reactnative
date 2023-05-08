@@ -33,7 +33,7 @@ export default () => {
 					width={'95%'}
 					my={4}
 					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'xl'}
+					borderRadius={'md'}
 					colorScheme={'primary'}
 				>
 					Sign up

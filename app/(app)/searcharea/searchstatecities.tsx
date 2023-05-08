@@ -7,9 +7,10 @@ import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/genera
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
+import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Text, Icon, Center, Box } from 'native-base'
+import { Text, Icon, Box, HStack, Pressable, Button, Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
@@ -23,7 +24,6 @@ export default function SearchAreaStateCities() {
 	const { top, bottom } = useSafeAreaInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const [stateCities, setStateCities] = useState<CityResponseObject[]>([])
-	const [pagination, setPagination] = useState<number>(10)
 	const formContext = useFormContext<Form>()
 
 	const { watch, getValues, setValue, handleSubmit } = formContext
@@ -37,18 +37,11 @@ export default function SearchAreaStateCities() {
 		},
 		onCompleted: data => {
 			setStateCities(data.getAllCitiesByState)
-			if (data.getAllCitiesByState.length > 175) {
-				setPagination(data.getAllCitiesByState.length / 4)
-			} else {
-				setPagination(data.getAllCitiesByState.length)
-			}
 		},
 	})
 
-
-
 	const filterList = text => {
-		if (!params?.searchtext.length && data?.getAllCitiesByState.length) {
+		if (!params?.searchtext?.length && data?.getAllCitiesByState.length) {
 			if (data.getAllCitiesByState) {
 				setStateCities(data.getAllCitiesByState)
 			}
@@ -70,41 +63,41 @@ export default function SearchAreaStateCities() {
 	useEffect(() => {
 		if (params.searchtext) {
 			filterList(params.searchtext)
+		} else {
+			if (data?.getAllCitiesByState) {
+				setStateCities(data.getAllCitiesByState)
+			}
 		}
 	}, [params.searchtext])
 
-	if (!data || loading) {
+	if (!loading) {
 		return (
-			<>
-				<Text>loading.....</Text>
-			</>
+			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
+				{[...Array(20)].map(item => {
+					return <Skeleton h='50' rounded='md' my={1} startColor='coolGray.100' />
+				})}
+			</Box>
 		)
 	}
 
 	return (
-		<FlatList
-			data={stateCities.slice(0, pagination)}
-			style={{ flex: 1 }}
-			contentInset={{
-				top: top + SEARCH_BAR_HEIGHT + 20,
-				bottom: bottom,
-			}}
-			ItemSeparatorComponent={() => {
-				return <Box my={1} />
-			}}
-			onEndReached={() => setPagination(pagination + data.getAllCitiesByState.length / 3)}
-			keyboardDismissMode={'on-drag'}
+		<FlashList
+			data={stateCities}
+			keyboardDismissMode='on-drag'
 			renderItem={({ index, item }) => {
 				return (
 					<Button
 						_stack={{
 							paddingY: 0,
 							paddingX: 2,
-							marginY: 1,
 							marginX: 3,
 							w: '100%',
 							justifyContent: 'space-between',
 						}}
+						h={'50px'}
+						py={3}
+						px={4}
+						// my={1}
 						mx={3}
 						_light={{
 							bg: 'light.200',
@@ -112,12 +105,18 @@ export default function SearchAreaStateCities() {
 						_dark={{
 							bg: 'dark.100',
 						}}
-						rounded={'full'}
-						endIcon={
-							watch('city.name') === item.name ? (
-								<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
-							) : undefined
+						rounded={'md'}
+						rightIcon={
+							<HStack space={3}>
+								<Text textAlign={'center'} fontWeight={'light'} fontSize={'lg'} numberOfLines={1}>
+									{item.venuesInArea}
+								</Text>
+								{watch('city.name') === item.name && (
+									<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
+								)}
+							</HStack>
 						}
+						textAlign={'left'}
 						onPress={async () => {
 							setValue('city', {
 								name: item.name,
@@ -153,7 +152,6 @@ export default function SearchAreaStateCities() {
 						}}
 					>
 						<Text
-							mt={-0.5}
 							textAlign={'center'}
 							fontWeight={'medium'}
 							fontSize={'lg'}
@@ -164,6 +162,14 @@ export default function SearchAreaStateCities() {
 						</Text>
 					</Button>
 				)
+			}}
+			estimatedItemSize={200}
+			ItemSeparatorComponent={() => {
+				return <Box my={1} />
+			}}
+			contentInset={{
+				top: top + SEARCH_BAR_HEIGHT + 20,
+				bottom: bottom,
 			}}
 		/>
 	)
