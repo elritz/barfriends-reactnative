@@ -47,9 +47,10 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 			<VStack
 				space={2}
 				width={width}
+				flex={1}
 				borderRadius={'lg'}
 				style={{
-					justifyContent: 'flex-end',
+					alignSelf:'center',
 					overflow: 'hidden',
 				}}
 			>

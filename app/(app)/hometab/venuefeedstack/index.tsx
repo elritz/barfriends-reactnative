@@ -25,6 +25,7 @@ import VenueFeedSkeletonLoadingState from '@screens/hometabs/venuesfeed/componen
 import VenuesFeedVenuesEmptyState from '@screens/hometabs/venuesfeed/components/VenuesFeedVenuesEmptyState'
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import ComingAreaItem from '@screens/hometabs/venuesfeed/components/comingarea/ComingAreaItem'
+import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
 import {
 	View,
@@ -226,46 +227,47 @@ export default () => {
 		}
 
 		return (
-			<Box
-				marginBottom={
-					insets.bottom !== 0
-						? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-						: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT
-				}
-			>
-				<FlatList
-					overScrollMode='always'
-					onRefresh={onPullRefresh}
-					refreshing={loading}
-					showsVerticalScrollIndicator={false}
-					numColumns={2}
-					columnWrapperStyle={{ justifyContent: 'space-around' }}
-					data={data?.venuesNearby.venuesNearby}
-					renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
-					ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-					keyExtractor={item => item.id}
-					ListHeaderComponent={() => {
-						return (
-							<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-								{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-									<VenueFeedSignupCard />
-								)}
-								{data.venuesNearby && (
-									<SearchAreaHeader
-										city={
-											data.venuesNearby.__typename === 'VenuesNearbyResponse'
-												? data.venuesNearby.searchArea?.City.name
-												: ''
-										}
-									/>
-								)}
-							</VStack>
-						)
-					}}
-					ListFooterComponent={listFooterComponent}
-					automaticallyAdjustContentInsets
-				/>
-			</Box>
+			// <Box
+			// 	marginBottom={
+			// 		insets.bottom !== 0
+			// 			? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+			// 			: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT
+			// 	}
+			// >
+			<MasonryFlashList
+				overScrollMode='always'
+				onRefresh={onPullRefresh}
+				refreshing={loading}
+				showsVerticalScrollIndicator={false}
+				numColumns={2}
+				estimatedItemSize={50}
+				// columnWrapperStyle={{ justifyContent: 'space-around' }}
+				data={data?.venuesNearby.venuesNearby}
+				renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
+				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+				keyExtractor={item => item.id}
+				ListHeaderComponent={() => {
+					return (
+						<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
+							{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+								<VenueFeedSignupCard />
+							)}
+							{data.venuesNearby && (
+								<SearchAreaHeader
+									city={
+										data.venuesNearby.__typename === 'VenuesNearbyResponse'
+											? data.venuesNearby.searchArea?.City.name
+											: ''
+									}
+								/>
+							)}
+						</VStack>
+					)
+				}}
+				ListFooterComponent={listFooterComponent}
+				automaticallyAdjustContentInsets
+			/>
+			// </Box>
 		)
 	}
 }
