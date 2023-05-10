@@ -276,10 +276,10 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				platforms: ['ios', 'android'],
 				icon: './assets/images/icon/icon.png',
 				splash: {
-					image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
+					image: `./assets/images/splash/splash.development.light.png`,
 					resizeMode: 'cover',
 					dark: {
-						image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
+						image: `./assets/images/splash/splash.development.dark.png`,
 						resizeMode: 'cover',
 					},
 				},

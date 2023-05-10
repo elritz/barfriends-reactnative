@@ -1,22 +1,29 @@
 // authorization
-import { useReactiveVar } from '@apollo/client';
-import { AUTHORIZATION } from '@constants/StorageConstants';
-import { AuthorizationDecoded } from '@ctypes/app';
-import { useRefreshDeviceManagerMutation, useCreateGuestProfileMutation, AuthorizationDeviceManager } from '@graphql/generated';
-import { AuthorizationReactiveVar } from '@reactive';
-import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage';
-import { Redirect, SplashScreen } from 'expo-router';
-import { useEffect } from 'react';
-
+import { useReactiveVar } from '@apollo/client'
+import { AUTHORIZATION } from '@constants/StorageConstants'
+import { AuthorizationDecoded } from '@ctypes/app'
+import {
+	useRefreshDeviceManagerMutation,
+	useCreateGuestProfileMutation,
+	AuthorizationDeviceManager,
+} from '@graphql/generated'
+import { AuthorizationReactiveVar } from '@reactive'
+import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
+import { Redirect, SplashScreen, useRouter } from 'expo-router'
+import { useEffect } from 'react'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const router = useRouter()
 
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error) {
 				console.log('error REFRESH DEVICEMANAGER:>> ', error)
+				router.push({
+					pathname: '(error)',
+				})
 			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
@@ -29,10 +36,12 @@ export default () => {
 			},
 		})
 
-	const [createGuestProfileMutation, { data, loading: CGLoading, error }] =
+	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
 			onError: error => {
-				console.log('🚀 ~ file: index.tsx:39 ~ error:', error)
+				router.push({
+					pathname: '(error)',
+				})
 			},
 
 			onCompleted: async data => {
@@ -77,7 +86,14 @@ export default () => {
 		applicationAuthorization()
 	}, [])
 
-	if (!RDMData || RDMLoading || CGLoading || !rAuthorizationVar) {
+	if (
+		!RDMData ||
+		RDMLoading ||
+		CGLoading ||
+		!rAuthorizationVar ||
+		RDMError?.message ||
+		CGPMError?.message
+	) {
 		return <SplashScreen />
 	}
 

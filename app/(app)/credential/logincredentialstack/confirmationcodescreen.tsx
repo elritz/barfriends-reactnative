@@ -34,7 +34,7 @@ export default () => {
 
 	const { isOpen, onOpen, onClose } = useDisclose()
 
-	const CELL_COUNT = Number(params?.code).length
+	const CELL_COUNT = Number(params?.code)
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 
 	const { num, complete } = Countdown(9)

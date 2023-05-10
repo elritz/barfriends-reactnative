@@ -5,19 +5,47 @@ import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box } from 'native-base'
+import {
+	Text,
+	Icon,
+	IconButton,
+	Input,
+	KeyboardAvoidingView,
+	Box,
+	Heading,
+	Pressable,
+} from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
+import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
+	const INPUT_ACCESSORY_VIEW_ID = 'e-129818723433'
 	const router = useRouter()
+	const { bottom } = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
 	const emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const { height: platform } = useReanimatedKeyboardAnimation()
+	const INPUT_CONTAINER_HEIGHT = 90
 
-	const inputAccessoryViewID = 'uniqueID2'
+	const height = useDerivedValue(() => platform.value, [isFocused])
+
+	const textInputContainerStyle = useAnimatedStyle(
+		() => ({
+			width: '100%',
+			position: 'absolute',
+			bottom: 0,
+			paddingBottom: bottom,
+			height: INPUT_CONTAINER_HEIGHT,
+			transform: [{ translateY: height.value }],
+		}),
+		[],
+	)
 
 	const {
 		control,
@@ -37,7 +65,7 @@ export default () => {
 		shouldUnregister: true,
 	})
 
-	const [sendCode] = useSendAuthenticatorDeviceOwnerCodeMutation({
+	const [sendCode, { data, loading, error }] = useSendAuthenticatorDeviceOwnerCodeMutation({
 		onCompleted: data => {
 			switch (data.sendAuthenticatorDeviceOwnerCode?.__typename) {
 				case 'Error':
@@ -105,9 +133,28 @@ export default () => {
 				marginHorizontal: '5%',
 			}}
 		>
-			<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
+			{/* <Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
 				Enter your email
-			</Text>
+			</Text> */}
+			<Box h={'110px'}>
+				<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
+					Enter your email
+				</Heading>
+				<Pressable
+					onPress={() => {
+						router.back()
+					}}
+					size={'md'}
+					w={100}
+					h={'auto'}
+					pb={3}
+					variant={'link'}
+				>
+					<Text fontSize={'md'} fontWeight={'500'} color={'primary.500'}>
+						Use phone
+					</Text>
+				</Pressable>
+			</Box>
 			<View style={{ marginVertical: 20, width: '100%' }}>
 				<Controller
 					name='email'
@@ -128,7 +175,6 @@ export default () => {
 							keyboardAppearance={colorScheme}
 							numberOfLines={1}
 							placeholder='Email'
-							inputAccessoryViewID={inputAccessoryViewID}
 							py={2}
 							_input={{
 								fontSize: '2xl',
@@ -151,48 +197,106 @@ export default () => {
 					}}
 				/>
 			</View>
-			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<Box
-					_light={{
-						bg: 'light.100',
-					}}
-					_dark={{
-						bg: 'dark.200',
-					}}
-					flexDir={'row'}
-					justifyContent={'flex-start'}
-					alignContent={'space-around'}
-					h={'90px'}
-					px={'2.5%'}
-				>
-					<Box display={'flex'} flex={2} flexDir={'column'} justifyContent={'space-around'} px={'5px'}>
-						<Text>Check your email for your verification code that we sent you</Text>
-					</Box>
-					<IconButton
-						disabled={!!errors.email}
-						onPress={handleSubmit(onSubmit)}
-						variant={'solid'}
-						color={'primary.500'}
-						isDisabled={!!errors.email}
-						borderRadius={'full'}
-						style={{
-							justifyContent: 'center',
-							height: 60,
-							width: 60,
-							paddingHorizontal: 20,
-							alignSelf: 'center',
+			{Platform.OS === 'ios' ? (
+				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
+					<Box
+						display={isFocused ? 'flex' : 'none'}
+						_light={{
+							bg: 'light.100',
 						}}
-						icon={
-							<Icon
-								as={Feather}
-								name='arrow-right'
-								size={'2xl'}
-								color={errors.email ? 'primary.700' : 'white'}
-							/>
-						}
-					/>
-				</Box>
-			</InputAccessoryView>
+						_dark={{
+							bg: 'dark.200',
+						}}
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						alignContent={'space-around'}
+						height={'90px'}
+						px={'2.5%'}
+					>
+						<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
+							<Text>
+								By continuing you may receive an SMS for verification. Message and data rates may apply.
+							</Text>
+						</Box>
+						<IconButton
+							disabled={!!errors?.email}
+							onPress={handleSubmit(onSubmit)}
+							variant={'solid'}
+							color={'primary.500'}
+							isDisabled={!!errors.email || loading}
+							borderRadius={'full'}
+							style={{
+								justifyContent: 'center',
+								height: 60,
+								width: 60,
+								paddingHorizontal: 20,
+								alignSelf: 'center',
+							}}
+							icon={
+								<Icon
+									as={Feather}
+									name='arrow-right'
+									size={'xl'}
+									color={errors?.email ? 'primary.700' : 'white'}
+								/>
+							}
+						/>
+					</Box>
+				</InputAccessoryView>
+			) : (
+				<Reanimated.View
+					style={[
+						{
+							height: INPUT_CONTAINER_HEIGHT,
+						},
+						textInputContainerStyle,
+					]}
+				>
+					<Box
+						display={isFocused ? 'flex' : 'none'}
+						_light={{
+							bg: 'light.100',
+						}}
+						_dark={{
+							bg: 'dark.200',
+						}}
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						alignContent={'space-around'}
+						height={'90px'}
+						px={'2.5%'}
+					>
+						<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
+							<Text>
+								By continuing you may receive an SMS for verification. Message and data rates may apply.
+							</Text>
+						</Box>
+						<IconButton
+							disabled={!!errors?.email}
+							onPress={handleSubmit(onSubmit)}
+							variant={'solid'}
+							color={'primary.500'}
+							isDisabled={!!errors.email || loading}
+							borderRadius={'full'}
+							style={{
+								justifyContent: 'center',
+								height: 60,
+								width: 60,
+								paddingHorizontal: 20,
+								alignSelf: 'center',
+							}}
+							icon={
+								<Icon
+									as={Feather}
+									name='arrow-right'
+									size={'xl'}
+									color={errors?.email ? 'primary.700' : 'white'}
+								/>
+							}
+						/>
+					</Box>
+				</Reanimated.View>
+			)}
 		</KeyboardAvoidingView>
 	)
 }

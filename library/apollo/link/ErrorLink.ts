@@ -19,22 +19,25 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 		}
 	}
 	if (networkError) {
-		console.log(networkError)
+		// console.log(networkError)
+
+		// console.log("🚀 ~ file: ErrorLink.ts:24 ~ errorLink ~ networkError:", networkError)
+
 		switch (networkError.name) {
 			case 'ServerError':
-				console.log('TODO:💽 Server Error network error')
+				// console.log('TODO:💽 Server Error network error')
 				return forward(operation)
 			case 'TypeError':
-				console.log('TODO:TypeError network error')
+				// console.log('TODO:TypeError network error')
 				return forward(operation)
 			case '500':
-				console.log('TODO:500 network error')
+				// console.log('TODO:500 network error')
 				return forward(operation)
 			case undefined:
-				console.log('TODO:undefined network error')
+				// console.log('TODO:undefined network error')
 				return forward(operation)
 			default:
-				console.log('TODO:default apollo network error')
+				// console.log('TODO:default apollo network error')
 				return forward(operation)
 		}
 	}

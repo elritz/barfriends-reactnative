@@ -3,24 +3,44 @@ import {
 	useAuthorizedProfilesLazyQuery,
 	useSendAuthenticatorDeviceOwnerCodeMutation,
 } from '@graphql/generated'
-import { useHeaderHeight } from '@react-navigation/elements'
+import { useIsFocused } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { KeyboardAvoidingView, Button, IconButton, Icon, Box, Input } from 'native-base'
+import { Button, IconButton, Icon, Box, Input } from 'native-base'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, InputAccessoryView, Platform } from 'react-native'
+import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
+import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export type FormType = {
 	authenticator: string
 }
 
 export default function AuthenticatorScreen() {
-	const inputAccessoryViewID = 'phonenumberAccessoryID'
+	const INPUT_ACCESSORY_VIEW_ID = 'a-213123w'
 	const router = useRouter()
-	const headerHeight = useHeaderHeight()
 	const colorScheme = useThemeColorScheme()
+	const isFocused = useIsFocused()
+	const { bottom } = useSafeAreaInsets()
 	const [keyboardType, setKeyboardType] = useState('number-pad')
+	const { height: platform } = useReanimatedKeyboardAnimation()
+	const INPUT_CONTAINER_HEIGHT = 90
+
+	const height = useDerivedValue(() => platform.value, [isFocused])
+
+	const textInputContainerStyle = useAnimatedStyle(
+		() => ({
+			width: '100%',
+			position: 'absolute',
+			bottom: 0,
+			paddingBottom: bottom,
+			height: INPUT_CONTAINER_HEIGHT,
+			transform: [{ translateY: height.value }],
+		}),
+		[],
+	)
 
 	const {
 		control,
@@ -146,124 +166,173 @@ export default function AuthenticatorScreen() {
 	}
 
 	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			flex={1}
-			height={'auto'}
-			flexDirection={'column'}
-			style={{
-				flex: 1,
-				height: 'auto',
-				flexDirection: 'column',
-				marginHorizontal: '5%',
-			}}
-		>
-			<Controller
-				name='authenticator'
-				control={control}
-				render={({ field: { onChange, onBlur, value } }) => (
-					<Input
-						key='authenticator'
-						keyboardAppearance={colorScheme}
-						variant={'underlined'}
-						returnKeyType='done'
-						textContentType='telephoneNumber'
-						autoComplete={keyboardType === 'number-pad' ? 'tel' : 'email'}
-						keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
-						numberOfLines={1}
-						placeholder='Email, number or username '
-						inputAccessoryViewID={inputAccessoryViewID}
-						rightElement={<RightIcon />}
-						autoCapitalize='none'
-						autoFocus
-						mt={'1/6'}
-						py={2}
-						_input={{
-							fontSize: '2xl',
-							fontWeight: 'medium',
+		<Box flex={1}>
+			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
+				<Controller
+					name='authenticator'
+					control={control}
+					render={({ field: { onChange, onBlur, value } }) => (
+						<Input
+							key='authenticator'
+							keyboardAppearance={colorScheme}
+							variant={'underlined'}
+							returnKeyType='done'
+							enablesReturnKeyAutomatically
+							textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
+							autoComplete={keyboardType === 'number-pad' ? 'tel' : 'email'}
+							keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
+							numberOfLines={1}
+							placeholder='Email, number or username '
+							inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+							rightElement={RightIcon()}
+							autoCapitalize='none'
+							autoFocus
+							mt={'1/6'}
+							py={2}
+							_input={{
+								fontSize: '2xl',
+								fontWeight: 'medium',
+							}}
+							onSubmitEditing={handleSubmit(onSubmit)}
+							onBlur={onBlur}
+							value={value.toLowerCase()}
+							onChangeText={value => {
+								if (keyboardType === 'number-pad') {
+									onChange(value.toLowerCase())
+									setValue('authenticator', value)
+								} else {
+									onChange(value)
+									setValue('authenticator', value.trim())
+								}
+							}}
+						/>
+					)}
+					rules={{
+						required: {
+							value: true,
+							message: '',
+						},
+					}}
+				/>
+				{errors?.authenticator?.message ? (
+					<Button
+						onPress={() => {
+							router.replace({
+								pathname: '(app)/credential/personalcredentialstack/getstarted',
+							})
 						}}
-						onSubmitEditing={handleSubmit(onSubmit)}
-						onBlur={onBlur}
-						value={value.toLowerCase()}
-						onChangeText={value => {
-							if (keyboardType === 'number-pad') {
-								onChange(value.toLowerCase())
-								setValue('authenticator', value)
-							} else {
-								onChange(value)
-								setValue('authenticator', value.trim())
-							}
+						my={3}
+						_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
+						borderRadius={'md'}
+					>
+						Sign up
+					</Button>
+				) : null}
+			</Reanimated.View>
+			{Platform.OS === 'ios' ? (
+				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
+					<Box
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						alignContent={'space-around'}
+						height={'90px'}
+						px={'2.5%'}
+						_light={{
+							bg: 'light.100',
 						}}
-					/>
-				)}
-				rules={{
-					required: {
-						value: true,
-						message: '',
-					},
-				}}
-			/>
-			{errors?.authenticator?.message ? (
-				<Button
-					onPress={() => {
-						router.replace({
-							pathname: '(app)/credential/personalcredentialstack/termsandservicescreen',
-						})
-					}}
-					my={3}
-					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-		borderRadius={'md'}
-				>
-					Sign up
-				</Button>
-			) : null}
-			<InputAccessoryView nativeID={inputAccessoryViewID}>
-				<Box
-					flexDir={'row'}
-					justifyContent={'flex-end'}
-					alignContent={'space-around'}
-					height={'90px'}
-					px={'2.5%'}
-					_light={{
-						bg: 'light.100',
-					}}
-					_dark={{
-						bg: 'dark.200',
-					}}
-				>
-					<View
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							justifyContent: 'space-around',
+						_dark={{
+							bg: 'dark.200',
 						}}
 					>
-						<IconButton
-							disabled={!!errors.authenticator || loading}
-							onPress={handleSubmit(onSubmit)}
-							variant={'solid'}
-							color={'primary.500'}
-							isDisabled={!!errors.authenticator || loading}
+						<View
 							style={{
-								justifyContent: 'center',
-								borderRadius: 50,
-								height: 70,
-								width: 70,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'space-around',
 							}}
-							icon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'2xl'}
-									color={errors?.authenticator ? 'light.800' : 'white'}
-								/>
-							}
-						/>
-					</View>
-				</Box>
-			</InputAccessoryView>
-		</KeyboardAvoidingView>
+						>
+							<IconButton
+								disabled={!!errors.authenticator || loading}
+								onPress={handleSubmit(onSubmit)}
+								variant={'solid'}
+								color={'primary.500'}
+								isDisabled={!!errors.authenticator || loading}
+								style={{
+									justifyContent: 'center',
+									borderRadius: 50,
+									height: 70,
+									width: 70,
+									paddingHorizontal: 20,
+									alignSelf: 'center',
+								}}
+								icon={
+									<Icon
+										as={Feather}
+										name='arrow-right'
+										size={'2xl'}
+										color={errors?.authenticator ? 'light.800' : 'white'}
+									/>
+								}
+							/>
+						</View>
+					</Box>
+				</InputAccessoryView>
+			) : (
+				<Reanimated.View
+					style={[
+						{
+							height: INPUT_CONTAINER_HEIGHT,
+						},
+						textInputContainerStyle,
+					]}
+				>
+					<Box
+						flexDir={'row'}
+						justifyContent={'flex-end'}
+						alignContent={'space-around'}
+						height={'90px'}
+						px={'2.5%'}
+						_light={{
+							bg: 'light.100',
+						}}
+						_dark={{
+							bg: 'dark.200',
+						}}
+					>
+						<View
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'space-around',
+							}}
+						>
+							<IconButton
+								disabled={!!errors.authenticator || loading}
+								onPress={handleSubmit(onSubmit)}
+								variant={'solid'}
+								color={'primary.500'}
+								isDisabled={!!errors.authenticator || loading}
+								style={{
+									justifyContent: 'center',
+									borderRadius: 50,
+									height: 70,
+									width: 70,
+									paddingHorizontal: 20,
+									alignSelf: 'center',
+								}}
+								icon={
+									<Icon
+										as={Feather}
+										name='arrow-right'
+										size={'2xl'}
+										color={errors?.authenticator ? 'light.800' : 'white'}
+									/>
+								}
+							/>
+						</View>
+					</Box>
+				</Reanimated.View>
+			)}
+		</Box>
 	)
 }

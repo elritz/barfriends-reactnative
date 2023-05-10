@@ -54,7 +54,7 @@ export default () => {
 			<Box>
 				{!PTSLoading ? (
 					<Button
-						bg={'tertiary.500'}
+						bg={'primary.500'}
 						onPress={() => {
 							CredentialPersonalProfileReactiveVar({
 								...credentialPersonalProfileVar,
@@ -70,7 +70,7 @@ export default () => {
 						px={10}
 						size={'lg'}
 						w={'1/2'}
-						h={60}
+						h={50}
 						fontSize={'lg'}
 					>
 						Continue

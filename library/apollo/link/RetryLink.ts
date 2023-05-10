@@ -7,7 +7,7 @@ const retryLink = new RetryLink({
 		jitter: true,
 	},
 	attempts: {
-		max: 5,
+		max: 4,
 		retryIf: (error, _operation) => !!error,
 	},
 })

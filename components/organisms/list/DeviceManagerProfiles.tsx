@@ -1,10 +1,7 @@
-import { useReactiveVar } from '@apollo/client'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
-	DeviceManager,
-	DeviceProfile,
-	Profile,
+	AuthorizationDeviceProfile,
 	ProfileType,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
@@ -18,7 +15,7 @@ const text = GetSignInUpText()
 
 const DeviceManagerProfiles = () => {
 	const [selectedProfileId, setSelectedProfileId] = useState('')
-	const [profiles, setProfiles] = useState<Array<DeviceProfile>>([])
+	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',

@@ -1,4 +1,4 @@
-import DeviceManagerProfiles from './DeviceManagerProfiles'
+import DeviceManagerProfiles from '@components/organisms/list/DeviceManagerProfiles'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { useRouter } from 'expo-router'
 import { Box, Center, Text, Button } from 'native-base'
@@ -13,7 +13,7 @@ export default (props: Props) => {
 
 	return (
 		<Box>
-			<Text
+			{/* <Text
 				numberOfLines={3}
 				ellipsizeMode='tail'
 				adjustsFontSizeToFit
@@ -31,7 +31,7 @@ export default (props: Props) => {
 				fontSize={'xl'}
 			>
 				{text[props.signupTextId ?? 1].title}
-			</Text>
+			</Text> */}
 			<Text
 				allowFontScaling
 				style={{
@@ -41,7 +41,8 @@ export default (props: Props) => {
 				}}
 				fontSize={'lg'}
 			>
-				{text[props.signupTextId ?? 1].subTitle}
+				{/* {text[props.signupTextId ?? 1].subTitle} */}
+				Cool slogans here
 			</Text>
 			<Center
 				style={{

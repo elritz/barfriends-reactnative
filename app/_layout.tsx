@@ -1,7 +1,7 @@
 // notification listeners
 // server connection
 // set permissions
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider, InMemoryCache } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
@@ -37,8 +37,10 @@ import {
 } from '@reactive'
 import { SearchAreaReactiveVar, searchAreaInitialState } from '@reactive'
 import { ThemeReactiveVar } from '@reactive'
+import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
 // import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
+import { persistCache } from 'apollo3-cache-persist'
 import { useAssets } from 'expo-asset'
 import * as Camera from 'expo-camera'
 import * as Contacts from 'expo-contacts'
@@ -47,8 +49,9 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen } from 'expo-router'
-import { useEffect } from 'react'
+import { ErrorBoundaryProps, Slot, SplashScreen } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { Text, View } from 'react-native'
 import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
@@ -61,6 +64,8 @@ Notifications.setNotificationHandler({
 		shouldSetBadge: false,
 	}),
 })
+
+const cache = new InMemoryCache()
 
 Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
 
@@ -246,6 +251,15 @@ export default () => {
 		setPreferencesLocalStorageData()
 	}, [])
 
+	const [loadingCache, setLoadingCache] = useState(true)
+
+	useEffect(() => {
+		persistCache({
+			cache,
+			storage: AsyncStorage,
+		}).then(() => setLoadingCache(false))
+	}, [])
+
 	// useEffect(() => {
 	// 	const subscription = Notifications.addPushTokenListener(e => {
 	// 		console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
@@ -253,19 +267,19 @@ export default () => {
 	// 	return () => subscription.remove()
 	// }, [])
 
-	if (!assets) {
+	if (!assets || loadingCache) {
 		return <SplashScreen />
 	}
 
 	return (
 		<ApolloProvider client={gateaWayClient}>
-			{/* <AnimatedAppLoader assets={assets}> */}
-			<SafeAreaProvider>
-				<KeyboardProvider statusBarTranslucent>
-					<Slot />
-				</KeyboardProvider>
-			</SafeAreaProvider>
-			{/* </AnimatedAppLoader> */}
+			<AnimatedAppLoader assets={assets}>
+				<SafeAreaProvider>
+					<KeyboardProvider statusBarTranslucent>
+						<Slot />
+					</KeyboardProvider>
+				</SafeAreaProvider>
+			</AnimatedAppLoader>
 		</ApolloProvider>
 	)
 }

@@ -1,12 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
-import {
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
-} from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
-	VenuesNearbyResponse,
 	useUpdateComingAreaToBeNotifiedMutation, // useUpvoteH6ComingAreaMutation,
 	useUpdateH6ComingAreaVoteMutation,
 	useVenuesNearbyLazyQuery,
@@ -19,26 +14,11 @@ import {
 	SearchAreaReactiveVar,
 } from '@reactive'
 import SearchAreaHeader from '@screens/hometabs/venuesfeed/components/SearchAreaHeader'
-import VenueFeedSearchAreaEmptyState from '@screens/hometabs/venuesfeed/components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from '@screens/hometabs/venuesfeed/components/VenueFeedSignupCard'
-import VenueFeedSkeletonLoadingState from '@screens/hometabs/venuesfeed/components/VenuesFeedSkeletonLoadingState'
-import VenuesFeedVenuesEmptyState from '@screens/hometabs/venuesfeed/components/VenuesFeedVenuesEmptyState'
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
-import ComingAreaItem from '@screens/hometabs/venuesfeed/components/comingarea/ComingAreaItem'
-import { FlashList, MasonryFlashList } from '@shopify/flash-list'
+import { MasonryFlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
-import {
-	View,
-	Box,
-	VStack,
-	FlatList,
-	HStack,
-	Text,
-	ScrollView,
-	Icon,
-	Pressable,
-	Divider,
-} from 'native-base'
+import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { AppState } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
@@ -82,9 +62,7 @@ export default () => {
 			stateIsoCode: String(rSearchAreaVar?.searchArea.state.isoCode),
 		},
 		onError: error => {},
-		onCompleted: data => {
-			console.log('🚀 ~ file: index.tsx:72 ~ data:', JSON.stringify(data, null, 4))
-		},
+		onCompleted: data => {},
 	})
 
 	const onPullRefresh = () => {
@@ -267,7 +245,6 @@ export default () => {
 				ListFooterComponent={listFooterComponent}
 				automaticallyAdjustContentInsets
 			/>
-			// </Box>
 		)
 	}
 }
