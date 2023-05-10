@@ -7,7 +7,6 @@ export default function _layout() {
 		<Stack
 			initialRouteName='getstarted'
 			screenOptions={{
-				headerShown: true,
 				headerBackground: () => <></>,
 			}}
 		>

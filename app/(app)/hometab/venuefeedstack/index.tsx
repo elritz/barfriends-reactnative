@@ -18,13 +18,11 @@ import VenueFeedSignupCard from '@screens/hometabs/venuesfeed/components/VenueFe
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import { MasonryFlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
-import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable } from 'native-base'
+import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
 import { useEffect, useRef } from 'react'
-import { AppState } from 'react-native'
+import { AppState, Dimensions } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-export const VenueFeedScreenMarginX = '2'
 
 export default () => {
 	const router = useRouter()
@@ -35,7 +33,7 @@ export default () => {
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
-
+	const width = Dimensions.get('window').width / 2.15
 	const [
 		updateH6VenueRecommendationVoteMutation,
 		{ data: UVRData, loading: UVRLoading, error: UVRError },
@@ -89,7 +87,45 @@ export default () => {
 		}
 	}, [])
 
-	if (!data?.venuesNearby || loading) return null
+	if (!data?.venuesNearby || loading ) {
+		return (
+			<MasonryFlashList
+				numColumns={2}
+				estimatedItemSize={6}
+				data={[...Array(6)]}
+				showsVerticalScrollIndicator={false}
+				scrollEnabled={false}
+				ListHeaderComponent={() => {
+					return (
+						<Skeleton
+							h={'160'}
+							rounded={'md'}
+							w={'97%'}
+							minW={'95%'}
+							my={2}
+							style={{
+								alignSelf: 'center',
+							}}
+						/>
+					)
+				}}
+				renderItem={({ item }) => {
+					return (
+						<Skeleton
+							h={'260'}
+							w={width}
+							rounded={'md'}
+							style={{
+								alignSelf: 'center',
+								overflow: 'hidden',
+							}}
+						/>
+					)
+				}}
+				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+			/>
+		)
+	}
 
 	if (data.venuesNearby.__typename === 'Error') {
 		return (
@@ -140,14 +176,16 @@ export default () => {
 											size={'lg'}
 											_light={{
 												color: item.Vote.some(
-													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id && item.upvote,
+													item =>
+														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
 												)
 													? 'blue.500'
 													: 'light.500',
 											}}
 											_dark={{
 												color: item.Vote.some(
-													item => item.profileId === rAuthorizationVar?.DeviceProfile?.Profile.id && item.upvote,
+													item =>
+														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
 												)
 													? 'blue.500'
 													: 'dark.500',
@@ -176,14 +214,14 @@ export default () => {
 											size={'md'}
 											_light={{
 												color: item.toBeNotifiedProfileIds.some(
-													item => item === rAuthorizationVar?.DeviceProfile?.Profile.id,
+													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
 												)
 													? 'blue.500'
 													: 'light.400',
 											}}
 											_dark={{
 												color: item.toBeNotifiedProfileIds.some(
-													item => item === rAuthorizationVar?.DeviceProfile?.Profile.id,
+													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
 												)
 													? 'blue.500'
 													: 'dark.400',
@@ -219,9 +257,10 @@ export default () => {
 				showsVerticalScrollIndicator={false}
 				numColumns={2}
 				estimatedItemSize={50}
+				scrollEnabled
 				// columnWrapperStyle={{ justifyContent: 'space-around' }}
 				data={data?.venuesNearby.venuesNearby}
-				renderItem={({ item }) => <VerticalVenueFeedVenueItem loading={loading} item={item} />}
+				renderItem={({ item, index, columnIndex }) => <VerticalVenueFeedVenueItem loading={loading} item={item} columnIndex={columnIndex} />}
 				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={() => {

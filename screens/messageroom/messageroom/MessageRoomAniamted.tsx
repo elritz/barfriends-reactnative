@@ -85,7 +85,7 @@ const MessageRoomAniamted = () => {
 						size={'2xl'}
 						mx={2}
 						my={'auto'}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						multiline
 						placeholder=''
 						position={'absolute'}

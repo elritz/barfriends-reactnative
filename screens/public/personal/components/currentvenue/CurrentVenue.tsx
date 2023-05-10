@@ -15,7 +15,7 @@ export default function CurrentVenue() {
 			p={3}
 		>
 			<VStack space={2} mb={2}>
-				<Box h={16} w={16} bg={'red.200'} borderRadius={'lg'} />
+				<Box h={16} w={16} bg={'red.200'} borderRadius={'md'} />
 				<Heading
 					numberOfLines={2}
 					fontSize={'lg'}

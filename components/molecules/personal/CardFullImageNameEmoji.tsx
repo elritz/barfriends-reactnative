@@ -44,7 +44,7 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 					right={0}
 					w={'100%'}
 					zIndex={10}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					overflow={'hidden'}
 				>
 					<LinearGradient colors={['transparent', '#000000d1']}>
@@ -101,7 +101,7 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 					source={{ uri: item.friendProfile?.photos?.url }}
 					resizeMode='cover'
 					style={{ height: 170, flexDirection: 'column-reverse' }}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 				/>
 			</Box>
 		</Pressable>

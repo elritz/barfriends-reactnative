@@ -133,11 +133,8 @@ export default () => {
 				marginHorizontal: '5%',
 			}}
 		>
-			{/* <Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
-				Enter your email
-			</Text> */}
 			<Box h={'110px'}>
-				<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'70px'}>
+				<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'auto'}>
 					Enter your email
 				</Heading>
 				<Pressable
@@ -155,7 +152,7 @@ export default () => {
 					</Text>
 				</Pressable>
 			</Box>
-			<View style={{ marginVertical: 20, width: '100%' }}>
+			<View style={{ width: '100%' }}>
 				<Controller
 					name='email'
 					control={control}
@@ -175,7 +172,6 @@ export default () => {
 							keyboardAppearance={colorScheme}
 							numberOfLines={1}
 							placeholder='Email'
-							py={2}
 							_input={{
 								fontSize: '2xl',
 								fontWeight: 'medium',

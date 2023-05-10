@@ -430,7 +430,7 @@ const DevelopmentScreen = () => {
 											_dark={{
 												bg: 'dark.50',
 											}}
-											borderRadius={'lg'}
+											borderRadius={'md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
 											py={3}
@@ -475,7 +475,7 @@ const DevelopmentScreen = () => {
 											_dark={{
 												bg: 'dark.50',
 											}}
-											borderRadius={'lg'}
+											borderRadius={'md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
 											py={3}
@@ -520,7 +520,7 @@ const DevelopmentScreen = () => {
 											_dark={{
 												bg: 'dark.50',
 											}}
-											borderRadius={'lg'}
+											borderRadius={'md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
 											py={3}

@@ -67,7 +67,7 @@ export default function ProfilePhotoEmptyState() {
 			_dark={{
 				bg: 'dark.50',
 			}}
-			borderRadius={'lg'}
+			borderRadius={'md'}
 		>
 			<Box h={'100%'} justifyContent={'center'}>
 				<Center>

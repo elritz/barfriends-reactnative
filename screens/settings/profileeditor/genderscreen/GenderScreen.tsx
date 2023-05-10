@@ -153,7 +153,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 								keyboardType='default'
 								fontSize={'md'}
 								p={4}
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								rightElement={
 									<Box ml={3}>
 										{UPIILoading && dirtyFields.gender ? (
@@ -182,7 +182,7 @@ const GenderScreen = ({}: GenderScreenProps) => {
 									<Button
 										disabled={false}
 										onPress={handleSubmit(onSubmit)}
-										borderRadius={'lg'}
+										borderRadius={'md'}
 										bg={themeContext.palette.bfscompany.primary}
 										px={'30px'}
 										style={{

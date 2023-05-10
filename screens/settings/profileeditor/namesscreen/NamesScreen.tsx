@@ -190,7 +190,7 @@ const NamesScreen = () => {
 									padding: 10,
 								}}
 								fontSize={'md'}
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								rightElement={
 									<Box mr={3}>
 										{UOPLoading && dirtyFields.fullname ? (
@@ -241,7 +241,7 @@ const NamesScreen = () => {
 								keyboardType='default'
 								fontSize={'md'}
 								p={4}
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								rightElement={
 									<Box mr={3}>
 										{UOPLoading && dirtyFields.nickname ? (
@@ -266,7 +266,7 @@ const NamesScreen = () => {
 						isLoading={UOPLoading}
 						isLoadingText={'Updating...'}
 						onPress={() => onSubmit()}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						style={{
 							backgroundColor: themeContext.palette.bfscompany.primary,
 							alignSelf: 'center',

@@ -42,7 +42,7 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				my={2}
 				px={2}
 				py={3}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 				alignItems={'flex-start'}
 				flexDirection={'column'}
 			>
@@ -166,7 +166,7 @@ const ProfileEditorOptionsScreen = ({}: EditableOptionsScreenProps) => {
 							{interests.map((interest, index) => (
 								<Badge
 									key={interest}
-									borderRadius={'lg'}
+									borderRadius={'md'}
 									bg={'primary.500'}
 									_text={{
 										fontWeight: '400',

@@ -33,7 +33,7 @@ const JoinVenue = ({}) => {
 			>
 				<IconButton
 					variant={'solid'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					bg={'blue.500'}
 					icon={<Icon ml={2} size={30} color={'darkBlue.800'} as={FontAwesome5} name='map-marker-alt' />}
 					height={57}

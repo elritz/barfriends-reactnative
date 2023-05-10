@@ -24,7 +24,7 @@ export default function ProfilePhoto({ photo }: Props) {
 			}}
 			h={150}
 			w={150}
-			borderRadius={'lg'}
+			borderRadius={'md'}
 			overflow={'hidden'}
 			mb={3}
 		>

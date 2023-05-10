@@ -325,7 +325,7 @@ const AddEmoji = () => {
 					<IconButton
 						disabled={true}
 						variant={'solid'}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						bg={'#47d0a7'}
 						icon={<Icon size={30} color={'darkBlue.800'} as={MaterialIcons} name='emoji-emotions' />}
 						height={51}

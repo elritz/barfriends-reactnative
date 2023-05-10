@@ -114,7 +114,7 @@ export default () => {
 						!rSearchAreaVar?.searchArea.city.name ? (
 							<Box
 								p={5}
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								_dark={{
 									bg: 'dark.50',
 								}}

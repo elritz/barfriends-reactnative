@@ -31,11 +31,11 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 				// }}
 				borderBottomWidth={1}
 				m={'10px'}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 			>
 				{profile.photos[0].url && (
 					<Avatar
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						_image={{
 							resizeMode: 'cover',
 						}}

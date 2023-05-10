@@ -52,7 +52,7 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 				space={2}
 				mx={2}
 				// width={'full'}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 				style={{
 					justifyContent: 'flex-end',
 					overflow: 'hidden',
@@ -85,7 +85,7 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 					{!props.loading ? (
 						<Image
 							position={'absolute'}
-							borderRadius={'lg'}
+							borderRadius={'md'}
 							source={{ uri: props.item.photos[0]?.url }}
 							resizeMode='cover'
 							onLoadEnd={() => setHideBlur(true)}

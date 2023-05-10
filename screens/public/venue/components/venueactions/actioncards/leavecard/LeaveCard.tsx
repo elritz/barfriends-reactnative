@@ -99,7 +99,7 @@ export default function LeaveCard() {
 						size={'xs'}
 						textAlign={'center'}
 						colorScheme={'error'}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						_text={{
 							fontWeight: '700',
 							fontSize: 'md',

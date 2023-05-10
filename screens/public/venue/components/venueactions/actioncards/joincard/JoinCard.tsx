@@ -55,7 +55,7 @@ export default function JoinCard() {
 				}}
 				width={'full'}
 				colorScheme={'primary'}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 				textAlign={'center'}
 				_text={{
 					fontWeight: '700',

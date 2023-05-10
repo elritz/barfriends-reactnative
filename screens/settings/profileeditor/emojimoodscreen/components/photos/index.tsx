@@ -66,7 +66,7 @@ export default function Photos({ story, photo, emojimoodcolors }: Props) {
 					_dark={{
 						bg: 'light.800',
 					}}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					overflow={'hidden'}
 					style={{
 						position: 'absolute',

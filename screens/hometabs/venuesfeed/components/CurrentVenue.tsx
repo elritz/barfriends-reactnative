@@ -61,7 +61,7 @@ export default function CurrentVenue() {
 	}
 
 	return (
-		<Box bg={'white'} borderRadius={'lg'} h={220} my={3} mx={2}>
+		<Box bg={'white'} borderRadius={'md'} h={220} my={3} mx={2}>
 			<Pressable
 				onPress={() => {
 					router.push({
@@ -76,7 +76,7 @@ export default function CurrentVenue() {
 			>
 				<Box
 					height={220}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					style={{
 						// backgroundColor: themeContext.palette.secondary.background.default,
 						justifyContent: 'flex-end',
@@ -130,7 +130,7 @@ export default function CurrentVenue() {
 							</Heading>
 						</Box>
 						<Box alignContent={'center'} justifyContent={'center'} px={2}>
-							<Button.Group borderRadius={'lg'} isAttached colorScheme={'primary'}>
+							<Button.Group borderRadius={'md'} isAttached colorScheme={'primary'}>
 								<Button
 									_light={{
 										bg: 'light.50',

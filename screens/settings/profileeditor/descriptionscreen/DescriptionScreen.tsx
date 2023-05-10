@@ -156,7 +156,7 @@ const DescriptionScreen = () => {
 										isLoading={UOPLoading}
 										isLoadingText={'Updating...'}
 										onPress={handleSubmit(onSubmit)}
-										borderRadius={'lg'}
+										borderRadius={'md'}
 										style={{
 											alignSelf: 'center',
 											width: '50%',

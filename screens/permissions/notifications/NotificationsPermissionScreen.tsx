@@ -180,7 +180,7 @@ const NotificationsPermissionScreen = () => {
 		<Box style={{ flex: 1 }}>
 			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
 				<Box
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					h={65}
 					w={65}
 					alignItems={'center'}

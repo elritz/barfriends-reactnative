@@ -65,7 +65,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 					}}
 					h={h}
 					w={w}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					overflow={'hidden'}
 				>
 					<Animated.ScrollView
@@ -176,7 +176,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 					}}
 					h={h}
 					w={w}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					alignItems={'center'}
 					justifyContent={'center'}
 					overflow={'hidden'}

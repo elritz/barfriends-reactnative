@@ -88,7 +88,7 @@ export default function LeaveCard() {
 					}}
 					textAlign={'center'}
 					backgroundColor={'red.600'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					_text={{
 						fontWeight: '700',
 						fontSize: 'md',

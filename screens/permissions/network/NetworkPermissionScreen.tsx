@@ -82,7 +82,7 @@ const NetworkPermissionScreen = () => {
 						<Button
 							variant={'solid'}
 							onPress={() => openPhoneSettings()}
-							borderRadius={'lg'}
+							borderRadius={'md'}
 							px={'20px'}
 							_text={{
 								color: 'primary.500',
@@ -97,7 +97,7 @@ const NetworkPermissionScreen = () => {
 					<Button
 						variant={'ghost'}
 						onPress={() => navigation.goBack()}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						px={20}
 						justifyContent={'center'}
 						_text={{

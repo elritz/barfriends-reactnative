@@ -68,7 +68,7 @@ export default function Preferences() {
 					}}
 					py={4}
 					px={1}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					borderWidth={2}
 					borderColor={
 						AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0]?.Theme

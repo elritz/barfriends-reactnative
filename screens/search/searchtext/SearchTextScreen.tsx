@@ -88,7 +88,7 @@ const SearchTextScreen = () => {
 							<IconButton
 								variant={'outline'}
 								size={'sm'}
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
 							/>
 							<VStack>

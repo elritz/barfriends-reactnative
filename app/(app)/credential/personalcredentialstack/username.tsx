@@ -5,10 +5,19 @@ import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, Input, useTheme, Text, Icon, Box, KeyboardAvoidingView } from 'native-base'
-import { useContext, useRef } from 'react'
+import {
+	Button,
+	Input,
+	useTheme,
+	Text,
+	Icon,
+	Box,
+	KeyboardAvoidingView,
+	Spinner,
+} from 'native-base'
+import { useContext, useRef, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { ActivityIndicator, InputAccessoryView, Platform, View } from 'react-native'
+import { ActivityIndicator, InputAccessoryView, Platform, Pressable, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -102,16 +111,19 @@ export default () => {
 	}
 
 	const InputRightIcon = () => {
-		return CULoading ? (
-			<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
-		) : (
-			<Icon
-				as={Ionicons}
-				name='checkmark-circle'
-				size={'lg'}
-				color={errors.username || !CUData?.checkUsername ? 'error.600' : 'success.700'}
-				mr={2}
-			/>
+		const boxDim = 35
+
+		return (
+			<Box h={`${boxDim}px`} w={`${boxDim}px`} justifyContent={'center'} alignItems={'center'}>
+				{values.username.length && CUData?.checkUsername ? (
+					<Icon
+						as={Ionicons}
+						name='checkmark-circle'
+						size={'lg'}
+						color={errors.username || !CUData?.checkUsername ? 'error.600' : 'success.700'}
+					/>
+				) : null}
+			</Box>
 		)
 	}
 

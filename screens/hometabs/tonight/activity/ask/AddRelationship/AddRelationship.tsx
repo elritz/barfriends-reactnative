@@ -22,7 +22,7 @@ const AddRelationship = ({}) => {
 			<IconButton
 				disabled={true}
 				variant={'solid'}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 				bg={'amber.200'}
 				icon={<Icon size={30} color={'darkBlue.800'} as={FontAwesome5} name='hand-holding-heart' />}
 				height={57}

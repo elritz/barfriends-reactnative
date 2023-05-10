@@ -117,7 +117,7 @@ export default function JoinCard() {
 					}}
 					isLoading={JVLoading || RPJVLoading}
 					colorScheme={'primary'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					textAlign={'center'}
 					_text={{
 						fontWeight: '700',

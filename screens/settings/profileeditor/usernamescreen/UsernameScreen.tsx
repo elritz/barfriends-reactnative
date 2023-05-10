@@ -180,7 +180,7 @@ const UsernameScreen = () => {
 							autoCorrect={false}
 							fontSize={'md'}
 							p={4}
-							borderRadius={'lg'}
+							borderRadius={'md'}
 							InputRightElement={<InputRightIcon />}
 						/>
 					)}
@@ -192,7 +192,7 @@ const UsernameScreen = () => {
 					isLoading={UOPLoading}
 					isLoadingText={'Updating...'}
 					onPress={handleSubmit(onSubmit)}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					style={{
 						// backgroundColor: themeContext.palette.bfscompany.primary,
 						alignSelf: 'center',

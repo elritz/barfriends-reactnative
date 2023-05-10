@@ -24,7 +24,7 @@ const CondensedVerticalFriendsNotficationsList = <T extends FriendRequestNotific
 					flex={1}
 					h={'100%'}
 					flexDir={'column'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					overflow={'hidden'}
 				>
 					{data.map((item, index) => (

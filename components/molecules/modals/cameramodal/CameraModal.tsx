@@ -86,7 +86,7 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 						/>
 					)}
 					<Box h={'100%'} alignItems={'center'} justifyContent={'flex-end'} pb={10}>
-						<Box p={3} borderRadius={'lg'} bg={'dark.50'}>
+						<Box p={3} borderRadius={'md'} bg={'dark.50'}>
 							{dataQR && (
 								<QRCode
 									size={120}

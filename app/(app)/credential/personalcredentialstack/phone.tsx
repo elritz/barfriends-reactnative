@@ -183,8 +183,6 @@ export default () => {
 								returnKeyType={Platform.OS === 'ios' ? 'done' : 'none'}
 								numberOfLines={1}
 								keyboardAppearance={colorScheme}
-								mt={'1/6'}
-								autoFocus
 								py={2}
 								_input={{
 									fontSize: '2xl',

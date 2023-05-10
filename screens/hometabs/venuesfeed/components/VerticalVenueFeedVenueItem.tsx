@@ -1,14 +1,16 @@
-import { ProfileVenue } from '@graphql/generated'
-import { useRouter } from 'expo-router'
-import { Image, VStack, Box, Heading } from 'native-base'
-import { useState } from 'react'
-import { Dimensions, Pressable, StyleSheet } from 'react-native'
-import { Blurhash } from 'react-native-blurhash'
+import { ProfileVenue } from '@graphql/generated';
+import { useRouter } from 'expo-router';
+import { Image, VStack, Box, Heading } from 'native-base';
+import { useState } from 'react';
+import { Dimensions, Pressable, StyleSheet } from 'react-native';
+import { Blurhash } from 'react-native-blurhash';
+
 
 const width = Dimensions.get('window').width / 2.15
 
 type Props = {
 	item: ProfileVenue
+	columnIndex: number
 	loading: boolean
 }
 
@@ -29,6 +31,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		return titleCase
 	}
 
+	console.log('props.columnIndex :>> ', props.columnIndex);
 	return (
 		<Pressable
 			key={props.item.id}
@@ -48,16 +51,16 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 				space={2}
 				width={width}
 				flex={1}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 				style={{
-					alignSelf:'center',
+					alignSelf: 'center',
 					overflow: 'hidden',
 				}}
 			>
 				<Box minH={260} maxH={260}>
 					{!props.loading ? (
 						<Image
-							borderRadius={'lg'}
+							borderRadius={'md'}
 							source={{ uri: props.item.photos[0]?.url }}
 							resizeMode='cover'
 							onLoadEnd={() => setHideBlur(true)}

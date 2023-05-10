@@ -70,7 +70,7 @@ export default () => {
 						Welcome to Bfs
 					</Heading>
 				</Box>
-				<Box borderRadius={'lg'}>
+				<Box borderRadius={'md'}>
 					<Text fontSize={'lg'}>
 						Enrich your experience. We are those we hang around. If you're not feeling it find new
 						friends.

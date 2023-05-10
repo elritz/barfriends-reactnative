@@ -142,7 +142,7 @@ const PasswordLoginScreen = () => {
 							alignSelf={'center'}
 							height={`${IMAGE_SIZE}px`}
 							width={`${IMAGE_SIZE}px`}
-							borderRadius={'lg'}
+							borderRadius={'md'}
 							source={{ uri: PQData?.profile?.photos[0].url }}
 							alt={'Profile Photo'}
 						/>

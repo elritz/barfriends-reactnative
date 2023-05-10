@@ -141,7 +141,7 @@ export default function TotalCard() {
 					}}
 					bg={'blue.500'}
 					width={'full'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					textAlign={'center'}
 					_text={{
 						fontWeight: '700',

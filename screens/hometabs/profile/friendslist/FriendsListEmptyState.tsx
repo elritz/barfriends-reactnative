@@ -10,7 +10,7 @@ export const FriendsListEmptyState = () => {
 			h={'250px'}
 			justifyContent={'center'}
 			alignItems={'center'}
-			borderRadius={'lg'}
+			borderRadius={'md'}
 			_light={{
 				bg: 'light.50',
 			}}
@@ -32,7 +32,7 @@ export const FriendsListEmptyState = () => {
 				size={'xs'}
 				w={'55%'}
 				my={3}
-				borderRadius={'lg'}
+				borderRadius={'md'}
 				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
 				onPress={() => {
 					router.push({

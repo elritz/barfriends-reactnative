@@ -25,7 +25,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 			w={'100%'}
 			py={3}
 			px={3}
-			borderRadius={'lg'}
+			borderRadius={'md'}
 			alignItems={'center'}
 			justifyContent={'space-between'}
 		>
@@ -36,7 +36,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 						style={{ width: 40, height: 40 }}
 						minW={40}
 						minH={40}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						alt={'Profile photo'}
 					/>
 				) : (

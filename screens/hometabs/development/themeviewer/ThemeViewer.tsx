@@ -147,7 +147,7 @@ export default function ThemeViewer() {
 					}}
 					py={4}
 					px={1}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					borderWidth={3}
 					borderColor={theme.id === item.id ? 'success.500' : 'transparent'}
 				>

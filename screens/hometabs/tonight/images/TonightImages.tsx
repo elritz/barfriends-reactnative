@@ -62,7 +62,7 @@ const TonightImages = () => {
 				<Box
 					mx={2}
 					h={window.width}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					alignItems={'center'}
 					justifyContent={'center'}
 					_light={{

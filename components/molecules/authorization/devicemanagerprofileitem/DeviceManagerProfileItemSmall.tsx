@@ -11,7 +11,7 @@ type ProfileItemType = {
 
 const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: ProfileItemType) => {
 	return (
-		<Box key={item.id} my={2} p={2} px={3} borderRadius={'lg'}>
+		<Box key={item.id} my={2} p={2} px={3} borderRadius={'md'}>
 			<Image
 				alt={'Profile photo'}
 				source={{ uri: item.Profile.photos[0].url }}

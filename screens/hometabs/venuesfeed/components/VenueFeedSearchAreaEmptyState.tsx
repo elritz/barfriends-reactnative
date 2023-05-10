@@ -11,7 +11,7 @@ export default function VenueFeedSearchAreaEmptyState() {
 			mx={2}
 			_dark={{ backgroundColor: 'dark.50' }}
 			_light={{ backgroundColor: 'light.50' }}
-			borderRadius={'lg'}
+			borderRadius={'md'}
 			p={5}
 		>
 			<Text

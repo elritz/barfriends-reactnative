@@ -46,7 +46,7 @@ export default function SearchCard({ item }) {
 							w={45}
 							alignItems={'center'}
 							justifyContent={'center'}
-							borderRadius={'lg'}
+							borderRadius={'md'}
 						>
 							<Icon
 								_light={{

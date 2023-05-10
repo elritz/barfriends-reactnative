@@ -193,7 +193,7 @@ export default () => {
 						mx={2}
 						_dark={{ backgroundColor: 'dark.100' }}
 						_light={{ backgroundColor: 'light.100' }}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						p={5}
 					>
 						<VStack my={2} alignItems={'center'}>

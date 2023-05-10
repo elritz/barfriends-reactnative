@@ -28,8 +28,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 // TODO: UX() Workflow isn't quite working good enough for production
 // TODO: FN() Get background location changes working
 
-export const VenueFeedScreenMarginX = '2'
-
 const VenueFeedScreen = () => {
 	const router = useRouter()
 	const appStateRef = useRef(AppState.currentState)
@@ -113,7 +111,7 @@ const VenueFeedScreen = () => {
 							) : (
 								<AnimatePresence key={uniqueId()}>
 									<Box
-										mx={VenueFeedScreenMarginX}
+										mx={2}
 										//  my={scrollViewItemsMarginY}
 									>
 										{!rForegroundLocationVar?.granted ? (
@@ -151,7 +149,7 @@ const VenueFeedScreen = () => {
 									})
 								}
 								rounded={'full'}
-								// color={'transparent'}
+
 							/>
 						</HStack>
 					)}

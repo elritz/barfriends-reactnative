@@ -186,7 +186,7 @@ export default function MessageRoom(props) {
 						size={'2xl'}
 						mx={2}
 						my={'auto'}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						multiline
 						placeholder=''
 						InputRightElement={

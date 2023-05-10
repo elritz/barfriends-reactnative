@@ -167,7 +167,7 @@ const BirthdayScreen = () => {
 						isLoading={UOPLoading}
 						isLoadingText={'Updating...'}
 						onPress={handleSubmit(onSubmit)}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						style={{
 							backgroundColor: themeContext.palette.bfscompany.primary,
 							alignSelf: 'center',

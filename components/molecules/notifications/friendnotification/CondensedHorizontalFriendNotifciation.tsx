@@ -115,7 +115,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 							<Image
 								source={{ uri: item.receiverProfile?.photos?.url }}
 								size='xs'
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								alt={item.receiverProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
 							/>
 							<VStack mt={-1}>
@@ -138,7 +138,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 						colorScheme={'primary'}
 						variant={'outline'}
 						size={'sm'}
-						borderRadius={'lg'}
+						borderRadius={'md'}
 						isDisabled={DFRLoading || AFRLoading}
 						px={3}
 						mx={2}
@@ -176,7 +176,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 							<Image
 								source={{ uri: item.senderProfile?.photos?.url }}
 								size='xs'
-								borderRadius={'lg'}
+								borderRadius={'md'}
 								alt={item.senderProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
 							/>
 							<VStack mt={-1}>
@@ -194,7 +194,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 							colorScheme={'primary'}
 							px={4}
 							py={2}
-							borderRadius={'lg'}
+							borderRadius={'md'}
 							isDisabled={DFRLoading || AFRLoading}
 							_disabled={{
 								opacity: '100',

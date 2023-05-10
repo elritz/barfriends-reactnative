@@ -149,7 +149,7 @@ export default function Photos() {
 					}}
 					h={400}
 					w={'100%'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					overflow={'hidden'}
 				>
 					<Animated.ScrollView
@@ -262,7 +262,7 @@ export default function Photos() {
 					}}
 					h={400}
 					w={'100%'}
-					borderRadius={'lg'}
+					borderRadius={'md'}
 					mb={3}
 				>
 					<Box
@@ -324,7 +324,7 @@ export default function Photos() {
 								<Text fontSize={'lg'} fontWeight={'medium'}>
 									Ready to go out? Add photos of your fit and pick your emojimood
 								</Text>
-								<Button onPress={pickImage} bg={'tertiary.400'} size={'lg'} borderRadius={'lg'} mt={4}>
+								<Button onPress={pickImage} bg={'tertiary.400'} size={'lg'} borderRadius={'md'} mt={4}>
 									Upload images
 								</Button>
 							</Center>
