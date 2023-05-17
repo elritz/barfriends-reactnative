@@ -58,7 +58,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 			{story?.photos?.length ? (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'dark.50',
@@ -169,7 +169,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 			) : (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'dark.50',

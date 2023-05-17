@@ -13,7 +13,7 @@ export default function _layout() {
 					return (
 						<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
 							<Box
-								_light={{ bg: 'light.50' }}
+								_light={{ bg: 'light.100' }}
 								_dark={{ bg: 'dark.50' }}
 								style={[StyleSheet.absoluteFill]}
 							/>

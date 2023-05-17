@@ -213,7 +213,7 @@ const PasswordLoginScreen = () => {
 						height={'90px'}
 						px={'2.5%'}
 						_light={{
-							bg: 'light.100',
+							bg: 'light.200',
 						}}
 						_dark={{
 							bg: 'dark.200',
@@ -268,7 +268,7 @@ const PasswordLoginScreen = () => {
 						height={'90px'}
 						px={'2.5%'}
 						_light={{
-							bg: 'light.100',
+							bg: 'light.200',
 						}}
 						_dark={{
 							bg: 'dark.200',

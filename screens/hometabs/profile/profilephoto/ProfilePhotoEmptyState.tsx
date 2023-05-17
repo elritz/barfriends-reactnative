@@ -62,7 +62,7 @@ export default function ProfilePhotoEmptyState() {
 			w={120}
 			h={120}
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			_dark={{
 				bg: 'dark.50',

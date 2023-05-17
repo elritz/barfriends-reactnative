@@ -23,7 +23,7 @@ const SearchInputDisabled = (props: Props) => {
 				}}
 				h={SEARCH_BAR_HEIGHT}
 				alignSelf={'center'}
-				placeholder={'Search venues'}
+				placeholder={'Search'}
 				returnKeyType='search'
 				underlineColorAndroid='transparent'
 				keyboardAppearance={colorScheme}

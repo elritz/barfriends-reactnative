@@ -41,7 +41,7 @@ export default function Actions({ profile }: Props) {
 	return (
 		<VStack
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			_dark={{
 				bg: 'dark.50',

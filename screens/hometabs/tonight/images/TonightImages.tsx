@@ -66,10 +66,10 @@ const TonightImages = () => {
 					alignItems={'center'}
 					justifyContent={'center'}
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 				>
 					<VStack space={2} alignItems={'center'}>

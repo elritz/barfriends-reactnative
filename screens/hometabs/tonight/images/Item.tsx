@@ -49,7 +49,7 @@ const Item = ({ uri, onPress }: TileProps) => {
 						borderRadius={MARGIN * 10}
 						m={`${MARGIN * 2}px`}
 						_light={{
-							bg: 'light.50',
+							bg: 'light.100',
 						}}
 						_dark={{
 							bg: 'dark.50',

@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router'
 import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base'
 
 export default function SearchCard({ item }) {
+console.log('item', JSON.stringify(item, null, 2))
 	const router = useRouter()
 	return (
 		<Pressable
@@ -37,7 +38,7 @@ export default function SearchCard({ item }) {
 					) : (
 						<Box
 							_light={{
-								bg: 'light.50',
+								bg: 'light.100',
 							}}
 							_dark={{
 								bg: 'dark.50',

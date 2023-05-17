@@ -37,6 +37,7 @@ export default () => {
 			<Stack.Screen
 				name={'permissionmodals'}
 				options={{
+					headerBackground: () => <></>,
 					headerShown: true,
 					title: 'Permissions',
 					headerLeft: () => <ChevronBackArrow />,
@@ -45,6 +46,7 @@ export default () => {
 			<Stack.Screen
 				name={'preferences'}
 				options={{
+					headerBackground: () => <></>,
 					headerShown: true,
 					title: 'Preferences',
 					headerLeft: () => <ChevronBackArrow />,
@@ -53,6 +55,7 @@ export default () => {
 			<Stack.Screen
 				name={'theme'}
 				options={{
+					headerBackground: () => <></>,
 					headerShown: true,
 					title: 'Themes',
 					headerLeft: () => <ChevronBackArrow />,

@@ -4,7 +4,7 @@ import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useDebounce from '@util/hooks/useDebounce'
-import { useRouter, useSegments } from 'expo-router'
+import { useRouter, useSearchParams, useSegments } from 'expo-router'
 import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
 import { useEffect, useMemo, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -14,6 +14,8 @@ import { Keyboard } from 'react-native'
 const SearchTextScreenInput = () => {
 	const _searchInput = useRef()
 	const router = useRouter()
+	const params = useSearchParams()
+
 	const segments = useSegments()
 	const isFocused = useIsFocused()
 
@@ -24,6 +26,11 @@ const SearchTextScreenInput = () => {
 			_searchInput?.current.focus()
 		}
 	}, [isFocused])
+
+	useEffect(() => {
+		setValue('searchText', String(params.searchText))
+		console.log('🚀 ~ file: SearchTextScreenInput.tsx:19 ~ SearchTextScreenInput ~ params:', params)
+	}, [params])
 
 	const {
 		control,

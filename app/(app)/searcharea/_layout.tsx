@@ -80,7 +80,7 @@ export default function _layout() {
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
-											_light={{ bg: 'light.50' }}
+											_light={{ bg: 'light.100' }}
 											_dark={{ bg: 'dark.50' }}
 											style={[StyleSheet.absoluteFill]}
 											flexDirection={'row'}
@@ -109,7 +109,7 @@ export default function _layout() {
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
-											_light={{ bg: 'light.50' }}
+											_light={{ bg: 'light.100' }}
 											_dark={{ bg: 'dark.50' }}
 											style={[StyleSheet.absoluteFill]}
 										/>
@@ -133,7 +133,7 @@ export default function _layout() {
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
-											_light={{ bg: 'light.50' }}
+											_light={{ bg: 'light.100' }}
 											_dark={{ bg: 'dark.50' }}
 											style={[StyleSheet.absoluteFill]}
 										/>
@@ -156,7 +156,7 @@ export default function _layout() {
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
-											_light={{ bg: 'light.50' }}
+											_light={{ bg: 'light.100' }}
 											_dark={{ bg: 'dark.50' }}
 											style={[StyleSheet.absoluteFill]}
 										/>

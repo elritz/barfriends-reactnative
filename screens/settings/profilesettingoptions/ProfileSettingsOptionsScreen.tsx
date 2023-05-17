@@ -59,7 +59,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 			<Box
 				height={'58px'}
 				_light={{
-					bg: 'light.50',
+					bg: 'light.100',
 				}}
 				_dark={{
 					bg: 'dark.50',
@@ -77,7 +77,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 	return (
 		<ScrollView
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			_dark={{
 				bg: 'dark.50',

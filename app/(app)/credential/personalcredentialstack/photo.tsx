@@ -17,7 +17,7 @@ import {
 	VStack,
 	Image,
 } from 'native-base'
-import React, { useContext, useEffect, useState, memo, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import {
 	AppState,
@@ -29,7 +29,6 @@ import {
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg'
-import { ThemeContext } from 'styled-components/native'
 
 const UserFemaleIllustration = require('@assets/images/illustration/user_female_illustration.png')
 
@@ -40,7 +39,6 @@ export default () => {
 	const insets = useSafeAreaInsets()
 	const router = useRouter()
 	const window = useWindowDimensions()
-	const themeContext = useContext(ThemeContext)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const rPermissionMediaReactiveVar = useReactiveVar(PermissionMediaReactiveVar)
 	const [status] = MediaLibrary.usePermissions()
@@ -254,16 +252,8 @@ export default () => {
 				>
 					<Defs>
 						<LinearGradient id='grad' x1='1' y1='0' x2='1' y2='1'>
-							<Stop
-								offset='0.25'
-								stopColor={themeContext.palette.primary.background.default}
-								stopOpacity='1'
-							/>
-							<Stop
-								offset='1'
-								stopColor={themeContext.palette.primary.background.default}
-								stopOpacity='1'
-							/>
+							<Stop offset='0.25' stopOpacity='1' />
+							<Stop offset='1' stopOpacity='1' />
 						</LinearGradient>
 					</Defs>
 					<Rect height='100%' width={window.width} fill='url(#grad)' />
@@ -325,7 +315,6 @@ export default () => {
 				style={{
 					position: 'absolute',
 					bottom: 0,
-					backgroundColor: themeContext.palette.primary.background.default,
 					flexDirection: 'row',
 					width: '100%',
 					height: 90,
@@ -341,14 +330,7 @@ export default () => {
 					onPress={_pickMediaPicker}
 					variant={'ghost'}
 					isDisabled={imageUploading}
-					icon={
-						<Icon
-							as={MaterialIcons}
-							name='photo-library'
-							size={29}
-							color={themeContext.palette.primary.color.default}
-						/>
-					}
+					icon={<Icon as={MaterialIcons} name='photo-library' size={29} color={'gray.800'} />}
 				/>
 				<Button
 					w={'40%'}

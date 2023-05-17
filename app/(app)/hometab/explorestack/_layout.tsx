@@ -28,7 +28,7 @@ export default function _layout() {
 								justifyContent={'flex-end'}
 								h={h}
 								pb={2}
-								_light={{ bg: 'light.50' }}
+								_light={{ bg: 'light.100' }}
 								_dark={{ bg: 'dark.50' }}
 							>
 								<SearchInputDisabled
@@ -58,7 +58,7 @@ export default function _layout() {
 								justifyContent={'flex-end'}
 								h={h}
 								pb={2}
-								_light={{ bg: 'light.50' }}
+								_light={{ bg: 'light.100' }}
 								_dark={{ bg: 'dark.50' }}
 							>
 								<SearchTextScreenInput />
@@ -76,7 +76,7 @@ export default function _layout() {
 								justifyContent={'flex-end'}
 								h={h}
 								pb={2}
-								_light={{ bg: 'light.50' }}
+								_light={{ bg: 'light.100' }}
 								_dark={{ bg: 'dark.50' }}
 							>
 								<SearchTopTabStackInput />

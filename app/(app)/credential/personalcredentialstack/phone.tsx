@@ -216,7 +216,7 @@ export default () => {
 					<Box
 						display={isFocused ? 'flex' : 'none'}
 						_light={{
-							bg: 'light.100',
+							bg: 'light.200',
 						}}
 						_dark={{
 							bg: 'dark.200',
@@ -269,7 +269,7 @@ export default () => {
 					<Box
 						display={isFocused ? 'flex' : 'none'}
 						_light={{
-							bg: 'light.100',
+							bg: 'light.200',
 						}}
 						_dark={{
 							bg: 'dark.200',

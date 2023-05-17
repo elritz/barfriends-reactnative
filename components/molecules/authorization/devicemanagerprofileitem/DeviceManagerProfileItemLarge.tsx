@@ -44,7 +44,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 						w={'40px'}
 						h={'40px'}
 						_light={{
-							bg: 'light.50',
+							bg: 'light.100',
 						}}
 						_dark={{
 							bg: 'dark.50',

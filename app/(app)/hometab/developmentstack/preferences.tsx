@@ -6,7 +6,13 @@ import {
 } from '@constants/StorageConstants'
 import { Ionicons, Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { NowPreferencePermissionInitialState } from '@reactive'
+import {
+	NowPreferencePermissionInitialState,
+	PreferenceBackgroundLocationPermissionReactiveVar,
+	PreferenceForegroundLocationPermissionReactiveVar,
+	PreferencePermissionNotificationReactiveVar,
+	TomorrowPreferencePermissionInitialState,
+} from '@reactive'
 import {
 	View,
 	Text,
@@ -19,12 +25,14 @@ import {
 	Spinner,
 	ScrollView,
 	VStack,
+	useToast,
 } from 'native-base'
 import { useState } from 'react'
 import 'react-native'
 import { useWindowDimensions } from 'react-native'
 
 export default function Preferences() {
+	const toast = useToast()
 	const { width } = useWindowDimensions()
 	const [loading, setIsLoading] = useState(false)
 	const ITEM_HEIGHT = 60
@@ -52,6 +60,12 @@ export default function Preferences() {
 							LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
 							JSON.stringify(NowPreferencePermissionInitialState),
 						)
+						PreferencePermissionNotificationReactiveVar({
+							...TomorrowPreferencePermissionInitialState,
+						})
+						toast.show({
+							description: 'Deleted Notification Permission Preference',
+						})
 					},
 				},
 				{
@@ -63,6 +77,12 @@ export default function Preferences() {
 							LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 							JSON.stringify(NowPreferencePermissionInitialState),
 						)
+						PreferenceForegroundLocationPermissionReactiveVar({
+							...TomorrowPreferencePermissionInitialState,
+						})
+						toast.show({
+							description: 'Deleted Foreground Permission Preference',
+						})
 					},
 				},
 				{
@@ -75,6 +95,12 @@ export default function Preferences() {
 							LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 							JSON.stringify(NowPreferencePermissionInitialState),
 						)
+						PreferenceBackgroundLocationPermissionReactiveVar({
+							...TomorrowPreferencePermissionInitialState,
+						})
+						toast.show({
+							description: 'Deleted Background Permission Preference',
+						})
 						setTimeout(() => {
 							setIsLoading(false)
 						}, 2000)

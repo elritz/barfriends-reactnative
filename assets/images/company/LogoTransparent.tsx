@@ -2,7 +2,7 @@ import { Path, Svg, Ellipse } from 'react-native-svg'
 
 interface LogoTransparentProps {
 	width?: number
-	height?: number
+	height: number
 }
 const LogoTransparent = ({ width, height }: LogoTransparentProps) => {
 	return (

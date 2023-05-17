@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
-import { PROFILE_VENUES_FRAGMENT, AREA_FRAGMENT } from '@graphql/DM/fragments/index.fragments';
-
+import { gql } from '@apollo/client'
+import { PROFILE_VENUES_FRAGMENT, AREA_FRAGMENT } from '@graphql/DM/fragments/index.fragments'
 
 export const VENUES_NEARBY_QUERY = gql`
 	${PROFILE_VENUES_FRAGMENT}
@@ -85,12 +84,22 @@ export const GET_ALL_STATES_BY_COUNTRY_QUERY = gql`
 export const GET_ALL_CITIES_BY_STATE_QUERY = gql`
 	query getAllCitiesByState($countryIsoCode: String!, $stateIsoCode: String!) {
 		getAllCitiesByState(countryIsoCode: $countryIsoCode, stateIsoCode: $stateIsoCode) {
-			name
-			stateCode
-			venuesInArea
-			countryCode
-			latitude
-			longitude
+			popularCities {
+				name
+				stateCode
+				venuesInArea
+				countryCode
+				latitude
+				longitude
+			}
+			allCities {
+				name
+				stateCode
+				venuesInArea
+				countryCode
+				latitude
+				longitude
+			}
 		}
 	}
 `

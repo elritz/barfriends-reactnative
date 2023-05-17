@@ -164,6 +164,9 @@ export default () => {
 				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
 			)
 
+			console.log("🚀 ~ file: _layout.tsx:167 ~ setPreferencesLocalStorageData ~ getLocalStorageNotificationPermissionsPreference:", getLocalStorageNotificationPermissionsPreference)
+
+
 			if (!getLocalStorageNotificationPermissionsPreference) {
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,

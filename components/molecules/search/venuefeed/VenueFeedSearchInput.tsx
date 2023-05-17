@@ -22,7 +22,7 @@ const VenueFeedSearchInput = () => {
 				_dark={{ bgColor: 'dark.200' }}
 				// flex={1}
 				alignSelf={'center'}
-				placeholder={'Search venues'}
+				placeholder={'Search area'}
 				returnKeyType='search'
 				underlineColorAndroid='transparent'
 				keyboardAppearance={colorScheme}

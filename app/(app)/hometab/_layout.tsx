@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import LogoTransparent from '@assets/images/company/LogoTransparent'
 import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
@@ -22,7 +23,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
-	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	// const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT
 	const h = insets.top + HEADER_HEIGHT
 
 	return (
@@ -34,7 +36,7 @@ export default () => {
 							StyleSheet.absoluteFill,
 							// { backgroundColor: themeContext.palette.primary.background.default },
 						]}
-						_light={{ bg: 'light.50' }}
+						_light={{ bg: 'light.100' }}
 						_dark={{ bg: 'dark.50' }}
 					/>
 				),
@@ -60,13 +62,16 @@ export default () => {
 					header: () => {
 						return (
 							<VStack
-								_light={{ bg: 'light.50' }}
+								safeAreaTop
+								_light={{ bg: 'light.100' }}
 								_dark={{ bg: 'dark.50' }}
-								justifyContent={'flex-end'}
+								justifyContent={'center'}
+								alignItems={'center'}
 								h={h}
-								pb={2}
 							>
-								<VenueFeedSearchInput />
+								<Box mt={-2}>
+									<LogoTransparent height={28} width={189} />
+								</Box>
 							</VStack>
 						)
 					},
@@ -88,7 +93,7 @@ export default () => {
 				name={'tonight'}
 				options={{
 					href:
-						rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'PERSONAL'
+						rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'PERSONAL'
 							? '(app)/hometab/tonight'
 							: null,
 					headerShown: false,

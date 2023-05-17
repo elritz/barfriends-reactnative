@@ -1,16 +1,21 @@
 import ShowCaseScroll from './ShowCaseScroll'
-import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS } from '@constants/ReactNavigationConstants'
+import {
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+} from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { Box, FlatList, Pressable, Text } from 'native-base'
 import { View, useWindowDimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const ExploreScreen = () => {
 	const { width } = useWindowDimensions()
 	const router = useRouter()
 	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
 	const height = width * (1.25 / numColumns)
+	const insets = useSafeAreaInsets()
 	const { data, loading, error } = useProfilesQuery({
 		variables: {
 			where: {
@@ -30,11 +35,13 @@ const ExploreScreen = () => {
 					return <ShowCaseScroll />
 				}}
 				contentInset={{
-					bottom: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+					bottom:
+						insets.bottom !== 0
+							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 				}}
 				numColumns={2}
 				renderItem={({ item }) => {
-					console.log('item.item :>> ', item.photos.length)
 					return (
 						<>
 							{loading ? null : (

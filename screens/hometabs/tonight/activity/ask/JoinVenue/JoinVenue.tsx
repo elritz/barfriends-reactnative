@@ -17,7 +17,7 @@ const JoinVenue = ({}) => {
 			rounded='lg'
 			overflow='hidden'
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			_dark={{
 				bg: 'dark.50',

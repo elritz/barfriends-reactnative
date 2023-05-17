@@ -1,7 +1,5 @@
 import { Box } from 'native-base'
-import React, { useContext } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 import styled from 'styled-components/native'
 
 type Props = {
@@ -12,7 +10,6 @@ type Props = {
 
 export default function ActionCard({ children, numColumns, bg }: Props) {
 	const { width } = useWindowDimensions()
-	const themeContext = useContext(ThemeContext)
 	const itemPadding = (width / 33.33) * numColumns
 
 	return (
@@ -23,7 +20,7 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 				bg: bg || 'dark.100',
 			}}
 			_light={{
-				bg: bg || 'light.100',
+				bg: bg || 'light.200',
 			}}
 			style={{
 				width: (width - itemPadding) / numColumns,

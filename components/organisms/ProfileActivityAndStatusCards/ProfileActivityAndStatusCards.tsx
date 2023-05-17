@@ -17,7 +17,7 @@ const ProfileActivityAndStatusCards = ({}) => {
 					alignItems={'center'}
 					rounded='lg'
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'dark.50',

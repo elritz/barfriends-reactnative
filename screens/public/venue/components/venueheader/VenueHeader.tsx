@@ -21,7 +21,7 @@ const VenueHeader = (props: Props) => {
 					overflow: 'hidden',
 				}}
 				_light={{
-					bg: 'light.50',
+					bg: 'light.100',
 				}}
 				_dark={{
 					bg: 'dark.50',
@@ -39,7 +39,7 @@ const VenueHeader = (props: Props) => {
 				overflow: 'hidden',
 			}}
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			_dark={{
 				bg: 'dark.50',

@@ -14,7 +14,7 @@ export default function AskForegroundLocationPermission() {
 				lineHeight={'xs'}
 				flex={1}
 			>
-				Want to use the join venue feature!
+				Sign in or up to join venues!
 			</Heading>
 			<Button
 				size={'lg'}

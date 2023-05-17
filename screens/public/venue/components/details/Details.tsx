@@ -59,7 +59,7 @@ export default function Details(props) {
 		<VStack
 			space={3}
 			_light={{
-				bg: 'light.100',
+				bg: 'light.200',
 			}}
 			_dark={{
 				bg: 'dark.100',

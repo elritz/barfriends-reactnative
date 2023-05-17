@@ -6,15 +6,11 @@ import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar
 import { useRouter } from 'expo-router'
 import { Button, Icon } from 'native-base'
 import { Box, Text, VStack, Pressable } from 'native-base'
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const rProfilesBottomSheetVar = useReactiveVar(ProfilesBottomSheetRefReactiveVar)
 	const router = useRouter()
-	const themeContext = useContext(ThemeContext)
-	const hightlightColor = themeContext.palette.bfscompany.secondary
 
 	if (rProfilesBottomSheetVar) {
 		rProfilesBottomSheetVar?.current?.close()
@@ -39,12 +35,12 @@ export default () => {
 				>
 					<Text fontSize={'lg'}>
 						By continuing, you agree to the
-						<Text fontSize={'lg'} fontWeight={'bold'} style={{ color: hightlightColor }}>
+						<Text fontSize={'lg'} fontWeight={'bold'} color={'primary.500'}>
 							{' '}
 							Term of the Services
 						</Text>
 						<Text fontSize={'lg'}> and</Text>
-						<Text fontSize={'lg'} fontWeight={'bold'} style={{ color: hightlightColor }}>
+						<Text fontSize={'lg'} fontWeight={'bold'} color={'primary.500'}>
 							{' '}
 							Privacy Policies.
 						</Text>

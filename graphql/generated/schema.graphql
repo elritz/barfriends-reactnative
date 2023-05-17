@@ -8900,6 +8900,11 @@ input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
+type OrganizedCityResponseObject {
+  allCities: [CityResponseObject!]
+  popularCities: [CityResponseObject!]
+}
+
 type Out {
   createdAt: DateTime!
   id: ID!
@@ -13395,7 +13400,7 @@ type Query {
   exploreSearch(search: String!): ExploreResponse!
   friendsFromContacts(contact: [ContactInput!]!): String!
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion!
-  getAllCitiesByState(countryIsoCode: String!, stateIsoCode: String!): [CityResponseObject!]!
+  getAllCitiesByState(countryIsoCode: String!, stateIsoCode: String!): OrganizedCityResponseObject!
   getAllCountries: [CountryResponseObject!]!
   getAllInterrests: [Json!]!
   getAllStatesByCountry(countryIsoCode: String!): [StateResponseObject!]!

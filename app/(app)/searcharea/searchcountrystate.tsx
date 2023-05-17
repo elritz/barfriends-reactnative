@@ -71,7 +71,7 @@ export default function SearchAreaCountryStates() {
 		)
 	}
 
-	if (!loading) {
+	if (loading) {
 		return (
 			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
 				{[...Array(20)].map(item => {

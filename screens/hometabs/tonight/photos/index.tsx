@@ -142,7 +142,7 @@ export default function Photos() {
 			{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length ? (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'light.800',
@@ -255,7 +255,7 @@ export default function Photos() {
 			) : (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'light.800',
@@ -267,7 +267,7 @@ export default function Photos() {
 				>
 					<Box
 						_light={{
-							bg: 'light.50',
+							bg: 'light.100',
 						}}
 						_dark={{
 							bg: 'dark.50',

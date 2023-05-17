@@ -262,7 +262,7 @@ const AddEmoji = () => {
 				rounded='lg'
 				overflow='hidden'
 				_light={{
-					bg: 'light.50',
+					bg: 'light.100',
 				}}
 				_dark={{
 					bg: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].colors[1]

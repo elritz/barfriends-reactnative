@@ -14,6 +14,7 @@ import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
 import { Box, Button, Divider, Heading, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
+import { useEffect } from 'react'
 
 export default function PreferenceNotificationPermission() {
 	const router = useRouter()
@@ -94,6 +95,9 @@ export default function PreferenceNotificationPermission() {
 														: 1,
 												} as DefaultPreferenceToPermission),
 											)
+											PreferencePermissionNotificationReactiveVar({
+												...TomorrowPreferencePermissionInitialState,
+											})
 										}}
 									>
 										Not now

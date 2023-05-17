@@ -9302,6 +9302,12 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['String']>;
 };
 
+export type OrganizedCityResponseObject = {
+  __typename?: 'OrganizedCityResponseObject';
+  allCities?: Maybe<Array<CityResponseObject>>;
+  popularCities?: Maybe<Array<CityResponseObject>>;
+};
+
 export type Out = {
   __typename?: 'Out';
   createdAt: Scalars['DateTime'];
@@ -13830,7 +13836,7 @@ export type Query = {
   exploreSearch: ExploreResponse;
   friendsFromContacts: Scalars['String'];
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion;
-  getAllCitiesByState: Array<CityResponseObject>;
+  getAllCitiesByState: OrganizedCityResponseObject;
   getAllCountries: Array<CountryResponseObject>;
   getAllInterrests: Array<Scalars['Json']>;
   getAllStatesByCountry: Array<StateResponseObject>;
@@ -18349,7 +18355,7 @@ export type GetAllCitiesByStateQueryVariables = Exact<{
 }>;
 
 
-export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, venuesInArea?: number | null, countryCode: string, latitude?: string | null, longitude?: string | null }> };
+export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: { __typename?: 'OrganizedCityResponseObject', popularCities?: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, venuesInArea?: number | null, countryCode: string, latitude?: string | null, longitude?: string | null }> | null, allCities?: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, venuesInArea?: number | null, countryCode: string, latitude?: string | null, longitude?: string | null }> | null } };
 
 export type UpdateStoryPhotosMutationVariables = Exact<{
   disconnectId: Scalars['String'];
@@ -20887,12 +20893,22 @@ export type GetAllStatesByCountryQueryResult = Apollo.QueryResult<GetAllStatesBy
 export const GetAllCitiesByStateDocument = gql`
     query getAllCitiesByState($countryIsoCode: String!, $stateIsoCode: String!) {
   getAllCitiesByState(countryIsoCode: $countryIsoCode, stateIsoCode: $stateIsoCode) {
-    name
-    stateCode
-    venuesInArea
-    countryCode
-    latitude
-    longitude
+    popularCities {
+      name
+      stateCode
+      venuesInArea
+      countryCode
+      latitude
+      longitude
+    }
+    allCities {
+      name
+      stateCode
+      venuesInArea
+      countryCode
+      latitude
+      longitude
+    }
   }
 }
     `;

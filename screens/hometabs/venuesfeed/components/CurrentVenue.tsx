@@ -107,7 +107,7 @@ export default function CurrentVenue() {
 
 					<HStack
 						_light={{
-							bg: 'light.50',
+							bg: 'light.100',
 						}}
 						_dark={{
 							bg: 'dark.50',
@@ -133,7 +133,7 @@ export default function CurrentVenue() {
 							<Button.Group borderRadius={'md'} isAttached colorScheme={'primary'}>
 								<Button
 									_light={{
-										bg: 'light.50',
+										bg: 'light.100',
 									}}
 									_dark={{
 										bg: 'dark.100',
@@ -153,7 +153,7 @@ export default function CurrentVenue() {
 										alignSelf={'center'}
 										colorScheme={'gray'}
 										_light={{
-											bg: 'light.100',
+											bg: 'light.200',
 										}}
 										_dark={{
 											bg: 'dark.100',

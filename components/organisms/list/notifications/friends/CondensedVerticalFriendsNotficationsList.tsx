@@ -16,7 +16,7 @@ const CondensedVerticalFriendsNotficationsList = <T extends FriendRequestNotific
 			{data?.length ? (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'dark.50',

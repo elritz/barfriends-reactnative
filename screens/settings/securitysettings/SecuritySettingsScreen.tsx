@@ -19,7 +19,7 @@ export default function SecuritySettingsScreen() {
 				bg: 'dark.50',
 			}}
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			flex={1}
 		>

@@ -51,7 +51,7 @@ export default function Relationships() {
 				return (
 					<Box
 						_light={{
-							bg: 'light.50',
+							bg: 'light.100',
 						}}
 						_dark={{
 							bg: 'light.800',

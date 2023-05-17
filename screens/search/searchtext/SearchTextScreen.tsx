@@ -1,9 +1,14 @@
 import SearchCard from '../components/SearchCard'
 import { useReactiveVar } from '@apollo/client'
+import {
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+} from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
-import { useExploreSearchQuery } from '@graphql/generated'
+import { useExploreSearchLazyQuery, useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
+import { FlashList } from '@shopify/flash-list'
+import { useRouter, useSearchParams } from 'expo-router'
 import {
 	Box,
 	ScrollView,
@@ -14,12 +19,14 @@ import {
 	Icon,
 	VStack,
 	Skeleton,
+	Pressable,
 } from 'native-base'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const SearchTextScreen = () => {
 	const params = useSearchParams()
 	const insets = useSafeAreaInsets()
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const { data, loading, error } = useExploreSearchQuery({
@@ -38,7 +45,7 @@ const SearchTextScreen = () => {
 	}
 
 	const filteredRecentSearches = getUniqueListBy(
-		rAuthorizationVar?.DeviceProfile?.Profile.resentSearches?.searches,
+		rAuthorizationVar?.DeviceProfile?.Profile?.resentSearches?.searches,
 		'search',
 	)
 
@@ -77,26 +84,34 @@ const SearchTextScreen = () => {
 			>
 				{filteredRecentSearches.map((item: any, index) => {
 					return (
-						<HStack
-							h={'55px'}
-							w={'100%'}
-							justifyContent={'flex-start'}
-							alignItems={'center'}
-							space={3}
-							px={2}
+						<Pressable
+							onPress={() => {
+								router.setParams({
+									searchText: item.search,
+								})
+							}}
 						>
-							<IconButton
-								variant={'outline'}
-								size={'sm'}
-								borderRadius={'md'}
-								icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
-							/>
-							<VStack>
-								<Text fontSize={'md'} fontWeight={'medium'}>
-									{item.search}
-								</Text>
-							</VStack>
-						</HStack>
+							<HStack
+								h={'55px'}
+								w={'100%'}
+								justifyContent={'flex-start'}
+								alignItems={'center'}
+								space={3}
+								px={2}
+							>
+								<IconButton
+									variant={'outline'}
+									size={'sm'}
+									borderRadius={'md'}
+									icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
+								/>
+								<VStack>
+									<Text fontSize={'md'} fontWeight={'medium'}>
+										{item.search}
+									</Text>
+								</VStack>
+							</HStack>
+						</Pressable>
 					)
 				})}
 			</ScrollView>
@@ -107,8 +122,15 @@ const SearchTextScreen = () => {
 		<Box safeAreaTop flex={1}>
 			<ScrollView
 				scrollEnabled={true}
-				contentInset={{ top: insets.top }}
+				contentInset={{
+					top: insets.top + 10,
+					bottom:
+						insets.bottom !== 0
+							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+				}}
 				automaticallyAdjustKeyboardInsets
+				automaticallyAdjustContentInsets
 				keyboardDismissMode='on-drag'
 			>
 				{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length ? (
@@ -117,12 +139,22 @@ const SearchTextScreen = () => {
 					</Box>
 				) : (
 					<>
-						{data?.exploreSearch.people?.map((item, index) => {
-							return <SearchCard key={index} item={item} />
-						})}
-						{data?.exploreSearch.venues?.map((item, index) => {
-							return <SearchCard key={index} item={item} />
-						})}
+						{data?.exploreSearch.people.length && (
+							<>
+								<Heading mx={2}>Users</Heading>
+								{data?.exploreSearch.people?.map((item, index) => {
+									return <SearchCard key={index} item={item} />
+								})}
+							</>
+						)}
+						{data?.exploreSearch.venues.length && (
+							<>
+								<Heading mx={2}>Venues</Heading>
+								{data?.exploreSearch.venues?.map((item, index) => {
+									return <SearchCard key={index} item={item} />
+								})}
+							</>
+						)}
 					</>
 				)}
 			</ScrollView>

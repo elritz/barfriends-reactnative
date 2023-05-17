@@ -425,7 +425,7 @@ const DevelopmentScreen = () => {
 									<Tooltip placement='top' isOpen={isOpenToken} label='Copied Authorization' openDelay={500}>
 										<HStack
 											_light={{
-												bg: 'light.50',
+												bg: 'light.100',
 											}}
 											_dark={{
 												bg: 'dark.50',
@@ -470,7 +470,7 @@ const DevelopmentScreen = () => {
 									>
 										<HStack
 											_light={{
-												bg: 'light.50',
+												bg: 'light.100',
 											}}
 											_dark={{
 												bg: 'dark.50',
@@ -515,7 +515,7 @@ const DevelopmentScreen = () => {
 									>
 										<HStack
 											_light={{
-												bg: 'light.50',
+												bg: 'light.100',
 											}}
 											_dark={{
 												bg: 'dark.50',

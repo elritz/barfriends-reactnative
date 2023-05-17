@@ -151,7 +151,7 @@ export default () => {
 			</>
 			<Box
 				_light={{
-					bg: 'light.100',
+					bg: 'light.200',
 				}}
 				_dark={{
 					bg: 'dark.200',

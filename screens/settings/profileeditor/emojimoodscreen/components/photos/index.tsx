@@ -61,7 +61,7 @@ export default function Photos({ story, photo, emojimoodcolors }: Props) {
 			{story?.photos?.length ? (
 				<Box
 					_light={{
-						bg: 'light.50',
+						bg: 'light.100',
 					}}
 					_dark={{
 						bg: 'light.800',

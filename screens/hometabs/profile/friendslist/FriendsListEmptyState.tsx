@@ -12,7 +12,7 @@ export const FriendsListEmptyState = () => {
 			alignItems={'center'}
 			borderRadius={'md'}
 			_light={{
-				bg: 'light.50',
+				bg: 'light.100',
 			}}
 			_dark={{
 				bg: 'dark.50',

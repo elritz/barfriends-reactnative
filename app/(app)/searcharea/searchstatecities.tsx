@@ -10,10 +10,9 @@ import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Text, Icon, Box, HStack, Pressable, Button, Skeleton } from 'native-base'
+import { Text, Icon, Box, HStack, Button, Skeleton, Heading } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(When done save this data to the backend as recent SearchAreas)
@@ -23,11 +22,10 @@ export default function SearchAreaStateCities() {
 	const params = useSearchParams()
 	const { top, bottom } = useSafeAreaInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const [stateCities, setStateCities] = useState<CityResponseObject[]>([])
+	const [stateCities, setStateCities] = useState<(string | CityResponseObject)[]>()
 	const formContext = useFormContext<Form>()
 
 	const { watch, getValues, setValue, handleSubmit } = formContext
-	console.log('params', JSON.stringify(params, null, 2))
 
 	const { data, loading, error } = useGetAllCitiesByStateQuery({
 		skip: !params.countryIsoCode || !params.stateIsoCode,
@@ -36,21 +34,31 @@ export default function SearchAreaStateCities() {
 			stateIsoCode: String(params.stateIsoCode),
 		},
 		onCompleted: data => {
-			setStateCities(data.getAllCitiesByState)
+			setStateCities([
+				'Popular',
+				...data.getAllCitiesByState.popularCities,
+				'All Cities',
+				...data.getAllCitiesByState.allCities,
+			])
 		},
 	})
 
 	const filterList = text => {
-		if (!params?.searchtext?.length && data?.getAllCitiesByState.length) {
+		if (!params?.searchtext?.length && data?.getAllCitiesByState?.allCities?.length) {
 			if (data.getAllCitiesByState) {
-				setStateCities(data.getAllCitiesByState)
+				setStateCities([
+					'Popular',
+					...[data.getAllCitiesByState.popularCities],
+					'All Cities',
+					...[data.getAllCitiesByState.allCities],
+				])
 			}
 		}
 
-		const filteredData = filter(data?.getAllCitiesByState, state => {
+		const filteredAllCitiesData = filter(data?.getAllCitiesByState.allCities, state => {
 			return contains(state, text.toLowerCase())
 		})
-		setStateCities(filteredData)
+		setStateCities([filteredAllCitiesData])
 	}
 
 	const contains = (state, query) => {
@@ -65,12 +73,17 @@ export default function SearchAreaStateCities() {
 			filterList(params.searchtext)
 		} else {
 			if (data?.getAllCitiesByState) {
-				setStateCities(data.getAllCitiesByState)
+				setStateCities([
+					'Popular',
+					...[data.getAllCitiesByState.popularCities],
+					'All Cities',
+					...[data.getAllCitiesByState.allCities],
+				])
 			}
 		}
 	}, [params.searchtext])
 
-	if (!loading) {
+	if (loading) {
 		return (
 			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
 				{[...Array(20)].map(item => {
@@ -85,83 +98,88 @@ export default function SearchAreaStateCities() {
 			data={stateCities}
 			keyboardDismissMode='on-drag'
 			renderItem={({ index, item }) => {
-				return (
-					<Button
-						_stack={{
-							paddingY: 0,
-							paddingX: 2,
-							marginX: 3,
-							w: '100%',
-							justifyContent: 'space-between',
-						}}
-						h={'50px'}
-						py={3}
-						px={4}
-						// my={1}
-						mx={3}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.100',
-						}}
-						rounded={'md'}
-						rightIcon={
-							<HStack space={3}>
-								<Text textAlign={'center'} fontWeight={'light'} fontSize={'lg'} numberOfLines={1}>
-									{item.venuesInArea}
-								</Text>
-								{watch('city.name') === item.name && (
-									<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
-								)}
-							</HStack>
-						}
-						textAlign={'left'}
-						onPress={async () => {
-							setValue('city', {
-								name: item.name,
-								isoCode: '',
-								coords: {
-									latitude: Number(item.latitude),
-									longitude: Number(item.longitude),
-								},
-							})
-							setValue('done', true)
-							const { country, state, city } = getValues()
-							const newSearchAreaValue: LocalStoragePreferenceSearchAreaType2 = {
-								...rSearchAreaVar,
-								searchArea: {
-									country,
-									state,
-									city,
-									coords: {
-										latitude: city.coords.latitude,
-										longitude: city.coords.longitude,
-									},
-								},
+				if (typeof item === 'string') {
+					// Rendering header
+					return <Heading mx={3}>{item}</Heading>
+				} else {
+					return (
+						<Button
+							_stack={{
+								paddingY: 0,
+								paddingX: 2,
+								marginX: 3,
+								w: '100%',
+								justifyContent: 'space-between',
+							}}
+							h={'50px'}
+							py={3}
+							px={4}
+							// my={1}
+							mx={3}
+							_light={{
+								bg: 'light.200',
+							}}
+							_dark={{
+								bg: 'dark.100',
+							}}
+							rounded={'md'}
+							rightIcon={
+								<HStack space={3}>
+									<Text textAlign={'center'} fontWeight={'light'} fontSize={'lg'} numberOfLines={1}>
+										{item.venuesInArea}
+									</Text>
+									{watch('city.name') === item.name && (
+										<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
+									)}
+								</HStack>
 							}
+							textAlign={'left'}
+							onPress={async () => {
+								setValue('city', {
+									name: item.name,
+									isoCode: '',
+									coords: {
+										latitude: Number(item.latitude),
+										longitude: Number(item.longitude),
+									},
+								})
+								setValue('done', true)
+								const { country, state, city } = getValues()
+								const newSearchAreaValue: LocalStoragePreferenceSearchAreaType2 = {
+									...rSearchAreaVar,
+									searchArea: {
+										country,
+										state,
+										city,
+										coords: {
+											latitude: city.coords.latitude,
+											longitude: city.coords.longitude,
+										},
+									},
+								}
 
-							await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchAreaValue))
-							// Setting Static SearchArea (Use city as Coord lat,lng)
-							SearchAreaReactiveVar({
-								...newSearchAreaValue,
-							})
-							router.push({
-								pathname: '(app)/searcharea',
-							})
-						}}
-					>
-						<Text
-							textAlign={'center'}
-							fontWeight={'medium'}
-							fontSize={'lg'}
-							numberOfLines={1}
-							ellipsizeMode={'tail'}
+								await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchAreaValue))
+								// Setting Static SearchArea (Use city as Coord lat,lng)
+								SearchAreaReactiveVar({
+									...newSearchAreaValue,
+								})
+								router.push({
+									pathname: '(app)/searcharea',
+								})
+							}}
 						>
-							{item.name}
-						</Text>
-					</Button>
-				)
+							<Text
+								textAlign={'center'}
+								fontWeight={'medium'}
+								fontSize={'lg'}
+								numberOfLines={1}
+								ellipsizeMode={'tail'}
+							>
+								{item.name}
+							</Text>
+						</Button>
+					)
+				}
 			}}
 			estimatedItemSize={200}
 			ItemSeparatorComponent={() => {
