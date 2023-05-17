@@ -164,9 +164,6 @@ export default () => {
 				LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
 			)
 
-			console.log("🚀 ~ file: _layout.tsx:167 ~ setPreferencesLocalStorageData ~ getLocalStorageNotificationPermissionsPreference:", getLocalStorageNotificationPermissionsPreference)
-
-
 			if (!getLocalStorageNotificationPermissionsPreference) {
 				await AsyncStorage.setItem(
 					LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
@@ -207,7 +204,7 @@ export default () => {
 
 			// FOREGROUNDLOCATION_PREFERENCE ~ START
 			const getLocalStoragePreferenceForegroundLocationPreference = await AsyncStorage.getItem(
-				LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
+				LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 			)
 
 			if (!getLocalStoragePreferenceForegroundLocationPreference) {

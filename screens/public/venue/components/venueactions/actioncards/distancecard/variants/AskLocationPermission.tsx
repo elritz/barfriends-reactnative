@@ -14,7 +14,7 @@ export default function AskForegroundLocationPermission() {
 				lineHeight={'xs'}
 				flex={1}
 			>
-				Sign in or up to join venues!
+				See how close you are?
 			</Heading>
 			<Button
 				size={'lg'}

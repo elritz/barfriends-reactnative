@@ -10,7 +10,7 @@ import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Text, Icon, Box, HStack, Button, Skeleton, Heading } from 'native-base'
+import { Text, Icon, Box, HStack, Button, Skeleton, Heading, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -113,7 +113,7 @@ export default function SearchAreaStateCities() {
 							}}
 							h={'50px'}
 							py={3}
-							px={4}
+							px={1}
 							// my={1}
 							mx={3}
 							_light={{
@@ -122,15 +122,24 @@ export default function SearchAreaStateCities() {
 							_dark={{
 								bg: 'dark.100',
 							}}
+							borderColor={watch('city.name') === item.name ? 'primary.500' : 'transparent'}
+							borderWidth={'3'}
 							rounded={'md'}
 							rightIcon={
-								<HStack space={3}>
-									<Text textAlign={'center'} fontWeight={'light'} fontSize={'lg'} numberOfLines={1}>
-										{item.venuesInArea}
-									</Text>
-									{watch('city.name') === item.name && (
+								<HStack space={3} alignItems={'center'}>
+									{item.venuesInArea > 1 ? (
+										<VStack>
+											<Text textAlign={'center'} fontWeight={'light'} fontSize={'md'} numberOfLines={1}>
+												{item.venuesInArea}
+											</Text>
+											<Text textAlign={'center'} fontWeight={'light'} fontSize={'sm'} numberOfLines={1}>
+												Venues
+											</Text>
+										</VStack>
+									) : null}
+									{/* {watch('city.name') === item.name && (
 										<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
-									)}
+									)} */}
 								</HStack>
 							}
 							textAlign={'left'}
@@ -168,13 +177,7 @@ export default function SearchAreaStateCities() {
 								})
 							}}
 						>
-							<Text
-								textAlign={'center'}
-								fontWeight={'medium'}
-								fontSize={'lg'}
-								numberOfLines={1}
-								ellipsizeMode={'tail'}
-							>
+							<Text fontWeight={'medium'} fontSize={'md'} numberOfLines={1} ellipsizeMode={'tail'}>
 								{item.name}
 							</Text>
 						</Button>

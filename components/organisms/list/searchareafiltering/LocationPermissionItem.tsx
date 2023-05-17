@@ -7,7 +7,7 @@ import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
-import { Pressable, HStack, Icon, IconButton, Text } from 'native-base'
+import { Pressable, HStack, Icon, IconButton, Text, VStack, Box } from 'native-base'
 import { Alert, Linking, Platform } from 'react-native'
 
 // TODO: UX() location icon when searchArea is using Currently Location over preset
@@ -44,73 +44,81 @@ const LocationPermissionItem = () => {
 	}
 
 	return (
-		<Pressable
-			onPress={async () => {
-				!rSearchAreaVar?.useCurrentLocation
-					? !rForegroundPermissionLocationVar?.granted
-						? rForegroundPermissionLocationVar?.canAskAgain && !rForegroundPermissionLocationVar.granted
-							? await useSetSearchAreaWithLocation()
-							: createTwoButtonAlert()
-						: await useSetSearchAreaWithLocation()
-					: (SearchAreaReactiveVar({
-							...newSearchArea,
-							useCurrentLocation: false,
-					  }),
-					  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
-			}}
-			rounded={'xl'}
-			_light={{
-				bg: !rSearchAreaVar?.useCurrentLocation ? 'light.100' : 'light.100',
-			}}
-			_dark={{
-				bg: !rSearchAreaVar?.useCurrentLocation ? 'light.900' : 'light.900',
-			}}
-			_pressed={{
-				bg: 'primary.500',
-			}}
-		>
-			<HStack p={3} justifyContent={'space-between'}>
-				<Text
-					_light={{
-						color: rSearchAreaVar?.useCurrentLocation ? 'black' : 'black',
-					}}
-					_dark={{
-						color: 'white',
-					}}
-					textAlign={'left'}
-					fontWeight={'semibold'}
-					fontSize={'lg'}
-					numberOfLines={1}
-					ellipsizeMode={'tail'}
-					alignSelf={'center'}
-				>
-					{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
+		<VStack>
+			<Box mb={3}>
+				<Text textAlign={'center'}>
+					You are currently using your devices location to set the search area for the app.
 				</Text>
-				<IconButton
-					icon={
-						<Icon
-							size={'sm'}
-							as={FontAwesome5}
-							rounded={'full'}
-							name={'location-arrow'}
-							_light={{
-								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
-							}}
-							_dark={{
-								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
-							}}
-						/>
-					}
-					_light={{
-						bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.200',
-					}}
-					_dark={{
-						bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.500',
-					}}
-					rounded={'full'}
-				/>
-			</HStack>
-		</Pressable>
+			</Box>
+			<Pressable
+				onPress={async () => {
+					!rSearchAreaVar?.useCurrentLocation
+						? !rForegroundPermissionLocationVar?.granted
+							? rForegroundPermissionLocationVar?.canAskAgain && !rForegroundPermissionLocationVar.granted
+								? await useSetSearchAreaWithLocation()
+								: createTwoButtonAlert()
+							: await useSetSearchAreaWithLocation()
+						: (SearchAreaReactiveVar({
+								...newSearchArea,
+								useCurrentLocation: false,
+						  }),
+						  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
+				}}
+				isPressed={rSearchAreaVar?.useCurrentLocation}
+				rounded={'xl'}
+				_light={{
+					bg: !rSearchAreaVar?.useCurrentLocation ? 'light.100' : 'light.100',
+				}}
+				_dark={{
+					bg: !rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
+				}}
+				_pressed={{
+					bg: 'primary.500',
+				}}
+			>
+				<HStack p={3} justifyContent={'space-between'}>
+					<Text
+						_light={{
+							color: rSearchAreaVar?.useCurrentLocation ? 'black' : 'black',
+						}}
+						_dark={{
+							color: 'white',
+						}}
+						textAlign={'left'}
+						fontWeight={'semibold'}
+						fontSize={'lg'}
+						numberOfLines={1}
+						ellipsizeMode={'tail'}
+						alignSelf={'center'}
+					>
+						{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
+					</Text>
+					<IconButton
+						icon={
+							<Icon
+								size={'sm'}
+								as={FontAwesome5}
+								rounded={'full'}
+								name={'location-arrow'}
+								_light={{
+									color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+								}}
+								_dark={{
+									color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+								}}
+							/>
+						}
+						_light={{
+							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.200',
+						}}
+						_dark={{
+							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.500',
+						}}
+						rounded={'full'}
+					/>
+				</HStack>
+			</Pressable>
+		</VStack>
 	)
 }
 

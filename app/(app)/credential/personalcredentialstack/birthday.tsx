@@ -9,7 +9,7 @@ import { useRouter } from 'expo-router'
 import { IconButton, Text, Icon, Box } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { SafeAreaView, View } from 'react-native'
+import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
@@ -41,7 +41,7 @@ export default () => {
 	})
 
 	const onDateChange = async (selectedDate: Date | undefined): Promise<boolean> => {
-		setValue('date', selectedDate)
+		setValue('date', selectedDate as Date)
 		if (selectedDate) {
 			const { days, months, years } = diffNow(selectedDate)
 			clearErrors('date')
@@ -69,6 +69,11 @@ export default () => {
 			setValue('date', selectedDate)
 			return true
 		}
+		setError('date', {
+			type: 'validate',
+			message: `Must be closer to ${legalAge} to join.`,
+		})
+		return false
 	}
 
 	const onSubmit = async (): Promise<void | null> => {
@@ -138,7 +143,7 @@ export default () => {
 					rules={{
 						required: {
 							value: true,
-							message: 'Hey this is required 🤷‍♂️.',
+							message: 'Your birthday is required to continue.',
 						},
 						validate: {
 							isOldEnough: value => onDateChange(value) || 'Must be less young to join.',

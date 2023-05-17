@@ -1,10 +1,9 @@
-import { ProfileVenue } from '@graphql/generated';
-import { useRouter } from 'expo-router';
-import { Image, VStack, Box, Heading } from 'native-base';
-import { useState } from 'react';
-import { Dimensions, Pressable, StyleSheet } from 'react-native';
-import { Blurhash } from 'react-native-blurhash';
-
+import { ProfileVenue } from '@graphql/generated'
+import { useRouter } from 'expo-router'
+import { Image, VStack, Box, Heading } from 'native-base'
+import { useState } from 'react'
+import { Dimensions, Pressable, StyleSheet } from 'react-native'
+import { Blurhash } from 'react-native-blurhash'
 
 const width = Dimensions.get('window').width / 2.15
 
@@ -31,7 +30,6 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		return titleCase
 	}
 
-	console.log('props.columnIndex :>> ', props.columnIndex);
 	return (
 		<Pressable
 			key={props.item.id}

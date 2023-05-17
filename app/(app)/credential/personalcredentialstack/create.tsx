@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
+import { Feather } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
 	ProfileType,
@@ -8,7 +9,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Text, Box, Heading, Button, VStack } from 'native-base'
+import { Text, Box, Heading, Button, VStack, Icon } from 'native-base'
 
 export default () => {
 	const router = useRouter()
@@ -81,11 +82,11 @@ export default () => {
 				onPress={onSubmit}
 				alignSelf={'center'}
 				isLoading={CPPLoading || SDPLoading}
-				px={10}
-				h={60}
-				w={'1/2'}
 				size={'lg'}
+				rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
 				variant={'solid'}
+				borderRadius={'md'}
+				h={60}
 				fontSize={'lg'}
 			>
 				Complete

@@ -80,6 +80,45 @@ export default () => {
 		})
 	}
 
+	const InnerContent = () => {
+		return (
+			<Box
+				_light={{
+					bg: 'light.200',
+				}}
+				_dark={{
+					bg: 'dark.200',
+				}}
+				flexDir={'row'}
+				justifyContent={'flex-end'}
+				alignItems={'center'}
+				height={'90px'}
+				px={'2.5%'}
+			>
+				<Button
+					onPress={handleSubmit(onSubmit)}
+					disabled={!!errors.firstname || !!errors.lastname}
+					borderRadius={'full'}
+					style={{
+						justifyContent: 'center',
+						height: 60,
+						width: 60,
+						paddingHorizontal: 20,
+						alignSelf: 'center',
+					}}
+					rightIcon={
+						<Icon
+							as={Feather}
+							name='arrow-right'
+							size={'xl'}
+							color={errors.firstname || errors.lastname ? 'primary.700' : 'white'}
+						/>
+					}
+				/>
+			</Box>
+		)
+	}
+
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
@@ -120,7 +159,7 @@ export default () => {
 						rules={{
 							required: {
 								value: true,
-								message: 'Hey this is required 🤷‍♂️.',
+								message: 'Your lastname is required to continue.',
 							},
 						}}
 					/>
@@ -140,6 +179,7 @@ export default () => {
 								autoComplete={'name-family'}
 								autoCapitalize={'none'}
 								keyboardType='default'
+								blurOnSubmit={false}
 								numberOfLines={1}
 								placeholder='Last name'
 								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
@@ -158,7 +198,7 @@ export default () => {
 						rules={{
 							required: {
 								value: true,
-								message: 'Hey this is required 🤷‍♂️.',
+								message: 'Your first name is required to continue.',
 							},
 						}}
 					/>
@@ -167,40 +207,7 @@ export default () => {
 			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
-					<Box
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignItems={'center'}
-						height={'90px'}
-						px={'2.5%'}
-					>
-						<Button
-							onPress={handleSubmit(onSubmit)}
-							disabled={!!errors.firstname || !!errors.lastname}
-							borderRadius={'full'}
-							style={{
-								justifyContent: 'center',
-								height: 60,
-								width: 60,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
-							}}
-							rightIcon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'xl'}
-									color={errors.firstname || errors.lastname ? 'primary.700' : 'white'}
-								/>
-							}
-						/>
-					</Box>
+					<InnerContent />
 				</InputAccessoryView>
 			) : (
 				<Reanimated.View
@@ -211,49 +218,7 @@ export default () => {
 						textInputContainerStyle,
 					]}
 				>
-					<Box
-						display={isFocused ? 'flex' : 'none'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						height={'90px'}
-						px={'2.5%'}
-					>
-						<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
-							<Text>
-								By continuing you may receive an SMS for verification. Message and data rates may apply.
-							</Text>
-						</Box>
-						<IconButton
-							disabled={!!errors?.firstname || !!errors.lastname}
-							onPress={handleSubmit(onSubmit)}
-							variant={'solid'}
-							color={'primary.500'}
-							isDisabled={!!errors.firstname || !!errors.lastname}
-							borderRadius={'full'}
-							style={{
-								justifyContent: 'center',
-								height: 60,
-								width: 60,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
-							}}
-							icon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'xl'}
-									color={errors?.firstname || errors?.lastname ? 'primary.700' : 'white'}
-								/>
-							}
-						/>
-					</Box>
+					<InnerContent />
 				</Reanimated.View>
 			)}
 		</Box>

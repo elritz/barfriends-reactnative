@@ -123,17 +123,15 @@ export default function () {
 										size={'lg'}
 										secureTextEntry
 										onChangeText={value => onChange(value)}
-										onSubmitEditing={() => {
-											handleSubmit(onSubmit)
-											passwordRef?.current?.focus()
-										}}
+										onSubmitEditing={handleSubmit(onSubmit)}
 										onBlur={onBlur}
 										textContentType='password'
 										blurOnSubmit={false}
 										autoComplete={'password-new'}
 										autoFocus
+										enablesReturnKeyAutomatically={false}
 										placeholder='Password'
-										returnKeyType='next'
+										returnKeyType='done'
 										autoCorrect={false}
 										inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
 										autoCapitalize='none'

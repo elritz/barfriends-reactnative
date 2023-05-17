@@ -123,6 +123,54 @@ export default () => {
 		}
 	}, [isFocused])
 
+	const InnerContent = () => {
+		return (
+			<Box
+				display={isFocused ? 'flex' : 'none'}
+				_light={{
+					bg: 'light.200',
+				}}
+				_dark={{
+					bg: 'dark.200',
+				}}
+				flexDir={'row'}
+				justifyContent={'flex-end'}
+				alignContent={'space-around'}
+				height={'90px'}
+				px={'2.5%'}
+			>
+				<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
+					<Text>
+						By continuing you may receive an SMS for verification. Message and data rates may apply.
+					</Text>
+				</Box>
+				<IconButton
+					disabled={!!errors?.email}
+					onPress={handleSubmit(onSubmit)}
+					variant={'solid'}
+					color={'primary.500'}
+					isDisabled={!!errors.email || loading}
+					borderRadius={'full'}
+					style={{
+						justifyContent: 'center',
+						height: 60,
+						width: 60,
+						paddingHorizontal: 20,
+						alignSelf: 'center',
+					}}
+					icon={
+						<Icon
+							as={Feather}
+							name='arrow-right'
+							size={'xl'}
+							color={errors?.email ? 'primary.700' : 'white'}
+						/>
+					}
+				/>
+			</Box>
+		)
+	}
+
 	return (
 		<KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -187,7 +235,7 @@ export default () => {
 					rules={{
 						required: {
 							value: true,
-							message: 'Hey this is required 🤷‍♂️.',
+							message: 'Your email is required to continue.',
 						},
 						pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 					}}
@@ -195,49 +243,7 @@ export default () => {
 			</View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
-					<Box
-						display={isFocused ? 'flex' : 'none'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						height={'90px'}
-						px={'2.5%'}
-					>
-						<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
-							<Text>
-								By continuing you may receive an SMS for verification. Message and data rates may apply.
-							</Text>
-						</Box>
-						<IconButton
-							disabled={!!errors?.email}
-							onPress={handleSubmit(onSubmit)}
-							variant={'solid'}
-							color={'primary.500'}
-							isDisabled={!!errors.email || loading}
-							borderRadius={'full'}
-							style={{
-								justifyContent: 'center',
-								height: 60,
-								width: 60,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
-							}}
-							icon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'xl'}
-									color={errors?.email ? 'primary.700' : 'white'}
-								/>
-							}
-						/>
-					</Box>
+					<InnerContent />
 				</InputAccessoryView>
 			) : (
 				<Reanimated.View
@@ -248,49 +254,7 @@ export default () => {
 						textInputContainerStyle,
 					]}
 				>
-					<Box
-						display={isFocused ? 'flex' : 'none'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						height={'90px'}
-						px={'2.5%'}
-					>
-						<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
-							<Text>
-								By continuing you may receive an SMS for verification. Message and data rates may apply.
-							</Text>
-						</Box>
-						<IconButton
-							disabled={!!errors?.email}
-							onPress={handleSubmit(onSubmit)}
-							variant={'solid'}
-							color={'primary.500'}
-							isDisabled={!!errors.email || loading}
-							borderRadius={'full'}
-							style={{
-								justifyContent: 'center',
-								height: 60,
-								width: 60,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
-							}}
-							icon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'xl'}
-									color={errors?.email ? 'primary.700' : 'white'}
-								/>
-							}
-						/>
-					</Box>
+					<InnerContent />
 				</Reanimated.View>
 			)}
 		</KeyboardAvoidingView>

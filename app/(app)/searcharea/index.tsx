@@ -171,7 +171,7 @@ export default () => {
 										)
 									})}
 								</HStack>
-								<Box>
+								<Box mt={2}>
 									<LocationPermissionItem />
 								</Box>
 							</VStack>

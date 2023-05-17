@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Button, Icon } from 'native-base'
+import { Button, Icon, IconButton } from 'native-base'
 import { Box, Text, VStack, Pressable } from 'native-base'
 
 export default () => {
@@ -48,7 +48,7 @@ export default () => {
 				</Pressable>
 			</Box>
 			<Box>
-				<Button
+				<IconButton
 					bg={'primary.500'}
 					isDisabled={PTSLoading}
 					onPress={() => {
@@ -61,16 +61,14 @@ export default () => {
 							pathname: '(app)/credential/personalcredentialstack/phone',
 						})
 					}}
-					rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
+					icon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
 					variant={'solid'}
-					px={10}
 					size={'lg'}
-					w={'1/2'}
-					h={50}
+					borderRadius={'full'}
+					h={60}
+					w={60}
 					fontSize={'lg'}
-				>
-					Continue
-				</Button>
+				/>
 			</Box>
 		</VStack>
 	)

@@ -1,9 +1,12 @@
+import { useReactiveVar } from '@apollo/client'
 import { FontAwesome5 } from '@expo/vector-icons'
+import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { HStack, VStack, Heading, IconButton, Icon, Pressable } from 'native-base'
+import { HStack, VStack, Heading, IconButton, Icon, Pressable, Box } from 'native-base'
 
 export default function SearchAreaHeader({ city }) {
 	const router = useRouter()
+	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	return (
 		<Pressable
 			onPress={() =>
@@ -17,11 +20,27 @@ export default function SearchAreaHeader({ city }) {
 					<Heading lineHeight={'sm'} fontWeight={'medium'} fontSize={'lg'}>
 						from
 					</Heading>
-					<HStack alignItems={'center'} space={2}>
-						<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
-							{city}
-						</Heading>
-						<Icon as={FontAwesome5} size={'md'} name='chevron-up' mb={1} />
+					<HStack alignItems={'center'} justifyContent={'space-between'} space={2}>
+						<HStack alignItems={'center'} space={2}>
+							<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
+								{city}
+							</Heading>
+							{rSearchAreaVar?.useCurrentLocation && (
+								<Icon
+									size={'sm'}
+									as={FontAwesome5}
+									rounded={'full'}
+									name={'location-arrow'}
+									_light={{
+										color: 'blue.500',
+									}}
+									_dark={{
+										color: 'blue.500',
+									}}
+								/>
+							)}
+						</HStack>
+						<Icon as={FontAwesome5} size={'lg'} name='chevron-up' mb={1} />
 					</HStack>
 				</VStack>
 			</HStack>

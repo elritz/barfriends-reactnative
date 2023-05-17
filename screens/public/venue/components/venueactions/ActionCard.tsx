@@ -27,7 +27,7 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 				alignItems: 'center',
 				height: 190,
 			}}
-			borderRadius={'2xl'}
+			borderRadius={'lg'}
 		>
 			{children}
 		</OuterView>

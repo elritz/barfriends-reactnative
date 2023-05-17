@@ -8,7 +8,7 @@ export default function SignupCard() {
 	return (
 		<VStack justifyContent={'space-around'}>
 			<Heading
-				fontSize={'2xl'}
+				fontSize={'xl'}
 				numberOfLines={2}
 				textAlign={'center'}
 				ellipsizeMode='tail'
@@ -16,7 +16,7 @@ export default function SignupCard() {
 				minimumFontScale={0.5}
 				fontWeight={'extrabold'}
 			>
-				Join the fun tonight
+				You can Join!
 			</Heading>
 			<Center
 				style={{
@@ -30,10 +30,10 @@ export default function SignupCard() {
 							router.push({ pathname: '(app)/credential/personalcredentialstack/getstarted' })
 						}}
 						px={7}
-							borderRadius={'md'}
+						borderRadius={'sm'}
 						_text={{
 							fontSize: 'lg',
-							fontWeight: 'bold',
+							fontWeight: '700',
 							textTransform: 'uppercase',
 						}}
 					>

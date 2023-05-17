@@ -5,19 +5,10 @@ import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import {
-	Button,
-	Input,
-	useTheme,
-	Text,
-	Icon,
-	Box,
-	KeyboardAvoidingView,
-	Spinner,
-} from 'native-base'
-import { useContext, useRef, useState } from 'react'
+import { Button, Input, useTheme, Text, Icon, Box } from 'native-base'
+import { useContext, useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { ActivityIndicator, InputAccessoryView, Platform, Pressable, View } from 'react-native'
+import { InputAccessoryView, Platform, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -110,6 +101,51 @@ export default () => {
 		}
 	}
 
+	const InnerContent = () => {
+		return (
+			<Box
+				flexDir={'row'}
+				justifyContent={'flex-end'}
+				height={'90px'}
+				px={'2.5%'}
+				_light={{
+					bg: theme.colors.light[100],
+				}}
+				_dark={{
+					bg: theme.colors.dark[200],
+				}}
+			>
+				<Box
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'space-around',
+					}}
+				>
+					<Button
+						onPress={handleSubmit(onSubmit)}
+						isDisabled={!!errors.username}
+						borderRadius={'full'}
+						style={{
+							justifyContent: 'center',
+							height: 60,
+							width: 60,
+							paddingHorizontal: 20,
+							alignSelf: 'center',
+						}}
+						rightIcon={
+							<Icon
+								as={Feather}
+								name='arrow-right'
+								size={'xl'}
+								color={errors.username ? 'primary.700' : 'white'}
+							/>
+						}
+					/>
+				</Box>
+			</Box>
+		)
+	}
 	const InputRightIcon = () => {
 		const boxDim = 35
 
@@ -149,6 +185,7 @@ export default () => {
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
 								autoCorrect={false}
+								l
 								autoFocus
 								textContentType='username'
 								autoComplete='username-new'
@@ -164,7 +201,7 @@ export default () => {
 								keyboardType='default'
 								autoCapitalize='none'
 								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								blurOnSubmit={true}
+								blurOnSubmit={false}
 								InputRightElement={<InputRightIcon />}
 							/>
 						)}
@@ -186,47 +223,7 @@ export default () => {
 			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
-					<Box
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						height={'90px'}
-						px={'2.5%'}
-						_light={{
-							bg: theme.colors.light[100],
-						}}
-						_dark={{
-							bg: theme.colors.dark[200],
-						}}
-					>
-						<Box
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-							}}
-						>
-							<Button
-								onPress={handleSubmit(onSubmit)}
-								isDisabled={!!errors.username}
-								borderRadius={'full'}
-								style={{
-									justifyContent: 'center',
-									height: 60,
-									width: 60,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								rightIcon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'xl'}
-										color={errors.username ? 'primary.700' : 'white'}
-									/>
-								}
-							/>
-						</Box>
-					</Box>
+					<InnerContent />
 				</InputAccessoryView>
 			) : (
 				<Reanimated.View
@@ -237,47 +234,7 @@ export default () => {
 						textInputContainerStyle,
 					]}
 				>
-					<Box
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						height={'90px'}
-						px={'2.5%'}
-						_light={{
-							bg: theme.colors.light[100],
-						}}
-						_dark={{
-							bg: theme.colors.dark[200],
-						}}
-					>
-						<Box
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-							}}
-						>
-							<Button
-								onPress={handleSubmit(onSubmit)}
-								isDisabled={!!errors.username}
-								borderRadius={'full'}
-								style={{
-									justifyContent: 'center',
-									height: 60,
-									width: 60,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								rightIcon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'xl'}
-										color={errors.username ? 'primary.700' : 'white'}
-									/>
-								}
-							/>
-						</Box>
-					</Box>
+					<InnerContent />
 				</Reanimated.View>
 			)}
 		</Box>

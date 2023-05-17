@@ -17,17 +17,12 @@ import SearchAreaHeader from '@screens/hometabs/venuesfeed/components/SearchArea
 import VenueFeedSignupCard from '@screens/hometabs/venuesfeed/components/VenueFeedSignupCard'
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import { MasonryFlashList } from '@shopify/flash-list'
-import { useRouter } from 'expo-router'
 import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
-import { useEffect, useRef } from 'react'
-import { AppState, Dimensions } from 'react-native'
+import { useEffect } from 'react'
+import { Dimensions } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
-	const router = useRouter()
-	const appStateRef = useRef(AppState.currentState)
-	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
@@ -59,8 +54,6 @@ export default () => {
 			countryIsoCode: String(rSearchAreaVar?.searchArea.country.isoCode),
 			stateIsoCode: String(rSearchAreaVar?.searchArea.state.isoCode),
 		},
-		onError: error => {},
-		onCompleted: data => {},
 	})
 
 	const onPullRefresh = () => {
@@ -87,7 +80,7 @@ export default () => {
 		}
 	}, [])
 
-	if (!data?.venuesNearby || loading ) {
+	if (!data?.venuesNearby || loading) {
 		return (
 			<MasonryFlashList
 				numColumns={2}
@@ -260,7 +253,9 @@ export default () => {
 				scrollEnabled
 				// columnWrapperStyle={{ justifyContent: 'space-around' }}
 				data={data?.venuesNearby.venuesNearby}
-				renderItem={({ item, index, columnIndex }) => <VerticalVenueFeedVenueItem loading={loading} item={item} columnIndex={columnIndex} />}
+				renderItem={({ item, index, columnIndex }) => (
+					<VerticalVenueFeedVenueItem loading={loading} item={item} columnIndex={columnIndex} />
+				)}
 				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={() => {
@@ -269,15 +264,7 @@ export default () => {
 							{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
 								<VenueFeedSignupCard />
 							)}
-							{data.venuesNearby && (
-								<SearchAreaHeader
-									city={
-										data.venuesNearby.__typename === 'VenuesNearbyResponse'
-											? data.venuesNearby.searchArea?.City.name
-											: ''
-									}
-								/>
-							)}
+							{data.venuesNearby && <SearchAreaHeader city={rSearchAreaVar.searchArea.city.name} />}
 						</VStack>
 					)
 				}}

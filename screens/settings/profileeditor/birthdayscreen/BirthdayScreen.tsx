@@ -149,7 +149,7 @@ const BirthdayScreen = () => {
 					rules={{
 						required: {
 							value: true,
-							message: 'Hey this is required 🤷‍♂️.',
+							message: 'Your birthday is required to continue.',
 						},
 						validate: {
 							validateYear1: async value => (await validateDate1(value)) || 'You must exsist to sign up.',

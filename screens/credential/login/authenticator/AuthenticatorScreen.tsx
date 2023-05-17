@@ -235,7 +235,7 @@ export default function AuthenticatorScreen() {
 						flexDir={'row'}
 						justifyContent={'flex-end'}
 						alignContent={'space-around'}
-						height={'90px'}
+						height={'70px'}
 						px={'2.5%'}
 						_light={{
 							bg: 'light.200',
@@ -251,29 +251,23 @@ export default function AuthenticatorScreen() {
 								justifyContent: 'space-around',
 							}}
 						>
-							<IconButton
+							<Button
 								disabled={!!errors.authenticator || loading}
 								onPress={handleSubmit(onSubmit)}
 								variant={'solid'}
 								color={'primary.500'}
 								isDisabled={!!errors.authenticator || loading}
 								style={{
-									justifyContent: 'center',
-									borderRadius: 50,
-									height: 70,
-									width: 70,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
+									height: 50,
 								}}
-								icon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'2xl'}
-										color={errors?.authenticator ? 'light.800' : 'white'}
-									/>
-								}
-							/>
+								rightIcon={<Icon as={Feather} name='arrow-right' size={'lg'} color={'white'} />}
+								_text={{
+									fontSize: 'md',
+									fontWeight: 'medium',
+								}}
+							>
+								Continue
+							</Button>
 						</View>
 					</Box>
 				</InputAccessoryView>

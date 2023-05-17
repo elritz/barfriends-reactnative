@@ -17,7 +17,7 @@ import { useSearchParams } from 'expo-router'
 import * as TaskManager from 'expo-task-manager'
 import { getDistance } from 'geolib'
 import { MotiView } from 'moti'
-import { Box, Button, Heading, Icon, Text, View, useDisclose, useTheme } from 'native-base'
+import { Box, Button, Heading, Icon, Text, VStack, View, useDisclose, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
@@ -252,7 +252,7 @@ const CurrentLocationFromVenueDistance = () => {
 		<>
 			{distance && distance > 10 ? (
 				<>
-					{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' ? (
+					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' ? (
 						<JoinCard />
 					) : (
 						<SignupCard />
@@ -265,6 +265,8 @@ const CurrentLocationFromVenueDistance = () => {
 							style={[
 								styles.dot,
 								{
+									marginLeft: '50%',
+									transform: [{ translateX: -size / 2 }],
 									alignContent: 'center',
 									justifyContent: 'center',
 								},
@@ -308,7 +310,7 @@ const CurrentLocationFromVenueDistance = () => {
 							/>
 						</View>
 					) : (
-						<Box height={'100%'} justifyContent={'center'}>
+						<Box height={'100%'} justifyContent={'center'} mb={5}>
 							<Heading
 								textAlign={'center'}
 								textTransform={'uppercase'}
@@ -319,7 +321,7 @@ const CurrentLocationFromVenueDistance = () => {
 								{metric === 'km' ? `In your area` : `You're super close!`}
 							</Heading>
 
-							<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'} alignItems={'center'}>
+							<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'}>
 								<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
 								<Heading fontWeight={'900'}>
 									{distance}&nbsp;{metric}
