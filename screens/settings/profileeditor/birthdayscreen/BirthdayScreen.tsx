@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	Profile,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
@@ -31,7 +31,7 @@ const BirthdayScreen = () => {
 			onCompleted: data => {
 				const profile = data.updateOneProfile as Profile
 				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 				AuthorizationReactiveVar({
 					...deviceManager,
@@ -58,7 +58,7 @@ const BirthdayScreen = () => {
 	} = useForm({
 		defaultValues: {
 			date:
-				new Date(rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.birthday) || '',
+				new Date(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.birthday) || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -102,7 +102,7 @@ const BirthdayScreen = () => {
 		updateOneProfilMutation({
 			variables: {
 				where: {
-					id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+					id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 				},
 				data: {
 					IdentifiableInformation: {

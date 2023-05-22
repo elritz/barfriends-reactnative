@@ -80,6 +80,21 @@ export default () => {
 		}
 	}, [])
 
+	const ListheaderComponent = () => {
+		return (
+			<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
+				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+					<VenueFeedSignupCard />
+				)}
+				<SearchAreaHeader city={rSearchAreaVar.searchArea.city.name} />
+			</VStack>
+		)
+	}
+
+	const listFooterComponent = () => {
+		return null
+	}
+
 	if (!data?.venuesNearby || loading) {
 		return (
 			<MasonryFlashList
@@ -88,20 +103,7 @@ export default () => {
 				data={[...Array(6)]}
 				showsVerticalScrollIndicator={false}
 				scrollEnabled={false}
-				ListHeaderComponent={() => {
-					return (
-						<Skeleton
-							h={'160'}
-							rounded={'md'}
-							w={'97%'}
-							minW={'95%'}
-							my={2}
-							style={{
-								alignSelf: 'center',
-							}}
-						/>
-					)
-				}}
+				ListHeaderComponent={ListheaderComponent}
 				renderItem={({ item }) => {
 					return (
 						<Skeleton
@@ -133,6 +135,7 @@ export default () => {
 	if (data.venuesNearby.__typename === 'ComingAreaResponse') {
 		return (
 			<ScrollView>
+				<ListheaderComponent />
 				{data.venuesNearby.comingAreas.map(item => {
 					const lengthOfUpvote = item.Vote.filter(item => {
 						return item.upvote
@@ -231,43 +234,28 @@ export default () => {
 	}
 
 	if (data.venuesNearby.__typename === 'VenuesNearbyResponse') {
-		const listFooterComponent = () => {
-			return null
-		}
-
 		return (
-			// <Box
-			// 	marginBottom={
-			// 		insets.bottom !== 0
-			// 			? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-			// 			: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT
-			// 	}
-			// >
 			<MasonryFlashList
 				overScrollMode='always'
 				onRefresh={onPullRefresh}
 				refreshing={loading}
 				showsVerticalScrollIndicator={false}
 				numColumns={2}
-				estimatedItemSize={50}
+				estimatedItemSize={100}
 				scrollEnabled
 				// columnWrapperStyle={{ justifyContent: 'space-around' }}
 				data={data?.venuesNearby.venuesNearby}
 				renderItem={({ item, index, columnIndex }) => (
-					<VerticalVenueFeedVenueItem loading={loading} item={item} columnIndex={columnIndex} />
+					<VerticalVenueFeedVenueItem
+						index={index}
+						loading={loading}
+						item={item}
+						columnIndex={columnIndex}
+					/>
 				)}
 				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 				keyExtractor={item => item.id}
-				ListHeaderComponent={() => {
-					return (
-						<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-							{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-								<VenueFeedSignupCard />
-							)}
-							{data.venuesNearby && <SearchAreaHeader city={rSearchAreaVar.searchArea.city.name} />}
-						</VStack>
-					)
-				}}
+				ListHeaderComponent={ListheaderComponent}
 				ListFooterComponent={listFooterComponent}
 				automaticallyAdjustContentInsets
 			/>

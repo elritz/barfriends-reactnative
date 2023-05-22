@@ -4,7 +4,7 @@ import { UBER_CLIENT_ID_KEY } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Box, Heading, VStack } from 'native-base'
+import { Box, Heading, Text, VStack } from 'native-base'
 import { useCallback } from 'react'
 import { Alert, Linking } from 'react-native'
 
@@ -50,16 +50,18 @@ export default function UberCard() {
 
 	return (
 		<VStack flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
-			<Heading
-				textTransform={'uppercase'}
-				lineHeight={'xs'}
-				fontSize={'lg'}
-				fontWeight={'black'}
-				flex={1}
-				mt={5}
-			>
-				USE UBER TO GET HERE FAST.
-			</Heading>
+			<VStack space={1} flex={1} justifyContent={'flex-start'}>
+				<Heading
+					textTransform={'uppercase'}
+					lineHeight={'xs'}
+					fontSize={'lg'}
+					fontWeight={'black'}
+					mt={5}
+				>
+					Request a ride now
+				</Heading>
+				<Text>Focused on safety, wherever you go</Text>
+			</VStack>
 			<Box>
 				<UberButton params={params} />
 			</Box>

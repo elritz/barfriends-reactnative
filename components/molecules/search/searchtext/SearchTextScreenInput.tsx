@@ -28,8 +28,8 @@ const SearchTextScreenInput = () => {
 	}, [isFocused])
 
 	useEffect(() => {
-		setValue('searchText', String(params.searchText))
-		console.log('🚀 ~ file: SearchTextScreenInput.tsx:19 ~ SearchTextScreenInput ~ params:', params)
+		console.log('params.searchText :>> ', params.searchText)
+		setValue('searchText', params.searchText ? (params.searchText as string) : '')
 	}, [params])
 
 	const {
@@ -124,7 +124,7 @@ const SearchTextScreenInput = () => {
 							size={'xl'}
 							name='arrow-back'
 							_light={{ color: 'light.700' }}
-							_dark={{ color: 'dark.400' }}
+							_dark={{ color: 'dark.900' }}
 						/>
 					}
 					w={'50px'}
@@ -141,6 +141,7 @@ const SearchTextScreenInput = () => {
 							_light={{ bgColor: 'light.200' }}
 							_dark={{ bgColor: 'dark.200' }}
 							rounded={'lg'}
+							placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
 							flex={1}
 							keyboardAppearance={colorScheme}
 							_input={{
@@ -169,7 +170,7 @@ const SearchTextScreenInput = () => {
 								<Icon
 									as={Ionicons}
 									_light={{ color: 'light.600' }}
-									_dark={{ color: 'dark.400' }}
+									_dark={{ color: 'dark.900' }}
 									name='ios-search'
 									size={'md'}
 									ml={2}

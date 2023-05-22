@@ -46,7 +46,7 @@ const ProfileTab = (props: TabProps) => {
 		})
 	}
 
-	if (!rAuthorizationVar || rAuthorizationVar.DeviceProfile?.Profile.ProfileType === 'GUEST') {
+	if (!rAuthorizationVar || rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST') {
 		return (
 			<Pressable
 				delayLongPress={200}

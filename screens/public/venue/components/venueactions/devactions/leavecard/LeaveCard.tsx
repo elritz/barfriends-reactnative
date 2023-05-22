@@ -1,16 +1,11 @@
-import { useReactiveVar } from '@apollo/client'
-import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
-import {
-	AuthorizationDeviceManager,
-	ClientDeviceProfile,
-	Profile,
-	useRemovePersonalJoinsVenueMutation,
-} from '@graphql/generated'
-import { useRoute } from '@react-navigation/native'
-import { AuthorizationReactiveVar } from '@reactive'
-import { useRouter, useSearchParams } from 'expo-router'
-import { Button, VStack, Box } from 'native-base'
-import { useEffect, useState } from 'react'
+import { useReactiveVar } from '@apollo/client';
+import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query';
+import { AuthorizationDeviceManager, AuthorizationDeviceProfile, Profile, useRemovePersonalJoinsVenueMutation } from '@graphql/generated';
+import { AuthorizationReactiveVar } from '@reactive';
+import { useRouter, useSearchParams } from 'expo-router';
+import { Button, VStack, Box } from 'native-base';
+import { useEffect, useState } from 'react';
+
 
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
@@ -32,8 +27,9 @@ export default function LeaveCard() {
 		if (out) {
 			setOutId(out.id)
 		}
-
-		setIsJoined(joinedToVenue?.includes(String(params.profileid)))
+		if (joinedToVenue) {
+			setIsJoined(joinedToVenue.includes(String(params.profileid)))
+		}
 	}, [rAuthorizationVar, isJoined])
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
@@ -45,7 +41,7 @@ export default function LeaveCard() {
 				if (data.removePersonalJoinsVenue) {
 					const profile = data.removePersonalJoinsVenue as Profile
 					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 					if (
 						profile?.Personal?.LiveOutPersonal?.Out &&
 						deviceprofile?.Profile?.Personal?.LiveOutPersonal

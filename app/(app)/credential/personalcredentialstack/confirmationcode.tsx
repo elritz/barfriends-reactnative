@@ -4,7 +4,6 @@ import { useIsFocused } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import Countdown from '@util/hooks/useTimer'
-import { log } from 'console'
 import { useRouter, useSearchParams } from 'expo-router'
 import { IconButton, Icon, Box, Text, VStack, Heading, Button, useDisclose } from 'native-base'
 import { useEffect, useState } from 'react'
@@ -84,9 +83,6 @@ export default () => {
 	})
 
 	const checkFinalCode = (value: string): ValidateResult => {
-		console.log(value)
-		console.log(params.code)
-
 		if (value !== params?.code) {
 			return false
 		} else {
@@ -111,11 +107,6 @@ export default () => {
 	}
 
 	useEffect(() => {
-		console.log(
-			"🚀 ~ file: confirmationcode.tsx:118 ~ useEffect ~ watch('code').length:",
-			watch('code').length,
-			CELL_COUNT,
-		)
 		if (watch('code').length === CELL_COUNT) {
 			onSubmit({
 				code: watch('code'),

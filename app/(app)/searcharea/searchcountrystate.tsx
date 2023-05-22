@@ -1,16 +1,12 @@
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
-import { SearchAreaStackParamList } from '@ctypes/app'
-import { Feather } from '@expo/vector-icons'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
-import { RouteProp } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import { Form } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Text, Icon, Center, Box, HStack, Skeleton } from 'native-base'
+import { Button, Text, Center, Box, Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchAreaCountryStates() {
@@ -40,7 +36,7 @@ export default function SearchAreaCountryStates() {
 	})
 
 	const filterList = text => {
-		if (!params?.searchtext.length && data?.getAllStatesByCountry.length) {
+		if (!params?.searchtext?.length && data?.getAllStatesByCountry.length) {
 			setCountryStates(data.getAllStatesByCountry)
 		}
 
@@ -85,6 +81,7 @@ export default function SearchAreaCountryStates() {
 		<FlashList
 			data={countryStates}
 			keyboardDismissMode={'on-drag'}
+			keyExtractor={(item, index) => 'key' + index}
 			contentInset={{
 				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
@@ -99,26 +96,21 @@ export default function SearchAreaCountryStates() {
 						_stack={{
 							paddingY: 0,
 							paddingX: 2,
-							marginY: 1,
 							marginX: 3,
 							w: '100%',
 							justifyContent: 'space-between',
 						}}
+						h={'50px'}
+						py={3}
+						px={1}
 						mx={3}
 						_light={{
-							bg: 'light.200',
+							bg: watch('state.name') === item.isoCode ? 'primary.500' : 'light.50',
 						}}
 						_dark={{
-							bg: 'dark.100',
+							bg: watch('state.name') === item.isoCode ? 'primary.500' : 'dark.50',
 						}}
-						rounded={'full'}
-						rightIcon={
-							<HStack space={3}>
-								{watch('state.name') === item.name && (
-									<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
-								)}
-							</HStack>
-						}
+						rounded={'md'}
 						onPress={() => {
 							setValue('state', {
 								name: item.name,

@@ -65,7 +65,7 @@ const LocationPermissionItemEmptyState = () => {
 			<HStack p={3} justifyContent={'space-between'}>
 				<Text
 					_light={{
-						color: rSearchAreaVar?.useCurrentLocation ? 'black' : 'black',
+						color: 'black',
 					}}
 					_dark={{
 						color: 'white',
@@ -73,7 +73,7 @@ const LocationPermissionItemEmptyState = () => {
 					w={'100%'}
 					textAlign={'center'}
 					fontWeight={'semibold'}
-					fontSize={'lg'}
+					fontSize={'md'}
 					numberOfLines={1}
 					ellipsizeMode={'tail'}
 					alignSelf={'center'}

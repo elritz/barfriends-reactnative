@@ -59,6 +59,7 @@ const ExploreSearchInput = () => {
 			alignSelf={'center'}
 			placeholder='Search'
 			returnKeyType='search'
+			placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
 			underlineColorAndroid='transparent'
 			keyboardAppearance={colorScheme}
 			InputLeftElement={
@@ -69,12 +70,12 @@ const ExploreSearchInput = () => {
 						name='arrow-back'
 						size={'md'}
 						_light={{ color: 'light.600' }}
-						_dark={{ color: 'dark.400' }}
+						_dark={{ color: 'dark.900' }}
 					/>
 				) : (
 					<Icon
 						_light={{ color: 'light.600' }}
-						_dark={{ color: 'dark.400' }}
+						_dark={{ color: 'dark.900' }}
 						as={Ionicons}
 						name='ios-search'
 						size={'md'}

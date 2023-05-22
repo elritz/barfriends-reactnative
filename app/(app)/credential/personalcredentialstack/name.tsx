@@ -59,7 +59,6 @@ export default () => {
 	})
 
 	const onSubmit = (data: any) => {
-		console.log('🚀 ~ file: NameScreen.tsx:55 ~ onSubmit ~ data:', data)
 		if (!data.firstname) {
 			setError('firstname', {
 				message: 'You need to enter a first name',

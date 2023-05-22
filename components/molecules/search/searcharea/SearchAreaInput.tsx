@@ -95,11 +95,12 @@ const SearchAreaInput = (props: Props) => {
 							placeholder={props.placeholder}
 							returnKeyType='search'
 							underlineColorAndroid='transparent'
+							placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
 							InputLeftElement={
 								<Icon
 									as={Ionicons}
 									_light={{ color: 'light.600' }}
-									_dark={{ color: 'dark.400' }}
+									_dark={{ color: 'dark.900' }}
 									name='ios-search'
 									size={'md'}
 									ml={2}

@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	Profile,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
@@ -46,7 +46,7 @@ const DescriptionScreen = () => {
 			if (data.updateOneProfile) {
 				const profile = data.updateOneProfile as Profile
 				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 				AuthorizationReactiveVar({
 					...deviceManager,

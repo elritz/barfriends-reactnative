@@ -137,6 +137,7 @@ const SearchTextScreenInput = () => {
 							autoCapitalize={'none'}
 							placeholder='Search'
 							autoFocus
+							placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
 							value={value}
 							onChangeText={text => changeSearchText(text)}
 							returnKeyType='search'

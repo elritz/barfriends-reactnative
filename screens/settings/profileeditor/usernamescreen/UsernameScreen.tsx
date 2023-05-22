@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	Profile,
 	useCheckUsernameLazyQuery,
 	useUpdateOneProfileMutation,
@@ -32,7 +32,7 @@ const UsernameScreen = () => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			username: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username || '',
+			username: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -68,7 +68,7 @@ const UsernameScreen = () => {
 			onCompleted: data => {
 				const profile = data.updateOneProfile as Profile
 				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 				AuthorizationReactiveVar({
 					...deviceManager,
@@ -86,7 +86,7 @@ const UsernameScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 					},
 					data: {
 						IdentifiableInformation: {

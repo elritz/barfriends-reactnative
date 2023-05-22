@@ -1,16 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
 import { AntDesign } from '@expo/vector-icons'
-import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetFlatList } from '@gorhom/bottom-sheet'
 import {
-	AuthorizationDeviceManagerManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceManager,
+	AuthorizationDeviceProfile,
 	Profile,
 	Theme,
 	useGetAllThemesQuery,
 	useProfileLazyQuery,
 	useUpdateThemeManagerSwitchThemeMutation,
 } from '@graphql/generated'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
@@ -32,9 +31,6 @@ import {
 import { useCallback, useMemo, useRef } from 'react'
 import { Pressable, useColorScheme } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { DevelopmentStackParamList, hometabParamList } from 'src/types/app'
-
-export type DevelopmentTabRouteProp = RouteProp<DevelopmentStackParamList, 'ThemeViewer'>
 
 export default function ThemeViewer() {
 	const router = useRouter()
@@ -352,7 +348,7 @@ export default function ThemeViewer() {
 			if (data.profile) {
 				const profile = data.profile as Profile
 				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 				AuthorizationReactiveVar({
 					...deviceManager,
@@ -362,7 +358,7 @@ export default function ThemeViewer() {
 					},
 				})
 				await toggleThemes({ colorScheme: rThemeVar.colorScheme })
-				setTimeout(() => navigation.goBack(), 2000)
+				setTimeout(() => router.back(), 2000)
 			}
 		},
 	})
@@ -379,8 +375,8 @@ export default function ThemeViewer() {
 	return (
 		<SafeAreaView>
 			<BottomSheetFlatList
-				data={GATData.getAllThemes}
-				keyExtractor={i => i}
+				data={GATData?.getAllThemes}
+				keyExtractor={item => item.id.toString()}
 				numColumns={3}
 				renderItem={RenderTheme}
 				ListHeaderComponent={() => {
@@ -396,7 +392,6 @@ export default function ThemeViewer() {
 				<Box>
 					<VStack px={3} alignItems={'center'} space={6} w={'full'}>
 						<Button
-							onPress={() => handleSnapPress(1)}
 							variant={'ghost'}
 							endIcon={
 								<Icon
@@ -457,7 +452,7 @@ export default function ThemeViewer() {
 							onPress={() => {
 								updateThemeManagerSwitchTheme({
 									variables: {
-										id: String(rAuthorizationVar?.DeviceProfile.Profile.ThemeManager?.id),
+										id: String(rAuthorizationVar?.DeviceProfile?.Profile?.ThemeManager?.id),
 										themeId: theme.id,
 									},
 								})
@@ -490,13 +485,13 @@ export default function ThemeViewer() {
 							{rThemeVar.colorScheme === 'light' ? (
 								<>
 									{company.light.map((item, index) => {
-										return <RenderColor key={index} color={item} index={index} />
+										return <RenderColor key={index} color={item} />
 									})}
 								</>
 							) : (
 								<>
 									{company.dark.map((item, index) => {
-										return <RenderColor key={index} color={item} index={index} />
+										return <RenderColor key={index} color={item} />
 									})}
 								</>
 							)}

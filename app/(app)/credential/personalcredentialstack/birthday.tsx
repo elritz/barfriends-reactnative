@@ -173,15 +173,11 @@ export default () => {
 						variant={'solid'}
 						color={'primary.500'}
 						isDisabled={!!errors.date}
-						h={70}
-						w={70}
-						mx={2}
+						size={'lg'}
 						borderRadius={'full'}
-						style={{
-							justifyContent: 'center',
-							borderRadius: 50,
-							alignSelf: 'center',
-						}}
+						h={60}
+						w={60}
+						fontSize={'lg'}
 						icon={
 							<Icon
 								as={Feather}

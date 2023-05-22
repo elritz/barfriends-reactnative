@@ -6,7 +6,7 @@ import { SearchAreaReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
-import { Box, Icon, VStack } from 'native-base'
+import { Box, Icon, VStack, useTheme } from 'native-base'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Platform, StyleSheet } from 'react-native'
 
@@ -54,6 +54,7 @@ export type Form = {
 export default function _layout() {
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
+	const theme = useTheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const methods = useForm<Form>({
@@ -73,15 +74,18 @@ export default function _layout() {
 				<Stack.Screen
 					name={'index'}
 					options={{
+						contentStyle: {
+							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+						},
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
+								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
 											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.50' }}
+											_dark={{ bg: 'dark.100' }}
 											style={[StyleSheet.absoluteFill]}
 											flexDirection={'row'}
 										/>
@@ -99,18 +103,22 @@ export default function _layout() {
 					}}
 				/>
 				<Stack.Screen
+					name={'searchcountry'}
 					options={{
 						animation: 'fade',
+						contentStyle: {
+							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+						},
 						headerTransparent: true,
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
+								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
 											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.50' }}
+											_dark={{ bg: 'dark.100' }}
 											style={[StyleSheet.absoluteFill]}
 										/>
 									)}
@@ -119,22 +127,24 @@ export default function _layout() {
 							)
 						},
 					}}
-					name={'searchcountry'}
 				/>
 				<Stack.Screen
 					name={'searchcountrystate'}
 					options={{
 						animation: 'fade',
+						contentStyle: {
+							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+						},
 						headerTransparent: true,
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={2}>
+								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
 											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.50' }}
+											_dark={{ bg: 'dark.100' }}
 											style={[StyleSheet.absoluteFill]}
 										/>
 									)}
@@ -149,15 +159,18 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						headerTransparent: true,
+						contentStyle: {
+							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+						},
 						header: () => {
 							return (
-								<VStack safeAreaTop justifyContent={'flex-end'} pb={2}>
+								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
 										<Box
 											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.50' }}
+											_dark={{ bg: 'dark.100' }}
 											style={[StyleSheet.absoluteFill]}
 										/>
 									)}

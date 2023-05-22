@@ -38,7 +38,7 @@ const SearchAreaInputDisabled = (props: Props) => {
 							size={'xl'}
 							name='arrow-back'
 							_light={{ color: 'light.600' }}
-							_dark={{ color: 'dark.400' }}
+							_dark={{ color: 'dark.900' }}
 						/>
 					}
 					w={'50px'}
@@ -61,12 +61,13 @@ const SearchAreaInputDisabled = (props: Props) => {
 					value={''}
 					onFocus={props.onPress}
 					returnKeyType='search'
+					placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
 					underlineColorAndroid='transparent'
 					InputLeftElement={
 						<Icon
 							as={Ionicons}
 							_light={{ color: 'light.600' }}
-							_dark={{ color: 'dark.400' }}
+							_dark={{ color: 'dark.900' }}
 							name='ios-search'
 							size={'md'}
 							ml={2}

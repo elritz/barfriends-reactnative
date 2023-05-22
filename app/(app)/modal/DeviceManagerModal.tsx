@@ -2,7 +2,7 @@ import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	ProfileType,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
@@ -17,7 +17,8 @@ import { SafeAreaView, View, ScrollView } from 'react-native'
 // TODO: FN(What functionality was suppose to be here)
 
 export default function DeviceManagerModal() {
-	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
+	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
+	const [selectedProfileId, setSelectedProfileId] = useState('')
 	const router = useRouter()
 
 	const { loading } = useGetADeviceManagerQuery({
@@ -25,7 +26,8 @@ export default function DeviceManagerModal() {
 		onError: error => {},
 		onCompleted: data => {
 			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
-				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles as Array<ClientDeviceProfile>
+				const deviceProfiles = data?.getADeviceManager
+					?.DeviceProfiles as Array<AuthorizationDeviceProfile>
 				setProfiles(deviceProfiles)
 			}
 		},

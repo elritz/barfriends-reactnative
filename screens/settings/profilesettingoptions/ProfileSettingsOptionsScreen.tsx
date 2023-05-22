@@ -1,24 +1,23 @@
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import {
-	AuthorizationDeviceManagerManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceManager,
+	AuthorizationDeviceProfile,
 	ProfileType,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useNavigation, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { ScrollView, Box, HStack, Icon, Text, Pressable, Heading } from 'native-base'
 import { useState } from 'react'
 
 interface EditableOptionsScreenProps {}
 
 const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
-	const navigation = useNavigation()
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
+	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	useGetADeviceManagerQuery({
@@ -26,7 +25,8 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 		onError: error => {},
 		onCompleted: data => {
 			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
-				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles as Array<ClientDeviceProfile>
+				const deviceProfiles = data?.getADeviceManager
+					?.DeviceProfiles as Array<AuthorizationDeviceProfile>
 				setProfiles(deviceProfiles)
 			}
 		},
@@ -88,7 +88,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				Account
 			</Heading>
 			{/* Edit Profile */}
-			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'PERSONAL' && (
+			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'PERSONAL' && (
 				<RoundedListItem
 					onPress={() => {
 						router.push({
@@ -141,7 +141,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				</HStack>
 			</RoundedListItem>
 			{/* QRCode */}
-			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' && (
+			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 				<RoundedListItem>
 					<HStack alignItems={'center'} space={2}>
 						<Icon
@@ -164,7 +164,7 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 				</RoundedListItem>
 			)}
 			{/* Security */}
-			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' && (
+			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 				<RoundedListItem
 					onPress={() => {
 						router.push({
@@ -233,12 +233,12 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 					</Text>
 				</HStack>
 			</RoundedListItem>
-			{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType !== 'GUEST' && (
+			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 				<RoundedListItem>
 					<Pressable onPress={() => switchProfile()}>
 						<HStack alignItems={'center'} px={2}>
 							<Text fontWeight={500} fontSize={'lg'} color={'primary.500'}>
-								Log Out {rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username}
+								Log Out {rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 							</Text>
 						</HStack>
 					</Pressable>

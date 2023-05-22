@@ -77,6 +77,7 @@ export default function SearchCountryTextScreen() {
 				top: top + SEARCH_BAR_HEIGHT + 20,
 				bottom: bottom,
 			}}
+			keyExtractor={(item, index) => 'key' + index}
 			estimatedItemSize={250}
 			keyboardDismissMode={'on-drag'}
 			ItemSeparatorComponent={() => {
@@ -89,26 +90,21 @@ export default function SearchCountryTextScreen() {
 						_stack={{
 							paddingY: 0,
 							paddingX: 2,
-							marginY: 1,
 							marginX: 3,
 							w: '100%',
 							justifyContent: 'space-between',
 						}}
+						h={'50px'}
+						py={3}
+						px={1}
 						mx={3}
 						_light={{
-							bg: 'light.200',
+							bg: watch('country.name') === item.name ? 'primary.500' : 'light.50',
 						}}
 						_dark={{
-							bg: 'dark.100',
+							bg: watch('country.name') === item.name ? 'primary.500' : 'dark.50',
 						}}
-						rounded={'xl'}
-						rightIcon={
-							<HStack space={3}>
-								{watch('country.name') === item.name && (
-									<Icon color={'primary.500'} size={'lg'} as={Feather} name={'check'} />
-								)}
-							</HStack>
-						}
+						rounded={'md'}
 						onPress={() => {
 							setValue('country', {
 								name: item.name,

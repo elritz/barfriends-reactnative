@@ -2,7 +2,6 @@ import { Form } from './_layout'
 import { useReactiveVar } from '@apollo/client'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
-import { Feather } from '@expo/vector-icons'
 import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/generated'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -10,7 +9,7 @@ import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Text, Icon, Box, HStack, Button, Skeleton, Heading, VStack } from 'native-base'
+import { Text, Box, HStack, Button, Skeleton, Heading, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -34,12 +33,14 @@ export default function SearchAreaStateCities() {
 			stateIsoCode: String(params.stateIsoCode),
 		},
 		onCompleted: data => {
-			setStateCities([
-				'Popular',
-				...data.getAllCitiesByState.popularCities,
-				'All Cities',
-				...data.getAllCitiesByState.allCities,
-			])
+			if (data.getAllCitiesByState) {
+				setStateCities([
+					'Popular',
+					...data.getAllCitiesByState.popularCities,
+					'All Cities',
+					...data.getAllCitiesByState.allCities,
+				])
+			}
 		},
 	})
 
@@ -48,9 +49,9 @@ export default function SearchAreaStateCities() {
 			if (data.getAllCitiesByState) {
 				setStateCities([
 					'Popular',
-					...[data.getAllCitiesByState.popularCities],
+					...data.getAllCitiesByState.popularCities,
 					'All Cities',
-					...[data.getAllCitiesByState.allCities],
+					...data.getAllCitiesByState.allCities,
 				])
 			}
 		}
@@ -75,9 +76,9 @@ export default function SearchAreaStateCities() {
 			if (data?.getAllCitiesByState) {
 				setStateCities([
 					'Popular',
-					...[data.getAllCitiesByState.popularCities],
+					...data.getAllCitiesByState.popularCities,
 					'All Cities',
-					...[data.getAllCitiesByState.allCities],
+					...data.getAllCitiesByState.allCities,
 				])
 			}
 		}
@@ -97,6 +98,13 @@ export default function SearchAreaStateCities() {
 		<FlashList
 			data={stateCities}
 			keyboardDismissMode='on-drag'
+			keyExtractor={(item, index) => {
+				if (typeof item === 'string') {
+					return 'key' + index + item
+				} else {
+					return 'key' + index + item.name
+				}
+			}}
 			renderItem={({ index, item }) => {
 				if (typeof item === 'string') {
 					// Rendering header
@@ -114,20 +122,17 @@ export default function SearchAreaStateCities() {
 							h={'50px'}
 							py={3}
 							px={1}
-							// my={1}
 							mx={3}
 							_light={{
-								bg: 'light.200',
+								bg: watch('city.name') === item.name ? 'primary.500' : 'light.100',
 							}}
 							_dark={{
-								bg: 'dark.100',
+								bg: watch('city.name') === item.name ? 'primary.500' : 'dark.50',
 							}}
-							borderColor={watch('city.name') === item.name ? 'primary.500' : 'transparent'}
-							borderWidth={'3'}
 							rounded={'md'}
 							rightIcon={
 								<HStack space={3} alignItems={'center'}>
-									{item.venuesInArea > 1 ? (
+									{item.venuesInArea && item.venuesInArea > 1 ? (
 										<VStack>
 											<Text textAlign={'center'} fontWeight={'light'} fontSize={'md'} numberOfLines={1}>
 												{item.venuesInArea}

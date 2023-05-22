@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import LocationPermissionItem from '@components/organisms/list/searchareafiltering/LocationPermissionItem'
 import LocationPermissionItemEmptyState from '@components/organisms/list/searchareafiltering/LocationPermissionItemEmptyState'
+import SearchAreaLocationPermissionItem from '@components/organisms/list/searchareafiltering/SearchAreaLocationPermissionItem'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Heading, Text, HStack, Button, Pressable, ScrollView, VStack } from 'native-base'
+import { Box, Heading, Text, HStack, Button, ScrollView, VStack } from 'native-base'
 
 export default () => {
 	const router = useRouter()
@@ -145,7 +145,7 @@ export default () => {
 										return (
 											<Button
 												key={index}
-												colorScheme={'primary'}
+												colorScheme={!rSearchAreaVar?.useCurrentLocation ? 'primary' : 'secondary'}
 												variant={'solid'}
 												_text={{
 													ellipsizeMode: 'tail',
@@ -172,7 +172,7 @@ export default () => {
 									})}
 								</HStack>
 								<Box mt={2}>
-									<LocationPermissionItem />
+									<SearchAreaLocationPermissionItem />
 								</Box>
 							</VStack>
 						)}

@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	Profile,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
@@ -39,7 +39,7 @@ export default function LeaveCard() {
 				if (data.removePersonalJoinsVenue) {
 					const profile = data.removePersonalJoinsVenue as Profile
 					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 					if (
 						profile?.Personal?.LiveOutPersonal?.Out &&
 						deviceprofile?.Profile?.Personal?.LiveOutPersonal

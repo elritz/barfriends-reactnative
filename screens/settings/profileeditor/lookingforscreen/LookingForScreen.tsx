@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	Profile,
 	useUpdateProfileIdentifiableInformationMutation,
 } from '@graphql/generated'
@@ -40,10 +40,10 @@ const LookingForScreen = ({}) => {
 		{ data: UPIIData, loading: UPIILoading, error: UPIIError },
 	] = useUpdateProfileIdentifiableInformationMutation({
 		onCompleted: data => {
-			if (data.updateProfileIdentifiableInformation.__typename === 'Profile') {
+			if (data.updateProfileIdentifiableInformation.__typename === 'AuthorizationDeviceManager') {
 				const profile = data.updateProfileIdentifiableInformation as Profile
 				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 				AuthorizationReactiveVar({
 					...deviceManager,
@@ -52,7 +52,11 @@ const LookingForScreen = ({}) => {
 						Profile: profile,
 					},
 				})
-				reset({ lookfor: data.updateProfileIdentifiableInformation.IdentifiableInformation?.lookfor })
+				reset({
+					lookfor:
+						data.updateProfileIdentifiableInformation.DeviceProfile?.Profile?.IdentifiableInformation
+							?.lookfor,
+				})
 			}
 			if (data.updateProfileIdentifiableInformation.__typename === 'Error') {
 				setError('lookfor', { message: data.updateProfileIdentifiableInformation.message })

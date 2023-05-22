@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	Profile,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
@@ -29,8 +29,8 @@ const NamesScreen = () => {
 		formState: { dirtyFields, errors },
 	} = useForm({
 		defaultValues: {
-			fullname: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.fullname || '',
-			nickname: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.nickname || '',
+			fullname: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.fullname || '',
+			nickname: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.nickname || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -50,7 +50,7 @@ const NamesScreen = () => {
 				if (data.updateOneProfile) {
 					const profile = data.updateOneProfile as Profile
 					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-					const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 					AuthorizationReactiveVar({
 						...deviceManager,
@@ -94,7 +94,7 @@ const NamesScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 					},
 					data: {
 						IdentifiableInformation: {
@@ -115,7 +115,7 @@ const NamesScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 					},
 					data: {
 						IdentifiableInformation: {
@@ -133,7 +133,7 @@ const NamesScreen = () => {
 			updateOneProfilMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 					},
 					data: {
 						IdentifiableInformation: {

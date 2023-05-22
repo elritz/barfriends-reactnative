@@ -10,7 +10,7 @@ type Props = {
 
 const createTheme = ({ themeScheme, useSystemColorMode }: Props): IBFSTheme => {
 	const theme =
-		AuthorizationReactiveVar()?.DeviceProfile?.Profile.ThemeManager?.ProfileTheme[0].Theme.mobile[0]
+		AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].Theme.mobile[0]
 	const rnColors = () => {
 		const rn = themeScheme === 'dark' ? theme.dark.rn.colors : theme.light.rn.colors
 		return rn

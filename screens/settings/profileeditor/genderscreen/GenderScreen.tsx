@@ -4,7 +4,7 @@ import {
 	useUpdateProfileIdentifiableInformationMutation,
 	Profile,
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
@@ -37,15 +37,18 @@ const GenderScreen = ({}: GenderScreenProps) => {
 		variables: {
 			data: {
 				gender: {
-					set: rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.gender,
+					set: rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.gender,
 				},
 			},
 		},
 		onCompleted: data => {
-			if (data.updateProfileIdentifiableInformation.__typename === 'Profile') {
+			if (
+				data &&
+				data.updateProfileIdentifiableInformation.__typename === 'AuthorizationDeviceManager'
+			) {
 				const profile = data.updateProfileIdentifiableInformation as Profile
 				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
-				const deviceprofile = rAuthorizationVar?.DeviceProfile as ClientDeviceProfile
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
 
 				AuthorizationReactiveVar({
 					...deviceManager,
@@ -55,7 +58,10 @@ const GenderScreen = ({}: GenderScreenProps) => {
 					},
 				})
 				reset({
-					gender: String(data?.updateProfileIdentifiableInformation?.IdentifiableInformation?.gender),
+					gender: String(
+						data?.updateProfileIdentifiableInformation.DeviceProfile?.Profile?.IdentifiableInformation
+							?.gender,
+					),
 				})
 			}
 			if (data.updateProfileIdentifiableInformation.__typename === 'Error') {

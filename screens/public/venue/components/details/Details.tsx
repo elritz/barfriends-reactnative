@@ -1,13 +1,11 @@
 import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard'
 import { useReactiveVar } from '@apollo/client'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Badge, useColorMode, useTheme } from 'native-base'
+import { Badge, useColorMode } from 'native-base'
 import { Box, Button, HStack, Text, VStack } from 'native-base'
-import { useContext, useState } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { useState } from 'react'
 
 type DetailTitleProps = {
 	title: string

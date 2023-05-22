@@ -29,7 +29,7 @@ export default () => {
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as AuthorizationDeviceManager
 
-					console.log('🚀 ~ file: index.tsx:28 ~ deviceManager:', deviceManager)
+					// console.log('🚀 ~ file: index.tsx:28 ~ deviceManager:', deviceManager)
 
 					AuthorizationReactiveVar(deviceManager)
 				}
@@ -63,21 +63,21 @@ export default () => {
 			decode: true,
 		})) as AuthorizationDecoded
 
-		console.log(
-			'=== getAuthorization LOCALSTORAGE ===',
-			JSON.stringify(getAuthorization, null, 4),
-			'=== getAuthorization LOCALSTORAGE ===',
-		)
+		// console.log(
+		// 	'=== getAuthorization LOCALSTORAGE ===',
+		// 	JSON.stringify(getAuthorization, null, 4),
+		// 	'=== getAuthorization LOCALSTORAGE ===',
+		// )
 
 		if (!getAuthorization) {
-			console.log('CREATE GUEST')
+			// console.log('CREATE GUEST')
 			createGuestProfileMutation()
 		} else {
 			// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
 			// 	key: AUTHORIZATION,
 			// })
 
-			console.log('REFRESH AUTHORIZATION')
+			// console.log('REFRESH AUTHORIZATION')
 			refreshDeviceManagerMutation()
 		}
 	}

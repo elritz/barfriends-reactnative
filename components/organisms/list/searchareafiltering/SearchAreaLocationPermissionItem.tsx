@@ -12,7 +12,7 @@ import { Alert, Linking, Platform } from 'react-native'
 
 // TODO: UX() location icon when searchArea is using Currently Location over preset
 
-const LocationPermissionItem = () => {
+const SearchAreaLocationPermissionItem = () => {
 	const rForegroundPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
@@ -45,11 +45,17 @@ const LocationPermissionItem = () => {
 
 	return (
 		<VStack>
-			<Box mb={3}>
-				<Text textAlign={'center'}>
-					You are currently using your devices location to set the search area for the app.
-				</Text>
-			</Box>
+			{rSearchAreaVar?.useCurrentLocation ? (
+				<Box mb={3}>
+					<Text textAlign={'center'}>
+						You are currently using your devices location to show you venues nearby.
+					</Text>
+				</Box>
+			) : (
+				<Box mb={3}>
+					<Text textAlign={'center'}>Use your location to automatically set your area.</Text>
+				</Box>
+			)}
 			<Pressable
 				onPress={async () => {
 					!rSearchAreaVar?.useCurrentLocation
@@ -67,7 +73,7 @@ const LocationPermissionItem = () => {
 				isPressed={rSearchAreaVar?.useCurrentLocation}
 				rounded={'xl'}
 				_light={{
-					bg: !rSearchAreaVar?.useCurrentLocation ? 'light.100' : 'light.100',
+					bg: !rSearchAreaVar?.useCurrentLocation ? 'light.400' : 'light.200',
 				}}
 				_dark={{
 					bg: !rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
@@ -78,27 +84,20 @@ const LocationPermissionItem = () => {
 			>
 				<HStack p={3} justifyContent={'space-between'}>
 					<Text
-						_light={{
-							color: rSearchAreaVar?.useCurrentLocation ? 'black' : 'black',
-						}}
-						_dark={{
-							color: 'white',
-						}}
 						textAlign={'left'}
 						fontWeight={'semibold'}
-						fontSize={'lg'}
-						numberOfLines={1}
+						fontSize={'md'}
 						ellipsizeMode={'tail'}
 						alignSelf={'center'}
+						color={'white'}
 					>
 						{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 					</Text>
 					<IconButton
 						icon={
 							<Icon
-								size={'sm'}
+								size={'xs'}
 								as={FontAwesome5}
-								rounded={'full'}
 								name={'location-arrow'}
 								_light={{
 									color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
@@ -122,4 +121,4 @@ const LocationPermissionItem = () => {
 	)
 }
 
-export default LocationPermissionItem
+export default SearchAreaLocationPermissionItem

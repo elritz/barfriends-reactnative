@@ -3,7 +3,7 @@ import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
-	ClientDeviceProfile,
+	AuthorizationDeviceProfile,
 	ProfileType,
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
@@ -19,7 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 export default function DeviceManagerModal() {
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [profiles, setProfiles] = useState<Array<ClientDeviceProfile>>([])
+	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
 
 	const { data, loading, error } = useGetADeviceManagerQuery({
@@ -27,7 +27,8 @@ export default function DeviceManagerModal() {
 		onError: error => {},
 		onCompleted: data => {
 			if (data.getADeviceManager?.__typename === 'DeviceManagerDeviceProfiles') {
-				const deviceProfiles = data?.getADeviceManager?.DeviceProfiles as Array<ClientDeviceProfile>
+				const deviceProfiles = data?.getADeviceManager
+					?.DeviceProfiles as Array<AuthorizationDeviceProfile>
 				setProfiles(deviceProfiles)
 			}
 		},

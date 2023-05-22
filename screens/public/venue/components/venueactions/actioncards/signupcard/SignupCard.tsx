@@ -1,60 +1,37 @@
-import { useNavigation } from '@react-navigation/native'
+import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { Center, Heading, Button, VStack } from 'native-base'
+import { Box, Icon, Text } from 'native-base'
+import { Heading, Button, VStack } from 'native-base'
 
 export default function SignupCard() {
-	// const navigation = useNavigation()
 	const router = useRouter()
 	return (
-		<VStack justifyContent={'space-around'}>
-			<Heading
-				fontSize={'xl'}
-				numberOfLines={2}
-				textAlign={'center'}
-				ellipsizeMode='tail'
-				adjustsFontSizeToFit
-				minimumFontScale={0.5}
-				fontWeight={'extrabold'}
-			>
-				You can Join!
-			</Heading>
-			<Center
-				style={{
-					flexDirection: 'column',
-				}}
-				mt={3}
-			>
-				<VStack space={1}>
-					<Button
-						onPress={() => {
-							router.push({ pathname: '(app)/credential/personalcredentialstack/getstarted' })
-						}}
-						px={7}
-						borderRadius={'sm'}
-						_text={{
-							fontSize: 'lg',
-							fontWeight: '700',
-							textTransform: 'uppercase',
-						}}
-					>
-						SIGN UP
-					</Button>
-					<Button
-						px={7}
-						variant={'unstyled'}
-						_text={{
-							textTransform: 'uppercase',
-							fontWeight: '700',
-							fontSize: 'lg',
-						}}
-						onPress={() =>
-							router.push({ pathname: '(app)/credential/logincredentialstack/authenticator' })
-						}
-					>
-						log in
-					</Button>
-				</VStack>
-			</Center>
+		<VStack flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
+			<VStack space={1} flex={1} justifyContent={'flex-start'}>
+				<Heading
+					textTransform={'uppercase'}
+					lineHeight={'xs'}
+					fontSize={'lg'}
+					fontWeight={'black'}
+					mt={5}
+				>
+					Sign up, Join, Socialize
+				</Heading>
+				<Text>Also focused on stuff</Text>
+			</VStack>
+			<Box>
+				<Button
+					p={3.5}
+					onPress={() => {
+						router.push({ pathname: '(app)/credential/personalcredentialstack/getstarted' })
+					}}
+					size={'lg'}
+					bg={'primary.600'}
+					rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
+				>
+					Continue
+				</Button>
+			</Box>
 		</VStack>
 	)
 }
