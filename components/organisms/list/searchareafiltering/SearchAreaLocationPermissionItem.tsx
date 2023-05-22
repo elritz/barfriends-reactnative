@@ -45,17 +45,13 @@ const SearchAreaLocationPermissionItem = () => {
 
 	return (
 		<VStack>
-			{rSearchAreaVar?.useCurrentLocation ? (
-				<Box mb={3}>
-					<Text textAlign={'center'}>
-						You are currently using your devices location to show you venues nearby.
-					</Text>
-				</Box>
-			) : (
-				<Box mb={3}>
-					<Text textAlign={'center'}>Use your location to automatically set your area.</Text>
-				</Box>
-			)}
+			<Box  h={'45px'} >
+				<Text textAlign={'center'}>
+					{rSearchAreaVar?.useCurrentLocation
+						? 'You are currently using your devices location to show you venues nearby.'
+						: 'Use your location to automatically set your area.'}
+				</Text>
+			</Box>
 			<Pressable
 				onPress={async () => {
 					!rSearchAreaVar?.useCurrentLocation
@@ -93,28 +89,32 @@ const SearchAreaLocationPermissionItem = () => {
 					>
 						{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 					</Text>
-					<IconButton
-						icon={
-							<Icon
-								size={'xs'}
-								as={FontAwesome5}
-								name={'location-arrow'}
-								_light={{
-									color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
-								}}
-								_dark={{
-									color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
-								}}
-							/>
-						}
+					<Pressable
+						h={'35px'}
+						w={'35px'}
+						alignItems={'center'}
+						justifyContent={'center'}
+						rounded={'full'}
 						_light={{
 							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.200',
 						}}
 						_dark={{
 							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.500',
 						}}
-						rounded={'full'}
-					/>
+					>
+						<Icon
+							size={'sm'}
+							as={FontAwesome5}
+							name={'location-arrow'}
+							rounded={'full'}
+							_light={{
+								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+							}}
+							_dark={{
+								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+							}}
+						/>
+					</Pressable>
 				</HStack>
 			</Pressable>
 		</VStack>

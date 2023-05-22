@@ -145,7 +145,7 @@ export default () => {
 										return (
 											<Button
 												key={index}
-												colorScheme={!rSearchAreaVar?.useCurrentLocation ? 'primary' : 'secondary'}
+												bg={!rSearchAreaVar?.useCurrentLocation ? 'primary.500' : 'primary.300'}
 												variant={'solid'}
 												_text={{
 													ellipsizeMode: 'tail',
