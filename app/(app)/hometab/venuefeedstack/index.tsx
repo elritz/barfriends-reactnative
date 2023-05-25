@@ -1,8 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
-import { Ionicons } from '@expo/vector-icons'
+import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
-	useUpdateComingAreaToBeNotifiedMutation, // useUpvoteH6ComingAreaMutation,
+	useUpdateComingAreaToBeNotifiedMutation,
 	useUpdateH6ComingAreaVoteMutation,
 	useVenuesNearbyLazyQuery,
 } from '@graphql/generated'
@@ -16,13 +16,26 @@ import {
 import SearchAreaHeader from '@screens/hometabs/venuesfeed/components/SearchAreaHeader'
 import VenueFeedSignupCard from '@screens/hometabs/venuesfeed/components/VenueFeedSignupCard'
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
-import { MasonryFlashList } from '@shopify/flash-list'
-import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
+import { FlashList, MasonryFlashList } from '@shopify/flash-list'
+import { useRouter } from 'expo-router'
+import {
+	View,
+	Box,
+	VStack,
+	HStack,
+	Text,
+	ScrollView,
+	Icon,
+	Pressable,
+	Skeleton,
+	Heading,
+} from 'native-base'
 import { useEffect } from 'react'
 import { Dimensions } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 
 export default () => {
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
@@ -80,14 +93,24 @@ export default () => {
 		}
 	}, [])
 
-	const ListheaderComponent = () => {
+	const ListheaderComponent = ({ typename }) => {
 		return (
-			<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-					<VenueFeedSignupCard />
-				)}
-				<SearchAreaHeader city={rSearchAreaVar.searchArea.city.name} />
-			</VStack>
+			<Pressable
+				onPress={() =>
+					router.push({
+						pathname: '(app)/searcharea',
+					})
+				}
+			>
+				<Box>
+					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+						<VenueFeedSignupCard />
+					)}
+					<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
+						<SearchAreaHeader typename={typename || null} city={rSearchAreaVar.searchArea.city.name} />
+					</VStack>
+				</Box>
+			</Pressable>
 		)
 	}
 
@@ -99,11 +122,12 @@ export default () => {
 		return (
 			<MasonryFlashList
 				numColumns={2}
+				onRefresh={onPullRefresh}
+				refreshing={loading}
 				estimatedItemSize={6}
 				data={[...Array(6)]}
 				showsVerticalScrollIndicator={false}
-				scrollEnabled={false}
-				ListHeaderComponent={ListheaderComponent}
+				ListHeaderComponent={<ListheaderComponent typename={data?.venuesNearby.__typename} />}
 				renderItem={({ item }) => {
 					return (
 						<Skeleton
@@ -134,24 +158,31 @@ export default () => {
 
 	if (data.venuesNearby.__typename === 'ComingAreaResponse') {
 		return (
-			<ScrollView>
-				<ListheaderComponent />
-				{data.venuesNearby.comingAreas.map(item => {
+			<FlashList
+				data={data.venuesNearby.comingAreas}
+				overScrollMode='always'
+				onRefresh={onPullRefresh}
+				refreshing={loading}
+				estimatedItemSize={30}
+				ListHeaderComponent={<ListheaderComponent typename={data.venuesNearby.__typename} />}
+				renderItem={({ item }) => {
 					const lengthOfUpvote = item.Vote.filter(item => {
 						return item.upvote
 					}).length
 					return (
 						<Box
+							key={item.id}
 							_dark={{ bg: 'dark.100' }}
 							_light={{ bg: 'light.200' }}
-							py={2}
-							mx={2}
+							py={4}
+							m={2}
 							borderRadius={'xl'}
 						>
 							<HStack justifyContent={'space-between'}>
-								<HStack px={3} space={3} alignItems={'center'}>
-									<CountryFlag size={18} isoCode={String(item.Area?.Country.isoCode)} />
+								<HStack px={3} space={1} alignItems={'center'}>
+									<CountryFlag size={12} isoCode={String(item.Area?.Country.isoCode)} />
 									<Text fontSize={'xl'}>{item.Area?.City.name}</Text>
+									{/* <Text fontSize={'xl'}>{item.}</Text> */}
 								</HStack>
 								<HStack space={1}>
 									<Pressable
@@ -164,11 +195,22 @@ export default () => {
 												},
 											})
 										}}
+										flexDir={'row'}
 										alignItems={'center'}
 									>
+										<Text fontWeight={'medium'} fontSize={'xl'} mx={2}>
+											{lengthOfUpvote}
+										</Text>
 										<Icon
-											name='md-caret-up'
-											as={Ionicons}
+											name={
+												item.Vote.some(
+													item =>
+														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
+												)
+													? 'thumbs-up'
+													: 'thumbs-o-up'
+											}
+											as={FontAwesome}
 											size={'lg'}
 											_light={{
 												color: item.Vote.some(
@@ -176,7 +218,7 @@ export default () => {
 														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
 												)
 													? 'blue.500'
-													: 'light.500',
+													: 'light.700',
 											}}
 											_dark={{
 												color: item.Vote.some(
@@ -184,15 +226,12 @@ export default () => {
 														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
 												)
 													? 'blue.500'
-													: 'dark.500',
+													: 'dark.700',
 											}}
 										/>
-										<Text fontWeight={'medium'} fontSize={'lg'}>
-											{lengthOfUpvote}
-										</Text>
 									</Pressable>
 									<Pressable
-										mx={4}
+										mx={2}
 										disabled={UTBNLoading}
 										onPress={() => {
 											updateToBeNotifiedMutation({
@@ -207,20 +246,20 @@ export default () => {
 										<Icon
 											name='ios-notifications-sharp'
 											as={Ionicons}
-											size={'md'}
+											size={'lg'}
 											_light={{
 												color: item.toBeNotifiedProfileIds.some(
 													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
 												)
 													? 'blue.500'
-													: 'light.400',
+													: 'light.700',
 											}}
 											_dark={{
 												color: item.toBeNotifiedProfileIds.some(
 													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
 												)
 													? 'blue.500'
-													: 'dark.400',
+													: 'dark.700',
 											}}
 										/>
 									</Pressable>
@@ -228,8 +267,8 @@ export default () => {
 							</HStack>
 						</Box>
 					)
-				})}
-			</ScrollView>
+				}}
+			/>
 		)
 	}
 

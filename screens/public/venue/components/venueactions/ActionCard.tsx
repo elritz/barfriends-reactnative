@@ -6,9 +6,10 @@ type Props = {
 	children: React.ReactNode
 	numColumns: number
 	bg?: string
+	h?: number
 }
 
-export default function ActionCard({ children, numColumns, bg }: Props) {
+export default function ActionCard({ children, numColumns, bg, h }: Props) {
 	const { width } = useWindowDimensions()
 	const itemPadding = (width / 33.33) * numColumns
 
@@ -25,9 +26,9 @@ export default function ActionCard({ children, numColumns, bg }: Props) {
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',
-				height: 190,
 			}}
 			borderRadius={'lg'}
+			h={h}
 		>
 			{children}
 		</OuterView>

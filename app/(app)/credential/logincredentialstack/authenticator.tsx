@@ -72,7 +72,7 @@ export default () => {
 						authenticator: values.authenticator,
 						code: data.sendAuthenticatorDeviceOwnerCode.code,
 					},
-					pathname: '../../logincredentialstack/confirmationcodescreen',
+					pathname: '(app)/credential/logincredentialstack/confirmationcode',
 				})
 			}
 		},
@@ -91,7 +91,7 @@ export default () => {
 						params: {
 							profile: String(data.authorizedProfiles?.username[0].id),
 						},
-						pathname: '../../passwordloginscreen',
+						pathname: '(app)/credential/logincredentialstack/loginpassword',
 					})
 				}
 

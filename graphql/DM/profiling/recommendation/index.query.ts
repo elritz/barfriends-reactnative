@@ -34,6 +34,8 @@ export const VENUES_NEARBY_QUERY = gql`
 						profileId
 						upvote
 					}
+					createdAt
+					updatedAt
 				}
 				searchArea {
 					...AREA_FRAGMENT

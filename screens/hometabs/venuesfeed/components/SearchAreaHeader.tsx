@@ -2,9 +2,9 @@ import { useReactiveVar } from '@apollo/client'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { HStack, VStack, Heading, IconButton, Icon, Pressable, Box } from 'native-base'
+import { HStack, VStack, Heading, IconButton, Icon, Pressable, Box, Text } from 'native-base'
 
-export default function SearchAreaHeader({ city }) {
+export default function SearchAreaHeader({ typename, city }) {
 	const router = useRouter()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	return (
@@ -17,9 +17,6 @@ export default function SearchAreaHeader({ city }) {
 		>
 			<HStack flex={1} mx={2} alignItems={'flex-end'} justifyContent={'center'}>
 				<VStack flex={1} space={1}>
-					<Heading lineHeight={'sm'} fontWeight={'medium'} fontSize={'lg'}>
-						from
-					</Heading>
 					<HStack alignItems={'center'} justifyContent={'space-between'} space={2}>
 						<HStack alignItems={'center'} space={2}>
 							<Heading lineHeight={'xs'} fontWeight={'black'} fontSize={'2xl'}>
@@ -42,6 +39,12 @@ export default function SearchAreaHeader({ city }) {
 						</HStack>
 						<Icon as={FontAwesome5} size={'lg'} name='chevron-up' mb={1} />
 					</HStack>
+					{typename === 'ComingAreaResponse' && (
+						<Text fontSize={'md'} textAlign={'center'}>
+							This area has no venues. Show support by upvoting it or by hammering the notification bell
+							when this area is added.
+						</Text>
+					)}
 				</VStack>
 			</HStack>
 		</Pressable>

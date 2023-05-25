@@ -13137,6 +13137,11 @@ type ProfileVenue {
   Venue: Venue
 }
 
+type ProfileVenueNearbyResponse {
+  searchArea: AreaResponse
+  venuesNearby: [ProfileVenue!]!
+}
+
 input ProfileWhereInput {
   AND: [ProfileWhereInput!]
   bfsprofileid: StringFilter

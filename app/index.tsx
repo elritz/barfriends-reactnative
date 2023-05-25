@@ -1,6 +1,6 @@
 // authorization
 import { useReactiveVar } from '@apollo/client'
-import { AUTHORIZATION } from '@constants/StorageConstants'
+import { AUTHORIZATION, LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { AuthorizationDecoded } from '@ctypes/app'
 import {
 	useRefreshDeviceManagerMutation,
@@ -28,9 +28,6 @@ export default () => {
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as AuthorizationDeviceManager
-
-					// console.log('🚀 ~ file: index.tsx:28 ~ deviceManager:', deviceManager)
-
 					AuthorizationReactiveVar(deviceManager)
 				}
 			},
@@ -55,29 +52,21 @@ export default () => {
 		})
 
 	const applicationAuthorization = async () => {
-		// const removeLocalSearchArea = await secureStorageItemDelete({
+		// await secureStorageItemDelete({
 		// 	key: LOCAL_STORAGE_SEARCH_AREA,
 		// })
+
 		const getAuthorization = (await secureStorageItemRead({
 			key: AUTHORIZATION,
 			decode: true,
 		})) as AuthorizationDecoded
 
-		// console.log(
-		// 	'=== getAuthorization LOCALSTORAGE ===',
-		// 	JSON.stringify(getAuthorization, null, 4),
-		// 	'=== getAuthorization LOCALSTORAGE ===',
-		// )
-
 		if (!getAuthorization) {
-			// console.log('CREATE GUEST')
 			createGuestProfileMutation()
 		} else {
-			// const removeLocalAuhtorizationToken = await secureStorageItemDelete({
+			// await secureStorageItemDelete({
 			// 	key: AUTHORIZATION,
 			// })
-
-			// console.log('REFRESH AUTHORIZATION')
 			refreshDeviceManagerMutation()
 		}
 	}
@@ -96,6 +85,8 @@ export default () => {
 	) {
 		return <SplashScreen />
 	}
+
+	console.log('here =============+> :>> ')
 
 	return <Redirect href={'(app)/hometab'} />
 	// return <Redirect href={'(app)/credential/personalcredentialstack/username'} />

@@ -7,6 +7,7 @@ import PersonalAtVenue from '@screens/public/venue/components/peopleatvenue/Pers
 import VenueActions from '@screens/public/venue/components/venueactions/VenueActions'
 import VenueHeader from '@screens/public/venue/components/venueheader/VenueHeader'
 import VenueTotals from '@screens/public/venue/components/venuetotals/VenueTotals'
+import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
 import { Text, FlatList, VStack, Heading, Box, Skeleton, HStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
@@ -83,7 +84,7 @@ export default (props: any) => {
 
 	return (
 		// <SafeAreaView>
-		<FlatList
+		<FlashList
 			data={[]}
 			numColumns={2}
 			showsVerticalScrollIndicator={false}
@@ -114,9 +115,8 @@ export default (props: any) => {
 					<VenueActions key={'kol'} />
 				</VStack>
 			}
+			estimatedItemSize={20}
 			ListEmptyComponent={!loading && <HandleEmpty />}
-			columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
-			contentContainerStyle={{ flexGrow: 1 }}
 			ListFooterComponent={<Details tags={venueData?.DetailInformation?.Tags} />}
 			keyExtractor={item => item}
 			renderItem={item => <PersonalAtVenue item={item} />}

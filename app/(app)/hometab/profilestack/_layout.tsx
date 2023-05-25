@@ -28,11 +28,11 @@ export default function _layout() {
 				headerLeft: () => {
 					return (
 						<>
-							{rAuthorizationVar?.DeviceProfile?.Profile.ProfileType === 'GUEST' ? null : (
+							{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST' ? null : (
 								<Pressable onPress={onPressProfileTitle}>
 									<HStack ml={2} space={2} alignItems={'center'}>
 										<Text fontWeight={'medium'} fontSize={'24px'} maxW={'165px'} ellipsizeMode={'tail'}>
-											{rAuthorizationVar?.DeviceProfile?.Profile.IdentifiableInformation?.username}
+											{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 										</Text>
 										<Icon
 											as={Ionicons}

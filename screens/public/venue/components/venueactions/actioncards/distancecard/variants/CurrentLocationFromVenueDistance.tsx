@@ -132,7 +132,6 @@ const CurrentLocationFromVenueDistance = () => {
 					},
 				)
 				if (data?.currentVenue) {
-					console.log('update', dist)
 				}
 				if (dist > 1000) {
 					const val = parseInt((dist / 1000).toFixed(1))
@@ -156,7 +155,6 @@ const CurrentLocationFromVenueDistance = () => {
 				},
 			)
 			if (data?.currentVenue) {
-				console.log('update', dist)
 				// cache.modify({
 				// 	id: cache.identify(data.currentVenue),
 				// 	fields: {
@@ -325,7 +323,6 @@ const CurrentLocationFromVenueDistance = () => {
 								<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
 								<Heading fontWeight={'900'}>
 									{distance}&nbsp;{metric}
-									{/* {data?.currentVenue?.distanceInM}&nbsp;{metric} */}
 								</Heading>
 							</Box>
 						</Box>

@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons'
+import { Feather, Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
 	ProfileType,
@@ -10,7 +10,18 @@ import { useIsFocused } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter, useSearchParams } from 'expo-router'
-import { Box, Image, Input, Icon, Text, IconButton, Spinner, VStack } from 'native-base'
+import {
+	Box,
+	Image,
+	Input,
+	Icon,
+	Text,
+	IconButton,
+	Spinner,
+	VStack,
+	Button,
+	Center,
+} from 'native-base'
 import { useTheme } from 'native-base'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -22,7 +33,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 const IMAGE_SIZE = 85
 
 export default () => {
-	const INPUT_ACCESSORY_VIEW_ID = 'p-21565434tw'
+	const INPUT_ACCESSORY_VIEW_ID = 'lp-21565434tw'
 	const router = useRouter()
 	const params = useSearchParams()
 	const theme = useTheme()
@@ -132,20 +143,93 @@ export default () => {
 		)
 	}
 
+	const InnerContent = () => {
+		return (
+			<Box
+				display={isFocused ? 'flex' : 'none'}
+				_light={{
+					bg: 'light.200',
+				}}
+				_dark={{
+					bg: 'dark.200',
+				}}
+				flexDir={'row'}
+				justifyContent={'flex-end'}
+				alignContent={'space-around'}
+				height={'90px'}
+				px={'2.5%'}
+			>
+				<IconButton
+					disabled={!!errors?.password}
+					onPress={handleSubmit(onSubmit)}
+					variant={'solid'}
+					color={'primary.500'}
+					isDisabled={!!errors.password || LPLoading || SDPLoading}
+					borderRadius={'full'}
+					style={{
+						justifyContent: 'center',
+						height: 60,
+						width: 60,
+						paddingHorizontal: 20,
+						alignSelf: 'center',
+					}}
+					icon={
+						<Icon
+							as={Feather}
+							name='arrow-right'
+							size={'xl'}
+							color={errors.password ? 'primary.700' : 'white'}
+						/>
+					}
+				/>
+			</Box>
+		)
+	}
+
+	console.log('PQData.profile?.photos :>> ', PQData.profile?.photos)
+
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<VStack space={3}>
-					{!PQLoading && (
+					{!PQLoading && PQData.profile?.profilePhoto?.url ? (
 						<Image
+							source={{ uri: PQData.profile?.profilePhoto?.url }}
 							mt={5}
 							alignSelf={'center'}
 							height={`${IMAGE_SIZE}px`}
 							width={`${IMAGE_SIZE}px`}
 							borderRadius={'md'}
-							source={{ uri: PQData?.profile?.photos[0].url }}
-							alt={'Profile Photo'}
+							alt={'Profile photo'}
 						/>
+					) : (
+						<Box
+							w={'40px'}
+							h={'40px'}
+							_light={{
+								bg: 'light.100',
+							}}
+							_dark={{
+								bg: 'dark.50',
+							}}
+							borderRadius={'md'}
+						>
+							<Box h={'100%'} justifyContent={'center'}>
+								<Center>
+									<Icon
+										_light={{
+											color: 'light.300',
+										}}
+										_dark={{
+											color: 'dark.300',
+										}}
+										as={Ionicons}
+										size={'lg'}
+										name={'ios-person'}
+									/>
+								</Center>
+							</Box>
+						</Box>
 					)}
 					<Controller
 						name='password'
@@ -160,38 +244,40 @@ export default () => {
 									placeholder='Password'
 									keyboardAppearance={colorScheme}
 									value={value}
+									py={2}
 									_input={{
 										fontSize: '2xl',
 										fontWeight: 'medium',
 									}}
-									secureTextEntry
+									size={'lg'}
+									secureTextEntry={!showPassword}
 									onChangeText={value => onChange(value)}
-									onSubmitEditing={() => {
-										handleSubmit(onSubmit)
-										passwordRef?.current?.focus()
-									}}
+									onSubmitEditing={handleSubmit(onSubmit)}
 									h={'50px'}
 									onBlur={onBlur}
 									textContentType='password'
 									blurOnSubmit={false}
-									autoComplete={'password-new'}
+									autoComplete={'password'}
 									autoFocus
-									returnKeyType='next'
+									returnKeyType='done'
 									autoCorrect={false}
-									inputAccessoryViewID={inputAccessoryViewID}
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
 									autoCapitalize='none'
 									numberOfLines={1}
-									rightElement={
+									InputRightElement={
 										<Icon
 											onPress={() => {
 												setShowPassword(!showPassword)
 											}}
+											as={Ionicons}
 											name={showPassword ? 'eye-off' : 'eye'}
-											size={20}
-											style={{
-												padding: 10,
+											size={'md'}
+											_light={{
+												color: !showPassword ? 'primary.500' : 'light.800',
 											}}
-											color={showPassword ? theme.colors.gray[300] : theme.colors.primary[500]}
+											_dark={{
+												color: !showPassword ? 'primary.500' : 'dark.800',
+											}}
 										/>
 									}
 								/>
@@ -199,58 +285,14 @@ export default () => {
 						}}
 					/>
 
-					<Box h={'30px'} w={'100%'}>
-						<Text>{errors?.password?.message}</Text>
-					</Box>
+					<Text color={'error.500'}>
+						{errors.password && errors.password ? errors?.password.message : null}
+					</Text>
 				</VStack>
 			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
-					<Box
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						height={'90px'}
-						px={'2.5%'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-					>
-						<View
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-							}}
-						>
-							<IconButton
-								disabled={!!errors.password || LPLoading || SDPLoading}
-								onPress={handleSubmit(onSubmit)}
-								variant={'solid'}
-								color={'primary.500'}
-								isDisabled={!!errors.password || LPLoading || SDPLoading}
-								style={{
-									justifyContent: 'center',
-									borderRadius: 50,
-									height: 70,
-									width: 70,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								icon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'2xl'}
-										color={errors?.password ? 'light.800' : 'white'}
-									/>
-								}
-							/>
-						</View>
-					</Box>
+					<InnerContent />
 				</InputAccessoryView>
 			) : (
 				<Reanimated.View
@@ -261,51 +303,7 @@ export default () => {
 						textInputContainerStyle,
 					]}
 				>
-					<Box
-						flexDir={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						height={'90px'}
-						px={'2.5%'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-					>
-						<View
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-							}}
-						>
-							<IconButton
-								disabled={!!errors.password || LPLoading || SDPLoading}
-								onPress={handleSubmit(onSubmit)}
-								variant={'solid'}
-								color={'primary.500'}
-								isDisabled={!!errors.password || LPLoading || SDPLoading}
-								style={{
-									justifyContent: 'center',
-									borderRadius: 50,
-									height: 70,
-									width: 70,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								icon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'2xl'}
-										color={errors?.password ? 'light.800' : 'white'}
-									/>
-								}
-							/>
-						</View>
-					</Box>
+					<InnerContent />
 				</Reanimated.View>
 			)}
 		</Box>

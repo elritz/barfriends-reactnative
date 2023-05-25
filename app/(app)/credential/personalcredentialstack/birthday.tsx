@@ -6,7 +6,7 @@ import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
 import { useRouter } from 'expo-router'
-import { IconButton, Text, Icon, Box } from 'native-base'
+import { IconButton, Text, Icon, Box, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
@@ -166,27 +166,44 @@ export default () => {
 				justifyContent={'space-between'}
 				w={'100%'}
 			>
-				<Box mt={insets.bottom / 2} mb={insets.bottom}>
-					<IconButton
-						disabled={!!errors.date}
-						onPress={handleSubmit(onSubmit)}
-						variant={'solid'}
-						color={'primary.500'}
-						isDisabled={!!errors.date}
-						size={'lg'}
-						borderRadius={'full'}
-						h={60}
-						w={60}
-						fontSize={'lg'}
-						icon={
-							<Icon
-								as={Feather}
-								name='arrow-right'
-								size={'2xl'}
-								color={errors.date ? 'light.800' : 'white'}
-							/>
-						}
-					/>
+				<Box
+					_light={{
+						bg: 'light.200',
+					}}
+					_dark={{
+						bg: 'dark.200',
+					}}
+					flexDir={'row'}
+					justifyContent={'space-between'}
+					alignContent={'space-around'}
+					h={'90px'}
+					px={'2.5%'}
+				>
+					<VStack justifyContent={'space-around'}>
+						<IconButton
+							disabled={!!errors.date}
+							onPress={handleSubmit(onSubmit)}
+							variant={'solid'}
+							color={'primary.500'}
+							isDisabled={!!errors.date}
+							borderRadius={'full'}
+							style={{
+								justifyContent: 'center',
+								height: 60,
+								width: 60,
+								paddingHorizontal: 20,
+								alignSelf: 'center',
+							}}
+							icon={
+								<Icon
+									as={Feather}
+									name='arrow-right'
+									size={'xl'}
+									color={errors.date ? 'light.800' : 'white'}
+								/>
+							}
+						/>
+					</VStack>
 				</Box>
 			</Box>
 		</Box>

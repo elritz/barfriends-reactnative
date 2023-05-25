@@ -14,7 +14,7 @@ export const AUTHORIZED_PROFILES_QUERY = gql`
 				email {
 					id
 					ProfileType
-					photos {
+					profilePhoto {
 						id
 						blurhash
 						url

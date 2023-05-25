@@ -14,7 +14,7 @@ type Props = {
 
 const PersonalScreen = ({ notifications }: Props) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-
+	console.log('rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType :>> ', rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType);
 	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest) {
 		return (
 			<Box my={10} mx={3} flex={1}>
@@ -29,7 +29,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 	return (
 		<Box>
 			<View style={{ alignItems: 'center', marginVertical: 20 }}>
-				<ProfilePhoto photo={rAuthorizationVar?.DeviceProfile?.Profile.profilePhoto} />
+				<ProfilePhoto photo={rAuthorizationVar?.DeviceProfile?.Profile?.profilePhoto} />
 				<View style={{ marginVertical: 20 }}>
 					<Heading
 						fontSize={'3xl'}

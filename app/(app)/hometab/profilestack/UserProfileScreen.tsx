@@ -15,6 +15,9 @@ export default () => {
 	const [refreshing, setRefreshing] = useState(false)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
+	console.log('rAuthorizationVar', JSON.stringify(rAuthorizationVar, null, 2))
+
+
 	const [getNotificationQuery, { data: GNData, loading: GNLoading, error }] =
 		useGetNotificationsLazyQuery({
 			fetchPolicy: 'network-only',
@@ -36,6 +39,7 @@ export default () => {
 	if (GNLoading) return null
 
 	const renderProfile = (param: ProfileType) => {
+		console.log('param :>> ', param);
 		switch (param) {
 			case ProfileType.Guest:
 				return (

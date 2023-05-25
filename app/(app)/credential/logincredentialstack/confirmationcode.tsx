@@ -22,7 +22,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 // TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 
 export default () => {
-	const INPUT_ACCESSORY_VIEW_ID = 'cc-1298187263'
+	const INPUT_ACCESSORY_VIEW_ID = 'cc-12981123123263'
 	const { bottom } = useSafeAreaInsets()
 	const isFocused = useIsFocused()
 	const router = useRouter()
@@ -34,7 +34,7 @@ export default () => {
 
 	const { isOpen, onOpen, onClose } = useDisclose()
 
-	const CELL_COUNT = Number(params?.code)
+	const CELL_COUNT = String(params?.code).length
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 
 	const { num, complete } = Countdown(9)
@@ -99,7 +99,10 @@ export default () => {
 		clearErrors()
 		if (checkFinalCode(code)) {
 			router.push({
-				pathname: '(app)/credential/personalcredentialstack/birthday',
+				params: {
+					authenticator: params.authenticator,
+				},
+				pathname: '(app)/credential/logincredentialstack/devicemanager',
 			})
 		} else {
 			setError('code', { type: 'validate', message: 'Wrong code' })
@@ -107,12 +110,87 @@ export default () => {
 	}
 
 	useEffect(() => {
-		if (watch('code').length === params?.code?.length) {
+		if (watch('code').length === CELL_COUNT) {
 			onSubmit({
 				code: watch('code'),
 			})
 		}
 	}, [watch('code')])
+
+	const InnerContent = () => {
+		return (
+			<Box
+				display={isFocused ? 'flex' : 'none'}
+				_light={{
+					bg: 'light.200',
+				}}
+				_dark={{
+					bg: 'dark.200',
+				}}
+				flexDir={'row'}
+				justifyContent={'space-between'}
+				alignContent={'space-around'}
+				h={'90px'}
+				px={'2.5%'}
+			>
+				<Box justifyContent={'space-around'}>
+					{complete ? (
+						<VStack space={0} justifyContent={'space-around'}>
+							<Button
+								variant={'ghost'}
+								size={'xs'}
+								_text={{ fontSize: 'lg' }}
+								justifyContent={'flex-start'}
+								// onPress={() => navigation.goBack()}
+							>
+								{/* <Text fontSize={'lg'}>Resend code</Text> */}
+								Resend code
+							</Button>
+							<Button
+								variant={'ghost'}
+								_text={{ fontSize: 'lg' }}
+								size={'xs'}
+								justifyContent={'flex-start'}
+								// onPress={() => navigation.goBack()}
+							>
+								Update phone number
+							</Button>
+						</VStack>
+					) : (
+						<Text>
+							Resend code in 0:0
+							{num}
+						</Text>
+					)}
+				</Box>
+				<VStack justifyContent={'space-around'}>
+					<IconButton
+						disabled={!!errors.code}
+						onPress={handleSubmit(onSubmit)}
+						variant={'solid'}
+						color={'primary.500'}
+						isDisabled={!!errors.code}
+						borderRadius={'full'}
+						style={{
+							justifyContent: 'center',
+							height: 60,
+							width: 60,
+							paddingHorizontal: 20,
+							alignSelf: 'center',
+						}}
+						icon={
+							<Icon
+								as={Feather}
+								name='arrow-right'
+								size={'xl'}
+								color={errors.code ? 'light.800' : 'white'}
+							/>
+						}
+					/>
+				</VStack>
+			</Box>
+		)
+	}
 
 	return (
 		<Box flex={1}>
@@ -140,11 +218,10 @@ export default () => {
 									marginVertical: 10,
 								}}
 								keyboardType='number-pad'
-								keyboardAppearance={colorScheme}
 								textContentType='oneTimeCode'
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
-								blurOnSubmit
+								blurOnSubmit={false}
 								autoFocus
 								onEndEditing={handleSubmit(onSubmit)}
 								renderCell={({ index, symbol, isFocused }) => (
@@ -182,76 +259,7 @@ export default () => {
 			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
-					<Box
-						display={isFocused ? 'flex' : 'none'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-						flexDir={'row'}
-						justifyContent={'space-between'}
-						alignContent={'space-around'}
-						h={'90px'}
-						px={'2.5%'}
-					>
-						<Box justifyContent={'space-around'}>
-							{complete ? (
-								<VStack space={0} justifyContent={'space-around'}>
-									<Button
-										variant={'ghost'}
-										size={'xs'}
-										_text={{ fontSize: 'lg' }}
-										justifyContent={'flex-start'}
-										// onPress={() => navigation.goBack()}
-									>
-										{/* <Text fontSize={'lg'}>Resend code</Text> */}
-										Resend code
-									</Button>
-									<Button
-										variant={'ghost'}
-										_text={{ fontSize: 'lg' }}
-										size={'xs'}
-										justifyContent={'flex-start'}
-										// onPress={() => navigation.goBack()}
-									>
-										Update phone number
-									</Button>
-								</VStack>
-							) : (
-								<Text>
-									Resend code in 0:0
-									{num}
-								</Text>
-							)}
-						</Box>
-						<VStack justifyContent={'space-around'}>
-							<IconButton
-								disabled={!!errors.code}
-								onPress={handleSubmit(onSubmit)}
-								variant={'solid'}
-								color={'primary.500'}
-								isDisabled={!!errors.code}
-								borderRadius={'full'}
-								style={{
-									justifyContent: 'center',
-									height: 60,
-									width: 60,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								icon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'xl'}
-										color={errors.code ? 'light.800' : 'white'}
-									/>
-								}
-							/>
-						</VStack>
-					</Box>
+					<InnerContent />
 				</InputAccessoryView>
 			) : (
 				<Reanimated.View
@@ -262,76 +270,7 @@ export default () => {
 						textInputContainerStyle,
 					]}
 				>
-					<Box
-						display={isFocused ? 'flex' : 'none'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
-						flexDir={'row'}
-						justifyContent={'space-between'}
-						alignContent={'space-around'}
-						h={'90px'}
-						px={'2.5%'}
-					>
-						<Box justifyContent={'space-around'}>
-							{complete ? (
-								<VStack space={0} justifyContent={'space-around'}>
-									<Button
-										variant={'ghost'}
-										size={'xs'}
-										_text={{ fontSize: 'lg' }}
-										justifyContent={'flex-start'}
-										// onPress={() => navigation.goBack()}
-									>
-										{/* <Text fontSize={'lg'}>Resend code</Text> */}
-										Resend code
-									</Button>
-									<Button
-										variant={'ghost'}
-										_text={{ fontSize: 'lg' }}
-										size={'xs'}
-										justifyContent={'flex-start'}
-										// onPress={() => navigation.goBack()}
-									>
-										Update phone number
-									</Button>
-								</VStack>
-							) : (
-								<Text>
-									Resend code in 0:0
-									{num}
-								</Text>
-							)}
-						</Box>
-						<VStack justifyContent={'space-around'}>
-							<IconButton
-								disabled={!!errors.code}
-								onPress={handleSubmit(onSubmit)}
-								variant={'solid'}
-								color={'primary.500'}
-								isDisabled={!!errors.code}
-								borderRadius={'full'}
-								style={{
-									justifyContent: 'center',
-									height: 60,
-									width: 60,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								icon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'xl'}
-										color={errors.code ? 'light.800' : 'white'}
-									/>
-								}
-							/>
-						</VStack>
-					</Box>
+					<InnerContent />
 				</Reanimated.View>
 			)}
 		</Box>

@@ -10,6 +10,7 @@ type ProfileItemType = {
 }
 
 const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemType) => {
+	console.log('item', JSON.stringify(item, null, 2))
 	return (
 		<Box
 			_light={{

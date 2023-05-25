@@ -38,7 +38,7 @@ export default () => {
 			params: {
 				profileid: item.id,
 			},
-			pathname: '(app)/credential/logincredentialstack/loginpasswordscreen',
+			pathname: '(app)/credential/logincredentialstack/loginpassword',
 		})
 	}
 
