@@ -497,6 +497,11 @@ export type Area = {
   Location?: Maybe<Location>;
   State: State;
   stateId: Scalars['String'];
+  timesRequested?: Maybe<Scalars['Int']>;
+};
+
+export type AreaAvgOrderByAggregateInput = {
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaCountOrderByAggregateInput = {
@@ -504,6 +509,7 @@ export type AreaCountOrderByAggregateInput = {
   countryId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   stateId?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaCreateInput = {
@@ -515,12 +521,14 @@ export type AreaCreateInput = {
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateManyCityInput = {
   countryId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   stateId: Scalars['String'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateManyCityInputEnvelope = {
@@ -532,6 +540,7 @@ export type AreaCreateManyCountryInput = {
   cityId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   stateId: Scalars['String'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateManyCountryInputEnvelope = {
@@ -544,12 +553,14 @@ export type AreaCreateManyInput = {
   countryId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   stateId: Scalars['String'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateManyStateInput = {
   cityId: Scalars['String'];
   countryId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateManyStateInputEnvelope = {
@@ -645,6 +656,7 @@ export type AreaCreateWithoutCityInput = {
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateWithoutComingAreaInput = {
@@ -655,6 +667,7 @@ export type AreaCreateWithoutComingAreaInput = {
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateWithoutCountryInput = {
@@ -665,6 +678,7 @@ export type AreaCreateWithoutCountryInput = {
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateWithoutH3Index5VenueRecommendationInput = {
@@ -675,6 +689,7 @@ export type AreaCreateWithoutH3Index5VenueRecommendationInput = {
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateWithoutH3Index6VenueRecommendationInput = {
@@ -685,6 +700,7 @@ export type AreaCreateWithoutH3Index6VenueRecommendationInput = {
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateWithoutLocationInput = {
@@ -695,6 +711,7 @@ export type AreaCreateWithoutLocationInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput>;
   id?: InputMaybe<Scalars['String']>;
   State: StateCreateNestedOneWithoutAreaInput;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaCreateWithoutStateInput = {
@@ -705,6 +722,7 @@ export type AreaCreateWithoutStateInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput>;
   id?: InputMaybe<Scalars['String']>;
   Location?: InputMaybe<LocationCreateNestedOneWithoutAreaInput>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
 };
 
 export type AreaListRelationFilter = {
@@ -718,6 +736,7 @@ export type AreaMaxOrderByAggregateInput = {
   countryId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   stateId?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaMinOrderByAggregateInput = {
@@ -725,6 +744,7 @@ export type AreaMinOrderByAggregateInput = {
   countryId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   stateId?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaOrderByRelationAggregateInput = {
@@ -732,13 +752,16 @@ export type AreaOrderByRelationAggregateInput = {
 };
 
 export type AreaOrderByWithAggregationInput = {
+  _avg?: InputMaybe<AreaAvgOrderByAggregateInput>;
   _count?: InputMaybe<AreaCountOrderByAggregateInput>;
   _max?: InputMaybe<AreaMaxOrderByAggregateInput>;
   _min?: InputMaybe<AreaMinOrderByAggregateInput>;
+  _sum?: InputMaybe<AreaSumOrderByAggregateInput>;
   cityId?: InputMaybe<SortOrder>;
   countryId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   stateId?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaOrderByWithRelationInput = {
@@ -753,6 +776,7 @@ export type AreaOrderByWithRelationInput = {
   Location?: InputMaybe<LocationOrderByWithRelationInput>;
   State?: InputMaybe<StateOrderByWithRelationInput>;
   stateId?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaRelationFilter = {
@@ -772,7 +796,8 @@ export enum AreaScalarFieldEnum {
   CityId = 'cityId',
   CountryId = 'countryId',
   Id = 'id',
-  StateId = 'stateId'
+  StateId = 'stateId',
+  TimesRequested = 'timesRequested'
 }
 
 export type AreaScalarWhereInput = {
@@ -783,6 +808,7 @@ export type AreaScalarWhereInput = {
   NOT?: InputMaybe<Array<AreaScalarWhereInput>>;
   OR?: InputMaybe<Array<AreaScalarWhereInput>>;
   stateId?: InputMaybe<StringFilter>;
+  timesRequested?: InputMaybe<IntNullableFilter>;
 };
 
 export type AreaScalarWhereWithAggregatesInput = {
@@ -793,6 +819,11 @@ export type AreaScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<AreaScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<AreaScalarWhereWithAggregatesInput>>;
   stateId?: InputMaybe<StringWithAggregatesFilter>;
+  timesRequested?: InputMaybe<IntNullableWithAggregatesFilter>;
+};
+
+export type AreaSumOrderByAggregateInput = {
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type AreaUpdateInput = {
@@ -804,10 +835,12 @@ export type AreaUpdateInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateManyMutationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateManyWithoutCityNestedInput = {
@@ -915,6 +948,7 @@ export type AreaUpdateWithoutCityInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithoutComingAreaInput = {
@@ -925,6 +959,7 @@ export type AreaUpdateWithoutComingAreaInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithoutCountryInput = {
@@ -935,6 +970,7 @@ export type AreaUpdateWithoutCountryInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithoutH3Index5VenueRecommendationInput = {
@@ -945,6 +981,7 @@ export type AreaUpdateWithoutH3Index5VenueRecommendationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithoutH3Index6VenueRecommendationInput = {
@@ -955,6 +992,7 @@ export type AreaUpdateWithoutH3Index6VenueRecommendationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithoutLocationInput = {
@@ -965,6 +1003,7 @@ export type AreaUpdateWithoutLocationInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   State?: InputMaybe<StateUpdateOneRequiredWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithoutStateInput = {
@@ -975,6 +1014,7 @@ export type AreaUpdateWithoutStateInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Location?: InputMaybe<LocationUpdateOneWithoutAreaNestedInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
 };
 
 export type AreaUpdateWithWhereUniqueWithoutCityInput = {
@@ -1045,6 +1085,7 @@ export type AreaWhereInput = {
   OR?: InputMaybe<Array<AreaWhereInput>>;
   State?: InputMaybe<StateWhereInput>;
   stateId?: InputMaybe<StringFilter>;
+  timesRequested?: InputMaybe<IntNullableFilter>;
 };
 
 export type AreaWhereUniqueInput = {
@@ -2197,12 +2238,14 @@ export type ComingArea = {
   __typename?: 'ComingArea';
   Area?: Maybe<Area>;
   areaId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   h3Index5: Scalars['String'];
   h3Index6: Scalars['String'];
   id: Scalars['ID'];
   keywordSuggestions: Array<Scalars['String']>;
-  timesRequested: Scalars['Int'];
+  timesRequested?: Maybe<Scalars['Int']>;
   toBeNotifiedProfileIds: Array<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
   Vote: Array<Vote>;
 };
 
@@ -2222,22 +2265,26 @@ export type ComingAreaAvgOrderByAggregateInput = {
 
 export type ComingAreaCountOrderByAggregateInput = {
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
   toBeNotifiedProfileIds?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type ComingAreaCreateInput = {
   Area?: InputMaybe<AreaCreateNestedOneWithoutComingAreaInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   h3Index6: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested: Scalars['Int'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutComingAreaInput>;
 };
 
@@ -2247,12 +2294,14 @@ export type ComingAreaCreatekeywordSuggestionsInput = {
 
 export type ComingAreaCreateManyInput = {
   areaId?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   h3Index6: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested: Scalars['Int'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type ComingAreaCreateNestedOneWithoutAreaInput = {
@@ -2282,39 +2331,47 @@ export type ComingAreaCreatetoBeNotifiedProfileIdsInput = {
 };
 
 export type ComingAreaCreateWithoutAreaInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   h3Index6: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested: Scalars['Int'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutComingAreaInput>;
 };
 
 export type ComingAreaCreateWithoutVoteInput = {
   Area?: InputMaybe<AreaCreateNestedOneWithoutComingAreaInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   h3Index6: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested: Scalars['Int'];
+  timesRequested?: InputMaybe<Scalars['Int']>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type ComingAreaMaxOrderByAggregateInput = {
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type ComingAreaMinOrderByAggregateInput = {
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type ComingAreaOrderByWithAggregationInput = {
@@ -2324,23 +2381,27 @@ export type ComingAreaOrderByWithAggregationInput = {
   _min?: InputMaybe<ComingAreaMinOrderByAggregateInput>;
   _sum?: InputMaybe<ComingAreaSumOrderByAggregateInput>;
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
   toBeNotifiedProfileIds?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type ComingAreaOrderByWithRelationInput = {
   Area?: InputMaybe<AreaOrderByWithRelationInput>;
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
   toBeNotifiedProfileIds?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   Vote?: InputMaybe<VoteOrderByRelationAggregateInput>;
 };
 
@@ -2357,25 +2418,29 @@ export type ComingAreaResponse = {
 
 export enum ComingAreaScalarFieldEnum {
   AreaId = 'areaId',
+  CreatedAt = 'createdAt',
   H3Index5 = 'h3Index5',
   H3Index6 = 'h3Index6',
   Id = 'id',
   KeywordSuggestions = 'keywordSuggestions',
   TimesRequested = 'timesRequested',
-  ToBeNotifiedProfileIds = 'toBeNotifiedProfileIds'
+  ToBeNotifiedProfileIds = 'toBeNotifiedProfileIds',
+  UpdatedAt = 'updatedAt'
 }
 
 export type ComingAreaScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<ComingAreaScalarWhereWithAggregatesInput>>;
   areaId?: InputMaybe<StringNullableWithAggregatesFilter>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   h3Index5?: InputMaybe<StringWithAggregatesFilter>;
   h3Index6?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   keywordSuggestions?: InputMaybe<StringNullableListFilter>;
   NOT?: InputMaybe<Array<ComingAreaScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<ComingAreaScalarWhereWithAggregatesInput>>;
-  timesRequested?: InputMaybe<IntWithAggregatesFilter>;
+  timesRequested?: InputMaybe<IntNullableWithAggregatesFilter>;
   toBeNotifiedProfileIds?: InputMaybe<StringNullableListFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
 
 export type ComingAreaSumOrderByAggregateInput = {
@@ -2384,12 +2449,14 @@ export type ComingAreaSumOrderByAggregateInput = {
 
 export type ComingAreaUpdateInput = {
   Area?: InputMaybe<AreaUpdateOneWithoutComingAreaNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   h3Index6?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   Vote?: InputMaybe<VoteUpdateManyWithoutComingAreaNestedInput>;
 };
 
@@ -2399,12 +2466,14 @@ export type ComingAreaUpdatekeywordSuggestionsInput = {
 };
 
 export type ComingAreaUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   h3Index6?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ComingAreaUpdateOneWithoutAreaNestedInput = {
@@ -2433,23 +2502,27 @@ export type ComingAreaUpdatetoBeNotifiedProfileIdsInput = {
 };
 
 export type ComingAreaUpdateWithoutAreaInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   h3Index6?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   Vote?: InputMaybe<VoteUpdateManyWithoutComingAreaNestedInput>;
 };
 
 export type ComingAreaUpdateWithoutVoteInput = {
   Area?: InputMaybe<AreaUpdateOneWithoutComingAreaNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   h3Index6?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['String']>>;
-  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
   toBeNotifiedProfileIds?: InputMaybe<Array<Scalars['String']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ComingAreaUpsertWithoutAreaInput = {
@@ -2466,14 +2539,16 @@ export type ComingAreaWhereInput = {
   AND?: InputMaybe<Array<ComingAreaWhereInput>>;
   Area?: InputMaybe<AreaWhereInput>;
   areaId?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
   h3Index5?: InputMaybe<StringFilter>;
   h3Index6?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   keywordSuggestions?: InputMaybe<StringNullableListFilter>;
   NOT?: InputMaybe<Array<ComingAreaWhereInput>>;
   OR?: InputMaybe<Array<ComingAreaWhereInput>>;
-  timesRequested?: InputMaybe<IntFilter>;
+  timesRequested?: InputMaybe<IntNullableFilter>;
   toBeNotifiedProfileIds?: InputMaybe<StringNullableListFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
   Vote?: InputMaybe<VoteListRelationFilter>;
 };
 
@@ -5722,11 +5797,13 @@ export type H3Index5VenueRecommendation = {
   __typename?: 'H3Index5VenueRecommendation';
   Area?: Maybe<Area>;
   areaId?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   h3Index5: Scalars['String'];
   id: Scalars['ID'];
   keywordSuggestions: Array<Scalars['Json']>;
   SearchAreaMetrics: Array<SearchAreaMetrics>;
   timesRequested?: Maybe<Scalars['Int']>;
+  updatedAt: Scalars['DateTime'];
   venuesProfileIds: Array<Scalars['String']>;
   Vote: Array<Vote>;
 };
@@ -5757,20 +5834,24 @@ export type H3Index5VenueRecommendationAvgOrderByAggregateInput = {
 
 export type H3Index5VenueRecommendationCountOrderByAggregateInput = {
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   venuesProfileIds?: InputMaybe<SortOrder>;
 };
 
 export type H3Index5VenueRecommendationCreateInput = {
   Area?: InputMaybe<AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput>;
 };
@@ -5781,10 +5862,12 @@ export type H3Index5VenueRecommendationCreatekeywordSuggestionsInput = {
 
 export type H3Index5VenueRecommendationCreateManyInput = {
   areaId?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -5826,47 +5909,57 @@ export type H3Index5VenueRecommendationCreatevenuesProfileIdsInput = {
 };
 
 export type H3Index5VenueRecommendationCreateWithoutAreaInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput>;
 };
 
 export type H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput = {
   Area?: InputMaybe<AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput>;
 };
 
 export type H3Index5VenueRecommendationCreateWithoutVoteInput = {
   Area?: InputMaybe<AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
   h3Index5: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type H3Index5VenueRecommendationMaxOrderByAggregateInput = {
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type H3Index5VenueRecommendationMinOrderByAggregateInput = {
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type H3Index5VenueRecommendationOrderByWithAggregationInput = {
@@ -5876,21 +5969,25 @@ export type H3Index5VenueRecommendationOrderByWithAggregationInput = {
   _min?: InputMaybe<H3Index5VenueRecommendationMinOrderByAggregateInput>;
   _sum?: InputMaybe<H3Index5VenueRecommendationSumOrderByAggregateInput>;
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   venuesProfileIds?: InputMaybe<SortOrder>;
 };
 
 export type H3Index5VenueRecommendationOrderByWithRelationInput = {
   Area?: InputMaybe<AreaOrderByWithRelationInput>;
   areaId?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
   h3Index5?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsOrderByRelationAggregateInput>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   venuesProfileIds?: InputMaybe<SortOrder>;
   Vote?: InputMaybe<VoteOrderByRelationAggregateInput>;
 };
@@ -5902,22 +5999,26 @@ export type H3Index5VenueRecommendationRelationFilter = {
 
 export enum H3Index5VenueRecommendationScalarFieldEnum {
   AreaId = 'areaId',
+  CreatedAt = 'createdAt',
   H3Index5 = 'h3Index5',
   Id = 'id',
   KeywordSuggestions = 'keywordSuggestions',
   TimesRequested = 'timesRequested',
+  UpdatedAt = 'updatedAt',
   VenuesProfileIds = 'venuesProfileIds'
 }
 
 export type H3Index5VenueRecommendationScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<H3Index5VenueRecommendationScalarWhereWithAggregatesInput>>;
   areaId?: InputMaybe<StringNullableWithAggregatesFilter>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   h3Index5?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   keywordSuggestions?: InputMaybe<JsonNullableListFilter>;
   NOT?: InputMaybe<Array<H3Index5VenueRecommendationScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<H3Index5VenueRecommendationScalarWhereWithAggregatesInput>>;
   timesRequested?: InputMaybe<IntNullableWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   venuesProfileIds?: InputMaybe<StringNullableListFilter>;
 };
 
@@ -5927,11 +6028,13 @@ export type H3Index5VenueRecommendationSumOrderByAggregateInput = {
 
 export type H3Index5VenueRecommendationUpdateInput = {
   Area?: InputMaybe<AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput>;
 };
@@ -5942,10 +6045,12 @@ export type H3Index5VenueRecommendationUpdatekeywordSuggestionsInput = {
 };
 
 export type H3Index5VenueRecommendationUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -5985,32 +6090,38 @@ export type H3Index5VenueRecommendationUpdatevenuesProfileIdsInput = {
 };
 
 export type H3Index5VenueRecommendationUpdateWithoutAreaInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput>;
 };
 
 export type H3Index5VenueRecommendationUpdateWithoutSearchAreaMetricsInput = {
   Area?: InputMaybe<AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput>;
 };
 
 export type H3Index5VenueRecommendationUpdateWithoutVoteInput = {
   Area?: InputMaybe<AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index5?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -6033,6 +6144,7 @@ export type H3Index5VenueRecommendationWhereInput = {
   AND?: InputMaybe<Array<H3Index5VenueRecommendationWhereInput>>;
   Area?: InputMaybe<AreaWhereInput>;
   areaId?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
   h3Index5?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   keywordSuggestions?: InputMaybe<JsonNullableListFilter>;
@@ -6040,6 +6152,7 @@ export type H3Index5VenueRecommendationWhereInput = {
   OR?: InputMaybe<Array<H3Index5VenueRecommendationWhereInput>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsListRelationFilter>;
   timesRequested?: InputMaybe<IntNullableFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
   venuesProfileIds?: InputMaybe<StringNullableListFilter>;
   Vote?: InputMaybe<VoteListRelationFilter>;
 };
@@ -6060,6 +6173,7 @@ export type H3Index6VenueRecommendation = {
   keywordSuggestions: Array<Scalars['Json']>;
   SearchAreaMetrics: Array<SearchAreaMetrics>;
   timesRequested?: Maybe<Scalars['Int']>;
+  updatedAt: Scalars['DateTime'];
   venuesProfileIds: Array<Scalars['String']>;
   Vote: Array<Vote>;
 };
@@ -6095,6 +6209,7 @@ export type H3Index6VenueRecommendationCountOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   venuesProfileIds?: InputMaybe<SortOrder>;
 };
 
@@ -6106,6 +6221,7 @@ export type H3Index6VenueRecommendationCreateInput = {
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput>;
 };
@@ -6121,6 +6237,7 @@ export type H3Index6VenueRecommendationCreateManyInput = {
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -6168,6 +6285,7 @@ export type H3Index6VenueRecommendationCreateWithoutAreaInput = {
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput>;
 };
@@ -6179,6 +6297,7 @@ export type H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput = {
   id?: InputMaybe<Scalars['String']>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput>;
 };
@@ -6191,6 +6310,7 @@ export type H3Index6VenueRecommendationCreateWithoutVoteInput = {
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput>;
   timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -6200,6 +6320,7 @@ export type H3Index6VenueRecommendationMaxOrderByAggregateInput = {
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type H3Index6VenueRecommendationMinOrderByAggregateInput = {
@@ -6208,6 +6329,7 @@ export type H3Index6VenueRecommendationMinOrderByAggregateInput = {
   h3Index6?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type H3Index6VenueRecommendationOrderByWithAggregationInput = {
@@ -6222,6 +6344,7 @@ export type H3Index6VenueRecommendationOrderByWithAggregationInput = {
   id?: InputMaybe<SortOrder>;
   keywordSuggestions?: InputMaybe<SortOrder>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   venuesProfileIds?: InputMaybe<SortOrder>;
 };
 
@@ -6234,6 +6357,7 @@ export type H3Index6VenueRecommendationOrderByWithRelationInput = {
   keywordSuggestions?: InputMaybe<SortOrder>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsOrderByRelationAggregateInput>;
   timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   venuesProfileIds?: InputMaybe<SortOrder>;
   Vote?: InputMaybe<VoteOrderByRelationAggregateInput>;
 };
@@ -6250,6 +6374,7 @@ export enum H3Index6VenueRecommendationScalarFieldEnum {
   Id = 'id',
   KeywordSuggestions = 'keywordSuggestions',
   TimesRequested = 'timesRequested',
+  UpdatedAt = 'updatedAt',
   VenuesProfileIds = 'venuesProfileIds'
 }
 
@@ -6263,6 +6388,7 @@ export type H3Index6VenueRecommendationScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<H3Index6VenueRecommendationScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<H3Index6VenueRecommendationScalarWhereWithAggregatesInput>>;
   timesRequested?: InputMaybe<IntNullableWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   venuesProfileIds?: InputMaybe<StringNullableListFilter>;
 };
 
@@ -6278,6 +6404,7 @@ export type H3Index6VenueRecommendationUpdateInput = {
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput>;
 };
@@ -6293,6 +6420,7 @@ export type H3Index6VenueRecommendationUpdateManyMutationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -6338,6 +6466,7 @@ export type H3Index6VenueRecommendationUpdateWithoutAreaInput = {
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput>;
 };
@@ -6349,6 +6478,7 @@ export type H3Index6VenueRecommendationUpdateWithoutSearchAreaMetricsInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
   Vote?: InputMaybe<VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput>;
 };
@@ -6361,6 +6491,7 @@ export type H3Index6VenueRecommendationUpdateWithoutVoteInput = {
   keywordSuggestions?: InputMaybe<Array<Scalars['Json']>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput>;
   timesRequested?: InputMaybe<NullableIntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   venuesProfileIds?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -6391,6 +6522,7 @@ export type H3Index6VenueRecommendationWhereInput = {
   OR?: InputMaybe<Array<H3Index6VenueRecommendationWhereInput>>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsListRelationFilter>;
   timesRequested?: InputMaybe<IntNullableFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
   venuesProfileIds?: InputMaybe<StringNullableListFilter>;
   Vote?: InputMaybe<VoteListRelationFilter>;
 };
@@ -8374,6 +8506,7 @@ export type Mutation = {
   sendAuthenticatorDeviceOwnerCode: CodeResponse;
   sendAuthenticatorForgotPasswordCode: CodeResponse;
   switchDeviceProfile: AuthenticationResponseUnion;
+  updateCityRequested: Scalars['Boolean'];
   /** Update H6 coming area to be notified */
   updateH6ComingAreaToBeNotified: ComingArea;
   /** Update H6 coming area vote */
@@ -8481,6 +8614,11 @@ export type MutationSendAuthenticatorForgotPasswordCodeArgs = {
 export type MutationSwitchDeviceProfileArgs = {
   profileId: Scalars['String'];
   profileType?: InputMaybe<ProfileType>;
+};
+
+
+export type MutationUpdateCityRequestedArgs = {
+  cityName: Scalars['String'];
 };
 
 
@@ -14447,12 +14585,13 @@ export type SearchAreaMetrics = {
   id: Scalars['ID'];
   SearchesService?: Maybe<SearchesService>;
   searchesServiceId?: Maybe<Scalars['String']>;
-  timesSearched: Scalars['Int'];
+  timesRequested: Scalars['Int'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type SearchAreaMetricsAvgOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type SearchAreaMetricsCountOrderByAggregateInput = {
@@ -14462,7 +14601,8 @@ export type SearchAreaMetricsCountOrderByAggregateInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   searchesServiceId?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchAreaMetricsCreateInput = {
@@ -14471,7 +14611,8 @@ export type SearchAreaMetricsCreateInput = {
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateManyH3Index5VenueRecommendationInput = {
@@ -14480,7 +14621,8 @@ export type SearchAreaMetricsCreateManyH3Index5VenueRecommendationInput = {
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   searchesServiceId?: InputMaybe<Scalars['String']>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope = {
@@ -14494,7 +14636,8 @@ export type SearchAreaMetricsCreateManyH3Index6VenueRecommendationInput = {
   h3Index5VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   searchesServiceId?: InputMaybe<Scalars['String']>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope = {
@@ -14509,7 +14652,8 @@ export type SearchAreaMetricsCreateManyInput = {
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   searchesServiceId?: InputMaybe<Scalars['String']>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateManySearchesServiceInput = {
@@ -14518,7 +14662,8 @@ export type SearchAreaMetricsCreateManySearchesServiceInput = {
   h3Index5VenueRecommendationId?: InputMaybe<Scalars['String']>;
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateManySearchesServiceInputEnvelope = {
@@ -14567,7 +14712,8 @@ export type SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput = {
   h3Index15?: InputMaybe<Scalars['String']>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput = {
@@ -14575,7 +14721,8 @@ export type SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput = {
   h3Index15?: InputMaybe<Scalars['String']>;
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsCreateWithoutSearchesServiceInput = {
@@ -14583,7 +14730,8 @@ export type SearchAreaMetricsCreateWithoutSearchesServiceInput = {
   h3Index15?: InputMaybe<Scalars['String']>;
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput>;
-  timesSearched?: InputMaybe<Scalars['Int']>;
+  timesRequested?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchAreaMetricsListRelationFilter = {
@@ -14599,7 +14747,8 @@ export type SearchAreaMetricsMaxOrderByAggregateInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   searchesServiceId?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchAreaMetricsMinOrderByAggregateInput = {
@@ -14609,7 +14758,8 @@ export type SearchAreaMetricsMinOrderByAggregateInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   searchesServiceId?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchAreaMetricsOrderByRelationAggregateInput = {
@@ -14628,7 +14778,8 @@ export type SearchAreaMetricsOrderByWithAggregationInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   searchesServiceId?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchAreaMetricsOrderByWithRelationInput = {
@@ -14641,7 +14792,8 @@ export type SearchAreaMetricsOrderByWithRelationInput = {
   id?: InputMaybe<SortOrder>;
   SearchesService?: InputMaybe<SearchesServiceOrderByWithRelationInput>;
   searchesServiceId?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export enum SearchAreaMetricsScalarFieldEnum {
@@ -14651,7 +14803,8 @@ export enum SearchAreaMetricsScalarFieldEnum {
   H3Index6VenueRecommendationId = 'h3Index6VenueRecommendationId',
   Id = 'id',
   SearchesServiceId = 'searchesServiceId',
-  TimesSearched = 'timesSearched'
+  TimesRequested = 'timesRequested',
+  UpdatedAt = 'updatedAt'
 }
 
 export type SearchAreaMetricsScalarWhereInput = {
@@ -14664,7 +14817,8 @@ export type SearchAreaMetricsScalarWhereInput = {
   NOT?: InputMaybe<Array<SearchAreaMetricsScalarWhereInput>>;
   OR?: InputMaybe<Array<SearchAreaMetricsScalarWhereInput>>;
   searchesServiceId?: InputMaybe<StringNullableFilter>;
-  timesSearched?: InputMaybe<IntFilter>;
+  timesRequested?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type SearchAreaMetricsScalarWhereWithAggregatesInput = {
@@ -14677,12 +14831,13 @@ export type SearchAreaMetricsScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<SearchAreaMetricsScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<SearchAreaMetricsScalarWhereWithAggregatesInput>>;
   searchesServiceId?: InputMaybe<StringNullableWithAggregatesFilter>;
-  timesSearched?: InputMaybe<IntWithAggregatesFilter>;
+  timesRequested?: InputMaybe<IntWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
 
 export type SearchAreaMetricsSumOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
-  timesSearched?: InputMaybe<SortOrder>;
+  timesRequested?: InputMaybe<SortOrder>;
 };
 
 export type SearchAreaMetricsUpdateInput = {
@@ -14691,13 +14846,15 @@ export type SearchAreaMetricsUpdateInput = {
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput>;
-  timesSearched?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchAreaMetricsUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   h3Index15?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  timesSearched?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput = {
@@ -14762,7 +14919,8 @@ export type SearchAreaMetricsUpdateWithoutH3Index5VenueRecommendationInput = {
   h3Index15?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput>;
-  timesSearched?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput = {
@@ -14770,7 +14928,8 @@ export type SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput = {
   h3Index15?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput>;
-  timesSearched?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchAreaMetricsUpdateWithoutSearchesServiceInput = {
@@ -14778,7 +14937,8 @@ export type SearchAreaMetricsUpdateWithoutSearchesServiceInput = {
   h3Index15?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput>;
-  timesSearched?: InputMaybe<IntFieldUpdateOperationsInput>;
+  timesRequested?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchAreaMetricsUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput = {
@@ -14827,7 +14987,8 @@ export type SearchAreaMetricsWhereInput = {
   OR?: InputMaybe<Array<SearchAreaMetricsWhereInput>>;
   SearchesService?: InputMaybe<SearchesServiceWhereInput>;
   searchesServiceId?: InputMaybe<StringNullableFilter>;
-  timesSearched?: InputMaybe<IntFilter>;
+  timesRequested?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type SearchAreaMetricsWhereUniqueInput = {
@@ -14842,6 +15003,7 @@ export type SearchesService = {
   profileId: Scalars['String'];
   SearchAreaMetrics: Array<SearchAreaMetrics>;
   searches: Array<Scalars['Json']>;
+  updatedAt: Scalars['DateTime'];
 };
 
 
@@ -14859,6 +15021,7 @@ export type SearchesServiceCountOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
   searches?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchesServiceCreateInput = {
@@ -14867,6 +15030,7 @@ export type SearchesServiceCreateInput = {
   Profile: ProfileCreateNestedOneWithoutSearchesServiceInput;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput>;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchesServiceCreateManyInput = {
@@ -14874,6 +15038,7 @@ export type SearchesServiceCreateManyInput = {
   id?: InputMaybe<Scalars['String']>;
   profileId: Scalars['String'];
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchesServiceCreateNestedOneWithoutProfileInput = {
@@ -14907,6 +15072,7 @@ export type SearchesServiceCreateWithoutProfileInput = {
   id?: InputMaybe<Scalars['String']>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput>;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchesServiceCreateWithoutSearchAreaMetricsInput = {
@@ -14914,18 +15080,21 @@ export type SearchesServiceCreateWithoutSearchAreaMetricsInput = {
   id?: InputMaybe<Scalars['String']>;
   Profile: ProfileCreateNestedOneWithoutSearchesServiceInput;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type SearchesServiceMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchesServiceMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchesServiceOrderByWithAggregationInput = {
@@ -14936,6 +15105,7 @@ export type SearchesServiceOrderByWithAggregationInput = {
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
   searches?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchesServiceOrderByWithRelationInput = {
@@ -14945,6 +15115,7 @@ export type SearchesServiceOrderByWithRelationInput = {
   profileId?: InputMaybe<SortOrder>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsOrderByRelationAggregateInput>;
   searches?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type SearchesServiceRelationFilter = {
@@ -14956,7 +15127,8 @@ export enum SearchesServiceScalarFieldEnum {
   CreatedAt = 'createdAt',
   Id = 'id',
   ProfileId = 'profileId',
-  Searches = 'searches'
+  Searches = 'searches',
+  UpdatedAt = 'updatedAt'
 }
 
 export type SearchesServiceScalarWhereWithAggregatesInput = {
@@ -14967,6 +15139,7 @@ export type SearchesServiceScalarWhereWithAggregatesInput = {
   OR?: InputMaybe<Array<SearchesServiceScalarWhereWithAggregatesInput>>;
   profileId?: InputMaybe<StringWithAggregatesFilter>;
   searches?: InputMaybe<JsonNullableListFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
 
 export type SearchesServiceUpdateInput = {
@@ -14975,12 +15148,14 @@ export type SearchesServiceUpdateInput = {
   Profile?: InputMaybe<ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput>;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchesServiceUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchesServiceUpdateOneWithoutProfileNestedInput = {
@@ -15013,6 +15188,7 @@ export type SearchesServiceUpdateWithoutProfileInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput>;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchesServiceUpdateWithoutSearchAreaMetricsInput = {
@@ -15020,6 +15196,7 @@ export type SearchesServiceUpdateWithoutSearchAreaMetricsInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Profile?: InputMaybe<ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput>;
   searches?: InputMaybe<Array<Scalars['Json']>>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type SearchesServiceUpsertWithoutProfileInput = {
@@ -15042,6 +15219,7 @@ export type SearchesServiceWhereInput = {
   profileId?: InputMaybe<StringFilter>;
   SearchAreaMetrics?: InputMaybe<SearchAreaMetricsListRelationFilter>;
   searches?: InputMaybe<JsonNullableListFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type SearchesServiceWhereUniqueInput = {
@@ -17552,6 +17730,7 @@ export type Vote = {
   id: Scalars['ID'];
   Profile: Profile;
   profileId: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
   upvote: Scalars['Boolean'];
 };
 
@@ -17562,6 +17741,7 @@ export type VoteCountOrderByAggregateInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   upvote?: InputMaybe<SortOrder>;
 };
 
@@ -17572,6 +17752,7 @@ export type VoteCreateInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput>;
   id?: InputMaybe<Scalars['String']>;
   Profile: ProfileCreateNestedOneWithoutVoteInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17581,6 +17762,7 @@ export type VoteCreateManyComingAreaInput = {
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['String']>;
   profileId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17595,6 +17777,7 @@ export type VoteCreateManyH3Index5VenueRecommendationInput = {
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['String']>;
   profileId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17609,6 +17792,7 @@ export type VoteCreateManyH3Index6VenueRecommendationInput = {
   h3Index5VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['String']>;
   profileId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17624,6 +17808,7 @@ export type VoteCreateManyInput = {
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['String']>;
   profileId: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17633,6 +17818,7 @@ export type VoteCreateManyProfileInput = {
   h3Index5VenueRecommendationId?: InputMaybe<Scalars['String']>;
   h3Index6VenueRecommendationId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17695,6 +17881,7 @@ export type VoteCreateWithoutComingAreaInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput>;
   id?: InputMaybe<Scalars['String']>;
   Profile: ProfileCreateNestedOneWithoutVoteInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17704,6 +17891,7 @@ export type VoteCreateWithoutH3Index5VenueRecommendationInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput>;
   id?: InputMaybe<Scalars['String']>;
   Profile: ProfileCreateNestedOneWithoutVoteInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17713,6 +17901,7 @@ export type VoteCreateWithoutH3Index6VenueRecommendationInput = {
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput>;
   id?: InputMaybe<Scalars['String']>;
   Profile: ProfileCreateNestedOneWithoutVoteInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17722,6 +17911,7 @@ export type VoteCreateWithoutProfileInput = {
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput>;
   id?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
   upvote: Scalars['Boolean'];
 };
 
@@ -17738,6 +17928,7 @@ export type VoteMaxOrderByAggregateInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   upvote?: InputMaybe<SortOrder>;
 };
 
@@ -17748,6 +17939,7 @@ export type VoteMinOrderByAggregateInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   upvote?: InputMaybe<SortOrder>;
 };
 
@@ -17765,6 +17957,7 @@ export type VoteOrderByWithAggregationInput = {
   h3Index6VenueRecommendationId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   upvote?: InputMaybe<SortOrder>;
 };
 
@@ -17779,6 +17972,7 @@ export type VoteOrderByWithRelationInput = {
   id?: InputMaybe<SortOrder>;
   Profile?: InputMaybe<ProfileOrderByWithRelationInput>;
   profileId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
   upvote?: InputMaybe<SortOrder>;
 };
 
@@ -17789,6 +17983,7 @@ export enum VoteScalarFieldEnum {
   H3Index6VenueRecommendationId = 'h3Index6VenueRecommendationId',
   Id = 'id',
   ProfileId = 'profileId',
+  UpdatedAt = 'updatedAt',
   Upvote = 'upvote'
 }
 
@@ -17802,6 +17997,7 @@ export type VoteScalarWhereInput = {
   NOT?: InputMaybe<Array<VoteScalarWhereInput>>;
   OR?: InputMaybe<Array<VoteScalarWhereInput>>;
   profileId?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
   upvote?: InputMaybe<BoolFilter>;
 };
 
@@ -17815,6 +18011,7 @@ export type VoteScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<VoteScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<VoteScalarWhereWithAggregatesInput>>;
   profileId?: InputMaybe<StringWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   upvote?: InputMaybe<BoolWithAggregatesFilter>;
 };
 
@@ -17825,12 +18022,14 @@ export type VoteUpdateInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Profile?: InputMaybe<ProfileUpdateOneRequiredWithoutVoteNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   upvote?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
 export type VoteUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   upvote?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
@@ -17916,6 +18115,7 @@ export type VoteUpdateWithoutComingAreaInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Profile?: InputMaybe<ProfileUpdateOneRequiredWithoutVoteNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   upvote?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
@@ -17925,6 +18125,7 @@ export type VoteUpdateWithoutH3Index5VenueRecommendationInput = {
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Profile?: InputMaybe<ProfileUpdateOneRequiredWithoutVoteNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   upvote?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
@@ -17934,6 +18135,7 @@ export type VoteUpdateWithoutH3Index6VenueRecommendationInput = {
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Profile?: InputMaybe<ProfileUpdateOneRequiredWithoutVoteNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   upvote?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
@@ -17943,6 +18145,7 @@ export type VoteUpdateWithoutProfileInput = {
   H3Index5VenueRecommendation?: InputMaybe<H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput>;
   H3Index6VenueRecommendation?: InputMaybe<H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   upvote?: InputMaybe<BoolFieldUpdateOperationsInput>;
 };
 
@@ -18004,6 +18207,7 @@ export type VoteWhereInput = {
   OR?: InputMaybe<Array<VoteWhereInput>>;
   Profile?: InputMaybe<ProfileWhereInput>;
   profileId?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
   upvote?: InputMaybe<BoolFilter>;
 };
 
@@ -18316,14 +18520,14 @@ export type UpdateH6ComingAreaVoteMutationVariables = Exact<{
 }>;
 
 
-export type UpdateH6ComingAreaVoteMutation = { __typename?: 'Mutation', updateH6ComingAreaVote: { __typename?: 'ComingArea', id: string, areaId?: string | null, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested: number, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string } | null, Vote: Array<{ __typename?: 'Vote', id: string, upvote: boolean, profileId: string, createdAt: any, Profile: { __typename?: 'Profile', id: string } }> } };
+export type UpdateH6ComingAreaVoteMutation = { __typename?: 'Mutation', updateH6ComingAreaVote: { __typename?: 'ComingArea', id: string, areaId?: string | null, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested?: number | null, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string } | null, Vote: Array<{ __typename?: 'Vote', id: string, upvote: boolean, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string } }> } };
 
 export type UpdateComingAreaToBeNotifiedMutationVariables = Exact<{
   comingAreaId: Scalars['String'];
 }>;
 
 
-export type UpdateComingAreaToBeNotifiedMutation = { __typename?: 'Mutation', updateH6ComingAreaToBeNotified: { __typename?: 'ComingArea', id: string, areaId?: string | null, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested: number, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string } | null, Vote: Array<{ __typename?: 'Vote', id: string, upvote: boolean, profileId: string, createdAt: any, Profile: { __typename?: 'Profile', id: string } }> } };
+export type UpdateComingAreaToBeNotifiedMutation = { __typename?: 'Mutation', updateH6ComingAreaToBeNotified: { __typename?: 'ComingArea', id: string, areaId?: string | null, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested?: number | null, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string } | null, Vote: Array<{ __typename?: 'Vote', id: string, upvote: boolean, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string } }> } };
 
 export type UpdateH6VenueRemmendationMutationVariables = Exact<{
   venueRecommendationId: Scalars['String'];
@@ -18341,7 +18545,7 @@ export type VenuesNearbyQueryVariables = Exact<{
 }>;
 
 
-export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'ComingAreaResponse', comingAreas: Array<{ __typename?: 'ComingArea', id: string, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested: number, toBeNotifiedProfileIds: Array<string>, Area?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, Vote: Array<{ __typename?: 'Vote', id: string, profileId: string, upvote: boolean }> }>, searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null } | { __typename?: 'Error', errorCode: string, message: string } | { __typename?: 'VenuesNearbyResponse', searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, venuesNearby: Array<{ __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null }> } };
+export type VenuesNearbyQuery = { __typename?: 'Query', venuesNearby: { __typename?: 'ComingAreaResponse', comingAreas: Array<{ __typename?: 'ComingArea', id: string, h3Index5: string, h3Index6: string, keywordSuggestions: Array<string>, timesRequested?: number | null, toBeNotifiedProfileIds: Array<string>, createdAt: any, updatedAt: any, Area?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, Vote: Array<{ __typename?: 'Vote', id: string, profileId: string, upvote: boolean }> }>, searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null } | { __typename?: 'Error', errorCode: string, message: string } | { __typename?: 'VenuesNearbyResponse', searchArea?: { __typename?: 'Area', id: string, City: { __typename?: 'City', id: string, name: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, State: { __typename?: 'State', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } }, Country: { __typename?: 'Country', id: string, name: string, isoCode: string, Geometry: { __typename?: 'Geometry', id: string, latitude: number, longitude: number } } } | null, venuesNearby: Array<{ __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null }> } };
 
 export type GetAllCountriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -20642,6 +20846,7 @@ export const UpdateH6ComingAreaVoteDocument = gql`
         id
       }
       createdAt
+      updatedAt
     }
   }
 }
@@ -20693,6 +20898,7 @@ export const UpdateComingAreaToBeNotifiedDocument = gql`
         id
       }
       createdAt
+      updatedAt
     }
   }
 }
@@ -20775,6 +20981,8 @@ export const VenuesNearbyDocument = gql`
           profileId
           upvote
         }
+        createdAt
+        updatedAt
       }
       searchArea {
         ...AREA_FRAGMENT

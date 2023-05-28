@@ -1,11 +1,9 @@
 import { Ionicons } from '@expo/vector-icons'
-import { Profile } from '@graphql/generated'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base'
 
 export default function SearchCard({ item }) {
-console.log('item', JSON.stringify(item, null, 2))
 	const router = useRouter()
 	return (
 		<Pressable

@@ -21,6 +21,7 @@ export const UPDATE_H6_COMING_AREA_MUTATION = gql`
 					id
 				}
 				createdAt
+				updatedAt
 			}
 		}
 	}
@@ -47,6 +48,7 @@ export const UPDATE_COMING_AREA_TO_BE_NOTIFIED_MUTATION = gql`
 					id
 				}
 				createdAt
+				updatedAt
 			}
 		}
 	}

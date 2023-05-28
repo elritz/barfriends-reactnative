@@ -39,7 +39,6 @@ const details = [
 ]
 
 const ContactsPermissionScreen = () => {
-	const navigation = useNavigation()
 	const themeContext = useContext(ThemeContext)
 	const appStateRef = useRef(AppState.currentState)
 	const isFocused = useIsFocused()

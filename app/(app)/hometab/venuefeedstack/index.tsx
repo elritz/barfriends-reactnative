@@ -174,20 +174,17 @@ export default () => {
 							key={item.id}
 							_dark={{ bg: 'dark.100' }}
 							_light={{ bg: 'light.200' }}
-							py={4}
+							py={1}
 							m={2}
 							borderRadius={'xl'}
 						>
-							<HStack justifyContent={'space-between'}>
+							<HStack flex={1} justifyContent={'space-between'}>
 								<HStack px={3} space={1} alignItems={'center'}>
 									<CountryFlag size={12} isoCode={String(item.Area?.Country.isoCode)} />
 									<Text fontSize={'xl'}>{item.Area?.City.name}</Text>
-									{/* <Text fontSize={'xl'}>{item.}</Text> */}
 								</HStack>
-								<HStack space={1}>
+								<HStack h={'50px'} space={1} justifyContent={'flex-end'}>
 									<Pressable
-										mx={2}
-										disabled={UVRLoading}
 										onPress={() => {
 											updateH6VenueRecommendationVoteMutation({
 												variables: {
@@ -198,19 +195,12 @@ export default () => {
 										flexDir={'row'}
 										alignItems={'center'}
 									>
-										<Text fontWeight={'medium'} fontSize={'xl'} mx={2}>
+										<Text fontWeight={'medium'} fontSize={'xl'} mx={2} textAlign={'right'}>
 											{lengthOfUpvote}
 										</Text>
 										<Icon
-											name={
-												item.Vote.some(
-													item =>
-														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
-												)
-													? 'thumbs-up'
-													: 'thumbs-o-up'
-											}
-											as={FontAwesome}
+											name='md-caret-up'
+											as={Ionicons}
 											size={'lg'}
 											_light={{
 												color: item.Vote.some(
@@ -218,7 +208,7 @@ export default () => {
 														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
 												)
 													? 'blue.500'
-													: 'light.700',
+													: 'light.500',
 											}}
 											_dark={{
 												color: item.Vote.some(
@@ -226,13 +216,13 @@ export default () => {
 														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
 												)
 													? 'blue.500'
-													: 'dark.700',
+													: 'dark.500',
 											}}
 										/>
 									</Pressable>
 									<Pressable
-										mx={2}
-										disabled={UTBNLoading}
+										px={2}
+										w={'50px'}
 										onPress={() => {
 											updateToBeNotifiedMutation({
 												variables: {
@@ -246,19 +236,19 @@ export default () => {
 										<Icon
 											name='ios-notifications-sharp'
 											as={Ionicons}
-											size={'lg'}
+											size={'md'}
 											_light={{
 												color: item.toBeNotifiedProfileIds.some(
 													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
 												)
-													? 'blue.500'
+													? 'primary.500'
 													: 'light.700',
 											}}
 											_dark={{
 												color: item.toBeNotifiedProfileIds.some(
 													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
 												)
-													? 'blue.500'
+													? 'primary.500'
 													: 'dark.700',
 											}}
 										/>

@@ -32,7 +32,7 @@ export default () => {
 	const router = useRouter()
 	const { bottom } = useSafeAreaInsets()
 	const isFocused = useIsFocused()
-	const phonenumberRef = useRef<TextInput>()
+	const _phonenumberRef = useRef<TextInput>()
 	const colorScheme = useThemeColorScheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -130,14 +130,14 @@ export default () => {
 	}, [])
 
 	useEffect(() => {
-		if (isFocused && phonenumberRef.current) {
+		if (isFocused && _phonenumberRef.current) {
 			InteractionManager.runAfterInteractions(() => {
-				phonenumberRef.current?.focus()
+				_phonenumberRef.current?.focus()
 			})
 		}
 		if (!isFocused) {
 			InteractionManager.runAfterInteractions(() => {
-				phonenumberRef.current?.blur()
+				_phonenumberRef.current?.blur()
 			})
 		}
 	}, [isFocused])
@@ -220,7 +220,7 @@ export default () => {
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
-								ref={phonenumberRef}
+								ref={_phonenumberRef}
 								key={'mobileNumber.completeNumber'}
 								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
 								textContentType='telephoneNumber'

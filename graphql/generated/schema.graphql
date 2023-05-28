@@ -461,6 +461,11 @@ type Area {
   Location: Location
   State: State!
   stateId: String!
+  timesRequested: Int
+}
+
+input AreaAvgOrderByAggregateInput {
+  timesRequested: SortOrder
 }
 
 input AreaCountOrderByAggregateInput {
@@ -468,6 +473,7 @@ input AreaCountOrderByAggregateInput {
   countryId: SortOrder
   id: SortOrder
   stateId: SortOrder
+  timesRequested: SortOrder
 }
 
 input AreaCreateInput {
@@ -479,12 +485,14 @@ input AreaCreateInput {
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateManyCityInput {
   countryId: String!
   id: String
   stateId: String!
+  timesRequested: Int
 }
 
 input AreaCreateManyCityInputEnvelope {
@@ -496,6 +504,7 @@ input AreaCreateManyCountryInput {
   cityId: String!
   id: String
   stateId: String!
+  timesRequested: Int
 }
 
 input AreaCreateManyCountryInputEnvelope {
@@ -508,12 +517,14 @@ input AreaCreateManyInput {
   countryId: String!
   id: String
   stateId: String!
+  timesRequested: Int
 }
 
 input AreaCreateManyStateInput {
   cityId: String!
   countryId: String!
   id: String
+  timesRequested: Int
 }
 
 input AreaCreateManyStateInputEnvelope {
@@ -609,6 +620,7 @@ input AreaCreateWithoutCityInput {
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateWithoutComingAreaInput {
@@ -619,6 +631,7 @@ input AreaCreateWithoutComingAreaInput {
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateWithoutCountryInput {
@@ -629,6 +642,7 @@ input AreaCreateWithoutCountryInput {
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateWithoutH3Index5VenueRecommendationInput {
@@ -639,6 +653,7 @@ input AreaCreateWithoutH3Index5VenueRecommendationInput {
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateWithoutH3Index6VenueRecommendationInput {
@@ -649,6 +664,7 @@ input AreaCreateWithoutH3Index6VenueRecommendationInput {
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateWithoutLocationInput {
@@ -659,6 +675,7 @@ input AreaCreateWithoutLocationInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
   id: String
   State: StateCreateNestedOneWithoutAreaInput!
+  timesRequested: Int
 }
 
 input AreaCreateWithoutStateInput {
@@ -669,6 +686,7 @@ input AreaCreateWithoutStateInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutAreaInput
   id: String
   Location: LocationCreateNestedOneWithoutAreaInput
+  timesRequested: Int
 }
 
 input AreaListRelationFilter {
@@ -682,6 +700,7 @@ input AreaMaxOrderByAggregateInput {
   countryId: SortOrder
   id: SortOrder
   stateId: SortOrder
+  timesRequested: SortOrder
 }
 
 input AreaMinOrderByAggregateInput {
@@ -689,6 +708,7 @@ input AreaMinOrderByAggregateInput {
   countryId: SortOrder
   id: SortOrder
   stateId: SortOrder
+  timesRequested: SortOrder
 }
 
 input AreaOrderByRelationAggregateInput {
@@ -696,13 +716,16 @@ input AreaOrderByRelationAggregateInput {
 }
 
 input AreaOrderByWithAggregationInput {
+  _avg: AreaAvgOrderByAggregateInput
   _count: AreaCountOrderByAggregateInput
   _max: AreaMaxOrderByAggregateInput
   _min: AreaMinOrderByAggregateInput
+  _sum: AreaSumOrderByAggregateInput
   cityId: SortOrder
   countryId: SortOrder
   id: SortOrder
   stateId: SortOrder
+  timesRequested: SortOrder
 }
 
 input AreaOrderByWithRelationInput {
@@ -717,6 +740,7 @@ input AreaOrderByWithRelationInput {
   Location: LocationOrderByWithRelationInput
   State: StateOrderByWithRelationInput
   stateId: SortOrder
+  timesRequested: SortOrder
 }
 
 input AreaRelationFilter {
@@ -736,6 +760,7 @@ enum AreaScalarFieldEnum {
   countryId
   id
   stateId
+  timesRequested
 }
 
 input AreaScalarWhereInput {
@@ -746,6 +771,7 @@ input AreaScalarWhereInput {
   NOT: [AreaScalarWhereInput!]
   OR: [AreaScalarWhereInput!]
   stateId: StringFilter
+  timesRequested: IntNullableFilter
 }
 
 input AreaScalarWhereWithAggregatesInput {
@@ -756,6 +782,11 @@ input AreaScalarWhereWithAggregatesInput {
   NOT: [AreaScalarWhereWithAggregatesInput!]
   OR: [AreaScalarWhereWithAggregatesInput!]
   stateId: StringWithAggregatesFilter
+  timesRequested: IntNullableWithAggregatesFilter
+}
+
+input AreaSumOrderByAggregateInput {
+  timesRequested: SortOrder
 }
 
 input AreaUpdateInput {
@@ -767,10 +798,12 @@ input AreaUpdateInput {
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateManyWithoutCityNestedInput {
@@ -878,6 +911,7 @@ input AreaUpdateWithoutCityInput {
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithoutComingAreaInput {
@@ -888,6 +922,7 @@ input AreaUpdateWithoutComingAreaInput {
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithoutCountryInput {
@@ -898,6 +933,7 @@ input AreaUpdateWithoutCountryInput {
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithoutH3Index5VenueRecommendationInput {
@@ -908,6 +944,7 @@ input AreaUpdateWithoutH3Index5VenueRecommendationInput {
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithoutH3Index6VenueRecommendationInput {
@@ -918,6 +955,7 @@ input AreaUpdateWithoutH3Index6VenueRecommendationInput {
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithoutLocationInput {
@@ -928,6 +966,7 @@ input AreaUpdateWithoutLocationInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
   id: StringFieldUpdateOperationsInput
   State: StateUpdateOneRequiredWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithoutStateInput {
@@ -938,6 +977,7 @@ input AreaUpdateWithoutStateInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutAreaNestedInput
   id: StringFieldUpdateOperationsInput
   Location: LocationUpdateOneWithoutAreaNestedInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
 }
 
 input AreaUpdateWithWhereUniqueWithoutCityInput {
@@ -1008,6 +1048,7 @@ input AreaWhereInput {
   OR: [AreaWhereInput!]
   State: StateWhereInput
   stateId: StringFilter
+  timesRequested: IntNullableFilter
 }
 
 input AreaWhereUniqueInput {
@@ -2112,12 +2153,14 @@ input CodeWhereUniqueInput {
 type ComingArea {
   Area: Area
   areaId: String
+  createdAt: DateTime!
   h3Index5: String!
   h3Index6: String!
   id: ID!
   keywordSuggestions: [String!]!
-  timesRequested: Int!
+  timesRequested: Int
   toBeNotifiedProfileIds: [String!]!
+  updatedAt: DateTime!
   Vote(cursor: VoteWhereUniqueInput, distinct: [VoteScalarFieldEnum!], orderBy: [VoteOrderByWithRelationInput!], skip: Int, take: Int, where: VoteWhereInput): [Vote!]!
 }
 
@@ -2127,22 +2170,26 @@ input ComingAreaAvgOrderByAggregateInput {
 
 input ComingAreaCountOrderByAggregateInput {
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   h3Index6: SortOrder
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
   toBeNotifiedProfileIds: SortOrder
+  updatedAt: SortOrder
 }
 
 input ComingAreaCreateInput {
   Area: AreaCreateNestedOneWithoutComingAreaInput
+  createdAt: DateTime
   h3Index5: String!
   h3Index6: String!
   id: String
   keywordSuggestions: [String!]
-  timesRequested: Int!
+  timesRequested: Int
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTime
   Vote: VoteCreateNestedManyWithoutComingAreaInput
 }
 
@@ -2152,12 +2199,14 @@ input ComingAreaCreatekeywordSuggestionsInput {
 
 input ComingAreaCreateManyInput {
   areaId: String
+  createdAt: DateTime
   h3Index5: String!
   h3Index6: String!
   id: String
   keywordSuggestions: [String!]
-  timesRequested: Int!
+  timesRequested: Int
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTime
 }
 
 input ComingAreaCreateNestedOneWithoutAreaInput {
@@ -2187,39 +2236,47 @@ input ComingAreaCreatetoBeNotifiedProfileIdsInput {
 }
 
 input ComingAreaCreateWithoutAreaInput {
+  createdAt: DateTime
   h3Index5: String!
   h3Index6: String!
   id: String
   keywordSuggestions: [String!]
-  timesRequested: Int!
+  timesRequested: Int
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTime
   Vote: VoteCreateNestedManyWithoutComingAreaInput
 }
 
 input ComingAreaCreateWithoutVoteInput {
   Area: AreaCreateNestedOneWithoutComingAreaInput
+  createdAt: DateTime
   h3Index5: String!
   h3Index6: String!
   id: String
   keywordSuggestions: [String!]
-  timesRequested: Int!
+  timesRequested: Int
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTime
 }
 
 input ComingAreaMaxOrderByAggregateInput {
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   h3Index6: SortOrder
   id: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input ComingAreaMinOrderByAggregateInput {
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   h3Index6: SortOrder
   id: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input ComingAreaOrderByWithAggregationInput {
@@ -2229,23 +2286,27 @@ input ComingAreaOrderByWithAggregationInput {
   _min: ComingAreaMinOrderByAggregateInput
   _sum: ComingAreaSumOrderByAggregateInput
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   h3Index6: SortOrder
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
   toBeNotifiedProfileIds: SortOrder
+  updatedAt: SortOrder
 }
 
 input ComingAreaOrderByWithRelationInput {
   Area: AreaOrderByWithRelationInput
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   h3Index6: SortOrder
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
   toBeNotifiedProfileIds: SortOrder
+  updatedAt: SortOrder
   Vote: VoteOrderByRelationAggregateInput
 }
 
@@ -2261,25 +2322,29 @@ type ComingAreaResponse {
 
 enum ComingAreaScalarFieldEnum {
   areaId
+  createdAt
   h3Index5
   h3Index6
   id
   keywordSuggestions
   timesRequested
   toBeNotifiedProfileIds
+  updatedAt
 }
 
 input ComingAreaScalarWhereWithAggregatesInput {
   AND: [ComingAreaScalarWhereWithAggregatesInput!]
   areaId: StringNullableWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
   h3Index5: StringWithAggregatesFilter
   h3Index6: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
   keywordSuggestions: StringNullableListFilter
   NOT: [ComingAreaScalarWhereWithAggregatesInput!]
   OR: [ComingAreaScalarWhereWithAggregatesInput!]
-  timesRequested: IntWithAggregatesFilter
+  timesRequested: IntNullableWithAggregatesFilter
   toBeNotifiedProfileIds: StringNullableListFilter
+  updatedAt: DateTimeWithAggregatesFilter
 }
 
 input ComingAreaSumOrderByAggregateInput {
@@ -2288,12 +2353,14 @@ input ComingAreaSumOrderByAggregateInput {
 
 input ComingAreaUpdateInput {
   Area: AreaUpdateOneWithoutComingAreaNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [String!]
-  timesRequested: IntFieldUpdateOperationsInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
   Vote: VoteUpdateManyWithoutComingAreaNestedInput
 }
 
@@ -2303,12 +2370,14 @@ input ComingAreaUpdatekeywordSuggestionsInput {
 }
 
 input ComingAreaUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [String!]
-  timesRequested: IntFieldUpdateOperationsInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ComingAreaUpdateOneWithoutAreaNestedInput {
@@ -2337,23 +2406,27 @@ input ComingAreaUpdatetoBeNotifiedProfileIdsInput {
 }
 
 input ComingAreaUpdateWithoutAreaInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [String!]
-  timesRequested: IntFieldUpdateOperationsInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
   Vote: VoteUpdateManyWithoutComingAreaNestedInput
 }
 
 input ComingAreaUpdateWithoutVoteInput {
   Area: AreaUpdateOneWithoutComingAreaNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   h3Index6: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [String!]
-  timesRequested: IntFieldUpdateOperationsInput
+  timesRequested: NullableIntFieldUpdateOperationsInput
   toBeNotifiedProfileIds: [String!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ComingAreaUpsertWithoutAreaInput {
@@ -2370,14 +2443,16 @@ input ComingAreaWhereInput {
   AND: [ComingAreaWhereInput!]
   Area: AreaWhereInput
   areaId: StringNullableFilter
+  createdAt: DateTimeFilter
   h3Index5: StringFilter
   h3Index6: StringFilter
   id: StringFilter
   keywordSuggestions: StringNullableListFilter
   NOT: [ComingAreaWhereInput!]
   OR: [ComingAreaWhereInput!]
-  timesRequested: IntFilter
+  timesRequested: IntNullableFilter
   toBeNotifiedProfileIds: StringNullableListFilter
+  updatedAt: DateTimeFilter
   Vote: VoteListRelationFilter
 }
 
@@ -5541,11 +5616,13 @@ input GroupWhereUniqueInput {
 type H3Index5VenueRecommendation {
   Area: Area
   areaId: String
+  createdAt: DateTime!
   h3Index5: String!
   id: ID!
   keywordSuggestions: [Json!]!
   SearchAreaMetrics(cursor: SearchAreaMetricsWhereUniqueInput, distinct: [SearchAreaMetricsScalarFieldEnum!], orderBy: [SearchAreaMetricsOrderByWithRelationInput!], skip: Int, take: Int, where: SearchAreaMetricsWhereInput): [SearchAreaMetrics!]!
   timesRequested: Int
+  updatedAt: DateTime!
   venuesProfileIds: [String!]!
   Vote(cursor: VoteWhereUniqueInput, distinct: [VoteScalarFieldEnum!], orderBy: [VoteOrderByWithRelationInput!], skip: Int, take: Int, where: VoteWhereInput): [Vote!]!
 }
@@ -5556,20 +5633,24 @@ input H3Index5VenueRecommendationAvgOrderByAggregateInput {
 
 input H3Index5VenueRecommendationCountOrderByAggregateInput {
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
   venuesProfileIds: SortOrder
 }
 
 input H3Index5VenueRecommendationCreateInput {
   Area: AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput
+  createdAt: DateTime
   h3Index5: String!
   id: String
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
   Vote: VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput
 }
@@ -5580,10 +5661,12 @@ input H3Index5VenueRecommendationCreatekeywordSuggestionsInput {
 
 input H3Index5VenueRecommendationCreateManyInput {
   areaId: String
+  createdAt: DateTime
   h3Index5: String!
   id: String
   keywordSuggestions: [Json!]
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
 }
 
@@ -5625,47 +5708,57 @@ input H3Index5VenueRecommendationCreatevenuesProfileIdsInput {
 }
 
 input H3Index5VenueRecommendationCreateWithoutAreaInput {
+  createdAt: DateTime
   h3Index5: String!
   id: String
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
   Vote: VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput
 }
 
 input H3Index5VenueRecommendationCreateWithoutSearchAreaMetricsInput {
   Area: AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput
+  createdAt: DateTime
   h3Index5: String!
   id: String
   keywordSuggestions: [Json!]
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
   Vote: VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput
 }
 
 input H3Index5VenueRecommendationCreateWithoutVoteInput {
   Area: AreaCreateNestedOneWithoutH3Index5VenueRecommendationInput
+  createdAt: DateTime
   h3Index5: String!
   id: String
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
 }
 
 input H3Index5VenueRecommendationMaxOrderByAggregateInput {
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   id: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input H3Index5VenueRecommendationMinOrderByAggregateInput {
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   id: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input H3Index5VenueRecommendationOrderByWithAggregationInput {
@@ -5675,21 +5768,25 @@ input H3Index5VenueRecommendationOrderByWithAggregationInput {
   _min: H3Index5VenueRecommendationMinOrderByAggregateInput
   _sum: H3Index5VenueRecommendationSumOrderByAggregateInput
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
   venuesProfileIds: SortOrder
 }
 
 input H3Index5VenueRecommendationOrderByWithRelationInput {
   Area: AreaOrderByWithRelationInput
   areaId: SortOrder
+  createdAt: SortOrder
   h3Index5: SortOrder
   id: SortOrder
   keywordSuggestions: SortOrder
   SearchAreaMetrics: SearchAreaMetricsOrderByRelationAggregateInput
   timesRequested: SortOrder
+  updatedAt: SortOrder
   venuesProfileIds: SortOrder
   Vote: VoteOrderByRelationAggregateInput
 }
@@ -5701,22 +5798,26 @@ input H3Index5VenueRecommendationRelationFilter {
 
 enum H3Index5VenueRecommendationScalarFieldEnum {
   areaId
+  createdAt
   h3Index5
   id
   keywordSuggestions
   timesRequested
+  updatedAt
   venuesProfileIds
 }
 
 input H3Index5VenueRecommendationScalarWhereWithAggregatesInput {
   AND: [H3Index5VenueRecommendationScalarWhereWithAggregatesInput!]
   areaId: StringNullableWithAggregatesFilter
+  createdAt: DateTimeWithAggregatesFilter
   h3Index5: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
   keywordSuggestions: JsonNullableListFilter
   NOT: [H3Index5VenueRecommendationScalarWhereWithAggregatesInput!]
   OR: [H3Index5VenueRecommendationScalarWhereWithAggregatesInput!]
   timesRequested: IntNullableWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
   venuesProfileIds: StringNullableListFilter
 }
 
@@ -5726,11 +5827,13 @@ input H3Index5VenueRecommendationSumOrderByAggregateInput {
 
 input H3Index5VenueRecommendationUpdateInput {
   Area: AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
   Vote: VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput
 }
@@ -5741,10 +5844,12 @@ input H3Index5VenueRecommendationUpdatekeywordSuggestionsInput {
 }
 
 input H3Index5VenueRecommendationUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
@@ -5784,32 +5889,38 @@ input H3Index5VenueRecommendationUpdatevenuesProfileIdsInput {
 }
 
 input H3Index5VenueRecommendationUpdateWithoutAreaInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
   Vote: VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput
 }
 
 input H3Index5VenueRecommendationUpdateWithoutSearchAreaMetricsInput {
   Area: AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
   Vote: VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput
 }
 
 input H3Index5VenueRecommendationUpdateWithoutVoteInput {
   Area: AreaUpdateOneWithoutH3Index5VenueRecommendationNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   h3Index5: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
@@ -5832,6 +5943,7 @@ input H3Index5VenueRecommendationWhereInput {
   AND: [H3Index5VenueRecommendationWhereInput!]
   Area: AreaWhereInput
   areaId: StringNullableFilter
+  createdAt: DateTimeFilter
   h3Index5: StringFilter
   id: StringFilter
   keywordSuggestions: JsonNullableListFilter
@@ -5839,6 +5951,7 @@ input H3Index5VenueRecommendationWhereInput {
   OR: [H3Index5VenueRecommendationWhereInput!]
   SearchAreaMetrics: SearchAreaMetricsListRelationFilter
   timesRequested: IntNullableFilter
+  updatedAt: DateTimeFilter
   venuesProfileIds: StringNullableListFilter
   Vote: VoteListRelationFilter
 }
@@ -5858,6 +5971,7 @@ type H3Index6VenueRecommendation {
   keywordSuggestions: [Json!]!
   SearchAreaMetrics(cursor: SearchAreaMetricsWhereUniqueInput, distinct: [SearchAreaMetricsScalarFieldEnum!], orderBy: [SearchAreaMetricsOrderByWithRelationInput!], skip: Int, take: Int, where: SearchAreaMetricsWhereInput): [SearchAreaMetrics!]!
   timesRequested: Int
+  updatedAt: DateTime!
   venuesProfileIds: [String!]!
   Vote(cursor: VoteWhereUniqueInput, distinct: [VoteScalarFieldEnum!], orderBy: [VoteOrderByWithRelationInput!], skip: Int, take: Int, where: VoteWhereInput): [Vote!]!
 }
@@ -5873,6 +5987,7 @@ input H3Index6VenueRecommendationCountOrderByAggregateInput {
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
   venuesProfileIds: SortOrder
 }
 
@@ -5884,6 +5999,7 @@ input H3Index6VenueRecommendationCreateInput {
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
   Vote: VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput
 }
@@ -5899,6 +6015,7 @@ input H3Index6VenueRecommendationCreateManyInput {
   id: String
   keywordSuggestions: [Json!]
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
 }
 
@@ -5946,6 +6063,7 @@ input H3Index6VenueRecommendationCreateWithoutAreaInput {
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
   Vote: VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput
 }
@@ -5957,6 +6075,7 @@ input H3Index6VenueRecommendationCreateWithoutSearchAreaMetricsInput {
   id: String
   keywordSuggestions: [Json!]
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
   Vote: VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput
 }
@@ -5969,6 +6088,7 @@ input H3Index6VenueRecommendationCreateWithoutVoteInput {
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput
   timesRequested: Int
+  updatedAt: DateTime
   venuesProfileIds: [String!]
 }
 
@@ -5978,6 +6098,7 @@ input H3Index6VenueRecommendationMaxOrderByAggregateInput {
   h3Index6: SortOrder
   id: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input H3Index6VenueRecommendationMinOrderByAggregateInput {
@@ -5986,6 +6107,7 @@ input H3Index6VenueRecommendationMinOrderByAggregateInput {
   h3Index6: SortOrder
   id: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input H3Index6VenueRecommendationOrderByWithAggregationInput {
@@ -6000,6 +6122,7 @@ input H3Index6VenueRecommendationOrderByWithAggregationInput {
   id: SortOrder
   keywordSuggestions: SortOrder
   timesRequested: SortOrder
+  updatedAt: SortOrder
   venuesProfileIds: SortOrder
 }
 
@@ -6012,6 +6135,7 @@ input H3Index6VenueRecommendationOrderByWithRelationInput {
   keywordSuggestions: SortOrder
   SearchAreaMetrics: SearchAreaMetricsOrderByRelationAggregateInput
   timesRequested: SortOrder
+  updatedAt: SortOrder
   venuesProfileIds: SortOrder
   Vote: VoteOrderByRelationAggregateInput
 }
@@ -6028,6 +6152,7 @@ enum H3Index6VenueRecommendationScalarFieldEnum {
   id
   keywordSuggestions
   timesRequested
+  updatedAt
   venuesProfileIds
 }
 
@@ -6041,6 +6166,7 @@ input H3Index6VenueRecommendationScalarWhereWithAggregatesInput {
   NOT: [H3Index6VenueRecommendationScalarWhereWithAggregatesInput!]
   OR: [H3Index6VenueRecommendationScalarWhereWithAggregatesInput!]
   timesRequested: IntNullableWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
   venuesProfileIds: StringNullableListFilter
 }
 
@@ -6056,6 +6182,7 @@ input H3Index6VenueRecommendationUpdateInput {
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
   Vote: VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput
 }
@@ -6071,6 +6198,7 @@ input H3Index6VenueRecommendationUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
@@ -6116,6 +6244,7 @@ input H3Index6VenueRecommendationUpdateWithoutAreaInput {
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
   Vote: VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput
 }
@@ -6127,6 +6256,7 @@ input H3Index6VenueRecommendationUpdateWithoutSearchAreaMetricsInput {
   id: StringFieldUpdateOperationsInput
   keywordSuggestions: [Json!]
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
   Vote: VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput
 }
@@ -6139,6 +6269,7 @@ input H3Index6VenueRecommendationUpdateWithoutVoteInput {
   keywordSuggestions: [Json!]
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput
   timesRequested: NullableIntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   venuesProfileIds: [String!]
 }
 
@@ -6169,6 +6300,7 @@ input H3Index6VenueRecommendationWhereInput {
   OR: [H3Index6VenueRecommendationWhereInput!]
   SearchAreaMetrics: SearchAreaMetricsListRelationFilter
   timesRequested: IntNullableFilter
+  updatedAt: DateTimeFilter
   venuesProfileIds: StringNullableListFilter
   Vote: VoteListRelationFilter
 }
@@ -8127,6 +8259,7 @@ type Mutation {
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): AuthenticationResponseUnion!
+  updateCityRequested(cityName: String!): Boolean!
 
   """Update H6 coming area to be notified"""
   updateH6ComingAreaToBeNotified(comingAreaId: String!): ComingArea!
@@ -13873,12 +14006,13 @@ type SearchAreaMetrics {
   id: ID!
   SearchesService: SearchesService
   searchesServiceId: String
-  timesSearched: Int!
+  timesRequested: Int!
+  updatedAt: DateTime!
 }
 
 input SearchAreaMetricsAvgOrderByAggregateInput {
   id: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
 }
 
 input SearchAreaMetricsCountOrderByAggregateInput {
@@ -13888,7 +14022,8 @@ input SearchAreaMetricsCountOrderByAggregateInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   searchesServiceId: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchAreaMetricsCreateInput {
@@ -13897,7 +14032,8 @@ input SearchAreaMetricsCreateInput {
   H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
   SearchesService: SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateManyH3Index5VenueRecommendationInput {
@@ -13906,7 +14042,8 @@ input SearchAreaMetricsCreateManyH3Index5VenueRecommendationInput {
   h3Index6VenueRecommendationId: String
   id: Int
   searchesServiceId: String
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope {
@@ -13920,7 +14057,8 @@ input SearchAreaMetricsCreateManyH3Index6VenueRecommendationInput {
   h3Index5VenueRecommendationId: String
   id: Int
   searchesServiceId: String
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope {
@@ -13935,7 +14073,8 @@ input SearchAreaMetricsCreateManyInput {
   h3Index6VenueRecommendationId: String
   id: Int
   searchesServiceId: String
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateManySearchesServiceInput {
@@ -13944,7 +14083,8 @@ input SearchAreaMetricsCreateManySearchesServiceInput {
   h3Index5VenueRecommendationId: String
   h3Index6VenueRecommendationId: String
   id: Int
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateManySearchesServiceInputEnvelope {
@@ -13993,7 +14133,8 @@ input SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput {
   h3Index15: String
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
   SearchesService: SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput {
@@ -14001,7 +14142,8 @@ input SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput {
   h3Index15: String
   H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
   SearchesService: SearchesServiceCreateNestedOneWithoutSearchAreaMetricsInput
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsCreateWithoutSearchesServiceInput {
@@ -14009,7 +14151,8 @@ input SearchAreaMetricsCreateWithoutSearchesServiceInput {
   h3Index15: String
   H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutSearchAreaMetricsInput
-  timesSearched: Int
+  timesRequested: Int
+  updatedAt: DateTime
 }
 
 input SearchAreaMetricsListRelationFilter {
@@ -14025,7 +14168,8 @@ input SearchAreaMetricsMaxOrderByAggregateInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   searchesServiceId: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchAreaMetricsMinOrderByAggregateInput {
@@ -14035,7 +14179,8 @@ input SearchAreaMetricsMinOrderByAggregateInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   searchesServiceId: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchAreaMetricsOrderByRelationAggregateInput {
@@ -14054,7 +14199,8 @@ input SearchAreaMetricsOrderByWithAggregationInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   searchesServiceId: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchAreaMetricsOrderByWithRelationInput {
@@ -14067,7 +14213,8 @@ input SearchAreaMetricsOrderByWithRelationInput {
   id: SortOrder
   SearchesService: SearchesServiceOrderByWithRelationInput
   searchesServiceId: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
+  updatedAt: SortOrder
 }
 
 enum SearchAreaMetricsScalarFieldEnum {
@@ -14077,7 +14224,8 @@ enum SearchAreaMetricsScalarFieldEnum {
   h3Index6VenueRecommendationId
   id
   searchesServiceId
-  timesSearched
+  timesRequested
+  updatedAt
 }
 
 input SearchAreaMetricsScalarWhereInput {
@@ -14090,7 +14238,8 @@ input SearchAreaMetricsScalarWhereInput {
   NOT: [SearchAreaMetricsScalarWhereInput!]
   OR: [SearchAreaMetricsScalarWhereInput!]
   searchesServiceId: StringNullableFilter
-  timesSearched: IntFilter
+  timesRequested: IntFilter
+  updatedAt: DateTimeFilter
 }
 
 input SearchAreaMetricsScalarWhereWithAggregatesInput {
@@ -14103,12 +14252,13 @@ input SearchAreaMetricsScalarWhereWithAggregatesInput {
   NOT: [SearchAreaMetricsScalarWhereWithAggregatesInput!]
   OR: [SearchAreaMetricsScalarWhereWithAggregatesInput!]
   searchesServiceId: StringNullableWithAggregatesFilter
-  timesSearched: IntWithAggregatesFilter
+  timesRequested: IntWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
 }
 
 input SearchAreaMetricsSumOrderByAggregateInput {
   id: SortOrder
-  timesSearched: SortOrder
+  timesRequested: SortOrder
 }
 
 input SearchAreaMetricsUpdateInput {
@@ -14117,13 +14267,15 @@ input SearchAreaMetricsUpdateInput {
   H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
   SearchesService: SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput
-  timesSearched: IntFieldUpdateOperationsInput
+  timesRequested: IntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchAreaMetricsUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   h3Index15: NullableStringFieldUpdateOperationsInput
-  timesSearched: IntFieldUpdateOperationsInput
+  timesRequested: IntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
@@ -14188,7 +14340,8 @@ input SearchAreaMetricsUpdateWithoutH3Index5VenueRecommendationInput {
   h3Index15: NullableStringFieldUpdateOperationsInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
   SearchesService: SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput
-  timesSearched: IntFieldUpdateOperationsInput
+  timesRequested: IntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput {
@@ -14196,7 +14349,8 @@ input SearchAreaMetricsUpdateWithoutH3Index6VenueRecommendationInput {
   h3Index15: NullableStringFieldUpdateOperationsInput
   H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
   SearchesService: SearchesServiceUpdateOneWithoutSearchAreaMetricsNestedInput
-  timesSearched: IntFieldUpdateOperationsInput
+  timesRequested: IntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchAreaMetricsUpdateWithoutSearchesServiceInput {
@@ -14204,7 +14358,8 @@ input SearchAreaMetricsUpdateWithoutSearchesServiceInput {
   h3Index15: NullableStringFieldUpdateOperationsInput
   H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutSearchAreaMetricsNestedInput
-  timesSearched: IntFieldUpdateOperationsInput
+  timesRequested: IntFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchAreaMetricsUpdateWithWhereUniqueWithoutH3Index5VenueRecommendationInput {
@@ -14253,7 +14408,8 @@ input SearchAreaMetricsWhereInput {
   OR: [SearchAreaMetricsWhereInput!]
   SearchesService: SearchesServiceWhereInput
   searchesServiceId: StringNullableFilter
-  timesSearched: IntFilter
+  timesRequested: IntFilter
+  updatedAt: DateTimeFilter
 }
 
 input SearchAreaMetricsWhereUniqueInput {
@@ -14267,6 +14423,7 @@ type SearchesService {
   profileId: String!
   SearchAreaMetrics(cursor: SearchAreaMetricsWhereUniqueInput, distinct: [SearchAreaMetricsScalarFieldEnum!], orderBy: [SearchAreaMetricsOrderByWithRelationInput!], skip: Int, take: Int, where: SearchAreaMetricsWhereInput): [SearchAreaMetrics!]!
   searches: [Json!]!
+  updatedAt: DateTime!
 }
 
 input SearchesServiceCountOrderByAggregateInput {
@@ -14274,6 +14431,7 @@ input SearchesServiceCountOrderByAggregateInput {
   id: SortOrder
   profileId: SortOrder
   searches: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchesServiceCreateInput {
@@ -14282,6 +14440,7 @@ input SearchesServiceCreateInput {
   Profile: ProfileCreateNestedOneWithoutSearchesServiceInput!
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput
   searches: [Json!]
+  updatedAt: DateTime
 }
 
 input SearchesServiceCreateManyInput {
@@ -14289,6 +14448,7 @@ input SearchesServiceCreateManyInput {
   id: String
   profileId: String!
   searches: [Json!]
+  updatedAt: DateTime
 }
 
 input SearchesServiceCreateNestedOneWithoutProfileInput {
@@ -14322,6 +14482,7 @@ input SearchesServiceCreateWithoutProfileInput {
   id: String
   SearchAreaMetrics: SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput
   searches: [Json!]
+  updatedAt: DateTime
 }
 
 input SearchesServiceCreateWithoutSearchAreaMetricsInput {
@@ -14329,18 +14490,21 @@ input SearchesServiceCreateWithoutSearchAreaMetricsInput {
   id: String
   Profile: ProfileCreateNestedOneWithoutSearchesServiceInput!
   searches: [Json!]
+  updatedAt: DateTime
 }
 
 input SearchesServiceMaxOrderByAggregateInput {
   createdAt: SortOrder
   id: SortOrder
   profileId: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchesServiceMinOrderByAggregateInput {
   createdAt: SortOrder
   id: SortOrder
   profileId: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchesServiceOrderByWithAggregationInput {
@@ -14351,6 +14515,7 @@ input SearchesServiceOrderByWithAggregationInput {
   id: SortOrder
   profileId: SortOrder
   searches: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchesServiceOrderByWithRelationInput {
@@ -14360,6 +14525,7 @@ input SearchesServiceOrderByWithRelationInput {
   profileId: SortOrder
   SearchAreaMetrics: SearchAreaMetricsOrderByRelationAggregateInput
   searches: SortOrder
+  updatedAt: SortOrder
 }
 
 input SearchesServiceRelationFilter {
@@ -14372,6 +14538,7 @@ enum SearchesServiceScalarFieldEnum {
   id
   profileId
   searches
+  updatedAt
 }
 
 input SearchesServiceScalarWhereWithAggregatesInput {
@@ -14382,6 +14549,7 @@ input SearchesServiceScalarWhereWithAggregatesInput {
   OR: [SearchesServiceScalarWhereWithAggregatesInput!]
   profileId: StringWithAggregatesFilter
   searches: JsonNullableListFilter
+  updatedAt: DateTimeWithAggregatesFilter
 }
 
 input SearchesServiceUpdateInput {
@@ -14390,12 +14558,14 @@ input SearchesServiceUpdateInput {
   Profile: ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput
   searches: [Json!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchesServiceUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   searches: [Json!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchesServiceUpdateOneWithoutProfileNestedInput {
@@ -14428,6 +14598,7 @@ input SearchesServiceUpdateWithoutProfileInput {
   id: StringFieldUpdateOperationsInput
   SearchAreaMetrics: SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput
   searches: [Json!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchesServiceUpdateWithoutSearchAreaMetricsInput {
@@ -14435,6 +14606,7 @@ input SearchesServiceUpdateWithoutSearchAreaMetricsInput {
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneRequiredWithoutSearchesServiceNestedInput
   searches: [Json!]
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input SearchesServiceUpsertWithoutProfileInput {
@@ -14457,6 +14629,7 @@ input SearchesServiceWhereInput {
   profileId: StringFilter
   SearchAreaMetrics: SearchAreaMetricsListRelationFilter
   searches: JsonNullableListFilter
+  updatedAt: DateTimeFilter
 }
 
 input SearchesServiceWhereUniqueInput {
@@ -16926,6 +17099,7 @@ type Vote {
   id: ID!
   Profile: Profile!
   profileId: String!
+  updatedAt: DateTime!
   upvote: Boolean!
 }
 
@@ -16936,6 +17110,7 @@ input VoteCountOrderByAggregateInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   profileId: SortOrder
+  updatedAt: SortOrder
   upvote: SortOrder
 }
 
@@ -16946,6 +17121,7 @@ input VoteCreateInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
   id: String
   Profile: ProfileCreateNestedOneWithoutVoteInput!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -16955,6 +17131,7 @@ input VoteCreateManyComingAreaInput {
   h3Index6VenueRecommendationId: String
   id: String
   profileId: String!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -16969,6 +17146,7 @@ input VoteCreateManyH3Index5VenueRecommendationInput {
   h3Index6VenueRecommendationId: String
   id: String
   profileId: String!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -16983,6 +17161,7 @@ input VoteCreateManyH3Index6VenueRecommendationInput {
   h3Index5VenueRecommendationId: String
   id: String
   profileId: String!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -16998,6 +17177,7 @@ input VoteCreateManyInput {
   h3Index6VenueRecommendationId: String
   id: String
   profileId: String!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -17007,6 +17187,7 @@ input VoteCreateManyProfileInput {
   h3Index5VenueRecommendationId: String
   h3Index6VenueRecommendationId: String
   id: String
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -17069,6 +17250,7 @@ input VoteCreateWithoutComingAreaInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
   id: String
   Profile: ProfileCreateNestedOneWithoutVoteInput!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -17078,6 +17260,7 @@ input VoteCreateWithoutH3Index5VenueRecommendationInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
   id: String
   Profile: ProfileCreateNestedOneWithoutVoteInput!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -17087,6 +17270,7 @@ input VoteCreateWithoutH3Index6VenueRecommendationInput {
   H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput
   id: String
   Profile: ProfileCreateNestedOneWithoutVoteInput!
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -17096,6 +17280,7 @@ input VoteCreateWithoutProfileInput {
   H3Index5VenueRecommendation: H3Index5VenueRecommendationCreateNestedOneWithoutVoteInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationCreateNestedOneWithoutVoteInput
   id: String
+  updatedAt: DateTime
   upvote: Boolean!
 }
 
@@ -17112,6 +17297,7 @@ input VoteMaxOrderByAggregateInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   profileId: SortOrder
+  updatedAt: SortOrder
   upvote: SortOrder
 }
 
@@ -17122,6 +17308,7 @@ input VoteMinOrderByAggregateInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   profileId: SortOrder
+  updatedAt: SortOrder
   upvote: SortOrder
 }
 
@@ -17139,6 +17326,7 @@ input VoteOrderByWithAggregationInput {
   h3Index6VenueRecommendationId: SortOrder
   id: SortOrder
   profileId: SortOrder
+  updatedAt: SortOrder
   upvote: SortOrder
 }
 
@@ -17153,6 +17341,7 @@ input VoteOrderByWithRelationInput {
   id: SortOrder
   Profile: ProfileOrderByWithRelationInput
   profileId: SortOrder
+  updatedAt: SortOrder
   upvote: SortOrder
 }
 
@@ -17163,6 +17352,7 @@ enum VoteScalarFieldEnum {
   h3Index6VenueRecommendationId
   id
   profileId
+  updatedAt
   upvote
 }
 
@@ -17176,6 +17366,7 @@ input VoteScalarWhereInput {
   NOT: [VoteScalarWhereInput!]
   OR: [VoteScalarWhereInput!]
   profileId: StringFilter
+  updatedAt: DateTimeFilter
   upvote: BoolFilter
 }
 
@@ -17189,6 +17380,7 @@ input VoteScalarWhereWithAggregatesInput {
   NOT: [VoteScalarWhereWithAggregatesInput!]
   OR: [VoteScalarWhereWithAggregatesInput!]
   profileId: StringWithAggregatesFilter
+  updatedAt: DateTimeWithAggregatesFilter
   upvote: BoolWithAggregatesFilter
 }
 
@@ -17199,12 +17391,14 @@ input VoteUpdateInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   upvote: BoolFieldUpdateOperationsInput
 }
 
 input VoteUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   upvote: BoolFieldUpdateOperationsInput
 }
 
@@ -17290,6 +17484,7 @@ input VoteUpdateWithoutComingAreaInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   upvote: BoolFieldUpdateOperationsInput
 }
 
@@ -17299,6 +17494,7 @@ input VoteUpdateWithoutH3Index5VenueRecommendationInput {
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   upvote: BoolFieldUpdateOperationsInput
 }
 
@@ -17308,6 +17504,7 @@ input VoteUpdateWithoutH3Index6VenueRecommendationInput {
   H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneRequiredWithoutVoteNestedInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   upvote: BoolFieldUpdateOperationsInput
 }
 
@@ -17317,6 +17514,7 @@ input VoteUpdateWithoutProfileInput {
   H3Index5VenueRecommendation: H3Index5VenueRecommendationUpdateOneWithoutVoteNestedInput
   H3Index6VenueRecommendation: H3Index6VenueRecommendationUpdateOneWithoutVoteNestedInput
   id: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
   upvote: BoolFieldUpdateOperationsInput
 }
 
@@ -17378,6 +17576,7 @@ input VoteWhereInput {
   OR: [VoteWhereInput!]
   Profile: ProfileWhereInput
   profileId: StringFilter
+  updatedAt: DateTimeFilter
   upvote: BoolFilter
 }
 

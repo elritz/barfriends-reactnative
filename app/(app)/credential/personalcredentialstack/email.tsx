@@ -27,7 +27,7 @@ export default () => {
 	const router = useRouter()
 	const { bottom } = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
-	const emailRef = useRef<TextInput>()
+	const _emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -111,14 +111,14 @@ export default () => {
 	}
 
 	useEffect(() => {
-		if (isFocused && emailRef.current) {
+		if (isFocused && _emailRef.current) {
 			InteractionManager.runAfterInteractions(() => {
-				emailRef.current?.focus()
+				_emailRef.current?.focus()
 			})
 		}
 		if (!isFocused) {
 			InteractionManager.runAfterInteractions(() => {
-				emailRef.current?.blur()
+				_emailRef.current?.blur()
 			})
 		}
 	}, [isFocused])
@@ -206,7 +206,7 @@ export default () => {
 					control={control}
 					render={({ field: { onChange, onBlur, value } }) => (
 						<Input
-							ref={emailRef}
+							ref={_emailRef}
 							key={'email'}
 							isFocused={isFocused}
 							variant={'underlined'}

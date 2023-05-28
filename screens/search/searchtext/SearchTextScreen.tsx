@@ -1,12 +1,12 @@
-import SearchCard from '../components/SearchCard'
 import { useReactiveVar } from '@apollo/client'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
-import { useExploreSearchLazyQuery, useExploreSearchQuery } from '@graphql/generated'
+import { useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import SearchCard from '@screens/search/components/SearchCard'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {
@@ -20,6 +20,7 @@ import {
 	VStack,
 	Skeleton,
 	Pressable,
+	Center,
 } from 'native-base'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -120,44 +121,50 @@ const SearchTextScreen = () => {
 
 	return (
 		<Box safeAreaTop flex={1}>
-			<ScrollView
-				scrollEnabled={true}
-				contentInset={{
-					top: insets.top + 10,
-					bottom:
-						insets.bottom !== 0
-							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-				}}
-				automaticallyAdjustKeyboardInsets
-				automaticallyAdjustContentInsets
-				keyboardDismissMode='on-drag'
-			>
-				{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length ? (
-					<Box h={150} alignItems={'center'} justifyContent={'center'}>
-						<Heading>No search results!</Heading>
-					</Box>
-				) : (
-					<>
-						{data?.exploreSearch.people.length && (
-							<>
-								<Heading mx={2}>Users</Heading>
-								{data?.exploreSearch.people?.map((item, index) => {
-									return <SearchCard key={index} item={item} />
-								})}
-							</>
-						)}
-						{data?.exploreSearch.venues.length && (
-							<>
-								<Heading mx={2}>Venues</Heading>
-								{data?.exploreSearch.venues?.map((item, index) => {
-									return <SearchCard key={index} item={item} />
-								})}
-							</>
-						)}
-					</>
-				)}
-			</ScrollView>
+			{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length ? (
+				<Box safeAreaTop>
+					<Center>
+						<Heading fontSize={'md'} fontWeight={'medium'}>
+							No search results for
+						</Heading>
+						<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+					</Center>
+				</Box>
+			) : (
+				<FlashList
+					data={[
+						{ title: 'Accounts', data: data.exploreSearch.people },
+						{ title: 'Venues', data: data.exploreSearch.venues },
+					]}
+					keyExtractor={(item, index) => {
+						return 'key' + item.title
+					}}
+					contentInset={{
+						top: insets.top + 10,
+						bottom:
+							insets.bottom !== 0
+								? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+								: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+					}}
+					automaticallyAdjustKeyboardInsets
+					automaticallyAdjustContentInsets
+					keyboardDismissMode='on-drag'
+					renderItem={({ index, item }) => {
+						return (
+							<Box>
+								{item.title && item.data.length > 0 ? (
+									<Box my={1}>
+										<Heading mx={3}>{item.title}</Heading>
+										{item.data?.map(item => {
+											return <SearchCard key={index} item={item} />
+										})}
+									</Box>
+								) : null}
+							</Box>
+						)
+					}}
+				/>
+			)}
 		</Box>
 	)
 }

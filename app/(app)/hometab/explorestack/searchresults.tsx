@@ -1,80 +1,45 @@
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Box, ScrollView, Text } from 'native-base'
+import SearchAccounts from '@screens/search/textsearchtabs/SearchAccounts'
+import SearchTop from '@screens/search/textsearchtabs/SearchTop'
+import SearchVenues from '@screens/search/textsearchtabs/SearchVenues'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { Text, useTheme } from 'native-base'
 import { useContext, useState } from 'react'
 import { View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
-import { ThemeContext } from 'styled-components/native'
-
-const FirstRoute = () => {
-	return (
-		<Box bg={'#fffaaa'}>
-			<ScrollView flex={1} h={'100%'}>
-				{[...Array(20)].map((item, index) => {
-					return (
-						<Box key={index} bg={'blue.50'} height={50}>
-							<Text>{index}</Text>
-						</Box>
-					)
-				})}
-			</ScrollView>
-		</Box>
-	)
-}
-
-const SecondRoute = () => (
-	<View style={{ flex: 1, backgroundColor: '#673ab7' }}>
-		<ScrollView flex={1} h={'100%'}>
-			{[...Array(20)].map((item, index) => {
-				return (
-					<Box key={index} bg={'blue.50'} height={50}>
-						<Text>{index}</Text>
-					</Box>
-				)
-			})}
-		</ScrollView>
-	</View>
-)
-const ThirdRoute = () => (
-	<View style={{ flex: 1, backgroundColor: '#455552' }}>
-		<ScrollView flex={1} h={'100%'}>
-			{[...Array(20)].map((item, index) => {
-				return (
-					<Box key={index} bg={'blue.50'} height={50}>
-						<Text>{index}</Text>
-					</Box>
-				)
-			})}
-		</ScrollView>
-	</View>
-)
 
 const renderScene = SceneMap({
-	first: FirstRoute,
-	second: SecondRoute,
-	third: ThirdRoute,
+	// first: SearchTop,
+	second: SearchAccounts,
+	third: SearchVenues,
 })
 
 export default function searchresulttabs() {
 	const layout = useWindowDimensions()
-	const themeContext = useContext(ThemeContext)
 	const { top } = useSafeAreaInsets()
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 
 	const [index, setIndex] = useState(0)
 	const [routes] = useState([
-		{ key: 'first', title: 'Top' },
-		{ key: 'second', title: 'Account' },
+		// { key: 'first', title: 'Top' },
+		{ key: 'second', title: 'Accounts' },
 		{ key: 'third', title: 'Venues' },
 	])
 
 	const renderTabBar = props => (
 		<TabBar
 			{...props}
-			indicatorStyle={{ backgroundColor: themeContext.palette.primary.color.default }}
-			style={{ backgroundColor: themeContext.palette.primary.background.default }}
-			renderLabel={({ route, focused, color }) => (
-				<Text style={{ color, margin: 8 }}>{route.title}</Text>
-			)}
+			indicatorStyle={{
+				backgroundColor: theme.colors.primary[500],
+			}}
+			style={{
+				backgroundColor: colorScheme === 'dark' ? theme.colors.dark[50] : theme.colors.light[50],
+			}}
+			renderLabel={({ route, focused, color }) => {
+				return <Text style={{ margin: 8 }}>{route.title}</Text>
+			}}
 		/>
 	)
 

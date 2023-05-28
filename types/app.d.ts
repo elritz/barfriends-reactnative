@@ -1,10 +1,11 @@
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { BottomSheetModalRef } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types'
-import { Personal, Profile, Theme, Venue } from '@graphql/generated'
-import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs'
-import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { Float } from 'react-native/Libraries/Types/CodegenTypes'
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModalRef } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModalProvider/types';
+import { Personal, Profile, Theme, Venue } from '@graphql/generated';
+import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
+import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Float } from 'react-native/Libraries/Types/CodegenTypes';
+
 
 export interface IColor {
 	color: string
@@ -147,16 +148,19 @@ export type ExploreFilterTabParamList = {
 
 export type SearchResultTabStackParamList = {
 	TopScreen: {
-		searchText?: string
-		data?: {}
+		loading: boolean
+		searchtext?: string
+		data?: []
 	}
 	VenueScreen: {
-		searchText?: string
-		data?: {}
+		loading: boolean
+		searchtext?: string
+		data?: []
 	}
-	UserScreen: {
-		searchText?: string
-		data?: {}
+	AccountScreen: {
+		loading: boolean
+		searchtext?: string
+		data?: []
 	}
 	NotFound: undefined
 }

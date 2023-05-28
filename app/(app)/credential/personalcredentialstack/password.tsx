@@ -7,14 +7,14 @@ import { useRouter } from 'expo-router'
 import { Button, Icon, Text, Box, Input, KeyboardAvoidingView, useTheme } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function () {
 	const INPUT_ACCESSORY_VIEW_ID = 'pc-1298187263'
-	const passwordRef = useRef(null)
+	const _passwordRef = useRef<TextInput>(null)
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const { bottom } = useSafeAreaInsets()
@@ -65,8 +65,8 @@ export default function () {
 		if (!values.password) {
 			setError('password', { type: 'validate', message: '' })
 		}
-		if (passwordRef && passwordRef.current) {
-			passwordRef.current?.focus()
+		if (_passwordRef && _passwordRef.current) {
+			_passwordRef.current?.focus()
 		}
 	}, [])
 
@@ -111,7 +111,7 @@ export default function () {
 								<>
 									<Input
 										variant={'underlined'}
-										ref={passwordRef}
+										ref={_passwordRef}
 										key='password'
 										keyboardAppearance={colorScheme}
 										value={value}

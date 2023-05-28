@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery, useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import SearchCard from '@screens/search/components/SearchCard'
-import { FlashList } from '@shopify/flash-list'
+import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {
 	Box,
@@ -20,6 +20,7 @@ import {
 	VStack,
 	Skeleton,
 	Pressable,
+	Center,
 } from 'native-base'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -29,12 +30,8 @@ export default () => {
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
-	const { data, loading, error } = useExploreSearchQuery({
+	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
 		fetchPolicy: 'cache-first',
-		skip: !params.searchText?.length,
-		variables: {
-			search: String(params.searchText),
-		},
 		onError: error => {
 			console.log('error :>> ', error)
 		},
@@ -70,51 +67,71 @@ export default () => {
 		)
 	}
 
-	if (!params.searchText?.length) {
+	type Item = {
+		search: string
+	}
+
+	const PastSearchItem = (item: Item) => {
 		return (
-			<ScrollView
+			<Pressable
+				onPress={() => {
+					router.setParams({
+						searchtext: item.search,
+					})
+					exploreSearchQuery({
+						variables: {
+							search: item.search,
+						},
+					})
+				}}
+			>
+				{({ isHovered, isFocused, isPressed }) => {
+					return (
+						<HStack
+							h={'55px'}
+							w={'100%'}
+							justifyContent={'flex-start'}
+							alignItems={'center'}
+							space={3}
+							_light={{
+								bg: isPressed ? 'light.100' : 'transparent',
+							}}
+							_dark={{
+								bg: isPressed ? 'dark.100' : 'transparent',
+							}}
+							px={2}
+						>
+							<IconButton
+								variant={'outline'}
+								size={'sm'}
+								borderRadius={'md'}
+								icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
+							/>
+							<VStack>
+								<Text fontSize={'md'} fontWeight={'medium'}>
+									{item.search}
+								</Text>
+							</VStack>
+						</HStack>
+					)
+				}}
+			</Pressable>
+		)
+	}
+
+	if (!params.searchtext?.length) {
+		return (
+			<FlashList
+				data={filteredRecentSearches as Array<Item>}
+				renderItem={item => <PastSearchItem search={item.item.search} />}
 				scrollEnabled={true}
+				estimatedItemSize={55}
 				automaticallyAdjustContentInsets
 				automaticallyAdjustsScrollIndicatorInsets
 				contentInsetAdjustmentBehavior='automatic'
 				contentInset={{ top: insets.top }}
-				flex={1}
 				keyboardDismissMode='on-drag'
-				px={3}
-			>
-				{filteredRecentSearches.map((item: any, index) => {
-					return (
-						<Pressable
-							onPress={() => {
-								router.setParams({
-									searchText: item.search,
-								})
-							}}
-						>
-							<HStack
-								h={'55px'}
-								w={'100%'}
-								justifyContent={'flex-start'}
-								alignItems={'center'}
-								space={3}
-								px={2}
-							>
-								<IconButton
-									variant={'outline'}
-									size={'sm'}
-									borderRadius={'md'}
-									icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
-								/>
-								<VStack>
-									<Text fontSize={'md'} fontWeight={'medium'}>
-										{item.search}
-									</Text>
-								</VStack>
-							</HStack>
-						</Pressable>
-					)
-				})}
-			</ScrollView>
+			/>
 		)
 	}
 
@@ -134,8 +151,13 @@ export default () => {
 				keyboardDismissMode='on-drag'
 			>
 				{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length ? (
-					<Box h={150} alignItems={'center'} justifyContent={'center'}>
-						<Heading>No search results!</Heading>
+					<Box safeAreaTop>
+						<Center>
+							<Heading fontSize={'md'} fontWeight={'medium'}>
+								No search results for
+							</Heading>
+							<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+						</Center>
 					</Box>
 				) : (
 					<>

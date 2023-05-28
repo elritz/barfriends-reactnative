@@ -9,7 +9,7 @@ import { useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Messages = () => {
-	const _flatListView = useRef()
+	const _flatListRef = useRef<typeof FlatList>()
 	const router = useRouter()
 	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
 	const data = GenerateMessageData(5, 2)
@@ -34,11 +34,11 @@ const Messages = () => {
 				)}
 			</HStack>
 			<FlatList
-				ref={_flatListView}
+				ref={_flatListRef}
 				style={{ elevation: 100, zIndex: 100, borderRadius: 15 }}
 				data={data}
 				contentInset={{ top: 0, left: 0, bottom: 90, right: 0 }}
-				keyExtractor={({ id }) => id.toString()}
+				keyExtractor={({ id }: { id: string }) => id.toString()}
 				renderItem={({ item }) => <HorizontalMessageNotification item={item} />}
 				snapToAlignment='center'
 			/>

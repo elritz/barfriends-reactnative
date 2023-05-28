@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ThemeReactiveVar, AuthorizationReactiveVar } from '@reactive'
 import { useColorMode } from 'native-base'
 import { useCallback } from 'react'
-import { Appearance, useColorScheme } from 'react-native'
+import { Appearance } from 'react-native'
 
 type Props = {
 	colorScheme?: 'light' | 'system' | 'dark' | undefined

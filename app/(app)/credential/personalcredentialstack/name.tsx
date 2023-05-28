@@ -19,8 +19,8 @@ export default () => {
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const firstnameRef = useRef<IInputProps | null>(null)
-	const lastnameRef = useRef(null)
+	const _firstnameRef = useRef<IInputProps | null>(null)
+	const _lastnameRef = useRef(null)
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
@@ -130,7 +130,7 @@ export default () => {
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
-								ref={firstnameRef}
+								ref={_firstnameRef}
 								keyboardAppearance={colorScheme}
 								key={'name'}
 								variant={'underlined'}
@@ -149,7 +149,7 @@ export default () => {
 									fontWeight: 'medium',
 								}}
 								size={'lg'}
-								onSubmitEditing={() => lastnameRef?.current?.focus()}
+								onSubmitEditing={() => _lastnameRef?.current?.focus()}
 								onBlur={onBlur}
 								onChangeText={onChange}
 								value={value.toLowerCase()}
@@ -171,7 +171,7 @@ export default () => {
 							<Input
 								keyboardAppearance={colorScheme}
 								key={'name'}
-								ref={lastnameRef}
+								ref={_lastnameRef}
 								variant={'underlined'}
 								returnKeyType='done'
 								textContentType='familyName'

@@ -41,8 +41,8 @@ export default function SearchAreaHeader({ typename, city }) {
 					</HStack>
 					{typename === 'ComingAreaResponse' && (
 						<Text fontSize={'md'} textAlign={'center'}>
-							This area has no venues. Show support by upvoting it or by hammering the notification bell
-							when this area is added.
+							This area has no venues. Show support by upvoting or by requesting a notification when this
+							area is added to Barfriends.
 						</Text>
 					)}
 				</VStack>

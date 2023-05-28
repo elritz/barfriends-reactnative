@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router'
 import { Button, Input, useTheme, Text, Icon, Box } from 'native-base'
 import { useContext, useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { InputAccessoryView, Platform, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -20,7 +20,7 @@ export default () => {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const usernameTextInputRef = useRef(null)
+	const _usernameRef = useRef<TextInput>(null)
 	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
@@ -176,7 +176,7 @@ export default () => {
 						defaultValue=''
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
-								ref={usernameTextInputRef}
+								ref={_usernameRef}
 								value={value}
 								key='username'
 								placeholder='Username'

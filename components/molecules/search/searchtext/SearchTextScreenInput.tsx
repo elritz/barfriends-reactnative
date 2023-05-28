@@ -8,29 +8,16 @@ import { useRouter, useSearchParams, useSegments } from 'expo-router'
 import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
 import { useEffect, useMemo, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard } from 'react-native'
+import { Keyboard, TextInput } from 'react-native'
 
 // TODO: UX() get the navigation route here as well default values from form
 const SearchTextScreenInput = () => {
-	const _searchInput = useRef()
+	const _searchRef = useRef<TextInput>()
 	const router = useRouter()
 	const params = useSearchParams()
-
 	const segments = useSegments()
 	const isFocused = useIsFocused()
-
 	const colorScheme = useThemeColorScheme()
-
-	useEffect(() => {
-		if (isFocused) {
-			_searchInput?.current.focus()
-		}
-	}, [isFocused])
-
-	useEffect(() => {
-		console.log('params.searchText :>> ', params.searchText)
-		setValue('searchText', params.searchText ? (params.searchText as string) : '')
-	}, [params])
 
 	const {
 		control,
@@ -44,7 +31,7 @@ const SearchTextScreenInput = () => {
 		setFocus,
 	} = useForm({
 		defaultValues: {
-			searchText: '',
+			searchtext: String(params.searchtext) || '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -55,22 +42,33 @@ const SearchTextScreenInput = () => {
 		shouldUnregister: true,
 	})
 
+	useEffect(() => {
+		if (isFocused) {
+			if (_searchRef && _searchRef.current) {
+				_searchRef?.current.focus()
+			}
+		}
+	}, [isFocused])
+
+	useEffect(() => {
+		setValue('searchtext', params.searchtext as string)
+	}, [params.searchtext])
+
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
 		onError: error => {
 			// console.log('error Explore Search Query  :>> ', error)
 		},
 		onCompleted: data => {
 			router.setParams({
-				searchText: String(watch().searchText),
+				searchtext: String(watch().searchtext),
 			})
-			// console.log('data SEARCH SCREEN :>> ', data)
 		},
 	})
 
 	const clearSearchInput = () => {
-		setValue('searchText', '')
+		setValue('searchtext', '')
 		router.setParams({
-			searchText: '',
+			searchtext: '',
 		})
 	}
 
@@ -79,26 +77,20 @@ const SearchTextScreenInput = () => {
 		router.back()
 	}
 
-	const handleSearchSubmitEditting = item => {
-		const values = getValues()
-		console.log('values.searchText NAVIGATE :>> ', values.searchText)
+	const handleSearchSubmitEditting = data => {
 		router.push({
 			pathname: '(app)/hometab/explorestack/searchresults',
-			params: { searchtext: String(values.searchText) },
+			params: { searchtext: data.searchtext },
 		})
 	}
 
-	const changeSearchText = (text: string) => {
-		setValue('searchText', text)
-	}
-
-	const debouncedSearchResults = useDebounce(watch().searchText, 700)
+	const debouncedSearchResults = useDebounce(watch().searchtext, 700)
 
 	useMemo(() => {
-		if (watch().searchText) {
+		if (watch().searchtext) {
 			exploreSearchQuery({
 				variables: {
-					search: String(watch().searchText),
+					search: String(watch().searchtext),
 				},
 			})
 		}
@@ -133,10 +125,10 @@ const SearchTextScreenInput = () => {
 				/>
 				<Controller
 					control={control}
-					name='searchText'
+					name='searchtext'
 					render={({ field: { value, onChange } }) => (
 						<Input
-							ref={_searchInput}
+							ref={_searchRef}
 							variant={'unstyled'}
 							_light={{ bgColor: 'light.200' }}
 							_dark={{ bgColor: 'dark.200' }}
@@ -154,10 +146,11 @@ const SearchTextScreenInput = () => {
 							placeholder='Search'
 							autoFocus
 							value={value}
-							onChangeText={text => changeSearchText(text)}
+							blurOnSubmit={false}
+							onChangeText={onChange}
 							returnKeyType='search'
 							underlineColorAndroid='transparent'
-							onSubmitEditing={handleSearchSubmitEditting}
+							onSubmitEditing={handleSubmit(handleSearchSubmitEditting)}
 							onPressIn={() => {
 								if (segments[3] !== 'searchtext') {
 									router.push({

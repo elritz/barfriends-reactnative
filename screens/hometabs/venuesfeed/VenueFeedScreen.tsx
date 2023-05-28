@@ -30,7 +30,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const VenueFeedScreen = () => {
 	const router = useRouter()
-	const appStateRef = useRef(AppState.currentState)
 	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)

@@ -15,6 +15,9 @@ const SearchTextScreenInput = () => {
 	const params = useSearchParams()
 	const router = useRouter()
 	const segments = useSegments()
+
+	console.log("🚀 ~ file: SearchTextScreenInput.tsx:19 ~ SearchTextScreenInput ~ segments:", segments)
+
 	const inset = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
 
@@ -30,7 +33,7 @@ const SearchTextScreenInput = () => {
 		setFocus,
 	} = useForm({
 		defaultValues: {
-			searchText: '',
+			searchtext: '',
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -47,14 +50,14 @@ const SearchTextScreenInput = () => {
 		},
 		onCompleted: data => {
 			router.setParams({
-				searchText: String(watch().searchText),
+				searchtext: String(watch().searchtext),
 			})
 			// console.log('data SEARCH SCREEN :>> ', data)
 		},
 	})
 
 	const clearSearchInput = () => {
-		setValue('searchText', '')
+		setValue('searchtext', '')
 		router.setParams({
 			searchText: '',
 		})
@@ -62,25 +65,25 @@ const SearchTextScreenInput = () => {
 
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
-		console.log('values.searchText NAVIGATE :>> ', values.searchText)
+		console.log('values.searchText NAVIGATE :>> ', values.searchtext)
 		router.push({
 			pathname: '(app)/hometab/searchstack/searchresults',
-			params: { searchText: String(values.searchText) },
+			params: { searchtext: String(values.searchtext) },
 		})
 	}
 
 	const changeSearchText = (text: string) => {
-		setValue('searchText', text)
+		setValue('searchtext', text)
 		router.setParams({})
 	}
 
-	const debouncedSearchResults = useDebounce(watch().searchText, 700)
+	const debouncedSearchResults = useDebounce(watch().searchtext, 700)
 
 	useMemo(() => {
-		if (watch().searchText) {
+		if (watch().searchtext) {
 			exploreSearchQuery({
 				variables: {
-					search: String(watch().searchText),
+					search: String(watch().searchtext),
 				},
 			})
 		}
@@ -123,7 +126,7 @@ const SearchTextScreenInput = () => {
 				/>
 				<Controller
 					control={control}
-					name='searchText'
+					name='searchtext'
 					render={({ field: { value, onChange } }) => (
 						<Input
 							variant={'filled'}

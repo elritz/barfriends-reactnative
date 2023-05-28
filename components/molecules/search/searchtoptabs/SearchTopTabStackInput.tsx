@@ -7,9 +7,9 @@ import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TextInput } from 'react-native'
 
 const SearchTopTabStackInput = () => {
+	const _searchInputRef = useRef<TextInput>(null)
 	const router = useRouter()
 	const params = useSearchParams()
-	const _searchInputRef = useRef<TextInput>(null)
 	const colorScheme = useThemeColorScheme()
 
 	const {
@@ -23,7 +23,7 @@ const SearchTopTabStackInput = () => {
 		watch,
 	} = useForm({
 		defaultValues: {
-			searchText: String(params?.searchtext) || '',
+			searchtext: params.searchtext as string,
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -35,14 +35,14 @@ const SearchTopTabStackInput = () => {
 	})
 
 	useEffect(() => {
-		setValue('searchText', String(params.searchtext))
-	}, [params?.searchtext])
+		setValue('searchtext', params.searchtext as string)
+	}, [params.searchtext])
 
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
 		router.push({
 			params: {
-				searchText: values.searchText,
+				searchtext: values.searchtext,
 			},
 			pathname: '(app)/hometab/searchstack/searchtext',
 		})
@@ -52,20 +52,6 @@ const SearchTopTabStackInput = () => {
 		Keyboard.dismiss()
 		_searchInputRef.current?.blur()
 		router.back()
-	}
-
-	const changeSearchText = (text: string) => {
-		setValue('searchText', text)
-		router.setParams({
-			searchText: text,
-		})
-	}
-
-	const clearSearchInput = () => {
-		setValue('searchText', '')
-		router.setParams({
-			searchText: '',
-		})
 	}
 
 	return (
@@ -97,38 +83,41 @@ const SearchTopTabStackInput = () => {
 				/>
 				<Controller
 					control={control}
-					name='searchText'
-					render={({ field: { value } }) => (
+					name='searchtext'
+					render={({ field: { value, onChange } }) => (
 						<Input
-							_light={{ bgColor: 'light.50' }}
-							_dark={{ bgColor: 'dark.50' }}
-							variant={'filled'}
+							_light={{ bgColor: 'light.200' }}
+							_dark={{ bgColor: 'dark.200' }}
+							variant={'unstyled'}
 							rounded={'lg'}
-							mr={2}
 							flex={1}
+							value={value}
 							keyboardAppearance={colorScheme}
 							ref={_searchInputRef}
 							placeholder='Search'
+							autoCorrect={false}
 							_input={{
-								fontSize: 'lg',
+								fontSize: 'md',
+								fontWeight: 'medium',
 							}}
-							value={value}
+							mr={2}
 							isReadOnly
-							onChangeText={(text: string) => changeSearchText(text)}
+							onChangeText={onChange}
 							onSubmitEditing={handleSearchSubmitEditting}
 							returnKeyType='search'
 							leftElement={
 								<Icon
 									as={Ionicons}
 									_light={{ color: 'light.600' }}
-									_dark={{ color: 'dark.400' }}
+									_dark={{ color: 'dark.900' }}
 									name='ios-search'
 									size={'md'}
+									ml={2}
 								/>
 							}
 							underlineColorAndroid='transparent'
 							onPressIn={() => {
-								router.push({
+								router.replace({
 									params: {
 										searchtext: value,
 									},

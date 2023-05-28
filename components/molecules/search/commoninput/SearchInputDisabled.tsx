@@ -51,8 +51,6 @@ const SearchInputDisabled = (props: Props) => {
 						ml={2}
 					/>
 				}
-				onFocus={props.onPress}
-				// onPressIn={props.onPress}
 			/>
 		</Box>
 	)

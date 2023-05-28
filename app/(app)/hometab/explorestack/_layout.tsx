@@ -70,6 +70,7 @@ export default function _layout() {
 			<Stack.Screen
 				name={'searchresults'}
 				options={{
+					headerTransparent: true,
 					header: () => {
 						return (
 							<VStack

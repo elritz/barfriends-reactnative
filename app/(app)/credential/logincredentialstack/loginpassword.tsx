@@ -25,7 +25,7 @@ import {
 import { useTheme } from 'native-base'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -34,11 +34,10 @@ const IMAGE_SIZE = 85
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'lp-21565434tw'
+	const _passwordRef = useRef<TextInput>(null)
 	const router = useRouter()
 	const params = useSearchParams()
-	const theme = useTheme()
 	const colorScheme = useThemeColorScheme()
-	const passwordRef = useRef(null)
 	const [showPassword, setShowPassword] = useState<boolean>(true)
 
 	const isFocused = useIsFocused()
@@ -239,7 +238,7 @@ export default () => {
 							return (
 								<Input
 									variant={'underlined'}
-									ref={passwordRef}
+									ref={_passwordRef}
 									key='password'
 									placeholder='Password'
 									keyboardAppearance={colorScheme}

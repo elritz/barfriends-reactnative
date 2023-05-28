@@ -15,6 +15,7 @@ import { useTheme } from 'native-base'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -27,7 +28,7 @@ const PasswordLoginScreen = () => {
 	const params = useSearchParams()
 	const theme = useTheme()
 	const colorScheme = useThemeColorScheme()
-	const passwordRef = useRef(null)
+	const _passwordRef = useRef<TextInput>(null)
 	const [showPassword, setShowPassword] = useState<boolean>(true)
 
 	const isFocused = useIsFocused()
@@ -155,7 +156,7 @@ const PasswordLoginScreen = () => {
 							return (
 								<Input
 									variant={'underlined'}
-									ref={passwordRef}
+									ref={_passwordRef}
 									key='password'
 									placeholder='Password'
 									keyboardAppearance={colorScheme}
@@ -168,7 +169,7 @@ const PasswordLoginScreen = () => {
 									onChangeText={value => onChange(value)}
 									onSubmitEditing={() => {
 										handleSubmit(onSubmit)
-										passwordRef?.current?.focus()
+										_passwordRef?.current?.focus()
 									}}
 									h={'50px'}
 									onBlur={onBlur}
