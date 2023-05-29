@@ -1,21 +1,18 @@
-import { VenueScreenRouteProp } from '../../Venue'
+// TODO: UX() Item need to be updated for messageboard route
+// TODO: UX() Item need to be updated for Personal data, loading, error
 import ActionCard from './ActionCard'
 import DistanceCard from './actioncards/distancecard/DistanceCard'
 import InviteCard from './actioncards/invitecard/InviteCard'
-import LeaveCard from './actioncards/leavecard/LeaveCard'
 import QuickBarfriend from './actioncards/quickbarfriendcard/QuickBarfriendCard'
 import UberCard from './actioncards/ubercard/UberCard'
 import DevActions from './devactions/DevActions'
 import { useReactiveVar } from '@apollo/client'
 import { ENVIRONMENT } from '@env'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { HStack, VStack, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 
-// TODO: UX() Item need to be updated for messageboard route
-// TODO: UX() Item need to be updated for Personal data, loading, error
 const VenueActions = () => {
 	const numColumns = 2
 	const params = useSearchParams()

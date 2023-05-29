@@ -36,9 +36,6 @@ const SearchTextScreen = () => {
 		variables: {
 			search: String(params.searchText),
 		},
-		onError: error => {
-			console.log('error :>> ', error)
-		},
 	})
 
 	function getUniqueListBy(arr, key) {

@@ -40,10 +40,6 @@ export default (props: any) => {
 					: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
 		},
-		onError(error) {
-			console.log('error :>> ', error)
-		},
-		onCompleted: data => {},
 	})
 
 	if (loading || !data?.currentVenue) {

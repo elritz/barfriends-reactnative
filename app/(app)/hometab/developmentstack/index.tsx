@@ -1,3 +1,4 @@
+// TODO: FN(Change theme functionality with database and local storage save)
 import { useReactiveVar } from '@apollo/client'
 import {
 	AUTHORIZATION,
@@ -40,8 +41,6 @@ import {
 import { useEffect, useState } from 'react'
 import { Platform, Linking, AppState } from 'react-native'
 
-// TODO: FN(Change theme functionality with database and local storage save)
-
 let foregroundSubscription = null
 
 const BACKGROUND_FETCH_TASK = 'background-fetch'
@@ -53,7 +52,6 @@ let l2
 // Note: This needs to be called in the global scope (e.g outside of your React components)
 TaskManager.defineTask(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, async ({ data, error }: any) => {
 	if (error) {
-		console.log('LOCATION_TRACKING task ERROR:', error)
 		return
 	}
 	if (data) {
@@ -63,18 +61,12 @@ TaskManager.defineTask(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, async ({ data,
 
 		l1 = lat
 		l2 = long
-
-		console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`)
 	}
 })
 TaskManager.defineTask(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
 	const now = Date.now()
-
-	// console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`)
-	console.log('data DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME :>> ', data)
 	if (data) {
 		if (data.locations) {
-			// console.log('data.locations :>> ', JSON.stringify(data.locations, null, 4))
 		}
 	}
 
@@ -175,19 +167,16 @@ export default () => {
 
 		if (isBackgroundLocationOn) {
 			if (!hasStarted && nextAppState === 'inactive') {
-				console.log('Background location started ...')
 				await registerBackgroundFetchAsync()
 			}
 			if (appState !== nextAppState) {
 				if (appState.match(/inactive|background/) && nextAppState === 'active') {
-					console.log('Background Location Stopped in foreground ...')
 					await unregisterBackgroundFetchAsync()
 				}
 			}
 		}
 
 		if (!isBackgroundLocationOn && hasStarted) {
-			console.log('Background Location stopped...')
 			await unregisterBackgroundFetchAsync()
 		}
 

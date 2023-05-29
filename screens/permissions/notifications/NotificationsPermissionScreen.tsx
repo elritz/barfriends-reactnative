@@ -1,3 +1,4 @@
+// TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -16,8 +17,6 @@ import { Box, VStack, Button, Divider, Icon, Text, Heading, ScrollView } from 'n
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-
-// TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 
 const details = [
 	{

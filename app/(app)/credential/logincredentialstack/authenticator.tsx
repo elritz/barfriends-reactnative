@@ -86,7 +86,6 @@ export default () => {
 
 			if (data.authorizedProfiles?.__typename === 'ProfilesResponse') {
 				if (data.authorizedProfiles?.username.length) {
-					console.log('gere :>> ', data.authorizedProfiles?.username.length)
 					router.push({
 						params: {
 							profile: String(data.authorizedProfiles?.username[0].id),

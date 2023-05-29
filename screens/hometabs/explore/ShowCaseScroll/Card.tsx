@@ -1,10 +1,9 @@
+// TODO: UX(Complete this card for venues etc....)
 import { Product } from './Model'
 import Button from './components/Button'
 import CardHeader from './components/CardHeader'
 import { useReactiveVar } from '@apollo/client'
 import { Dimensions, View, StyleSheet, Text } from 'react-native'
-
-// TODO: UX(Complete this card for venues etc....)
 
 const { width } = Dimensions.get('window')
 export const CARD_HEIGHT = (width * 1564) / 1300
@@ -45,7 +44,7 @@ const Card = ({ product: { color1, title, subtitle } }: CardProps) => (
 				<Text style={styles.title}>{title}</Text>
 				<Text style={styles.subtitle}>{subtitle}</Text>
 			</View>
-			<Button onPress={() => console.log('TODO:')} label="I'll try it" />
+			<Button label="I'll try it" />
 		</View>
 	</View>
 )

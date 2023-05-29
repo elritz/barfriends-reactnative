@@ -24,9 +24,6 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 	const [dataQR, setDataQR] = useState('')
 
 	const { data, loading, error } = useGetSecureFriendQrCodeDataQuery({
-		onError: error => {
-			console.log('errror', error)
-		},
 		onCompleted: data => {
 			const dataQRString = JSON.stringify({
 				dataHash: data.getSecureFriendQRCodeData,

@@ -1,3 +1,4 @@
+// TODO: FN(When a useris joined to a venue action must be different) ln:32
 import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
@@ -22,14 +23,11 @@ import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
 
-// TODO: FN(When a useris joined to a venue action must be different)
-
 TaskManager.defineTask(FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
 	const now = Date.now()
 
 	if (data) {
 		if (data.locations) {
-			console.log('data.locations FOREGROUND :>> ', JSON.stringify(data.locations, null, 4))
 		}
 	}
 	return now
@@ -94,9 +92,6 @@ const CurrentLocationFromVenueDistance = () => {
 					? Number(rCurrentLocationVar?.current?.coords.longitude)
 					: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
-		},
-		onError(error) {
-			console.log('error :>> ', error)
 		},
 		onCompleted: data => {
 			if (data?.currentVenue?.distanceInM) {
@@ -182,17 +177,14 @@ const CurrentLocationFromVenueDistance = () => {
 		const hasStarted = await Location.hasStartedLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
 		if (isForegroundLocationOn && isFocused) {
 			if (!hasStarted && nextAppState === 'inactive') {
-				// console.log('Background location stopped  in background...')
 				await unregisterForegroundFetchAsync()
 			}
 			if (appState !== nextAppState) {
 				if (appState.match(/inactive|background/) && nextAppState === 'active') {
 					if (metric === 'm' && distance && distance < 50) {
-						// console.log('Background Location started in foreground ...')
 						await registerForegroundFetchAsync()
 					}
 					if (!hasStarted && nextAppState === 'inactive') {
-						// console.log('Background location stopped  in background...')
 						await unregisterForegroundFetchAsync()
 					}
 				}

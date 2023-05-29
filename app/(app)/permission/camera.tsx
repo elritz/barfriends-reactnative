@@ -1,3 +1,4 @@
+// TODO: FN(Open camera app) ln:66
 import { useReactiveVar } from '@apollo/client'
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
@@ -14,8 +15,6 @@ import { Box, Button, Divider, Heading, Icon, ScrollView, Text, VStack } from 'n
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-
-// TODO: FN(Open camera app) ln:66
 
 const details = [
 	{

@@ -1,3 +1,4 @@
+// TODO: FX() Settings still needs to be done
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Stack, useRouter } from 'expo-router'
@@ -27,12 +28,7 @@ export default () => {
 					</HStack>
 				),
 				headerRight: () => (
-					<IconButton
-						onPress={() => console.log('TODO: Settings still need to be done')}
-						my={2}
-						mr={2}
-						icon={<Icon as={Entypo} name={'dots-three-vertical'} size={23} />}
-					/>
+					<IconButton my={2} mr={2} icon={<Icon as={Entypo} name={'dots-three-vertical'} size={23} />} />
 				),
 				headerTitle: '',
 			}}

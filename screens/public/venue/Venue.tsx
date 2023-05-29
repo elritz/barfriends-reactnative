@@ -5,7 +5,6 @@ import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
 import { useReactiveVar } from '@apollo/client'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
-import { HOME_TAB_BOTTOM_NAVIGATION_HEIGHT } from '@constants/ReactNavigationConstants'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
@@ -15,11 +14,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const numColumns = 2
 const VenueScreen = (props: any) => {
+	const { bottom } = useSafeAreaInsets()
 	const { width } = useWindowDimensions()
 	const itemPadding = (width / 33.33) * numColumns
 	const params = useSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const { bottom } = useSafeAreaInsets()
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 
 	const { data, loading, error } = useCurrentVenueQuery({
@@ -40,10 +39,6 @@ const VenueScreen = (props: any) => {
 					: Number(rSearchAreaVar?.searchArea.coords.longitude),
 			},
 		},
-		onError(error) {
-			console.log('error :>> ', error)
-		},
-		onCompleted: data => {},
 	})
 
 	if (loading || !data?.currentVenue) {
@@ -83,7 +78,6 @@ const VenueScreen = (props: any) => {
 	const username = venueData.IdentifiableInformation?.username
 
 	return (
-		// <SafeAreaView>
 		<FlatList
 			data={[]}
 			numColumns={2}

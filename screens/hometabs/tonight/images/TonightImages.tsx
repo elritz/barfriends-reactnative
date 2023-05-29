@@ -1,26 +1,15 @@
+// TODO: FN(this needs to be operational for user story line)
+// TODO: UX(get photos in order and update order)
 import { MARGIN } from './Config'
 import Item from './Item'
 import SortableList from './SortableList'
 import { useReactiveVar } from '@apollo/client'
-import {
-	Feather,
-	FontAwesome,
-	FontAwesome5,
-	Ionicons,
-	MaterialCommunityIcons,
-	MaterialIcons,
-} from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { AuthorizationReactiveVar } from '@reactive'
-import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
-import * as ImageManipulator from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
 import { Box, Button, Heading, HStack, Icon, Skeleton, Text, VStack } from 'native-base'
-import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-// TODO: FN(this needs to be operational for user story line)
-// TODO: UX(get photos in order and update order)
 
 const tiles = [
 	{
@@ -42,6 +31,7 @@ const TonightImages = () => {
 	const window = useWindowDimensions()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
+	const updatePositions = async () => {}
 	const handleSelectImage = async () => {
 		const result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -50,8 +40,6 @@ const TonightImages = () => {
 			aspect: [1, 1],
 			quality: 1,
 		})
-
-		console.log('🚀 ~ file: TonightImages.tsx:53 ~ handleSelectImage ~ result', result)
 
 		// useCloudinaryImageUploading([])
 	}
@@ -95,20 +83,9 @@ const TonightImages = () => {
 									quality: 1,
 									allowsMultipleSelection: true,
 								})
-								if (result.selected) {
-									console.log(
-										'TODO:',
-										'🚀 ~ file: TonightImages.tsx ~ line 126 ~ onPress={ ~ result',
-										result.selected,
-									)
+								if (result.canceled) {
 								}
-								if (result.cancelled) {
-									result.cancelled
-									console.log(
-										'TODO:',
-										'🚀 ~ file: TonightImages.tsx ~ line 131 ~ onPress={ ~ result.cancelled',
-										result.cancelled,
-									)
+								if (result.assets) {
 								}
 							}}
 						>
@@ -117,10 +94,7 @@ const TonightImages = () => {
 					</VStack>
 				</Box>
 			) : (
-				<SortableList
-					editing
-					onDragEnd={positions => console.log('TODO:', JSON.stringify(positions, null, 2))}
-				>
+				<SortableList editing onDragEnd={positions => updatePositions()}>
 					{tiles.map((tile, index) => (
 						<Item
 							onPress={handleSelectImage}

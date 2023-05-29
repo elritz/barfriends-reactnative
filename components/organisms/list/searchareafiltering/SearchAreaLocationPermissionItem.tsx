@@ -1,3 +1,4 @@
+// TODO: UX() location icon when searchArea is using Currently Location over preset
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
@@ -9,8 +10,6 @@ import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAre
 import * as IntentLauncher from 'expo-intent-launcher'
 import { Pressable, HStack, Icon, IconButton, Text, VStack, Box } from 'native-base'
 import { Alert, Linking, Platform } from 'react-native'
-
-// TODO: UX() location icon when searchArea is using Currently Location over preset
 
 const SearchAreaLocationPermissionItem = () => {
 	const rForegroundPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
@@ -45,7 +44,7 @@ const SearchAreaLocationPermissionItem = () => {
 
 	return (
 		<VStack>
-			<Box  h={'45px'} >
+			<Box h={'45px'}>
 				<Text textAlign={'center'}>
 					{rSearchAreaVar?.useCurrentLocation
 						? 'You are currently using your devices location to show you venues nearby.'

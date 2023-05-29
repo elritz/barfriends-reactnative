@@ -32,9 +32,7 @@ export default () => {
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
 		fetchPolicy: 'cache-first',
-		onError: error => {
-			console.log('error :>> ', error)
-		},
+		onError: error => {},
 	})
 
 	function getUniqueListBy(arr, key) {

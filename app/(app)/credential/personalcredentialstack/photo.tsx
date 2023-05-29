@@ -1,3 +1,4 @@
+// TODO: FN()
 import { useReactiveVar } from '@apollo/client'
 import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
@@ -31,8 +32,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg'
 
 const UserFemaleIllustration = require('@assets/images/illustration/user_female_illustration.png')
-
-// TODO: FN()
 
 export default () => {
 	const appStateRef = useRef(AppState.currentState)

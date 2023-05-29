@@ -53,11 +53,12 @@ const AddEmoji = () => {
 	} = useForm({
 		defaultValues: {
 			emojimood: {
-				id: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].id || '',
-				emoji: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].emoji || '',
-				name: rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].emojiname || '',
+				id: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].id || '',
+				emoji: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].emoji || '',
+				name: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].emojiname || '',
 				colors:
-					rAuthorizationVar?.DeviceProfile?.Profile?.Story?.emojimood[0].colors || ([] as string[]),
+					rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].colors ||
+					([] as string[]),
 			},
 		},
 	})
@@ -65,13 +66,7 @@ const AddEmoji = () => {
 	const { data: emojiData, loading: emojiLoading, error: emojiError } = useEmojimoodsQuery()
 
 	const [updateStoryEmojimoodMutation, { data: USEData, loading: USELoading, error: USEError }] =
-		useUpdateStoryEmojimoodMutation({
-			onCompleted: data => {
-				console.log('🚀 -------------------------------------------------🚀')
-				console.log('🚀 ~ file: AddEmoji.tsx:73 ~ AddEmoji ~ data', data)
-				console.log('🚀 -------------------------------------------------🚀')
-			},
-		})
+		useUpdateStoryEmojimoodMutation({})
 
 	const onPressEmojimood = (item: any) => {
 		setValue('emojimood', {
@@ -232,7 +227,7 @@ const AddEmoji = () => {
 									<Photos
 										h={window.width / 1.75 - 20}
 										w={window.width / 1.75 - 20}
-										story={rAuthorizationVar?.DeviceProfile?.Profile?.Story}
+										story={rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory}
 										photo={rAuthorizationVar?.DeviceProfile?.Profile?.photos}
 									/>
 								</BlurView>

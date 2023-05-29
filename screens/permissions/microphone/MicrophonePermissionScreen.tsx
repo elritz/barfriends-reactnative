@@ -1,6 +1,7 @@
+// TODO: FN(Open camera app) ln:66
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
-import { AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionMicrophoneReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
@@ -14,8 +15,6 @@ import { Box, Button, Divider, Heading, Icon, ScrollView, Text, VStack } from 'n
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-
-// TODO: FN(Open camera app) ln:66
 
 const details = [
 	{

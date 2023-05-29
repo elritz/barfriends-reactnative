@@ -1,11 +1,7 @@
+// TODO: FN(onPress clear emojimood)
 import Photos from './components/photos'
 import { useReactiveVar } from '@apollo/client'
-import {
-	Profile,
-	useEmojimoodsQuery,
-	useUpdateOneProfileMutation,
-	useUpdateStoryEmojimoodMutation,
-} from '@graphql/generated'
+import { useEmojimoodsQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
@@ -13,16 +9,11 @@ import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { Box, Button, Text } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { FlatList, Image, Pressable, SafeAreaView, View, useWindowDimensions } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { FlatList, Pressable, View, useWindowDimensions } from 'react-native'
 import Svg, { Defs, Ellipse, LinearGradient, Rect, Stop } from 'react-native-svg'
 import { ThemeContext } from 'styled-components/native'
 
-// TODO: FN(onPress clear emojimood)
-interface EmojimoodScreenProps {}
-
-const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
-	const insets = useSafeAreaInsets()
+const EmojimoodScreen = () => {
 	const window = useWindowDimensions()
 	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -128,14 +119,7 @@ const EmojimoodScreen = ({}: EmojimoodScreenProps) => {
 							ListHeaderComponent={() => {
 								return (
 									<Box alignItems={'center'}>
-										<Button
-											w={'55%'}
-											onPress={() => {
-												console.log('TODO: Clear emoijimood ========>')
-											}}
-										>
-											Clear
-										</Button>
+										<Button w={'55%'}>Clear</Button>
 									</Box>
 								)
 							}}

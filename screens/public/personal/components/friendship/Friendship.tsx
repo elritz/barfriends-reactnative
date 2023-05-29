@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Feather, Ionicons } from '@expo/vector-icons'
-import { Relationship, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
+import { PersonalProfileStackParamList } from '@ctypes/app'
+import { Ionicons } from '@expo/vector-icons'
+import { useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
-import { PersonalProfileStackParamList } from '@types'
 import { DateTime } from 'luxon'
-import { Box, Heading, Icon, Text } from 'native-base'
+import { Box, Icon, Text } from 'native-base'
 import { ReactElement } from 'react'
 
 export type PublicProfileRouteProp = RouteProp<

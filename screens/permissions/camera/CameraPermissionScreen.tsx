@@ -1,3 +1,4 @@
+// TODO: FN(Open camera app) ln:66
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
@@ -16,8 +17,6 @@ import { useContext, useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { ThemeContext } from 'styled-components/native'
-
-// TODO: FN(Open camera app) ln:66
 
 const details = [
 	{

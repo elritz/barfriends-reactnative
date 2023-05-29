@@ -1,13 +1,16 @@
-import { useReactiveVar } from '@apollo/client';
-import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query';
-import { AuthorizationDeviceManager, AuthorizationDeviceProfile, Profile, useRemovePersonalJoinsVenueMutation } from '@graphql/generated';
-import { AuthorizationReactiveVar } from '@reactive';
-import { useRouter, useSearchParams } from 'expo-router';
-import { Button, VStack, Box } from 'native-base';
-import { useEffect, useState } from 'react';
-
-
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
+import { useReactiveVar } from '@apollo/client'
+import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
+import {
+	AuthorizationDeviceManager,
+	AuthorizationDeviceProfile,
+	Profile,
+	useRemovePersonalJoinsVenueMutation,
+} from '@graphql/generated'
+import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter, useSearchParams } from 'expo-router'
+import { Button, VStack, Box } from 'native-base'
+import { useEffect, useState } from 'react'
 
 export default function LeaveCard() {
 	const params = useSearchParams()

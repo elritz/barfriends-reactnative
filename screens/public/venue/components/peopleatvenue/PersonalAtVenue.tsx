@@ -1,23 +1,17 @@
-import { Personal, Profile } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
-import { useRouter } from 'expo-router'
-import { Center, Text, Image, Pressable } from 'native-base'
-import React from 'react'
-import { View, useWindowDimensions } from 'react-native'
-
+// TODO: FX() Need profile item id for routing
 // TODO: UX() Item need to be updated for messageboard route
 // TODO: UX() Item need to be updated for Personal data, loading, error
+import { Profile } from '@graphql/generated'
+import { useRouter } from 'expo-router'
+import { Pressable } from 'native-base'
+import { View } from 'react-native'
 
 type PersonalAtVenueProps = {
 	item: Profile // Personal
 }
 
 const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
-	const { width } = useWindowDimensions()
 	const router = useRouter()
-	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
-	const height = width * (1.25 / numColumns)
-
 	return (
 		<Pressable
 			key={item.id}
@@ -26,7 +20,6 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 			mx={1}
 			alignSelf={''}
 			onPress={() => {
-				console.log('navigate to personal page')
 				router.push({
 					pathname: '(app)/public/venue',
 					params: {
@@ -35,7 +28,7 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 				})
 			}}
 		>
-			<Image
+			{/* <Image
 				source={{ uri: item.photos[0].url }}
 				alt={'User image'}
 				borderRadius={'xl'}
@@ -45,14 +38,14 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 					borderWidth: 3,
 					borderColor: 'white',
 				}}
-			/>
+			/> */}
 			<View
 				style={{
 					width: '100%',
 					justifyContent: 'flex-start',
 				}}
 			>
-				<Text fontSize={'xs'}>{item.name}</Text>
+				{/* <Text fontSize={'xs'}>{item.name}</Text> */}
 			</View>
 		</Pressable>
 	)

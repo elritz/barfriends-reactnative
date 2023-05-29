@@ -5,7 +5,7 @@ import {
 	authorizationParseToken,
 } from './useAuthorizationToken'
 import { AUTHORIZATION } from '@constants/StorageConstants'
-import { ProfileTokenType, Maybe, ReturnProfileAuthentication } from '@types'
+import { ProfileTokenType, Maybe, ReturnProfileAuthentication } from '@ctypes/app'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 
 /**

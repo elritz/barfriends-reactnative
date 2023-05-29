@@ -1,3 +1,4 @@
+// TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 import { useReactiveVar } from '@apollo/client'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
@@ -18,8 +19,6 @@ import {
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-// TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'cc-1298187263'

@@ -1,20 +1,19 @@
-import { Personal } from '@graphql/generated'
-import { ItemRenderType } from '@types'
-import { Avatar, Box, Heading, HStack, Pressable } from 'native-base'
-import { useState, useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
-
 // TODO: UX() Descide if we keeping this item and are using this item
+// TODO: UX() No Profile photo show empty state
+import { ItemRenderType } from '@ctypes/app'
+import { Personal } from '@graphql/generated'
+import { Avatar, Box, Heading, HStack, Pressable } from 'native-base'
+import { useContext } from 'react'
+import { ThemeContext } from 'styled-components/native'
 
 const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 	const themeContext = useContext(ThemeContext)
-	const [profileDisabled, setprofileDisabled] = useState<boolean>(true)
 	const profile = props.item.Profile
 
 	if (!profile) return null
 
 	return (
-		<Pressable onPress={profileDisabled ? console.log('TODO:') : console.log('TODO:')}>
+		<Pressable>
 			<Box
 				// ViewComponent={LinearGradient}
 				// linearGradientProps={{

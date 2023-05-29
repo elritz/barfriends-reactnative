@@ -1,3 +1,4 @@
+// TODO: UX() check if location permission is enabled and go somewhere with it
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
@@ -14,7 +15,7 @@ import { useRouter } from 'expo-router'
 import { Button, Heading, ScrollView, Text, VStack } from 'native-base'
 import { Box } from 'native-base'
 import { Divider } from 'native-base'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -112,7 +113,6 @@ const ForegroundLocationPermissionSearchAreaScreen = () => {
 			PermissionForegroundLocationReactiveVar(locationpermission)
 			if (locationpermission.granted && locationpermission.status === 'granted') {
 				setTimeout(() => {}, 1750)
-				// TODO: UX() check if location permission is enabled and go somewhere with it
 			}
 		}
 		appStateRef.current = nextAppState

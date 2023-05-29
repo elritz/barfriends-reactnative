@@ -1,3 +1,4 @@
+// TODO: FN() check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicNetwork from '@assets/images/network/IllustrationDynamicNetwork'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
@@ -27,7 +28,6 @@ const NetworkPermissionScreen = () => {
 				setTimeout(() => {
 					navigation.goBack()
 				}, 2500)
-				// TODO: FN() check if location permission is enabled and go somewhere with it
 			}
 		}
 		appStateRef.current = nextAppState

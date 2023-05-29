@@ -16,9 +16,6 @@ export default function SearchAccounts() {
 		variables: {
 			search: String(params.searchtext),
 		},
-		onCompleted: data => {
-			console.log('data :>> ', data)
-		},
 	})
 
 	if (ESLoading) {
@@ -29,17 +26,10 @@ export default function SearchAccounts() {
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
 				contentInset={{
-					top: 20
+					top: 20,
 				}}
 				renderItem={({ item }) => {
-					return (
-						<Skeleton
-							h={'65px'}
-							w={'95%'}
-							rounded={'md'}
-							alignSelf={'center'}
-						/>
-					)
+					return <Skeleton h={'65px'} w={'95%'} rounded={'md'} alignSelf={'center'} />
 				}}
 				ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
 			/>

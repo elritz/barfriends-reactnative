@@ -19,7 +19,6 @@ export default () => {
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
 				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
-					console.log('data', JSON.stringify(data.switchDeviceProfile, null, 2))
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					router.push({

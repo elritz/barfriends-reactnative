@@ -15,7 +15,7 @@ export default ({}: EditableOptionsScreenProps) => {
 		rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.birthday,
 	).toLocaleDateString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' })
 
-	const { data, loading, error } = useProfileQuery({																																																																																											
+	const { data, loading, error } = useProfileQuery({
 		variables: {
 			where: {
 				id: {
@@ -65,7 +65,6 @@ export default ({}: EditableOptionsScreenProps) => {
 		>
 			<RoundedListItem
 				onPress={() => {
-					console.log('object :>> ')
 					// navigation.dispatch(
 					// 	StackActions.push('ProfileSettingsNavigator', {
 					// 		screen: 'ProfileEditorStack',
@@ -88,17 +87,17 @@ export default ({}: EditableOptionsScreenProps) => {
 				)}
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'UsernameScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'UsernameScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title='Username'
 			>
 				<Text fontSize={'xl'}>{rIdentifiableInformation?.username}</Text>
@@ -112,17 +111,17 @@ export default ({}: EditableOptionsScreenProps) => {
 				</HStack>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'DescriptionScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'DescriptionScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title='About me'
 			>
 				<Text fontSize={'xl'} numberOfLines={4} ellipsizeMode='tail'>
@@ -132,32 +131,32 @@ export default ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'InterestScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'InterestScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title={'My interests'}
 			>
 				<Box>
 					<Pressable
-						onPress={
-							() => console.log('object :>> ')
-							// navigation.dispatch(
-							// 	StackActions.push('ProfileSettingsNavigator', {
-							// 		screen: 'ProfileEditorStack',
-							// 		params: {
-							// 			screen: 'InterestScreen',
-							// 		},
-							// 	}),
-							// )
-						}
+					// onPress={
+					// 	() =>
+					// 	// navigation.dispatch(
+					// 	// 	StackActions.push('ProfileSettingsNavigator', {
+					// 	// 		screen: 'ProfileEditorStack',
+					// 	// 		params: {
+					// 	// 			screen: 'InterestScreen',
+					// 	// 		},
+					// 	// 	}),
+					// 	// )
+					// }
 					>
 						<VStack flexDir={'row'} flexWrap={'wrap'}>
 							{interests.map((interest, index) => (
@@ -185,17 +184,17 @@ export default ({}: EditableOptionsScreenProps) => {
 				MY BASIC INFO
 			</Heading>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'GenderScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'GenderScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title={`I am a ...`}
 			>
 				<Text fontSize={'xl'}>
@@ -204,17 +203,17 @@ export default ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'LookingForScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'LookingForScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title={`I'm looking for a ...`}
 			>
 				<Text fontSize={'xl'} numberOfLines={1}>
@@ -223,49 +222,49 @@ export default ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'StatusScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'StatusScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title={`Relationship status`}
 			>
 				<Text fontSize={'xl'}>Are you in a relationship</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'HometownScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'HometownScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title={`Add your hometown`}
 			>
 				<Text fontSize={'xl'}>add your hometown</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				onPress={
-					() => console.log('object :>> ')
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'CurentPlaceScreen',
-					// 		},
-					// 	}),
-					// )
-				}
+				// onPress={
+				// 	() =>
+				// 	// navigation.dispatch(
+				// 	// 	StackActions.push('ProfileSettingsNavigator', {
+				// 	// 		screen: 'ProfileEditorStack',
+				// 	// 		params: {
+				// 	// 			screen: 'CurentPlaceScreen',
+				// 	// 		},
+				// 	// 	}),
+				// 	// )
+				// }
 				title={'Add your city'}
 			>
 				<Text fontSize={'xl'}>Rep your city</Text>

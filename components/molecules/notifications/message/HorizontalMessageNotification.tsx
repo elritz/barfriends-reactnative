@@ -1,3 +1,4 @@
+// TODO: Create message navigator
 import { useNavigation } from '@react-navigation/native'
 import {
 	Pressable,
@@ -43,7 +44,6 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 		>
 			<Pressable
 				onPress={() => {
-					console.warn('TODO -> Create message navigator')
 					// router.push({
 					// 	pathname: '(app)/permission/medialibrary',
 					// })

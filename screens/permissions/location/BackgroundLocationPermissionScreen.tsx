@@ -1,12 +1,10 @@
+// TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import {
-	PermissionBackgroundLocationReactiveVar,
-	PreferenceBackgroundLocationPermissionReactiveVar,
-} from '@reactive'
+import { PermissionBackgroundLocationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
@@ -14,11 +12,9 @@ import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
 import { useRouter } from 'expo-router'
 import { Box, VStack, Button, Divider, Heading, Text, ScrollView } from 'native-base'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-
-// TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 
 const details = [
 	{

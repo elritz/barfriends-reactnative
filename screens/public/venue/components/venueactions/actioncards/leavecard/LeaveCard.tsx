@@ -1,4 +1,4 @@
-import ActionCard from '../../ActionCard'
+// TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
@@ -12,8 +12,6 @@ import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { Heading, Button, VStack, Box, Icon } from 'native-base'
 import { useEffect, useState } from 'react'
-
-// TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 
 export default function LeaveCard() {
 	const params = useSearchParams()

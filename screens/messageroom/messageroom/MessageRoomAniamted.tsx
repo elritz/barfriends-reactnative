@@ -1,5 +1,7 @@
+// TODO: FN() - line 83 -- MessageRoomAniamted ~ onPressIn'
 import { history } from './Message'
 import Message from './data'
+import { MessageRoomNavigatorParamList } from '@ctypes/app'
 import { Ionicons } from '@expo/vector-icons'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
@@ -9,9 +11,6 @@ import { View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { MessageRoomNavigatorParamList } from 'src/types/app'
-
-// TODO: FN() - line 83 -- MessageRoomAniamted ~ onPressIn'
 
 type MessageRoomScreenRouteProp = RouteProp<MessageRoomNavigatorParamList, 'MessagingRoomScreen'>
 

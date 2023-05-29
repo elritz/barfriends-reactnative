@@ -34,11 +34,6 @@ type Props = {
 const size = 70
 
 export default function ProfilePhotoEmptyState() {
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const theme = useTheme()
-	const colorScheme = useColorMode()
-	const margin = 12
-
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
 		let result = await ImagePicker.launchImageLibraryAsync({
@@ -48,10 +43,9 @@ export default function ProfilePhotoEmptyState() {
 			quality: 1,
 		})
 
-		// console.log('PICTURE RESULTS', JSON.stringify(result.assets, null, 4))
-		result.assets.map(item => {
-			console.log('item.uri', item.uri)
-		})
+		if (result.assets) {
+			result.assets.map(item => {})
+		}
 	}
 
 	return (

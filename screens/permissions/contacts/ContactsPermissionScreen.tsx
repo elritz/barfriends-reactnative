@@ -1,8 +1,9 @@
+// TODO: FN(Open camera app) ln:66
 import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { PermissionCameraReactiveVar } from '@reactive'
+import { useIsFocused } from '@react-navigation/native'
+import { PermissionContactsReactiveVar } from '@reactive'
 import IllustrationDynamicMedia from 'assets/images/media/IllustrationDynamicMedia'
 import * as Contacts from 'expo-contacts'
 import * as IntentLauncher from 'expo-intent-launcher'
@@ -11,10 +12,7 @@ import { Box, Button, Divider, Heading, ScrollView } from 'native-base'
 import { useContext, useEffect, useRef } from 'react'
 import { AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { PermissionContactsReactiveVar } from 'src/reactive/permissions/contacts'
 import { ThemeContext } from 'styled-components/native'
-
-// TODO: FN(Open camera app) ln:66
 
 const details = [
 	{
@@ -62,9 +60,7 @@ const ContactsPermissionScreen = () => {
 		loadPermissionsAsync()
 	}, [isFocused])
 
-	const openCameraApp = async () => {
-		console.log('TODO: opencamera')
-	}
+	const openCameraApp = async () => {}
 
 	const openPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {

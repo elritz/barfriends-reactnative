@@ -1,3 +1,4 @@
+// TODO: UX() get the navigation route here as well default values from form
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
@@ -10,7 +11,6 @@ import { useEffect, useMemo, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TextInput } from 'react-native'
 
-// TODO: UX() get the navigation route here as well default values from form
 const SearchTextScreenInput = () => {
 	const _searchRef = useRef<TextInput>()
 	const router = useRouter()
@@ -55,9 +55,6 @@ const SearchTextScreenInput = () => {
 	}, [params.searchtext])
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
-		onError: error => {
-			// console.log('error Explore Search Query  :>> ', error)
-		},
 		onCompleted: data => {
 			router.setParams({
 				searchtext: String(watch().searchtext),

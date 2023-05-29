@@ -20,7 +20,6 @@ export default () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error) {
-				console.log('error REFRESH DEVICEMANAGER:>> ', error)
 				router.push({
 					pathname: '(error)',
 				})
@@ -86,8 +85,5 @@ export default () => {
 		return <SplashScreen />
 	}
 
-	console.log('here =============+> :>> ')
-
 	return <Redirect href={'(app)/hometab'} />
-	// return <Redirect href={'(app)/credential/personalcredentialstack/username'} />
 }

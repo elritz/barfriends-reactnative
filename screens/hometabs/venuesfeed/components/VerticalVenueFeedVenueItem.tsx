@@ -1,3 +1,4 @@
+// TODO: If user is joined to the venue remove join button show joined
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
@@ -16,8 +17,6 @@ import { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
-// TODO: If user is joined to the venue remove join button show joined
-
 const width = Dimensions.get('window').width / 2.15
 
 type Props = {
@@ -32,10 +31,8 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 	const [hideBlur, setHideBlur] = useState(false)
 	const [distance, setDistance] = useState(0)
 	const [metric, setMetric] = useState('m')
-	const [canRefresh, setCanRefresh] = useState(false)
 	const [canJoin, setCanJoin] = useState(false)
 	const [isJoined, setIsJoined] = useState(false)
-	const [distanceLoading, setDistanceLoading] = useState(false)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')
 
@@ -124,12 +121,6 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 
 	useEffect(() => {
 		if (props.item.distanceInM) {
-			if (props?.item?.IdentifiableInformation?.fullname === 'ferry - mitchell') {
-				console.log(
-					'🚀 ~ file: VerticalVenueFeedVenueItem.tsx:51 ~ useEffect ~ props.item.distanceInM:',
-					props.item.distanceInM,
-				)
-			}
 			setDist({ distanceInM: props.item.distanceInM })
 		}
 	}, [props.item.distanceInM])

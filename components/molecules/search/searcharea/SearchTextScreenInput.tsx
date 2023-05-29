@@ -1,24 +1,18 @@
+// TODO: UX() get the navigation route here as well default values from form
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useDebounce from '@util/hooks/useDebounce'
-import { useRouter, useSearchParams, useSegments } from 'expo-router'
+import { useRouter, useSegments } from 'expo-router'
 import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
 import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-// TODO: UX() get the navigation route here as well default values from form
 const SearchTextScreenInput = () => {
-	const params = useSearchParams()
 	const router = useRouter()
 	const segments = useSegments()
-
-	console.log("🚀 ~ file: SearchTextScreenInput.tsx:19 ~ SearchTextScreenInput ~ segments:", segments)
-
-	const inset = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
 
 	const {
@@ -45,14 +39,10 @@ const SearchTextScreenInput = () => {
 	})
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
-		onError: error => {
-			// console.log('error Explore Search Query  :>> ', error)
-		},
 		onCompleted: data => {
 			router.setParams({
 				searchtext: String(watch().searchtext),
 			})
-			// console.log('data SEARCH SCREEN :>> ', data)
 		},
 	})
 
@@ -65,7 +55,6 @@ const SearchTextScreenInput = () => {
 
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
-		console.log('values.searchText NAVIGATE :>> ', values.searchtext)
 		router.push({
 			pathname: '(app)/hometab/searchstack/searchresults',
 			params: { searchtext: String(values.searchtext) },

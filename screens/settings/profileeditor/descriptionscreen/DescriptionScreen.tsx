@@ -1,3 +1,4 @@
+//TODO FN(Update to change to detail information) mutation is broken here
 import { useReactiveVar } from '@apollo/client'
 import {
 	AuthorizationDeviceManager,
@@ -14,8 +15,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { ThemeContext } from 'styled-components/native'
 
 const DESCRIPTION_LENGTH = 250
-
-//TODO FN(Update to change to detail information) mutation is broken here
 
 const DescriptionScreen = () => {
 	const themeContext = useContext(ThemeContext)

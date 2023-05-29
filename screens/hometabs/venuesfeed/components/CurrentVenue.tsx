@@ -37,9 +37,6 @@ export default function CurrentVenue() {
 				},
 			},
 		},
-		onCompleted: data => {
-			console.log('data USE CURRENT VENUE :>> ', data)
-		},
 	})
 
 	const getTitleCase = str => {

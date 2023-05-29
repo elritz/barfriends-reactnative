@@ -1,6 +1,4 @@
-// notification listeners
-// server connection
-// set permissions
+//TODO: Add notfication listener
 import { ApolloProvider, InMemoryCache } from '@apollo/client'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
@@ -49,9 +47,8 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { ErrorBoundaryProps, Slot, SplashScreen } from 'expo-router'
+import { Slot, SplashScreen } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
 import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
@@ -262,7 +259,6 @@ export default () => {
 
 	// useEffect(() => {
 	// 	const subscription = Notifications.addPushTokenListener(e => {
-	// 		console.log('e NOTIFICATION EVENT SUBSCRIPTION  =======>', e, 'e =======>')
 	// 	})
 	// 	return () => subscription.remove()
 	// }, [])

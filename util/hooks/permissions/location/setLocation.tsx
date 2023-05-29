@@ -11,10 +11,7 @@ export const setLocation = async (): Promise<void> => {
 			requiredAccuracy: 50,
 			maxAge: 1200000,
 		})
-		console.log('🚀 -----------------------------------------------------------------------🚀')
-		console.log('🚀 ~ file: setLocation.tsx:14 ~ setLocation ~ lastLocation', lastLocation)
-		console.log('🚀 -----------------------------------------------------------------------🚀')
-
+		
 		if (lastLocation) {
 			const geocodedLocation = await Location.reverseGeocodeAsync({
 				latitude: lastLocation.coords.latitude,

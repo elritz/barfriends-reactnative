@@ -59,7 +59,7 @@ export default function Photos() {
 			allowsMultipleSelection: true,
 			quality: 1,
 		})
-		// console.log('PICTURE RESULTS', JSON.stringify(result.assets, null, 4))
+
 		if (result.assets) {
 			const resultSettled = await Promise.allSettled(
 				result.assets.map(async item => {
@@ -69,10 +69,7 @@ export default function Photos() {
 				}),
 			)
 
-			// console.log('🚀 ~ file: index.tsx:80 ~ resultSettled.map ~ resultSettled', resultSettled)
 			resultSettled.map((item, index) => {
-				// console.log('🚀 ~ file: index.tsx:74 ~ resultSettled.map ~ index', index)
-
 				if (item.status === 'fulfilled') {
 					return item.value
 				}

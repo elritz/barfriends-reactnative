@@ -1,3 +1,4 @@
+// TODO: FN(What functionality was suppose to be here)
 import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
@@ -13,8 +14,6 @@ import { Skeleton } from 'native-base'
 import { Box, Pressable, VStack } from 'native-base'
 import { useState } from 'react'
 import { SafeAreaView, View, ScrollView } from 'react-native'
-
-// TODO: FN(What functionality was suppose to be here)
 
 export default function DeviceManagerModal() {
 	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])

@@ -46,9 +46,6 @@ export default function Details(props) {
 			},
 			...currentLocationCoords,
 		},
-		onError(error) {
-			console.log('error :>> ', error)
-		},
 	})
 
 	if (loading || !data) return null

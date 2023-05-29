@@ -1,3 +1,6 @@
+// TODO: FN(handleAppStateChange) check if location permission is enabled and go somewhere with it
+// TODO: UX() Workflow isn't quite working good enough for production
+// TODO: FN() Get background location changes working
 import VenueFeedSearchAreaEmptyState from './components/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from './components/VenueFeedSignupCard'
 import VenueFeedSkeletonLoadingState from './components/VenuesFeedSkeletonLoadingState'
@@ -23,10 +26,6 @@ import { Box, VStack, FlatList, Heading, HStack, IconButton, Icon } from 'native
 import React, { useEffect, useRef, useState } from 'react'
 import { AppState, View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-// TODO: FN(handleAppStateChange) check if location permission is enabled and go somewhere with it
-// TODO: UX() Workflow isn't quite working good enough for production
-// TODO: FN() Get background location changes working
 
 const VenueFeedScreen = () => {
 	const router = useRouter()
@@ -148,7 +147,6 @@ const VenueFeedScreen = () => {
 									})
 								}
 								rounded={'full'}
-
 							/>
 						</HStack>
 					)}

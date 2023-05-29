@@ -4,17 +4,14 @@ import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
-import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
+import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { useRouter } from 'expo-router'
-import { IconButton, Text, Icon, Box, VStack } from 'native-base'
+import { View, IconButton, Text, Icon, Box, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const router = useRouter()
-	const insets = useSafeAreaInsets()
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const [legalAge] = useState<number>(19)
@@ -52,13 +49,10 @@ export default () => {
 				})
 				return false
 			} else if (years + 1 === legalAge && months >= 11 && days >= 27) {
-				const { success } = await createDeviceTokenInSecureStorage({
-					birthday: selectedDate,
+				await secureStorageItemCreate({
+					key: 'BIRTHDAY_TOKEN',
+					value: String(selectedDate),
 				})
-				if (success) {
-					setValue('date', selectedDate)
-					return true
-				}
 			} else if (years < legalAge) {
 				setError('date', {
 					type: 'validate',

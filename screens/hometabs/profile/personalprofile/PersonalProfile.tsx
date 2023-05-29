@@ -14,7 +14,7 @@ type Props = {
 
 const PersonalScreen = ({ notifications }: Props) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	console.log('rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType :>> ', rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType);
+	
 	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest) {
 		return (
 			<Box my={10} mx={3} flex={1}>

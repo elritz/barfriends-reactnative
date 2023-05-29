@@ -16,9 +16,6 @@ export default function SearchVenues() {
 		variables: {
 			search: String(params.searchtext),
 		},
-		onCompleted: data => {
-			console.log('data :>> ', data)
-		},
 	})
 
 	if (ESLoading) {

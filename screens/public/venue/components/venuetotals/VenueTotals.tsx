@@ -31,9 +31,6 @@ export default function VenueTotals() {
 		variables: {
 			profileIdVenue: String(params.profileid),
 		},
-		onError: error => {
-			console.log('error :>> ', error)
-		},
 		onCompleted: async data => {
 			if (data.getLiveVenueTotals) {
 				setTotal({

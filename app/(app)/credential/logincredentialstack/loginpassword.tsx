@@ -185,8 +185,6 @@ export default () => {
 		)
 	}
 
-	console.log('PQData.profile?.photos :>> ', PQData.profile?.photos)
-
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
