@@ -8,7 +8,6 @@ import {
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 } from '@constants/StorageConstants'
-import { BACKGROUND_NOTIFICATION_TASK } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import gateaWayClient from '@library/gateway-apollo-server'
 import {
@@ -47,9 +46,9 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen } from 'expo-router'
-import { useEffect, useState } from 'react'
-import { Appearance } from 'react-native'
+import { Slot, SplashScreen, useRouter } from 'expo-router'
+import { useEffect, useRef, useState } from 'react'
+import { Appearance, Linking } from 'react-native'
 import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -58,15 +57,17 @@ Notifications.setNotificationHandler({
 	handleNotification: async () => ({
 		shouldShowAlert: true,
 		shouldPlaySound: false,
-		shouldSetBadge: false,
+		shouldSetBadge: true,
 	}),
 })
 
 const cache = new InMemoryCache()
 
-Notifications.registerTaskAsync(BACKGROUND_NOTIFICATION_TASK)
-
 export default () => {
+	const router = useRouter()
+	const notificationListener = useRef()
+	const responseListener = useRef()
+
 	const setPermissions = async () => {
 		const contactsPermission = await Contacts.getPermissionsAsync()
 		const cameraPermission = await Camera.getCameraPermissionsAsync()
@@ -257,11 +258,29 @@ export default () => {
 		}).then(() => setLoadingCache(false))
 	}, [])
 
-	// useEffect(() => {
-	// 	const subscription = Notifications.addPushTokenListener(e => {
-	// 	})
-	// 	return () => subscription.remove()
-	// }, [])
+	useEffect(() => {
+		//NOTE: This only works if the notification happens in the foreground
+		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+			if (notification.request.content.data.route) {
+				router.push({
+					pathname: notification.request.content.data.route,
+				})
+			}
+		})
+
+		responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+			// console.log(
+			// 	'🚀 ~ file: _layout.tsx:274 ~ useEffect ~ response:',
+			// 	JSON.stringify(response, null, 4),
+			// )
+		})
+
+		return () => {
+			Notifications.removeNotificationSubscription(notificationListener.current)
+			Notifications.removeNotificationSubscription(responseListener.current)
+		}
+		//NOTE: This only works if the notification happens in the foreground
+	}, [])
 
 	if (!assets || loadingCache) {
 		return <SplashScreen />

@@ -210,6 +210,7 @@ export default () => {
 								value={value}
 								onChangeText={value => onChange(value)}
 								cellCount={CELL_COUNT}
+								// autoComplete={'one-time-code'}
 								rootStyle={{
 									marginVertical: 10,
 								}}

@@ -45,7 +45,7 @@ const SearchAreaLocationPermissionItem = () => {
 	return (
 		<VStack>
 			<Box h={'45px'}>
-				<Text textAlign={'center'}>
+				<Text numberOfLines={2}>
 					{rSearchAreaVar?.useCurrentLocation
 						? 'You are currently using your devices location to show you venues nearby.'
 						: 'Use your location to automatically set your area.'}
@@ -65,16 +65,13 @@ const SearchAreaLocationPermissionItem = () => {
 						  }),
 						  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
 				}}
-				isPressed={rSearchAreaVar?.useCurrentLocation}
-				rounded={'xl'}
+				// isPressed={rSearchAreaVar?.useCurrentLocation}
+				rounded={'md'}
 				_light={{
-					bg: !rSearchAreaVar?.useCurrentLocation ? 'light.400' : 'light.200',
+					bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'coolGray.300',
 				}}
 				_dark={{
-					bg: !rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
-				}}
-				_pressed={{
-					bg: 'primary.500',
+					bg: rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
 				}}
 			>
 				<HStack p={3} justifyContent={'space-between'}>
@@ -84,7 +81,7 @@ const SearchAreaLocationPermissionItem = () => {
 						fontSize={'md'}
 						ellipsizeMode={'tail'}
 						alignSelf={'center'}
-						color={'white'}
+						color={rSearchAreaVar?.useCurrentLocation ? 'white' : 'black'}
 					>
 						{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 					</Text>

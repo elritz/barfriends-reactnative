@@ -1,5 +1,7 @@
+import { useReactiveVar } from '@apollo/client'
 import DeviceManagerProfiles from '@components/organisms/list/DeviceManagerProfiles'
 import GetSignInUpText from '@helpers/data/SignupinText'
+import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { Box, Center, Text, Button } from 'native-base'
 
@@ -10,6 +12,7 @@ type Props = {
 }
 export default (props: Props) => {
 	const router = useRouter()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	return (
 		<Box>

@@ -1499,6 +1499,13 @@ export type AuthorizedProfilesWhereInput = {
   profiles: CustomProfileWhereInput;
 };
 
+/** Batch payloads from prisma. */
+export type BatchPayload = {
+  __typename?: 'BatchPayload';
+  /** Prisma Batch Payload */
+  count: Scalars['Int'];
+};
+
 export type BoolFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['Boolean']>;
 };
@@ -8613,7 +8620,6 @@ export type MutationSendAuthenticatorForgotPasswordCodeArgs = {
 
 export type MutationSwitchDeviceProfileArgs = {
   profileId: Scalars['String'];
-  profileType?: InputMaybe<ProfileType>;
 };
 
 
@@ -16633,10 +16639,22 @@ export type ThemeCreateWithoutProfileThemeInput = {
 
 export type ThemeManager = {
   __typename?: 'ThemeManager';
+  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   Profile: Profile;
   profileId: Scalars['String'];
   ProfileTheme: Array<ProfileTheme>;
+  updatedAt: Scalars['DateTime'];
+};
+
+
+export type ThemeManagerProfileThemeArgs = {
+  cursor?: InputMaybe<ProfileThemeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ProfileThemeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ProfileThemeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ProfileThemeWhereInput>;
 };
 
 export type ThemeManagerCountOrderByAggregateInput = {
@@ -18270,7 +18288,6 @@ export type UpsertDevicePushTokenMutation = { __typename?: 'Mutation', upsertDev
 
 export type SwitchDeviceProfileMutationVariables = Exact<{
   profileId: Scalars['String'];
-  profileType?: InputMaybe<ProfileType>;
 }>;
 
 
@@ -19251,8 +19268,8 @@ export type UpsertDevicePushTokenMutationHookResult = ReturnType<typeof useUpser
 export type UpsertDevicePushTokenMutationResult = Apollo.MutationResult<UpsertDevicePushTokenMutation>;
 export type UpsertDevicePushTokenMutationOptions = Apollo.BaseMutationOptions<UpsertDevicePushTokenMutation, UpsertDevicePushTokenMutationVariables>;
 export const SwitchDeviceProfileDocument = gql`
-    mutation switchDeviceProfile($profileId: String!, $profileType: ProfileType) {
-  switchDeviceProfile(profileId: $profileId, profileType: $profileType) {
+    mutation switchDeviceProfile($profileId: String!) {
+  switchDeviceProfile(profileId: $profileId) {
     ... on AuthorizationDeviceManager {
       __typename
       id
@@ -19294,7 +19311,6 @@ export type SwitchDeviceProfileMutationFn = Apollo.MutationFunction<SwitchDevice
  * const [switchDeviceProfileMutation, { data, loading, error }] = useSwitchDeviceProfileMutation({
  *   variables: {
  *      profileId: // value for 'profileId'
- *      profileType: // value for 'profileType'
  *   },
  * });
  */

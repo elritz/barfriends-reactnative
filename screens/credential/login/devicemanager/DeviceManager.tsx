@@ -61,7 +61,6 @@ export default function DeviceManagerScreen() {
 			switchDeviceProfileMutation({
 				variables: {
 					profileId: String(guestProfile[0]?.Profile?.id),
-					profileType: ProfileType.Guest,
 				},
 			})
 		} else {
@@ -69,7 +68,6 @@ export default function DeviceManagerScreen() {
 			switchDeviceProfileMutation({
 				variables: {
 					profileId: item.Profile.id,
-					profileType: item.Profile.profileType,
 				},
 			})
 		}

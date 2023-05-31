@@ -16,7 +16,11 @@ export default () => {
 	const router = useRouter()
 	const params = useSearchParams()
 	const themeContext = useContext(ThemeContext)
-	const [selectedProfileId, setSelectedProfileId] = useState('')
+	const [selectedProfile, setSelectedProfile] = useState({
+		profileid: String,
+		photo: String,
+		username: String,
+	})
 
 	const { data, loading, error } = useAuthorizedProfilesQuery({
 		skip: !params.authenticator && !params.authenticator,
@@ -33,46 +37,34 @@ export default () => {
 		},
 	})
 
-	const navigateToLogin = item => {
-		router.push({
-			params: {
-				profileid: item.id,
-			},
-			pathname: '(app)/credential/logincredentialstack/loginpassword',
-		})
-	}
-
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
-		useSwitchDeviceProfileMutation({
+		useSwitchDeviceProfileMutation()
+
+	const switchProfile = item => {
+		switchDeviceProfileMutation({
+			variables: {
+				profileId: item.id,
+			},
+			onError: error => {
+				console.log('error :>> ', error)
+			},
 			onCompleted: data => {
 				if (data?.switchDeviceProfile?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					setTimeout(() => router.replace('(app)'), 1000)
+					setTimeout(() => router.replace('(app)/hometab'), 1000)
+				} else if (data.switchDeviceProfile.__typename === 'Error') {
+					router.push({
+						pathname: '(app)/credential/logincredentialstack/loginpassword',
+						params: {
+							username: item.IdentifiableInformation?.username,
+							photo: item.profilePhoto?.url,
+							profileid: item.id,
+						},
+					})
 				}
 			},
 		})
-
-	const switchProfile = item => {
-		if (item.isActive) {
-			const guestProfile = profiles.filter(item => item?.Profile?.ProfileType === ProfileType.Guest)
-
-			setSelectedProfileId(String(guestProfile[0]?.Profile?.id))
-			switchDeviceProfileMutation({
-				variables: {
-					profileId: String(guestProfile[0]?.Profile?.id),
-					profileType: ProfileType.Guest,
-				},
-			})
-		} else {
-			setSelectedProfileId(item.Profile.id)
-			switchDeviceProfileMutation({
-				variables: {
-					profileId: item.Profile.id,
-					profileType: item.Profile.profileType,
-				},
-			})
-		}
 	}
 
 	if (loading) {
@@ -120,7 +112,7 @@ export default () => {
 				>
 					{finalProfileArray.map(item => {
 						return (
-							<Pressable key={item.id} onPress={() => navigateToLogin(item)}>
+							<Pressable key={item.id} onPress={() => switchProfile(item)}>
 								<DeviceManagerProfileItemLarge isActive={false} item={item} />
 							</Pressable>
 						)

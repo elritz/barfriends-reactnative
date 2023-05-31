@@ -1,10 +1,10 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
-import PermissionDetailItem from '../PermissionDetailItem'
 import { useReactiveVar } from '@apollo/client'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import { PermissionNotificationReactiveVar } from '@reactive'
+import { PermissionContactsReactiveVar } from '@reactive'
+import PermissionDetailItem from '@screens/permissions/PermissionDetailItem'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as Application from 'expo-application'
@@ -40,11 +40,11 @@ const details = [
 	},
 ]
 
-const NotificationsPermissionScreen = () => {
+export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
 	const isFocused = useIsFocused()
-	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
+	const rContactPermission = useReactiveVar(PermissionContactsReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')
 
 	const [upsertDevicePushTokenMutation, { data, loading, error }] =
@@ -52,9 +52,9 @@ const NotificationsPermissionScreen = () => {
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(
-			'Barfriends Notification Permission',
-			`Notifications are currently ${capitalizeFirstLetter(
-				capitalizeFirstLetter(rNotificationsPermission?.status),
+			'Barfriends Contacts Permission',
+			`Contacts are currently ${capitalizeFirstLetter(
+				capitalizeFirstLetter(rContactPermission?.status),
 			)}. If you wish to adjust go to your device settings.`,
 			[
 				{
@@ -70,34 +70,22 @@ const NotificationsPermissionScreen = () => {
 		if (Platform.OS === 'ios') {
 			Linking.openURL('app-settings://')
 		} else {
-			IntentLauncher.startActivityAsync(IntentLauncher.ActivityAction.NOTIFICATION_SETTINGS)
+			// IntentLauncher.startActivityAsync(IntentLauncher.ActivityAction.NOTIFICATION_SETTINGS)
 		}
 	}
 
 	const handleRequestPermission = async () => {
 		if (Device.isDevice) {
 			if (Platform.OS === 'android') {
-				Notifications.setNotificationChannelAsync('default', {
-					name: 'default',
-					importance: Notifications.AndroidImportance.HIGH,
-					vibrationPattern: [0, 250, 250, 250],
-					lightColor: '#ff6f007c',
-				})
+				// Notifications.setNotificationChannelAsync('default', {
+				// 	name: 'default',
+				// 	importance: Notifications.AndroidImportance.HIGH,
+				// 	vibrationPattern: [0, 250, 250, 250],
+				// 	lightColor: '#ff6f007c',
+				// })
 			}
 
-			const status = await Notifications.requestPermissionsAsync({
-				ios: {
-					allowAlert: true,
-					allowBadge: true,
-					allowSound: true,
-					allowAnnouncements: true,
-					provideAppNotificationSettings: true,
-					allowCriticalAlerts: true,
-					allowDisplayInCarPlay: true,
-				},
-			})
-
-			PermissionNotificationReactiveVar(status)
+			PermissionContactsReactiveVar(status)
 
 			if (status.granted) {
 				const devicetoken = await Notifications.getDevicePushTokenAsync()
@@ -142,7 +130,7 @@ const NotificationsPermissionScreen = () => {
 		async function loadPermissionsAsync() {
 			const status = await Notifications.getPermissionsAsync()
 			try {
-				PermissionNotificationReactiveVar(status)
+				PermissionContactsReactiveVar(status)
 			} catch (e) {
 				console.warn(e)
 			}
@@ -160,7 +148,7 @@ const NotificationsPermissionScreen = () => {
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
 			const status = await Notifications.getPermissionsAsync()
-			PermissionNotificationReactiveVar(status)
+			PermissionContactsReactiveVar(status)
 			if (status.granted && status.status === 'granted') {
 				setTimeout(() => {
 					router.back()
@@ -221,15 +209,15 @@ const NotificationsPermissionScreen = () => {
 					size={'lg'}
 					width={'95%'}
 					onPress={() =>
-						!rNotificationsPermission?.granted
-							? rNotificationsPermission?.canAskAgain && !rNotificationsPermission.granted
+						!rContactPermission?.granted
+							? rContactPermission?.canAskAgain && !rContactPermission.granted
 								? handleRequestPermission()
 								: handleOpenPhoneSettings()
 							: createTwoButtonAlert()
 					}
 				>
-					{!rNotificationsPermission?.granted
-						? rNotificationsPermission?.canAskAgain && !rNotificationsPermission.granted
+					{!rContactPermission?.granted
+						? rContactPermission?.canAskAgain && !rContactPermission.granted
 							? 'Continue'
 							: 'Go to Phone Settings'
 						: 'Granted'}
@@ -244,5 +232,3 @@ const NotificationsPermissionScreen = () => {
 		</Box>
 	)
 }
-
-export default NotificationsPermissionScreen

@@ -151,6 +151,7 @@ export default () => {
 								size={'lg'}
 								onSubmitEditing={() => _lastnameRef?.current?.focus()}
 								onBlur={onBlur}
+								blurOnSubmit={false}
 								onChangeText={onChange}
 								value={value.toLowerCase()}
 							/>

@@ -249,7 +249,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				name: 'Barfriends (dev)',
 				slug: 'barfriends',
 				owner: 'barfriends',
-				scheme: 'barfriends',
+				scheme: 'barfriends-development',
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				plugins: [
@@ -289,6 +289,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				},
 				ios: {
 					// buildNumber: '2.1.6',
+					associatedDomains: ['applinks:barfriends.com'],
 					bundleIdentifier: 'com.barfriends.dev',
 					supportsTablet: false,
 					icon: `./assets/images/icon/icon.png`,

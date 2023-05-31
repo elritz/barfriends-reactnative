@@ -57,7 +57,6 @@ export default function DeviceManagerModal() {
 			switchDeviceProfileMutation({
 				variables: {
 					profileId: String(guestProfile[0]?.Profile?.id),
-					profileType: ProfileType.Guest,
 				},
 			})
 		} else {
@@ -65,7 +64,6 @@ export default function DeviceManagerModal() {
 			switchDeviceProfileMutation({
 				variables: {
 					profileId: item.Profile.id,
-					profileType: item.Profile.profileType,
 				},
 			})
 		}

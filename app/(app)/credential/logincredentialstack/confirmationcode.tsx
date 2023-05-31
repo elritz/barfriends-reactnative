@@ -120,17 +120,17 @@ export default () => {
 		return (
 			<Box
 				display={isFocused ? 'flex' : 'none'}
+				flexDir={'row'}
+				justifyContent={'space-between'}
+				alignContent={'space-around'}
+				height={'70px'}
+				px={'2.5%'}
 				_light={{
 					bg: 'light.200',
 				}}
 				_dark={{
 					bg: 'dark.200',
 				}}
-				flexDir={'row'}
-				justifyContent={'space-between'}
-				alignContent={'space-around'}
-				h={'90px'}
-				px={'2.5%'}
 			>
 				<Box justifyContent={'space-around'}>
 					{complete ? (

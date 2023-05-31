@@ -9,24 +9,11 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Text, Box, Heading, Button, VStack, Icon } from 'native-base'
+import { Text, Box, Heading, Button, VStack, Icon, IconButton } from 'native-base'
 
 export default () => {
 	const router = useRouter()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-
-	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
-		useSwitchDeviceProfileMutation({
-			onCompleted: data => {
-				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
-					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
-					AuthorizationReactiveVar(deviceManager)
-					router.push({
-						pathname: '(app)/hometab',
-					})
-				}
-			},
-		})
 
 	const [createProfilePersonal, { loading: CPPLoading }] = useCreatePersonalProfileMutation({
 		variables: {
@@ -50,13 +37,26 @@ export default () => {
 			if (data.createPersonalProfile?.__typename === 'AuthorizationDeviceManager') {
 				switchDeviceProfileMutation({
 					variables: {
-						profileId: String(data?.createPersonalProfile.id),
-						profileType: ProfileType.Personal,
+						profileId: String(data?.createPersonalProfile.DeviceProfile?.Profile?.id),
 					},
 				})
 			}
 		},
 	})
+
+	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
+		useSwitchDeviceProfileMutation({
+			onCompleted: data => {
+				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
+					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
+
+					AuthorizationReactiveVar(deviceManager)
+					router.push({
+						pathname: '(app)/hometab',
+					})
+				}
+			},
+		})
 
 	const onSubmit = async () => {
 		createProfilePersonal()
@@ -73,24 +73,24 @@ export default () => {
 				</Box>
 				<Box borderRadius={'md'}>
 					<Text fontSize={'lg'}>
-						Enrich your experience. We are those we hang around. If you're not feeling it find new
-						friends.
+						We are those we hang around. If you're not feeling it find and make new friends. We can enrich
+						your experience doing that.
 					</Text>
 				</Box>
 			</VStack>
-			<Button
-				onPress={onSubmit}
+			<IconButton
+				bg={'primary.500'}
+				onPress={() => onSubmit()}
 				alignSelf={'center'}
-				isLoading={CPPLoading || SDPLoading}
-				size={'lg'}
-				rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
+				isDisabled={CPPLoading || SDPLoading}
+				icon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
 				variant={'solid'}
-				borderRadius={'md'}
+				size={'lg'}
+				borderRadius={'full'}
 				h={60}
+				w={60}
 				fontSize={'lg'}
-			>
-				Complete
-			</Button>
+			/>
 		</VStack>
 	)
 }

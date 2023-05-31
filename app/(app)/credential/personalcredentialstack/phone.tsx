@@ -4,6 +4,7 @@ import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
 import { CountryCode } from 'libphonenumber-js'
 import { Input, Text, Icon, IconButton, Box, Heading, Pressable } from 'native-base'
@@ -81,7 +82,7 @@ export default () => {
 	})
 
 	const [sendCode, { data, loading, error }] = useSendAuthenticatorDeviceOwnerCodeMutation({
-		onCompleted: data => {
+		onCompleted: async data => {
 			switch (data.sendAuthenticatorDeviceOwnerCode?.__typename) {
 				case 'Error':
 					setError('mobileNumber.number', {

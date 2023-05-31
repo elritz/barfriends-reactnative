@@ -11,6 +11,7 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 		} = operation.getContext()
 		if (headers) {
 			const authorization = headers.get('authorization')
+
 			if (authorization) {
 				await secureStorageItemCreate({
 					value: authorization,

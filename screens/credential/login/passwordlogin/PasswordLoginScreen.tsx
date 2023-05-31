@@ -107,7 +107,6 @@ const PasswordLoginScreen = () => {
 					switchDeviceProfileMutation({
 						variables: {
 							profileId: String(params.profileid),
-							profileType: ProfileType.Personal,
 						},
 					})
 				}

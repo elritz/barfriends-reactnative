@@ -19,10 +19,9 @@ import {
 	IconButton,
 	Spinner,
 	VStack,
-	Button,
 	Center,
+	HStack,
 } from 'native-base'
-import { useTheme } from 'native-base'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
@@ -77,31 +76,15 @@ export default () => {
 		shouldUnregister: true,
 	})
 
-	const {
-		data: PQData,
-		loading: PQLoading,
-		error: PQError,
-	} = useProfileQuery({
-		skip: !params.profileid,
-		variables: {
-			where: {
-				id: {
-					equals: String(params.profileid),
-				},
-			},
-		},
-	})
-
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				if (!data || !data.switchDeviceProfile) {
-					return null
-				} else if (data.switchDeviceProfile.__typename == 'AuthorizationDeviceManager') {
+				console.log('data :>> ', data);
+				if (data.switchDeviceProfile.__typename == 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
 					router.push({
-						pathname: '(app)/hometab/venuefeedstack',
+						pathname: '(app)/hometab',
 					})
 				}
 			},
@@ -110,13 +93,14 @@ export default () => {
 	const [loginPasswordQuery, { data: LPData, loading: LPLoading, error: LPError }] =
 		useLoginPasswordLazyQuery({
 			onCompleted: data => {
+				console.log('data.loginPassword :>> ', data.loginPassword)
 				if (!data.loginPassword) {
 					setError('password', { type: 'validate', message: 'Incorrect password' })
 				} else {
+					console.log('params.profileid :>> ', params.profileid);
 					switchDeviceProfileMutation({
 						variables: {
 							profileId: String(params.profileid),
-							profileType: ProfileType.Personal,
 						},
 					})
 				}
@@ -124,23 +108,21 @@ export default () => {
 		})
 
 	const onSubmit = async (data: any) => {
-		if (PQData?.profile?.IdentifiableInformation?.username) {
-			loginPasswordQuery({
-				variables: {
-					username: PQData.profile.IdentifiableInformation.username,
-					password: data.password,
-				},
-			})
-		}
+		loginPasswordQuery({
+			variables: {
+				username: String(params.username),
+				password: data.password,
+			},
+		})
 	}
 
-	if (!PQData) {
-		return (
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<Spinner size='large' accessibilityLabel={'Loading...'} />
-			</View>
-		)
-	}
+	// if (!PQData) {
+	// 	return (
+	// 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+	// 			<Spinner size='large' accessibilityLabel={'Loading...'} />
+	// 		</View>
+	// 	)
+	// }
 
 	const InnerContent = () => {
 		return (
@@ -155,7 +137,7 @@ export default () => {
 				flexDir={'row'}
 				justifyContent={'flex-end'}
 				alignContent={'space-around'}
-				height={'90px'}
+				height={'70px'}
 				px={'2.5%'}
 			>
 				<IconButton
@@ -187,47 +169,49 @@ export default () => {
 
 	return (
 		<Box flex={1}>
-			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
+			<Reanimated.View style={{ flex: 1, marginVertical: 15, marginHorizontal: 15 }}>
 				<VStack space={3}>
-					{!PQLoading && PQData.profile?.profilePhoto?.url ? (
-						<Image
-							source={{ uri: PQData.profile?.profilePhoto?.url }}
-							mt={5}
-							alignSelf={'center'}
-							height={`${IMAGE_SIZE}px`}
-							width={`${IMAGE_SIZE}px`}
-							borderRadius={'md'}
-							alt={'Profile photo'}
-						/>
-					) : (
-						<Box
-							w={'40px'}
-							h={'40px'}
-							_light={{
-								bg: 'light.100',
-							}}
-							_dark={{
-								bg: 'dark.50',
-							}}
-							borderRadius={'md'}
-						>
-							<Box h={'100%'} justifyContent={'center'}>
-								<Center>
-									<Icon
-										_light={{
-											color: 'light.300',
-										}}
-										_dark={{
-											color: 'dark.300',
-										}}
-										as={Ionicons}
-										size={'lg'}
-										name={'ios-person'}
-									/>
-								</Center>
+					<Center>
+						{params.photo ? (
+							<Image
+								source={{ uri: String(params.photo) }}
+								mt={5}
+								alignSelf={'center'}
+								height={`${IMAGE_SIZE}px`}
+								width={`${IMAGE_SIZE}px`}
+								borderRadius={'md'}
+								alt={'Profile photo'}
+							/>
+						) : (
+							<Box
+								w={'40px'}
+								h={'40px'}
+								_light={{
+									bg: 'light.100',
+								}}
+								_dark={{
+									bg: 'dark.50',
+								}}
+								borderRadius={'md'}
+							>
+								<Box h={'100%'} flex={1} justifyContent={'center'}>
+									<Center>
+										<Icon
+											_light={{
+												color: 'light.300',
+											}}
+											_dark={{
+												color: 'dark.300',
+											}}
+											as={Ionicons}
+											size={'lg'}
+											name={'ios-person'}
+										/>
+									</Center>
+								</Box>
 							</Box>
-						</Box>
-					)}
+						)}
+					</Center>
 					<Controller
 						name='password'
 						control={control}
@@ -262,20 +246,23 @@ export default () => {
 									autoCapitalize='none'
 									numberOfLines={1}
 									InputRightElement={
-										<Icon
-											onPress={() => {
-												setShowPassword(!showPassword)
-											}}
-											as={Ionicons}
-											name={showPassword ? 'eye-off' : 'eye'}
-											size={'md'}
-											_light={{
-												color: !showPassword ? 'primary.500' : 'light.800',
-											}}
-											_dark={{
-												color: !showPassword ? 'primary.500' : 'dark.800',
-											}}
-										/>
+										<HStack space={2}>
+											{/* {LPLoading && <Spinner size='md' accessibilityLabel={'Loading...'} />} */}
+											<Icon
+												onPress={() => {
+													setShowPassword(!showPassword)
+												}}
+												as={Ionicons}
+												name={showPassword ? 'eye-off' : 'eye'}
+												size={'md'}
+												_light={{
+													color: !showPassword ? 'primary.500' : 'light.800',
+												}}
+												_dark={{
+													color: !showPassword ? 'primary.500' : 'dark.800',
+												}}
+											/>
+										</HStack>
 									}
 								/>
 							)

@@ -1,6 +1,7 @@
-import { makeVar } from '@apollo/client'
-import { PermissionResponse } from 'expo-contacts'
-import { PermissionStatus } from 'expo-permissions'
+import { makeVar } from '@apollo/client';
+import { PermissionResponse } from 'expo-contacts';
+import { PermissionStatus } from 'expo-permissions';
+
 
 export const permissionContactsInitialState: PermissionResponse = {
 	canAskAgain: false,

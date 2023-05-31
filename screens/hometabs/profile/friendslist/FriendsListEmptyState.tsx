@@ -1,9 +1,13 @@
+import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
+import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { Heading, Button, Icon, Text, Box } from 'native-base'
 
 export const FriendsListEmptyState = () => {
 	const router = useRouter()
+	const permissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
+	console.log('permissionContactsVar :>> ', permissionContactsVar)
 	return (
 		<Box
 			my={5}
@@ -22,7 +26,7 @@ export const FriendsListEmptyState = () => {
 				No barfriends
 			</Text>
 			<Heading w={'85%'} fontSize={'2xl'} style={{ textAlign: 'center' }}>
-				Use search to find your friends
+				Find your friends below
 			</Heading>
 			<Button
 				// variant={'link'}
@@ -36,14 +40,31 @@ export const FriendsListEmptyState = () => {
 				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
 				onPress={() => {
 					router.push({
-						pathname: '(app)/hometab/expore/explorestack/searchtext',
+						pathname: '(app)/hometab/explorestack/searchtext',
 						params: {
-							searchText: '',
+							searchtext: '',
 						},
 					})
 				}}
 			>
 				Search
+			</Button>
+			<Button
+				variant={'link'}
+				_text={{
+					fontSize: 'lg',
+				}}
+				size={'xs'}
+				w={'55%'}
+				my={2}
+				borderRadius={'md'}
+				onPress={() =>
+					router.push({
+						pathname: '(app)/permission/contacts',
+					})
+				}
+			>
+				{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}
 			</Button>
 		</Box>
 	)

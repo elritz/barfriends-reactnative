@@ -8,14 +8,12 @@ import {
 	useAddPersonalJoinsVenueMutation,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
-import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { Button, VStack, Box, CheckCircleIcon } from 'native-base'
 import { useEffect, useState } from 'react'
 
 export default function JoinCard() {
-	// const route = useRoute<VenueScreenRouteProp>()
 	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')

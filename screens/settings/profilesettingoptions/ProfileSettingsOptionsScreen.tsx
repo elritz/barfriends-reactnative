@@ -49,7 +49,6 @@ const ProfileSettingsOptionsScreen = ({}: EditableOptionsScreenProps) => {
 		switchDeviceProfileMutation({
 			variables: {
 				profileId: String(guestProfile[0]?.Profile?.id),
-				profileType: ProfileType.Guest,
 			},
 		})
 	}

@@ -9,7 +9,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
-import createDeviceTokenInSecureStorage from '@util/hooks/auth/useDeviceToken'
+import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { Box, Button, Text } from 'native-base'
 import React, { useContext, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -86,12 +86,11 @@ const BirthdayScreen = () => {
 		}
 		const { days, months, years } = diffNow(selectedDate)
 		if (years + 1 === legalAge && months >= 11 && days >= 27) {
-			const { success } = await createDeviceTokenInSecureStorage({
-				birthday: selectedDate,
+			await secureStorageItemCreate({
+				key: 'BIRTHDAY',
+				value: String(selectedDate),
 			})
-			if (success) {
-				return true
-			}
+			return true
 		} else if (years < legalAge) {
 			return false
 		}

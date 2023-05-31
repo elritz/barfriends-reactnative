@@ -30,6 +30,10 @@ const DeviceManagerProfiles = () => {
 	const [switchDeviceProfileMutation, { data: SWDPData, loading: SWDPLoading, error: SWDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: async data => {
+				console.log(
+					'🚀 ~ file: DeviceManagerProfiles.tsx:40 ~ DeviceManagerProfiles ~ data:',
+					JSON.stringify(data, null, 4),
+				)
 				if (data.switchDeviceProfile?.__typename == 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
@@ -46,7 +50,6 @@ const DeviceManagerProfiles = () => {
 		switchDeviceProfileMutation({
 			variables: {
 				profileId: String(guestProfile[0]?.Profile?.id),
-				profileType: ProfileType.Guest,
 			},
 		})
 	}
@@ -56,7 +59,6 @@ const DeviceManagerProfiles = () => {
 		switchDeviceProfileMutation({
 			variables: {
 				profileId: item.Profile.id,
-				profileType: item.Profile.profileType,
 			},
 		})
 	}

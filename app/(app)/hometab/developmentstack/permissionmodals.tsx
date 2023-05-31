@@ -23,6 +23,14 @@ export default function Preferences() {
 					},
 				},
 				{
+					name: 'Contacts',
+					route: () => {
+						router.push({
+							pathname: '(app)/permission/contacts',
+						})
+					},
+				},
+				{
 					name: 'Notifications',
 					route: () => {
 						router.push({

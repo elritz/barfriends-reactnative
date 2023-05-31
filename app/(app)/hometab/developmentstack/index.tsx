@@ -17,6 +17,7 @@ import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/loca
 import * as Application from 'expo-application'
 import * as BackgroundFetch from 'expo-background-fetch'
 import * as Clipboard from 'expo-clipboard'
+import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import * as Notifications from 'expo-notifications'
@@ -38,7 +39,7 @@ import {
 	SectionList,
 	Spinner,
 } from 'native-base'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Platform, Linking, AppState } from 'react-native'
 
 let foregroundSubscription = null
@@ -124,6 +125,7 @@ export default () => {
 	const [pushNotificationToken, setPushNotificationToken] = useState('')
 	const [appState, setAppState] = useState(AppState.currentState)
 	const [searchAreaDeleteLoading, setSearchAreaDeleteLoading] = useState(false)
+	const [authorizationDeleteLoading, setAuthorizationDeleteLoading] = useState(false)
 
 	const {
 		isOpen: isForegroundLocationOn,
@@ -214,6 +216,24 @@ export default () => {
 			appStateListen.remove()
 		}
 	}, [isBackgroundLocationOn])
+
+	// useEffect(() => {
+	// 	registerForPushNotificationsAsync().then(token => setPushNotificationToken(token))
+
+	// 	notificationListener?.current = Notifications.addNotificationReceivedListener(notification => {
+	// 		console.log('object :>> ', object);
+	// 		setNotification(notification)
+	// 	})
+
+	// 	responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+	// 		console.log(response)
+	// 	})
+
+	// 	return () => {
+	// 		Notifications.removeNotificationSubscription(notificationListener.current)
+	// 		Notifications.removeNotificationSubscription(responseListener.current)
+	// 	}
+	// }, [])
 
 	const handleOpenPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {
@@ -306,10 +326,16 @@ export default () => {
 			type: 'token',
 			title: 'Authorization',
 			icon: 'finger-print',
-			onPress: async () =>
+			loading: authorizationDeleteLoading,
+			onPress: async () => {
+				setAuthorizationDeleteLoading(true)
 				await secureStorageItemDelete({
 					key: AUTHORIZATION,
 				}),
+					setTimeout(() => {
+						setAuthorizationDeleteLoading(false)
+					}, 1500)
+			},
 		},
 		{
 			type: 'token',
@@ -347,37 +373,108 @@ export default () => {
 			case 'setting':
 				return (
 					<Pressable key={index} onPress={item.onPress}>
-						<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-							<Divider />
-							<HStack space={4} alignItems={'center'}>
-								<Icon size={'lg'} as={Ionicons} name={item.icon} />
-								<Heading fontSize={'lg'} colorScheme={'tertiary'}>
-									{item.title}
-								</Heading>
-							</HStack>
-							<Divider />
-						</Box>
+						{({ isHovered, isFocused, isPressed }) => {
+							return (
+								<Box
+									_light={{
+										bg: isPressed ? 'light.100' : 'transparent',
+									}}
+									_dark={{
+										bg: isPressed ? 'dark.100' : 'transparent',
+									}}
+									height={ITEM_HEIGHT}
+									justifyContent={'space-between'}
+								>
+									<Divider />
+									<HStack px={2} space={4} alignItems={'center'}>
+										<Icon size={'lg'} as={Ionicons} name={item.icon} />
+										<Heading fontSize={'lg'} colorScheme={'tertiary'}>
+											{item.title}
+										</Heading>
+									</HStack>
+									<Divider />
+								</Box>
+							)
+						}}
 					</Pressable>
 				)
 			case 'token':
 				return (
 					<Pressable key={index} onPress={item.onPress}>
-						<Box height={ITEM_HEIGHT} justifyContent={'space-between'}>
-							<Divider />
-							<HStack space={4} alignItems={'center'} justifyContent={'space-between'}>
-								<HStack space={2} alignItems={'center'}>
-									<Icon size={'lg'} as={Ionicons} name={item.icon} />
-									<Heading fontSize={'lg'} colorScheme={'tertiary'}>
-										{item.title}
-									</Heading>
-								</HStack>
-								{loading ? <Spinner /> : <Icon mr={3} color={'danger.500'} name={'trash'} as={Feather} />}
-							</HStack>
-							<Divider />
-						</Box>
+						{({ isHovered, isFocused, isPressed }) => {
+							return (
+								<Box
+									_light={{
+										bg: isPressed ? 'light.300' : 'transparent',
+									}}
+									_dark={{
+										bg: isPressed ? 'dark.300' : 'transparent',
+									}}
+									height={ITEM_HEIGHT}
+									justifyContent={'space-between'}
+								>
+									<Divider />
+									<HStack px={2} space={4} alignItems={'center'} justifyContent={'space-between'}>
+										<HStack space={2} alignItems={'center'}>
+											<Icon size={'lg'} as={Ionicons} name={item.icon} />
+											<Heading fontSize={'lg'} colorScheme={'tertiary'}>
+												{item.title}
+											</Heading>
+										</HStack>
+										{loading ? <Spinner /> : <Icon mr={3} color={'danger.500'} name={'trash'} as={Feather} />}
+									</HStack>
+									<Divider />
+								</Box>
+							)
+						}}
 					</Pressable>
 				)
 		}
+	}
+
+	async function schedulePushNotification() {
+		console.log('here :>> ')
+		await Notifications.scheduleNotificationAsync({
+			content: {
+				title: "You've got mail! 📬",
+				body: 'Here is the notification body',
+				data: { data: 'goes here for link', link: 'What is this link' },
+			},
+			trigger: { seconds: 5 },
+		})
+		console.log('here :>> 222')
+	}
+
+	async function registerForPushNotificationsAsync() {
+		let token
+
+		if (Platform.OS === 'android') {
+			await Notifications.setNotificationChannelAsync('default', {
+				name: 'default',
+				importance: Notifications.AndroidImportance.MAX,
+				vibrationPattern: [0, 250, 250, 250],
+				lightColor: '#FF231F7C',
+			})
+		}
+
+		if (Device.isDevice) {
+			const { status: existingStatus } = await Notifications.getPermissionsAsync()
+			let finalStatus = existingStatus
+			if (existingStatus !== 'granted') {
+				const { status } = await Notifications.requestPermissionsAsync()
+				finalStatus = status
+			}
+			if (finalStatus !== 'granted') {
+				alert('Failed to get push token for push notification!')
+				return
+			}
+			token = (await Notifications.getExpoPushTokenAsync()).data
+			console.log(token)
+		} else {
+			alert('Must use physical device for Push Notifications')
+		}
+
+		return token
 	}
 
 	return (
@@ -532,6 +629,22 @@ export default () => {
 								<Divider my={3} />
 							</Box>
 							<VStack space={2} w={'full'} px={10} my={3}>
+								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+									Notification
+								</Heading>
+								<Button
+									onPress={async () => {
+										await schedulePushNotification()
+									}}
+								>
+									send notification
+								</Button>
+								<Divider />
+							</VStack>
+							<VStack space={2} w={'full'} px={10} my={3}>
+								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+									Location tracking
+								</Heading>
 								<Button
 									onPress={toggleForegroundLocationTask}
 									isDisabled={isForegroundLocationOn}

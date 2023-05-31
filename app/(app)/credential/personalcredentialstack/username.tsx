@@ -185,7 +185,8 @@ export default () => {
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
 								autoCorrect={false}
-								l
+								contextMenuHidden
+								spellCheck={false}
 								autoFocus
 								textContentType='username'
 								autoComplete='username-new'

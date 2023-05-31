@@ -11,11 +11,6 @@ export default function _layout() {
 	const colorScheme = useColorMode()
 	const router = useRouter()
 
-	const onPressProfileTitle = async () => {
-		await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
-		router.push('(app)/modal/DeviceManagerModal')
-	}
-
 	return (
 		<Stack
 			screenOptions={{
@@ -29,7 +24,12 @@ export default function _layout() {
 					return (
 						<>
 							{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST' ? null : (
-								<Pressable onPress={onPressProfileTitle}>
+								<Pressable
+									onPress={async () => {
+										await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+										router.push('(app)/modal/DeviceManagerModal')
+									}}
+								>
 									<HStack ml={2} space={2} alignItems={'center'}>
 										<Text fontWeight={'medium'} fontSize={'24px'} maxW={'165px'} ellipsizeMode={'tail'}>
 											{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}

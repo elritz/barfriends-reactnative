@@ -1439,6 +1439,12 @@ input AuthorizedProfilesWhereInput {
   profiles: CustomProfileWhereInput!
 }
 
+"""Batch payloads from prisma."""
+type BatchPayload {
+  """Prisma Batch Payload"""
+  count: Int!
+}
+
 input BoolFieldUpdateOperationsInput {
   set: Boolean
 }
@@ -8258,7 +8264,7 @@ type Mutation {
   removePersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
-  switchDeviceProfile(profileId: String!, profileType: ProfileType = GUEST): AuthenticationResponseUnion!
+  switchDeviceProfile(profileId: String!): AuthenticationResponseUnion!
   updateCityRequested(cityName: String!): Boolean!
 
   """Update H6 coming area to be notified"""
@@ -16017,10 +16023,12 @@ input ThemeCreateWithoutProfileThemeInput {
 }
 
 type ThemeManager {
+  createdAt: DateTime!
   id: ID!
   Profile: Profile!
   profileId: String!
-  ProfileTheme: [ProfileTheme!]!
+  ProfileTheme(cursor: ProfileThemeWhereUniqueInput, distinct: [ProfileThemeScalarFieldEnum!], orderBy: [ProfileThemeOrderByWithRelationInput!], skip: Int, take: Int, where: ProfileThemeWhereInput): [ProfileTheme!]!
+  updatedAt: DateTime!
 }
 
 input ThemeManagerCountOrderByAggregateInput {

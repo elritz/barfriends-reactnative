@@ -140,12 +140,13 @@ export default () => {
 						) : (
 							<VStack flex={1} space={2}>
 								<Heading size={'lg'}>Search area</Heading>
+				
 								<HStack space={3}>
 									{searchAreaLocation.map((item, index) => {
 										return (
 											<Button
 												key={index}
-												bg={!rSearchAreaVar?.useCurrentLocation ? 'primary.500' : 'primary.300'}
+												bg={!rSearchAreaVar?.useCurrentLocation ? 'primary.500' : 'blue.400'}
 												variant={'solid'}
 												_text={{
 													ellipsizeMode: 'tail',
@@ -171,7 +172,7 @@ export default () => {
 										)
 									})}
 								</HStack>
-								<Box mt={2}>
+								<Box mt={1}>
 									<SearchAreaLocationPermissionItem />
 								</Box>
 							</VStack>

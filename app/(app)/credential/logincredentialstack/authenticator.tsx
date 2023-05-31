@@ -178,7 +178,7 @@ export default () => {
 							returnKeyType='done'
 							enablesReturnKeyAutomatically
 							textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
-							autoComplete={keyboardType === 'number-pad' ? 'tel' : 'email'}
+							autoComplete={'username'}
 							keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
 							numberOfLines={1}
 							placeholder='Email, number or username '
@@ -279,7 +279,7 @@ export default () => {
 						flexDir={'row'}
 						justifyContent={'flex-end'}
 						alignContent={'space-around'}
-						height={'90px'}
+						height={'70px'}
 						px={'2.5%'}
 						_light={{
 							bg: 'light.200',

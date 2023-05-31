@@ -5,8 +5,8 @@ import { PROFILE_FRAGMENT } from '@graphql/DM/fragments/profile.fragments'
 export const SWITCH_DEVICE_PROFILE_MUTATION = gql`
 	${PROFILE_FRAGMENT}
 	${INDETIFIABLE_INFORMATION_FRAGMENT}
-	mutation switchDeviceProfile($profileId: String!, $profileType: ProfileType) {
-		switchDeviceProfile(profileId: $profileId, profileType: $profileType) {
+	mutation switchDeviceProfile($profileId: String!) {
+		switchDeviceProfile(profileId: $profileId) {
 			... on AuthorizationDeviceManager {
 				__typename
 				id
