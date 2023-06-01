@@ -2,16 +2,16 @@ import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Heading, Button, Icon, Text, Box } from 'native-base'
+import { Heading, Button, Icon, Text, Box, VStack } from 'native-base'
 
 export const FriendsListEmptyState = () => {
 	const router = useRouter()
 	const permissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
-	console.log('permissionContactsVar :>> ', permissionContactsVar)
 	return (
-		<Box
+		<VStack
+			space={3}
 			my={5}
-			h={'250px'}
+			py={5}
 			justifyContent={'center'}
 			alignItems={'center'}
 			borderRadius={'md'}
@@ -22,50 +22,49 @@ export const FriendsListEmptyState = () => {
 				bg: 'dark.50',
 			}}
 		>
-			<Text fontSize={'md'} fontWeight={'bold'}>
-				No barfriends
-			</Text>
-			<Heading w={'85%'} fontSize={'2xl'} style={{ textAlign: 'center' }}>
-				Find your friends below
-			</Heading>
-			<Button
-				// variant={'link'}
-				_text={{
-					fontSize: 'lg',
-				}}
-				size={'xs'}
-				w={'55%'}
-				my={3}
-				borderRadius={'md'}
-				leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
-				onPress={() => {
-					router.push({
-						pathname: '(app)/hometab/explorestack/searchtext',
-						params: {
-							searchtext: '',
-						},
-					})
-				}}
-			>
-				Search
-			</Button>
-			<Button
-				variant={'link'}
-				_text={{
-					fontSize: 'lg',
-				}}
-				size={'xs'}
-				w={'55%'}
-				my={2}
-				borderRadius={'md'}
-				onPress={() =>
-					router.push({
-						pathname: '(app)/permission/contacts',
-					})
-				}
-			>
-				{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}
-			</Button>
-		</Box>
+			<Box mb={2} alignItems={'center'}>
+				<Text fontSize={'lg'} fontWeight={'bold'}>
+					No barfriends
+				</Text>
+				<Heading fontSize={'2xl'}>Find your friends below</Heading>
+			</Box>
+			<VStack space={3} w={'full'} alignItems={'center'}>
+				<Button
+					_text={{
+						fontSize: 'lg',
+					}}
+					size={'xs'}
+					px={20}
+					borderRadius={'md'}
+					onPress={() =>
+						router.push({
+							pathname: '(app)/permission/contacts',
+						})
+					}
+				>
+					{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}
+				</Button>
+				<Button
+					variant={'link'}
+					_text={{
+						fontSize: 'lg',
+					}}
+					size={'xs'}
+					w={'55%'}
+					borderRadius={'md'}
+					onPress={() => {
+						router.push({
+							pathname: '(app)/hometab/explorestack/searchtext',
+							params: {
+								searchtext: '',
+							},
+						})
+					}}
+					leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
+				>
+					Search
+				</Button>
+			</VStack>
+		</VStack>
 	)
 }

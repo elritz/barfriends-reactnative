@@ -3,6 +3,7 @@ import ProfilePhoto from '../profilephoto'
 import { useReactiveVar } from '@apollo/client'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
+import ProfileActivityAndStatusCards from '@components/organisms/ProfileActivityAndStatusCards/ProfileActivityAndStatusCards'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import { GetNotificationsQuery, ProfileType } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -14,11 +15,6 @@ type Props = {
 
 const PersonalScreen = ({ notifications }: Props) => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-
-	console.log(
-		'🚀 ~ file: PersonalProfile.tsx:18 ~ PersonalScreen ~ rAuthorizationVar:',
-		rAuthorizationVar?.DeviceProfile?.Profile,
-	)
 
 	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest) {
 		return (
@@ -47,7 +43,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 						@{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 					</Heading>
 				</View>
-				<Divider style={{ marginVertical: 20 }} />
+				{/* <Divider style={{ marginVertical: 10 }} /> */}
 			</View>
 			<Box mx={2}>
 				<CondensedVerticalFriendsNotficationsList
@@ -56,6 +52,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 					data={notifications?.getNotifications?.friendRequestNotifications}
 				/>
 			</Box>
+			<ProfileActivityAndStatusCards />
 			<Box mx={2}>
 				<FriendsList />
 			</Box>

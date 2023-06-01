@@ -16,7 +16,7 @@ export const FriendsList = ({}) => {
 	if (!friendslist) return null
 
 	return (
-		<Box flex={1} width={'100%'} height={'100%'} flexDirection={'column'}>
+		<Box mx={1} flex={1}  height={'100%'} flexDirection={'column'}>
 			{friendslist.length ? (
 				<>
 					<HStack justifyContent={'flex-start'} flexWrap={'wrap'}>
@@ -24,7 +24,7 @@ export const FriendsList = ({}) => {
 							return <CardFullImageNameEmoji key={index} cardWidth={cardWidth} item={item} />
 						})}
 					</HStack>
-					<Divider style={{ marginVertical: 20 }} />
+					<Divider style={{ marginVertical: 10 }} />
 				</>
 			) : (
 				<FriendsListEmptyState />

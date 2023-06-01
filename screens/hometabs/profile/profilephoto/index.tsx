@@ -23,7 +23,7 @@ export default function ProfilePhoto({ photo }: Props) {
 				bg: 'light.100',
 			}}
 			_dark={{
-				bg: 'dark.50',
+				bg: 'dark.100',
 			}}
 			h={100}
 			w={100}

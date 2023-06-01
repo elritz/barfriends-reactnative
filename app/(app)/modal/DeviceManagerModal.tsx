@@ -77,14 +77,14 @@ export default function DeviceManagerModal() {
 			<View style={{ flex: 1 }}>
 				{loading ? (
 					<VStack my={5} space={2} rounded='md' px={2}>
-						{[...Array(3)].map(item => {
-							return <Skeleton rounded='xl' h='80px' w={'100%'} />
+						{[...Array(3)].map((item, index) => {
+							return <Skeleton key={index} rounded='xl' h='80px' w={'100%'} />
 						})}
 					</VStack>
 				) : (
-					<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
+					<>
 						{profiles.length ? (
-							<>
+							<ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
 								{profiles?.map((item, index) => {
 									if (item.Profile?.ProfileType === ProfileType.Guest) {
 										return null
@@ -100,9 +100,9 @@ export default function DeviceManagerModal() {
 										)
 									}
 								})}
-							</>
+							</ScrollView>
 						) : null}
-					</ScrollView>
+					</>
 				)}
 			</View>
 		</SafeAreaView>

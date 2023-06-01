@@ -1,37 +1,6 @@
-import { useReactiveVar } from '@apollo/client'
-import {
-	AntDesign,
-	Entypo,
-	FontAwesome,
-	FontAwesome5,
-	Ionicons,
-	MaterialIcons,
-} from '@expo/vector-icons'
-import { Maybe, Photo } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { Ionicons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
-import {
-	Box,
-	View,
-	Button,
-	Center,
-	Heading,
-	Icon,
-	Text,
-	useTheme,
-	IconButton,
-	Pressable,
-	HStack,
-	useColorMode,
-} from 'native-base'
-import 'native-base'
-import { StyleSheet, useWindowDimensions } from 'react-native'
-
-type Props = {
-	photo: Maybe<Photo> | undefined
-}
-
-const size = 70
+import { Box, Center, Icon, Pressable } from 'native-base'
 
 export default function ProfilePhotoEmptyState() {
 	const pickImage = async () => {
@@ -56,7 +25,7 @@ export default function ProfilePhotoEmptyState() {
 			w={120}
 			h={120}
 			_light={{
-				bg: 'light.100',
+				bg: 'light.300',
 			}}
 			_dark={{
 				bg: 'dark.50',
@@ -67,7 +36,7 @@ export default function ProfilePhotoEmptyState() {
 				<Center>
 					<Icon
 						_light={{
-							color: 'light.300',
+							color: 'light.50',
 						}}
 						_dark={{
 							color: 'dark.300',
@@ -79,12 +48,12 @@ export default function ProfilePhotoEmptyState() {
 				</Center>
 				<Box
 					_light={{
-						borderColor: 'light.900',
+						borderColor: 'light.700',
 					}}
 					_dark={{
-						borderColor: 'dark.900',
+						borderColor: 'dark.700',
 					}}
-					borderWidth={1}
+					borderWidth={2}
 					borderRadius={'full'}
 					alignItems={'center'}
 					justifyContent={'center'}
@@ -94,10 +63,10 @@ export default function ProfilePhotoEmptyState() {
 				>
 					<Icon
 						_light={{
-							color: 'light.900',
+							color: 'light.700',
 						}}
 						_dark={{
-							color: 'dark.900',
+							color: 'dark.700',
 						}}
 						borderWidth={1}
 						borderRadius={'full'}

@@ -13546,9 +13546,9 @@ type Query {
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion!
   getAllCitiesByState(countryIsoCode: String!, stateIsoCode: String!): OrganizedCityResponseObject!
   getAllCountries: [CountryResponseObject!]!
-  getAllInterrests: [Json!]!
   getAllStatesByCountry(countryIsoCode: String!): [StateResponseObject!]!
   getAllThemes: [Theme!]!
+  getInterests: [Category!]!
   getLiveVenueTotals(profileIdVenue: String): LiveVenueTotals!
   getNotifications: NotificationResponse!
   getRelationshipFriendRequestStatus(profileId: String!): NotificationFriendRequestStatusResponse!

@@ -17,7 +17,7 @@ import SearchAreaHeader from '@screens/hometabs/venuesfeed/components/SearchArea
 import VenueFeedSignupCard from '@screens/hometabs/venuesfeed/components/VenueFeedSignupCard'
 import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
-import { useRouter } from 'expo-router'
+import { Redirect, useRouter } from 'expo-router'
 import {
 	View,
 	Box,
@@ -117,6 +117,7 @@ export default () => {
 	const listFooterComponent = () => {
 		return null
 	}
+
 
 	if (!data?.venuesNearby || loading) {
 		return (

@@ -2,13 +2,14 @@ import { useReactiveVar } from '@apollo/client'
 import { Ionicons } from '@expo/vector-icons'
 import { useProfileQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useRouter } from 'expo-router'
 import { Badge, Box, HStack, Heading, Icon, Text, VStack } from 'native-base'
 import { ScrollView, Pressable } from 'react-native'
 
 interface EditableOptionsScreenProps {}
-const interests = ['🐶 Dog lover', '🍻 Drinking', '🎤 Singing', '🔥 Athletics', '🏓 Ping pong']
 
 export default ({}: EditableOptionsScreenProps) => {
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rIdentifiableInformation = rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation
 	const date = new Date(
@@ -65,14 +66,9 @@ export default ({}: EditableOptionsScreenProps) => {
 		>
 			<RoundedListItem
 				onPress={() => {
-					// navigation.dispatch(
-					// 	StackActions.push('ProfileSettingsNavigator', {
-					// 		screen: 'ProfileEditorStack',
-					// 		params: {
-					// 			screen: 'NamesScreen',
-					// 		},
-					// 	}),
-					// )
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/fullname',
+					})
 				}}
 				title='Full name'
 			>
@@ -87,17 +83,11 @@ export default ({}: EditableOptionsScreenProps) => {
 				)}
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'UsernameScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/username',
+					})
+				}
 				title='Username'
 			>
 				<Text fontSize={'xl'}>{rIdentifiableInformation?.username}</Text>
@@ -111,17 +101,11 @@ export default ({}: EditableOptionsScreenProps) => {
 				</HStack>
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'DescriptionScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/description',
+					})
+				}
 				title='About me'
 			>
 				<Text fontSize={'xl'} numberOfLines={4} ellipsizeMode='tail'>
@@ -131,70 +115,55 @@ export default ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'InterestScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/interests',
+					})
+				}
 				title={'My interests'}
 			>
 				<Box>
-					<Pressable
-					// onPress={
-					// 	() =>
-					// 	// navigation.dispatch(
-					// 	// 	StackActions.push('ProfileSettingsNavigator', {
-					// 	// 		screen: 'ProfileEditorStack',
-					// 	// 		params: {
-					// 	// 			screen: 'InterestScreen',
-					// 	// 		},
-					// 	// 	}),
-					// 	// )
-					// }
-					>
-						<VStack flexDir={'row'} flexWrap={'wrap'}>
-							{interests.map((interest, index) => (
-								<Badge
-									key={interest}
-									borderRadius={'md'}
-									bg={'primary.500'}
-									_text={{
-										fontWeight: '400',
-										fontSize: 'md',
-										color: 'text.100',
-									}}
-									px={2}
-									py={1}
-									m={2}
-								>
-									{interest}
-								</Badge>
-							))}
-						</VStack>
-					</Pressable>
+					<VStack flexDir={'row'} flexWrap={'wrap'}>
+						{rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.Tags.length ? (
+							<>
+								{rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.Tags.map((item, index) => (
+									<Badge
+										key={item.id}
+										borderRadius={'md'}
+										bg={'primary.500'}
+										_text={{
+											fontWeight: '400',
+											fontSize: 'md',
+											color: 'text.100',
+										}}
+										px={2}
+										py={1}
+										m={2}
+									>
+										{item.emoji}
+										{item.name}
+									</Badge>
+								))}
+							</>
+						) : (
+							<Box>
+								<Text fontSize={'xl'} numberOfLines={1}>
+									Select your interests
+								</Text>
+							</Box>
+						)}
+					</VStack>
 				</Box>
 			</RoundedListItem>
 			<Heading fontSize={'lg'} py={2}>
 				MY BASIC INFO
 			</Heading>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'GenderScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/gender',
+					})
+				}
 				title={`I am a ...`}
 			>
 				<Text fontSize={'xl'}>
@@ -203,17 +172,11 @@ export default ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'LookingForScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/lookingfor',
+					})
+				}
 				title={`I'm looking for a ...`}
 			>
 				<Text fontSize={'xl'} numberOfLines={1}>
@@ -222,49 +185,31 @@ export default ({}: EditableOptionsScreenProps) => {
 				</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'StatusScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
-				title={`Relationship status`}
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/relationship',
+					})
+				}
+				title={`Relationship`}
 			>
 				<Text fontSize={'xl'}>Are you in a relationship</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'HometownScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/hometown',
+					})
+				}
 				title={`Add your hometown`}
 			>
 				<Text fontSize={'xl'}>add your hometown</Text>
 			</RoundedListItem>
 			<RoundedListItem
-				// onPress={
-				// 	() =>
-				// 	// navigation.dispatch(
-				// 	// 	StackActions.push('ProfileSettingsNavigator', {
-				// 	// 		screen: 'ProfileEditorStack',
-				// 	// 		params: {
-				// 	// 			screen: 'CurentPlaceScreen',
-				// 	// 		},
-				// 	// 	}),
-				// 	// )
-				// }
+				onPress={() =>
+					router.push({
+						pathname: '(app)/settings/profilesettings/personal/currenttown',
+					})
+				}
 				title={'Add your city'}
 			>
 				<Text fontSize={'xl'}>Rep your city</Text>

@@ -34,7 +34,6 @@ export default () => {
 				// console.log('data REFRESH AUTHORIZATION ============>', JSON.stringify(data, null, 2))
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as AuthorizationDeviceManager
-					console.log('🚀 ~ file: index.tsx:40 ~ deviceManager:', JSON.stringify(deviceManager, null, 4))
 					AuthorizationReactiveVar(deviceManager)
 				}
 			},
@@ -43,20 +42,14 @@ export default () => {
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
 			onError: error => {
-				console.log('🚀 ~ file: index.tsx:41 ~ error:', error)
-
-				// router.push({
-				// 	pathname: '(error)',
-				// })
+				router.push({
+					pathname: '(error)',
+				})
 			},
 
 			onCompleted: async data => {
 				if (data?.createGuestProfile.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.createGuestProfile as AuthorizationDeviceManager
-					console.log(
-						'🚀 ~ file: index.tsx:60 ~ deviceManager:',
-						deviceManager.DeviceProfile?.ProfileType,
-					)
 					if (deviceManager) {
 						AuthorizationReactiveVar(deviceManager)
 					}
@@ -100,5 +93,5 @@ export default () => {
 	}
 
 	return <Redirect href={'(app)/hometab'} />
-	// return <Redirect href={'(app)/credential/logincredentialstack/loginpassword?profileid="RAMDPM'} />
+	// return <Redirect href={'(app)/settings/profilesettings/personal/interests'} />
 }

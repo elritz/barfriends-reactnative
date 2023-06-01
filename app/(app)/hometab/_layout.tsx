@@ -94,7 +94,7 @@ export default () => {
 				options={{
 					href:
 						rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'PERSONAL'
-							? '(app)/hometab/tonight'
+							? null // '(app)/hometab/tonight'
 							: null,
 					headerShown: false,
 					tabBarLabel: 'tonight',
@@ -123,6 +123,7 @@ export default () => {
 				<Tabs.Screen
 					name='developmentstack'
 					options={{
+						href: null,
 						headerShown: false,
 						tabBarLabel: 'development',
 						tabBarShowLabel: false,

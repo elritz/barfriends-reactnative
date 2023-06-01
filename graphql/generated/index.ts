@@ -13988,9 +13988,9 @@ export type Query = {
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion;
   getAllCitiesByState: OrganizedCityResponseObject;
   getAllCountries: Array<CountryResponseObject>;
-  getAllInterrests: Array<Scalars['Json']>;
   getAllStatesByCountry: Array<StateResponseObject>;
   getAllThemes: Array<Theme>;
+  getInterests: Array<Category>;
   getLiveVenueTotals: LiveVenueTotals;
   getNotifications: NotificationResponse;
   getRelationshipFriendRequestStatus: NotificationFriendRequestStatusResponse;
@@ -18416,6 +18416,19 @@ export type GetSecureFriendQrCodeDataQueryVariables = Exact<{ [key: string]: nev
 
 export type GetSecureFriendQrCodeDataQuery = { __typename?: 'Query', getSecureFriendQRCodeData: string };
 
+export type CurrentVenueQueryVariables = Exact<{
+  where?: InputMaybe<ProfileWhereInput>;
+  currentLocationCoords?: InputMaybe<CoordsInput>;
+}>;
+
+
+export type CurrentVenueQuery = { __typename?: 'Query', currentVenue?: { __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null } | null };
+
+export type GetInterestsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetInterestsQuery = { __typename?: 'Query', getInterests: Array<{ __typename?: 'Category', id: string, name: string, Tags: Array<{ __typename?: 'Tag', categoryId?: string | null, emoji?: string | null, id: string, name: string }> }> };
+
 export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -18451,14 +18464,6 @@ export type RemovePersonalJoinsVenueMutationVariables = Exact<{
 
 
 export type RemovePersonalJoinsVenueMutation = { __typename?: 'Mutation', removePersonalJoinsVenue: { __typename?: 'Profile', id: string, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string }, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string } } } | null } | null } };
-
-export type CurrentVenueQueryVariables = Exact<{
-  where?: InputMaybe<ProfileWhereInput>;
-  currentLocationCoords?: InputMaybe<CoordsInput>;
-}>;
-
-
-export type CurrentVenueQuery = { __typename?: 'Query', currentVenue?: { __typename: 'ProfileVenue', id: string, ProfileType: ProfileType, distanceInM?: number | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null, nickname?: string | null, firstname?: string | null, lastname?: string | null, gender?: string | null, lookfor?: string | null, birthday?: any | null, hometown?: string | null, currenttown?: string | null } | null, DetailInformation?: { __typename?: 'DetailInformation', id: string, capacity?: number | null, description?: string | null, established?: any | null, profileId: string, Tags: Array<{ __typename?: 'Tag', id: string, emoji?: string | null, name: string }> } | null, photos: Array<{ __typename?: 'Photo', id: string, url: string, type?: PhotoType | null, position?: number | null, active: boolean, ratio?: string | null, blurhash?: string | null, createdAt: any, updatedAt: any }>, Venue?: { __typename?: 'Venue', id: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string, createdAt: any, updatedAt: any }, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string, Out: Array<{ __typename?: 'Out', id: string, venueProfileId: string, personalProfileId: string }> } | null, Location?: { __typename?: 'Location', id: string, h3Index: string, createdAt: any, updatedAt: any, Geometry?: { __typename?: 'Geometry', id: string, h3Index15?: string | null, latitude: number, longitude: number } | null, plusCode?: { __typename?: 'PluseCode', compoundCode?: string | null, globalCode: string, id: string } | null, Address?: { __typename?: 'Address', id: string, formattedAddress: string, AddressComponents: Array<{ __typename?: 'AddressComponent', id: string, short_name: string, long_name: string, types: Array<string>, h3Index15?: string | null }> } | null } | null } | null } | null };
 
 export type GetLiveVenueTotalsQueryVariables = Exact<{
   profileIdVenue: Scalars['String'];
@@ -20128,6 +20133,83 @@ export function useGetSecureFriendQrCodeDataLazyQuery(baseOptions?: Apollo.LazyQ
 export type GetSecureFriendQrCodeDataQueryHookResult = ReturnType<typeof useGetSecureFriendQrCodeDataQuery>;
 export type GetSecureFriendQrCodeDataLazyQueryHookResult = ReturnType<typeof useGetSecureFriendQrCodeDataLazyQuery>;
 export type GetSecureFriendQrCodeDataQueryResult = Apollo.QueryResult<GetSecureFriendQrCodeDataQuery, GetSecureFriendQrCodeDataQueryVariables>;
+export const CurrentVenueDocument = gql`
+    query currentVenue($where: ProfileWhereInput, $currentLocationCoords: CoordsInput) {
+  currentVenue(where: $where, currentLocationCoords: $currentLocationCoords) {
+    ...PROFILE_VENUES_FRAGMENT
+  }
+}
+    ${Profile_Venues_FragmentFragmentDoc}`;
+
+/**
+ * __useCurrentVenueQuery__
+ *
+ * To run a query within a React component, call `useCurrentVenueQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentVenueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentVenueQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      currentLocationCoords: // value for 'currentLocationCoords'
+ *   },
+ * });
+ */
+export function useCurrentVenueQuery(baseOptions?: Apollo.QueryHookOptions<CurrentVenueQuery, CurrentVenueQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentVenueQuery, CurrentVenueQueryVariables>(CurrentVenueDocument, options);
+      }
+export function useCurrentVenueLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentVenueQuery, CurrentVenueQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentVenueQuery, CurrentVenueQueryVariables>(CurrentVenueDocument, options);
+        }
+export type CurrentVenueQueryHookResult = ReturnType<typeof useCurrentVenueQuery>;
+export type CurrentVenueLazyQueryHookResult = ReturnType<typeof useCurrentVenueLazyQuery>;
+export type CurrentVenueQueryResult = Apollo.QueryResult<CurrentVenueQuery, CurrentVenueQueryVariables>;
+export const GetInterestsDocument = gql`
+    query getInterests {
+  getInterests {
+    Tags {
+      categoryId
+      emoji
+      id
+      name
+    }
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetInterestsQuery__
+ *
+ * To run a query within a React component, call `useGetInterestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInterestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInterestsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetInterestsQuery(baseOptions?: Apollo.QueryHookOptions<GetInterestsQuery, GetInterestsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetInterestsQuery, GetInterestsQueryVariables>(GetInterestsDocument, options);
+      }
+export function useGetInterestsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetInterestsQuery, GetInterestsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetInterestsQuery, GetInterestsQueryVariables>(GetInterestsDocument, options);
+        }
+export type GetInterestsQueryHookResult = ReturnType<typeof useGetInterestsQuery>;
+export type GetInterestsLazyQueryHookResult = ReturnType<typeof useGetInterestsLazyQuery>;
+export type GetInterestsQueryResult = Apollo.QueryResult<GetInterestsQuery, GetInterestsQueryVariables>;
 export const GetNotificationsDocument = gql`
     query getNotifications {
   getNotifications {
@@ -20435,42 +20517,6 @@ export function useRemovePersonalJoinsVenueMutation(baseOptions?: Apollo.Mutatio
 export type RemovePersonalJoinsVenueMutationHookResult = ReturnType<typeof useRemovePersonalJoinsVenueMutation>;
 export type RemovePersonalJoinsVenueMutationResult = Apollo.MutationResult<RemovePersonalJoinsVenueMutation>;
 export type RemovePersonalJoinsVenueMutationOptions = Apollo.BaseMutationOptions<RemovePersonalJoinsVenueMutation, RemovePersonalJoinsVenueMutationVariables>;
-export const CurrentVenueDocument = gql`
-    query currentVenue($where: ProfileWhereInput, $currentLocationCoords: CoordsInput) {
-  currentVenue(where: $where, currentLocationCoords: $currentLocationCoords) {
-    ...PROFILE_VENUES_FRAGMENT
-  }
-}
-    ${Profile_Venues_FragmentFragmentDoc}`;
-
-/**
- * __useCurrentVenueQuery__
- *
- * To run a query within a React component, call `useCurrentVenueQuery` and pass it any options that fit your needs.
- * When your component renders, `useCurrentVenueQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCurrentVenueQuery({
- *   variables: {
- *      where: // value for 'where'
- *      currentLocationCoords: // value for 'currentLocationCoords'
- *   },
- * });
- */
-export function useCurrentVenueQuery(baseOptions?: Apollo.QueryHookOptions<CurrentVenueQuery, CurrentVenueQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CurrentVenueQuery, CurrentVenueQueryVariables>(CurrentVenueDocument, options);
-      }
-export function useCurrentVenueLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentVenueQuery, CurrentVenueQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CurrentVenueQuery, CurrentVenueQueryVariables>(CurrentVenueDocument, options);
-        }
-export type CurrentVenueQueryHookResult = ReturnType<typeof useCurrentVenueQuery>;
-export type CurrentVenueLazyQueryHookResult = ReturnType<typeof useCurrentVenueLazyQuery>;
-export type CurrentVenueQueryResult = Apollo.QueryResult<CurrentVenueQuery, CurrentVenueQueryVariables>;
 export const GetLiveVenueTotalsDocument = gql`
     query getLiveVenueTotals($profileIdVenue: String!) {
   getLiveVenueTotals(profileIdVenue: $profileIdVenue) {
