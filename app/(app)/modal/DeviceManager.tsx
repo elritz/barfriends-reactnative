@@ -15,7 +15,7 @@ import { Box, Pressable, VStack } from 'native-base'
 import { useState } from 'react'
 import { SafeAreaView, View, ScrollView } from 'react-native'
 
-export default function DeviceManagerModal() {
+export default function DeviceManager() {
 	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
 	const router = useRouter()

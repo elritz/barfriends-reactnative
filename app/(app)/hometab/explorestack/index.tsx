@@ -7,7 +7,7 @@ import ShowCaseScroll from '@screens/hometabs/explore/ShowCaseScroll'
 import { FlashList } from '@shopify/flash-list'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
-import { Box,  Pressable, Text } from 'native-base'
+import { Box, Pressable, Text } from 'native-base'
 import { View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -35,7 +35,7 @@ export default () => {
 				ListHeaderComponent={() => {
 					return <ShowCaseScroll />
 				}}
-				estimatedItemSize={7}
+				estimatedItemSize={45}
 				contentInset={{
 					bottom:
 						insets.bottom !== 0

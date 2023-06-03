@@ -16,7 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 // TODO: FN(What functionality was suppose to be here)
 
-export default function DeviceManagerModal() {
+export default function DeviceManager() {
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])

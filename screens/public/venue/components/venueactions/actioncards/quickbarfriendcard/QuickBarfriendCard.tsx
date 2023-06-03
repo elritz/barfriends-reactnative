@@ -47,7 +47,7 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 		>
 			<VStack mt={2} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
 				<Heading fontWeight={'black'} fontSize={'lg'}>
-					Quick BF
+					Quick BFS
 				</Heading>
 				{rPermissionCamera?.granted ? (
 					<>

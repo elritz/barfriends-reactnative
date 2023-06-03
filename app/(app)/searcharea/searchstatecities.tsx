@@ -107,12 +107,20 @@ export default function SearchAreaStateCities() {
 		}
 	}, [params.searchtext])
 
-	if (loading && !!stateCities?.length) {
+	if (!loading || (loading && !!stateCities?.length)) {
 		return (
-			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
-				{[...Array(20)].map(item => {
-					return <Skeleton h='50' rounded='md' my={1} startColor='coolGray.100' />
-				})}
+			<Box mx={2} flex={1} safeAreaTop>
+				<FlashList
+					data={[...Array(20)]}
+					scrollEnabled={false}
+					showsVerticalScrollIndicator={false}
+					keyExtractor={(item, index) => {
+						return index.toString()
+					}}
+					renderItem={({ index, item }) => {
+						return <Skeleton h='50' rounded='md' my={1} startColor={'coolGray.50'} />
+					}}
+				/>
 			</Box>
 		)
 	}
@@ -120,6 +128,7 @@ export default function SearchAreaStateCities() {
 	return (
 		<FlashList
 			data={stateCities}
+			scrollEnabled={true}
 			keyboardDismissMode='on-drag'
 			keyExtractor={(item, index) => {
 				return 'key' + index + item.title

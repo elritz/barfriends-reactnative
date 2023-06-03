@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const ALL_EMOJIMOODS = gql`
-	query emojimoods($where: EmojimoodWhereInput) {
-		emojimoods(where: $where) {
+	query emojimoods {
+		emojimoods {
 			id
 			colors
 			emoji

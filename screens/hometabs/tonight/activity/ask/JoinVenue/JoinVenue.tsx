@@ -1,9 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 import { useRouter } from 'expo-router'
 import { Box, Heading, Icon, IconButton } from 'native-base'
-import { Pressable, useWindowDimensions } from 'react-native'
-import styled from 'styled-components/native'
+import { Pressable } from 'react-native'
 
 const JoinVenue = ({}) => {
 	const router = useRouter()
@@ -42,8 +40,19 @@ const JoinVenue = ({}) => {
 					borderColor={'primary.500'}
 					borderWidth={3}
 				/>
-				<Heading textAlign={'center'} mt={3} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
-					Join a venue near you
+				<Heading
+					textAlign={'center'}
+					mt={3}
+					fontSize={'lg'}
+					style={{ textTransform: 'uppercase' }}
+					w={'100%'}
+					fontWeight={'900'}
+					textTransform={'uppercase'}
+				>
+					Join a venue
+				</Heading>
+				<Heading textAlign={'center'} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
+					near you
 				</Heading>
 			</Pressable>
 		</Box>

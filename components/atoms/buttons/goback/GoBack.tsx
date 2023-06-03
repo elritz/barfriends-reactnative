@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { useRouter } from 'expo-router'
 import { Pressable } from 'native-base'
 import * as React from 'react'
@@ -24,10 +23,17 @@ const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	return (
 		<Pressable
 			width={width || '100%'}
-			height={height || '100%'}
+			height={width || '100%'}
 			alignItems={'center'}
 			justifyContent={'center'}
 			onPress={() => handleOnPress()}
+			_light={{
+				bg: 'light.200',
+			}}
+			_dark={{
+				bg: 'dark.200',
+			}}
+			rounded={'full'}
 		>
 			{children}
 		</Pressable>

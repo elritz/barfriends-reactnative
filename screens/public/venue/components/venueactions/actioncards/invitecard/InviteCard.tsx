@@ -1,14 +1,20 @@
-import { Heading } from 'native-base'
+import { Box, Button, Heading } from 'native-base'
 
 export default function InviteCard() {
 	return (
-		<>
-			<Heading lineHeight={'xs'} fontSize={'md'} fontWeight={'black'} textTransform={'uppercase'}>
-				Invite!
+		<Box w={'full'} alignItems={'center'}>
+			<Heading
+				textTransform={'uppercase'}
+				lineHeight={'xs'}
+				fontSize={'lg'}
+				fontWeight={'black'}
+				mt={5}
+			>
+				Invite Friends to Bfs
 			</Heading>
-			<Heading lineHeight={'xs'} fontSize={'md'} fontWeight={'black'} textTransform={'uppercase'}>
-				Invite Friends
-			</Heading>
-		</>
+			<Button size={'md'} w={'90%'} my={3} borderRadius={'md'}>
+				Share
+			</Button>
+		</Box>
 	)
 }

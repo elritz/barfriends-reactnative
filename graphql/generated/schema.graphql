@@ -13540,7 +13540,7 @@ type Query {
   checkUsername(username: String!): Boolean!
   currentVenue(currentLocationCoords: CoordsInput, cursor: ProfileWhereUniqueInput, distinct: [ProfileScalarFieldEnum!], orderBy: [ProfileOrderByWithRelationInput!], skip: Int, take: Int, where: ProfileWhereInput): ProfileVenue
   emojimood(where: EmojimoodWhereUniqueInput!): Emojimood
-  emojimoods(cursor: EmojimoodWhereUniqueInput, distinct: [EmojimoodScalarFieldEnum!], orderBy: [EmojimoodOrderByWithRelationInput!], skip: Int, take: Int, where: EmojimoodWhereInput): [Emojimood!]!
+  emojimoods: [Emojimood!]!
   exploreSearch(search: String!): ExploreResponse!
   friendsFromContacts(contact: [ContactInput!]!): String!
   getADeviceManager: DeviceManagerDeviceProfilesResponseUnion!

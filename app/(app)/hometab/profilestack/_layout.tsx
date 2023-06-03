@@ -27,7 +27,7 @@ export default function _layout() {
 								<Pressable
 									onPress={async () => {
 										await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
-										router.push('(app)/modal/DeviceManagerModal')
+										router.push('(app)/modal/DeviceManager')
 									}}
 								>
 									<HStack ml={2} space={2} alignItems={'center'}>

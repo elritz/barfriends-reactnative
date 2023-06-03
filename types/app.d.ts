@@ -42,7 +42,7 @@ export type MessageRoomNavigatorParamList = {
 }
 
 export type ModalNavigatorParamList = {
-	DeviceManagerModal: undefined
+	DeviceManager: undefined
 	MediaLibraryModal: undefined
 	SearchAreaModalStack: NavigatorScreenParams<SearchAreaStackParamList> | undefined
 	InviteStack: NavigatorScreenParams<InviteStackParamList> | undefined

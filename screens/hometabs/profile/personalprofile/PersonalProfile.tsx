@@ -1,13 +1,17 @@
 import { FriendsList } from '../friendslist'
 import ProfilePhoto from '../profilephoto'
 import { useReactiveVar } from '@apollo/client'
+import JoinVenue from '@components/atoms/buttons/joinvenue/JoinVenue'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import ProfileActivityAndStatusCards from '@components/organisms/ProfileActivityAndStatusCards/ProfileActivityAndStatusCards'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
 import { GetNotificationsQuery, ProfileType } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Divider, Heading, Box, View } from 'native-base'
+import AddEmoji from '@screens/hometabs/tonight/activity/ask/AddEmoji/AddEmoji'
+import AddRelationship from '@screens/hometabs/tonight/activity/ask/AddRelationship/AddRelationship'
+import QuickBarfriendCard from '@screens/public/venue/components/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
+import { Divider, Heading, Box, View, HStack, VStack } from 'native-base'
 
 type Props = {
 	notifications: GetNotificationsQuery | undefined
@@ -52,7 +56,27 @@ const PersonalScreen = ({ notifications }: Props) => {
 					data={notifications?.getNotifications?.friendRequestNotifications}
 				/>
 			</Box>
-			<ProfileActivityAndStatusCards />
+			<VStack mx={3} space={2} justifyContent={'space-around'}>
+				<HStack space={2} justifyContent={'space-around'}>
+					<Box
+						flex={1}
+						h={200}
+						justifyContent={'center'}
+						alignItems={'center'}
+						rounded='lg'
+						_light={{
+							bg: 'light.100',
+						}}
+						_dark={{
+							bg: 'dark.50',
+						}}
+						px={5}
+					>
+						<QuickBarfriendCard color={'#ff7000'} showIcon={false} logosize={40} qrcodesize={140} />
+					</Box>
+					<AddRelationship />
+				</HStack>
+			</VStack>
 			<Box mx={2}>
 				<FriendsList />
 			</Box>

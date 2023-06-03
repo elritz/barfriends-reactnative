@@ -94,7 +94,7 @@ export default () => {
 				options={{
 					href:
 						rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'PERSONAL'
-							? null // '(app)/hometab/tonight'
+							? '(app)/hometab/tonight'
 							: null,
 					headerShown: false,
 					tabBarLabel: 'tonight',
