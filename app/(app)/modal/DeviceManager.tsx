@@ -78,7 +78,23 @@ export default function DeviceManager() {
 				{loading ? (
 					<VStack my={5} space={2} rounded='md' px={2}>
 						{[...Array(3)].map((item, index) => {
-							return <Skeleton key={index} rounded='xl' h='80px' w={'100%'} />
+							return (
+								<Skeleton
+									speed={0.95}
+									_light={{
+										startColor: 'coolGray.100',
+										endColor: 'coolGray.300',
+									}}
+									_dark={{
+										startColor: 'dark.200',
+										endColor: 'dark.300',
+									}}
+									key={index}
+									rounded='xl'
+									h='80px'
+									w={'100%'}
+								/>
+							)
 						})}
 					</VStack>
 				) : (

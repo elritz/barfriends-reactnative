@@ -124,7 +124,7 @@ export default () => {
 				numColumns={2}
 				onRefresh={onPullRefresh}
 				refreshing={loading}
-				estimatedItemSize={6}
+				estimatedItemSize={260}
 				data={[...Array(6)]}
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={<ListheaderComponent typename={data?.venuesNearby.__typename} />}
@@ -137,6 +137,15 @@ export default () => {
 							style={{
 								alignSelf: 'center',
 								overflow: 'hidden',
+							}}
+							speed={0.95}
+							_light={{
+								startColor: 'coolGray.100',
+								endColor: 'coolGray.300',
+							}}
+							_dark={{
+								startColor: 'dark.200',
+								endColor: 'dark.300',
 							}}
 						/>
 					)

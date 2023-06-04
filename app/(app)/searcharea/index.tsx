@@ -140,7 +140,14 @@ export default () => {
 						) : (
 							<VStack flex={1} space={2}>
 								<Heading size={'lg'}>Search area</Heading>
-				
+								<Box h={'55px'}>
+									<Text fontSize={'lg'} numberOfLines={2}>
+										{rSearchAreaVar?.useCurrentLocation
+											? 'You are currently using your devices location to show you venues nearby.'
+											: 'Use your location to automatically set your area.'}
+									</Text>
+								</Box>
+
 								<HStack space={3}>
 									{searchAreaLocation.map((item, index) => {
 										return (

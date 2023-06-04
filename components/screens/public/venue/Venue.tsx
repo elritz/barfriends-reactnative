@@ -1,8 +1,8 @@
-import Details from './details/Details'
 import PersonalAtVenue from './components/peopleatvenue/PersonalAtVenue'
 import VenueActions from './components/venueactions/VenueActions'
 import VenueHeader from './components/venueheader/VenueHeader'
 import VenueTotals from './components/venuetotals/VenueTotals'
+import Details from './details/Details'
 import { useReactiveVar } from '@apollo/client'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { useCurrentVenueQuery } from '@graphql/generated'
@@ -46,20 +46,88 @@ const VenueScreen = (props: any) => {
 			<VStack flex={1} space={2}>
 				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
 				<VStack rounded='md' px={2} space={2}>
-					<Skeleton rounded='xl' h={'30px'} width={'3/4'} />
-					<Skeleton rounded='xl' h={'30px'} width={'1/4'} />
+					<Skeleton
+						rounded='xl'
+						h={'30px'}
+						width={'3/4'}
+						speed={0.95}
+						_light={{
+							startColor: 'coolGray.100',
+							endColor: 'coolGray.300',
+						}}
+						_dark={{
+							startColor: 'dark.200',
+							endColor: 'dark.300',
+						}}
+					/>
+					<Skeleton
+						rounded='xl'
+						h={'30px'}
+						width={'1/4'}
+						speed={0.95}
+						_light={{
+							startColor: 'coolGray.100',
+							endColor: 'coolGray.300',
+						}}
+						_dark={{
+							startColor: 'dark.200',
+							endColor: 'dark.300',
+						}}
+					/>
 				</VStack>
 				<HStack rounded='md' px={2} space={2}>
 					{[...Array(2)].map(item => {
-						return <Skeleton rounded='xl' h={'220px'} width={(width - itemPadding) / numColumns} />
+						return (
+							<Skeleton
+								rounded='xl'
+								h={'220px'}
+								width={(width - itemPadding) / numColumns}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+							/>
+						)
 					})}
 				</HStack>
 				<HStack rounded='md' px={2} space={2}>
 					{[...Array(2)].map(item => {
-						return <Skeleton rounded='xl' h={'220px'} width={(width - itemPadding) / numColumns} />
+						return (
+							<Skeleton
+								rounded='xl'
+								h={'220px'}
+								width={(width - itemPadding) / numColumns}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+							/>
+						)
 					})}
 				</HStack>
-				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
+				<Skeleton
+					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
+					w={'full'}
+					speed={0.95}
+					_light={{
+						startColor: 'coolGray.100',
+						endColor: 'coolGray.300',
+					}}
+					_dark={{
+						startColor: 'dark.200',
+						endColor: 'dark.300',
+					}}
+				/>
 			</VStack>
 		)
 	}

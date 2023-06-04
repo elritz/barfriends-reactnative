@@ -28,7 +28,7 @@ export default () => {
 					numColumns={1}
 					scrollEnabled={false}
 					keyExtractor={(item, index) => index.toString()}
-					estimatedItemSize={6}
+					estimatedItemSize={35}
 					data={[...Array(6)]}
 					showsVerticalScrollIndicator={false}
 					renderItem={() => {
@@ -36,7 +36,22 @@ export default () => {
 						const randInterests = useRandomNumber(5, 15)
 						return (
 							<VStack m={2}>
-								<Skeleton h={'35'} mb={2} minW={`${randWidth}px`} maxW={`${randWidth}px`} rounded={'md'} />
+								<Skeleton
+									h={'35px'}
+									mb={2}
+									minW={`${randWidth}px`}
+									maxW={`${randWidth}px`}
+									rounded={'md'}
+									speed={0.95}
+									_light={{
+										startColor: 'coolGray.100',
+										endColor: 'coolGray.300',
+									}}
+									_dark={{
+										startColor: 'dark.200',
+										endColor: 'dark.300',
+									}}
+								/>
 								<VStack flexWrap={'wrap'} flexDir={'row'}>
 									{[...Array(randInterests)].map(item => {
 										const randWidth = useRandomNumber(40, 100)
@@ -51,6 +66,15 @@ export default () => {
 												style={{
 													alignSelf: 'center',
 													overflow: 'hidden',
+												}}
+												speed={0.95}
+												_light={{
+													startColor: 'coolGray.100',
+													endColor: 'coolGray.300',
+												}}
+												_dark={{
+													startColor: 'dark.200',
+													endColor: 'dark.300',
 												}}
 											/>
 										)
@@ -70,7 +94,7 @@ export default () => {
 			<FlashList
 				scrollEnabled
 				data={data?.getInterests}
-				estimatedItemSize={200}
+				estimatedItemSize={400}
 				keyExtractor={item => item.id.toString()}
 				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 				extraData={selectedTags}

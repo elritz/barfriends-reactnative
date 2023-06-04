@@ -28,18 +28,18 @@ export default function VenueFeedSkeletonLoadingState() {
 					w={loadingSkelHeight}
 				/> */}
 				<Skeleton
-					speed={0.25}
 					rounded='xl'
-					_dark={{
-						startColor: 'secondary.900',
-						endColor: 'secondary.800',
-					}}
-					_light={{
-						startColor: 'light.100',
-						endColor: 'light.200',
-					}}
 					h='150'
 					w={loadingSkelHeight}
+					speed={0.95}
+					_light={{
+						startColor: 'coolGray.100',
+						endColor: 'coolGray.300',
+					}}
+					_dark={{
+						startColor: 'dark.200',
+						endColor: 'dark.300',
+					}}
 				/>
 				<SkeletonVenuesHomeScreen />
 			</VStack>

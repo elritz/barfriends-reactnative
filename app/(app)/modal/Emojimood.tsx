@@ -71,6 +71,7 @@ export default function Emojimood() {
 			<Box safeAreaTop flex={1}>
 				<FlashList
 					numColumns={3}
+					estimatedItemSize={window.width / 2.5}
 					data={[...Array(21)]}
 					showsVerticalScrollIndicator={false}
 					ListHeaderComponent={() => {
@@ -81,6 +82,15 @@ export default function Emojimood() {
 								rounded={'lg'}
 								style={{
 									alignSelf: 'center',
+								}}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
 								}}
 							/>
 						)
@@ -96,6 +106,15 @@ export default function Emojimood() {
 								style={{
 									alignSelf: 'center',
 									overflow: 'hidden',
+								}}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
 								}}
 							/>
 						)

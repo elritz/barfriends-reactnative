@@ -47,20 +47,88 @@ export default (props: any) => {
 			<VStack flex={1} space={2}>
 				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
 				<VStack rounded='md' px={2} space={2}>
-					<Skeleton rounded='xl' h={'30px'} width={'3/4'} />
-					<Skeleton rounded='xl' h={'30px'} width={'1/4'} />
+					<Skeleton
+						rounded='xl'
+						h={'30px'}
+						width={'3/4'}
+						speed={0.95}
+						_light={{
+							startColor: 'coolGray.100',
+							endColor: 'coolGray.300',
+						}}
+						_dark={{
+							startColor: 'dark.200',
+							endColor: 'dark.300',
+						}}
+					/>
+					<Skeleton
+						rounded='xl'
+						h={'30px'}
+						width={'1/4'}
+						speed={0.95}
+						_light={{
+							startColor: 'coolGray.100',
+							endColor: 'coolGray.300',
+						}}
+						_dark={{
+							startColor: 'dark.200',
+							endColor: 'dark.300',
+						}}
+					/>
 				</VStack>
 				<HStack rounded='md' px={2} space={2}>
 					{[...Array(2)].map(item => {
-						return <Skeleton rounded='xl' h={'220px'} width={(width - itemPadding) / numColumns} />
+						return (
+							<Skeleton
+								rounded='xl'
+								h={'220px'}
+								width={(width - itemPadding) / numColumns}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+							/>
+						)
 					})}
 				</HStack>
 				<HStack rounded='md' px={2} space={2}>
 					{[...Array(2)].map(item => {
-						return <Skeleton rounded='xl' h={'220px'} width={(width - itemPadding) / numColumns} />
+						return (
+							<Skeleton
+								rounded='xl'
+								h={'220px'}
+								width={(width - itemPadding) / numColumns}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+							/>
+						)
 					})}
 				</HStack>
-				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
+				<Skeleton
+					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
+					w={'full'}
+					speed={0.95}
+					_light={{
+						startColor: 'coolGray.100',
+						endColor: 'coolGray.300',
+					}}
+					_dark={{
+						startColor: 'dark.200',
+						endColor: 'dark.300',
+					}}
+				/>
 			</VStack>
 		)
 	}
@@ -83,6 +151,7 @@ export default (props: any) => {
 		<FlashList
 			data={[]}
 			numColumns={2}
+			estimatedItemSize={20}
 			showsVerticalScrollIndicator={false}
 			ListHeaderComponent={
 				<VStack mb={5}>
@@ -111,7 +180,6 @@ export default (props: any) => {
 					<VenueActions key={'kol'} />
 				</VStack>
 			}
-			estimatedItemSize={20}
 			ListEmptyComponent={!loading && <HandleEmpty />}
 			ListFooterComponent={<Details tags={venueData?.DetailInformation?.Tags} />}
 			keyExtractor={item => item}

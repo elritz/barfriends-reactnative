@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import SearchCard from '@components/screens/search/components/SearchCard'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -6,7 +7,6 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import SearchCard from '@components/screens/search/components/SearchCard'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {
@@ -59,7 +59,20 @@ const SearchTextScreen = () => {
 				{[...Array(20)].map(() => {
 					return (
 						<HStack px={2} h={'60px'} w='90%'>
-							<Skeleton h='40px' w={'40px'} borderRadius={'md'} />
+							<Skeleton
+								h='40px'
+								w={'40px'}
+								borderRadius={'md'}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+							/>
 							<Skeleton.Text px='4' lines={2} />
 						</HStack>
 					)
@@ -133,6 +146,7 @@ const SearchTextScreen = () => {
 						{ title: 'Accounts', data: data.exploreSearch.people },
 						{ title: 'Venues', data: data.exploreSearch.venues },
 					]}
+					estimatedItemSize={80}
 					keyExtractor={(item, index) => {
 						return 'key' + item.title
 					}}

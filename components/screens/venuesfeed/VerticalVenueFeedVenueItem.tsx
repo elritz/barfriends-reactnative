@@ -153,6 +153,15 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 					alignSelf: 'center',
 					overflow: 'hidden',
 				}}
+				speed={0.95}
+				_light={{
+					startColor: 'coolGray.100',
+					endColor: 'coolGray.300',
+				}}
+				_dark={{
+					startColor: 'dark.200',
+					endColor: 'dark.300',
+				}}
 			/>
 		)
 	}

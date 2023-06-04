@@ -70,8 +70,24 @@ export default function SearchAreaCountryStates() {
 	if (loading) {
 		return (
 			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
-				{[...Array(20)].map(item => {
-					return <Skeleton h='50' rounded='md' my={1} startColor='coolGray.100' />
+				{[...Array(20)].map((item, index) => {
+					return (
+						<Skeleton
+							key={index}
+							h='50'
+							rounded='md'
+							my={1}
+							speed={0.95}
+							_light={{
+								startColor: 'coolGray.100',
+								endColor: 'coolGray.300',
+							}}
+							_dark={{
+								startColor: 'dark.200',
+								endColor: 'dark.300',
+							}}
+						/>
+					)
 				})}
 			</Box>
 		)
@@ -89,7 +105,7 @@ export default function SearchAreaCountryStates() {
 			ItemSeparatorComponent={() => {
 				return <Box my={1} />
 			}}
-			estimatedItemSize={200}
+			estimatedItemSize={50}
 			renderItem={({ index, item }) => {
 				return (
 					<Button

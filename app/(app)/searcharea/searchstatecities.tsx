@@ -107,18 +107,34 @@ export default function SearchAreaStateCities() {
 		}
 	}, [params.searchtext])
 
-	if (!loading || (loading && !!stateCities?.length)) {
+	if (loading || !stateCities?.length) {
 		return (
-			<Box mx={2} flex={1} safeAreaTop>
+			<Box mx={3} flex={1} safeAreaTop>
 				<FlashList
 					data={[...Array(20)]}
+					estimatedItemSize={50}
 					scrollEnabled={false}
 					showsVerticalScrollIndicator={false}
 					keyExtractor={(item, index) => {
 						return index.toString()
 					}}
 					renderItem={({ index, item }) => {
-						return <Skeleton h='50' rounded='md' my={1} startColor={'coolGray.50'} />
+						return (
+							<Skeleton
+								h='50'
+								rounded='md'
+								my={1}
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+							/>
+						)
 					}}
 				/>
 			</Box>
@@ -130,8 +146,9 @@ export default function SearchAreaStateCities() {
 			data={stateCities}
 			scrollEnabled={true}
 			keyboardDismissMode='on-drag'
+			estimatedItemSize={400}
 			keyExtractor={(item, index) => {
-				return 'key' + index + item.title
+				return ('key' + index + item.title).toString()
 			}}
 			renderItem={({ index, item }) => {
 				return (
@@ -139,9 +156,10 @@ export default function SearchAreaStateCities() {
 						{item.cities && item.cities.length > 0 ? (
 							<Box my={1}>
 								<Heading mx={3}>{item.title}</Heading>
-								{item.cities?.map(item => {
+								{item.cities?.map((item, index) => {
 									return (
 										<Button
+											key={(item.name + index).toString()}
 											_stack={{
 												paddingY: 0,
 												paddingX: 2,
@@ -223,7 +241,6 @@ export default function SearchAreaStateCities() {
 					</Box>
 				)
 			}}
-			estimatedItemSize={200}
 			ItemSeparatorComponent={() => {
 				return <Box my={1} />
 			}}

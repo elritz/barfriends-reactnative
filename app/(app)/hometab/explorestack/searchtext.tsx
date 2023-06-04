@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import SearchCard from '@components/screens/search/components/SearchCard'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -6,7 +7,6 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery, useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import SearchCard from '@components/screens/search/components/SearchCard'
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {
@@ -56,7 +56,20 @@ export default () => {
 				{[...Array(20)].map(() => {
 					return (
 						<HStack px={2} h={'60px'} w='90%'>
-							<Skeleton h='40px' w={'40px'} borderRadius={'md'} />
+							<Skeleton
+								speed={0.95}
+								_light={{
+									startColor: 'coolGray.100',
+									endColor: 'coolGray.300',
+								}}
+								_dark={{
+									startColor: 'dark.200',
+									endColor: 'dark.300',
+								}}
+								h='40px'
+								w={'40px'}
+								borderRadius={'md'}
+							/>
 							<Skeleton.Text px='4' lines={2} />
 						</HStack>
 					)

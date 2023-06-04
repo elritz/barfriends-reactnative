@@ -224,8 +224,15 @@ export default () => {
 										<Skeleton
 											m={0.27}
 											key={index}
-											startColor='secondary.900'
-											endColor={'secondary.800'}
+											speed={0.95}
+											_light={{
+												startColor: 'coolGray.100',
+												endColor: 'coolGray.300',
+											}}
+											_dark={{
+												startColor: 'dark.200',
+												endColor: 'dark.300',
+											}}
 											h={window.width / 3}
 											w={window.width / 3}
 										/>

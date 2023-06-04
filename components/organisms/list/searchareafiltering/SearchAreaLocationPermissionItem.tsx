@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as IntentLauncher from 'expo-intent-launcher'
 import { Pressable, HStack, Icon, IconButton, Text, VStack, Box } from 'native-base'
 import { Alert, Linking, Platform } from 'react-native'
@@ -14,6 +15,7 @@ import { Alert, Linking, Platform } from 'react-native'
 const SearchAreaLocationPermissionItem = () => {
 	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
 		...rSearchAreaVar,
@@ -44,13 +46,6 @@ const SearchAreaLocationPermissionItem = () => {
 
 	return (
 		<VStack>
-			<Box h={'45px'}>
-				<Text numberOfLines={2}>
-					{rSearchAreaVar?.useCurrentLocation
-						? 'You are currently using your devices location to show you venues nearby.'
-						: 'Use your location to automatically set your area.'}
-				</Text>
-			</Box>
 			<Pressable
 				onPress={async () => {
 					!rSearchAreaVar?.useCurrentLocation
@@ -68,7 +63,7 @@ const SearchAreaLocationPermissionItem = () => {
 				// isPressed={rSearchAreaVar?.useCurrentLocation}
 				rounded={'md'}
 				_light={{
-					bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'coolGray.300',
+					bg: rSearchAreaVar?.useCurrentLocation ? 'light.300' : 'light.300',
 				}}
 				_dark={{
 					bg: rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
@@ -81,21 +76,21 @@ const SearchAreaLocationPermissionItem = () => {
 						fontSize={'md'}
 						ellipsizeMode={'tail'}
 						alignSelf={'center'}
-						color={rSearchAreaVar?.useCurrentLocation ? 'white' : 'black'}
+						color={colorScheme === 'light' ? 'black' : 'white'}
 					>
 						{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 					</Text>
-					<Pressable
+					<Box
 						h={'35px'}
 						w={'35px'}
 						alignItems={'center'}
 						justifyContent={'center'}
 						rounded={'full'}
 						_light={{
-							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.200',
+							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.200',
 						}}
 						_dark={{
-							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.600' : 'light.500',
+							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.500',
 						}}
 					>
 						<Icon
@@ -110,9 +105,10 @@ const SearchAreaLocationPermissionItem = () => {
 								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
 							}}
 						/>
-					</Pressable>
+					</Box>
 				</HStack>
 			</Pressable>
+
 		</VStack>
 	)
 }
