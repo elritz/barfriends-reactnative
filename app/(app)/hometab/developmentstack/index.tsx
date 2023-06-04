@@ -514,7 +514,7 @@ export default () => {
 												bg: 'light.100',
 											}}
 											_dark={{
-												bg: 'dark.50',
+												bg: 'dark.100',
 											}}
 											borderRadius={'md'}
 											alignItems={'center'}
@@ -559,7 +559,7 @@ export default () => {
 												bg: 'light.100',
 											}}
 											_dark={{
-												bg: 'dark.50',
+												bg: 'dark.100',
 											}}
 											borderRadius={'md'}
 											alignItems={'center'}
@@ -604,7 +604,7 @@ export default () => {
 												bg: 'light.100',
 											}}
 											_dark={{
-												bg: 'dark.50',
+												bg: 'dark.100',
 											}}
 											borderRadius={'md'}
 											alignItems={'center'}

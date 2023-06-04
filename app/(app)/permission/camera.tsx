@@ -1,9 +1,9 @@
 // TODO: FN(Open camera app) ln:66
 import { useReactiveVar } from '@apollo/client'
+import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionCameraReactiveVar } from '@reactive'
-import PermissionDetailItem from '@screens/permissions/PermissionDetailItem'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import { Camera, requestCameraPermissionsAsync } from 'expo-camera'

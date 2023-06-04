@@ -6,7 +6,7 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery, useExploreSearchQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import SearchCard from '@screens/search/components/SearchCard'
+import SearchCard from '@components/screens/search/components/SearchCard'
 import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {

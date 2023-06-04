@@ -61,7 +61,7 @@ export default ({}: EditableOptionsScreenProps) => {
 					bg: 'light.100',
 				}}
 				_dark={{
-					bg: 'dark.50',
+					bg: 'dark.100',
 				}}
 				px={2}
 				py={3}
@@ -79,7 +79,7 @@ export default ({}: EditableOptionsScreenProps) => {
 				bg: 'light.100',
 			}}
 			_dark={{
-				bg: 'dark.50',
+				bg: 'dark.100',
 			}}
 			py={4}
 		>

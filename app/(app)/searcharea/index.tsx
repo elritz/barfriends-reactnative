@@ -116,7 +116,7 @@ export default () => {
 								p={5}
 								borderRadius={'md'}
 								_dark={{
-									bg: 'dark.50',
+									bg: 'dark.100',
 								}}
 							>
 								<Box alignItems={'center'} w={'100%'} my={2}>

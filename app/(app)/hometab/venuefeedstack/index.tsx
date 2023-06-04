@@ -1,5 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
-import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons'
+import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
+import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
+import VenueFeedSignupCard from '@components/screens/venuesfeed/VenueFeedSignupCard'
+import { Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
 	useUpdateComingAreaToBeNotifiedMutation,
@@ -13,9 +16,6 @@ import {
 	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
-import SearchAreaHeader from '@screens/hometabs/venuesfeed/components/SearchAreaHeader'
-import VenueFeedSignupCard from '@screens/hometabs/venuesfeed/components/VenueFeedSignupCard'
-import VerticalVenueFeedVenueItem from '@screens/hometabs/venuesfeed/components/VerticalVenueFeedVenueItem'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import { Redirect, useRouter } from 'expo-router'
 import {
@@ -117,7 +117,6 @@ export default () => {
 	const listFooterComponent = () => {
 		return null
 	}
-
 
 	if (!data?.venuesNearby || loading) {
 		return (

@@ -1,10 +1,8 @@
-import ProfileActivityAndStatusCards from '@components/organisms/ProfileActivityAndStatusCards/ProfileActivityAndStatusCards'
-import AddEmoji from '@screens/hometabs/tonight/activity/ask/AddEmoji/AddEmoji'
-import AddRelationship from '@screens/hometabs/tonight/activity/ask/AddRelationship/AddRelationship'
-import JoinVenue from '@screens/hometabs/tonight/activity/ask/JoinVenue/JoinVenue'
-import Photos from '@screens/hometabs/tonight/photos'
-import InviteCard from '@screens/public/venue/components/venueactions/actioncards/invitecard/InviteCard'
-import QuickBarfriendCard from '@screens/public/venue/components/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
+import InviteCard from '@components/screens/public/venue/venueactions/actioncards/invitecard/InviteCard'
+import QuickBarfriendCard from '@components/screens/public/venue/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
+import AddEmoji from '@components/screens/tonight/activity/ask/AddEmoji/AddEmoji'
+import JoinVenue from '@components/screens/tonight/activity/ask/JoinVenue/JoinVenue'
+import Photos from '@components/screens/tonight/photos'
 import { VStack, HStack, Box } from 'native-base'
 import { ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -32,7 +30,7 @@ export default () => {
 						<AddEmoji />
 						<JoinVenue />
 					</HStack>
-					<HStack  space={2}>
+					<HStack space={2}>
 						<Box
 							flex={1}
 							h={200}
@@ -43,7 +41,7 @@ export default () => {
 								bg: 'light.100',
 							}}
 							_dark={{
-								bg: 'dark.50',
+								bg: 'dark.100',
 							}}
 							px={5}
 						>
@@ -59,7 +57,7 @@ export default () => {
 								bg: 'light.100',
 							}}
 							_dark={{
-								bg: 'dark.50',
+								bg: 'dark.100',
 							}}
 							px={2}
 						>

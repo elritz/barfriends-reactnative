@@ -12,7 +12,7 @@ import { Pressable, HStack, Icon, IconButton, Text, VStack, Box } from 'native-b
 import { Alert, Linking, Platform } from 'react-native'
 
 const SearchAreaLocationPermissionItem = () => {
-	const rForegroundPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
+	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
@@ -23,7 +23,7 @@ const SearchAreaLocationPermissionItem = () => {
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Barfriends Location Permission',
-			capitalizeFirstLetter(rForegroundPermissionLocationVar?.status),
+			capitalizeFirstLetter(rPermissionForegroundLocationVar?.status),
 			[
 				{
 					text: 'Cancel',
@@ -54,8 +54,8 @@ const SearchAreaLocationPermissionItem = () => {
 			<Pressable
 				onPress={async () => {
 					!rSearchAreaVar?.useCurrentLocation
-						? !rForegroundPermissionLocationVar?.granted
-							? rForegroundPermissionLocationVar?.canAskAgain && !rForegroundPermissionLocationVar.granted
+						? !rPermissionForegroundLocationVar?.granted
+							? rPermissionForegroundLocationVar?.canAskAgain && !rPermissionForegroundLocationVar.granted
 								? await useSetSearchAreaWithLocation()
 								: createTwoButtonAlert()
 							: await useSetSearchAreaWithLocation()

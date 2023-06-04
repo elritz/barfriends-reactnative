@@ -1,5 +1,6 @@
 //TODO: Add notfication listener
 import { ApolloProvider, InMemoryCache } from '@apollo/client'
+import AnimatedAppLoader from '@components/screens/splash/AnimatedAppLoader'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
@@ -31,11 +32,10 @@ import {
 	PreferencePermissionNotificationReactiveVar,
 	PreferenceSystemsOfUnitsInitialState,
 	PreferenceSystemsOfUnitsReactiveVar,
+	PermissionContactsReactiveVar,
 } from '@reactive'
 import { SearchAreaReactiveVar, searchAreaInitialState } from '@reactive'
 import { ThemeReactiveVar } from '@reactive'
-import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
-// import AnimatedAppLoader from '@screens/Splashscreen/AnimatedAppLoader'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { persistCache } from 'apollo3-cache-persist'
 import { useAssets } from 'expo-asset'
@@ -77,6 +77,7 @@ export default () => {
 		const mediaLibraryPermission = await getMeidaPermissionAsync()
 		const notificationPermission = await getNotificiationPermissionAsync()
 
+		PermissionContactsReactiveVar(contactsPermission)
 		PermissionCameraReactiveVar(cameraPermission)
 		PermissionMicrophoneReactiveVar(microphonePermission)
 		PermissionForegroundLocationReactiveVar(foregroundLocationPermission)

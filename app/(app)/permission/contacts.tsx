@@ -1,17 +1,20 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
+import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
+import {
+	AntDesign,
+	FontAwesome,
+	Ionicons,
+	MaterialCommunityIcons,
+	MaterialIcons,
+} from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { PermissionContactsReactiveVar } from '@reactive'
-import PermissionDetailItem from '@screens/permissions/PermissionDetailItem'
+import { ContactsReactiveVar, PermissionContactsReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
-import * as Application from 'expo-application'
+import * as Contacts from 'expo-contacts'
 import * as Device from 'expo-device'
-import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
-import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
 import { Box, VStack, Button, Divider, Icon, Text, Heading, ScrollView } from 'native-base'
 import { useEffect, useRef } from 'react'
@@ -21,13 +24,13 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 const details = [
 	{
 		title: 'How you’ll use this',
-		detail: 'To receive messages, venue and event deals around you.',
-		iconName: 'ios-location-sharp',
-		iconType: Ionicons,
+		detail: 'To share, friend and invite to events and venues.',
+		iconName: 'contact-page',
+		iconType: MaterialIcons,
 	},
 	{
 		title: 'How we’ll use this',
-		detail: 'To create messages from you to others.',
+		detail: 'To show you your contacts.',
 		iconName: 'android-messages',
 		iconType: MaterialCommunityIcons,
 	},
@@ -45,10 +48,8 @@ export default () => {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rContactPermission = useReactiveVar(PermissionContactsReactiveVar)
-	const { finished, start, seconds, started } = useTimer2('0:2')
 
-	const [upsertDevicePushTokenMutation, { data, loading, error }] =
-		useUpsertDevicePushTokenMutation()
+	const { finished, start, seconds, started } = useTimer2('0:2')
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(
@@ -70,67 +71,38 @@ export default () => {
 		if (Platform.OS === 'ios') {
 			Linking.openURL('app-settings://')
 		} else {
-			// IntentLauncher.startActivityAsync(IntentLauncher.ActivityAction.NOTIFICATION_SETTINGS)
+			Linking.openURL('app-settings://')
 		}
 	}
 
 	const handleRequestPermission = async () => {
+		const status = await Contacts.requestPermissionsAsync()
 		if (Device.isDevice) {
-			if (Platform.OS === 'android') {
-				// Notifications.setNotificationChannelAsync('default', {
-				// 	name: 'default',
-				// 	importance: Notifications.AndroidImportance.HIGH,
-				// 	vibrationPattern: [0, 250, 250, 250],
-				// 	lightColor: '#ff6f007c',
-				// })
-			}
-
 			PermissionContactsReactiveVar(status)
-
-			if (status.granted) {
-				const devicetoken = await Notifications.getDevicePushTokenAsync()
-
-				if (Platform.OS === 'ios') {
-					const IOSenv = await Application.getIosPushNotificationServiceEnvironmentAsync()
-
-					const expoToken = await Notifications.getExpoPushTokenAsync({
-						experienceId: '@barfriends/barfriends',
-						applicationId: String(Application.applicationId),
-						development: IOSenv === 'development' ? true : false,
-					})
-
-					upsertDevicePushTokenMutation({
-						variables: {
-							appleToken: devicetoken.data,
-							expoToken: expoToken.data,
-						},
-					})
-				} else {
-					const expoToken = await Notifications.getExpoPushTokenAsync({
-						experienceId: '@barfriends/barfriends',
-						applicationId: String(Application.applicationId),
-					})
-
-					upsertDevicePushTokenMutation({
-						variables: {
-							androidToken: devicetoken.data,
-							expoToken: expoToken.data,
-						},
-					})
+			if (status.granted && status.status === 'granted') {
+				const { data } = await Contacts.getContactsAsync()
+				if (data.length) {
+					ContactsReactiveVar(data)
 				}
-			} else {
-				createTwoButtonAlert()
+				start()
 			}
 		} else {
-			Alert.alert('Must use physical device for Push Notifications')
+			createTwoButtonAlert()
 		}
 	}
 
 	useEffect(() => {
 		async function loadPermissionsAsync() {
-			const status = await Notifications.getPermissionsAsync()
+			const status = await Contacts.getPermissionsAsync()
 			try {
 				PermissionContactsReactiveVar(status)
+
+				if (status.granted && status.status === 'granted') {
+					const { data } = await Contacts.getContactsAsync()
+					if (data.length) {
+						ContactsReactiveVar(data)
+					}
+				}
 			} catch (e) {
 				console.warn(e)
 			}
@@ -147,12 +119,13 @@ export default () => {
 
 	const handleAppStateChange = async (nextAppState: any) => {
 		if (/inactive|background/.exec(appStateRef.current) && nextAppState === 'active') {
-			const status = await Notifications.getPermissionsAsync()
+			const status = await Contacts.getPermissionsAsync()
 			PermissionContactsReactiveVar(status)
 			if (status.granted && status.status === 'granted') {
-				setTimeout(() => {
-					router.back()
-				}, 2000)
+				const { data } = await Contacts.getContactsAsync()
+				if (data.length) {
+					ContactsReactiveVar(data)
+				}
 				start()
 			}
 		}
@@ -174,7 +147,7 @@ export default () => {
 					justifyContent={'center'}
 					bg={'#ff7000'}
 				>
-					<Icon as={Ionicons} color={'secondary.800'} name={'ios-notifications'} size={9} />
+					<Icon as={FontAwesome} color={'secondary.800'} name={'user'} size={9} />
 				</Box>
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
@@ -189,7 +162,7 @@ export default () => {
 					adjustsFontSizeToFit
 					numberOfLines={3}
 				>
-					Allow Barfriends to send notifications
+					Allow Barfriends access to your contacts
 				</Heading>
 			</Box>
 			<ScrollView>

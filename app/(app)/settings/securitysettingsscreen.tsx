@@ -14,7 +14,7 @@ export default () => {
 	return (
 		<View
 			_dark={{
-				bg: 'dark.50',
+				bg: 'dark.100',
 			}}
 			_light={{
 				bg: 'light.100',

@@ -1,5 +1,5 @@
+import TermsLoadingState from '@components/screens/settings/TermsLoadingState'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
-import TermsLoadingState from '@screens/credential/settings/TermsLoadingState'
 import { useContext } from 'react'
 import { SafeAreaView, ScrollView, useWindowDimensions, View } from 'react-native'
 import RenderHTML from 'react-native-render-html'

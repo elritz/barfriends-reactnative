@@ -16,6 +16,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				plugins: [
 					'expo-build-properties',
 					[
+						'expo-contacts',
+						{
+							contactsPermission: 'Allow $(PRODUCT_NAME) to access your contacts.',
+						},
+					],
+					[
 						'expo-camera',
 						{
 							cameraPermission: 'Allow $(PRODUCT_NAME) to access your camera.',
@@ -133,6 +139,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				userInterfaceStyle: 'automatic',
 				plugins: [
 					'expo-build-properties',
+					[
+						'expo-contacts',
+						{
+							contactsPermission: 'Allow $(PRODUCT_NAME) to access your contacts.',
+						},
+					],
 					'expo-localization',
 					[
 						'expo-media-library',
@@ -255,6 +267,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				plugins: [
 					'expo-build-properties',
 					'expo-localization',
+					[
+						'expo-contacts',
+						{
+							contactsPermission: 'Allow $(PRODUCT_NAME) to access your contacts.',
+						},
+					],
 					[
 						'expo-media-library',
 						{

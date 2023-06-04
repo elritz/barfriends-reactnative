@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
+import Details from '@components/screens/public/venue/details/Details'
+import PersonalAtVenue from '@components/screens/public/venue/peopleatvenue/PersonalAtVenue'
+import VenueActions from '@components/screens/public/venue/venueactions/VenueActions'
+import VenueHeader from '@components/screens/public/venue/venueheader/VenueHeader'
+import VenueTotals from '@components/screens/public/venue/venuetotals/VenueTotals'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
-import Details from '@screens/public/venue/components/details/Details'
-import PersonalAtVenue from '@screens/public/venue/components/peopleatvenue/PersonalAtVenue'
-import VenueActions from '@screens/public/venue/components/venueactions/VenueActions'
-import VenueHeader from '@screens/public/venue/components/venueheader/VenueHeader'
-import VenueTotals from '@screens/public/venue/components/venuetotals/VenueTotals'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
 import { Text, FlatList, VStack, Heading, Box, Skeleton, HStack } from 'native-base'
@@ -93,7 +93,7 @@ export default (props: any) => {
 							bg: 'light.100',
 						}}
 						_dark={{
-							bg: 'dark.50',
+							bg: 'dark.100',
 						}}
 						py={4}
 						borderBottomRadius={'lg'}

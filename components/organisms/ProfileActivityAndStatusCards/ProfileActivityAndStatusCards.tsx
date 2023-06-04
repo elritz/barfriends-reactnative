@@ -1,6 +1,6 @@
-import AddEmoji from '@screens/hometabs/tonight/activity/ask/AddEmoji/AddEmoji'
-import AddRelationship from '@screens/hometabs/tonight/activity/ask/AddRelationship/AddRelationship'
-import JoinVenue from '@screens/hometabs/tonight/activity/ask/JoinVenue/JoinVenue'
+import AddEmoji from '@components/screens/tonight/activity/ask/AddEmoji/AddEmoji'
+import AddRelationship from '@components/screens/tonight/activity/ask/AddRelationship/AddRelationship'
+import JoinVenue from '@components/screens/tonight/activity/ask/JoinVenue/JoinVenue'
 import QuickBarfriendCard from '@screens/public/venue/components/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
 import { Box, HStack, VStack } from 'native-base'
 
@@ -20,7 +20,7 @@ const ProfileActivityAndStatusCards = ({}) => {
 						bg: 'light.100',
 					}}
 					_dark={{
-						bg: 'dark.50',
+						bg: 'dark.100',
 					}}
 					px={5}
 				>

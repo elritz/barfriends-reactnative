@@ -3,7 +3,7 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
-import ShowCaseScroll from '@screens/hometabs/explore/ShowCaseScroll'
+import ShowCaseScroll from '@components/screens/explore/ShowCaseScroll'
 import { FlashList } from '@shopify/flash-list'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'

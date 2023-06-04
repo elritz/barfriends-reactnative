@@ -19,7 +19,7 @@ const CondensedVerticalFriendsNotficationsList = <T extends FriendRequestNotific
 						bg: 'light.100',
 					}}
 					_dark={{
-						bg: 'dark.50',
+						bg: 'dark.100',
 					}}
 					flex={1}
 					h={'100%'}

@@ -35,7 +35,7 @@ export default ({}: EditableOptionsScreenProps) => {
 					bg: 'light.100',
 				}}
 				_dark={{
-					bg: 'dark.50',
+					bg: 'dark.100',
 				}}
 				my={2}
 				px={2}

@@ -12,7 +12,7 @@ import { Alert, Linking, Platform } from 'react-native'
 // TODO: UX() location icon when searchArea is using Currently Location over preset
 
 const LocationPermissionItemEmptyState = () => {
-	const rForegroundPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
+	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
@@ -23,7 +23,7 @@ const LocationPermissionItemEmptyState = () => {
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Barfriends Location Permission',
-			capitalizeFirstLetter(rForegroundPermissionLocationVar?.status),
+			capitalizeFirstLetter(rPermissionForegroundLocationVar?.status),
 			[
 				{
 					text: 'Cancel',
@@ -46,8 +46,8 @@ const LocationPermissionItemEmptyState = () => {
 		<Pressable
 			onPress={async () => {
 				!rSearchAreaVar?.useCurrentLocation
-					? !rForegroundPermissionLocationVar?.granted
-						? rForegroundPermissionLocationVar?.canAskAgain && !rForegroundPermissionLocationVar.granted
+					? !rPermissionForegroundLocationVar?.granted
+						? rPermissionForegroundLocationVar?.canAskAgain && !rPermissionForegroundLocationVar.granted
 							? await useSetSearchAreaWithLocation()
 							: createTwoButtonAlert()
 						: await useSetSearchAreaWithLocation()
