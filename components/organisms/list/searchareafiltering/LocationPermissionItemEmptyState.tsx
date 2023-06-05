@@ -73,7 +73,7 @@ const LocationPermissionItemEmptyState = () => {
 					w={'100%'}
 					textAlign={'center'}
 					fontWeight={'semibold'}
-					fontSize={'md'}
+					fontSize={'lg'}
 					numberOfLines={1}
 					ellipsizeMode={'tail'}
 					alignSelf={'center'}

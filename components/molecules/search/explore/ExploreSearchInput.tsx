@@ -20,7 +20,7 @@ const ExploreSearchInput = () => {
 	const changeSearchText = (text: string) => {
 		SearchReactiveVar({
 			...rSearch,
-			searchText: text,
+			searchtext: text,
 		})
 	}
 
@@ -31,7 +31,7 @@ const ExploreSearchInput = () => {
 		router.push({
 			pathname: '(app)/hometab/searchstack/searchtext',
 			params: {
-				searchText: '',
+				searchtext: '',
 			},
 		})
 	}
@@ -40,7 +40,7 @@ const ExploreSearchInput = () => {
 		_searchInputRef?.current?.clear()
 		SearchReactiveVar({
 			...rSearch,
-			searchText: '',
+			searchtext: '',
 		})
 	}
 
@@ -63,27 +63,29 @@ const ExploreSearchInput = () => {
 			underlineColorAndroid='transparent'
 			keyboardAppearance={colorScheme}
 			InputLeftElement={
-				isSearch || rSearch?.searchText.length ? (
-					<Icon
-						as={Ionicons}
-						onPress={goBackToFeed}
-						name='arrow-back'
-						size={'md'}
-						_light={{ color: 'light.600' }}
-						_dark={{ color: 'dark.900' }}
-					/>
-				) : (
-					<Icon
-						_light={{ color: 'light.600' }}
-						_dark={{ color: 'dark.900' }}
-						as={Ionicons}
-						name='ios-search'
-						size={'md'}
-						ml={2}
-					/>
-				)
+				<>
+					{isSearch || rSearch?.searchtext?.length ? (
+						<Icon
+							as={Ionicons}
+							onPress={goBackToFeed}
+							name='arrow-back'
+							size={'md'}
+							_light={{ color: 'light.600' }}
+							_dark={{ color: 'dark.900' }}
+						/>
+					) : (
+						<Icon
+							_light={{ color: 'light.600' }}
+							_dark={{ color: 'dark.900' }}
+							as={Ionicons}
+							name='ios-search'
+							size={'md'}
+							ml={2}
+						/>
+					)}
+				</>
 			}
-			value={rSearch?.searchText}
+			value={rSearch?.searchtext}
 			onChangeText={text => changeSearchText(text)}
 			onSubmitEditing={() => {
 				router.push({

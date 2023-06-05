@@ -73,7 +73,7 @@ export default () => {
 
 	return (
 		<ScrollView mx={2} flex={1}>
-			<VStack space={4} my={4}>
+			<VStack space={3} my={4}>
 				<Box>
 					<Heading size={'lg'}>Distance</Heading>
 					<Text fontSize={'lg'}>Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away</Text>
@@ -179,7 +179,7 @@ export default () => {
 										)
 									})}
 								</HStack>
-								<Box mt={1}>
+								<Box>
 									<SearchAreaLocationPermissionItem />
 								</Box>
 							</VStack>

@@ -40,9 +40,9 @@ export default function SearchAreaHeader({ typename, city }) {
 						<Icon as={FontAwesome5} size={'lg'} name='chevron-up' mb={1} />
 					</HStack>
 					{typename === 'ComingAreaResponse' && (
-						<Text fontSize={'md'} textAlign={'center'}>
-							No venues? Show support by upvoting or notification requesting so when this area is added to
-							Barfriends we can let you know.
+						<Text fontSize={'lg'} textAlign={'center'}>
+							No venues, hamma the notification bell and we will let you know when it gets added. Upvoting
+							is huge, it lets us know where to go!
 						</Text>
 					)}
 				</VStack>

@@ -1,7 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
+import { FontAwesome5, Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Button, Heading } from 'native-base'
+import { Box, Button, Heading, Icon, IconButton } from 'native-base'
 
 export default function InviteCard() {
 	const router = useRouter()
@@ -14,19 +15,42 @@ export default function InviteCard() {
 
 	return (
 		<Box w={'full'} alignItems={'center'}>
+			<Box w={'full'} alignItems={'flex-start'}>
+				<IconButton
+					variant={'solid'}
+					borderRadius={'md'}
+					bg={'green.400'}
+					icon={
+						<Icon
+							size={30}
+							_light={{
+								color: 'light.900',
+							}}
+							_dark={{
+								color: 'dark.900',
+							}}
+							as={Ionicons}
+							name={'people'}
+						/>
+					}
+					height={57}
+					width={57}
+					alignSelf={'center'}
+				/>
+			</Box>
 			<Heading
+				mt={3}
 				textTransform={'uppercase'}
 				lineHeight={'xs'}
 				fontSize={'lg'}
 				fontWeight={'black'}
-				mt={5}
 			>
-				Invite Friends to Bfs
+				Share with friends
 			</Heading>
 
 			<Button
 				onPress={() => {
-					!rPermissionContactsVar?.granted
+					rPermissionContactsVar?.granted
 						? router.push({
 								pathname: '/public/contacts',
 						  })
@@ -39,7 +63,7 @@ export default function InviteCard() {
 				my={3}
 				borderRadius={'md'}
 			>
-				Share
+				Invite
 			</Button>
 		</Box>
 	)

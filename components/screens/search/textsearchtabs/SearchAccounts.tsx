@@ -2,7 +2,7 @@ import SearchCard from '../components/SearchCard'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
-import { Box, Center, Heading, ScrollView, Skeleton, View } from 'native-base'
+import { Box, Center, Heading, Skeleton, View } from 'native-base'
 
 export default function SearchAccounts() {
 	const params = useSearchParams()
@@ -68,9 +68,10 @@ export default function SearchAccounts() {
 	return (
 		<Box style={{ flex: 1 }}>
 			<FlashList
-			estimatedItemSize={55}
+				data={data?.exploreSearch.people}
+				estimatedItemSize={55}
 				keyExtractor={({ id }: { id: string }) => id.toString()}
-				renderItem={item => {
+				renderItem={({ index, item }) => {
 					return <SearchCard item={item} />
 				}}
 			/>

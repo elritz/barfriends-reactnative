@@ -4,7 +4,14 @@ import { useRouter } from 'expo-router'
 import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base'
 
 export default function SearchCard({ item }) {
+
+
 	const router = useRouter()
+
+	if (!item?.Profile) {
+		return null
+	}
+
 	return (
 		<Pressable
 			key={item.id}
@@ -62,10 +69,10 @@ export default function SearchCard({ item }) {
 					)}
 					<VStack ml={2}>
 						<Text fontWeight={'bold'} lineHeight={'xs'} fontSize={'md'}>
-							{item.Profile.IdentifiableInformation.fullname}
+							{item.Profile?.IdentifiableInformation.fullname}
 						</Text>
 						<Text lineHeight={'xs'} fontSize={'sm'}>
-							{item.Profile.IdentifiableInformation.username}
+							{item.Profile?.IdentifiableInformation.username}
 						</Text>
 					</VStack>
 				</HStack>

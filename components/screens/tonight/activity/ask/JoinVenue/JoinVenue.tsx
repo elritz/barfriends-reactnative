@@ -32,29 +32,40 @@ const JoinVenue = ({}) => {
 				<IconButton
 					variant={'solid'}
 					borderRadius={'md'}
-					bg={'blue.500'}
-					icon={<Icon ml={2} size={30} color={'darkBlue.800'} as={FontAwesome5} name='map-marker-alt' />}
+					bg={'blue.400'}
+					icon={
+						<Icon
+							ml={2}
+							size={30}
+							as={FontAwesome5}
+							name='map-marker-alt'
+							_light={{
+								color: 'light.900',
+							}}
+							_dark={{
+								color: 'dark.900',
+							}}
+						/>
+					}
 					height={57}
 					width={57}
 					alignSelf={'center'}
-					borderColor={'primary.500'}
-					borderWidth={3}
 				/>
-				<Heading
-					textAlign={'center'}
-					mt={3}
-					fontSize={'lg'}
-					style={{ textTransform: 'uppercase' }}
-					w={'100%'}
-					fontWeight={'900'}
-					textTransform={'uppercase'}
-				>
-					Join a venue
-				</Heading>
-				<Heading textAlign={'center'} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
-					near you
-				</Heading>
 			</Pressable>
+			<Heading
+				textAlign={'center'}
+				mt={3}
+				fontSize={'lg'}
+				style={{ textTransform: 'uppercase' }}
+				w={'100%'}
+				fontWeight={'900'}
+				textTransform={'uppercase'}
+			>
+				Find venues
+			</Heading>
+			<Heading textAlign={'center'} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
+				near you
+			</Heading>
 		</Box>
 	)
 }

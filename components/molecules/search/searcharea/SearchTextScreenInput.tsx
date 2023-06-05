@@ -49,7 +49,7 @@ const SearchTextScreenInput = () => {
 	const clearSearchInput = () => {
 		setValue('searchtext', '')
 		router.setParams({
-			searchText: '',
+			searchtext: '',
 		})
 	}
 

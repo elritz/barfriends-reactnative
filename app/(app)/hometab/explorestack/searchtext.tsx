@@ -5,13 +5,12 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
-import { useExploreSearchLazyQuery, useExploreSearchQuery } from '@graphql/generated'
+import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
+import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {
 	Box,
-	ScrollView,
 	Text,
 	Heading,
 	IconButton,
@@ -22,7 +21,12 @@ import {
 	Pressable,
 	Center,
 } from 'native-base'
+import { useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+type Item = {
+	search: string
+}
 
 export default () => {
 	const params = useSearchParams()
@@ -35,6 +39,16 @@ export default () => {
 		onError: error => {},
 	})
 
+	useEffect(() => {
+		if (params.searchtext?.length) {
+			exploreSearchQuery({
+				variables: {
+					search: String(params.searchtext),
+				},
+			})
+		}
+	}, [params.searchtext])
+
 	function getUniqueListBy(arr, key) {
 		return [...new Map(arr.map(item => [item[key], item])).values()]
 	}
@@ -46,16 +60,16 @@ export default () => {
 
 	if (loading) {
 		return (
-			<ScrollView
+			<FlashList
+				data={[...Array(20)]}
+				keyExtractor={(item, index) => index.toString()}
 				scrollEnabled={false}
 				contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
-				px={3}
-			>
-				{[...Array(20)].map(() => {
+				renderItem={item => {
 					return (
-						<HStack px={2} h={'60px'} w='90%'>
+						<HStack px={5} h={'60px'} w='90%'>
 							<Skeleton
 								speed={0.95}
 								_light={{
@@ -70,16 +84,12 @@ export default () => {
 								w={'40px'}
 								borderRadius={'md'}
 							/>
-							<Skeleton.Text px='4' lines={2} />
+							<Skeleton.Text px='4' lines={2}></Skeleton.Text>
 						</HStack>
 					)
-				})}
-			</ScrollView>
+				}}
+			/>
 		)
-	}
-
-	type Item = {
-		search: string
 	}
 
 	const PastSearchItem = (item: Item) => {
@@ -96,41 +106,31 @@ export default () => {
 					})
 				}}
 			>
-				{({ isHovered, isFocused, isPressed }) => {
-					return (
-						<HStack
-							h={'55px'}
-							w={'100%'}
-							justifyContent={'flex-start'}
-							alignItems={'center'}
-							space={3}
-							_light={{
-								bg: isPressed ? 'light.100' : 'transparent',
-							}}
-							_dark={{
-								bg: isPressed ? 'dark.100' : 'transparent',
-							}}
-							px={2}
-						>
-							<IconButton
-								variant={'outline'}
-								size={'sm'}
-								borderRadius={'md'}
-								icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
-							/>
-							<VStack>
-								<Text fontSize={'md'} fontWeight={'medium'}>
-									{item.search}
-								</Text>
-							</VStack>
-						</HStack>
-					)
-				}}
+				<HStack
+					h={'55px'}
+					w={'100%'}
+					justifyContent={'flex-start'}
+					alignItems={'center'}
+					space={3}
+					px={2}
+				>
+					<IconButton
+						variant={'outline'}
+						size={'sm'}
+						borderRadius={'md'}
+						icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
+					/>
+					<VStack>
+						<Text fontSize={'md'} fontWeight={'medium'}>
+							{item.search}
+						</Text>
+					</VStack>
+				</HStack>
 			</Pressable>
 		)
 	}
 
-	if (!params.searchtext?.length) {
+	if (!params?.searchtext?.length) {
 		return (
 			<FlashList
 				data={filteredRecentSearches as Array<Item>}
@@ -139,7 +139,7 @@ export default () => {
 				estimatedItemSize={55}
 				automaticallyAdjustContentInsets
 				automaticallyAdjustsScrollIndicatorInsets
-				contentInsetAdjustmentBehavior='automatic'
+				contentInsetAdjustmentBehavior={'automatic'}
 				contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 			/>
@@ -148,8 +148,9 @@ export default () => {
 
 	return (
 		<Box safeAreaTop flex={1}>
-			<ScrollView
+			<FlashList
 				scrollEnabled={true}
+				estimatedItemSize={40}
 				contentInset={{
 					top: insets.top + 10,
 					bottom:
@@ -160,37 +161,43 @@ export default () => {
 				automaticallyAdjustKeyboardInsets
 				automaticallyAdjustContentInsets
 				keyboardDismissMode='on-drag'
-			>
-				{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length ? (
-					<Box safeAreaTop>
-						<Center>
-							<Heading fontSize={'md'} fontWeight={'medium'}>
-								No search results for
-							</Heading>
-							<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
-						</Center>
-					</Box>
-				) : (
-					<>
-						{data?.exploreSearch.people.length && (
-							<>
-								<Heading mx={2}>Users</Heading>
-								{data?.exploreSearch.people?.map((item, index) => {
-									return <SearchCard key={index} item={item} />
-								})}
-							</>
-						)}
-						{data?.exploreSearch.venues.length && (
-							<>
-								<Heading mx={2}>Venues</Heading>
-								{data?.exploreSearch.venues?.map((item, index) => {
-									return <SearchCard key={index} item={item} />
-								})}
-							</>
-						)}
-					</>
-				)}
-			</ScrollView>
+				ListHeaderComponent={() => {
+					return (
+						<>
+							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
+								<Box safeAreaTop>
+									<Center>
+										<Heading fontSize={'md'} fontWeight={'medium'}>
+											No search results for
+										</Heading>
+										<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+									</Center>
+								</Box>
+							)}
+						</>
+					)
+				}}
+				data={[
+					{ title: 'Accounts', data: data?.exploreSearch.people },
+					{ title: 'Venues', data: data?.exploreSearch.venues },
+				]}
+				renderItem={({ item }) => {
+					return (
+						<Box>
+							{item.data && item.data.length ? (
+								<Box>
+									<Heading fontSize={'lg'} mx={2}>
+										{item.title}
+									</Heading>
+									{item.data?.map((item, index) => {
+										return <SearchCard key={index} item={item} />
+									})}
+								</Box>
+							) : null}
+						</Box>
+					)
+				}}
+			/>
 		</Box>
 	)
 }

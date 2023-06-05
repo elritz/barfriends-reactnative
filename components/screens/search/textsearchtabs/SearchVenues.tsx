@@ -66,11 +66,14 @@ export default function SearchVenues() {
 
 	return (
 		<Box style={{ flex: 1 }}>
-			<ScrollView>
-				{data?.exploreSearch.venues?.map(item => {
+			<FlashList
+				data={data?.exploreSearch.venues}
+				estimatedItemSize={55}
+				keyExtractor={({ id }: { id: string }) => id.toString()}
+				renderItem={item => {
 					return <SearchCard item={item} />
-				})}
-			</ScrollView>
+				}}
+			/>
 		</Box>
 	)
 }

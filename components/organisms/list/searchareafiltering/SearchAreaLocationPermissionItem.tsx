@@ -72,8 +72,8 @@ const SearchAreaLocationPermissionItem = () => {
 				<HStack p={3} justifyContent={'space-between'}>
 					<Text
 						textAlign={'left'}
-						fontWeight={'semibold'}
-						fontSize={'md'}
+						fontWeight={'medium'}
+						fontSize={'lg'}
 						ellipsizeMode={'tail'}
 						alignSelf={'center'}
 						color={colorScheme === 'light' ? 'black' : 'white'}
@@ -108,7 +108,6 @@ const SearchAreaLocationPermissionItem = () => {
 					</Box>
 				</HStack>
 			</Pressable>
-
 		</VStack>
 	)
 }
