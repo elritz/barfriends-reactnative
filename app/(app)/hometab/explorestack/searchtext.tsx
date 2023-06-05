@@ -64,6 +64,7 @@ export default () => {
 				data={[...Array(20)]}
 				keyExtractor={(item, index) => index.toString()}
 				scrollEnabled={false}
+				estimatedItemSize={60}
 				contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets

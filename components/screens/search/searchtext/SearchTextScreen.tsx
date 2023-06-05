@@ -244,7 +244,6 @@ const SearchTextScreen = () => {
 				automaticallyAdjustContentInsets
 				keyboardDismissMode='on-drag'
 				renderItem={({ index, item }) => {
-					console.log('🚀 ~ file: SearchTextScreen.tsx:265 ~ SearchTextScreen ~ item:', item)
 					return (
 						<Box>
 							{item.data && item.data.length ? (

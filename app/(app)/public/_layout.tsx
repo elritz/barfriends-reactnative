@@ -1,8 +1,12 @@
 // TODO: FX() Settings still needs to be done
+import GeneralInput from '@components/molecules/search/commoninput/GeneralInput'
+import SearchAreaInput from '@components/molecules/search/searcharea/SearchAreaInput'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
-import { HStack, Icon, IconButton } from 'native-base'
+import { Box, HStack, Icon, IconButton, VStack, theme } from 'native-base'
+import { Platform, StyleSheet } from 'react-native'
 
 export default () => {
 	const colorScheme = useThemeColorScheme()
@@ -28,7 +32,27 @@ export default () => {
 							/>
 						</HStack>
 					),
-					headerTitle: '',
+					animation: 'fade',
+					contentStyle: {
+						backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+					},
+					headerTransparent: true,
+					header: () => {
+						return (
+							<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
+								{Platform.OS === 'ios' ? (
+									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+								) : (
+									<Box
+										_light={{ bg: 'light.100' }}
+										_dark={{ bg: 'dark.100' }}
+										style={[StyleSheet.absoluteFill]}
+									/>
+								)}
+								<GeneralInput placeholder='Search contacts' />
+							</VStack>
+						)
+					},
 				}}
 				name={'contacts'}
 			/>

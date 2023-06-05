@@ -1,4 +1,8 @@
+// export default () => {
+// 	return <Contacts />
+// }
 import { useReactiveVar } from '@apollo/client'
+import Contacts from '@app/(app)/public/contacts'
 import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSignupCard from '@components/screens/venuesfeed/VenueFeedSignupCard'

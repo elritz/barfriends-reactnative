@@ -45,9 +45,6 @@ export default () => {
 			variables: {
 				profileId: item.id,
 			},
-			onError: error => {
-				console.log('error :>> ', error)
-			},
 			onCompleted: data => {
 				if (data?.switchDeviceProfile?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager

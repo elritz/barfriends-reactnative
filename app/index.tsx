@@ -21,7 +21,6 @@ export default () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError: async error => {
-				console.log('🚀 ~ file: index.ts========+>x:40 ~ error:', error)
 				// await secureStorageItemDelete({
 				// 	key: AUTHORIZATION,
 				// })
@@ -42,7 +41,6 @@ export default () => {
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
 			onError: error => {
-				console.log('error :>> ', error)
 				router.push({
 					pathname: '(error)',
 				})

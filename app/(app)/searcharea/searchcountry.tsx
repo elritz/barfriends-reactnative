@@ -1,16 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Feather } from '@expo/vector-icons'
 import { CountryResponseObject, useGetAllCountriesQuery } from '@graphql/generated'
 import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { Form, HorizontalCountryItemProps } from 'app/(app)/searcharea/_layout'
+import { Form } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Box, Button, HStack, Icon, Skeleton, Text } from 'native-base'
+import { Box, Button, Skeleton, Text } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FlatList, ListRenderItemInfo } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchCountryTextScreen() {
@@ -33,22 +31,34 @@ export default function SearchCountryTextScreen() {
 	})
 
 	const filterList = text => {
-		if (!params.searchtext?.length && data?.getAllCountries.length) {
-			setCountries(data.getAllCountries)
+		if (!params?.searchtext?.length && data?.getAllCountries.length) {
+			if (data.getAllCountries) {
+				setCountries(data.getAllCountries)
+			}
 		}
 
-		const filteredData = filter(data?.getAllCountries, country => {
-			return contains(country, text.toLowerCase())
+		const filteredCountriesData = filter(data?.getAllCountries, item => {
+			return contains(item, text.toLowerCase())
 		})
-		setCountries(filteredData)
+		setCountries(filteredCountriesData)
 	}
 
-	const contains = (country, query) => {
-		if (country.name.toLowerCase().includes(query)) {
+	const contains = (item, query) => {
+		if (item.name.toLowerCase().includes(query)) {
 			return true
 		}
 		return false
 	}
+
+	useEffect(() => {
+		if (params.searchtext) {
+			filterList(params.searchtext)
+		} else {
+			if (data?.getAllCountries) {
+				setCountries(data.getAllCountries)
+			}
+		}
+	}, [params.searchtext])
 
 	useEffect(() => {
 		if (params.searchtext) {

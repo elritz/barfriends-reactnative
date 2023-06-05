@@ -19,7 +19,7 @@ export default function InviteCard() {
 				<IconButton
 					variant={'solid'}
 					borderRadius={'md'}
-					bg={'green.400'}
+					bg={'red.400'}
 					icon={
 						<Icon
 							size={30}

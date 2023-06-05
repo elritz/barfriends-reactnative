@@ -79,7 +79,6 @@ export default () => {
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
 			onCompleted: data => {
-				console.log('data :>> ', data);
 				if (data.switchDeviceProfile.__typename == 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
@@ -93,11 +92,9 @@ export default () => {
 	const [loginPasswordQuery, { data: LPData, loading: LPLoading, error: LPError }] =
 		useLoginPasswordLazyQuery({
 			onCompleted: data => {
-				console.log('data.loginPassword :>> ', data.loginPassword)
 				if (!data.loginPassword) {
 					setError('password', { type: 'validate', message: 'Incorrect password' })
 				} else {
-					console.log('params.profileid :>> ', params.profileid);
 					switchDeviceProfileMutation({
 						variables: {
 							profileId: String(params.profileid),

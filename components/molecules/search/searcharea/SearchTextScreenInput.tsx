@@ -61,11 +61,6 @@ const SearchTextScreenInput = () => {
 		})
 	}
 
-	const changeSearchText = (text: string) => {
-		setValue('searchtext', text)
-		router.setParams({})
-	}
-
 	const debouncedSearchResults = useDebounce(watch().searchtext, 700)
 
 	useMemo(() => {
@@ -84,7 +79,7 @@ const SearchTextScreenInput = () => {
 	}
 
 	return (
-		<Box h={SEARCH_BAR_HEIGHT}>
+		<Box h={`${SEARCH_BAR_HEIGHT}px`}>
 			<HStack alignItems={'center'}>
 				<IconButton
 					isFocusVisible={false}
@@ -102,15 +97,12 @@ const SearchTextScreenInput = () => {
 							as={Ionicons}
 							size={'xl'}
 							name='arrow-back'
-							_light={{ color: 'light.400' }}
+							_light={{ color: 'light.600' }}
 							_dark={{ color: 'dark.400' }}
-							ml={2}
-							style={{
-								width: 35,
-								height: 35,
-							}}
 						/>
 					}
+					w={'50px'}
+					h={45}
 					onPress={goBack}
 				/>
 				<Controller
@@ -118,68 +110,32 @@ const SearchTextScreenInput = () => {
 					name='searchtext'
 					render={({ field: { value, onChange } }) => (
 						<Input
-							variant={'filled'}
-							_light={{ bg: 'light.200' }}
-							_dark={{ bg: 'dark.200' }}
+							variant={'unstyled'}
+							_light={{ bgColor: 'light.200' }}
+							_dark={{ bgColor: 'dark.200' }}
 							flex={1}
 							mr={2}
 							rounded={'lg'}
 							h={SEARCH_BAR_HEIGHT}
-							keyboardAppearance={colorScheme}
-							autoCapitalize={'none'}
-							placeholder='Search'
+							_input={{
+								fontSize: 'lg',
+							}}
 							autoFocus
-							placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
-							value={value}
-							onChangeText={text => changeSearchText(text)}
+							onChangeText={onChange}
+							keyboardAppearance={colorScheme}
+							placeholder={props.placeholder}
 							returnKeyType='search'
 							underlineColorAndroid='transparent'
-							onSubmitEditing={handleSearchSubmitEditting}
-							onPressIn={() => {
-								if (segments[3] !== 'searchtext') {
-									router.push({
-										pathname: '(app)/hometab/searchstack?HELLO',
-										params: { searchtext: value },
-									})
-								}
-							}}
+							placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
 							InputLeftElement={
 								<Icon
-									_light={{ color: 'light.600' }}
-									_dark={{ color: 'dark.400' }}
 									as={Ionicons}
+									_light={{ color: 'light.600' }}
+									_dark={{ color: 'dark.900' }}
 									name='ios-search'
 									size={'md'}
 									ml={2}
 								/>
-							}
-							rightElement={
-								<HStack alignItems={'center'}>
-									{value.length ? (
-										<IconButton
-											variant={'ghost'}
-											_hover={{
-												bg: 'transparent',
-											}}
-											_focus={{
-												bg: 'transparent',
-											}}
-											icon={<Icon as={Ionicons} name='close-circle' />}
-											isDisabled={!value.length}
-											onPress={clearSearchInput}
-											shadow={'2'}
-										/>
-									) : null}
-									<Button
-										onPress={() => {
-											clearSearchInput()
-											router.back()
-										}}
-										variant={'ghost'}
-									>
-										<Text>Cancel</Text>
-									</Button>
-								</HStack>
 							}
 						/>
 					)}

@@ -59,10 +59,8 @@ export default function Emojimood() {
 		error: emojiError,
 	} = useEmojimoodsQuery({
 		onError: error => {
-			console.log('error :>> ', error)
 		},
 		onCompleted: data => {
-			console.log('data :>> ', data)
 		},
 	})
 
