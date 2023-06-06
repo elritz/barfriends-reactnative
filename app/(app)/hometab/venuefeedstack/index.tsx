@@ -1,11 +1,11 @@
-// export default () => {
-// 	return <Contacts />
-// }
 import { useReactiveVar } from '@apollo/client'
-import Contacts from '@app/(app)/public/contacts'
 import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSignupCard from '@components/screens/venuesfeed/VenueFeedSignupCard'
+import {
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+} from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
@@ -21,31 +21,23 @@ import {
 	SearchAreaReactiveVar,
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
-import { Redirect, useRouter } from 'expo-router'
-import {
-	View,
-	Box,
-	VStack,
-	HStack,
-	Text,
-	ScrollView,
-	Icon,
-	Pressable,
-	Skeleton,
-	Heading,
-} from 'native-base'
+import { useRouter } from 'expo-router'
+import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
 import { useEffect } from 'react'
 import { Dimensions } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const router = useRouter()
+	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 	const width = Dimensions.get('window').width / 2.15
+
 	const [
 		updateH6VenueRecommendationVoteMutation,
 		{ data: UVRData, loading: UVRLoading, error: UVRError },
@@ -286,6 +278,13 @@ export default () => {
 				estimatedItemSize={100}
 				scrollEnabled
 				// columnWrapperStyle={{ justifyContent: 'space-around' }}
+				contentInset={{
+					top: insets.top + 10,
+					bottom:
+						insets.bottom !== 0
+							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+				}}
 				data={data?.venuesNearby.venuesNearby}
 				renderItem={({ item, index, columnIndex }) => (
 					<VerticalVenueFeedVenueItem

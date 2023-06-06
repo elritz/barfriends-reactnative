@@ -16,7 +16,6 @@ export default function JoinVenue() {
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: String(params.profileid),
-				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
 			onCompleted: async data => {},
 			refetchQueries: [

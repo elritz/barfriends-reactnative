@@ -1,26 +1,17 @@
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
-	ProfileType,
 	useAuthorizedProfilesQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter, useSearchParams } from 'expo-router'
-import { Heading, Text } from 'native-base'
-import { useContext, useState } from 'react'
+import { Box, Heading, Text } from 'native-base'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
 	const router = useRouter()
 	const params = useSearchParams()
-	const themeContext = useContext(ThemeContext)
-	const [selectedProfile, setSelectedProfile] = useState({
-		profileid: String,
-		photo: String,
-		username: String,
-	})
 
 	const { data, loading, error } = useAuthorizedProfilesQuery({
 		skip: !params.authenticator && !params.authenticator,
@@ -70,9 +61,9 @@ export default () => {
 
 	if (data?.authorizedProfiles?.__typename === 'Error') {
 		return (
-			<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
+			<Box safeAreaTop>
 				<Heading fontSize={'xl'}>Error finding profiles</Heading>
-			</View>
+			</Box>
 		)
 	}
 
@@ -94,7 +85,7 @@ export default () => {
 
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
-				<View style={[{ backgroundColor: themeContext.palette.primary.background.default, top: 0 }]}>
+				<View style={{ top: 0 }}>
 					<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
 						Your profiles
 					</Text>

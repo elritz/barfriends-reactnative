@@ -24,7 +24,6 @@ export default function TotalCard() {
 		{ data: APTVData, loading: APTVLoading, error: APTVError },
 	] = useAddPersonalTotalsVenueMutation({
 		variables: {
-			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: String(params.profileid),
 		},
 		onCompleted: async data => {
@@ -73,7 +72,6 @@ export default function TotalCard() {
 		{ data: RPTVData, loading: RPTVLoading, error: RPTVError },
 	] = useRemovePersonalTotalsVenueMutation({
 		variables: {
-			profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			profileIdVenue: String(params.profileid),
 		},
 		onCompleted: async data => {

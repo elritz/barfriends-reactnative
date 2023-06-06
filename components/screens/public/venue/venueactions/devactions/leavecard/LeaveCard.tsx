@@ -42,6 +42,7 @@ export default function LeaveCard() {
 			},
 			onCompleted: async data => {
 				if (data.removePersonalJoinsVenue) {
+					setIsJoined(false)
 					const profile = data.removePersonalJoinsVenue as Profile
 					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 					const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile

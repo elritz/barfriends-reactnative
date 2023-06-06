@@ -35,7 +35,7 @@ export default function SearchCard({ item }) {
 							style={{
 								height: 45,
 								width: 45,
-								borderRadius: 15,
+								borderRadius: 8,
 							}}
 							placeholder={item.Profile?.photos[0]?.blurhash}
 							source={{ uri: item.Profile?.photos[0]?.url }}
@@ -68,7 +68,7 @@ export default function SearchCard({ item }) {
 						</Box>
 					)}
 					<VStack ml={2}>
-						<Text fontWeight={'bold'} lineHeight={'xs'} fontSize={'md'}>
+						<Text fontWeight={'medium'} textTransform={'capitalize'} lineHeight={'xs'} fontSize={'lg'}>
 							{item.Profile?.IdentifiableInformation.fullname}
 						</Text>
 						<Text lineHeight={'xs'} fontSize={'sm'}>

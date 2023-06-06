@@ -33,9 +33,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 				{item?.profilePhoto ? (
 					<Image
 						source={{ uri: item.profilePhoto.url }}
-						style={{ width: 40, height: 40 }}
-						minW={40}
-						minH={40}
+						style={{ width: 50, height: 50 }}
 						borderRadius={'md'}
 						alt={'Profile photo'}
 					/>

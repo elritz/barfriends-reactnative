@@ -5,13 +5,14 @@ import VenueActions from '@components/screens/public/venue/venueactions/VenueAct
 import VenueHeader from '@components/screens/public/venue/venueheader/VenueHeader'
 import VenueTotals from '@components/screens/public/venue/venuetotals/VenueTotals'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
+import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Text, VStack, Heading, Box, Skeleton, HStack } from 'native-base'
-import { useWindowDimensions } from 'react-native'
+import { Text, VStack, Heading, Box, Skeleton, HStack, Icon, IconButton } from 'native-base'
+import { Alert, Platform, Share, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const numColumns = 2
@@ -23,6 +24,35 @@ export default () => {
 	const params = useSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
+
+	// const link = `barfriends://(app)/public/venue?profileid=${params.profileid}`
+	const link = `https://barfriends.com/(app)/public/venue?profileid=${params.profileid}`
+
+	const onShare = async () => {
+		try {
+			const result = await Share.share(
+				{
+					message: 'Barfriends | The nightlife app',
+					url: Platform.OS === 'ios' ? link : '',
+				},
+				{
+					dialogTitle: 'Join me on Barfriends',
+					subject: 'Invite to Barfriends',
+				},
+			)
+			if (result.action === Share.sharedAction) {
+				if (result.activityType) {
+					// shared with activity type of result.activityType
+				} else {
+					// shared
+				}
+			} else if (result.action === Share.dismissedAction) {
+				// dismissed
+			}
+		} catch (error: any) {
+			Alert.alert(error.message)
+		}
+	}
 
 	const { data, loading, error } = useCurrentVenueQuery({
 		skip: !params.profileid,
@@ -186,14 +216,38 @@ export default () => {
 						py={4}
 						borderBottomRadius={'lg'}
 					>
-						<Box px={2}>
-							<Heading size={'lg'} fontWeight={'black'} numberOfLines={1}>
-								{name}
-							</Heading>
-							<Heading size={'sm'} fontWeight={700} numberOfLines={1}>
-								@{username}
-							</Heading>
-						</Box>
+						<HStack px={2} justifyContent={'space-between'}>
+							<Box>
+								<Heading size={'lg'} fontWeight={'black'} numberOfLines={1}>
+									{name}
+								</Heading>
+								<Heading size={'sm'} fontWeight={700} numberOfLines={1}>
+									@{username}
+								</Heading>
+							</Box>
+							<IconButton
+								bg={'transparent'}
+								icon={
+									<Icon
+										as={Ionicons}
+										name={'share'}
+										_light={{
+											color: 'light.700',
+										}}
+										_dark={{
+											color: 'dark.700',
+										}}
+									/>
+								}
+								onPress={onShare}
+								alignSelf={'center'}
+								variant={'solid'}
+								size={'lg'}
+								h={'40px'}
+								w={'40px'}
+								fontSize={'lg'}
+							/>
+						</HStack>
 						<VenueTotals />
 					</Box>
 					<VenueActions key={uniqueId()} />

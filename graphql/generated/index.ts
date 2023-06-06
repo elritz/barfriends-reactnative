@@ -8536,7 +8536,6 @@ export type MutationAcceptFriendRequestArgs = {
 
 
 export type MutationAddPersonalJoinsVenueArgs = {
-  profileIdPersonal?: InputMaybe<Scalars['String']>;
   profileIdVenue?: InputMaybe<Scalars['String']>;
 };
 
@@ -8601,7 +8600,6 @@ export type MutationRemovePersonalJoinsVenueArgs = {
 
 
 export type MutationRemovePersonalTotalsVenueArgs = {
-  profileIdPersonal?: InputMaybe<Scalars['String']>;
   profileIdVenue?: InputMaybe<Scalars['String']>;
 };
 
@@ -18415,7 +18413,6 @@ export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetNotificationsQuery = { __typename?: 'Query', getNotifications: { __typename?: 'NotificationResponse', friendRequestNotifications?: Array<{ __typename?: 'FriendRequest', id: string, notificationStatusId: string, receiverProfileId: string, createdAt: any, updatedAt: any, NotificationStatus: { __typename?: 'NotificationStatus', id: string, isAccepted: boolean, isAnswered: boolean, isChecked: boolean, FriendRequest?: { __typename?: 'FriendRequest', id: string, receiverProfileId: string, senderProfileId: string, notificationStatusId: string, Notifications: Array<{ __typename?: 'Notifications', id: string }>, NotificationStatus: { __typename?: 'NotificationStatus', id: string } } | null }, senderProfile: { __typename?: 'Profile', id: string, photos?: Array<{ __typename?: 'Photo', id: string, type?: PhotoType | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null }, receiverProfile: { __typename?: 'Profile', id: string, photos?: Array<{ __typename?: 'Photo', id: string, type?: PhotoType | null, url: string }> | null, IdentifiableInformation?: { __typename?: 'IdentifiableInformation', id: string, username: string, fullname?: string | null } | null } }> | null } };
 
 export type AddPersonalTotalsVenueMutationVariables = Exact<{
-  profileIdPersonal: Scalars['String'];
   profileIdVenue: Scalars['String'];
 }>;
 
@@ -18424,14 +18421,12 @@ export type AddPersonalTotalsVenueMutation = { __typename?: 'Mutation', addPerso
 
 export type RemovePersonalTotalsVenueMutationVariables = Exact<{
   profileIdVenue: Scalars['String'];
-  profileIdPersonal: Scalars['String'];
 }>;
 
 
 export type RemovePersonalTotalsVenueMutation = { __typename?: 'Mutation', removePersonalTotalsVenue: boolean };
 
 export type AddPersonalJoinsVenueMutationVariables = Exact<{
-  profileIdPersonal: Scalars['String'];
   profileIdVenue: Scalars['String'];
 }>;
 
@@ -20246,8 +20241,8 @@ export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificati
 export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
 export type GetNotificationsQueryResult = Apollo.QueryResult<GetNotificationsQuery, GetNotificationsQueryVariables>;
 export const AddPersonalTotalsVenueDocument = gql`
-    mutation addPersonalTotalsVenue($profileIdPersonal: String!, $profileIdVenue: String!) {
-  addPersonalTotalsVenue(profileIdPersonal: $profileIdPersonal, profileIdVenue: $profileIdVenue)
+    mutation addPersonalTotalsVenue($profileIdVenue: String!) {
+  addPersonalTotalsVenue(profileIdVenue: $profileIdVenue)
 }
     `;
 export type AddPersonalTotalsVenueMutationFn = Apollo.MutationFunction<AddPersonalTotalsVenueMutation, AddPersonalTotalsVenueMutationVariables>;
@@ -20265,7 +20260,6 @@ export type AddPersonalTotalsVenueMutationFn = Apollo.MutationFunction<AddPerson
  * @example
  * const [addPersonalTotalsVenueMutation, { data, loading, error }] = useAddPersonalTotalsVenueMutation({
  *   variables: {
- *      profileIdPersonal: // value for 'profileIdPersonal'
  *      profileIdVenue: // value for 'profileIdVenue'
  *   },
  * });
@@ -20278,8 +20272,8 @@ export type AddPersonalTotalsVenueMutationHookResult = ReturnType<typeof useAddP
 export type AddPersonalTotalsVenueMutationResult = Apollo.MutationResult<AddPersonalTotalsVenueMutation>;
 export type AddPersonalTotalsVenueMutationOptions = Apollo.BaseMutationOptions<AddPersonalTotalsVenueMutation, AddPersonalTotalsVenueMutationVariables>;
 export const RemovePersonalTotalsVenueDocument = gql`
-    mutation removePersonalTotalsVenue($profileIdVenue: String!, $profileIdPersonal: String!) {
-  removePersonalTotalsVenue(profileIdVenue: $profileIdVenue, profileIdPersonal: $profileIdPersonal)
+    mutation removePersonalTotalsVenue($profileIdVenue: String!) {
+  removePersonalTotalsVenue(profileIdVenue: $profileIdVenue)
 }
     `;
 export type RemovePersonalTotalsVenueMutationFn = Apollo.MutationFunction<RemovePersonalTotalsVenueMutation, RemovePersonalTotalsVenueMutationVariables>;
@@ -20298,7 +20292,6 @@ export type RemovePersonalTotalsVenueMutationFn = Apollo.MutationFunction<Remove
  * const [removePersonalTotalsVenueMutation, { data, loading, error }] = useRemovePersonalTotalsVenueMutation({
  *   variables: {
  *      profileIdVenue: // value for 'profileIdVenue'
- *      profileIdPersonal: // value for 'profileIdPersonal'
  *   },
  * });
  */
@@ -20310,8 +20303,8 @@ export type RemovePersonalTotalsVenueMutationHookResult = ReturnType<typeof useR
 export type RemovePersonalTotalsVenueMutationResult = Apollo.MutationResult<RemovePersonalTotalsVenueMutation>;
 export type RemovePersonalTotalsVenueMutationOptions = Apollo.BaseMutationOptions<RemovePersonalTotalsVenueMutation, RemovePersonalTotalsVenueMutationVariables>;
 export const AddPersonalJoinsVenueDocument = gql`
-    mutation addPersonalJoinsVenue($profileIdPersonal: String!, $profileIdVenue: String!) {
-  addPersonalJoinsVenue(profileIdPersonal: $profileIdPersonal, profileIdVenue: $profileIdVenue) {
+    mutation addPersonalJoinsVenue($profileIdVenue: String!) {
+  addPersonalJoinsVenue(profileIdVenue: $profileIdVenue) {
     id
     Personal {
       id
@@ -20377,7 +20370,6 @@ export type AddPersonalJoinsVenueMutationFn = Apollo.MutationFunction<AddPersona
  * @example
  * const [addPersonalJoinsVenueMutation, { data, loading, error }] = useAddPersonalJoinsVenueMutation({
  *   variables: {
- *      profileIdPersonal: // value for 'profileIdPersonal'
  *      profileIdVenue: // value for 'profileIdVenue'
  *   },
  * });

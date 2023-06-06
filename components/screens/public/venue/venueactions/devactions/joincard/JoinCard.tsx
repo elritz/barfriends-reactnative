@@ -41,7 +41,6 @@ export default function JoinCard() {
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: String(params.profileid),
-				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
@@ -89,8 +88,34 @@ export default function JoinCard() {
 		variables: {
 			outId,
 		},
-		onCompleted: async () => {
-			setIsJoined(false)
+		onCompleted: async data => {
+			if (data.removePersonalJoinsVenue) {
+				setIsJoined(false)
+				const profile = data.removePersonalJoinsVenue as Profile
+				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
+				if (
+					profile?.Personal?.LiveOutPersonal?.Out &&
+					deviceprofile?.Profile?.Personal?.LiveOutPersonal
+				) {
+					AuthorizationReactiveVar({
+						...deviceManager,
+						DeviceProfile: {
+							...deviceprofile,
+							Profile: {
+								...deviceprofile.Profile,
+								Personal: {
+									...deviceprofile.Profile.Personal,
+									LiveOutPersonal: {
+										...deviceprofile.Profile.Personal.LiveOutPersonal,
+										Out: profile.Personal.LiveOutPersonal.Out,
+									},
+								},
+							},
+						},
+					})
+				}
+			}
 		},
 		refetchQueries: [
 			{

@@ -40,7 +40,9 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: String(props.item.id),
-				profileIdPersonal: String(rAuthorizationVar?.DeviceProfile?.Profile?.id),
+			},
+			onError: error => {
+				console.log('error JOIN :>> ', error)
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
@@ -88,8 +90,37 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		variables: {
 			outId,
 		},
-		onCompleted: async () => {
-			setIsJoined(false)
+		onError: error => {
+			console.log('error  REMOVE :>> ', error)
+		},
+		onCompleted: async data => {
+			if (data.removePersonalJoinsVenue) {
+				setIsJoined(false)
+				const profile = data.removePersonalJoinsVenue as Profile
+				const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
+				const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
+				if (
+					profile?.Personal?.LiveOutPersonal?.Out &&
+					deviceprofile?.Profile?.Personal?.LiveOutPersonal
+				) {
+					AuthorizationReactiveVar({
+						...deviceManager,
+						DeviceProfile: {
+							...deviceprofile,
+							Profile: {
+								...deviceprofile.Profile,
+								Personal: {
+									...deviceprofile.Profile.Personal,
+									LiveOutPersonal: {
+										...deviceprofile.Profile.Personal.LiveOutPersonal,
+										Out: profile.Personal.LiveOutPersonal.Out,
+									},
+								},
+							},
+						},
+					})
+				}
+			}
 		},
 		refetchQueries: [
 			{
@@ -256,7 +287,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 					{!props.loading && canJoin ? (
 						<>
 							<Button
-								variant={isJoined ? 'ghost' : 'solid'}
+								variant={'solid'}
 								onPress={() => {
 									if (rAuthorizationVar?.DeviceProfile) {
 										isJoined ? removePersonalJoinsVenueMutation() : addPersonalJoinVenueMutation()
@@ -278,10 +309,24 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						<Button
 							variant={'ghost'}
 							onPress={async () => {
+								console.log(
+									'props.item.Venue?.Location?.Geometry?.longitude :>> ',
+									props.item.Venue?.Location?.Geometry?.longitude,
+								)
+								console.log(
+									'props.item.Venue?.Location?.Geometry?.latitude :>> ',
+									props.item.Venue?.Location?.Geometry?.latitude,
+								)
 								const { distanceInM } = await refreshLocation({
 									vlat: props.item.Venue?.Location?.Geometry?.latitude,
 									vlng: props.item.Venue?.Location?.Geometry?.longitude,
 								})
+
+								console.log(
+									'🚀 ~ file: VerticalVenueFeedVenueItem.tsx:286 ~ onPress={ ~ distanceInM:',
+									distanceInM,
+								)
+
 								setDist({ distanceInM })
 							}}
 							borderRadius={'md'}

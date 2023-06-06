@@ -8247,7 +8247,7 @@ input MessageWhereUniqueInput {
 
 type Mutation {
   acceptFriendRequest(friendRequestId: String!, venueIdMetAt: String): Relationship!
-  addPersonalJoinsVenue(profileIdPersonal: String, profileIdVenue: String): Profile!
+  addPersonalJoinsVenue(profileIdVenue: String): Profile!
   addPersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
   createFriendRequest(receiversProfileId: [String!]!, senderProfileId: String!): Boolean!
   createGuestProfile: AuthenticationResponseUnion!
@@ -8261,7 +8261,7 @@ type Mutation {
   removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType = GUEST): Boolean!
   removeFriend(relationshipId: String!): Boolean!
   removePersonalJoinsVenue(outId: String!): Profile!
-  removePersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
+  removePersonalTotalsVenue(profileIdVenue: String): Boolean!
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   switchDeviceProfile(profileId: String!): AuthenticationResponseUnion!

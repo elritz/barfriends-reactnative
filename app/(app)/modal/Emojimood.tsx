@@ -58,10 +58,8 @@ export default function Emojimood() {
 		loading: emojiLoading,
 		error: emojiError,
 	} = useEmojimoodsQuery({
-		onError: error => {
-		},
-		onCompleted: data => {
-		},
+		onError: error => {},
+		onCompleted: data => {},
 	})
 
 	if (emojiLoading) {
@@ -75,6 +73,7 @@ export default function Emojimood() {
 					ListHeaderComponent={() => {
 						return (
 							<Skeleton
+								mb={3}
 								h={window.width / 2.5}
 								w={window.width / 2.5}
 								rounded={'lg'}
@@ -99,8 +98,7 @@ export default function Emojimood() {
 								w={ITEM_WIDTH}
 								minH={ITEM_HEIGHT}
 								maxH={ITEM_HEIGHT}
-								p={3}
-								rounded={'full'}
+								p={1}
 								style={{
 									alignSelf: 'center',
 									overflow: 'hidden',
@@ -117,7 +115,7 @@ export default function Emojimood() {
 							/>
 						)
 					}}
-					ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+					ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
 				/>
 			</Box>
 		)

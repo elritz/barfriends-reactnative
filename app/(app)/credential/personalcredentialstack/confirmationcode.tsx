@@ -97,7 +97,7 @@ export default () => {
 		}
 		clearErrors()
 		if (checkFinalCode(code)) {
-			router.push({
+			router.replace({
 				pathname: '(app)/credential/personalcredentialstack/birthday',
 			})
 		} else {

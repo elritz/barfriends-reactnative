@@ -87,7 +87,7 @@ export default function Details(props) {
 								my={2}
 								px={3}
 								py={2}
-								colorScheme={colorMode.colorMode === 'light' ? 'dark' : 'light'}
+								colorScheme={colorMode.colorMode === 'light' ? 'light' : 'dark'}
 								_text={{
 									fontSize: 'lg',
 								}}

@@ -223,23 +223,30 @@ export default ({}: EditableOptionsScreenProps) => {
 			<Heading px={2} h={'30px'}>
 				Logins
 			</Heading>
-			<RoundedListItem
-				onPress={() =>
-					router.replace({
-						pathname: '(app)/credential/logincredentialstack/authenticator',
-					})
-				}
-			>
-				<HStack alignItems={'center'} px={2}>
-					<Text fontWeight={500} fontSize={'lg'} color={'primary.500'}>
-						Add Account
-					</Text>
-				</HStack>
+			<RoundedListItem>
+				<Pressable
+					w={'100%'}
+					onPress={() =>
+						router.replace({
+							pathname: '(app)/credential/logincredentialstack/authenticator',
+						})
+					}
+				>
+					{({ isHovered, isFocused, isPressed }) => {
+						return (
+							<HStack alignItems={'center'} px={2} h={'55px'}>
+								<Text fontWeight={500} fontSize={'lg'} color={isPressed ? 'gray.400' : 'primary.500'}>
+									Add Account
+								</Text>
+							</HStack>
+						)
+					}}
+				</Pressable>
 			</RoundedListItem>
 			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 				<RoundedListItem>
-					<Pressable onPress={() => switchProfile()}>
-						<HStack alignItems={'center'} px={2}>
+					<Pressable w={'100%'} onPress={() => switchProfile()}>
+						<HStack alignItems={'center'} px={2} h={'55px'}>
 							<Text fontWeight={500} fontSize={'lg'} color={'primary.500'}>
 								Log Out {rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 							</Text>

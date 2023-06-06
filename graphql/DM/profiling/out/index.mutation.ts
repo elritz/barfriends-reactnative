@@ -1,36 +1,22 @@
 import { gql } from '@apollo/client'
 import { OUT_FRAGMENT } from '@graphql/DM/fragments/out.fragments'
 
-// export const UPSERT_TONGIHT_PATH_OR_PATH = gql`
-// 	mutation UpsertTonightPathOrPath(
-// 		$latitude: Float!
-// 		$longitude: Float!
-// 		$profileIdPersonal: String!
-// 	) {
-// 		upsertTonightPathOrPath(
-// 			latitude: $latitude
-// 			longitude: $longitude
-// 			profileIdPersonal: $profileIdPersonal
-// 		)
-// 	}
-// `
-
 export const ADD_PERSONAL_TOTALS_VENUE_MUTATION = gql`
-	mutation addPersonalTotalsVenue($profileIdPersonal: String!, $profileIdVenue: String!) {
-		addPersonalTotalsVenue(profileIdPersonal: $profileIdPersonal, profileIdVenue: $profileIdVenue)
+	mutation addPersonalTotalsVenue($profileIdVenue: String!) {
+		addPersonalTotalsVenue(profileIdVenue: $profileIdVenue)
 	}
 `
 
 export const REMOVE_PERSONAL_TOTAL_VENUE_MUTATION = gql`
-	mutation removePersonalTotalsVenue($profileIdVenue: String!, $profileIdPersonal: String!) {
-		removePersonalTotalsVenue(profileIdVenue: $profileIdVenue, profileIdPersonal: $profileIdPersonal)
+	mutation removePersonalTotalsVenue($profileIdVenue: String!) {
+		removePersonalTotalsVenue(profileIdVenue: $profileIdVenue)
 	}
 `
 
 export const PERSONAL_JOINS_VENUE_MUTATION = gql`
 	${OUT_FRAGMENT}
-	mutation addPersonalJoinsVenue($profileIdPersonal: String!, $profileIdVenue: String!) {
-		addPersonalJoinsVenue(profileIdPersonal: $profileIdPersonal, profileIdVenue: $profileIdVenue) {
+	mutation addPersonalJoinsVenue($profileIdVenue: String!) {
+		addPersonalJoinsVenue(profileIdVenue: $profileIdVenue) {
 			id
 			Personal {
 				id
