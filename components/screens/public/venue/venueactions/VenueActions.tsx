@@ -10,7 +10,8 @@ import { useReactiveVar } from '@apollo/client'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { HStack, VStack, useTheme } from 'native-base'
+import { uniqueId } from 'lodash'
+import { Box, HStack, VStack, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 
 const VenueActions = () => {
@@ -33,17 +34,19 @@ const VenueActions = () => {
 		<VStack m={2} mt={1}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 				{ENVIRONMENT === 'development' && (
-					<ActionCard key={'dev-344234fg4ed'} numColumns={1}>
-						<DevActions />
-					</ActionCard>
+					<Box mt={4}>
+						<ActionCard key={uniqueId()} numColumns={1}>
+							<DevActions />
+						</ActionCard>
+					</Box>
 				)}
 
 				{!isJoined && (
 					<HStack space={2} mt={5}>
-						<ActionCard h={190} key={'userbcard-2234234fg4ed'} numColumns={numColumns}>
+						<ActionCard h={190} key={uniqueId()} numColumns={numColumns}>
 							<UberCard />
 						</ActionCard>
-						<ActionCard h={190} key={'distancecard-i324b2b34i2'} numColumns={numColumns}>
+						<ActionCard h={190} key={uniqueId()} numColumns={numColumns}>
 							<DistanceCard />
 						</ActionCard>
 					</HStack>
@@ -51,15 +54,10 @@ const VenueActions = () => {
 
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 					<HStack space={2} mt={5}>
-						<ActionCard
-							h={190}
-							key={'quickbfs-2234234fwqe23d23d'}
-							bg={theme.colors.primary[500]}
-							numColumns={numColumns}
-						>
+						<ActionCard h={200} key={uniqueId()} bg={theme.colors.primary[500]} numColumns={numColumns}>
 							<QuickBarfriend logosize={30} qrcodesize={100} />
 						</ActionCard>
-						<ActionCard h={190} key={'invitecard-223423rger2rfd'} numColumns={numColumns}>
+						<ActionCard h={200} key={uniqueId()} numColumns={numColumns}>
 							<InviteCard />
 						</ActionCard>
 					</HStack>

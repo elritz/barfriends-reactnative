@@ -167,10 +167,11 @@ export default () => {
 						isLoadingText={'Updating...'}
 						onPress={handleSubmit(onSubmit)}
 						borderRadius={'md'}
-						style={{
-							backgroundColor: themeContext.palette.bfscompany.primary,
-							alignSelf: 'center',
-							width: '50%',
+						_dark={{
+							bg: 'dark.500',
+						}}
+						_light={{
+							bg: 'light.500',
 						}}
 						my={5}
 						size={'lg'}

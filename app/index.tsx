@@ -30,7 +30,6 @@ export default () => {
 				// })
 			},
 			onCompleted: data => {
-				// console.log('data REFRESH AUTHORIZATION ============>', JSON.stringify(data, null, 2))
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.refreshDeviceManager as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)

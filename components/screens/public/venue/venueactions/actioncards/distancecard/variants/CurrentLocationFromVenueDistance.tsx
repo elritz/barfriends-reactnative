@@ -17,6 +17,7 @@ import { LocationAccuracy } from 'expo-location'
 import { useSearchParams } from 'expo-router'
 import * as TaskManager from 'expo-task-manager'
 import { getDistance } from 'geolib'
+import { uniqueId } from 'lodash'
 import { MotiView } from 'moti'
 import { Box, Button, Heading, Icon, Text, VStack, View, useDisclose, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
@@ -262,9 +263,11 @@ const CurrentLocationFromVenueDistance = () => {
 								},
 							]}
 						>
-							{[...Array(3).keys()].map(index => {
+							{[...Array(3).keys()].map((item, index) => {
 								return (
 									<MotiView
+										key={uniqueId()}
+										style={[styles.dot, StyleSheet.absoluteFillObject]}
 										from={{
 											opacity: 0.5,
 											scale: 1,
@@ -281,8 +284,6 @@ const CurrentLocationFromVenueDistance = () => {
 											repeatReverse: true,
 											delay: index * 400,
 										}}
-										key={index}
-										style={[styles.dot, StyleSheet.absoluteFillObject]}
 									/>
 								)
 							})}

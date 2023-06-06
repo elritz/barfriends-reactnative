@@ -3,6 +3,7 @@
 // TODO: UX() Item need to be updated for Personal data, loading, error
 import { Profile } from '@graphql/generated'
 import { useRouter } from 'expo-router'
+import { uniqueId } from 'lodash'
 import { Pressable } from 'native-base'
 import { View } from 'react-native'
 
@@ -14,7 +15,7 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 	const router = useRouter()
 	return (
 		<Pressable
-			key={item.id}
+			key={uniqueId()}
 			maxW={'1/2'}
 			flexGrow={1}
 			mx={1}

@@ -8,7 +8,7 @@ export default function DevActions() {
 	const [showDevMode, setShowDevMode] = useState(false)
 
 	return (
-		<VStack space={4} justifyContent={'space-between'}>
+		<VStack  space={4} justifyContent={'space-between'}>
 			{showDevMode ? (
 				<Box>
 					<Pressable

@@ -49,11 +49,12 @@ export default function TotalCard() {
 								Profile: profile,
 							},
 						})
-						const totaledToVenue = data?.profile?.Personal?.LiveOutPersonal?.totaled.map(item => {
+						const totaledToVenue = data?.profile?.Personal?.LiveOutPersonal?.Out.map(item => {
 							return item.venueProfileId
 						})
-
-						setIsTotaled(totaledToVenue.includes(params.profileid))
+						if (totaledToVenue) {
+							setIsTotaled(totaledToVenue.includes(params.profileid))
+						}
 					}
 				},
 			})
@@ -119,13 +120,15 @@ export default function TotalCard() {
 	const [profileQuery, { data: PData, loading: PLoading, error: PError }] = useProfileLazyQuery()
 
 	useEffect(() => {
-		if (rAuthorizationVar?.DeviceProfile?.Profile.Personal) {
+		if (rAuthorizationVar?.DeviceProfile?.Profile?.Personal) {
 			const totaledToVenue =
 				rAuthorizationVar.DeviceProfile.Profile?.Personal?.LiveOutPersonal?.Out.map(item => {
 					return item.venueProfileId
 				})
 
-			setIsTotaled(totaledToVenue.includes(String(params.profileid)))
+			if (totaledToVenue) {
+				setIsTotaled(totaledToVenue.includes(String(params.profileid)))
+			}
 		}
 	}, [])
 

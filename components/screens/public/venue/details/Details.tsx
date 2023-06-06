@@ -1,11 +1,12 @@
-import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard'
-import { useReactiveVar } from '@apollo/client'
-import { useCurrentVenueQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
-import { Badge, useColorMode } from 'native-base'
-import { Box, Button, HStack, Text, VStack } from 'native-base'
-import { useState } from 'react'
+import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard';
+import { useReactiveVar } from '@apollo/client';
+import { useCurrentVenueQuery } from '@graphql/generated';
+import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive';
+import { useSearchParams } from 'expo-router';
+import { Badge, useColorMode } from 'native-base';
+import { Box, Button, HStack, Text, VStack } from 'native-base';
+import { useState } from 'react';
+
 
 type DetailTitleProps = {
 	title: string
@@ -48,7 +49,9 @@ export default function Details(props) {
 		},
 	})
 
-	if (loading || !data) return null
+	if (loading || !data) {
+		return null
+	}
 
 	return (
 		<VStack
@@ -79,7 +82,7 @@ export default function Details(props) {
 					{data.currentVenue?.DetailInformation?.Tags.map((item, index) => {
 						return (
 							<Badge
-								key={index}
+								key={item.id}
 								mx={1}
 								my={2}
 								px={3}

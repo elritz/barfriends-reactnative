@@ -433,7 +433,6 @@ export default () => {
 	}
 
 	async function schedulePushNotification() {
-		console.log('here :>> ')
 		await Notifications.scheduleNotificationAsync({
 			content: {
 				title: "You've got mail! 📬",
@@ -442,7 +441,6 @@ export default () => {
 			},
 			trigger: { seconds: 5 },
 		})
-		console.log('here :>> 222')
 	}
 
 	async function registerForPushNotificationsAsync() {
@@ -469,7 +467,6 @@ export default () => {
 				return
 			}
 			token = (await Notifications.getExpoPushTokenAsync()).data
-			console.log(token)
 		} else {
 			alert('Must use physical device for Push Notifications')
 		}

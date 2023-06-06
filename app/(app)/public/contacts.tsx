@@ -64,7 +64,6 @@ export default () => {
 	}, [params.searchtext])
 
 	const filterList = text => {
-		console.log('68params.searchtext :>> ', params.searchtext)
 		if (!params?.searchtext?.length) {
 			if (rContactsVar && rContactsVar.length) {
 				setContacts(rContactsVar)

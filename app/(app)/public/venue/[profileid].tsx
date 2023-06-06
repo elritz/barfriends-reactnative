@@ -9,17 +9,19 @@ import { useCurrentVenueQuery } from '@graphql/generated'
 import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
-import { Text, FlatList, VStack, Heading, Box, Skeleton, HStack } from 'native-base'
+import { uniqueId } from 'lodash'
+import { Text, VStack, Heading, Box, Skeleton, HStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const numColumns = 2
-export default (props: any) => {
+
+export default () => {
+	const { bottom } = useSafeAreaInsets()
 	const { width } = useWindowDimensions()
 	const itemPadding = (width / 33.33) * numColumns
 	const params = useSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const { bottom } = useSafeAreaInsets()
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 
 	const { data, loading, error } = useCurrentVenueQuery({
@@ -45,10 +47,23 @@ export default (props: any) => {
 	if (loading || !data?.currentVenue) {
 		return (
 			<VStack flex={1} space={2}>
-				<Skeleton h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT} w={'full'} />
+				<Skeleton
+					_light={{
+						startColor: 'coolGray.100',
+						endColor: 'coolGray.300',
+					}}
+					_dark={{
+						startColor: 'dark.200',
+						endColor: 'dark.300',
+					}}
+					key={uniqueId()}
+					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
+					w={'full'}
+				/>
 				<VStack rounded='md' px={2} space={2}>
 					<Skeleton
-						rounded='xl'
+						key={uniqueId()}
+						rounded='md'
 						h={'30px'}
 						width={'3/4'}
 						speed={0.95}
@@ -62,7 +77,8 @@ export default (props: any) => {
 						}}
 					/>
 					<Skeleton
-						rounded='xl'
+						key={uniqueId()}
+						rounded='md'
 						h={'30px'}
 						width={'1/4'}
 						speed={0.95}
@@ -77,11 +93,12 @@ export default (props: any) => {
 					/>
 				</VStack>
 				<HStack rounded='md' px={2} space={2}>
-					{[...Array(2)].map(item => {
+					{[...Array(2)].map((item, index) => {
 						return (
 							<Skeleton
+								key={uniqueId()}
 								rounded='xl'
-								h={'220px'}
+								h={'200px'}
 								width={(width - itemPadding) / numColumns}
 								speed={0.95}
 								_light={{
@@ -97,9 +114,10 @@ export default (props: any) => {
 					})}
 				</HStack>
 				<HStack rounded='md' px={2} space={2}>
-					{[...Array(2)].map(item => {
+					{[...Array(2)].map((item, index) => {
 						return (
 							<Skeleton
+								key={uniqueId()}
 								rounded='xl'
 								h={'220px'}
 								width={(width - itemPadding) / numColumns}
@@ -117,6 +135,7 @@ export default (props: any) => {
 					})}
 				</HStack>
 				<Skeleton
+					key={uniqueId()}
 					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
 					w={'full'}
 					speed={0.95}
@@ -150,14 +169,14 @@ export default (props: any) => {
 		// <SafeAreaView>
 		<FlashList
 			data={[]}
+			estimatedItemSize={200}
 			numColumns={2}
-			estimatedItemSize={20}
 			showsVerticalScrollIndicator={false}
 			ListHeaderComponent={
 				<VStack mb={5}>
-					<VenueHeader key={'abc'} loading={loading} photos={data.currentVenue?.photos} />
+					<VenueHeader key={uniqueId()} loading={loading} photos={data.currentVenue?.photos} />
 					<Box
-						key={'publicvenues-2kl3b12k3'}
+						key={uniqueId()}
 						_light={{
 							bg: 'light.100',
 						}}
@@ -177,7 +196,7 @@ export default (props: any) => {
 						</Box>
 						<VenueTotals />
 					</Box>
-					<VenueActions key={'kol'} />
+					<VenueActions key={uniqueId()} />
 				</VStack>
 			}
 			ListEmptyComponent={!loading && <HandleEmpty />}

@@ -14,7 +14,12 @@ export default () => {
 
 	return (
 		<Stack>
-			<Stack.Screen name={'venue'} />
+			<Stack.Screen
+				name={'venue'}
+				options={{
+					headerShown: false,
+				}}
+			/>
 			<Stack.Screen name={'personal'} />
 			<Stack.Screen
 				options={{

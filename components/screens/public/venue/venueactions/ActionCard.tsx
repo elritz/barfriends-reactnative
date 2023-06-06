@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash'
 import { Box } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
@@ -15,6 +16,7 @@ export default function ActionCard({ children, numColumns, bg, h }: Props) {
 
 	return (
 		<OuterView
+			key={uniqueId()}
 			width={width}
 			numColumns={numColumns}
 			_dark={{

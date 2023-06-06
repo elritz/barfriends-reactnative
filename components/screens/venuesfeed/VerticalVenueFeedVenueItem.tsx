@@ -264,6 +264,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 								}}
 								colorScheme={isJoined ? 'error' : 'primary'}
 								borderRadius={'md'}
+								width={'full'}
 								textAlign={'center'}
 								_text={{
 									fontWeight: '700',

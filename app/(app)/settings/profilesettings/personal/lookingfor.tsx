@@ -159,7 +159,12 @@ export default () => {
 						disabled={false}
 						onPress={handleSubmit(onSubmit)}
 						borderRadius={14}
-						bg={themeContext.palette.bfscompany.primary}
+						_dark={{
+							bg: 'dark.500',
+						}}
+						_light={{
+							bg: 'light.500',
+						}}
 						px={'30px'}
 						style={{
 							alignSelf: 'center',

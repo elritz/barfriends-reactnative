@@ -8,7 +8,7 @@ import {
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useSearchParams } from 'expo-router'
 import { Button, VStack, Box } from 'native-base'
 import { useEffect, useState } from 'react'
 

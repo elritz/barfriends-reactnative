@@ -1,5 +1,6 @@
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
 import { useSearchParams } from 'expo-router'
+import { uniqueId } from 'lodash'
 import { Box, Heading, HStack, Text } from 'native-base'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -57,13 +58,13 @@ export default function VenueTotals() {
 			{[friends, total, joined].map((item, index) => {
 				return (
 					<Box
-						key={index}
+						key={uniqueId()}
 						_light={{
 							bg: item.name !== 'friends' ? 'light.200' : 'primary.600',
 							opacity: loading ? 50 : 100,
 						}}
 						_dark={{
-							bg: item.name !== 'friends' ? 'dark.100' : 'primary.600',
+							bg: item.name !== 'friends' ? 'dark.50' : 'primary.600',
 							opacity: loading ? 50 : 100,
 						}}
 						borderRadius={'xl'}

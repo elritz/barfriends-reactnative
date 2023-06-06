@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { FontAwesome5, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { Box, Button, Heading, Icon, IconButton } from 'native-base'
@@ -7,11 +7,6 @@ import { Box, Button, Heading, Icon, IconButton } from 'native-base'
 export default function InviteCard() {
 	const router = useRouter()
 	const rPermissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
-
-	console.log(
-		'🚀 ~ file: InviteCard.tsx:8 ~ InviteCard ~ rPermissionContactsVar:',
-		rPermissionContactsVar,
-	)
 
 	return (
 		<Box w={'full'} alignItems={'center'}>
@@ -61,7 +56,14 @@ export default function InviteCard() {
 				size={'md'}
 				w={'90%'}
 				my={3}
+				width={'full'}
+				colorScheme={'primary'}
 				borderRadius={'md'}
+				textAlign={'center'}
+				_text={{
+					fontWeight: '700',
+					fontSize: 'md',
+				}}
 			>
 				Invite
 			</Button>
