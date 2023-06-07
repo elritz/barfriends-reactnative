@@ -309,23 +309,10 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						<Button
 							variant={'ghost'}
 							onPress={async () => {
-								console.log(
-									'props.item.Venue?.Location?.Geometry?.longitude :>> ',
-									props.item.Venue?.Location?.Geometry?.longitude,
-								)
-								console.log(
-									'props.item.Venue?.Location?.Geometry?.latitude :>> ',
-									props.item.Venue?.Location?.Geometry?.latitude,
-								)
 								const { distanceInM } = await refreshLocation({
 									vlat: props.item.Venue?.Location?.Geometry?.latitude,
 									vlng: props.item.Venue?.Location?.Geometry?.longitude,
 								})
-
-								console.log(
-									'🚀 ~ file: VerticalVenueFeedVenueItem.tsx:286 ~ onPress={ ~ distanceInM:',
-									distanceInM,
-								)
 
 								setDist({ distanceInM })
 							}}

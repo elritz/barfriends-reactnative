@@ -60,53 +60,63 @@ const SearchAreaLocationPermissionItem = () => {
 						  }),
 						  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
 				}}
-				// isPressed={rSearchAreaVar?.useCurrentLocation}
-				rounded={'md'}
-				_light={{
-					bg: rSearchAreaVar?.useCurrentLocation ? 'light.300' : 'light.300',
-				}}
-				_dark={{
-					bg: rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
-				}}
 			>
-				<HStack p={3} justifyContent={'space-between'}>
-					<Text
-						textAlign={'left'}
-						fontWeight={'medium'}
-						fontSize={'lg'}
-						ellipsizeMode={'tail'}
-						alignSelf={'center'}
-						color={colorScheme === 'light' ? 'black' : 'white'}
-					>
-						{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
-					</Text>
-					<Box
-						h={'35px'}
-						w={'35px'}
-						alignItems={'center'}
-						justifyContent={'center'}
-						rounded={'full'}
-						_light={{
-							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.200',
-						}}
-						_dark={{
-							bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.500',
-						}}
-					>
-						<Icon
-							size={'sm'}
-							as={FontAwesome5}
-							name={'location-arrow'}
-							rounded={'full'}
+				{({ isHovered, isFocused, isPressed }) => {
+					return (
+						<HStack
+							rounded={'md'}
 							_light={{
-								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+								bg: isPressed
+									? '#ffffff40'
+									: rSearchAreaVar?.useCurrentLocation
+									? 'light.300'
+									: 'light.300',
 							}}
 							_dark={{
-								color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+								bg: isPressed ? '#00000040' : rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
 							}}
-						/>
-					</Box>
-				</HStack>
+							p={3}
+							justifyContent={'space-between'}
+						>
+							<Text
+								textAlign={'left'}
+								fontWeight={'medium'}
+								fontSize={'lg'}
+								ellipsizeMode={'tail'}
+								alignSelf={'center'}
+								color={colorScheme === 'light' ? 'black' : 'white'}
+							>
+								{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
+							</Text>
+							<Box
+								h={'35px'}
+								w={'35px'}
+								alignItems={'center'}
+								justifyContent={'center'}
+								rounded={'full'}
+								_light={{
+									bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.200',
+								}}
+								_dark={{
+									bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.500',
+								}}
+							>
+								<Icon
+									size={'sm'}
+									as={FontAwesome5}
+									name={'location-arrow'}
+									rounded={'full'}
+									_light={{
+										color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+									}}
+									_dark={{
+										color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+									}}
+								/>
+							</Box>
+						</HStack>
+					)
+				}}
 			</Pressable>
 		</VStack>
 	)

@@ -51,29 +51,29 @@ let l2
 
 // 1. Define the task by providing a name and the function that should be executed
 // Note: This needs to be called in the global scope (e.g outside of your React components)
-TaskManager.defineTask(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, async ({ data, error }: any) => {
-	if (error) {
-		return
-	}
-	if (data) {
-		const { locations } = data
-		let lat = locations[0].coords.latitude
-		let long = locations[0].coords.longitude
+// TaskManager.defineTask(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, async ({ data, error }: any) => {
+// 	if (error) {
+// 		return
+// 	}
+// 	if (data) {
+// 		const { locations } = data
+// 		let lat = locations[0].coords.latitude
+// 		let long = locations[0].coords.longitude
 
-		l1 = lat
-		l2 = long
-	}
-})
-TaskManager.defineTask(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
-	const now = Date.now()
-	if (data) {
-		if (data.locations) {
-		}
-	}
+// 		l1 = lat
+// 		l2 = long
+// 	}
+// })
+// TaskManager.defineTask(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
+// 	const now = Date.now()
+// 	if (data) {
+// 		if (data.locations) {
+// 		}
+// 	}
 
-	// Be sure to return the successful result type!
-	return BackgroundFetch.BackgroundFetchResult.NewData
-})
+// 	// Be sure to return the successful result type!
+// 	return BackgroundFetch.BackgroundFetchResult.NewData
+// })
 
 // 2. Register the task at some point in your app by providing the same name,
 // and some configuration options for how the background fetch should behave

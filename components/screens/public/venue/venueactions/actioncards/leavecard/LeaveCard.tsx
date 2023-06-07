@@ -10,7 +10,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Heading, Button, VStack, Box, Icon } from 'native-base'
+import { Heading, Button, VStack, Box, Icon, HStack } from 'native-base'
 import { useEffect, useState } from 'react'
 
 export default function LeaveCard() {
@@ -76,17 +76,11 @@ export default function LeaveCard() {
 		params.profileid
 	) {
 		return (
-			<VStack alignItems={'center'} justifyContent={'space-around'} space={3} w={'full'}>
-				<Heading fontSize={'md'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
+			<HStack mt={5} alignItems={'center'} justifyContent={'space-between'} px={3} w={'full'}>
+				<Heading fontSize={'md'} fontWeight={'800'} textTransform={'uppercase'}>
 					You're joined{'\n'}
-					<Heading
-						fontWeight={'900'}
-						color={'red.600'}
-						textAlign={'center'}
-						textTransform={'uppercase'}
-						fontSize={'lg'}
-					>
-						Leave now
+					<Heading fontWeight={'900'} color={'red.600'} textTransform={'uppercase'} fontSize={'lg'}>
+						Want to Leave?
 					</Heading>
 				</Heading>
 				<Box>
@@ -109,7 +103,7 @@ export default function LeaveCard() {
 						Leave
 					</Button>
 				</Box>
-			</VStack>
+			</HStack>
 		)
 	} else {
 		return null

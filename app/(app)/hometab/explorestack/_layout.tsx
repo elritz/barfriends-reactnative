@@ -22,6 +22,7 @@ export default function _layout() {
 		>
 			<Stack.Screen
 				options={{
+					headerTransparent: true,
 					header: () => {
 						return (
 							<VStack

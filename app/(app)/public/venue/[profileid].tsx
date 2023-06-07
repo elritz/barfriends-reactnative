@@ -2,12 +2,17 @@ import { useReactiveVar } from '@apollo/client'
 import Details from '@components/screens/public/venue/details/Details'
 import PersonalAtVenue from '@components/screens/public/venue/peopleatvenue/PersonalAtVenue'
 import VenueActions from '@components/screens/public/venue/venueactions/VenueActions'
+import LeaveCard from '@components/screens/public/venue/venueactions/actioncards/leavecard/LeaveCard'
 import VenueHeader from '@components/screens/public/venue/venueheader/VenueHeader'
 import VenueTotals from '@components/screens/public/venue/venuetotals/VenueTotals'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import {
+	AuthorizationReactiveVar,
+	CurrentLocationReactiveVar,
+	SearchAreaReactiveVar,
+} from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
@@ -22,6 +27,7 @@ export default () => {
 	const { width } = useWindowDimensions()
 	const itemPadding = (width / 33.33) * numColumns
 	const params = useSearchParams()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 
@@ -249,6 +255,7 @@ export default () => {
 							/>
 						</HStack>
 						<VenueTotals />
+						{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
 					</Box>
 					<VenueActions key={uniqueId()} />
 				</VStack>

@@ -24,34 +24,40 @@ import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
 
-TaskManager.defineTask(FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
-	const now = Date.now()
+// TaskManager.defineTask(FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
+// 	const now = Date.now()
 
-	if (data) {
-		if (data.locations) {
-		}
-	}
-	return now
-})
+// 	if (data) {
+// 		if (data.locations) {
+// 		}
+// 	}
+// 	return now
+// })
 
-async function registerForegroundFetchAsync() {
-	await Location.startLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME, {
-		accuracy: Location.Accuracy.Balanced,
-		deferredUpdatesDistance: 25,
-		timeInterval: 60000,
-		showsBackgroundLocationIndicator: false,
-		deferredUpdatesInterval: ENVIRONMENT === 'development' ? 1000 : 5000,
-		distanceInterval: ENVIRONMENT === 'development' ? 0 : 20,
-		foregroundService: {
-			notificationTitle: 'Location',
-			notificationBody: 'Location tracking in foreground',
-			notificationColor: '#fff',
-		},
-	})
-}
+// async function registerForegroundFetchAsync() {
+// 	await Location.startLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME, {
+// 		accuracy: Location.Accuracy.Balanced,
+// 		deferredUpdatesDistance: 25,
+// 		timeInterval: 60000,
+// 		showsBackgroundLocationIndicator: false,
+// 		deferredUpdatesInterval: ENVIRONMENT === 'development' ? 1000 : 5000,
+// 		distanceInterval: ENVIRONMENT === 'development' ? 0 : 20,
+// 		foregroundService: {
+// 			notificationTitle: 'Location',
+// 			notificationBody: 'Location tracking in foreground',
+// 			notificationColor: '#fff',
+// 		},
+// 	})
+// }
 
 async function unregisterForegroundFetchAsync() {
 	const hasStarted = await Location.hasStartedLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
+
+	console.log(
+		'🚀 ~ file: CurrentLocationFromVenueDistance.tsx:59 ~ unregisterForegroundFetchAsync ~ hasStarted:',
+		hasStarted,
+	)
+
 	if (hasStarted) {
 		return Location.stopLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
 	}
@@ -150,17 +156,6 @@ const CurrentLocationFromVenueDistance = () => {
 					longitude: vlng,
 				},
 			)
-			if (data?.currentVenue) {
-				// cache.modify({
-				// 	id: cache.identify(data.currentVenue),
-				// 	fields: {
-				// 		distanceInM: (existingFieldData, { toReference }) => {
-				// 			// return dist
-				// 			return '55'
-				// 		},
-				// 	},
-				// })
-			}
 
 			if (dist > 1000) {
 				const val = parseInt((dist / 1000).toFixed(1))
@@ -172,32 +167,6 @@ const CurrentLocationFromVenueDistance = () => {
 			}
 		}
 		setTimeout(() => setLoading(false), 1000)
-	}
-
-	const appStateHandleForegroundLocation = async nextAppState => {
-		const hasStarted = await Location.hasStartedLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
-		if (isForegroundLocationOn && isFocused) {
-			if (!hasStarted && nextAppState === 'inactive') {
-				await unregisterForegroundFetchAsync()
-			}
-			if (appState !== nextAppState) {
-				if (appState.match(/inactive|background/) && nextAppState === 'active') {
-					if (metric === 'm' && distance && distance < 50) {
-						await registerForegroundFetchAsync()
-					}
-					if (!hasStarted && nextAppState === 'inactive') {
-						await unregisterForegroundFetchAsync()
-					}
-				}
-			}
-		}
-
-		if ((!isForegroundLocationOn && hasStarted) || !isFocused) {
-			await unregisterForegroundFetchAsync()
-		}
-
-		AppState.currentState = nextAppState
-		setAppState(AppState.currentState)
 	}
 
 	useEffect(() => {
@@ -213,12 +182,39 @@ const CurrentLocationFromVenueDistance = () => {
 		}
 	}, [appState, isFocused])
 
-	useEffect(() => {
-		const appStateListen = AppState.addEventListener('change', appStateHandleForegroundLocation)
-		return () => {
-			appStateListen.remove()
-		}
-	}, [isForegroundLocationOn, appState, isFocused])
+	// const appStateHandleForegroundLocation = async nextAppState => {
+	// 	const hasStarted = await Location.hasStartedLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
+	// 	if (isForegroundLocationOn && isFocused) {
+	// 		if (!hasStarted && nextAppState === 'inactive') {
+	// 			await unregisterForegroundFetchAsync()
+	// 		}
+	// 		if (appState !== nextAppState) {
+	// 			if (appState.match(/inactive|background/) && nextAppState === 'active') {
+	// 				if (metric === 'm' && distance && distance < 50) {
+	// 					await registerForegroundFetchAsync()
+	// 				}
+	// 				if (!hasStarted && nextAppState === 'inactive') {
+	// 					await unregisterForegroundFetchAsync()
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+
+	// 	if ((!isForegroundLocationOn && hasStarted) || !isFocused) {
+	// 		await unregisterForegroundFetchAsync()
+	// 	}
+
+	// 	AppState.currentState = nextAppState
+	// 	setAppState(AppState.currentState)
+	// }
+
+	// useEffect(() => {
+	// 	const appStateListen = AppState.addEventListener('change', appStateHandleForegroundLocation)
+
+	// 	return () => {
+	// 		appStateListen.remove()
+	// 	}
+	// }, [isForegroundLocationOn, appState, isFocused])
 
 	const styles = StyleSheet.create({
 		dot: {

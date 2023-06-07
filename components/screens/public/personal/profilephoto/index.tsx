@@ -1,6 +1,5 @@
 import { Maybe, Photo } from '@graphql/generated'
-import { Image } from 'expo-image'
-import { Box, View } from 'native-base'
+import { Box, Image } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {
@@ -32,7 +31,7 @@ export default function ProfilePhoto({ photo }: Props) {
 				source={{
 					uri: photo?.url,
 				}}
-				placeholder={photo?.blurhash}
+				// placeholder={photo?.blurhash}
 				style={{
 					height: '100%',
 					width: '100%',

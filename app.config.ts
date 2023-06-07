@@ -306,7 +306,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					favicon: './assets/images/favicon.png',
 				},
 				ios: {
-					// buildNumber: '2.1.6',
+					buildNumber: '2.1.6',
 					associatedDomains: ['applinks:barfriends.com'],
 					bundleIdentifier: 'com.barfriends.dev',
 					supportsTablet: false,
@@ -332,7 +332,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					},
 				},
 				android: {
-					versionCode: 2,
+					versionCode: 2.1,
 					package: 'com.barfriends.christian',
 					backgroundColor: '#0D0D0D',
 					adaptiveIcon: {

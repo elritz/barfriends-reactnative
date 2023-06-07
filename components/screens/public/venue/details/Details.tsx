@@ -1,12 +1,11 @@
-import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard';
-import { useReactiveVar } from '@apollo/client';
-import { useCurrentVenueQuery } from '@graphql/generated';
-import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive';
-import { useSearchParams } from 'expo-router';
-import { Badge, useColorMode } from 'native-base';
-import { Box, Button, HStack, Text, VStack } from 'native-base';
-import { useState } from 'react';
-
+import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard'
+import { useReactiveVar } from '@apollo/client'
+import { useCurrentVenueQuery } from '@graphql/generated'
+import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import { useSearchParams } from 'expo-router'
+import { Badge, useColorMode } from 'native-base'
+import { Box, Button, HStack, Text, VStack } from 'native-base'
+import { useState } from 'react'
 
 type DetailTitleProps = {
 	title: string
@@ -69,7 +68,6 @@ export default function Details(props) {
 			mx={2}
 			borderRadius={'xl'}
 		>
-			{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
 			<Box>
 				<DetailTitle title={'Address'} />
 				<Text fontSize={'xl'} fontWeight={'medium'}>

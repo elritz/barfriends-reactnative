@@ -44,7 +44,7 @@ const Card = ({ product: { color1, title, subtitle } }: CardProps) => (
 				<Text style={styles.title}>{title}</Text>
 				<Text style={styles.subtitle}>{subtitle}</Text>
 			</View>
-			<Button label="I'll try it" />
+			<Button onPress={() => console.log('route')} label="I'll try it" />
 		</View>
 	</View>
 )

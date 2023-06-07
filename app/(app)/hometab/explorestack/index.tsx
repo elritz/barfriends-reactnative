@@ -1,13 +1,12 @@
+import ShowCaseScroll from '@components/screens/explore/ShowCaseScroll'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
-import ShowCaseScroll from '@components/screens/explore/ShowCaseScroll'
 import { FlashList } from '@shopify/flash-list'
-import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
-import { Box, Pressable, Text } from 'native-base'
+import { Box, Pressable, Text, Image } from 'native-base'
 import { View, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -64,7 +63,7 @@ export default () => {
 										})
 									}}
 								>
-									{item.photos.length > 0 && (
+									{item && item.photos && item.photos.length > 0 && (
 										<Image
 											style={{
 												width: '100%',
@@ -72,13 +71,14 @@ export default () => {
 												borderWidth: 3,
 												borderColor: 'white',
 											}}
-											source={item.photos[0].url}
+											alt={'Profile Photo'}
+											src={item.photos[0].url}
 											// placeholder={
 											// 	item?.photos[0].blurhash ? item.photos[0].blurhash : 'LEHV6nWB2yk8pyo0adR*.7kCMdnj'
 											// }
-											placeholder={'LEHV6nWB2yk8pyo0adR*.7kCMdnj'}
-											contentFit='cover'
-											transition={1000}
+											// placeholder={'LEHV6nWB2yk8pyo0adR*.7kCMdnj'}
+											// contentFit='cover'
+											// transition={1000}
 										/>
 									)}
 									<View

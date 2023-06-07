@@ -1,11 +1,8 @@
 import { Ionicons } from '@expo/vector-icons'
-import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
-import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base'
+import { Box, HStack, Icon, Pressable, Text, VStack, Image } from 'native-base'
 
 export default function SearchCard({ item }) {
-
-
 	const router = useRouter()
 
 	if (!item?.Profile) {
@@ -37,7 +34,8 @@ export default function SearchCard({ item }) {
 								width: 45,
 								borderRadius: 8,
 							}}
-							placeholder={item.Profile?.photos[0]?.blurhash}
+							alt={"Profile Image"}
+							// placeholder={item.Profile?.photos[0]?.blurhash}
 							source={{ uri: item.Profile?.photos[0]?.url }}
 						/>
 					) : (
