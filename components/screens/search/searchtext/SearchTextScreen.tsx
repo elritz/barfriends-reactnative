@@ -207,7 +207,7 @@ const SearchTextScreen = () => {
 	}
 
 	return (
-		<Box bg={'red.200'} safeAreaTop flex={1}>
+		<Box safeAreaTop flex={1}>
 			<FlashList
 				data={[
 					{ title: 'Accounts', data: data?.exploreSearch.people },

@@ -1,3 +1,5 @@
+import LogoTransparent from '@assets/images/company/LogoTransparent'
+import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Stack, useRouter } from 'expo-router'
@@ -19,7 +21,14 @@ export default () => {
 				// headerTransparent: true,
 			}}
 		>
-			<Stack.Screen name={'DeviceManager'} />
+			<Stack.Screen
+				name={'DeviceManager'}
+				options={{
+					headerShown: true,
+					headerTitle: () => <LogoTransparent height={30} width={192} />,
+					headerLeft: () => <ChevronBackArrow />,
+				}}
+			/>
 			<Stack.Screen
 				name={'Emojimood'}
 				options={{

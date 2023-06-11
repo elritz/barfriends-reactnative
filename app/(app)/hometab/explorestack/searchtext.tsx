@@ -62,9 +62,10 @@ export default () => {
 		return (
 			<FlashList
 				data={[...Array(20)]}
+				numColumns={1}
+				estimatedItemSize={60}
 				keyExtractor={(item, index) => index.toString()}
 				scrollEnabled={false}
-				estimatedItemSize={60}
 				contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
@@ -135,13 +136,15 @@ export default () => {
 		return (
 			<FlashList
 				data={filteredRecentSearches as Array<Item>}
-				renderItem={item => <PastSearchItem search={item.item.search} />}
-				scrollEnabled={true}
+				numColumns={1}
 				estimatedItemSize={55}
+				keyExtractor={(item, index) => index.toString()}
+				scrollEnabled={true}
+				renderItem={item => <PastSearchItem search={item.item.search} />}
+				contentInset={{ top: insets.top }}
 				automaticallyAdjustContentInsets
 				automaticallyAdjustsScrollIndicatorInsets
 				contentInsetAdjustmentBehavior={'automatic'}
-				contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 			/>
 		)

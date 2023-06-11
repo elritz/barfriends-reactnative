@@ -259,29 +259,24 @@ export default () => {
 		}).then(() => setLoadingCache(false))
 	}, [])
 
-	useEffect(() => {
-		//NOTE: This only works if the notification happens in the foreground
-		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-			if (notification.request.content.data.route) {
-				router.push({
-					pathname: notification.request.content.data.route,
-				})
-			}
-		})
+	// useEffect(() => {
+	// 	//NOTE: This only works if the notification happens in the foreground
+	// 	notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+	// 		if (notification.request.content.data.route) {
+	// 			router.push({
+	// 				pathname: notification.request.content.data.route,
+	// 			})
+	// 		}
+	// 	})
 
-		responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-			// console.log(
-			// 	'🚀 ~ file: _layout.tsx:274 ~ useEffect ~ response:',
-			// 	JSON.stringify(response, null, 4),
-			// )
-		})
+	// 	responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {})
 
-		return () => {
-			Notifications.removeNotificationSubscription(notificationListener.current)
-			Notifications.removeNotificationSubscription(responseListener.current)
-		}
-		//NOTE: This only works if the notification happens in the foreground
-	}, [])
+	// 	return () => {
+	// 		Notifications.removeNotificationSubscription(notificationListener.current)
+	// 		Notifications.removeNotificationSubscription(responseListener.current)
+	// 	}
+	// 	//NOTE: This only works if the notification happens in the foreground
+	// }, [])
 
 	if (!assets || loadingCache) {
 		return <SplashScreen />

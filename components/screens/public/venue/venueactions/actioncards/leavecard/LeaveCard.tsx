@@ -6,17 +6,39 @@ import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
 	Profile,
+	useCurrentVenueQuery,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Heading, Button, VStack, Box, Icon, HStack } from 'native-base'
+import { Heading, Button, Box, Icon, HStack } from 'native-base'
 import { useEffect, useState } from 'react'
 
 export default function LeaveCard() {
 	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')
+
+	const { data, loading, error } = useCurrentVenueQuery({
+		skip: !params.profileId,
+		fetchPolicy: 'cache-first',
+		variables: {
+			where: {
+				id: {
+					equals: String(params.profileid),
+				},
+			},
+		},
+		onCompleted: data => {
+			const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
+				item => item.venueProfileId === String(params.profileid),
+			)
+
+			if (out) {
+				setOutId(out.id)
+			}
+		},
+	})
 
 	useEffect(() => {
 		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
@@ -88,6 +110,7 @@ export default function LeaveCard() {
 						onPress={() => {
 							removePersonalJoinsVenueMutation()
 						}}
+						h={'45px'}
 						size={'xs'}
 						textAlign={'center'}
 						colorScheme={'error'}

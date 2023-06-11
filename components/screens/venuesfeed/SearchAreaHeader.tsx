@@ -1,3 +1,4 @@
+import VenueFeedSearchAreaEmptyState from './VenueFeedSearchAreaEmptyState'
 import { useReactiveVar } from '@apollo/client'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { SearchAreaReactiveVar } from '@reactive'
@@ -5,6 +6,8 @@ import { useRouter } from 'expo-router'
 import { HStack, VStack, Heading, IconButton, Icon, Pressable, Box, Text } from 'native-base'
 
 export default function SearchAreaHeader({ typename, city }) {
+	console.log('🚀 ~ file: SearchAreaHeader.tsx:9 ~ SearchAreaHeader ~ typename:', typename)
+
 	const router = useRouter()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	return (

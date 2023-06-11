@@ -8505,7 +8505,7 @@ export type Mutation = {
   deleteFriendRequest: Scalars['Boolean'];
   qrAddFriend: Relationship;
   refreshDeviceManager: AuthenticationResponseUnion;
-  removeAllFromVenue: Scalars['Boolean'];
+  removeAllFromVenueDeveloper: Scalars['Boolean'];
   removeDeviceProfileFromDeviceManager: Scalars['Boolean'];
   removeFriend: Scalars['Boolean'];
   removePersonalJoinsVenue: Profile;
@@ -8578,7 +8578,7 @@ export type MutationQrAddFriendArgs = {
 };
 
 
-export type MutationRemoveAllFromVenueArgs = {
+export type MutationRemoveAllFromVenueDeveloperArgs = {
   profileIdVenue?: InputMaybe<Scalars['String']>;
 };
 
@@ -18326,6 +18326,11 @@ export type CheckUsernameQueryVariables = Exact<{
 
 export type CheckUsernameQuery = { __typename?: 'Query', checkUsername: boolean };
 
+export type RemoveAllFromVenueDeveloperMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RemoveAllFromVenueDeveloperMutation = { __typename?: 'Mutation', removeAllFromVenueDeveloper: boolean };
+
 export type EmojimoodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -19665,6 +19670,36 @@ export function useCheckUsernameLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type CheckUsernameQueryHookResult = ReturnType<typeof useCheckUsernameQuery>;
 export type CheckUsernameLazyQueryHookResult = ReturnType<typeof useCheckUsernameLazyQuery>;
 export type CheckUsernameQueryResult = Apollo.QueryResult<CheckUsernameQuery, CheckUsernameQueryVariables>;
+export const RemoveAllFromVenueDeveloperDocument = gql`
+    mutation removeAllFromVenueDeveloper {
+  removeAllFromVenueDeveloper
+}
+    `;
+export type RemoveAllFromVenueDeveloperMutationFn = Apollo.MutationFunction<RemoveAllFromVenueDeveloperMutation, RemoveAllFromVenueDeveloperMutationVariables>;
+
+/**
+ * __useRemoveAllFromVenueDeveloperMutation__
+ *
+ * To run a mutation, you first call `useRemoveAllFromVenueDeveloperMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveAllFromVenueDeveloperMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeAllFromVenueDeveloperMutation, { data, loading, error }] = useRemoveAllFromVenueDeveloperMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRemoveAllFromVenueDeveloperMutation(baseOptions?: Apollo.MutationHookOptions<RemoveAllFromVenueDeveloperMutation, RemoveAllFromVenueDeveloperMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveAllFromVenueDeveloperMutation, RemoveAllFromVenueDeveloperMutationVariables>(RemoveAllFromVenueDeveloperDocument, options);
+      }
+export type RemoveAllFromVenueDeveloperMutationHookResult = ReturnType<typeof useRemoveAllFromVenueDeveloperMutation>;
+export type RemoveAllFromVenueDeveloperMutationResult = Apollo.MutationResult<RemoveAllFromVenueDeveloperMutation>;
+export type RemoveAllFromVenueDeveloperMutationOptions = Apollo.BaseMutationOptions<RemoveAllFromVenueDeveloperMutation, RemoveAllFromVenueDeveloperMutationVariables>;
 export const EmojimoodsDocument = gql`
     query emojimoods {
   emojimoods {

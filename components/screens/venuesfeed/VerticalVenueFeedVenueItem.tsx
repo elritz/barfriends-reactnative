@@ -13,7 +13,7 @@ import { AuthorizationReactiveVar } from '@reactive'
 import useGetDistance from '@util/hooks/useDistance'
 import { useRouter } from 'expo-router'
 import { Image, VStack, Box, Heading, Pressable, Button, Skeleton } from 'native-base'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -40,9 +40,6 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: String(props.item.id),
-			},
-			onError: error => {
-				console.log('error JOIN :>> ', error)
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
@@ -89,9 +86,6 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 	] = useRemovePersonalJoinsVenueMutation({
 		variables: {
 			outId,
-		},
-		onError: error => {
-			console.log('error  REMOVE :>> ', error)
 		},
 		onCompleted: async data => {
 			if (data.removePersonalJoinsVenue) {
@@ -296,16 +290,18 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 								colorScheme={isJoined ? 'error' : 'primary'}
 								borderRadius={'md'}
 								width={'full'}
+								isLoadingText={isJoined ? 'Leaving' : 'Joining'}
 								textAlign={'center'}
 								_text={{
 									fontWeight: '700',
 									fontSize: 'md',
 								}}
+									h={'45px'}
 							>
 								{isJoined ? 'Leave' : 'Join'}
 							</Button>
 						</>
-					) : metric === 'm' && distance < 50 ? (
+					) : metric === 'm' && distance < 100 ? (
 						<Button
 							variant={'ghost'}
 							onPress={async () => {
@@ -328,4 +324,4 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 	)
 }
 
-export default VerticalVenueFeedVenueItem
+export default memo(VerticalVenueFeedVenueItem)

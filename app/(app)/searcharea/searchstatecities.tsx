@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
-import { filter } from 'lodash'
+import { filter, uniqueId } from 'lodash'
 import { Text, Box, HStack, Button, Skeleton, Heading, VStack } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -148,7 +148,7 @@ export default function SearchAreaStateCities() {
 			keyboardDismissMode='on-drag'
 			estimatedItemSize={400}
 			keyExtractor={(item, index) => {
-				return ('key' + index + item.title).toString()
+				return (uniqueId() + index + item.title).toString()
 			}}
 			renderItem={({ index, item }) => {
 				return (

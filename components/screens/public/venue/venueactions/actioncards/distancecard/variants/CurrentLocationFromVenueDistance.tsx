@@ -52,12 +52,6 @@ import { Easing } from 'react-native-reanimated'
 
 async function unregisterForegroundFetchAsync() {
 	const hasStarted = await Location.hasStartedLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
-
-	console.log(
-		'🚀 ~ file: CurrentLocationFromVenueDistance.tsx:59 ~ unregisterForegroundFetchAsync ~ hasStarted:',
-		hasStarted,
-	)
-
 	if (hasStarted) {
 		return Location.stopLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
 	}
@@ -177,7 +171,7 @@ const CurrentLocationFromVenueDistance = () => {
 				}
 			} else {
 				onToggleForegroundLocationOn()
-				unregisterForegroundFetchAsync()
+				// unregisterForegroundFetchAsync()
 			}
 		}
 	}, [appState, isFocused])

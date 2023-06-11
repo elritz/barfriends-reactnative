@@ -8257,7 +8257,7 @@ type Mutation {
   deleteFriendRequest(friendRequestId: String!): Boolean!
   qrAddFriend(dataHash: String!, qrCodeProfileId: String!): Relationship!
   refreshDeviceManager: AuthenticationResponseUnion!
-  removeAllFromVenue(profileIdVenue: String): Boolean!
+  removeAllFromVenueDeveloper(profileIdVenue: String): Boolean!
   removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType = GUEST): Boolean!
   removeFriend(relationshipId: String!): Boolean!
   removePersonalJoinsVenue(outId: String!): Profile!

@@ -68,6 +68,7 @@ export default function Emojimood() {
 				<FlashList
 					numColumns={3}
 					estimatedItemSize={window.width / 2.5}
+					keyExtractor={(item, index) => index.toString()}
 					data={[...Array(21)]}
 					showsVerticalScrollIndicator={false}
 					ListHeaderComponent={() => {
@@ -188,8 +189,8 @@ export default function Emojimood() {
 								bottom: window.width / 1.75,
 							}}
 							extraData={value}
-							contentInsetAdjustmentBehavior='automatic'
 							keyExtractor={item => item.id.toString()}
+							contentInsetAdjustmentBehavior='automatic'
 							onEndReachedThreshold={0.4}
 							showsVerticalScrollIndicator={false}
 							numColumns={3}

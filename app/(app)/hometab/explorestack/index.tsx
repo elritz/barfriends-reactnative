@@ -31,17 +31,18 @@ export default () => {
 		<Box style={{ flex: 1 }}>
 			<FlashList
 				data={loading ? [] : data?.profiles}
+				numColumns={2}
+				estimatedItemSize={45}
+				keyExtractor={(item, index) => index.toString()}
 				ListHeaderComponent={() => {
 					return <ShowCaseScroll />
 				}}
-				estimatedItemSize={45}
 				contentInset={{
 					bottom:
 						insets.bottom !== 0
 							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
 							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 				}}
-				numColumns={2}
 				renderItem={({ item }) => {
 					return (
 						<>

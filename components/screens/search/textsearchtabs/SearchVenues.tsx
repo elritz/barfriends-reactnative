@@ -2,7 +2,7 @@ import SearchCard from '../components/SearchCard'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
-import { Box, Center, Heading, ScrollView, Skeleton, View } from 'native-base'
+import { Box, Center, Heading, Skeleton, View } from 'native-base'
 
 export default function SearchVenues() {
 	const params = useSearchParams()
@@ -25,6 +25,7 @@ export default function SearchVenues() {
 				estimatedItemSize={65}
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
+				keyExtractor={(item, index) => index.toString()}
 				contentInset={{
 					top: 20,
 				}}

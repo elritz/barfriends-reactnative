@@ -139,6 +139,7 @@ const SearchTextScreenInput = () => {
 							}}
 							h={SEARCH_BAR_HEIGHT}
 							mr={2}
+							autoCorrect={false}
 							autoCapitalize={'none'}
 							placeholder='Search'
 							autoFocus

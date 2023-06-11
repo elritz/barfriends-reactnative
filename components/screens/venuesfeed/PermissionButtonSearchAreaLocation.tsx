@@ -1,5 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import { useNavigation } from '@react-navigation/native'
 import { PermissionForegroundLocationReactiveVar } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useRouter } from 'expo-router'
@@ -11,7 +10,7 @@ export default function PermissionButtonSearchAreaLocation() {
 
 	const handleLocationPermissionNavigation = async () => {
 		route.push({
-			pathname: '(app)/searcharea',
+			pathname: '(app)/permission/foregroundlocation',
 		})
 	}
 

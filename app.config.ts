@@ -265,7 +265,14 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				plugins: [
-					'expo-build-properties',
+					[
+						'expo-build-properties',
+						{
+							ios: {
+								flipper: true,
+							},
+						},
+					],
 					'expo-localization',
 					[
 						'expo-contacts',
@@ -306,7 +313,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					favicon: './assets/images/favicon.png',
 				},
 				ios: {
-					buildNumber: '2.1.6',
 					associatedDomains: ['applinks:barfriends.com'],
 					bundleIdentifier: 'com.barfriends.dev',
 					supportsTablet: false,

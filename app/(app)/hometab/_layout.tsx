@@ -1,6 +1,4 @@
 import { useReactiveVar } from '@apollo/client'
-import LogoTransparent from '@assets/images/company/LogoTransparent'
-import VenueFeedSearchInput from '@components/molecules/search/venuefeed/VenueFeedSearchInput'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
 import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profiletab'
@@ -16,7 +14,7 @@ import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Tabs } from 'expo-router'
-import { Box, VStack } from 'native-base'
+import { Box } from 'native-base'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -59,22 +57,23 @@ export default () => {
 			<Tabs.Screen
 				name='venuefeedstack'
 				options={{
-					header: () => {
-						return (
-							<VStack
-								safeAreaTop
-								_light={{ bg: 'light.100' }}
-								_dark={{ bg: 'dark.50' }}
-								justifyContent={'center'}
-								alignItems={'center'}
-								h={h}
-							>
-								<Box mt={-2}>
-									<LogoTransparent height={28} width={189} />
-								</Box>
-							</VStack>
-						)
-					},
+					headerShown: false,
+					// header: () => {
+					// 	return (
+					// 		<VStack
+					// 			safeAreaTop
+					// 			_light={{ bg: 'light.100' }}
+					// 			_dark={{ bg: 'dark.50' }}
+					// 			justifyContent={'center'}
+					// 			alignItems={'center'}
+					// 			h={h}
+					// 		>
+					// 			<Box mt={-2}>
+					// 				<LogoTransparent height={28} width={189} />
+					// 			</Box>
+					// 		</VStack>
+					// 	)
+					// },
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,
@@ -84,6 +83,7 @@ export default () => {
 				name='explorestack'
 				options={{
 					headerShown: false,
+					href: null,
 					tabBarLabel: 'explore',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,

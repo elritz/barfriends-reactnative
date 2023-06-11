@@ -1,11 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
 import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
+import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'
 import VenueFeedSignupCard from '@components/screens/venuesfeed/VenueFeedSignupCard'
+import DevActions from '@components/screens/venuesfeed/devactions'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
+import { ENVIRONMENT } from '@env'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	ProfileType,
@@ -33,8 +36,6 @@ export default () => {
 	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const rForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
-	const rBackgroundLocationVar = useReactiveVar(PermissionBackgroundLocationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 	const width = Dimensions.get('window').width / 2.15
 
@@ -62,6 +63,9 @@ export default () => {
 			},
 			countryIsoCode: String(rSearchAreaVar?.searchArea.country.isoCode),
 			stateIsoCode: String(rSearchAreaVar?.searchArea.state.isoCode),
+		},
+		onCompleted(data) {
+			console.log('data. :>> ', data.__typename)
 		},
 	})
 
@@ -91,22 +95,32 @@ export default () => {
 
 	const ListheaderComponent = ({ typename }) => {
 		return (
-			<Pressable
-				onPress={() =>
-					router.push({
-						pathname: '(app)/searcharea',
-					})
-				}
-			>
-				<Box>
-					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-						<VenueFeedSignupCard />
-					)}
-					<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-						<SearchAreaHeader typename={typename || null} city={rSearchAreaVar.searchArea.city.name} />
-					</VStack>
-				</Box>
-			</Pressable>
+			<>
+				{ENVIRONMENT === 'development' && (
+					<Box my={5}>
+						<DevActions />
+					</Box>
+				)}
+				<Pressable
+					onPress={() =>
+						router.push({
+							pathname: '(app)/searcharea',
+						})
+					}
+				>
+					<Box>
+						{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+							<VenueFeedSignupCard />
+						)}
+						{!rSearchAreaVar.searchArea.city.name && !typename && <VenueFeedSearchAreaEmptyState />}
+						{rSearchAreaVar.searchArea.city.name && (
+							<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
+								<SearchAreaHeader typename={typename || null} city={rSearchAreaVar.searchArea.city.name} />
+							</VStack>
+						)}
+					</Box>
+				</Pressable>
+			</>
 		)
 	}
 
@@ -114,6 +128,7 @@ export default () => {
 		return null
 	}
 
+	console.log('data?.venuesNearby.__typename :>> ', data?.venuesNearby.__typename)
 	if (!data?.venuesNearby || loading) {
 		return (
 			<MasonryFlashList
@@ -166,6 +181,7 @@ export default () => {
 			<FlashList
 				data={data.venuesNearby.comingAreas}
 				overScrollMode='always'
+				keyExtractor={(item, index) => index.toString()}
 				onRefresh={onPullRefresh}
 				refreshing={loading}
 				estimatedItemSize={30}
@@ -277,7 +293,6 @@ export default () => {
 				numColumns={2}
 				estimatedItemSize={100}
 				scrollEnabled
-				// columnWrapperStyle={{ justifyContent: 'space-around' }}
 				contentInset={{
 					top: insets.top + 10,
 					bottom:

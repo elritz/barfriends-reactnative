@@ -215,6 +215,7 @@ export default () => {
 			<FlashList
 				data={contacts}
 				numColumns={1}
+				keyExtractor={item => item.id}
 				showsVerticalScrollIndicator={false}
 				estimatedItemSize={60}
 				keyboardDismissMode='on-drag'
@@ -225,7 +226,6 @@ export default () => {
 							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
 							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 				}}
-				keyExtractor={item => item.id}
 				renderItem={({ item }) => {
 					if (!item.firstName || !item.lastName) {
 						return null

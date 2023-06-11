@@ -1,3 +1,4 @@
+import { FlashList } from '@shopify/flash-list'
 import * as MediaLibrary from 'expo-media-library'
 import { Heading, Image } from 'native-base'
 import { useState } from 'react'
@@ -54,7 +55,8 @@ export default ({}) => {
 			<Heading fontSize={'2xl'} style={{ fontWeight: '800' }}>
 				Take Photo Options
 			</Heading>
-			<FlatList
+			<FlashList
+			estimatedItemSize={100}
 				style={{ flex: 1 }}
 				data={photos}
 				numColumns={3}

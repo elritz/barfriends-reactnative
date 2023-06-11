@@ -25,6 +25,7 @@ export default function SearchAccounts() {
 				estimatedItemSize={65}
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
+				keyExtractor={(item, index) => index.toString()}
 				contentInset={{
 					top: 20,
 				}}

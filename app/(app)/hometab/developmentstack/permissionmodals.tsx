@@ -1,10 +1,12 @@
+import { FlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
 import { Pressable, Divider, FlatList, HStack, Heading } from 'native-base'
 
 export default function Preferences() {
 	const router = useRouter()
 	return (
-		<FlatList
+		<FlashList
+		estimatedItemSize={65}
 			data={[
 				{
 					name: 'Foreground Location',

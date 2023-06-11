@@ -1,6 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
-import { useAddPersonalJoinsVenueMutation } from '@graphql/generated'
+import {
+	AuthorizationDeviceManager,
+	AuthorizationDeviceProfile,
+	Profile,
+	useAddPersonalJoinsVenueMutation,
+} from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { Button } from 'native-base'
@@ -12,17 +17,47 @@ export default function JoinVenue() {
 	const [outId, setOutId] = useState('')
 	const [isJoined, setIsJoined] = useState(false)
 
-	const [addJoinVenueMutation, { data: AJVData, loading: AJVLoading, error: AJVError }] =
+	const [addPersonalJoinVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useAddPersonalJoinsVenueMutation({
 			variables: {
 				profileIdVenue: String(params.profileid),
 			},
-			onCompleted: async data => {},
+			onCompleted: async data => {
+				if (data.addPersonalJoinsVenue) {
+					console.log('🚀 ~ file: JoinVenue.tsx:28 ~ JoinVenue ~ data:', data)
+
+					const profile = data.addPersonalJoinsVenue as Profile
+					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
+					const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile
+					if (
+						profile?.Personal?.LiveOutPersonal?.Out &&
+						deviceprofile?.Profile?.Personal?.LiveOutPersonal
+					) {
+						AuthorizationReactiveVar({
+							...deviceManager,
+							DeviceProfile: {
+								...deviceprofile,
+								Profile: {
+									...deviceprofile.Profile,
+									Personal: {
+										...deviceprofile.Profile.Personal,
+										LiveOutPersonal: {
+											...deviceprofile.Profile.Personal.LiveOutPersonal,
+											Out: profile.Personal.LiveOutPersonal.Out,
+										},
+									},
+								},
+							},
+						})
+					}
+					setIsJoined(true)
+				}
+			},
 			refetchQueries: [
 				{
 					query: GET_LIVE_VENUE_TOTALS_QUERY,
 					variables: {
-						profileIdVenue: params.profileid,
+						profileIdVenue: String(params.profileid),
 					},
 				},
 			],
@@ -48,11 +83,14 @@ export default function JoinVenue() {
 
 	return (
 		<Button
-			isLoading={AJVLoading}
+			isLoading={JVLoading}
 			onPress={() => {
-				addJoinVenueMutation()
+				addPersonalJoinVenueMutation()
 			}}
+			h={'45px'}
+			isDisabled={isJoined}
 			width={'full'}
+			isLoadingText={'Joining'}
 			colorScheme={'primary'}
 			borderRadius={'md'}
 			textAlign={'center'}

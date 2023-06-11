@@ -33,8 +33,8 @@ export default function VenueFeedSearchAreaEmptyState() {
 			>
 				Where are your venues?
 			</Text>
-			<Text>
-				Continue to find venues using location using your device location, or find venues with Search
+			<Text fontSize={'lg'}>
+				Continue by finding venues using location using your device location, or find venues with Search
 				Area.
 				<Icon size={'xs'} color={'primary.500'} as={FontAwesome5} name='filter' /> search area.{' '}
 			</Text>

@@ -50,9 +50,6 @@ const useGetDistance = (): DistanceHookType => {
 					)
 					setDistanceInM(dist)
 
-					console.log("🚀 ~ file: useDistance.tsx:53 ~ dist:", dist)
-
-					console.log('here :>>11 ')
 					if (dist > 1000) {
 						const val = parseInt((dist / 1000).toFixed(1))
 						setDistance(val)
@@ -66,7 +63,6 @@ const useGetDistance = (): DistanceHookType => {
 				const currentPosition = await Location.getCurrentPositionAsync({
 					accuracy: Location.LocationAccuracy.High,
 				})
-				console.log('here :>> ')
 				const dist = getDistance(
 					{ latitude: currentPosition.coords.latitude, longitude: currentPosition.coords.longitude },
 					{
@@ -85,9 +81,6 @@ const useGetDistance = (): DistanceHookType => {
 				}
 			}
 			setTimeout(() => setLoading(false), 1000)
-			console.log('distanceInM :>> ', distanceInM)
-			console.log('distanceInM :>> ', distance)
-			console.log('distanceInM :>> ', isLoading)
 			return {
 				metric,
 				distance,

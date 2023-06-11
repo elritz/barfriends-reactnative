@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { useGetAllThemesQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import { FlashList } from '@shopify/flash-list'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { useRouter } from 'expo-router'
@@ -212,9 +213,9 @@ export default function Preferences() {
 	}
 
 	return (
-		<FlatList
+		<FlashList
 			data={GATData.getAllThemes}
-			keyExtractor={i => i}
+			keyExtractor={(item, index) => index.toString()}
 			numColumns={3}
 			renderItem={renderItem}
 			ListHeaderComponent={() => {
@@ -226,7 +227,7 @@ export default function Preferences() {
 							}}
 							bg={'light.200'}
 							flex={1}
-							borderColor={colorScheme === 'light' && 'primary.300'}
+							borderColor={colorScheme === 'light' ? 'primary.300' : 'transparent'}
 							borderWidth={2}
 						>
 							<Text color={'black'}>Light</Text>

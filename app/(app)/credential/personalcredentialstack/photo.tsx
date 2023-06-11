@@ -2,6 +2,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
+import { FlashList } from '@shopify/flash-list'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import * as ImagePicker from 'expo-image-picker'
 import * as MediaLibrary from 'expo-media-library'
@@ -275,12 +276,12 @@ export default () => {
 					source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 				/>
 			</Center>
-			<FlatList
+			<FlashList
 				style={{
 					width: '100%',
 					height: '100%',
 				}}
-				keyExtractor={item => item.id}
+				keyExtractor={(item, index) => index.toString()}
 				onEndReachedThreshold={0.4}
 				onEndReached={_loadMoreMedia}
 				numColumns={3}

@@ -188,7 +188,7 @@ export default () => {
 		)
 	}
 
-	const HandleEmpty = () => {
+	const HandleEmptyUsers = () => {
 		return (
 			<Text textAlign={'center'} fontSize={'2xl'}>
 				{' '}
@@ -202,7 +202,6 @@ export default () => {
 	const username = venueData.IdentifiableInformation?.username
 
 	return (
-		// <SafeAreaView>
 		<FlashList
 			data={[]}
 			estimatedItemSize={200}
@@ -255,14 +254,14 @@ export default () => {
 							/>
 						</HStack>
 						<VenueTotals />
-						{rAuthorizationVar?.DeviceProfile?.Profile?.Personal && <LeaveCard />}
+						<LeaveCard />
 					</Box>
 					<VenueActions key={uniqueId()} />
 				</VStack>
 			}
-			ListEmptyComponent={!loading && <HandleEmpty />}
+			ListEmptyComponent={!loading && <HandleEmptyUsers />}
 			ListFooterComponent={<Details tags={venueData?.DetailInformation?.Tags} />}
-			keyExtractor={item => item}
+			keyExtractor={(item, index) => index.toString()}
 			renderItem={item => <PersonalAtVenue item={item} />}
 			contentInset={{
 				bottom: bottom,

@@ -1,11 +1,11 @@
-import JoinCard from './joincard/JoinCard'
-import LeaveCard from './leavecard/LeaveCard'
-import TotalCard from './totalcard/TotalCard'
-import { Text, Heading, HStack, VStack, Box, Pressable } from 'native-base'
+import { useRemoveAllFromVenueDeveloperMutation } from '@graphql/generated'
+import { Text, Heading, HStack, VStack, Box, Pressable, Button } from 'native-base'
 import { useState } from 'react'
 
 export default function DevActions() {
 	const [showDevMode, setShowDevMode] = useState(false)
+
+	const [removeAllFromVeneues, { data, loading, error }] = useRemoveAllFromVenueDeveloperMutation()
 
 	return (
 		<VStack space={4} justifyContent={'space-between'}>
@@ -30,9 +30,13 @@ export default function DevActions() {
 					</Pressable>
 					<VStack>
 						<HStack space={2} pt={2} pb={2} mx={3} justifyContent={'space-around'}>
-							<TotalCard />
-							<JoinCard />
-							<LeaveCard />
+							<Button
+								isLoading={loading}
+								isLoadingText='Removing patrons'
+								onPress={() => removeAllFromVeneues()}
+							>
+								Remove everyone
+							</Button>
 						</HStack>
 					</VStack>
 				</Box>
