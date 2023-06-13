@@ -12,8 +12,9 @@ import {
 import { AuthorizationReactiveVar } from '@reactive'
 import useGetDistance from '@util/hooks/useDistance'
 import { useRouter } from 'expo-router'
-import { Image, VStack, Box, Heading, Pressable, Button, Skeleton } from 'native-base'
-import { useEffect, useState, memo } from 'react'
+import { MotiPressable } from 'moti/interactions'
+import { Image, VStack, Box, Heading, Button, Skeleton } from 'native-base'
+import { useEffect, useState, memo, useMemo } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -204,10 +205,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 	}
 
 	return (
-		<Pressable
-			mx={1}
-			rounded={'md'}
-			key={props.item.id}
+		<MotiPressable
 			onPress={() => {
 				router.push({
 					pathname: `(app)/public/venue/${props.item.id}`,
@@ -219,6 +217,17 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 					},
 				})
 			}}
+			animate={useMemo(
+				() =>
+					({ hovered, pressed }) => {
+						'worklet'
+
+						return {
+							scale: hovered || pressed ? 0.979 : 1,
+						}
+					},
+				[],
+			)}
 		>
 			<VStack
 				space={2}
@@ -296,7 +305,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 									fontWeight: '700',
 									fontSize: 'md',
 								}}
-									h={'45px'}
+								h={'45px'}
 							>
 								{isJoined ? 'Leave' : 'Join'}
 							</Button>
@@ -320,7 +329,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 					) : null}
 				</VStack>
 			</VStack>
-		</Pressable>
+		</MotiPressable>
 	)
 }
 

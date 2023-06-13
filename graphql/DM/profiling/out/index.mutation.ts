@@ -70,8 +70,8 @@ export const PERSONAL_JOINS_VENUE_MUTATION = gql`
 
 export const PERSONAL_LEAVES_VENUE_MUTATION = gql`
 	${OUT_FRAGMENT}
-	mutation removePersonalJoinsVenue($outId: String!) {
-		removePersonalJoinsVenue(outId: $outId) {
+	mutation removePersonalJoinsVenue {
+		removePersonalJoinsVenue {
 			id
 			Personal {
 				id

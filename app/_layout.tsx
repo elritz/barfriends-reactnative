@@ -1,5 +1,5 @@
 //TODO: Add notfication listener
-import { ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import AnimatedAppLoader from '@components/screens/splash/AnimatedAppLoader'
 import {
 	LOCAL_STORAGE_SEARCH_AREA,
@@ -37,7 +37,6 @@ import {
 import { SearchAreaReactiveVar, searchAreaInitialState } from '@reactive'
 import { ThemeReactiveVar } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
-import { persistCache } from 'apollo3-cache-persist'
 import { useAssets } from 'expo-asset'
 import * as Camera from 'expo-camera'
 import * as Contacts from 'expo-contacts'
@@ -46,9 +45,9 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen, useRouter } from 'expo-router'
-import { useEffect, useRef, useState } from 'react'
-import { Appearance, Linking } from 'react-native'
+import { Slot, SplashScreen } from 'expo-router'
+import { useEffect } from 'react'
+import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -61,13 +60,7 @@ Notifications.setNotificationHandler({
 	}),
 })
 
-const cache = new InMemoryCache()
-
 export default () => {
-	const router = useRouter()
-	const notificationListener = useRef()
-	const responseListener = useRef()
-
 	const setPermissions = async () => {
 		const contactsPermission = await Contacts.getPermissionsAsync()
 		const cameraPermission = await Camera.getCameraPermissionsAsync()
@@ -95,7 +88,7 @@ export default () => {
 		require(`../assets/images/splash/splash.${ENVIRONMENT}.dark.png`),
 	])
 
-	const setPreferencesLocalStorageData = async () => {
+	const setAsyncPreferencesLocalStorageData = async () => {
 		try {
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS)
@@ -212,7 +205,6 @@ export default () => {
 					JSON.stringify(NowPreferencePermissionInitialState),
 				)
 			} else {
-				// using local_storage values set the correct information
 				const values: LocalStoragePreferenceAskBackgroundLocationPermissionType = JSON.parse(
 					getLocalStoragePreferenceForegroundLocationPreference,
 				)
@@ -247,16 +239,7 @@ export default () => {
 	}
 
 	useEffect(() => {
-		setPreferencesLocalStorageData()
-	}, [])
-
-	const [loadingCache, setLoadingCache] = useState(true)
-
-	useEffect(() => {
-		persistCache({
-			cache,
-			storage: AsyncStorage,
-		}).then(() => setLoadingCache(false))
+		setAsyncPreferencesLocalStorageData()
 	}, [])
 
 	// useEffect(() => {
@@ -278,19 +261,19 @@ export default () => {
 	// 	//NOTE: This only works if the notification happens in the foreground
 	// }, [])
 
-	if (!assets || loadingCache) {
+	if (!assets) {
 		return <SplashScreen />
 	}
 
 	return (
-		<ApolloProvider client={gateaWayClient}>
-			<AnimatedAppLoader assets={assets}>
+		<AnimatedAppLoader assets={assets}>
+			<ApolloProvider client={gateaWayClient}>
 				<SafeAreaProvider>
 					<KeyboardProvider statusBarTranslucent>
 						<Slot />
 					</KeyboardProvider>
 				</SafeAreaProvider>
-			</AnimatedAppLoader>
-		</ApolloProvider>
+			</ApolloProvider>
+		</AnimatedAppLoader>
 	)
 }

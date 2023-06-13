@@ -6,21 +6,19 @@ import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
 	Profile,
-	useCurrentVenueQuery,
+	useCurrentVenueLazyQuery,
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Heading, Button, Box, Icon, HStack } from 'native-base'
-import { useEffect, useState } from 'react'
+import { Heading, Button, Icon, HStack } from 'native-base'
+import { useEffect } from 'react'
 
-export default function LeaveCard() {
+export default function LeaveSection() {
 	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const [outId, setOutId] = useState('')
 
-	const { data, loading, error } = useCurrentVenueQuery({
-		skip: !params.profileId,
+	const [currentVenueQuery, { data, loading, error }] = useCurrentVenueLazyQuery({
 		fetchPolicy: 'cache-first',
 		variables: {
 			where: {
@@ -29,32 +27,14 @@ export default function LeaveCard() {
 				},
 			},
 		},
-		onCompleted: data => {
-			const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
-				item => item.venueProfileId === String(params.profileid),
-			)
-
-			if (out) {
-				setOutId(out.id)
-			}
-		},
 	})
 
 	useEffect(() => {
-		const out = rAuthorizationVar?.DeviceProfile?.Profile?.Personal?.LiveOutPersonal?.Out.find(
-			item => item.venueProfileId === String(params.profileid),
-		)
-
-		if (out) {
-			setOutId(out.id)
-		}
-	}, [rAuthorizationVar])
+		currentVenueQuery()
+	}, [data])
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useRemovePersonalJoinsVenueMutation({
-			variables: {
-				outId,
-			},
 			onCompleted: async data => {
 				if (data.removePersonalJoinsVenue) {
 					const profile = data.removePersonalJoinsVenue as Profile
@@ -98,34 +78,31 @@ export default function LeaveCard() {
 		params.profileid
 	) {
 		return (
-			<HStack mt={5} alignItems={'center'} justifyContent={'space-between'} px={3} w={'full'}>
-				<Heading fontSize={'md'} fontWeight={'800'} textTransform={'uppercase'}>
+			<HStack px={3} mt={5} alignItems={'center'} justifyContent={'space-between'} w={'full'}>
+				<Heading fontWeight={'800'} textTransform={'uppercase'} fontSize={'md'}>
 					You're joined{'\n'}
-					<Heading fontWeight={'900'} color={'red.600'} textTransform={'uppercase'} fontSize={'lg'}>
+					<Heading color={'red.600'} fontWeight={'900'} textTransform={'uppercase'} fontSize={'lg'}>
 						Want to Leave?
 					</Heading>
 				</Heading>
-				<Box>
-					<Button
-						onPress={() => {
-							removePersonalJoinsVenueMutation()
-						}}
-						h={'45px'}
-						size={'xs'}
-						textAlign={'center'}
-						colorScheme={'error'}
-						borderRadius={'md'}
-						_text={{
-							fontWeight: '700',
-							fontSize: 'md',
-						}}
-						leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
-						isLoading={JVLoading}
-						isLoadingText='Leaving'
-					>
-						Leave
-					</Button>
-				</Box>
+				<Button
+					onPress={() => {
+						removePersonalJoinsVenueMutation()
+					}}
+					h={'45px'}
+					textAlign={'center'}
+					colorScheme={'error'}
+					borderRadius={'md'}
+					_text={{
+						fontWeight: '700',
+						fontSize: 'md',
+					}}
+					leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
+					isLoading={JVLoading}
+					isLoadingText='Leaving'
+				>
+					Leave
+				</Button>
 			</HStack>
 		)
 	} else {

@@ -1,4 +1,4 @@
-import LeaveCard from '../venueactions/actioncards/leavecard/LeaveCard'
+import LeaveCard from '../venueactions/actioncards/leavesection/LeaveSection'
 import { useReactiveVar } from '@apollo/client'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, SearchAreaReactiveVar } from '@reactive'

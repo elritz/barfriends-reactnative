@@ -8260,7 +8260,7 @@ type Mutation {
   removeAllFromVenueDeveloper(profileIdVenue: String): Boolean!
   removeDeviceProfileFromDeviceManager(profileId: String!, profileType: ProfileType = GUEST): Boolean!
   removeFriend(relationshipId: String!): Boolean!
-  removePersonalJoinsVenue(outId: String!): Profile!
+  removePersonalJoinsVenue: Profile!
   removePersonalTotalsVenue(profileIdVenue: String): Boolean!
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!

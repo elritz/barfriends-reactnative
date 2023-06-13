@@ -8594,11 +8594,6 @@ export type MutationRemoveFriendArgs = {
 };
 
 
-export type MutationRemovePersonalJoinsVenueArgs = {
-  outId: Scalars['String'];
-};
-
-
 export type MutationRemovePersonalTotalsVenueArgs = {
   profileIdVenue?: InputMaybe<Scalars['String']>;
 };
@@ -18438,9 +18433,7 @@ export type AddPersonalJoinsVenueMutationVariables = Exact<{
 
 export type AddPersonalJoinsVenueMutation = { __typename?: 'Mutation', addPersonalJoinsVenue: { __typename?: 'Profile', id: string, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string }, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string } } } | null } | null } };
 
-export type RemovePersonalJoinsVenueMutationVariables = Exact<{
-  outId: Scalars['String'];
-}>;
+export type RemovePersonalJoinsVenueMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RemovePersonalJoinsVenueMutation = { __typename?: 'Mutation', removePersonalJoinsVenue: { __typename?: 'Profile', id: string, Personal?: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string }, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string, Out: Array<{ __typename?: 'Out', id: string, type: OutType, personalProfileId: string, venueProfileId: string, venueStatsId?: string | null, personalStatsId?: string | null, liveOutVenueId?: string | null, leftAt?: any | null, liveOutPersonalId?: string | null, createdAt: any, updatedAt: any, VenueStats?: { __typename?: 'VenueStats', id: string } | null, PersonalStats?: { __typename?: 'PersonalStats', id: string } | null, LiveOutVenue?: { __typename?: 'LiveOutVenue', id: string } | null, LiveOutPersonal?: { __typename?: 'LiveOutPersonal', id: string } | null }>, Personal: { __typename?: 'Personal', id: string, profileId: string, createdAt: any, updatedAt: any, Profile: { __typename?: 'Profile', id: string } } } | null } | null } };
@@ -20417,8 +20410,8 @@ export type AddPersonalJoinsVenueMutationHookResult = ReturnType<typeof useAddPe
 export type AddPersonalJoinsVenueMutationResult = Apollo.MutationResult<AddPersonalJoinsVenueMutation>;
 export type AddPersonalJoinsVenueMutationOptions = Apollo.BaseMutationOptions<AddPersonalJoinsVenueMutation, AddPersonalJoinsVenueMutationVariables>;
 export const RemovePersonalJoinsVenueDocument = gql`
-    mutation removePersonalJoinsVenue($outId: String!) {
-  removePersonalJoinsVenue(outId: $outId) {
+    mutation removePersonalJoinsVenue {
+  removePersonalJoinsVenue {
     id
     Personal {
       id
@@ -20484,7 +20477,6 @@ export type RemovePersonalJoinsVenueMutationFn = Apollo.MutationFunction<RemoveP
  * @example
  * const [removePersonalJoinsVenueMutation, { data, loading, error }] = useRemovePersonalJoinsVenueMutation({
  *   variables: {
- *      outId: // value for 'outId'
  *   },
  * });
  */

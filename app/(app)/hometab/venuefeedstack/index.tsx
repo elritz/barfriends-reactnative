@@ -19,8 +19,6 @@ import {
 import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
-	PermissionBackgroundLocationReactiveVar,
-	PermissionForegroundLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
@@ -128,7 +126,6 @@ export default () => {
 		return null
 	}
 
-	console.log('data?.venuesNearby.__typename :>> ', data?.venuesNearby.__typename)
 	if (!data?.venuesNearby || loading) {
 		return (
 			<MasonryFlashList
