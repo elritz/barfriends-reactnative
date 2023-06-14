@@ -11,29 +11,15 @@ export default () => {
 	return (
 		<Stack
 			screenOptions={{
-				headerShown: true,
-				headerTransparent: true,
-				headerStyle: {
-					backgroundColor: 'transparent',
-				},
-				headerLeft: () => (
-					<HStack justifyContent={'flex-start'} maxW={'90%'} space={1} alignItems={'center'} ml={2}>
-						<IconButton
-							bg={colorScheme === 'light' ? 'light.50' : 'dark.50'}
-							rounded={'full'}
-							size={'xs'}
-							onPress={() => router.back()}
-							icon={<Icon as={Ionicons} name='md-chevron-back-outline' size={'xl'} />}
-						/>
-					</HStack>
-				),
-				headerRight: () => (
-					<IconButton my={2} mr={2} icon={<Icon as={Entypo} name={'dots-three-vertical'} size={23} />} />
-				),
-				headerTitle: '',
+				headerShown: false,
 			}}
 		>
-			<Stack.Screen name={'[profileid]'} />
+			<Stack.Screen
+				options={{
+					presentation: 'transparentModal',
+				}}
+				name={'[profileid]'}
+			/>
 		</Stack>
 	)
 }

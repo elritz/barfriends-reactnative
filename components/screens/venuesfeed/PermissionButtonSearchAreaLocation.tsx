@@ -8,20 +8,18 @@ export default function PermissionButtonSearchAreaLocation() {
 	const route = useRouter()
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 
-	const handleLocationPermissionNavigation = async () => {
-		route.push({
-			pathname: '(app)/permission/foregroundlocation',
-		})
+	const _press = async () => {
+		rPermissionLocationVar?.granted
+			? await useSetSearchAreaWithLocation()
+			: route.push({
+					pathname: '(app)/permission/foregroundlocation',
+			  })
 	}
 
 	return (
 		<Button
 			variant='solid'
-			onPress={async () =>
-				rPermissionLocationVar?.granted
-					? await useSetSearchAreaWithLocation()
-					: await handleLocationPermissionNavigation()
-			}
+			onPress={async () => await _press()}
 			mt={15}
 			w={'85%'}
 			_text={{

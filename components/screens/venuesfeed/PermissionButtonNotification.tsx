@@ -8,16 +8,18 @@ export default function SearchAreaLocationPermissionButton() {
 	const router = useRouter()
 	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
 
+	const _press = async () => {
+		rPermissionNotificationVar?.granted
+			? await useSetSearchAreaWithLocation()
+			: router.push({
+					pathname: '(app)/permission/notifications',
+			  })
+	}
+
 	return (
 		<Button
 			variant='solid'
-			onPress={async () =>
-				rPermissionNotificationVar?.granted
-					? await useSetSearchAreaWithLocation()
-					: router.push({
-							pathname: '(app)/permission/notifications',
-					  })
-			}
+			onPress={async () => _press()}
 			mt={15}
 			w={'85%'}
 			_text={{

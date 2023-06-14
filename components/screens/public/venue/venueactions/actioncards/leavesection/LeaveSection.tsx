@@ -12,26 +12,10 @@ import {
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { Heading, Button, Icon, HStack } from 'native-base'
-import { useEffect } from 'react'
 
 export default function LeaveSection() {
 	const params = useSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-
-	const [currentVenueQuery, { data, loading, error }] = useCurrentVenueLazyQuery({
-		fetchPolicy: 'cache-first',
-		variables: {
-			where: {
-				id: {
-					equals: String(params.profileid),
-				},
-			},
-		},
-	})
-
-	useEffect(() => {
-		currentVenueQuery()
-	}, [data])
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =
 		useRemovePersonalJoinsVenueMutation({

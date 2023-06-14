@@ -62,9 +62,6 @@ export default () => {
 			countryIsoCode: String(rSearchAreaVar?.searchArea.country.isoCode),
 			stateIsoCode: String(rSearchAreaVar?.searchArea.state.isoCode),
 		},
-		onCompleted(data) {
-			console.log('data. :>> ', data.__typename)
-		},
 	})
 
 	const onPullRefresh = () => {
@@ -113,7 +110,7 @@ export default () => {
 						{!rSearchAreaVar.searchArea.city.name && !typename && <VenueFeedSearchAreaEmptyState />}
 						{rSearchAreaVar.searchArea.city.name && (
 							<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-								<SearchAreaHeader typename={typename || null} city={rSearchAreaVar.searchArea.city.name} />
+								<SearchAreaHeader typename={typename || null} />
 							</VStack>
 						)}
 					</Box>
@@ -299,12 +296,7 @@ export default () => {
 				}}
 				data={data?.venuesNearby.venuesNearby}
 				renderItem={({ item, index, columnIndex }) => (
-					<VerticalVenueFeedVenueItem
-						index={index}
-						loading={loading}
-						item={item}
-						columnIndex={columnIndex}
-					/>
+					<VerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
 				)}
 				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
 				keyExtractor={item => item.id}

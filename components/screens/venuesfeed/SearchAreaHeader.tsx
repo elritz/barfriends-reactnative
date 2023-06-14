@@ -1,23 +1,21 @@
-import VenueFeedSearchAreaEmptyState from './VenueFeedSearchAreaEmptyState'
 import { useReactiveVar } from '@apollo/client'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { HStack, VStack, Heading, IconButton, Icon, Pressable, Box, Text } from 'native-base'
+import { HStack, VStack, Heading, Icon, Pressable, Text } from 'native-base'
 
-export default function SearchAreaHeader({ typename, city }) {
-	console.log('🚀 ~ file: SearchAreaHeader.tsx:9 ~ SearchAreaHeader ~ typename:', typename)
-
+export default function SearchAreaHeader({ typename }) {
 	const router = useRouter()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+
+	const _press = () => {
+		router.push({
+			pathname: '(app)/searcharea',
+		})
+	}
+
 	return (
-		<Pressable
-			onPress={() =>
-				router.push({
-					pathname: '(app)/searcharea',
-				})
-			}
-		>
+		<Pressable onPress={() => _press()}>
 			{({ isHovered, isFocused, isPressed }) => {
 				return (
 					<HStack
@@ -39,7 +37,7 @@ export default function SearchAreaHeader({ typename, city }) {
 							<HStack alignItems={'center'} justifyContent={'space-between'} space={2}>
 								<HStack alignItems={'center'} space={2}>
 									<Heading lineHeight={'lg'} fontWeight={'black'} fontSize={'3xl'}>
-										{city}
+										{rSearchAreaVar.searchArea.city.name}
 									</Heading>
 									{rSearchAreaVar?.useCurrentLocation && (
 										<Icon

@@ -21,7 +21,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
-	// const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
 	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT
 	const h = insets.top + HEADER_HEIGHT
 
@@ -30,16 +29,11 @@ export default () => {
 			screenOptions={{
 				tabBarBackground: () => (
 					<Box
-						style={[
-							StyleSheet.absoluteFill,
-							// { backgroundColor: themeContext.palette.primary.background.default },
-						]}
+						style={[StyleSheet.absoluteFill]}
 						_light={{ bg: 'light.100' }}
 						_dark={{ bg: 'dark.50' }}
 					/>
 				),
-				// tabBarActiveTintColor: themeContext.palette.primary.color.accent,
-				// tabBarInactiveTintColor: themeContext.palette.primary.color.light,
 				tabBarStyle: {
 					height:
 						insets.bottom !== 0
@@ -58,22 +52,6 @@ export default () => {
 				name='venuefeedstack'
 				options={{
 					headerShown: false,
-					// header: () => {
-					// 	return (
-					// 		<VStack
-					// 			safeAreaTop
-					// 			_light={{ bg: 'light.100' }}
-					// 			_dark={{ bg: 'dark.50' }}
-					// 			justifyContent={'center'}
-					// 			alignItems={'center'}
-					// 			h={h}
-					// 		>
-					// 			<Box mt={-2}>
-					// 				<LogoTransparent height={28} width={189} />
-					// 			</Box>
-					// 		</VStack>
-					// 	)
-					// },
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,

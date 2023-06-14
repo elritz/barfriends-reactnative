@@ -15,10 +15,35 @@ export default () => {
 	return (
 		<Stack>
 			<Stack.Screen
-				name={'venue'}
 				options={{
-					headerShown: false,
+					headerShown: true,
+					headerTransparent: true,
+					headerStyle: {
+						backgroundColor: 'transparent',
+					},
+					presentation: 'modal',
+					animation: 'fade',
+					headerLeft: () => (
+						<HStack justifyContent={'flex-start'} maxW={'90%'} space={1} alignItems={'center'} ml={2}>
+							<IconButton
+								bg={colorScheme === 'light' ? 'light.50' : 'dark.50'}
+								rounded={'full'}
+								size={'xs'}
+								onPress={() => router.back()}
+								icon={<Icon as={Ionicons} name='md-chevron-back-outline' size={'xl'} />}
+							/>
+						</HStack>
+					),
+					headerRight: () => (
+						<IconButton
+							my={2}
+							mr={2}
+							icon={<Icon as={Entypo} name={'dots-three-vertical'} size={23} />}
+						/>
+					),
+					headerTitle: '',
 				}}
+				name={'venue'}
 			/>
 			<Stack.Screen name={'personal'} />
 			<Stack.Screen
@@ -37,7 +62,6 @@ export default () => {
 							/>
 						</HStack>
 					),
-					animation: 'fade',
 					contentStyle: {
 						backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
 					},
