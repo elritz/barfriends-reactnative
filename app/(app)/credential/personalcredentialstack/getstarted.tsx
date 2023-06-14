@@ -2,19 +2,14 @@ import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
-import { CredentialPersonalProfileReactiveVar, ProfilesBottomSheetRefReactiveVar } from '@reactive'
+import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Button, Icon, IconButton } from 'native-base'
+import { Icon, IconButton } from 'native-base'
 import { Box, Text, VStack, Pressable } from 'native-base'
 
 export default () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const rProfilesBottomSheetVar = useReactiveVar(ProfilesBottomSheetRefReactiveVar)
 	const router = useRouter()
-
-	if (rProfilesBottomSheetVar) {
-		rProfilesBottomSheetVar?.current?.close()
-	}
 
 	const { data: PTSData, loading: PTSLoading, error: PTSError } = usePrivacyTermsDocumentsQuery()
 

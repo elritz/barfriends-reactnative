@@ -204,7 +204,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						space={2}
 						width={width}
 						flex={1}
-						borderRadius={'md'}
+						
 						style={{
 							alignSelf: 'center',
 							overflow: 'hidden',
@@ -212,7 +212,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 					>
 						<Box minH={260}>
 							<Image
-								borderRadius={'md'}
+								borderRadius={'xl'}
 								source={{ uri: props.item.photos[0]?.url }}
 								resizeMode='cover'
 								onLoadEnd={() => setHideBlur(true)}

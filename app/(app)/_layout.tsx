@@ -1,6 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { LocalStoragePreferenceThemeType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ThemeProvider } from '@react-navigation/native'
@@ -78,20 +77,18 @@ export default () => {
 			<StyledThemeProvider theme={memTheme.styled}>
 				<NativeBaseProvider theme={memTheme.nb}>
 					<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
-					<BottomSheetModalProvider>
-						<Stack
-							screenOptions={{
-								headerShown: false,
-							}}
-						>
-							<Stack.Screen name={'hometab'} />
-							<Stack.Screen name={'modal'} />
-							<Stack.Screen name={'public'} />
-							<Stack.Screen name={'searcharea'} options={{ presentation: 'fullScreenModal' }} />
-							<Stack.Screen name={'permission'} options={{ presentation: 'modal' }} />
-							<Stack.Screen name={'settings'} options={{ presentation: 'fullScreenModal' }} />
-						</Stack>
-					</BottomSheetModalProvider>
+					<Stack
+						screenOptions={{
+							headerShown: false,
+						}}
+					>
+						<Stack.Screen name={'hometab'} />
+						<Stack.Screen name={'modal'} />
+						<Stack.Screen name={'public'} />
+						<Stack.Screen name={'searcharea'} options={{ presentation: 'fullScreenModal' }} />
+						<Stack.Screen name={'permission'} options={{ presentation: 'modal' }} />
+						<Stack.Screen name={'settings'} options={{ presentation: 'fullScreenModal' }} />
+					</Stack>
 				</NativeBaseProvider>
 			</StyledThemeProvider>
 		</ThemeProvider>
