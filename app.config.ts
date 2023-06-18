@@ -136,21 +136,20 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				owner: 'barfriends',
 				scheme: 'barfriends-staging',
 				orientation: 'portrait',
-				userInterfaceStyle: 'automatic',
 				plugins: [
-					'expo-build-properties',
+					['expo-build-properties'],
+					'expo-localization',
 					[
 						'expo-contacts',
 						{
 							contactsPermission: 'Allow $(PRODUCT_NAME) to access your contacts.',
 						},
 					],
-					'expo-localization',
 					[
 						'expo-media-library',
 						{
-							photosPermission: 'Allow $(PRODUCT_NAME) to access your photos.',
-							savePhotosPermission: 'Allow $(PRODUCT_NAME) to save photos.',
+							photosPermission: 'Allow Barfriends to access your photos.',
+							savePhotosPermission: 'Allow Barfriends to save photos.',
 							isAccessMediaLocationEnabled: true,
 						},
 					],
@@ -163,19 +162,23 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				runtimeVersion: {
 					policy: 'sdkVersion',
 				},
-
 				assetBundlePatterns: ['**/*'],
 				platforms: ['ios', 'android'],
 				icon: './assets/images/icon/icon.png',
 				splash: {
-					image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.light.png`,
+					image: `./assets/images/splash/splash.staging.light.png`,
 					resizeMode: 'cover',
 					dark: {
-						image: `./assets/images/splash/splash.${process.env.ENVIRONMENT}.dark.png`,
+						image: `./assets/images/splash/splash.staging.dark.png`,
 						resizeMode: 'cover',
 					},
 				},
+				web: {
+					bundler: 'metro',
+					favicon: './assets/images/favicon.png',
+				},
 				ios: {
+					associatedDomains: ['applinks:barfriends.com'],
 					bundleIdentifier: 'com.barfriends.staging',
 					supportsTablet: false,
 					icon: `./assets/images/icon/icon.png`,
@@ -201,13 +204,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				},
 				android: {
 					versionCode: 2,
-					package: 'com.barfriends.staging',
+					package: 'com.barfriends.christian',
 					backgroundColor: '#0D0D0D',
 					adaptiveIcon: {
 						foregroundImage: './assets/images/adaptive-icon.png',
 					},
 					googleServicesFile: './google-services.json',
-
 					config: {
 						googleMaps: {
 							apiKey: process.env.GOOGLE_ANDROID_API_KEY,
@@ -242,9 +244,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						'com.sec.android.provider.badge.permission.WRITE',
 						'com.sonyericsson.home.permission.BROADCAST_BADGE',
 					],
-				},
-				web: {
-					favicon: './assets/images/favicon.png',
 				},
 				packagerOpts: {
 					sourceExts: ['cjs'],
@@ -338,7 +337,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					},
 				},
 				android: {
-					versionCode: 2.1,
+					versionCode: 2,
 					package: 'com.barfriends.christian',
 					backgroundColor: '#0D0D0D',
 					adaptiveIcon: {
@@ -380,7 +379,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 						'com.sonyericsson.home.permission.BROADCAST_BADGE',
 					],
 				},
-
 				packagerOpts: {
 					sourceExts: ['cjs'],
 				},
