@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import BackgroundLocationNextAskModal from '@components/molecules/modals/asks/backgroundlocationnextaskmodal'
 import { LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@ctypes/preferences'
@@ -13,7 +14,7 @@ import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
-import { Box, Button, Divider, Heading, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
+import { Box, Button, Divider, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
 
 export default function PreferenceBackgroundLocationPermissionFullSection() {
 	const router = useRouter()
@@ -51,7 +52,7 @@ export default function PreferenceBackgroundLocationPermissionFullSection() {
 										<Icon onPress={onOpen} as={EvilIcons} size={'md'} name={'close'} />
 									</HStack>
 									<Heading
-										size={'md'}
+										size={'$md'}
 										textAlign={'center'}
 										style={{
 											width: '100%',

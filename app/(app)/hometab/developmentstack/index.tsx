@@ -1,5 +1,6 @@
 // TODO: FN(Change theme functionality with database and local storage save)
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import {
 	AUTHORIZATION,
 	LOCAL_STORAGE_SEARCH_AREA,
@@ -26,7 +27,6 @@ import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
 import {
 	Box,
-	Heading,
 	HStack,
 	Icon,
 	Button,
@@ -388,9 +388,7 @@ export default () => {
 									<Divider />
 									<HStack px={2} space={4} alignItems={'center'}>
 										<Icon size={'lg'} as={Ionicons} name={item.icon} />
-										<Heading fontSize={'lg'} colorScheme={'tertiary'}>
-											{item.title}
-										</Heading>
+										<Heading fontSize={'$lg'}>{item.title}</Heading>
 									</HStack>
 									<Divider />
 								</Box>
@@ -417,9 +415,7 @@ export default () => {
 									<HStack px={2} space={4} alignItems={'center'} justifyContent={'space-between'}>
 										<HStack space={2} alignItems={'center'}>
 											<Icon size={'lg'} as={Ionicons} name={item.icon} />
-											<Heading fontSize={'lg'} colorScheme={'tertiary'}>
-												{item.title}
-											</Heading>
+											<Heading fontSize={'$lg'}>{item.title}</Heading>
 										</HStack>
 										{loading ? <Spinner /> : <Icon mr={3} color={'danger.500'} name={'trash'} as={Feather} />}
 									</HStack>
@@ -692,7 +688,7 @@ export default () => {
 				// keyExtractor={(item, index) => index}
 				renderItem={({ item, index }) => <Item index={index} item={item} />}
 				renderSectionHeader={({ section: { title } }) => (
-					<Heading mt={4} size={'xl'}>
+					<Heading mt={4} size={'$xl'}>
 						{title}
 					</Heading>
 				)}

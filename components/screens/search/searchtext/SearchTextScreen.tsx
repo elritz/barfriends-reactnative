@@ -1,26 +1,18 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import SearchCard from '@components/screens/search/components/SearchCard'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
-import {
-	ExploreResponse,
-	Personal,
-	Profile,
-	Venue,
-	useExploreSearchLazyQuery,
-	useExploreSearchQuery,
-} from '@graphql/generated'
+import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import {
 	Box,
-	ScrollView,
 	Text,
-	Heading,
 	IconButton,
 	HStack,
 	Icon,
@@ -86,10 +78,10 @@ const SearchTextScreen = () => {
 								{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
 									<Box safeAreaTop>
 										<Center>
-											<Heading fontSize={'md'} fontWeight={'medium'}>
+											<Heading fontSize={'$md'} fontWeight={'$medium'}>
 												No search results for
 											</Heading>
-											<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+											<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
 										</Center>
 									</Box>
 								)}
@@ -148,10 +140,10 @@ const SearchTextScreen = () => {
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
 								<Box safeAreaTop>
 									<Center>
-										<Heading fontSize={'md'} fontWeight={'medium'}>
+										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
 										</Heading>
-										<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+										<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
 									</Center>
 								</Box>
 							)}
@@ -219,10 +211,10 @@ const SearchTextScreen = () => {
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
 								<Box safeAreaTop>
 									<Center>
-										<Heading fontSize={'md'} fontWeight={'medium'}>
+										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
 										</Heading>
-										<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+										<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
 									</Center>
 								</Box>
 							)}

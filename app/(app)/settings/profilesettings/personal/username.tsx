@@ -9,18 +9,16 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Icon, Input } from 'native-base'
-import { Button, KeyboardAvoidingView, Text } from 'native-base'
-import { useContext } from 'react'
+import { Icon, Input, useTheme } from 'native-base'
+import { Button, KeyboardAvoidingView } from 'native-base'
 import { useForm, Controller, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
-	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const colorScheme = useThemeColorScheme()
+	const theme = useTheme()
 
 	const {
 		control,
@@ -123,7 +121,7 @@ export default () => {
 			<ActivityIndicator
 				style={{ marginRight: 4 }}
 				size='small'
-				color={themeContext.palette.primary.color.default}
+				color={colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900]}
 			/>
 		) : (
 			<Icon

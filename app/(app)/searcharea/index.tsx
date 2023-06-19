@@ -1,11 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import LocationPermissionItemEmptyState from '@components/organisms/list/searchareafiltering/LocationPermissionItemEmptyState'
 import SearchAreaLocationPermissionItem from '@components/organisms/list/searchareafiltering/SearchAreaLocationPermissionItem'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Heading, Text, HStack, Button, ScrollView, VStack } from 'native-base'
+import { Box, Text, HStack, Button, ScrollView, VStack } from 'native-base'
 
 export default () => {
 	const router = useRouter()

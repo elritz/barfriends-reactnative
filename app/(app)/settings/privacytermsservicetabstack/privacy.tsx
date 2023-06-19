@@ -1,14 +1,15 @@
-import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import TermsLoadingState from '@components/screens/settings/TermsLoadingState'
-import { useContext } from 'react'
+import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useTheme } from 'native-base'
 import { SafeAreaView, ScrollView } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
 	const { width } = useWindowDimensions()
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 
 	const { data, loading, error } = usePrivacyTermsDocumentsQuery()
 
@@ -36,15 +37,15 @@ export default () => {
 					allowedStyles={['color', 'backgroundColor']}
 					classesStyles={{
 						'body-1': {
-							color: themeContext.palette.primary.color.default,
+							color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
 							fontSize: 19,
 						},
 						'lisitem-1': {
-							color: themeContext.palette.primary.color.default,
+							color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
 							fontSize: 19,
 						},
 						highlight: {
-							color: themeContext.palette.primary.color.accent,
+							color: theme.colors.primary[500],
 						},
 					}}
 				/>

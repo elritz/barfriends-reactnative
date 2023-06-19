@@ -1,4 +1,5 @@
 import index from '../messagestack'
+import { Heading } from '@components/core'
 import {
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
@@ -21,7 +22,6 @@ import {
 	Divider,
 	HStack,
 	Icon,
-	Heading,
 	Spinner,
 	ScrollView,
 	VStack,
@@ -119,7 +119,7 @@ export default function Preferences() {
 						>
 							<HStack space={3} maxW={'80%'} alignItems={'center'} justifyContent={'flex-start'}>
 								<Icon size={'lg'} as={Ionicons} name={item.icon} />
-								<Heading maxW={'275px'} numberOfLines={2} fontSize={'lg'} colorScheme={'tertiary'}>
+								<Heading sx={{ maxWidth: '275px' }} numberOfLines={2} fontSize={'$lg'}>
 									{item.title}
 								</Heading>
 							</HStack>

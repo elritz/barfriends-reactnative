@@ -1,10 +1,11 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
+import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionNotificationReactiveVar } from '@reactive'
-import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as Application from 'expo-application'
@@ -13,7 +14,7 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
-import { Box, VStack, Button, Divider, Icon, Text, Heading, ScrollView } from 'native-base'
+import { Box, VStack, Button, Divider, Icon, Text, ScrollView } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -190,8 +191,8 @@ export default () => {
 				</Box>
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
-					fontWeight={900}
-					fontSize={'3xl'}
+					fontWeight={'$black'}
+					fontSize={'$3xl'}
 					style={{
 						width: wp(95),
 						maxWidth: 300,

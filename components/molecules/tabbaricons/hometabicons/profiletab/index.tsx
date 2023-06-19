@@ -3,16 +3,17 @@ import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogo
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { useGetNotificationsLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as Haptics from 'expo-haptics'
 import { useRouter } from 'expo-router'
-import { Box, Image, Pressable } from 'native-base'
-import { useContext, useEffect, useState } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { Box, Image, Pressable, useTheme } from 'native-base'
+import { useEffect, useState } from 'react'
 
 const HEIGHT = 25
 
 const ProfileTab = (props: TabProps) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 	// const navigation = useNavigation()
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -61,11 +62,7 @@ const ProfileTab = (props: TabProps) => {
 				<CompanyCoasterLogoDynamic
 					width={HEIGHT}
 					height={HEIGHT}
-					iconColor={
-						themeContext.theme === 'light'
-							? themeContext.palette.primary.background.light
-							: themeContext.palette.primary.background.dark
-					}
+					iconColor={colorScheme === 'light' ? theme.colors.light[100] : theme.colors.dark[100]}
 					backgroundColor={props.color}
 				/>
 			</Pressable>
@@ -101,11 +98,7 @@ const ProfileTab = (props: TabProps) => {
 								<CompanyCoasterLogoDynamic
 									width={HEIGHT}
 									height={HEIGHT}
-									iconColor={
-										themeContext.theme === 'light'
-											? themeContext.palette.primary.background.light
-											: themeContext.palette.primary.background.dark
-									}
+									iconColor={colorScheme === 'light' ? theme.colors.light[100] : theme.colors.dark[100]}
 									backgroundColor={props.color}
 								/>
 							)}

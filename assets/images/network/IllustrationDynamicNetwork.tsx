@@ -1,7 +1,6 @@
-import { useContext } from 'react'
+import { DynamicIllustrationProps } from '@ctypes/styled'
+import { useTheme } from 'native-base'
 import Svg, { G, Path, Rect, Defs } from 'react-native-svg'
-import { DynamicIllustrationProps } from 'src/types/styled'
-import { ThemeContext } from 'styled-components/native'
 
 const NetworkIllustrationDynamic: React.FC<DynamicIllustrationProps> = ({
 	width,
@@ -9,23 +8,15 @@ const NetworkIllustrationDynamic: React.FC<DynamicIllustrationProps> = ({
 	primary,
 	secondary,
 	tertiary,
-	accent,
-	sPrimary,
-	sSecondary,
-	sTertiary,
 }: DynamicIllustrationProps) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 
 	NetworkIllustrationDynamic.defaultProps = {
 		width: 200,
 		height: 200,
-		primary: themeContext.palette.company.primary,
-		secondary: themeContext.palette.company.secondary,
-		tertiary: themeContext.palette.company.tertiary,
-		accent: themeContext.palette.company.accent,
-		sPrimary: themeContext.palette.company.soft.primary,
-		sSecondary: themeContext.palette.company.soft.secondary,
-		sTertiary: themeContext.palette.company.soft.tertiary,
+		primary: theme.colors.primary[500],
+		secondary: theme.colors.secondary[500],
+		tertiary: theme.colors.tertiary[500],
 	}
 
 	return (

@@ -1,8 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Heading, IconButton, Icon, Pressable } from 'native-base'
+import { Box, IconButton, Icon, Pressable } from 'native-base'
 
 const AddEmoji = () => {
 	const router = useRouter()
@@ -72,14 +73,14 @@ const AddEmoji = () => {
 						mt={3}
 						w={'100%'}
 						textAlign={'center'}
-						fontSize={'lg'}
+						fontSize={'$lg'}
 						style={{ textTransform: 'uppercase' }}
-						fontWeight={'900'}
+						fontWeight={'$black'}
 						textTransform={'uppercase'}
 					>
 						Add an
 					</Heading>
-					<Heading textAlign={'center'} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
+					<Heading textAlign={'center'} fontSize={'$lg'} style={{ textTransform: 'uppercase' }}>
 						emojimood
 					</Heading>
 				</Box>

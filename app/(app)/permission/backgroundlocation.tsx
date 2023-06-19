@@ -1,6 +1,7 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
+import { Heading } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
@@ -11,7 +12,7 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
 import { useRouter } from 'expo-router'
-import { Box, VStack, Button, Divider, Heading, Text, ScrollView } from 'native-base'
+import { Box, VStack, Button, Divider, Text, ScrollView } from 'native-base'
 import React, { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -115,8 +116,8 @@ export default () => {
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
-					fontWeight={900}
-					fontSize={'3xl'}
+					fontWeight='$black'
+					fontSize={'$3xl'}
 					style={{
 						width: wp(95),
 						maxWidth: 300,

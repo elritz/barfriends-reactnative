@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import NotificationNextAskModal from '@components/molecules/modals/asks/notificationnextaskmodal'
 import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS } from '@constants/StorageConstants'
 import { DefaultPreferenceToPermission } from '@ctypes/preferences'
@@ -13,7 +14,7 @@ import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
-import { Box, Button, Divider, Heading, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
+import { Box, Button, Divider, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
 import { useEffect } from 'react'
 
 export default function PreferenceNotificationPermission() {
@@ -50,7 +51,7 @@ export default function PreferenceNotificationPermission() {
 										<Icon onPress={onOpen} as={EvilIcons} size={'md'} name={'close'} />
 									</HStack>
 									<Heading
-										size={'md'}
+										size={'$md'}
 										textAlign={'center'}
 										style={{
 											width: '100%',

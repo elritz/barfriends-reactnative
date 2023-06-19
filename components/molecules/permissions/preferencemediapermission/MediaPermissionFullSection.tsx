@@ -1,9 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { PermissionMediaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
-import { Box, Button, Heading, Text } from 'native-base'
+import { Box, Button, Text } from 'native-base'
 
 export default function MediaPermissionFullSection() {
 	const router = useRouter()
@@ -33,7 +34,7 @@ export default function MediaPermissionFullSection() {
 						}}
 					>
 						<Heading
-							size={'lg'}
+							size={'$lg'}
 							style={{
 								width: '100%',
 								marginVertical: 10,

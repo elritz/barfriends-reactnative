@@ -1,19 +1,8 @@
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useTheme } from 'native-base'
 import { useContext } from 'react'
 import { View } from 'react-native'
-import {
-	Ellipse,
-	Path,
-	Rect,
-	Svg,
-	Defs,
-	G,
-	Mask,
-	Stop,
-	Circle,
-	LinearGradient,
-	EMaskUnits,
-} from 'react-native-svg'
-import { ThemeContext } from 'styled-components/native'
+import { Ellipse, Path, Rect, Svg, Defs, G } from 'react-native-svg'
 
 interface Props {
 	width?: number
@@ -28,13 +17,14 @@ const CompanyCoasterLogoDynamic: React.FC<Props> = ({
 	backgroundColor,
 	iconColor,
 }: Props) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 
 	CompanyCoasterLogoDynamic.defaultProps = {
 		width: 100,
 		height: 100,
-		backgroundColor: themeContext.palette.bfscompany.primary,
-		iconColor: themeContext.palette.bfscompany.secondary,
+		backgroundColor: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
+		iconColor: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
 	}
 
 	return (

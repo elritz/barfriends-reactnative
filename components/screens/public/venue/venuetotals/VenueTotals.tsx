@@ -1,7 +1,8 @@
+import { Heading } from '@components/core'
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
 import { useSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Box, Heading, HStack, Text } from 'native-base'
+import { Box, HStack, Text } from 'native-base'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 
@@ -79,8 +80,8 @@ export default function VenueTotals() {
 							numberOfLines={1}
 							allowFontScaling
 							minimumFontScale={0.5}
-							size={'lg'}
-							lineHeight={'xs'}
+							fontSize={'$lg'}
+							lineHeight={'$xs'}
 							style={{ fontWeight: '800', letterSpacing: 0.01 }}
 						>
 							{item.value}

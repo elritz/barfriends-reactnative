@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
+import { Heading } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -9,7 +10,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Text, Box, Heading, Button, VStack, Icon, IconButton } from 'native-base'
+import { Text, Box, VStack, Icon, IconButton } from 'native-base'
 
 export default () => {
 	const router = useRouter()
@@ -67,7 +68,7 @@ export default () => {
 			<VStack space={2} alignItems={'center'} justifyContent={'center'} height={'lg'}>
 				<CompanyCoasterLogoDynamic />
 				<Box>
-					<Heading fontWeight={'black'} fontSize={'4xl'}>
+					<Heading fontWeight={'$black'} fontSize={'$4xl'}>
 						Welcome to Bfs
 					</Heading>
 				</Box>

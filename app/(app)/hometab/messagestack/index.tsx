@@ -1,4 +1,5 @@
-import { Box, Heading, Text } from 'native-base'
+import { Heading } from '@components/core'
+import { Box, Text } from 'native-base'
 
 export default function index() {
 	return (
@@ -8,7 +9,6 @@ export default function index() {
 		</Box>
 	)
 }
-
 
 // import { useReactiveVar } from '@apollo/client'
 // import HorizontalMessageNotification from '@components/molecules/notifications/message/HorizontalMessageNotification'

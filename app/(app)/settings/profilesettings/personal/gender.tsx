@@ -8,11 +8,10 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Box, Input, KeyboardAvoidingView, Text, Icon, Button } from 'native-base'
+import { Box, Input, KeyboardAvoidingView, Text, Icon, Button, useTheme } from 'native-base'
 import { useContext } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, Pressable, ActivityIndicator, ScrollView } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 interface GenderScreenProps {}
 
@@ -26,7 +25,7 @@ const genderlist = [
 ]
 
 export default ({}: GenderScreenProps) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const colorScheme = useThemeColorScheme()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
@@ -163,7 +162,7 @@ export default ({}: GenderScreenProps) => {
 								rightElement={
 									<Box ml={3}>
 										{UPIILoading && dirtyFields.gender ? (
-											<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
+											<ActivityIndicator size='small' color={theme.colors.primary[500]} />
 										) : (
 											dirtyFields.gender && (
 												<Pressable onPress={() => reset()}>

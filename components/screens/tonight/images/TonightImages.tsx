@@ -4,10 +4,11 @@ import { MARGIN } from './Config'
 import Item from './Item'
 import SortableList from './SortableList'
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { AuthorizationReactiveVar } from '@reactive'
 import * as ImagePicker from 'expo-image-picker'
-import { Box, Button, Heading, HStack, Icon, Skeleton, Text, VStack } from 'native-base'
+import { Box, Button, Icon, Text, VStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -64,7 +65,7 @@ const TonightImages = () => {
 						<Icon color={'primary.600'} as={MaterialCommunityIcons} name={'sticker-plus'} size={'6xl'} />
 						<Box alignItems={'center'} mx={4}>
 							<Heading fontSize={'2xl'}>Start tonights Story</Heading>
-							<Text fontSize={'lg'}>Ready to go out, add photos of you tonight. </Text>
+							<Text fontSize={'$lg'}>Ready to go out, add photos of you tonight. </Text>
 						</Box>
 						<Button
 							mt={4}

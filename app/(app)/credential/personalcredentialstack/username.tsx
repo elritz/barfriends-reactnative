@@ -6,13 +6,12 @@ import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { Button, Input, useTheme, Text, Icon, Box } from 'native-base'
-import { useContext, useRef } from 'react'
+import { useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'un-1298187263'
@@ -21,7 +20,6 @@ export default () => {
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const _usernameRef = useRef<TextInput>(null)
-	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 

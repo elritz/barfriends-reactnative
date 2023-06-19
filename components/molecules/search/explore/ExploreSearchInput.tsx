@@ -5,14 +5,11 @@ import { SearchReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { Input, Icon, IInputProps } from 'native-base'
-import { useRef, useContext, useState } from 'react'
+import { useRef,  useState } from 'react'
 import { Keyboard } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
-
 const ExploreSearchInput = () => {
 	const router = useRouter()
 	const _searchInputRef = useRef<IInputProps>(null)
-	const themeContext = useContext(ThemeContext)
 	const [isSearch, setIsSearch] = useState(false)
 	const colorScheme = useThemeColorScheme()
 	const rSearch = useReactiveVar(SearchReactiveVar)

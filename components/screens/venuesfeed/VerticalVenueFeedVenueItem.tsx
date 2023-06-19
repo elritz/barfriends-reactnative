@@ -1,5 +1,6 @@
 // TODO: If user is joined to the venue remove join button show joined
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -12,9 +13,8 @@ import {
 import { AuthorizationReactiveVar } from '@reactive'
 import useGetDistance from '@util/hooks/useDistance'
 import { useRouter } from 'expo-router'
-import { MotiPressable } from 'moti/interactions'
-import { Image, VStack, Box, Heading, Button, Pressable } from 'native-base'
-import { useEffect, useState, memo, useMemo } from 'react'
+import { Image, VStack, Box, Button, Pressable } from 'native-base'
+import { useEffect, useState, memo } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -204,7 +204,6 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						space={2}
 						width={width}
 						flex={1}
-						
 						style={{
 							alignSelf: 'center',
 							overflow: 'hidden',
@@ -238,18 +237,18 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						<VStack space={2}>
 							<Box>
 								<Heading
-									size={'sm'}
-									fontWeight={'bold'}
+									fontSize={'$sm'}
+									fontWeight={'$bold'}
 									textAlign={'left'}
 									numberOfLines={2}
 									ellipsizeMode='tail'
-									underline={isPressed}
+									// underline={isPressed}
 								>
 									{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
 								</Heading>
 								<Heading
-									size={'sm'}
-									fontWeight={'bold'}
+									fontSize={'$sm'}
+									fontWeight={'$bold'}
 									textAlign={'left'}
 									numberOfLines={2}
 									ellipsizeMode='tail'

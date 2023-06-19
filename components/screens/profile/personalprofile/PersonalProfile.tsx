@@ -1,6 +1,7 @@
 import { FriendsList } from '../friendslist'
 import ProfilePhoto from '../profilephoto'
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import { CondensedHorizontalFriendNotifciation } from '@components/molecules/notifications/friendnotification/CondensedHorizontalFriendNotifciation'
 import CondensedVerticalFriendsNotficationsList from '@components/organisms/list/notifications/friends/CondensedVerticalFriendsNotficationsList'
@@ -8,7 +9,7 @@ import QuickBarfriendCard from '@components/screens/public/venue/venueactions/ac
 import AddRelationship from '@components/screens/tonight/activity/ask/AddRelationship/AddRelationship'
 import { GetNotificationsQuery, ProfileType } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Divider, Heading, Box, View, HStack, VStack } from 'native-base'
+import { Divider, Box, View, HStack, VStack } from 'native-base'
 
 type Props = {
 	notifications: GetNotificationsQuery | undefined
@@ -40,7 +41,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 					>
 						{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.fullname}
 					</Heading>
-					<Heading fontSize={'md'} style={{ textTransform: 'uppercase', textAlign: 'center' }}>
+					<Heading fontSize={'$md'} style={{ textTransform: 'uppercase', textAlign: 'center' }}>
 						@{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 					</Heading>
 				</View>

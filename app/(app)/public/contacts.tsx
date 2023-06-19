@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { APP_STORE_URL_LINK } from '@constants/App'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -12,7 +13,6 @@ import * as Contacts from 'expo-contacts'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
 import {
-	Heading,
 	Box,
 	Button,
 	Text,

@@ -41,7 +41,7 @@
 		"@apollo/client": "3.7.1",
 		"@cloudinary/react": "^1.9.1",
 		"@cloudinary/url-gen": "^1.9.0",
-		"@expo/html-elements": "^0.2.0",
+		"@expo/html-elements": "latest",
 		"@expo/vector-icons": "^13.0.0",
 		"@expo/webpack-config": "^18.0.1",
 		"@hookform/resolvers": "3.1.1",
@@ -143,7 +143,7 @@
 		"react-native-tab-view": "3.5.1",
 		"react-native-uuid": "^2.0.1",
 		"react-native-vector-icons": "^9.1.0",
-		"react-native-web": "~0.18.11",
+		"react-native-web": "^0.18.12",
 		"react-native-webview": "11.26.0",
 		"react-query": "^3.39.2",
 		"recyclerlistview": "^4.2.0",
@@ -155,7 +155,13 @@
 		"stylelint-config-styled-components": "0.1.1",
 		"stylelint-order": "^5.0.0",
 		"ts-node": "10.4.0",
-		"webpack": "^5.72.0"
+		"webpack": "^5.72.0",
+		"@gluestack-style/react": "latest",
+		"@gluestack-ui/provider": "latest",
+		"@gluestack-style/animation-plugin": "latest",
+		"@gluestack-ui/button": "latest",
+		"@gluestack-ui/input": "latest",
+		"@gluestack-ui/pressable": "latest"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.0",
@@ -229,7 +235,8 @@
 		"stylelint-react-native": "^2.4.0",
 		"ts-jest": "^29.0.3",
 		"typescript": "^4.9.4",
-		"typescript-plugin-styled-components": "^2.0.0"
+		"typescript-plugin-styled-components": "^2.0.0",
+		"@types/react-native": "^0.71.6"
 	},
 	"resolutions": {
 		"metro": "0.76.0",

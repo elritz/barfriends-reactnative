@@ -1,4 +1,6 @@
+import { config } from '../../gluestack-ui.config'
 import { useReactiveVar } from '@apollo/client'
+import { GluestackUIProvider } from '@components/core'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { LocalStoragePreferenceThemeType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -10,7 +12,6 @@ import { SplashScreen, Stack } from 'expo-router'
 import { NativeBaseProvider } from 'native-base'
 import { useRef, useState, useEffect, useMemo } from 'react'
 import { AppState, useColorScheme, Appearance, StatusBar } from 'react-native'
-import { ThemeProvider as StyledThemeProvider } from 'styled-components/native'
 
 export default () => {
 	const appState = useRef(AppState.currentState)
@@ -26,6 +27,11 @@ export default () => {
 		)
 		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
 			String(localStorageColorScheme),
+		)
+
+		console.log(
+			'🚀 ~ file: _layout.tsx:32 ~ setTheme ~ valueLocalStorageColorScheme:',
+			valueLocalStorageColorScheme,
 		)
 
 		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
@@ -58,25 +64,28 @@ export default () => {
 	}, [])
 
 	const memTheme = useMemo(() => {
-		return rThemeVar.theme
-	}, [rThemeVar.theme, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
+		return rThemeVar
+	}, [rThemeVar, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
 
-	if (!memTheme || memTheme === null) {
+	if (!memTheme || memTheme === null || !memTheme.theme?.nb) {
 		return <SplashScreen />
 	}
 
 	return (
 		<ThemeProvider
 			value={{
-				...memTheme.rn,
+				...memTheme.theme?.rn,
 				colors: {
-					...memTheme.rn.colors,
+					...memTheme.theme?.rn.colors,
 				},
 			}}
 		>
-			<StyledThemeProvider theme={memTheme.styled}>
-				<NativeBaseProvider theme={memTheme.nb}>
-					<StatusBar animated style={memTheme.styled.theme === 'light' ? 'dark' : 'light'} />
+			<GluestackUIProvider  config={config.theme} >
+				<NativeBaseProvider theme={memTheme.theme.nb}>
+					<StatusBar
+						animated
+						barStyle={memTheme.colorScheme === 'light' ? 'dark-content' : 'light-content'}
+					/>
 					<Stack
 						screenOptions={{
 							headerShown: false,
@@ -90,7 +99,7 @@ export default () => {
 						<Stack.Screen name={'settings'} options={{ presentation: 'fullScreenModal' }} />
 					</Stack>
 				</NativeBaseProvider>
-			</StyledThemeProvider>
+			</GluestackUIProvider>
 		</ThemeProvider>
 	)
 }

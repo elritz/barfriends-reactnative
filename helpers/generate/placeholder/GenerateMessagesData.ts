@@ -1,6 +1,5 @@
-import faker from 'faker'
-
 import GenerateUserData from './GenerateUserData'
+import faker from 'faker'
 
 const GenerateMessageData = (numOfUsers: number, numOfMessages: number) => {
 	const list = []

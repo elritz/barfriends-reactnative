@@ -1,32 +1,21 @@
-import React, { useContext } from 'react'
-import { View } from 'react-native'
-import Svg, { Mask, Rect, G, Path, Defs, LinearGradient, Stop, Ellipse } from 'react-native-svg'
-import { DynamicIllustrationProps } from 'src/types/styled'
-import { ThemeContext } from 'styled-components/native'
+import { DynamicIllustrationProps } from '@ctypes/styled'
+import { useTheme } from 'native-base'
+import Svg, { Path, Ellipse } from 'react-native-svg'
 
 const IllustrationDynamicMedia: React.FC<DynamicIllustrationProps> = ({
 	width,
 	height,
 	primary,
 	secondary,
-	tertiary,
-	accent,
-	sPrimary,
-	sSecondary,
-	sTertiary,
 }: DynamicIllustrationProps) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 
 	IllustrationDynamicMedia.defaultProps = {
 		width: 200,
 		height: 200,
-		primary: themeContext.palette.company.primary,
-		secondary: themeContext.palette.company.secondary,
-		tertiary: themeContext.palette.company.tertiary,
-		accent: themeContext.palette.company.accent,
-		sPrimary: themeContext.palette.company.soft.primary,
-		sSecondary: themeContext.palette.company.soft.secondary,
-		sTertiary: themeContext.palette.company.soft.tertiary,
+		primary: theme.colors.primary[500],
+		secondary: theme.colors.secondary[500],
+		tertiary: theme.colors.tertiary[500],
 	}
 
 	return (

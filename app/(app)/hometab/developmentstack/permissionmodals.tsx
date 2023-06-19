@@ -1,12 +1,13 @@
+import { Heading } from '@components/core'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
-import { Pressable, Divider, FlatList, HStack, Heading } from 'native-base'
+import { Pressable, Divider, HStack } from 'native-base'
 
 export default function Preferences() {
 	const router = useRouter()
 	return (
 		<FlashList
-		estimatedItemSize={65}
+			estimatedItemSize={65}
 			data={[
 				{
 					name: 'Foreground Location',
@@ -76,7 +77,7 @@ export default function Preferences() {
 					<Pressable onPressIn={item.route}>
 						<Divider />
 						<HStack h={'45px'} flex={1} alignItems={'center'}>
-							<Heading px={4} fontSize={'md'}>
+							<Heading px={4} fontSize={'$md'}>
 								{item.name}
 							</Heading>
 						</HStack>

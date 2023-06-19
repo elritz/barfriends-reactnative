@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
@@ -8,7 +9,6 @@ import {
 	Button,
 	Divider,
 	HStack,
-	Heading,
 	Icon,
 	IconButton,
 	Image,
@@ -116,8 +116,8 @@ export default function CurrentVenue() {
 					>
 						<Box flex={1} alignSelf={'center'}>
 							<Heading
-								size={'sm'}
-								fontWeight={'500'}
+								fontSize={'$sm'}
+								fontWeight={'$medium'}
 								textAlign={'left'}
 								numberOfLines={2}
 								alignSelf={'flex-start'}

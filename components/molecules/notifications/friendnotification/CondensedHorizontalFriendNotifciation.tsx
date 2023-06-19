@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import { Ionicons } from '@expo/vector-icons'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
@@ -18,7 +19,6 @@ import {
 	Box,
 	HStack,
 	VStack,
-	Heading,
 	Text,
 	Image,
 	useDisclose,
@@ -122,7 +122,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 								<Text fontSize={'md'} numberOfLines={1} isTruncated>
 									{capitalizeFirstLetter(item.receiverProfile?.IdentifiableInformation?.fullname)}
 								</Text>
-								<Heading fontSize={'sm'} isTruncated>
+								<Heading fontSize={'$sm'}>
 									@{item.receiverProfile?.IdentifiableInformation?.username}
 								</Heading>
 							</VStack>
@@ -183,7 +183,7 @@ export const CondensedHorizontalFriendNotifciation = ({
 								<Text fontSize={'md'} numberOfLines={1} isTruncated>
 									{capitalizeFirstLetter(item.senderProfile?.IdentifiableInformation?.fullname)}
 								</Text>
-								<Heading fontSize={'sm'} isTruncated>
+								<Heading fontSize={'$sm'} >
 									@{item.senderProfile?.IdentifiableInformation?.username}
 								</Heading>
 							</VStack>

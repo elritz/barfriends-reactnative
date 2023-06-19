@@ -7,12 +7,11 @@ import {
 	useUpdateProfileIdentifiableInformationMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Text, Button, Icon } from 'native-base'
-import { useContext } from 'react'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { Text, Button, Icon, useTheme } from 'native-base'
 import { Controller, useForm } from 'react-hook-form'
 import { Pressable, View, ScrollView, SafeAreaView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 const relationshipstatuslist = [
 	'Single',
@@ -29,8 +28,9 @@ const relationshipstatuslist = [
 ]
 
 export default () => {
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 	const insets = useSafeAreaInsets()
-	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const [
@@ -114,7 +114,8 @@ export default () => {
 											key={i}
 											onPress={() => onChange(item)}
 											style={{
-												backgroundColor: themeContext.palette.secondary.background.default,
+												backgroundColor:
+													colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
 												width: '95%',
 												padding: 15,
 												marginVertical: 5,
@@ -142,7 +143,7 @@ export default () => {
 					style={{
 						paddingHorizontal: 10,
 						paddingBottom: insets.bottom,
-						backgroundColor: themeContext.palette.secondary.background.default,
+						backgroundColor: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
 						position: 'absolute',
 						bottom: 0,
 						flexDirection: 'row',

@@ -1,6 +1,7 @@
-import { Card, Heading } from 'native-base'
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { Heading } from '@components/core'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { Card,  useTheme } from 'native-base'
+
 
 type Props = {
 	total: number
@@ -8,13 +9,14 @@ type Props = {
 }
 
 const Total = (props: Props) => {
-	const theme = useContext(ThemeContext)
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 	return (
 		<Card
 			style={{
 				backgroundColor: props.primary
-					? theme.palette.company.primary
-					: theme.palette.company.secondary,
+					? theme.colors.primary[500]
+					: colorScheme === 'light' ? theme.colors.light[900]:theme.colors.dark[900],,
 				height: 30,
 				width: 30,
 				borderRadius: 7,
@@ -26,7 +28,7 @@ const Total = (props: Props) => {
 				borderColor: 'transparent',
 			}}
 		>
-			<Heading fontWeight={'black'} fontSize={14} color={'white'}>
+			<Heading fontWeight={'$black'} fontSize={14} color={'white'}>
 				{props.total}
 			</Heading>
 		</Card>
@@ -34,6 +36,3 @@ const Total = (props: Props) => {
 }
 
 export default Total
-{
-	/* <Text>{props.totalType}</Text> */
-}

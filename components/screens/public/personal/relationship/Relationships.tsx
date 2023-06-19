@@ -8,7 +8,7 @@ import {
 import { useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { DateTime } from 'luxon'
-import { Box, Heading, Text } from 'native-base'
+import { Box, Text } from 'native-base'
 import { ReactElement } from 'react'
 
 export default function Relationships() {

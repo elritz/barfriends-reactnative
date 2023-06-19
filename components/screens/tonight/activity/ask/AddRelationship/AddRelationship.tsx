@@ -1,5 +1,6 @@
+import { Heading } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Icon, Heading, IconButton, Box } from 'native-base'
+import { Icon, IconButton, Box } from 'native-base'
 
 interface AddRelationshipProps {}
 
@@ -33,16 +34,16 @@ const AddRelationship = ({}) => {
 			<Heading
 				mt={3}
 				textAlign={'center'}
-				fontSize={'lg'}
-				fontWeight={'bold'}
+				fontSize={'$lg'}
+				fontWeight={'$bold'}
 				style={{ textTransform: 'uppercase' }}
 			>
 				Add a
 			</Heading>
 			<Heading
 				textAlign={'center'}
-				fontSize={'lg'}
-				fontWeight={'bold'}
+				fontSize={'$lg'}
+				fontWeight={'$bold'}
 				style={{ textTransform: 'uppercase' }}
 			>
 				relationship

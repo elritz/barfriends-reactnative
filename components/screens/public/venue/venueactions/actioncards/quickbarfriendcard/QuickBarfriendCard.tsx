@@ -1,9 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import CameraModal from '@components/molecules/modals/cameramodal/CameraModal'
 import { useGetSecureFriendQrCodeDataQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, PermissionCameraReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Button, Heading, Pressable, useDisclose, VStack } from 'native-base'
+import { Box, Pressable, useDisclose, VStack } from 'native-base'
 import { useState } from 'react'
 import QRCode from 'react-native-qrcode-svg'
 

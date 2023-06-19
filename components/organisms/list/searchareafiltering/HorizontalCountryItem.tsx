@@ -1,25 +1,20 @@
+import { HorizontalCountryItemProps } from '@app/(app)/searcharea/_layout'
 import { Feather } from '@expo/vector-icons'
-import {
-	HorizontalStateItemProps,
-	HorizontalCountryItemProps,
-} from '@navigation/stacks/searcharea/SearchAreaStack'
-import { Icon, HStack, Text } from 'native-base'
-import { useContext } from 'react'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { Icon, HStack, Text, useTheme } from 'native-base'
 import { useFormContext } from 'react-hook-form'
 import { ListRenderItemInfo } from 'react-native'
-import { ThemeContext } from 'styled-components/native'
 
 const HorizontalCountryItem = ({ index, item }: ListRenderItemInfo<HorizontalCountryItemProps>) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
+	const colorScheme = useThemeColorScheme()
 	const formContext = useFormContext()
 	const { watch } = formContext
 
 	return (
 		<HStack
 			key={index}
-			style={{
-				backgroundColor: themeContext.palette.secondary.background.default,
-			}}
+			bg={colorScheme === 'light' ? theme.colors.light[100] : theme.colors.dark[100]}
 		>
 			<Text
 				mt={-0.5}

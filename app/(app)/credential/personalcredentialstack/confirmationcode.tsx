@@ -1,12 +1,12 @@
 // TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import Countdown from '@util/hooks/useTimer'
 import { useRouter, useSearchParams } from 'expo-router'
-import { IconButton, Icon, Box, Text, VStack, Heading, Button, useDisclose } from 'native-base'
+import { IconButton, Icon, Box, Text, VStack, Button, useDisclose } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -22,17 +22,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'cc-1298187263'
-	const { bottom } = useSafeAreaInsets()
-	const isFocused = useIsFocused()
 	const router = useRouter()
 	const params = useSearchParams()
-
+	const { bottom } = useSafeAreaInsets()
+	const isFocused = useIsFocused()
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const colorScheme = useThemeColorScheme()
-
-	const { isOpen, onOpen, onClose } = useDisclose()
-
 	const CELL_COUNT = String(params?.code).length
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 
@@ -191,7 +186,7 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+				<Heading mt={4} lineHeight={35} fontWeight={'$black'} fontSize={'$3xl'}>
 					{`Enter the 4-diget code sent to you at ${
 						credentialPersonalProfileVar.email
 							? credentialPersonalProfileVar.email

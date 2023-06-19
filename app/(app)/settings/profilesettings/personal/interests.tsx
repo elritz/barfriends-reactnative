@@ -1,9 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { useGetInterestsQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import useRandomNumber from '@util/hooks/useRandomNumber'
-import { Badge, Box, Heading, Pressable, Skeleton, Stack, Text, VStack, View } from 'native-base'
+import { Badge, Box, Pressable, Skeleton, Stack, Text, VStack, View } from 'native-base'
 import { useEffect, useState } from 'react'
 
 export default () => {

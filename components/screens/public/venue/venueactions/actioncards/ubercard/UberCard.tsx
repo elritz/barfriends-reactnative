@@ -1,10 +1,11 @@
 import UberButton from './UberButton'
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { UBER_CLIENT_ID_KEY } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Box, Heading, Text, VStack } from 'native-base'
+import { Box, Text, VStack } from 'native-base'
 import { useCallback } from 'react'
 import { Alert, Linking } from 'react-native'
 
@@ -53,7 +54,7 @@ export default function UberCard() {
 			<VStack space={1} flex={1} justifyContent={'flex-start'}>
 				<Heading
 					textTransform={'uppercase'}
-					lineHeight={'xs'}
+					lineHeight={'$xs'}
 					fontSize={'lg'}
 					fontWeight={'black'}
 					mt={5}

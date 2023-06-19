@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMedia'
+import { Heading } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -9,7 +10,7 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as MediaLibrary from 'expo-media-library'
 import { Button, Divider, ScrollView } from 'native-base'
-import { Box, VStack, Text, Heading } from 'native-base'
+import { Box, VStack, Text } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -94,8 +95,8 @@ export default () => {
 					<IllustrationDynamicMedia width={60} height={60} />
 					<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
 					<Heading
-						fontWeight={900}
-						fontSize={'3xl'}
+						fontWeight={'$black'}
+						fontSize={'$3xl'}
 						style={{
 							width: wp(95),
 							maxWidth: 300,

@@ -1,3 +1,4 @@
+import { Heading } from '@components/core'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
@@ -6,7 +7,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter, useSearchParams } from 'expo-router'
-import { Box, Heading, Text } from 'native-base'
+import { Box, Text } from 'native-base'
 import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
 
 export default () => {
@@ -62,7 +63,7 @@ export default () => {
 	if (data?.authorizedProfiles?.__typename === 'Error') {
 		return (
 			<Box safeAreaTop>
-				<Heading fontSize={'xl'}>Error finding profiles</Heading>
+				<Heading fontSize={'$xl'}>Error finding profiles</Heading>
 			</Box>
 		)
 	}

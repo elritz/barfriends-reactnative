@@ -1,7 +1,8 @@
+import { Heading } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { Box, Icon, Text } from 'native-base'
-import { Heading, Button, VStack } from 'native-base'
+import { Button, VStack } from 'native-base'
 
 export default function SignupCard() {
 	const router = useRouter()
@@ -10,7 +11,7 @@ export default function SignupCard() {
 			<VStack space={1} flex={1} justifyContent={'flex-start'}>
 				<Heading
 					textTransform={'uppercase'}
-					lineHeight={'xs'}
+					lineHeight={'$xs'}
 					fontSize={'lg'}
 					fontWeight={'black'}
 					mt={5}

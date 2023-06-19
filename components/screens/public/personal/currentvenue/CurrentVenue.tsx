@@ -1,4 +1,5 @@
-import { Box, Button, Heading, VStack } from 'native-base'
+import { Heading } from '@components/core'
+import { Box, Button, VStack } from 'native-base'
 
 export default function CurrentVenue() {
 	return (
@@ -18,8 +19,8 @@ export default function CurrentVenue() {
 				<Box h={16} w={16} bg={'red.200'} borderRadius={'md'} />
 				<Heading
 					numberOfLines={2}
-					fontSize={'lg'}
-					fontWeight={'black'}
+					fontSize={'$lg'}
+					fontWeight={'$black'}
 					allowFontScaling
 					ellipsizeMode={'clip'}
 				>

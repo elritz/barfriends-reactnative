@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import SearchCard from '@components/screens/search/components/SearchCard'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
@@ -12,7 +13,6 @@ import { useRouter, useSearchParams } from 'expo-router'
 import {
 	Box,
 	Text,
-	Heading,
 	IconButton,
 	HStack,
 	Icon,
@@ -171,10 +171,10 @@ export default () => {
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
 								<Box safeAreaTop>
 									<Center>
-										<Heading fontSize={'md'} fontWeight={'medium'}>
+										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
 										</Heading>
-										<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+										<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
 									</Center>
 								</Box>
 							)}
@@ -190,7 +190,7 @@ export default () => {
 						<Box>
 							{item.data && item.data.length ? (
 								<Box>
-									<Heading fontSize={'lg'} mx={2}>
+									<Heading fontSize={'$lg'} mx={2}>
 										{item.title}
 									</Heading>
 									{item.data?.map((item, index) => {

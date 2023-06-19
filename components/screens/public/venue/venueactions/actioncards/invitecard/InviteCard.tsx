@@ -1,8 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Button, Heading, Icon, IconButton } from 'native-base'
+import { Box, Button,  Icon, IconButton } from 'native-base'
 
 export default function InviteCard() {
 	const router = useRouter()
@@ -36,9 +37,9 @@ export default function InviteCard() {
 			<Heading
 				mt={3}
 				textTransform={'uppercase'}
-				lineHeight={'xs'}
-				fontSize={'lg'}
-				fontWeight={'black'}
+				lineHeight={'$xs'}
+				fontSize={'$lg'}
+				fontWeight={'$black'}
 			>
 				Share with friends
 			</Heading>

@@ -1,6 +1,7 @@
+import { Heading } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { Box, Heading, Icon, IconButton } from 'native-base'
+import { Box, Icon, IconButton } from 'native-base'
 import { Pressable } from 'react-native'
 
 const JoinVenue = ({}) => {
@@ -55,15 +56,15 @@ const JoinVenue = ({}) => {
 			<Heading
 				textAlign={'center'}
 				mt={3}
-				fontSize={'lg'}
+				fontSize={'$lg'}
 				style={{ textTransform: 'uppercase' }}
 				w={'100%'}
-				fontWeight={'900'}
+				fontWeight={'$black'}
 				textTransform={'uppercase'}
 			>
 				Find venues
 			</Heading>
-			<Heading textAlign={'center'} fontSize={'lg'} style={{ textTransform: 'uppercase' }}>
+			<Heading textAlign={'center'} fontSize={'$lg'} style={{ textTransform: 'uppercase' }}>
 				near you
 			</Heading>
 		</Box>

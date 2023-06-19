@@ -1,20 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import {
-	Text,
-	Icon,
-	IconButton,
-	Input,
-	KeyboardAvoidingView,
-	Box,
-	Heading,
-	Pressable,
-} from 'native-base'
+import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box, Pressable } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
@@ -182,7 +174,7 @@ export default () => {
 			}}
 		>
 			<Box h={'110px'}>
-				<Heading mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'} h={'auto'}>
+				<Heading mt={4} lineHeight={35} fontWeight={'$black'} fontSize={'$3xl'} >
 					Enter your email
 				</Heading>
 				<Pressable

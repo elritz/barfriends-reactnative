@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import ForegroundLocationNextAskModal from '@components/molecules/modals/asks/foregroundlocationnextaskmodal'
 import { LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskForegroundLocationPermissionType } from '@ctypes/preferences'
@@ -14,7 +15,7 @@ import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
-import { Box, Button, Divider, HStack, Heading, Icon, Text, VStack, useDisclose } from 'native-base'
+import { Box, Button, Divider, HStack, Icon, Text, VStack, useDisclose } from 'native-base'
 
 export default function ForegroundLocationPermissionFullSection() {
 	const router = useRouter()
@@ -50,7 +51,7 @@ export default function ForegroundLocationPermissionFullSection() {
 								</HStack>
 								<VStack my={3} space={1} alignItems={'center'}>
 									<Heading
-										size={'md'}
+										size={'$md'}
 										textAlign={'center'}
 										style={{
 											width: '100%',

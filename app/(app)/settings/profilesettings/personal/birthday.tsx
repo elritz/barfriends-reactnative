@@ -11,15 +11,13 @@ import { AuthorizationReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { Box, Button, Text } from 'native-base'
-import { useContext, useState } from 'react'
+import {  useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
 	const navigation = useNavigation()
-	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [legalAge] = useState<number>(19)
 

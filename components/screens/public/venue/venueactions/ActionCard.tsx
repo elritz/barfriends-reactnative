@@ -1,7 +1,6 @@
 import { uniqueId } from 'lodash'
 import { Box } from 'native-base'
 import { useWindowDimensions } from 'react-native'
-import styled from 'styled-components/native'
 
 type Props = {
 	children: React.ReactNode
@@ -15,10 +14,13 @@ export default function ActionCard({ children, numColumns, bg, h }: Props) {
 	const itemPadding = (width / 33.33) * numColumns
 
 	return (
-		<OuterView
+		<Box
 			key={uniqueId()}
 			width={width}
-			numColumns={numColumns}
+			flexDir={'column'}
+			padding={'10px'}
+			justifyContent={'center'}
+			shadow={5}
 			_dark={{
 				bg: bg || 'dark.100',
 			}}
@@ -33,13 +35,6 @@ export default function ActionCard({ children, numColumns, bg, h }: Props) {
 			h={h}
 		>
 			{children}
-		</OuterView>
+		</Box>
 	)
 }
-
-const OuterView = styled(Box)<{ width: number; numColumns: number }>(props => ({
-	flexDirection: 'column',
-	padding: 10,
-	justifyContent: 'center',
-	shadowRadius: 10,
-}))

@@ -1,6 +1,10 @@
+import { Logs } from 'expo'
 import { registerRootComponent } from 'expo'
+
 import { ExpoRoot } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
+
+Logs.enableExpoCliLogging()
 
 SplashScreen.preventAutoHideAsync()
 

@@ -1,19 +1,6 @@
 // TODO: Create message navigator
-import { useNavigation } from '@react-navigation/native'
-import {
-	Pressable,
-	Avatar,
-	Text,
-	VStack,
-	Heading,
-	Box,
-	HStack,
-	Badge,
-	Container,
-	Image,
-} from 'native-base'
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { Heading } from '@components/core'
+import { Pressable, Avatar, Text, VStack, Box, HStack, Badge, Container, Image } from 'native-base'
 
 interface HorizontalMessageNotificationProps {
 	item: {
@@ -26,8 +13,6 @@ interface HorizontalMessageNotificationProps {
 }
 
 const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationProps) => {
-	const themeContext = useContext(ThemeContext)
-	const navigation = useNavigation()
 	return (
 		<Box
 			flex={1}
@@ -62,7 +47,7 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 						/>
 						<Container>
 							<VStack>
-								<Heading fontSize={'md'} fontWeight={'600'}>
+								<Heading fontSize={'$md'} fontWeight={'600'}>
 									{item.name}
 								</Heading>
 								<Text

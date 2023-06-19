@@ -1,12 +1,11 @@
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Input, View } from 'native-base'
-import { useContext, useState } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { Input, View, useTheme } from 'native-base'
+import { useState } from 'react'
 
 interface CurrentPlacceScreenProps {}
 
 export default ({}: CurrentPlacceScreenProps) => {
-	const themeContext = useContext(ThemeContext)
+	const theme = useTheme()
 	const colorScheme = useThemeColorScheme()
 	const [search, setSearch] = useState<string>('')
 
@@ -25,9 +24,9 @@ export default ({}: CurrentPlacceScreenProps) => {
 					borderRadius: 14,
 				}}
 				_input={{
-					color: themeContext.palette.primary.color.default,
+					color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
 					borderBottomColor: 'transparent',
-					backgroundColor: themeContext.palette.secondary.background.default,
+					backgroundColor: colorScheme === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
 				}}
 			/>
 		</View>

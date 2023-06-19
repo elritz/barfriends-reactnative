@@ -1,6 +1,7 @@
+import { Heading } from '@components/core'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Box, Center, Heading, HStack, Icon, Image, Text, VStack } from 'native-base'
+import { Box, Center, HStack, Icon, Image, Text, VStack } from 'native-base'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {
@@ -70,9 +71,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 					<Text fontSize={'lg'} numberOfLines={1} isTruncated>
 						{item?.IdentifiableInformation?.fullname}
 					</Text>
-					<Heading fontSize={'sm'} isTruncated>
-						{item?.IdentifiableInformation?.username}
-					</Heading>
+					<Heading fontSize={'$sm'}>{item?.IdentifiableInformation?.username}</Heading>
 				</VStack>
 			</HStack>
 			{!loading ? (

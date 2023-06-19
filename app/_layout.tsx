@@ -133,7 +133,6 @@ export default () => {
 				)
 
 				ThemeReactiveVar({
-					theme: null,
 					localStorageColorScheme: 'system',
 					colorScheme: Appearance.getColorScheme(),
 				})
@@ -141,7 +140,6 @@ export default () => {
 				const localStorageTheme: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
 
 				ThemeReactiveVar({
-					theme: null,
 					localStorageColorScheme: localStorageTheme.colorScheme,
 					colorScheme:
 						localStorageTheme.colorScheme === 'system'

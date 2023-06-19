@@ -1,24 +1,11 @@
 import Item from '../images/Item'
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
-import { Maybe, Photo, Story } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
-import useCloudinaryMultipleImageUploading from '@util/uploading/useCloudinaryURLGenerator'
 import * as ImagePicker from 'expo-image-picker'
-import { MotiView } from 'moti'
-import {
-	Box,
-	Button,
-	Center,
-	Heading,
-	Icon,
-	Image,
-	Pressable,
-	Text,
-	View,
-	useTheme,
-} from 'native-base'
+import { Box, Button, Center, Icon, Image, Pressable, Text, View, useTheme } from 'native-base'
 import { useCallback } from 'react'
 import { ScrollView, StyleSheet, useWindowDimensions } from 'react-native'
 import Animated, {
@@ -315,7 +302,7 @@ export default function Photos() {
 										/>
 									</Box>
 								</Box>
-								<Heading pb={1} fontWeight={'black'}>
+								<Heading pb={1} fontWeight={'$black'}>
 									Start tonights story
 								</Heading>
 								<Text fontSize={'lg'} fontWeight={'medium'}>

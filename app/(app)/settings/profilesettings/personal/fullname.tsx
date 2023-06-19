@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
@@ -7,17 +8,15 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Input, KeyboardAvoidingView, Text } from 'native-base'
-import { Heading, Button, Box } from 'native-base'
-import { useContext } from 'react'
+import { Input, KeyboardAvoidingView, Text, useTheme } from 'native-base'
+import { Button, Box } from 'native-base'
 import { useForm, Controller } from 'react-hook-form'
 import { ActivityIndicator, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ThemeContext } from 'styled-components/native'
 
 export default () => {
-	const themeContext = useContext(ThemeContext)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const theme = useTheme()
 	const colorScheme = useThemeColorScheme()
 
 	const {
@@ -164,7 +163,7 @@ export default () => {
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
 						<Box flexDirection={'column'} alignItems={'flex-start'} width={'100%'} my={3}>
-							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
+							<Heading fontSize={'$lg'} style={{ marginBottom: 10 }}>
 								Full name
 							</Heading>
 							<Input
@@ -194,10 +193,7 @@ export default () => {
 								rightElement={
 									<Box mr={3}>
 										{UOPLoading && dirtyFields.fullname ? (
-											<ActivityIndicator
-												size='small'
-												color={themeContext.palette.primary.background.default}
-											/>
+											<ActivityIndicator size='small' color={theme.colors.primary[500]} />
 										) : (
 											dirtyFields.fullname && (
 												<Pressable onPress={() => resetInput('fullname')}>
@@ -220,7 +216,7 @@ export default () => {
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
 						<Box flexDirection={'column'} alignItems={'flex-start'} width={'100%'} my={3}>
-							<Heading fontSize={'lg'} style={{ marginBottom: 10 }}>
+							<Heading fontSize={'$lg'} style={{ marginBottom: 10 }}>
 								Nick name
 							</Heading>
 							<Input
@@ -245,7 +241,7 @@ export default () => {
 								rightElement={
 									<Box mr={3}>
 										{UOPLoading && dirtyFields.nickname ? (
-											<ActivityIndicator size='small' color={themeContext.palette.primary.color.default} />
+											<ActivityIndicator size='small' color={theme.colors.primary[500]} />
 										) : (
 											dirtyFields.nickname && (
 												<Pressable onPress={() => resetInput('nickname')}>
@@ -268,7 +264,7 @@ export default () => {
 						onPress={() => onSubmit()}
 						borderRadius={'md'}
 						style={{
-							backgroundColor: themeContext.palette.bfscompany.primary,
+							backgroundColor: theme.colors.primary[500],
 							alignSelf: 'center',
 							width: '50%',
 						}}

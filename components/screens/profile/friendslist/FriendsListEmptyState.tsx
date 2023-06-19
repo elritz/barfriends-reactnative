@@ -1,8 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Heading, Button, Icon, Text, Box, VStack } from 'native-base'
+import {  Button, Icon, Text, Box, VStack } from 'native-base'
 
 export const FriendsListEmptyState = () => {
 	const router = useRouter()

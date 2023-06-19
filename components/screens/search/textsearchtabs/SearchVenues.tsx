@@ -1,8 +1,9 @@
 import SearchCard from '../components/SearchCard'
+import { Heading } from '@components/core'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
-import { Box, Center, Heading, Skeleton, View } from 'native-base'
+import { Box, Center, Skeleton, View } from 'native-base'
 
 export default function SearchVenues() {
 	const params = useSearchParams()
@@ -56,10 +57,10 @@ export default function SearchVenues() {
 		return (
 			<Box safeAreaTop>
 				<Center>
-					<Heading fontSize={'md'} fontWeight={'medium'}>
+					<Heading fontSize={'$md'} fontWeight={'$medium'}>
 						No search results for
 					</Heading>
-					<Heading fontSize={'3xl'}>"{params.searchtext}"</Heading>
+					<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
 				</Center>
 			</Box>
 		)

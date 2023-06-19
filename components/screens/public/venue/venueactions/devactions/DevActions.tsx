@@ -1,7 +1,8 @@
 import JoinCard from './joincard/JoinCard'
 import LeaveCard from './leavecard/LeaveCard'
 import TotalCard from './totalcard/TotalCard'
-import { Text, Heading, HStack, VStack, Box, Pressable } from 'native-base'
+import { Heading } from '@components/core'
+import { Text, HStack, VStack, Box, Pressable } from 'native-base'
 import { useState } from 'react'
 
 export default function DevActions() {
@@ -19,7 +20,7 @@ export default function DevActions() {
 						<Box>
 							<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
 								You are in {'\n'}
-								<Heading color={'green.400'} fontWeight={'900'}>
+								<Heading color={'green.400'} fontWeight={'$black'}>
 									Dev Mode!
 								</Heading>
 							</Heading>

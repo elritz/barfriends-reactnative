@@ -1,13 +1,11 @@
 // TODO: UX() Descide if we keeping this item and are using this item
 // TODO: UX() No Profile photo show empty state
+import { Heading } from '@components/core'
 import { ItemRenderType } from '@ctypes/app'
 import { Personal } from '@graphql/generated'
-import { Avatar, Box, Heading, HStack, Pressable } from 'native-base'
-import { useContext } from 'react'
-import { ThemeContext } from 'styled-components/native'
+import { Avatar, Box, HStack, Pressable } from 'native-base'
 
 const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
-	const themeContext = useContext(ThemeContext)
 	const profile = props.item.Profile
 
 	if (!profile) return null
@@ -32,7 +30,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 				m={'10px'}
 				borderRadius={'md'}
 			>
-				{profile.photos[0].url && (
+				{profile.photos && profile?.photos[0].url && (
 					<Avatar
 						borderRadius={'md'}
 						_image={{
@@ -42,17 +40,11 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 						width={'50px'}
 						source={{ uri: profile.photos[0].url }}
 					>
-						{profile.IdentifiableInformation.username.charAt(0)}
+						{profile.IdentifiableInformation?.username.charAt(0)}
 					</Avatar>
 				)}
 				<HStack>
-					<Heading
-						style={{
-							color: themeContext.palette.secondary.color.default,
-						}}
-					>
-						{profile.IdentifiableInformation.username}
-					</Heading>
+					<Heading>{profile?.IdentifiableInformation?.username}</Heading>
 				</HStack>
 				{/* {props.loading && ME?.activeProfile?.username === profile.Credential?.username ? (
 				<ActivityIndicator size='small' color={themeContext.palette.primary.color.tertiary} />

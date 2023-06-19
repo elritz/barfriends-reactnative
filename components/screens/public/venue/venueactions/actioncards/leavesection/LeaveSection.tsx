@@ -1,5 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
@@ -11,7 +12,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Heading, Button, Icon, HStack } from 'native-base'
+import { Button, Icon, HStack } from 'native-base'
 
 export default function LeaveSection() {
 	const params = useSearchParams()

@@ -1,6 +1,7 @@
+import { Heading } from '@components/core'
 import { Profile } from '@graphql/generated'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
-import { Heading, VStack, Text, Box, Button } from 'native-base'
+import { VStack, Text, Box, Button } from 'native-base'
 import React, { useState } from 'react'
 
 type Props = {
@@ -10,10 +11,10 @@ type Props = {
 export default function Details({ profile: item }: Props) {
 	return (
 		<VStack flex={1} space={1} mt={3}>
-			<Heading fontSize={'lg'} lineHeight={'xs'}>
+			<Heading fontSize={'$lg'} lineHeight={'$xs'}>
 				{capitalizeFirstLetter(item?.IdentifiableInformation?.fullname)}
 			</Heading>
-			<Text lineHeight={'xs'} fontWeight={'bold'} fontSize={'sm'}>
+			<Text lineHeight={'$xs'} fontWeight={'$bold'} fontSize={'$sm'}>
 				@{item?.IdentifiableInformation?.username}
 			</Text>
 		</VStack>

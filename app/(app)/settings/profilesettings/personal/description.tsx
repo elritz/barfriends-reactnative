@@ -9,15 +9,12 @@ import {
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Box, Button, Input, Text, View } from 'native-base'
-import { useContext } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ThemeContext } from 'styled-components/native'
 
 const DESCRIPTION_LENGTH = 250
 
 export default () => {
-	const themeContext = useContext(ThemeContext)
 	const colorScheme = useThemeColorScheme()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 

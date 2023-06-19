@@ -1,16 +1,13 @@
 import Card, { CARD_HEIGHT } from './Card'
 import { products } from './Model'
 import Products from './Products'
-import Cards from './components/Cards'
-import { useContext } from 'react'
-import { Dimensions, View, ScrollView, StyleSheet } from 'react-native'
+import { Dimensions, View, StyleSheet } from 'react-native'
 import Animated, {
 	useAnimatedScrollHandler,
 	useAnimatedStyle,
 	useSharedValue,
 	interpolateColor,
 } from 'react-native-reanimated'
-import { ThemeContext } from 'styled-components/native'
 
 const { width } = Dimensions.get('window')
 
@@ -20,7 +17,6 @@ const styles = StyleSheet.create({
 const snapToOffsets = [0, CARD_HEIGHT]
 
 const PhilzCoffee = () => {
-	const themeContext = useContext(ThemeContext)
 	const translateX = useSharedValue(0)
 	const onScroll = useAnimatedScrollHandler({
 		onScroll: event => {

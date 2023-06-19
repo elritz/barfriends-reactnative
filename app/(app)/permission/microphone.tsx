@@ -1,5 +1,6 @@
 // TODO: FN(Open camera app) ln:66
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionMicrophoneReactiveVar } from '@reactive'
@@ -10,7 +11,7 @@ import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import { useRouter } from 'expo-router'
-import { Box, Button, Divider, Heading, Icon, ScrollView, Text, VStack } from 'native-base'
+import { Box, Button, Divider, Icon, ScrollView, Text, VStack } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -119,7 +120,7 @@ export default () => {
 				</Box>
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
-					fontWeight={'900'}
+					fontWeight={'$black'}
 					style={{
 						width: wp(95),
 						maxWidth: 300,

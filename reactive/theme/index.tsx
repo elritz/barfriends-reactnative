@@ -3,18 +3,16 @@ import { ThemeColorSchemeOptionsType } from '@preferences'
 import { DefaultTheme as RNDefaultTheme } from '@react-navigation/native'
 import { ITheme } from 'native-base'
 import { ColorSchemeName } from 'react-native'
-import { DefaultTheme } from 'styled-components/native'
 
 export type IBFSTheme = {
-	styled: DefaultTheme
 	rn: typeof RNDefaultTheme
 	nb: ITheme
 }
 
 export interface ThemeInterface {
-	localStorageColorScheme: ThemeColorSchemeOptionsType | null | undefined
+	localStorageColorScheme: ThemeColorSchemeOptionsType | null
 	colorScheme: ColorSchemeName
-	theme: IBFSTheme | null | undefined
+	theme: IBFSTheme | null 
 }
 
 export const ThemeEmptyState: ThemeInterface = {

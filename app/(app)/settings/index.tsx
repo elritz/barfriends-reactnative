@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -9,7 +10,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { ScrollView, Box, HStack, Icon, Text, Pressable, Heading } from 'native-base'
+import { ScrollView, Box, HStack, Icon, Text, Pressable } from 'native-base'
 import { useState } from 'react'
 
 interface EditableOptionsScreenProps {}

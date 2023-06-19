@@ -72,8 +72,8 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 							intensity={50}
 						/>
 						<Heading
-							size={'md'}
-							fontWeight={'black'}
+							size={'$md'}
+							fontWeight={'$black'}
 							letterSpacing={'xs'}
 							textAlign={'left'}
 							numberOfLines={2}

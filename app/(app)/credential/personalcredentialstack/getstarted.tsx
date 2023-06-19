@@ -17,7 +17,7 @@ export default () => {
 		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={4}>
 			<Box justifyContent={'center'} height={'lg'}>
 				<CompanyCoasterLogoDynamic />
-				<Text testID={'title-text'} mt={4} fontWeight={'black'} lineHeight={35} fontSize={'4xl'}>
+				<Text testID={'title-text'} mt={4} fontWeight={'$black'} lineHeight={35} fontSize={'$4xl'}>
 					Let's Fucking Gooooooo out tonight!
 				</Text>
 				<Pressable

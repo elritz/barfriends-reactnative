@@ -2,6 +2,7 @@
 import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
+import { Heading } from '@components/core'
 import { FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { ENVIRONMENT } from '@env'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -19,7 +20,7 @@ import * as TaskManager from 'expo-task-manager'
 import { getDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { MotiView } from 'moti'
-import { Box, Button, Heading, Icon, Text, VStack, View, useDisclose, useTheme } from 'native-base'
+import { Box, Button, Icon, Text, VStack, View, useDisclose, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
@@ -296,15 +297,15 @@ const CurrentLocationFromVenueDistance = () => {
 								textAlign={'center'}
 								textTransform={'uppercase'}
 								fontWeight={'800'}
-								size={'lg'}
-								lineHeight={'xs'}
+								fontSize={'$lg'}
+								lineHeight={'$xs'}
 							>
 								{metric === 'km' ? `In your area` : `You're super close!`}
 							</Heading>
 
 							<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'}>
 								<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
-								<Heading fontWeight={'900'}>
+								<Heading fontWeight={'$black'}>
 									{distance}&nbsp;{metric}
 								</Heading>
 							</Box>

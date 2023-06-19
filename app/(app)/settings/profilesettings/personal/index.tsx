@@ -1,10 +1,12 @@
-import { useReactiveVar } from '@apollo/client'
-import { Ionicons } from '@expo/vector-icons'
-import { useProfileQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
-import { useRouter } from 'expo-router'
-import { Badge, Box, HStack, Heading, Icon, Text, VStack } from 'native-base'
-import { ScrollView, Pressable } from 'react-native'
+import { useReactiveVar } from '@apollo/client';
+import { Heading } from '@components/core';
+import { Ionicons } from '@expo/vector-icons';
+import { useProfileQuery } from '@graphql/generated';
+import { AuthorizationReactiveVar } from '@reactive';
+import { useRouter } from 'expo-router';
+import { Badge, Box, HStack, Icon, Text, VStack } from 'native-base';
+import { ScrollView, Pressable } from 'react-native';
+
 
 interface EditableOptionsScreenProps {}
 
@@ -45,7 +47,7 @@ export default ({}: EditableOptionsScreenProps) => {
 				flexDirection={'column'}
 			>
 				{props.title && (
-					<Heading fontSize={'md'} pb={3}>
+					<Heading fontSize={'$md'} pb={3}>
 						{props.title}
 					</Heading>
 				)}
@@ -155,7 +157,7 @@ export default ({}: EditableOptionsScreenProps) => {
 					</VStack>
 				</Box>
 			</RoundedListItem>
-			<Heading fontSize={'lg'} py={2}>
+			<Heading fontSize={'$lg'} py={2}>
 				MY BASIC INFO
 			</Heading>
 			<RoundedListItem
