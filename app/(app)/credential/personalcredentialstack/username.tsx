@@ -164,7 +164,7 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
 					Choose your username
 				</Text>
 				<View style={{ marginVertical: '10%', width: '100%' }}>

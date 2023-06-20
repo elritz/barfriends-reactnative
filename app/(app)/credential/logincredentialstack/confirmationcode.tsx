@@ -235,7 +235,7 @@ export default () => {
 										borderBottomWidth={isFocused ? '2px' : '1px'}
 										onLayout={getCellOnLayoutHandler(index)}
 									>
-										<Heading color={'primary.500'} fontSize={'3xl'}>
+										<Heading color={'primary.500'} fontSize={'$3xl'}>
 											{symbol || (isFocused ? <Cursor /> : null)}
 										</Heading>
 									</Box>

@@ -87,7 +87,7 @@ export default () => {
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
 				<View style={{ top: 0 }}>
-					<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+					<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
 						Your profiles
 					</Text>
 				</View>

@@ -183,7 +183,7 @@ export default function Photos({ story, photo, w, h }: Props) {
 					m={3}
 					alignSelf={'center'}
 				>
-					<Box h={'100%'} p={2} w={'100%'} borderRadius={'3xl'}>
+					<Box h={'100%'} p={2} w={'100%'} borderRadius={'$3xl'}>
 						<Image
 							source={{
 								uri: photo.url,

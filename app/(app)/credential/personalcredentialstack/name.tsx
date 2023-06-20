@@ -121,7 +121,7 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
 					Enter your name
 				</Text>
 				<VStack space={3} style={{ marginVertical: '10%' }}>

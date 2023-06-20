@@ -29,11 +29,6 @@ export default () => {
 			String(localStorageColorScheme),
 		)
 
-		console.log(
-			'🚀 ~ file: _layout.tsx:32 ~ setTheme ~ valueLocalStorageColorScheme:',
-			valueLocalStorageColorScheme,
-		)
-
 		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
 	}
 
@@ -75,12 +70,10 @@ export default () => {
 		<ThemeProvider
 			value={{
 				...memTheme.theme?.rn,
-				colors: {
-					...memTheme.theme?.rn.colors,
-				},
 			}}
 		>
-			<GluestackUIProvider  config={config.theme} >
+			<GluestackUIProvider config={config.theme}>
+				{/* <GluestackUIProvider config={config}> */}
 				<NativeBaseProvider theme={memTheme.theme.nb}>
 					<StatusBar
 						animated

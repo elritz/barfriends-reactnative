@@ -35,7 +35,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 				<ProfilePhoto photo={rAuthorizationVar?.DeviceProfile?.Profile?.profilePhoto} />
 				<View style={{ marginVertical: 20 }}>
 					<Heading
-						fontSize={'3xl'}
+						fontSize={'$3xl'}
 						numberOfLines={2}
 						style={{ textTransform: 'capitalize', textAlign: 'center' }}
 					>

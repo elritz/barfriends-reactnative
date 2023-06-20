@@ -4,7 +4,7 @@ export default function _layout() {
 	return (
 		<Stack
 			screenOptions={{
-				headerShown: true,
+				headerShown: false,
 			}}
 		>
 			<Stack.Screen name={'index'} />

@@ -6,7 +6,7 @@ module.exports = {
 			`./graphql/generated/schema.graphql`,
 			`./graphql/generated/schema.graphql.json`,
 		],
-		// service: 'barfriends-mono',
+		// service: 'barfriends',
 		service: {
 			name: 'barfriends',
 			url: 'http://192.168.86.23:4000/graphql',

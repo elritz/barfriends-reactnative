@@ -112,7 +112,7 @@ export default () => {
 				marginTop: 20,
 			}}
 		>
-			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'3xl'}>
+			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
 				What's your birthday
 			</Text>
 			<>

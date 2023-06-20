@@ -12,7 +12,7 @@ export default styled(H3, {
     color: '$textDark50',
   },
   _light: {
-    color: '$textLight50',
+    color: '$textLight950',
   },
   variants: {
     size: {
@@ -29,7 +29,7 @@ export default styled(H3, {
         lineHeight: '$6xl',
       },
 
-      '3xl': {
+      '$3xl': {
         //@ts-ignore
         props: { as: H1 },
         fontSize: '$4xl',

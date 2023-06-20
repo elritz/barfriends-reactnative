@@ -20,7 +20,7 @@ export default () => {
 							<Box safeAreaTop>
 								<Text
 									adjustsFontSizeToFit
-									fontSize={'3xl'}
+									fontSize={'$3xl'}
 									textAlign={'center'}
 									textTransform={'capitalize'}
 									fontWeight={'black'}

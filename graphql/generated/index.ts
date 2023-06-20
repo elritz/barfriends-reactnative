@@ -17,6 +17,27 @@ export type Scalars = {
   Json: any;
 };
 
+export type AdAvgOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+};
+
+export type AdCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type AdCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type AdCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
 export type Address = {
   __typename?: 'Address';
   AddressComponents: Array<AddressComponent>;
@@ -477,6 +498,77 @@ export type AddressWhereInput = {
 
 export type AddressWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']>;
+};
+
+export type AdMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type AdMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type AdOrderByWithAggregationInput = {
+  _avg?: InputMaybe<AdAvgOrderByAggregateInput>;
+  _count?: InputMaybe<AdCountOrderByAggregateInput>;
+  _max?: InputMaybe<AdMaxOrderByAggregateInput>;
+  _min?: InputMaybe<AdMinOrderByAggregateInput>;
+  _sum?: InputMaybe<AdSumOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type AdOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum AdScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  UpdatedAt = 'updatedAt'
+}
+
+export type AdScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<AdScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  id?: InputMaybe<IntWithAggregatesFilter>;
+  NOT?: InputMaybe<Array<AdScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<AdScalarWhereWithAggregatesInput>>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+};
+
+export type AdSumOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+};
+
+export type AdUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type AdUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type AdWhereInput = {
+  AND?: InputMaybe<Array<AdWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  NOT?: InputMaybe<Array<AdWhereInput>>;
+  OR?: InputMaybe<Array<AdWhereInput>>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type AdWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
 };
 
 export enum AppType {
@@ -5547,7 +5639,7 @@ export type Group = {
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   name: Scalars['String'];
-  photos: Array<Photo>;
+  Photos: Array<Photo>;
   Profile: Array<Profile>;
   updatedAt: Scalars['DateTime'];
 };
@@ -5583,7 +5675,7 @@ export type GroupCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutGroupInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutGroupInput>;
   Profile?: InputMaybe<ProfileCreateNestedManyWithoutGroupsInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -5629,7 +5721,7 @@ export type GroupCreateWithoutProfileInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutGroupInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutGroupInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -5671,7 +5763,7 @@ export type GroupOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  photos?: InputMaybe<PhotoOrderByRelationAggregateInput>;
+  Photos?: InputMaybe<PhotoOrderByRelationAggregateInput>;
   Profile?: InputMaybe<ProfileOrderByRelationAggregateInput>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -5712,7 +5804,7 @@ export type GroupUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutGroupNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutGroupNestedInput>;
   Profile?: InputMaybe<ProfileUpdateManyWithoutGroupsNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -5764,7 +5856,7 @@ export type GroupUpdateWithoutProfileInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutGroupNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutGroupNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -5791,7 +5883,7 @@ export type GroupWhereInput = {
   name?: InputMaybe<StringFilter>;
   NOT?: InputMaybe<Array<GroupWhereInput>>;
   OR?: InputMaybe<Array<GroupWhereInput>>;
-  photos?: InputMaybe<PhotoListRelationFilter>;
+  Photos?: InputMaybe<PhotoListRelationFilter>;
   Profile?: InputMaybe<ProfileListRelationFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -12007,7 +12099,7 @@ export type ProfileCreateInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12216,7 +12308,7 @@ export type ProfileCreateWithoutChatroomInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12240,7 +12332,7 @@ export type ProfileCreateWithoutCredentialsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12264,7 +12356,7 @@ export type ProfileCreateWithoutDetailInformationInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12288,7 +12380,7 @@ export type ProfileCreateWithoutGroupsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12312,7 +12404,7 @@ export type ProfileCreateWithoutIdentifiableInformationInput = {
   id?: InputMaybe<Scalars['String']>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12336,7 +12428,7 @@ export type ProfileCreateWithoutNotificationsInput = {
   id?: InputMaybe<Scalars['String']>;
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12360,7 +12452,7 @@ export type ProfileCreateWithoutPersonalInput = {
   id?: InputMaybe<Scalars['String']>;
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12409,7 +12501,7 @@ export type ProfileCreateWithoutRelationshipsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
   SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
@@ -12433,7 +12525,7 @@ export type ProfileCreateWithoutSearchesServiceInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SecuredDataKeys?: InputMaybe<SecuredDataKeysCreateNestedManyWithoutProfileInput>;
@@ -12457,7 +12549,7 @@ export type ProfileCreateWithoutSecuredDataKeysInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12481,7 +12573,7 @@ export type ProfileCreateWithoutSettingsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12505,7 +12597,7 @@ export type ProfileCreateWithoutStorysInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12529,7 +12621,7 @@ export type ProfileCreateWithoutThemeManagerInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12553,7 +12645,7 @@ export type ProfileCreateWithoutVenueInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12577,7 +12669,7 @@ export type ProfileCreateWithoutVoteInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationCreateNestedOneWithoutProfileInput>;
   Notifications?: InputMaybe<NotificationsCreateNestedOneWithoutProfileInput>;
   Personal?: InputMaybe<PersonalCreateNestedOneWithoutProfileInput>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutProfileInput>;
   ProfileType?: InputMaybe<ProfileType>;
   Relationships?: InputMaybe<RelationshipCreateNestedManyWithoutProfileInput>;
   SearchesService?: InputMaybe<SearchesServiceCreateNestedOneWithoutProfileInput>;
@@ -12639,7 +12731,7 @@ export type ProfileOrderByWithRelationInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationOrderByWithRelationInput>;
   Notifications?: InputMaybe<NotificationsOrderByWithRelationInput>;
   Personal?: InputMaybe<PersonalOrderByWithRelationInput>;
-  photos?: InputMaybe<PhotoOrderByRelationAggregateInput>;
+  Photos?: InputMaybe<PhotoOrderByRelationAggregateInput>;
   ProfileType?: InputMaybe<SortOrder>;
   Relationships?: InputMaybe<RelationshipOrderByRelationAggregateInput>;
   SearchesService?: InputMaybe<SearchesServiceOrderByWithRelationInput>;
@@ -13037,7 +13129,7 @@ export type ProfileUpdateInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13224,7 +13316,7 @@ export type ProfileUpdateWithoutChatroomInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13248,7 +13340,7 @@ export type ProfileUpdateWithoutCredentialsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13272,7 +13364,7 @@ export type ProfileUpdateWithoutDetailInformationInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13296,7 +13388,7 @@ export type ProfileUpdateWithoutGroupsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13320,7 +13412,7 @@ export type ProfileUpdateWithoutIdentifiableInformationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13344,7 +13436,7 @@ export type ProfileUpdateWithoutNotificationsInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13368,7 +13460,7 @@ export type ProfileUpdateWithoutPersonalInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13417,7 +13509,7 @@ export type ProfileUpdateWithoutRelationshipsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
   SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileNestedInput>;
@@ -13441,7 +13533,7 @@ export type ProfileUpdateWithoutSearchesServiceInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SecuredDataKeys?: InputMaybe<SecuredDataKeysUpdateManyWithoutProfileNestedInput>;
@@ -13465,7 +13557,7 @@ export type ProfileUpdateWithoutSecuredDataKeysInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13489,7 +13581,7 @@ export type ProfileUpdateWithoutSettingsInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13513,7 +13605,7 @@ export type ProfileUpdateWithoutStorysInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13537,7 +13629,7 @@ export type ProfileUpdateWithoutThemeManagerInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13561,7 +13653,7 @@ export type ProfileUpdateWithoutVenueInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13585,7 +13677,7 @@ export type ProfileUpdateWithoutVoteInput = {
   IdentifiableInformation?: InputMaybe<IdentifiableInformationUpdateOneWithoutProfileNestedInput>;
   Notifications?: InputMaybe<NotificationsUpdateOneWithoutProfileNestedInput>;
   Personal?: InputMaybe<PersonalUpdateOneWithoutProfileNestedInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutProfileNestedInput>;
   ProfileType?: InputMaybe<EnumProfileTypeFieldUpdateOperationsInput>;
   Relationships?: InputMaybe<RelationshipUpdateManyWithoutProfileNestedInput>;
   SearchesService?: InputMaybe<SearchesServiceUpdateOneWithoutProfileNestedInput>;
@@ -13729,7 +13821,7 @@ export type ProfileWhereInput = {
   Notifications?: InputMaybe<NotificationsWhereInput>;
   OR?: InputMaybe<Array<ProfileWhereInput>>;
   Personal?: InputMaybe<PersonalWhereInput>;
-  photos?: InputMaybe<PhotoListRelationFilter>;
+  Photos?: InputMaybe<PhotoListRelationFilter>;
   ProfileType?: InputMaybe<EnumProfileTypeFilter>;
   Relationships?: InputMaybe<RelationshipListRelationFilter>;
   SearchesService?: InputMaybe<SearchesServiceWhereInput>;
@@ -13986,6 +14078,7 @@ export type Query = {
   getInterests: Array<Category>;
   getLiveVenueTotals: LiveVenueTotals;
   getNotifications: NotificationResponse;
+  getProfileThemeManager: ThemeManager;
   getRelationshipFriendRequestStatus: NotificationFriendRequestStatusResponse;
   getSecureFriendQRCodeData: Scalars['String'];
   H3IndexGrid: Array<Scalars['String']>;
@@ -15876,7 +15969,7 @@ export type StoryCreateInput = {
   date: Scalars['DateTime'];
   emojimood?: InputMaybe<EmojimoodCreateNestedManyWithoutStoryInput>;
   id?: InputMaybe<Scalars['String']>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutStoryInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutStoryInput>;
   Profile?: InputMaybe<ProfileCreateNestedOneWithoutStorysInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -15939,7 +16032,7 @@ export type StoryCreateWithoutEmojimoodInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date: Scalars['DateTime'];
   id?: InputMaybe<Scalars['String']>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutStoryInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutStoryInput>;
   Profile?: InputMaybe<ProfileCreateNestedOneWithoutStorysInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -15958,7 +16051,7 @@ export type StoryCreateWithoutProfileInput = {
   date: Scalars['DateTime'];
   emojimood?: InputMaybe<EmojimoodCreateNestedManyWithoutStoryInput>;
   id?: InputMaybe<Scalars['String']>;
-  photos?: InputMaybe<PhotoCreateNestedManyWithoutStoryInput>;
+  Photos?: InputMaybe<PhotoCreateNestedManyWithoutStoryInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -16004,7 +16097,7 @@ export type StoryOrderByWithRelationInput = {
   date?: InputMaybe<SortOrder>;
   emojimood?: InputMaybe<EmojimoodOrderByRelationAggregateInput>;
   id?: InputMaybe<SortOrder>;
-  photos?: InputMaybe<PhotoOrderByRelationAggregateInput>;
+  Photos?: InputMaybe<PhotoOrderByRelationAggregateInput>;
   Profile?: InputMaybe<ProfileOrderByWithRelationInput>;
   profileId?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -16050,7 +16143,7 @@ export type StoryUpdateInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   emojimood?: InputMaybe<EmojimoodUpdateManyWithoutStoryNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutStoryNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutStoryNestedInput>;
   Profile?: InputMaybe<ProfileUpdateOneWithoutStorysNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -16113,7 +16206,7 @@ export type StoryUpdateWithoutEmojimoodInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutStoryNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutStoryNestedInput>;
   Profile?: InputMaybe<ProfileUpdateOneWithoutStorysNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -16132,7 +16225,7 @@ export type StoryUpdateWithoutProfileInput = {
   date?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   emojimood?: InputMaybe<EmojimoodUpdateManyWithoutStoryNestedInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
-  photos?: InputMaybe<PhotoUpdateManyWithoutStoryNestedInput>;
+  Photos?: InputMaybe<PhotoUpdateManyWithoutStoryNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -16171,7 +16264,7 @@ export type StoryWhereInput = {
   id?: InputMaybe<StringFilter>;
   NOT?: InputMaybe<Array<StoryWhereInput>>;
   OR?: InputMaybe<Array<StoryWhereInput>>;
-  photos?: InputMaybe<PhotoListRelationFilter>;
+  Photos?: InputMaybe<PhotoListRelationFilter>;
   Profile?: InputMaybe<ProfileWhereInput>;
   profileId?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;

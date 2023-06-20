@@ -4,7 +4,7 @@ import { Box, Text } from 'native-base'
 export default function index() {
 	return (
 		<Box flex={1} justifyContent={'center'} alignContent={'center'} mx={5}>
-			<Heading fontSize={'3xl'}>Messaging</Heading>
+			<Heading fontSize={'$3xl'}>Messaging</Heading>
 			<Text>Enhance User Engagement and Communication with Messaging Feature on Barfriends</Text>
 		</Box>
 	)
@@ -29,7 +29,7 @@ export default function index() {
 // 	return (
 // 		<SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
 // 			<HStack alignItems={'center'} justifyContent={'space-between'} mb={5}>
-// 				<Heading fontSize={'3xl'}>Messages</Heading>
+// 				<Heading fontSize={'$3xl'}>Messages</Heading>
 // 				{!rPermissionNotificationVar?.granted && (
 // 					<Icon
 // 						as={Ionicons}

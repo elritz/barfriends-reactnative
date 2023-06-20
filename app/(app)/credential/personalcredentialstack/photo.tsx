@@ -307,7 +307,7 @@ export default () => {
 								<Icon
 									as={Ionicons}
 									name='checkmark-circle'
-									size={'3xl'}
+									size={'$3xl'}
 									color={'success.500'}
 									position='absolute'
 									bottom={1}

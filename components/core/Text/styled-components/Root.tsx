@@ -46,7 +46,7 @@ export default styled(
           lineHeight: '$2xl',
         },
 
-        '3xl': {
+        '$3xl': {
           fontSize: '$3xl',
           lineHeight: '$3xl',
         },

@@ -1,48 +1,34 @@
 // authorization
 import { useReactiveVar } from '@apollo/client'
-import {
-	AUTHORIZATION,
-	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-	LOCAL_STORAGE_SEARCH_AREA,
-} from '@constants/StorageConstants'
+import { AUTHORIZATION } from '@constants/StorageConstants'
 import { AuthorizationDecoded } from '@ctypes/app'
-import { LocalStoragePreferenceThemeType } from '@ctypes/preferences'
 import {
 	useRefreshDeviceManagerMutation,
 	useCreateGuestProfileMutation,
 	AuthorizationDeviceManager,
 } from '@graphql/generated'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { Redirect, SplashScreen, useRouter } from 'expo-router'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { AppState, Appearance, StatusBar, useColorScheme } from 'react-native'
+import React, { useEffect } from 'react'
+import { AppState } from 'react-native'
 
 export default () => {
-	const appState = useRef(AppState.currentState)
-	const [appStateVisible, setAppStateVisible] = useState(appState.current)
-	const rThemeVar = useReactiveVar(ThemeReactiveVar)
-	const [toggleThemes] = useToggleTheme()
-	const colorScheme = useThemeColorScheme()
-	const deviceColorScheme = useColorScheme()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-
 	const router = useRouter()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError: async error => {
+				console.log('🚀 ~ file: index.tsx:37 ~ error:', error)
 				// await secureStorageItemDelete({
 				// 	key: AUTHORIZATION,
 				// })
 				// createGuestProfileMutation()
-				// router.push({
-				// 	pathname: '(error)',
-				// })
+				router.push({
+					pathname: '(error)/network',
+				})
 			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
@@ -54,13 +40,15 @@ export default () => {
 
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
-			onError: error => {
+			onError: async error => {
+				console.log('🚀 ~ file: index.tsx:37 ~ error:', error)
 				router.push({
-					pathname: '(error)',
+					pathname: '(error)/network',
 				})
 			},
 
 			onCompleted: async data => {
+				console.log('data :🐶>> ', data)
 				if (data?.createGuestProfile.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.createGuestProfile as AuthorizationDeviceManager
 					if (deviceManager) {
@@ -90,47 +78,9 @@ export default () => {
 		}
 	}
 
-	const setTheme = async () => {
-		const localStorageColorScheme = await AsyncStorage.getItem(
-			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-		)
-		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
-			String(localStorageColorScheme),
-		)
-
-		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
-	}
-
-	useEffect(() => {
-		setTheme()
-	}, [])
-
-	useEffect(() => {
-		const subscription = AppState.addEventListener('change', nextAppState => {
-			const currentDeviceAppearance = Appearance.getColorScheme()
-			if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-				setTheme()
-			}
-			if (rThemeVar.localStorageColorScheme === 'system') {
-				if (currentDeviceAppearance !== rThemeVar.colorScheme) {
-					setTheme()
-				}
-			}
-			appState.current = nextAppState
-		})
-
-		return () => {
-			subscription.remove()
-		}
-	}, [])
-
 	useEffect(() => {
 		applicationAuthorization()
 	}, [])
-
-	const memTheme = useMemo(() => {
-		return rThemeVar
-	}, [rThemeVar.colorScheme, colorScheme, deviceColorScheme])
 
 	if (
 		!RDMData ||
@@ -138,13 +88,10 @@ export default () => {
 		CGLoading ||
 		!rAuthorizationVar ||
 		RDMError?.message ||
-		CGPMError?.message ||
-		!memTheme ||
-		memTheme === null
+		CGPMError?.message
 	) {
 		return <SplashScreen />
 	}
 
 	return <Redirect href={'(app)/hometab'} />
-	// return <Redirect href={'(app)/settings/profilesettings/personal/interests'} />
 }
