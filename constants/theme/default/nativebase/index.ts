@@ -1,4 +1,4 @@
-import nativebasecolors from '@constants/theme/themes/default/nativebase/palette/colors'
+import nativebasecolors from '@constants/theme/default/nativebase/palette/colors'
 import { theme, extendTheme } from 'native-base'
 
 const NativeBaseTheme = extendTheme({

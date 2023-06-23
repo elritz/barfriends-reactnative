@@ -1,4 +1,4 @@
-import ltheme from '@constants/theme/themes/default'
+import ltheme from '@constants/theme/default'
 import dtheme from '@constants/theme/themes/default/dark'
 import 'styled-components/native'
 
