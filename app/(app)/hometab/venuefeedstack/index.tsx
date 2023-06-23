@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, VStack } from '@components/core'
 import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'
@@ -23,7 +24,7 @@ import {
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
-import { View, Box, VStack, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
+import { View, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
 import { useEffect } from 'react'
 import { Dimensions } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
@@ -90,32 +91,25 @@ export default () => {
 
 	const ListheaderComponent = ({ typename }) => {
 		return (
-			<>
+			<Box>
 				{ENVIRONMENT === 'development' && (
-					<Box my={5}>
+					<Box >
 						<DevActions />
 					</Box>
 				)}
-				<Pressable
-					onPress={() =>
-						router.push({
-							pathname: '(app)/searcharea',
-						})
-					}
-				>
-					<Box>
-						{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-							<VenueFeedSignupCard />
-						)}
-						{!rSearchAreaVar.searchArea.city.name && !typename && <VenueFeedSearchAreaEmptyState />}
-						{rSearchAreaVar.searchArea.city.name && (
-							<VStack safeAreaTop safeAreaBottom space={4} flex={1}>
-								<SearchAreaHeader typename={typename || null} />
-							</VStack>
-						)}
-					</Box>
-				</Pressable>
-			</>
+
+				<Box>
+					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
+						<VenueFeedSignupCard />
+					)}
+					{!rSearchAreaVar.searchArea.city.name && !typename && <VenueFeedSearchAreaEmptyState />}
+					{rSearchAreaVar.searchArea.city.name && (
+						<VStack space={'$lg'} flex={1}>
+							<SearchAreaHeader typename={typename || null} />
+						</VStack>
+					)}
+				</Box>
+			</Box>
 		)
 	}
 
@@ -185,14 +179,7 @@ export default () => {
 						return item.upvote
 					}).length
 					return (
-						<Box
-							key={item.id}
-							_dark={{ bg: 'dark.100' }}
-							_light={{ bg: 'light.200' }}
-							py={1}
-							m={2}
-							borderRadius={'xl'}
-						>
+						<Box key={item.id} py={1} m={2} rounded={'$xl'}>
 							<HStack flex={1} justifyContent={'space-between'}>
 								<HStack px={3} space={1} alignItems={'center'}>
 									<CountryFlag size={12} isoCode={String(item.Area?.Country.isoCode)} />
@@ -298,7 +285,7 @@ export default () => {
 				renderItem={({ item, index, columnIndex }) => (
 					<VerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
 				)}
-				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+				ItemSeparatorComponent={() => <Box style={{ height: 15 }} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={ListheaderComponent}
 				ListFooterComponent={listFooterComponent}

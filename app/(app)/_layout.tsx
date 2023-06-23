@@ -1,10 +1,10 @@
-import { config } from '../../gluestack-ui.config'
+// import { config } from '../../gluestack-ui.config'
 import { useReactiveVar } from '@apollo/client'
 import { GluestackUIProvider } from '@components/core'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { LocalStoragePreferenceThemeType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ThemeProvider } from '@react-navigation/native'
+import { ThemeProvider as ReactNavigationThemeProvider } from '@react-navigation/native'
 import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
@@ -67,13 +67,13 @@ export default () => {
 	}
 
 	return (
-		<ThemeProvider
-			value={{
-				...memTheme.theme?.rn,
-			}}
-		>
-			<GluestackUIProvider config={config.theme}>
+		<ReactNavigationThemeProvider value={memTheme.theme?.rn}>
+			<GluestackUIProvider
+				config={memTheme.theme.gluestack}
+				colorMode={memTheme.colorScheme === 'light' ? 'light' : 'dark'}
+			>
 				{/* <GluestackUIProvider config={config}> */}
+				{/* <NativeBaseProvider theme={memTheme.theme.nb}> */}
 				<NativeBaseProvider theme={memTheme.theme.nb}>
 					<StatusBar
 						animated
@@ -93,6 +93,6 @@ export default () => {
 					</Stack>
 				</NativeBaseProvider>
 			</GluestackUIProvider>
-		</ThemeProvider>
+		</ReactNavigationThemeProvider>
 	)
 }

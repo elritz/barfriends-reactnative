@@ -1,4 +1,5 @@
 import PermissionButtonSearchAreaLocation from './PermissionButtonSearchAreaLocation'
+import { Heading } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { Box, Icon, VStack, Button, Text } from 'native-base'
@@ -14,25 +15,23 @@ export default function VenueFeedSearchAreaEmptyState() {
 			borderRadius={'md'}
 			p={5}
 		>
-			<Text
+			<Heading
 				numberOfLines={3}
 				ellipsizeMode='tail'
 				adjustsFontSizeToFit
 				minimumFontScale={0.5}
 				pb={2}
 				w={265}
-				maxW={'85%'}
 				style={{
 					alignSelf: 'center',
 					textAlign: 'center',
 					textTransform: 'uppercase',
 				}}
-				fontWeight={'black'}
-				lineHeight={'xs'}
-				fontSize={'2xl'}
+				fontWeight={'$black'}
+				fontSize={'$xl'}
 			>
 				Where are your venues?
-			</Text>
+			</Heading>
 			<Text fontSize={'lg'}>
 				Continue by finding venues using location using your device location, or find venues with Search
 				Area.

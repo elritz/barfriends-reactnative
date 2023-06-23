@@ -39,7 +39,7 @@ export const useToggleTheme = () => {
 				return { localStorageColorScheme: 'light', colorScheme: 'light', theme: lTheme }
 			case 'dark':
 				setColorMode('dark')
-				const dTheme = createTheme({ themeScheme: 'dark', useSystemColorMode: false })
+				const dTheme = createTheme({ themeScheme: 'dark' })
 				ThemeReactiveVar({
 					localStorageColorScheme: 'dark',
 					colorScheme: 'dark',
@@ -66,7 +66,31 @@ export const useToggleTheme = () => {
 		}
 	}
 
+	
 	const toggleTheme = useCallback(async (props: Props) => {
+		const localStorageColorScheme = await AsyncStorage.getItem(
+			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+		)
+
+		const valueLocalStorageColorScheme = JSON.parse(String(localStorageColorScheme))
+
+		// check if we need to update local storage with new ColorScheme value
+		if (props.colorScheme !== valueLocalStorageColorScheme.colorScheme) {
+			const initialThemeColorSchemeState = JSON.stringify({
+				colorScheme: 'system',
+			})
+
+			await AsyncStorage.setItem(
+				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+				initialThemeColorSchemeState,
+			)
+		}
+
+		const { theme, colorScheme } = setTheme({ colorScheme: props.colorScheme })
+		return { theme, colorScheme }
+	}, [])
+	
+	const toggleColorScheme = useCallback(async (props: Props) => {
 		const localStorageColorScheme = await AsyncStorage.getItem(
 			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)

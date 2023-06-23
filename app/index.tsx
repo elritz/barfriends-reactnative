@@ -8,10 +8,9 @@ import {
 	AuthorizationDeviceManager,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
+import { secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import { Redirect, SplashScreen, useRouter } from 'expo-router'
 import React, { useEffect } from 'react'
-import { AppState } from 'react-native'
 
 export default () => {
 	const router = useRouter()
@@ -25,7 +24,6 @@ export default () => {
 				// await secureStorageItemDelete({
 				// 	key: AUTHORIZATION,
 				// })
-				// createGuestProfileMutation()
 				router.push({
 					pathname: '(error)/network',
 				})
@@ -41,7 +39,6 @@ export default () => {
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
 			onError: async error => {
-				console.log('🚀 ~ file: index.tsx:37 ~ error:', error)
 				router.push({
 					pathname: '(error)/network',
 				})

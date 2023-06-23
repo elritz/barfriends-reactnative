@@ -1,13 +1,13 @@
-import NativeBaseTheme from './nativebase'
+import gluestack from './gluestack'
+import nativebase from './nativebase'
 import { DarkReactNavigationTheme, LightReactNavigationTheme } from './reactnavigation'
-import { DarkStyledTheme, LightStyledTheme } from './styled'
 
 export const lighttheme = {
-	styled: {
-		...LightStyledTheme,
+	gluestack: {
+		colors: gluestack,
 	},
 	nativebase: {
-		...NativeBaseTheme,
+		colors: nativebase,
 	},
 	rn: {
 		colors: LightReactNavigationTheme,
@@ -15,13 +15,20 @@ export const lighttheme = {
 } as const
 
 export const darktheme = {
-	styled: {
-		...DarkStyledTheme,
+	gluestack: {
+		colors: gluestack,
 	},
 	nativebase: {
-		...NativeBaseTheme,
+		colors: nativebase,
 	},
 	rn: {
 		colors: DarkReactNavigationTheme,
 	},
 } as const
+
+export const defaulttheme = {
+	mobile: {
+		light: lighttheme,
+		dark: darktheme,
+	},
+}

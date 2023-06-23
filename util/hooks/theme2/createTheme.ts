@@ -1,9 +1,10 @@
-import { Config, config } from './../../../gluestack-ui.config'
-import { darktheme, lighttheme } from '@assets/theme/default'
-import { DefaultTheme } from '@react-navigation/native'
-import { AuthorizationReactiveVar, IBFSTheme } from '@reactive'
-import { extendTheme } from 'native-base'
-import { ColorSchemeName } from 'react-native'
+import { Config, config } from './../../../gluestack-ui.config';
+import { defaulttheme } from '@assets/theme/default'
+import { DefaultTheme } from '@react-navigation/native';
+import { AuthorizationReactiveVar, IBFSTheme } from '@reactive';
+import { extendTheme } from 'native-base';
+import { ColorSchemeName } from 'react-native';
+
 
 type Props = {
 	themeScheme: ColorSchemeName
@@ -39,7 +40,7 @@ const createTheme = ({ themeScheme }: Props): IBFSTheme => {
 			...config.theme.tokens,
 			colors: {
 				...config.theme.tokens.colors,
-				...darktheme.gluestack.colors,
+				...defaulttheme.mobile.dark.gluestack,
 			},
 		},
 	}

@@ -34,60 +34,16 @@ declare module 'styled-components/native' {
 				paper: string
 			}
 			primary: {
-				background: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
-				color: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
+				background: string
+				color: string
 			}
 			secondary: {
-				background: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
-				color: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
+				background: string
+				color: string
 			}
 			tertiary: {
-				background: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
-				color: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
-			}
-			quaternary: {
-				background: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
-				color: {
-					default: string
-					dark: string
-					light: string
-					accent: string
-				}
+				background: string
+				color: string
 			}
 		}
 	}
