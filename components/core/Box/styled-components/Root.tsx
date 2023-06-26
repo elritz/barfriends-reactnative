@@ -4,8 +4,9 @@ import { View } from 'react-native'
 export default styled(
 	View,
 	{
-		_dark: { bg: '$dark.100' },
-		_light: { bg: '$light.400' },
+		_dark: { bg: '$dark100' },
+		_light: { bg: '$light50' },
+		rounded: '$lg',
 	},
 	{
 		descendantStyle: ['_text'],

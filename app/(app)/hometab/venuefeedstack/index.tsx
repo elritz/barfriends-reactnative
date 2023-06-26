@@ -1,9 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, VStack } from '@components/core'
+import { Box, VStack, HStack, Text, Pressable } from '@components/core'
+import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'
-import VenueFeedSignupCard from '@components/screens/venuesfeed/VenueFeedSignupCard'
 import DevActions from '@components/screens/venuesfeed/devactions'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -24,9 +24,9 @@ import {
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import { useRouter } from 'expo-router'
-import { View, HStack, Text, ScrollView, Icon, Pressable, Skeleton } from 'native-base'
+import { Icon, Skeleton } from 'native-base'
 import { useEffect } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, ScrollView } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -91,24 +91,18 @@ export default () => {
 
 	const ListheaderComponent = ({ typename }) => {
 		return (
-			<Box>
-				{ENVIRONMENT === 'development' && (
-					<Box >
-						<DevActions />
-					</Box>
-				)}
+			<Box bg={'transparent'} mx={'$2'}>
+				{ENVIRONMENT === 'development' && <DevActions />}
 
-				<Box>
+				<VStack bg={'transparent'} space={'md'}>
 					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
-						<VenueFeedSignupCard />
+						<Box my={2} p={'$5'} pt={25}>
+							<CardPleaseSignup signupTextId={1} />
+						</Box>
 					)}
 					{!rSearchAreaVar.searchArea.city.name && !typename && <VenueFeedSearchAreaEmptyState />}
-					{rSearchAreaVar.searchArea.city.name && (
-						<VStack space={'$lg'} flex={1}>
-							<SearchAreaHeader typename={typename || null} />
-						</VStack>
-					)}
-				</Box>
+					{rSearchAreaVar.searchArea.city.name && <SearchAreaHeader typename={typename || null} />}
+				</VStack>
 			</Box>
 		)
 	}
@@ -149,7 +143,7 @@ export default () => {
 						/>
 					)
 				}}
-				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+				ItemSeparatorComponent={() => <Box h={'$12'} />}
 			/>
 		)
 	}
@@ -157,9 +151,7 @@ export default () => {
 	if (data.venuesNearby.__typename === 'Error') {
 		return (
 			<ScrollView>
-				<View>
-					<Text>{data.venuesNearby.message}</Text>
-				</View>
+				<Text>{data.venuesNearby.message}</Text>
 			</ScrollView>
 		)
 	}
@@ -179,13 +171,13 @@ export default () => {
 						return item.upvote
 					}).length
 					return (
-						<Box key={item.id} py={1} m={2} rounded={'$xl'}>
+						<Box key={item.id} py={1} m={'$2'} rounded={'$xl'}>
 							<HStack flex={1} justifyContent={'space-between'}>
-								<HStack px={3} space={1} alignItems={'center'}>
+								<HStack px={'$3'} space={'md'} alignItems={'center'}>
 									<CountryFlag size={12} isoCode={String(item.Area?.Country.isoCode)} />
-									<Text fontSize={'xl'}>{item.Area?.City.name}</Text>
+									<Text fontSize={'$xl'}>{item.Area?.City.name}</Text>
 								</HStack>
-								<HStack h={'50px'} space={1} justifyContent={'flex-end'}>
+								<HStack h={'50px'} space={'md'} justifyContent={'flex-end'}>
 									<Pressable
 										onPress={() => {
 											updateH6VenueRecommendationVoteMutation({
@@ -194,10 +186,10 @@ export default () => {
 												},
 											})
 										}}
-										flexDir={'row'}
+										flexDirection={'row'}
 										alignItems={'center'}
 									>
-										<Text fontWeight={'medium'} fontSize={'xl'} mx={2} textAlign={'right'}>
+										<Text fontWeight={'$medium'} fontSize={'$xl'} mx={'$2'} textAlign={'right'}>
 											{lengthOfUpvote}
 										</Text>
 										<Icon
@@ -285,7 +277,7 @@ export default () => {
 				renderItem={({ item, index, columnIndex }) => (
 					<VerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
 				)}
-				ItemSeparatorComponent={() => <Box style={{ height: 15 }} />}
+				ItemSeparatorComponent={() => <Box h={'$12'} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={ListheaderComponent}
 				ListFooterComponent={listFooterComponent}

@@ -1,4 +1,4 @@
-import { Config } from '../../gluestack-ui.config'
+import { Config } from '../../assets/theme/default/gluestack-ui.config'
 import { makeVar } from '@apollo/client'
 import { ThemeColorSchemeOptionsType } from '@preferences'
 import { DefaultTheme as RNDefaultTheme } from '@react-navigation/native'

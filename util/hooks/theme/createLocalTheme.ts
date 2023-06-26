@@ -1,5 +1,5 @@
-import { config, Config } from './../../../gluestack-ui.config'
 import { defaulttheme } from '@assets/theme/default'
+import { config, Config } from '@assets/theme/default/gluestack-ui.config'
 import { DefaultTheme as ReactNavigationDefaultTheme } from '@react-navigation/native'
 import { IBFSTheme } from '@reactive'
 import { extendTheme } from 'native-base'
@@ -27,7 +27,7 @@ const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
 
 	const reactNavigationTheme =
 		themeScheme === 'dark' ? defaulttheme.mobile.dark.rn.colors : defaulttheme.mobile.light.rn.colors
-		
+
 	const createGlueStackTheme: Config = {
 		...config,
 		aliases: {

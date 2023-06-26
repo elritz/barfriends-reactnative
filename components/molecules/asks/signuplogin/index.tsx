@@ -1,9 +1,7 @@
-import { useReactiveVar } from '@apollo/client'
+import { VStack, Text, Button, Center, Pressable, Heading, Box } from '@components/core'
 import DeviceManagerProfiles from '@components/organisms/list/DeviceManagerProfiles'
 import GetSignInUpText from '@helpers/data/SignupinText'
-import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Center, Text, Button } from 'native-base'
 
 const text = GetSignInUpText()
 
@@ -12,47 +10,43 @@ type Props = {
 }
 export default (props: Props) => {
 	const router = useRouter()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+
+	const _pressToLogin = () => {
+		router.push({
+			pathname: '(app)/credential/logincredentialstack/authenticator',
+		})
+	}
 
 	return (
-		<Box>
-			{/* <Text
-				numberOfLines={3}
-				ellipsizeMode='tail'
-				adjustsFontSizeToFit
-				minimumFontScale={0.5}
-				pb={2}
-				w={275}
-				maxW={'85%'}
-				style={{
-					alignSelf: 'center',
-					textAlign: 'center',
-					textTransform: 'uppercase',
-				}}
-				fontWeight={'black'}
-				lineHeight={'md'}
-				fontSize={'xl'}
-			>
-				{text[props.signupTextId ?? 1].title}
-			</Text> */}
-			<Text
-				allowFontScaling
-				style={{
-					fontWeight: '500',
-					alignSelf: 'center',
-					textAlign: 'center',
-				}}
-				fontSize={'lg'}
-			>
-				{/* {text[props.signupTextId ?? 1].subTitle} */}
-				Cool slogans here
-			</Text>
-			<Center
-				style={{
-					flexDirection: 'column',
-					marginTop: 15,
-				}}
-			>
+		<VStack space='lg'>
+			<Box bg='transparent'>
+				<Heading
+					numberOfLines={3}
+					ellipsizeMode='tail'
+					adjustsFontSizeToFit
+					minimumFontScale={0.5}
+					pb={2}
+					w={265}
+					alignSelf='center'
+					textAlign='center'
+					textTransform='uppercase'
+					fontWeight={'$black'}
+					fontSize={'$xl'}
+				>
+					{text[props.signupTextId ?? 1].title}
+				</Heading>
+				<Text
+					allowFontScaling
+					fontWeight='$bold'
+					textAlign={'center'}
+					alignSelf={'center'}
+					fontSize={'$lg'}
+				>
+					{/* {text[props.signupTextId ?? 1].subTitle} */}
+					Cool slogans here
+				</Text>
+			</Box>
+			<VStack w={'$full'} alignItems={'center'} space={'lg'}>
 				<Button
 					onPress={() =>
 						router.push({
@@ -60,35 +54,24 @@ export default (props: Props) => {
 						})
 					}
 					w={'95%'}
-					_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-					borderRadius={'md'}
+					rounded={'$md'}
 				>
-					Sign up
+					<Text
+						textTransform='uppercase'
+						fontWeight='$bold'
+						fontSize={'$lg'}
+						// _text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
+					>
+						Sign up
+					</Text>
 				</Button>
-				<Button
-					onPress={() => {
-						router.push({
-							pathname: '(app)/credential/logincredentialstack/authenticator',
-						})
-					}}
-					variant={'unstyled'}
-					w={'95%'}
-					_text={{
-						textTransform: 'uppercase',
-						fontWeight: '700',
-						fontSize: 'lg',
-						_dark: {
-							color: 'light.50',
-						},
-						_light: {
-							color: 'light.900',
-						},
-					}}
-				>
-					Log in
-				</Button>
-			</Center>
+				<Pressable w={'100%'} onPress={_pressToLogin}>
+					<Text textTransform='uppercase' fontSize={'$lg'} fontWeight={'$bold'} alignSelf='center'>
+						Log in
+					</Text>
+				</Pressable>
+			</VStack>
 			<DeviceManagerProfiles />
-		</Box>
+		</VStack>
 	)
 }

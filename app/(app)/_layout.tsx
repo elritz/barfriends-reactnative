@@ -38,11 +38,12 @@ export default () => {
 
 	useEffect(() => {
 		const subscription = AppState.addEventListener('change', nextAppState => {
-			const currentDeviceAppearance = Appearance.getColorScheme()
 			if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+				
 				setTheme()
 			}
 			if (rThemeVar.localStorageColorScheme === 'system') {
+				const currentDeviceAppearance = Appearance.getColorScheme()
 				if (currentDeviceAppearance !== rThemeVar.colorScheme) {
 					setTheme()
 				}
@@ -68,6 +69,7 @@ export default () => {
 
 	return (
 		<ReactNavigationThemeProvider value={memTheme.theme?.rn}>
+			{/* <ReactNavigationThemeProvider value={DefaultTheme}> */}
 			<GluestackUIProvider
 				config={memTheme.theme.gluestack}
 				colorMode={memTheme.colorScheme === 'light' ? 'light' : 'dark'}

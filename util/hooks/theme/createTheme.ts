@@ -1,5 +1,5 @@
-import { Config, config } from './../../../gluestack-ui.config'
 import { darktheme, lighttheme } from '@assets/theme/default'
+import { Config, config } from '@assets/theme/default/gluestack-ui.config'
 import { DefaultTheme } from '@react-navigation/native'
 import { AuthorizationReactiveVar, IBFSTheme } from '@reactive'
 import { extendTheme } from 'native-base'
@@ -45,7 +45,6 @@ const createTheme = ({ themeScheme }: Props): IBFSTheme => {
 	}
 
 	return {
-		// styled: themeScheme === 'dark' ? theme.dark.styled : theme.light.styled,
 		rn: {
 			...DefaultTheme,
 			dark: themeScheme === 'dark' ? true : false,

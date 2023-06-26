@@ -39,7 +39,7 @@ export const useToggleTheme = () => {
 				return { localStorageColorScheme: 'light', colorScheme: 'light', theme: lTheme }
 			case 'dark':
 				setColorMode('dark')
-				const dTheme = createTheme({ themeScheme: 'dark', useSystemColorMode: false })
+				const dTheme = createTheme({ themeScheme: 'dark' })
 				ThemeReactiveVar({
 					localStorageColorScheme: 'dark',
 					colorScheme: 'dark',
