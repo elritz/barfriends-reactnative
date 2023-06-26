@@ -7,4 +7,6 @@ config.transformer.minifierConfig = {
 	// drop: ['console'],
 }
 
+config.resolver.assetExts.push('db')
+
 module.exports = config

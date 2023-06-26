@@ -1,9 +1,7 @@
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
-import { IColor } from '@ctypes/app'
+import { Box, Text } from '@components/core'
 import { ENVIRONMENT } from '@env'
 import { Stack } from 'expo-router'
-import { Box, Text } from 'native-base'
 
 export default () => {
 	return (
@@ -17,13 +15,13 @@ export default () => {
 				options={{
 					header: () => {
 						return (
-							<Box safeAreaTop>
+							<Box bg={'transparent'}>
 								<Text
 									adjustsFontSizeToFit
 									fontSize={'$3xl'}
 									textAlign={'center'}
 									textTransform={'capitalize'}
-									fontWeight={'black'}
+									fontWeight={'$black'}
 								>
 									{String.fromCharCode(60)}
 									{ENVIRONMENT} {String.fromCharCode(47, 62)}

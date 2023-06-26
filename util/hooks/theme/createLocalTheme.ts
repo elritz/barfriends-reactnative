@@ -7,16 +7,12 @@ import { ColorSchemeName } from 'react-native'
 
 type Props = {
 	themeScheme: ColorSchemeName
-	useSystemColorMode: Boolean
 }
 
 const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
 	const createNewNativeBaseTheme = () => {
 		return extendTheme({
-			colors:
-				themeScheme === 'dark'
-					? defaulttheme.mobile.dark.nativebase.colors
-					: defaulttheme.mobile.light.nativebase.colors,
+			colors: themeScheme === 'dark' ? defaulttheme.nativebase : defaulttheme.nativebase,
 
 			config: {
 				useSystemColorMode: themeScheme !== 'dark' && themeScheme !== 'light' ? true : false,
@@ -26,7 +22,7 @@ const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
 	}
 
 	const reactNavigationTheme =
-		themeScheme === 'dark' ? defaulttheme.mobile.dark.rn.colors : defaulttheme.mobile.light.rn.colors
+		themeScheme === 'dark' ? defaulttheme.reactnavigation.dark : defaulttheme.reactnavigation.light
 
 	const createGlueStackTheme: Config = {
 		...config,
@@ -37,13 +33,13 @@ const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
 			...config.theme.tokens,
 			colors: {
 				...config.theme.tokens.colors,
-				...defaulttheme.mobile.dark.gluestack,
+				...defaulttheme.gluestack,
 			},
 		},
 	}
 
 	return {
-		rn: {
+		reactnavigation: {
 			...ReactNavigationDefaultTheme,
 			dark: themeScheme === 'dark' ? true : false,
 			colors: {
@@ -52,7 +48,7 @@ const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
 			},
 		},
 		gluestack: createGlueStackTheme,
-		nb: { ...createNewNativeBaseTheme() },
+		nativebase: { ...createNewNativeBaseTheme() },
 	}
 }
 

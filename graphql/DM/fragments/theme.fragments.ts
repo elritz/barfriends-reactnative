@@ -4,9 +4,8 @@ export const THEME_FRAGMENT = gql`
 	fragment THEME_FRAGMENT on Theme {
 		id
 		name
-		mobile
+		theme
 		mobileVersions
-		web
 		webVersions
 		startDate
 		updatedAt

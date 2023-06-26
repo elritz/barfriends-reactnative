@@ -6,8 +6,8 @@ import { ITheme } from 'native-base'
 import { ColorSchemeName } from 'react-native'
 
 export type IBFSTheme = {
-	rn: typeof RNDefaultTheme
-	nb: ITheme
+	reactnavigation: typeof RNDefaultTheme
+	nativebase: ITheme
 	gluestack: Config
 }
 

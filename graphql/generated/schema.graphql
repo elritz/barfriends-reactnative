@@ -6804,12 +6804,57 @@ input IntWithAggregatesFilter {
 
 scalar Json
 
+input JsonFilter {
+  array_contains: Json
+  array_ends_with: Json
+  array_starts_with: Json
+  equals: Json
+  gt: Json
+  gte: Json
+  lt: Json
+  lte: Json
+  not: Json
+  path: [String!]
+  string_contains: String
+  string_ends_with: String
+  string_starts_with: String
+}
+
 input JsonNullableListFilter {
   equals: [Json!]
   has: Json
   hasEvery: [Json!]
   hasSome: [Json!]
   isEmpty: Boolean
+}
+
+enum JsonNullValueFilter {
+  AnyNull
+  DbNull
+  JsonNull
+}
+
+enum JsonNullValueInput {
+  JsonNull
+}
+
+input JsonWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedJsonFilter
+  _min: NestedJsonFilter
+  array_contains: Json
+  array_ends_with: Json
+  array_starts_with: Json
+  equals: Json
+  gt: Json
+  gte: Json
+  lt: Json
+  lte: Json
+  not: Json
+  path: [String!]
+  string_contains: String
+  string_ends_with: String
+  string_starts_with: String
 }
 
 type LegalAgreement {
@@ -8645,6 +8690,22 @@ input NestedIntWithAggregatesFilter {
   lte: Int
   not: NestedIntWithAggregatesFilter
   notIn: [Int!]
+}
+
+input NestedJsonFilter {
+  array_contains: Json
+  array_ends_with: Json
+  array_starts_with: Json
+  equals: Json
+  gt: Json
+  gte: Json
+  lt: Json
+  lte: Json
+  not: Json
+  path: [String!]
+  string_contains: String
+  string_ends_with: String
+  string_starts_with: String
 }
 
 input NestedStringFilter {
@@ -16025,13 +16086,12 @@ type Theme {
   createdAt: DateTime!
   endDate: DateTime
   id: ID!
-  mobile: Json!
   mobileVersions: [String!]!
   name: String!
   ProfileTheme: [ProfileTheme!]!
   startDate: DateTime
+  theme: Json!
   updatedAt: DateTime!
-  web: Json!
   webVersions: [String!]!
 }
 
@@ -16039,12 +16099,11 @@ input ThemeCountOrderByAggregateInput {
   createdAt: SortOrder
   endDate: SortOrder
   id: SortOrder
-  mobile: SortOrder
   mobileVersions: SortOrder
   name: SortOrder
   startDate: SortOrder
+  theme: SortOrder
   updatedAt: SortOrder
-  web: SortOrder
   webVersions: SortOrder
 }
 
@@ -16052,13 +16111,12 @@ input ThemeCreateInput {
   createdAt: DateTime
   endDate: DateTime
   id: String
-  mobile: [Json!]
   mobileVersions: [String!]
   name: String!
   ProfileTheme: ProfileThemeCreateNestedManyWithoutThemeInput
   startDate: DateTime
+  theme: Json!
   updatedAt: DateTime
-  web: [Json!]
   webVersions: [String!]
 }
 
@@ -16066,17 +16124,12 @@ input ThemeCreateManyInput {
   createdAt: DateTime
   endDate: DateTime
   id: String
-  mobile: [Json!]
   mobileVersions: [String!]
   name: String!
   startDate: DateTime
+  theme: Json!
   updatedAt: DateTime
-  web: [Json!]
   webVersions: [String!]
-}
-
-input ThemeCreatemobileInput {
-  set: [Json!]!
 }
 
 input ThemeCreatemobileVersionsInput {
@@ -16094,10 +16147,6 @@ input ThemeCreateOrConnectWithoutProfileThemeInput {
   where: ThemeWhereUniqueInput!
 }
 
-input ThemeCreatewebInput {
-  set: [Json!]!
-}
-
 input ThemeCreatewebVersionsInput {
   set: [String!]!
 }
@@ -16106,12 +16155,11 @@ input ThemeCreateWithoutProfileThemeInput {
   createdAt: DateTime
   endDate: DateTime
   id: String
-  mobile: [Json!]
   mobileVersions: [String!]
   name: String!
   startDate: DateTime
+  theme: Json!
   updatedAt: DateTime
-  web: [Json!]
   webVersions: [String!]
 }
 
@@ -16337,12 +16385,11 @@ input ThemeOrderByWithAggregationInput {
   createdAt: SortOrder
   endDate: SortOrder
   id: SortOrder
-  mobile: SortOrder
   mobileVersions: SortOrder
   name: SortOrder
   startDate: SortOrder
+  theme: SortOrder
   updatedAt: SortOrder
-  web: SortOrder
   webVersions: SortOrder
 }
 
@@ -16350,13 +16397,12 @@ input ThemeOrderByWithRelationInput {
   createdAt: SortOrder
   endDate: SortOrder
   id: SortOrder
-  mobile: SortOrder
   mobileVersions: SortOrder
   name: SortOrder
   ProfileTheme: ProfileThemeOrderByRelationAggregateInput
   startDate: SortOrder
+  theme: SortOrder
   updatedAt: SortOrder
-  web: SortOrder
   webVersions: SortOrder
 }
 
@@ -16369,12 +16415,11 @@ enum ThemeScalarFieldEnum {
   createdAt
   endDate
   id
-  mobile
   mobileVersions
   name
   startDate
+  theme
   updatedAt
-  web
   webVersions
 }
 
@@ -16383,14 +16428,13 @@ input ThemeScalarWhereWithAggregatesInput {
   createdAt: DateTimeWithAggregatesFilter
   endDate: DateTimeNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
-  mobile: JsonNullableListFilter
   mobileVersions: StringNullableListFilter
   name: StringWithAggregatesFilter
   NOT: [ThemeScalarWhereWithAggregatesInput!]
   OR: [ThemeScalarWhereWithAggregatesInput!]
   startDate: DateTimeNullableWithAggregatesFilter
+  theme: JsonWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
-  web: JsonNullableListFilter
   webVersions: StringNullableListFilter
 }
 
@@ -16398,13 +16442,12 @@ input ThemeUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   endDate: NullableDateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  mobile: [Json!]
   mobileVersions: [String!]
   name: StringFieldUpdateOperationsInput
   ProfileTheme: ProfileThemeUpdateManyWithoutThemeNestedInput
   startDate: NullableDateTimeFieldUpdateOperationsInput
+  theme: Json
   updatedAt: DateTimeFieldUpdateOperationsInput
-  web: [Json!]
   webVersions: [String!]
 }
 
@@ -16412,18 +16455,12 @@ input ThemeUpdateManyMutationInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   endDate: NullableDateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  mobile: [Json!]
   mobileVersions: [String!]
   name: StringFieldUpdateOperationsInput
   startDate: NullableDateTimeFieldUpdateOperationsInput
+  theme: Json
   updatedAt: DateTimeFieldUpdateOperationsInput
-  web: [Json!]
   webVersions: [String!]
-}
-
-input ThemeUpdatemobileInput {
-  push: Json
-  set: [Json!]
 }
 
 input ThemeUpdatemobileVersionsInput {
@@ -16439,11 +16476,6 @@ input ThemeUpdateOneRequiredWithoutProfileThemeNestedInput {
   upsert: ThemeUpsertWithoutProfileThemeInput
 }
 
-input ThemeUpdatewebInput {
-  push: Json
-  set: [Json!]
-}
-
 input ThemeUpdatewebVersionsInput {
   push: [String!]
   set: [String!]
@@ -16453,12 +16485,11 @@ input ThemeUpdateWithoutProfileThemeInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   endDate: NullableDateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  mobile: [Json!]
   mobileVersions: [String!]
   name: StringFieldUpdateOperationsInput
   startDate: NullableDateTimeFieldUpdateOperationsInput
+  theme: Json
   updatedAt: DateTimeFieldUpdateOperationsInput
-  web: [Json!]
   webVersions: [String!]
 }
 
@@ -16472,15 +16503,14 @@ input ThemeWhereInput {
   createdAt: DateTimeFilter
   endDate: DateTimeNullableFilter
   id: StringFilter
-  mobile: JsonNullableListFilter
   mobileVersions: StringNullableListFilter
   name: StringFilter
   NOT: [ThemeWhereInput!]
   OR: [ThemeWhereInput!]
   ProfileTheme: ProfileThemeListRelationFilter
   startDate: DateTimeNullableFilter
+  theme: JsonFilter
   updatedAt: DateTimeFilter
-  web: JsonNullableListFilter
   webVersions: StringNullableListFilter
 }
 

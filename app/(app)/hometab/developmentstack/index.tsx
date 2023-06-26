@@ -1,6 +1,6 @@
 // TODO: FN(Change theme functionality with database and local storage save)
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import {
 	AUTHORIZATION,
 	LOCAL_STORAGE_SEARCH_AREA,
@@ -16,68 +16,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AuthorizationReactiveVar, searchAreaInitialState, SearchAreaReactiveVar } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import * as Application from 'expo-application'
-import * as BackgroundFetch from 'expo-background-fetch'
 import * as Clipboard from 'expo-clipboard'
 import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
-import * as TaskManager from 'expo-task-manager'
 import * as Updates from 'expo-updates'
-import {
-	Box,
-	HStack,
-	Icon,
-	Button,
-	Text,
-	Divider,
-	VStack,
-	Pressable,
-	Tooltip,
-	useDisclose,
-	SectionList,
-	Spinner,
-} from 'native-base'
+import { Icon, Button, Divider, Tooltip, useDisclose, SectionList, Spinner } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
 import { Platform, Linking, AppState } from 'react-native'
 
-let foregroundSubscription = null
-
-const BACKGROUND_FETCH_TASK = 'background-fetch'
-
-let l1
-let l2
-
-// 1. Define the task by providing a name and the function that should be executed
-// Note: This needs to be called in the global scope (e.g outside of your React components)
-// TaskManager.defineTask(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, async ({ data, error }: any) => {
-// 	if (error) {
-// 		return
-// 	}
-// 	if (data) {
-// 		const { locations } = data
-// 		let lat = locations[0].coords.latitude
-// 		let long = locations[0].coords.longitude
-
-// 		l1 = lat
-// 		l2 = long
-// 	}
-// })
-// TaskManager.defineTask(DEVELOPMENT_FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
-// 	const now = Date.now()
-// 	if (data) {
-// 		if (data.locations) {
-// 		}
-// 	}
-
-// 	// Be sure to return the successful result type!
-// 	return BackgroundFetch.BackgroundFetchResult.NewData
-// })
-
-// 2. Register the task at some point in your app by providing the same name,
-// and some configuration options for how the background fetch should behave
-// Note: This does NOT need to be in the global scope and CAN be used in your React components!
 async function registerBackgroundFetchAsync() {
 	await Location.startLocationUpdatesAsync(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, {
 		accuracy: Location.Accuracy.Balanced,
@@ -376,17 +325,19 @@ export default () => {
 						{({ isHovered, isFocused, isPressed }) => {
 							return (
 								<Box
-									_light={{
-										bg: isPressed ? 'light.100' : 'transparent',
-									}}
-									_dark={{
-										bg: isPressed ? 'dark.100' : 'transparent',
+									sx={{
+										_light: {
+											bg: isPressed ? '$light100' : 'transparent',
+										},
+										_dark: {
+											bg: isPressed ? '$dark100' : 'transparent',
+										},
 									}}
 									height={ITEM_HEIGHT}
 									justifyContent={'space-between'}
 								>
 									<Divider />
-									<HStack px={2} space={4} alignItems={'center'}>
+									<HStack px={'$2'} space={'md'} alignItems={'center'}>
 										<Icon size={'lg'} as={Ionicons} name={item.icon} />
 										<Heading fontSize={'$lg'}>{item.title}</Heading>
 									</HStack>
@@ -399,21 +350,23 @@ export default () => {
 			case 'token':
 				return (
 					<Pressable key={index} onPress={item.onPress}>
-						{({ isHovered, isFocused, isPressed }) => {
+						{({ isPressed }) => {
 							return (
 								<Box
-									_light={{
-										bg: isPressed ? 'light.300' : 'transparent',
-									}}
-									_dark={{
-										bg: isPressed ? 'dark.300' : 'transparent',
+									sx={{
+										_light: {
+											bg: isPressed ? '$light100' : 'transparent',
+										},
+										_dark: {
+											bg: isPressed ? '$dark100' : 'transparent',
+										},
 									}}
 									height={ITEM_HEIGHT}
 									justifyContent={'space-between'}
 								>
 									<Divider />
-									<HStack px={2} space={4} alignItems={'center'} justifyContent={'space-between'}>
-										<HStack space={2} alignItems={'center'}>
+									<HStack px={'$2'} space={'md'} alignItems={'center'} justifyContent={'space-between'}>
+										<HStack space={'md'} alignItems={'center'}>
 											<Icon size={'lg'} as={Ionicons} name={item.icon} />
 											<Heading fontSize={'$lg'}>{item.title}</Heading>
 										</HStack>
@@ -471,7 +424,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1} mx={3}>
+		<Box flex={1} mx={'$3'}>
 			{/* <Text fontSize={'2xl'}>Current Pos</Text>
 				<Text fontSize={'2xl'}>{currentPosition?.coords.latitude}</Text>
 				<Text fontSize={'2xl'}>{currentPosition?.coords.longitude}</Text>
@@ -498,29 +451,31 @@ export default () => {
 										setTimeout(() => onCloseToken(), 500)
 									}}
 								>
-									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
 										Token
 									</Heading>
 									<Tooltip placement='top' isOpen={isOpenToken} label='Copied Authorization' openDelay={500}>
 										<HStack
-											_light={{
-												bg: 'light.100',
+											sx={{
+												_light: {
+													bg: '$light100',
+												},
+												_dark: {
+													bg: '$dark100',
+												},
 											}}
-											_dark={{
-												bg: 'dark.100',
-											}}
-											borderRadius={'md'}
+											rounded={'$md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
-											py={3}
+											py={'$3'}
 										>
 											<Text
-												fontSize={'md'}
+												fontSize={'$md'}
 												textTransform={'capitalize'}
-												fontWeight={'black'}
+												fontWeight={'$black'}
 												ellipsizeMode={'tail'}
 												flex={1}
-												marginLeft={5}
+												marginLeft={'$5'}
 												numberOfLines={1}
 											>
 												{token}
@@ -537,7 +492,7 @@ export default () => {
 										setTimeout(() => onCloseProfileId(), 500)
 									}}
 								>
-									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
 										Profile ID
 									</Heading>
 
@@ -548,24 +503,26 @@ export default () => {
 										openDelay={500}
 									>
 										<HStack
-											_light={{
-												bg: 'light.100',
+											sx={{
+												_light: {
+													bg: '$light100',
+												},
+												_dark: {
+													bg: '$dark100',
+												},
 											}}
-											_dark={{
-												bg: 'dark.100',
-											}}
-											borderRadius={'md'}
+											rounded={'$md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
-											py={3}
+											py={'$3'}
 										>
 											<Text
-												fontSize={'md'}
+												fontSize={'$md'}
 												textTransform={'capitalize'}
-												fontWeight={'black'}
+												fontWeight={'$black'}
 												ellipsizeMode={'tail'}
 												flex={1}
-												marginLeft={5}
+												marginLeft={'$5'}
 												numberOfLines={1}
 											>
 												{rAuthorizationVar?.DeviceProfile?.Profile?.id}
@@ -582,7 +539,7 @@ export default () => {
 										setTimeout(() => onClosePushNotif(), 500)
 									}}
 								>
-									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
 										Expo Push Token
 									</Heading>
 
@@ -593,24 +550,26 @@ export default () => {
 										openDelay={500}
 									>
 										<HStack
-											_light={{
-												bg: 'light.100',
+											sx={{
+												_light: {
+													bg: '$light100',
+												},
+												_dark: {
+													bg: '$dark100',
+												},
 											}}
-											_dark={{
-												bg: 'dark.100',
-											}}
-											borderRadius={'md'}
+											rounded={'$md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
 											py={3}
 										>
 											<Text
-												fontSize={'md'}
+												fontSize={'$md'}
 												textTransform={'capitalize'}
-												fontWeight={'black'}
+												fontWeight={'$black'}
 												ellipsizeMode={'tail'}
 												flex={1}
-												marginLeft={5}
+												marginLeft={'$5'}
 												numberOfLines={1}
 											>
 												{pushNotificationToken}
@@ -621,8 +580,8 @@ export default () => {
 								</Pressable>
 								<Divider my={3} />
 							</Box>
-							<VStack space={2} w={'full'} px={10} my={3}>
-								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+							<VStack space={'md'} w={'$full'} px={'$10'} my={'$3'}>
+								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
 									Notification
 								</Heading>
 								<Button
@@ -634,8 +593,8 @@ export default () => {
 								</Button>
 								<Divider />
 							</VStack>
-							<VStack space={2} w={'full'} px={10} my={3}>
-								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={2}>
+							<VStack space={'$2'} w={'$full'} px={'$10'} my={'$3'}>
+								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
 									Location tracking
 								</Heading>
 								<Button
@@ -688,7 +647,7 @@ export default () => {
 				// keyExtractor={(item, index) => index}
 				renderItem={({ item, index }) => <Item index={index} item={item} />}
 				renderSectionHeader={({ section: { title } }) => (
-					<Heading mt={4} size={'$xl'}>
+					<Heading mt={4} fontSize={'$xl'}>
 						{title}
 					</Heading>
 				)}

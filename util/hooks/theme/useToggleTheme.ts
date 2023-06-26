@@ -1,20 +1,27 @@
 import createTheme from './createTheme'
+import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
-import { ThemeColorSchemeOptionsType } from '@ctypes/preferences'
+import { LocalStoragePreferenceThemeType, ThemeColorSchemeOptionsType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ThemeReactiveVar, AuthorizationReactiveVar } from '@reactive'
+import { ThemeReactiveVar, AuthorizationReactiveVar, IBFSTheme, ThemeInterface } from '@reactive'
 import { useColorMode } from 'native-base'
 import { useCallback } from 'react'
-import { Appearance } from 'react-native'
+import { Appearance, ColorSchemeName } from 'react-native'
 
 type Props = {
 	colorScheme?: ThemeColorSchemeOptionsType
 }
 
+type ToggleThemeReturnType = {
+	localStorageColorScheme: 'system'
+	colorScheme: ColorSchemeName
+	theme: IBFSTheme
+}
+
 export const useToggleTheme = () => {
 	const { setColorMode } = useColorMode()
 
-	const setTheme = ({ colorScheme }: Props) => {
+	const setTheme = ({ colorScheme }: Props): ThemeInterface => {
 		switch (colorScheme) {
 			case 'system':
 				const deviceColorScheme = Appearance.getColorScheme()
@@ -66,27 +73,44 @@ export const useToggleTheme = () => {
 		}
 	}
 
-	const toggleTheme = useCallback(async (props: Props) => {
-		const localStorageColorScheme = await AsyncStorage.getItem(
+	const toggleTheme = useCallback(async (props: Props): Promise<ThemeInterface> => {
+		const getLocalStorageColorScheme = await AsyncStorage.getItem(
 			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)
 
-		const valueLocalStorageColorScheme = JSON.parse(String(localStorageColorScheme))
-
-		// check if we need to update local storage with new ColorScheme value
-		if (props.colorScheme !== valueLocalStorageColorScheme.colorScheme) {
+		if (!getLocalStorageColorScheme) {
 			const initialThemeColorSchemeState = JSON.stringify({
 				colorScheme: 'system',
-			})
+			} as LocalStoragePreferenceThemeType)
 
 			await AsyncStorage.setItem(
 				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 				initialThemeColorSchemeState,
 			)
-		}
 
-		const { theme, colorScheme } = setTheme({ colorScheme: props.colorScheme })
-		return { theme, colorScheme }
+			const { theme, colorScheme, localStorageColorScheme } = setTheme({
+				colorScheme: 'system',
+			})
+			return { theme, colorScheme, localStorageColorScheme }
+		} else {
+			const valueLocalStorageColorScheme = JSON.parse(String(getLocalStorageColorScheme))
+			// check if we need to update local storage with new ColorScheme value
+			if (props.colorScheme !== valueLocalStorageColorScheme.colorScheme) {
+				const initialThemeColorSchemeState = JSON.stringify({
+					colorScheme: props.colorScheme,
+				})
+
+				await AsyncStorage.setItem(
+					LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+					initialThemeColorSchemeState,
+				)
+			}
+
+			const { theme, colorScheme, localStorageColorScheme } = setTheme({
+				colorScheme: props.colorScheme,
+			})
+			return { theme, colorScheme, localStorageColorScheme }
+		}
 	}, [])
 
 	return [toggleTheme]
