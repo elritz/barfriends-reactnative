@@ -1,16 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import { Heading } from '@components/core'
+import { Box, Heading, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
-	ProfileType,
 	useCreatePersonalProfileMutation,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Text, Box, VStack, Icon, IconButton } from 'native-base'
+import { Icon, IconButton } from 'native-base'
 
 export default () => {
 	const router = useRouter()
@@ -64,16 +63,14 @@ export default () => {
 	}
 
 	return (
-		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={4}>
-			<VStack space={2} alignItems={'center'} justifyContent={'center'} height={'lg'}>
-				<CompanyCoasterLogoDynamic />
-				<Box>
-					<Heading fontWeight={'$black'} fontSize={'$4xl'}>
-						Welcome to Bfs
-					</Heading>
-				</Box>
-				<Box borderRadius={'md'}>
-					<Text fontSize={'lg'}>
+		<VStack justifyContent={'space-between'} h={'$full'} alignItems='center' mx={'$4'}>
+			<VStack space={'md'} alignItems={'center'} justifyContent={'center'}>
+				<CompanyCoasterLogoDynamic backgroundColor='black' />
+				<Heading fontWeight={'$black'} fontSize={'$4xl'}>
+					Welcome to Bfs
+				</Heading>
+				<Box rounded={'$md'}>
+					<Text fontSize={'$lg'}>
 						We are those we hang around. If you're not feeling it find and make new friends. We can enrich
 						your experience doing that.
 					</Text>
@@ -88,8 +85,8 @@ export default () => {
 				variant={'solid'}
 				size={'lg'}
 				borderRadius={'full'}
-				h={60}
-				w={60}
+				h={'50px'}
+				w={'50px'}
 				fontSize={'lg'}
 			/>
 		</VStack>

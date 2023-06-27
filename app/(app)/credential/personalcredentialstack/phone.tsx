@@ -1,14 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Heading, Text, Pressable, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
 import { CountryCode } from 'libphonenumber-js'
-import { Input, Text, Icon, IconButton, Box, Pressable } from 'native-base'
+import { Input, Icon, IconButton, KeyboardAvoidingView } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, TextInput, InteractionManager, InputAccessoryView, Platform } from 'react-native'
@@ -146,25 +145,33 @@ export default () => {
 
 	const InnerContent = () => {
 		return (
-			<Box
+			<VStack
 				display={isFocused ? 'flex' : 'none'}
-				_light={{
-					bg: 'light.200',
-				}}
-				_dark={{
-					bg: 'dark.200',
-				}}
-				flexDir={'row'}
+				flexDirection={'row'}
 				justifyContent={'flex-end'}
 				alignContent={'space-around'}
-				height={'90px'}
-				px={'2.5%'}
+				px={'$2'}
+				sx={{
+					h: 90,
+					_dark: {
+						bg: '$black',
+					},
+					_light: {
+						bg: '$white',
+					},
+				}}
 			>
-				<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
+				<VStack
+					flex={2}
+					display={'flex'}
+					flexDirection={'column'}
+					justifyContent={'space-around'}
+					px={'$2'}
+				>
 					<Text>
 						By continuing you may receive an SMS for verification. Message and data rates may apply.
 					</Text>
-				</Box>
+				</VStack>
 				<IconButton
 					disabled={!!errors?.mobileNumber?.completeNumber}
 					onPress={handleSubmit(onSubmit)}
@@ -174,29 +181,36 @@ export default () => {
 					borderRadius={'full'}
 					style={{
 						justifyContent: 'center',
-						height: 60,
-						width: 60,
-						paddingHorizontal: 20,
+						height: 50,
+						width: 50,
 						alignSelf: 'center',
 					}}
 					icon={
 						<Icon
 							as={Feather}
 							name='arrow-right'
-							size={'xl'}
+							size={'lg'}
 							color={errors?.mobileNumber?.completeNumber ? 'primary.700' : 'white'}
 						/>
 					}
 				/>
-			</Box>
+			</VStack>
 		)
 	}
 
 	return (
-		<Box flex={1}>
-			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Box h={'110px'}>
-					<Heading mt={4} lineHeight={35} fontWeight={'$black'} fontSize={'$3xl'} h={'70px'}>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			style={{
+				flex: 1,
+				height: 'auto',
+				flexDirection: 'column',
+				marginHorizontal: '5%',
+			}}
+		>
+			<Reanimated.View style={{ flex: 1 }}>
+				<VStack sx={{ h: 110 }}>
+					<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 						Enter your mobile number
 					</Heading>
 					<Pressable
@@ -205,17 +219,17 @@ export default () => {
 								pathname: '(app)/credential/personalcredentialstack/email',
 							})
 						}}
-						size={'md'}
-						w={100}
-						h={'auto'}
-						pb={3}
-						variant={'link'}
+						sx={{
+							w: 100,
+							h: 'auto',
+						}}
+						pb={'$3'}
 					>
-						<Text fontSize={'md'} fontWeight={'500'} color={'primary.500'}>
+						<Text fontSize={'$md'} fontWeight={'$bold'} color={'$primary500'}>
 							Use email
 						</Text>
 					</Pressable>
-				</Box>
+				</VStack>
 				<View style={{ width: '100%' }}>
 					<Controller
 						name='mobileNumber.completeNumber'
@@ -257,7 +271,7 @@ export default () => {
 							},
 						}}
 					/>
-					<Text fontSize={'md'} color={'error.500'}>
+					<Text fontSize={'$md'} color={'$error500'}>
 						{errors?.mobileNumber?.completeNumber?.message}
 					</Text>
 				</View>
@@ -278,6 +292,6 @@ export default () => {
 					<InnerContent />
 				</Reanimated.View>
 			)}
-		</Box>
+		</KeyboardAvoidingView>
 	)
 }

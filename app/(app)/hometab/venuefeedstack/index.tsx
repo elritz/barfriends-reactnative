@@ -1,9 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, VStack, HStack, Text, Pressable } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
-import VerticalVenueFeedVenueItem from '@components/screens/venuesfeed//VerticalVenueFeedVenueItem'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'
+import MemoizedVerticalVenueFeedVenueItem from '@components/screens/venuesfeed/VerticalVenueFeedVenueItem'
 import DevActions from '@components/screens/venuesfeed/devactions'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -31,7 +31,6 @@ import CountryFlag from 'react-native-country-flag'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
-	const router = useRouter()
 	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
@@ -91,7 +90,7 @@ export default () => {
 
 	const ListheaderComponent = ({ typename }) => {
 		return (
-			<Box bg={'transparent'} mx={'$2'}>
+			<Box bg={'transparent'} p={'$2'}>
 				{ENVIRONMENT === 'development' && <DevActions />}
 
 				<VStack bg={'transparent'} space={'md'}>
@@ -275,7 +274,7 @@ export default () => {
 				}}
 				data={data?.venuesNearby.venuesNearby}
 				renderItem={({ item, index, columnIndex }) => (
-					<VerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
+					<MemoizedVerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
 				)}
 				ItemSeparatorComponent={() => <Box h={'$12'} />}
 				keyExtractor={item => item.id}

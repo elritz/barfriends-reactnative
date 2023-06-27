@@ -1,6 +1,6 @@
 import { Form } from './_layout'
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/generated'
@@ -10,26 +10,28 @@ import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter, uniqueId } from 'lodash'
-import { Text, Box, HStack, Button, Skeleton,  VStack } from 'native-base'
-import { useEffect, useState } from 'react'
+import { Skeleton } from 'native-base'
+import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(When done save this data to the backend as recent SearchAreas)
-
 type CityState = {
 	title: string
 	cities: CityResponseObject[] | undefined | null
 }
-
 export default function SearchAreaStateCities() {
 	const router = useRouter()
 	const params = useSearchParams()
+
 	const { top, bottom } = useSafeAreaInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
-	const [stateCities, setStateCities] = useState<CityState[]>()
-	const formContext = useFormContext<Form>()
 
+	const [popularCities, setPopularCities] = useState<CityResponseObject[] | undefined | null>([])
+	const [allCities, setAllCities] = useState<CityResponseObject[] | undefined | null>([])
+	const [searchCities, setSearchCities] = useState<CityState>()
+
+	const formContext = useFormContext<Form>()
 	const { watch, getValues, setValue, handleSubmit } = formContext
 
 	const { data, loading, error } = useGetAllCitiesByStateQuery({
@@ -38,18 +40,13 @@ export default function SearchAreaStateCities() {
 			countryIsoCode: String(params.countryIsoCode),
 			stateIsoCode: String(params.stateIsoCode),
 		},
+		onError: error => {
+			console.log('error :>> ', error)
+		},
 		onCompleted: data => {
 			if (data.getAllCitiesByState) {
-				setStateCities([
-					{
-						title: 'Popular',
-						cities: data.getAllCitiesByState.popularCities,
-					},
-					{
-						title: 'All Cities',
-						cities: data.getAllCitiesByState.allCities,
-					},
-				])
+				setPopularCities(data.getAllCitiesByState.popularCities)
+				setAllCities(data.getAllCitiesByState.allCities)
 			}
 		},
 	})
@@ -57,29 +54,20 @@ export default function SearchAreaStateCities() {
 	const filterList = text => {
 		if (!params?.searchtext?.length && data?.getAllCitiesByState?.allCities?.length) {
 			if (data.getAllCitiesByState) {
-				setStateCities([
-					{
-						title: 'Popular',
-						cities: data.getAllCitiesByState.popularCities,
-					},
-					{
-						title: 'All Cities',
-						cities: data.getAllCitiesByState.allCities,
-					},
-				])
+				setSearchCities({
+					title: ``,
+					cities: [],
+				})
 			}
 		}
 
 		const filteredAllCitiesData = filter(data?.getAllCitiesByState.allCities, item => {
 			return contains(item, text.toLowerCase())
 		})
-
-		setStateCities([
-			{
-				title: `"${text.toLowerCase()}"`,
-				cities: [...filteredAllCitiesData],
-			},
-		])
+		setSearchCities({
+			title: `"${text.toLowerCase()}"`,
+			cities: [...filteredAllCitiesData],
+		})
 	}
 
 	const contains = (item, query) => {
@@ -90,34 +78,28 @@ export default function SearchAreaStateCities() {
 	}
 
 	useEffect(() => {
-		if (params.searchtext) {
+		if (params.searchtext && params.searchtext.length) {
 			filterList(params.searchtext)
 		} else {
 			if (data?.getAllCitiesByState) {
-				setStateCities([
-					{
-						title: 'Popular',
-						cities: data.getAllCitiesByState.popularCities,
-					},
-					{
-						title: 'All Cities',
-						cities: data.getAllCitiesByState.allCities,
-					},
-				])
+				setSearchCities({
+					title: ``,
+					cities: [],
+				})
 			}
 		}
 	}, [params.searchtext])
 
-	if (loading || !stateCities?.length) {
+	if (loading || !allCities) {
 		return (
-			<Box mx={3} flex={1} safeAreaTop>
+			<Box bg={'transparent'} mx={'$3'} flex={1}>
 				<FlashList
 					data={[...Array(20)]}
 					estimatedItemSize={50}
 					scrollEnabled={false}
 					showsVerticalScrollIndicator={false}
 					keyExtractor={(item, index) => {
-						return index.toString()
+						return uniqueId().toString()
 					}}
 					renderItem={({ index, item }) => {
 						return (
@@ -142,113 +124,156 @@ export default function SearchAreaStateCities() {
 		)
 	}
 
-	return (
-		<FlashList
-			data={stateCities}
-			scrollEnabled={true}
-			keyboardDismissMode='on-drag'
-			estimatedItemSize={400}
-			keyExtractor={(item, index) => {
-				return (uniqueId() + index + item.title).toString()
-			}}
-			renderItem={({ index, item }) => {
-				return (
-					<Box>
-						{item.cities && item.cities.length > 0 ? (
-							<Box my={1}>
-								<Heading mx={3}>{item.title}</Heading>
-								{item.cities?.map((item, index) => {
-									return (
-										<Button
-											key={(item.name + index).toString()}
-											_stack={{
-												paddingY: 0,
-												paddingX: 2,
-												marginX: 3,
-												w: '100%',
-												justifyContent: 'space-between',
-											}}
-											h={'50px'}
-											py={3}
-											px={1}
-											mx={3}
-											my={1}
-											_light={{
-												bg: watch('city.name') === item.name ? 'primary.500' : 'light.100',
-											}}
-											_dark={{
-												bg: watch('city.name') === item.name ? 'primary.500' : 'dark.50',
-											}}
-											rounded={'md'}
-											rightIcon={
-												<HStack space={3} alignItems={'center'}>
-													{item.venuesInArea && item.venuesInArea > 1 ? (
-														<VStack>
-															<Text textAlign={'center'} fontWeight={'light'} fontSize={'md'} numberOfLines={1}>
-																{item.venuesInArea}
-															</Text>
-															<Text textAlign={'center'} fontWeight={'light'} fontSize={'sm'} numberOfLines={1}>
-																Venues
-															</Text>
-														</VStack>
-													) : null}
-												</HStack>
-											}
-											textAlign={'left'}
-											onPress={async () => {
-												setValue('city', {
-													name: item.name,
-													isoCode: '',
-													coords: {
-														latitude: Number(item.latitude),
-														longitude: Number(item.longitude),
-													},
-												})
-												const { country, state, city } = getValues()
-												const newSearchAreaValue: LocalStoragePreferenceSearchAreaType2 = {
-													...rSearchAreaVar,
-													useCurrentLocation: false,
-													searchArea: {
-														country,
-														state,
-														city,
-														coords: {
-															latitude: city.coords.latitude,
-															longitude: city.coords.longitude,
-														},
-													},
-												}
+	function CityItem({ index, item }) {
+		const _pressItem = async item => {
+			setValue('city', {
+				name: item.name,
+				isoCode: '',
+				coords: {
+					latitude: Number(item.latitude),
+					longitude: Number(item.longitude),
+				},
+			})
+			const { country, state, city } = getValues()
+			const newSearchAreaValue: LocalStoragePreferenceSearchAreaType2 = {
+				...rSearchAreaVar,
+				useCurrentLocation: false,
+				searchArea: {
+					country,
+					state,
+					city,
+					coords: {
+						latitude: city.coords.latitude,
+						longitude: city.coords.longitude,
+					},
+				},
+			}
 
-												await AsyncStorage.setItem(
-													LOCAL_STORAGE_SEARCH_AREA,
-													JSON.stringify(newSearchAreaValue),
-												)
-												SearchAreaReactiveVar({
-													...newSearchAreaValue,
-												})
-												router.push({
-													pathname: '(app)/searcharea',
-												})
-											}}
-										>
-											<Text fontWeight={'medium'} fontSize={'md'} numberOfLines={1} ellipsizeMode={'tail'}>
-												{item.name}
-											</Text>
-										</Button>
-									)
-								})}
+			await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchAreaValue))
+			SearchAreaReactiveVar({
+				...newSearchAreaValue,
+			})
+			router.push({
+				pathname: '(app)/searcharea',
+			})
+		}
+
+		return (
+			<Pressable onPress={() => _pressItem(item)}>
+				<Box
+					sx={{
+						h: 50,
+						_light: {
+							bg: watch('city.name') === item.name ? '$primary500' : '$light100',
+						},
+						_dark: {
+							bg: watch('city.name') === item.name ? '$primary500' : '$dark50',
+						},
+					}}
+					py={'$3'}
+					px={'$3'}
+					mx={'$3'}
+					my={'$1'}
+					rounded={'$md'}
+				>
+					<HStack justifyContent='space-between'>
+						<Text fontWeight={'$medium'} fontSize={'$md'} numberOfLines={1} ellipsizeMode={'tail'}>
+							{item.name}
+						</Text>
+						<HStack space={'md'} alignItems={'center'}>
+							{item.venuesInArea && item.venuesInArea > 1 ? (
+								<VStack>
+									<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$md'} numberOfLines={1}>
+										{item.venuesInArea}
+									</Text>
+									<Text textAlign={'center'} fontWeight={'light'} fontSize={'$sm'} numberOfLines={1}>
+										Venues
+									</Text>
+								</VStack>
+							) : null}
+						</HStack>
+					</HStack>
+				</Box>
+			</Pressable>
+		)
+	}
+
+	const MemoizedItem = memo(CityItem)
+
+	if (searchCities && searchCities.title && searchCities.cities) {
+		return (
+			<Box flex={1}>
+				<FlashList
+					data={searchCities.cities}
+					scrollEnabled={true}
+					keyboardDismissMode='on-drag'
+					estimatedItemSize={50}
+					keyExtractor={(item, index) => {
+						return item.name
+					}}
+					ListHeaderComponent={() => {
+						return (
+							<Box bg={'transparent'} mb={'$2'} mx={'$3'}>
+								<Heading mx={'$3'} fontSize={'$2xl'}>
+									{searchCities.title}
+								</Heading>
 							</Box>
-						) : null}
-					</Box>
-				)
-			}}
-			ItemSeparatorComponent={() => {
-				return <Box my={1} />
-			}}
-			contentInset={{
-				top: top + SEARCH_BAR_HEIGHT + 20,
-				bottom: bottom,
-			}}
-		/>
+						)
+					}}
+					renderItem={({ item, index }) => {
+						return <MemoizedItem index={index} item={item} />
+					}}
+					ItemSeparatorComponent={() => {
+						return <Box my={1} />
+					}}
+					contentInset={{
+						top: top + SEARCH_BAR_HEIGHT + 20,
+						bottom: bottom,
+					}}
+				/>
+			</Box>
+		)
+	}
+
+	return (
+		<Box flex={1} px={'$3'}>
+			<FlashList
+				data={allCities}
+				scrollEnabled={true}
+				automaticallyAdjustContentInsets
+				automaticallyAdjustKeyboardInsets
+				automaticallyAdjustsScrollIndicatorInsets
+				keyboardDismissMode='on-drag'
+				estimatedItemSize={50}
+				keyExtractor={(item, index) => {
+					return item.name
+				}}
+				ListHeaderComponent={() => {
+					return (
+						<Box bg={'transparent'}>
+							{popularCities && popularCities.length ? (
+								<Box bg={'transparent'}>
+									<Heading>Popular</Heading>
+									{popularCities.map((item, index) => {
+										return <MemoizedItem index={index} item={item} />
+									})}
+								</Box>
+							) : null}
+							<Heading>All Cities</Heading>
+						</Box>
+					)
+				}}
+				renderItem={({ item, index }) => {
+					return <MemoizedItem index={index} item={item} />
+				}}
+				ItemSeparatorComponent={() => {
+					return <Box my={1} />
+				}}
+				contentInset={{
+					top: top + SEARCH_BAR_HEIGHT + 20,
+					bottom: bottom,
+				}}
+			/>
+		</Box>
 	)
 }

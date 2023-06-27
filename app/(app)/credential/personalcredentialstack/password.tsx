@@ -1,10 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, Heading, Text } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, Icon, Text, Box, Input, KeyboardAvoidingView, useTheme } from 'native-base'
+import { Button, Icon, Input, useTheme } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
@@ -19,7 +20,6 @@ export default function () {
 	const isFocused = useIsFocused()
 	const { bottom } = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
-	const theme = useTheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -91,16 +91,16 @@ export default function () {
 			as={Ionicons}
 			size={25}
 			mx={3}
-			color={errors?.password ? theme.colors.error[500] : 'transparent'}
+			colorScheme={errors?.password ? 'error' : 'transparent'}
 		/>
 	)
 
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
+				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					Enter a password
-				</Text>
+				</Heading>
 				<View style={{ marginVertical: '10%', width: '100%' }}>
 					<Controller
 						name='password'
@@ -125,7 +125,7 @@ export default function () {
 										onChangeText={value => onChange(value)}
 										onSubmitEditing={handleSubmit(onSubmit)}
 										onBlur={onBlur}
-										textContentType='password'
+										textContentType='oneTimeCode'
 										blurOnSubmit={false}
 										autoComplete={'password-new'}
 										autoFocus
@@ -159,16 +159,12 @@ export default function () {
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
 					<Box
-						flexDir={'row'}
+						flexDirection={'row'}
 						justifyContent={'flex-end'}
-						height={'90px'}
-						px={'2.5%'}
-						_light={{
-							bg: theme.colors.light[100],
+						sx={{
+							h: 90,
 						}}
-						_dark={{
-							bg: theme.colors.dark[200],
-						}}
+						px={'$2'}
 					>
 						<View
 							style={{
@@ -183,8 +179,8 @@ export default function () {
 								borderRadius={'full'}
 								style={{
 									justifyContent: 'center',
-									height: 60,
-									width: 60,
+									height: 50,
+									width: 50,
 									paddingHorizontal: 20,
 									alignSelf: 'center',
 								}}
@@ -210,16 +206,12 @@ export default function () {
 					]}
 				>
 					<Box
-						flexDir={'row'}
+						flexDirection={'row'}
 						justifyContent={'flex-end'}
-						height={'90px'}
-						px={'2.5%'}
-						_light={{
-							bg: theme.colors.light[100],
+						sx={{
+							h: 90,
 						}}
-						_dark={{
-							bg: theme.colors.dark[200],
-						}}
+						px={'$2'}
 					>
 						<View
 							style={{
@@ -234,9 +226,8 @@ export default function () {
 								borderRadius={'full'}
 								style={{
 									justifyContent: 'center',
-									height: 60,
-									width: 60,
-									paddingHorizontal: 20,
+									height: 50,
+									width: 50,
 									alignSelf: 'center',
 								}}
 								endIcon={

@@ -164,9 +164,8 @@ export default () => {
 						borderRadius={'full'}
 						style={{
 							justifyContent: 'center',
-							height: 60,
-							width: 60,
-							paddingHorizontal: 20,
+							height: 50,
+							width: 50,
 							alignSelf: 'center',
 						}}
 						icon={
@@ -186,7 +185,7 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Heading mt={4} lineHeight={35} fontWeight={'$black'} fontSize={'$3xl'}>
+				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'} sx={{ minHeight: 70 }}>
 					{`Enter the 4-diget code sent to you at ${
 						credentialPersonalProfileVar.email
 							? credentialPersonalProfileVar.email
@@ -227,7 +226,7 @@ export default () => {
 										borderBottomWidth={isFocused ? '2px' : '1px'}
 										onLayout={getCellOnLayoutHandler(index)}
 									>
-										<Heading color={'primary.500'} fontSize={'$3xl'}>
+										<Heading color={'$primary500'} fontSize={'$3xl'}>
 											{symbol || (isFocused ? <Cursor /> : null)}
 										</Heading>
 									</Box>

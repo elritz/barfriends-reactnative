@@ -1,12 +1,11 @@
-import { useReactiveVar } from '@apollo/client'
+import { Form } from './_layout'
+import { Box, Text } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { CountryResponseObject, useGetAllCountriesQuery } from '@graphql/generated'
-import { SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { Form } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Box, Button, Skeleton, Text } from 'native-base'
+import { Button, Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -17,7 +16,6 @@ export default function SearchCountryTextScreen() {
 	const params = useSearchParams()
 	const [countries, setCountries] = useState<CountryResponseObject[]>([])
 	const [pagination, setPagination] = useState<number>()
-	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const { watch, setValue } = useFormContext<Form>()
 
@@ -72,7 +70,7 @@ export default function SearchCountryTextScreen() {
 
 	if (loading) {
 		return (
-			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
+			<Box flex={1} mx={'$3'} sx={{ pt: top + SEARCH_BAR_HEIGHT + 20 }}>
 				{[...Array(20)].map((item, index) => {
 					return (
 						<Skeleton
@@ -108,7 +106,7 @@ export default function SearchCountryTextScreen() {
 			estimatedItemSize={50}
 			keyboardDismissMode={'on-drag'}
 			ItemSeparatorComponent={() => {
-				return <Box my={1} />
+				return <Box my={'$1'} />
 			}}
 			renderItem={({ index, item }) => {
 				return (
@@ -150,10 +148,10 @@ export default function SearchCountryTextScreen() {
 						}}
 					>
 						<Text
-							mt={-0.5}
+							mt={'$0.5'}
 							textAlign={'center'}
-							fontWeight={'medium'}
-							fontSize={'lg'}
+							fontWeight={'$medium'}
+							fontSize={'$lg'}
 							numberOfLines={1}
 							ellipsizeMode={'tail'}
 						>

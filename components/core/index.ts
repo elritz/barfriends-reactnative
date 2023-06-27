@@ -6,6 +6,7 @@ export * from './Divider';
 export * from './GluestackUIProvider';
 export * from './Heading';
 export * from './Hstack';
+export * from './Icons';
 export * from './Input';
 export * from './Pressable';
 export * from './Progress';

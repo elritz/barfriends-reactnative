@@ -1,11 +1,12 @@
+import { Form } from './_layout'
+import { Box, Center, HStack, Pressable, Text, VStack } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
-import { Form } from 'app/(app)/searcharea/_layout'
 import { useRouter, useSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Text, Center, Box, Skeleton } from 'native-base'
-import { useEffect, useState } from 'react'
+import { Skeleton } from 'native-base'
+import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -62,14 +63,20 @@ export default function SearchAreaCountryStates() {
 	if (!params.countryIsoCode) {
 		return (
 			<Center p={10}>
-				<Text fontSize={'lg'}> No country provided</Text>
+				<Text fontSize={'$lg'}> No country provided</Text>
 			</Center>
 		)
 	}
 
 	if (loading) {
 		return (
-			<Box flex={1} mx={3} pt={top + SEARCH_BAR_HEIGHT + 20}>
+			<Box
+				flex={1}
+				mx={'$3'}
+				sx={{
+					pt: top + SEARCH_BAR_HEIGHT + 20,
+				}}
+			>
 				{[...Array(20)].map((item, index) => {
 					return (
 						<Skeleton
@@ -93,6 +100,67 @@ export default function SearchAreaCountryStates() {
 		)
 	}
 
+	function CityItem({ index, item }) {
+		const _pressItem = async item => {
+			setValue('state', {
+				name: item.name,
+				isoCode: item.isoCode,
+				coords: {
+					latitude: Number(item.latitude),
+					longitude: Number(item.longitude),
+				},
+			})
+			router.replace({
+				pathname: '(app)/searcharea/searchstatecities',
+				params: {
+					countryIsoCode: item.countryCode,
+					stateIsoCode: item.isoCode,
+				},
+			})
+		}
+
+		return (
+			<Pressable onPress={() => _pressItem(item)}>
+				<Box
+					sx={{
+						h: 50,
+						_light: {
+							bg: watch('city.name') === item.name ? '$primary500' : '$light100',
+						},
+						_dark: {
+							bg: watch('city.name') === item.name ? '$primary500' : '$dark50',
+						},
+					}}
+					py={'$3'}
+					px={'$3'}
+					mx={'$3'}
+					my={'$1'}
+					rounded={'$md'}
+				>
+					<HStack justifyContent='space-between'>
+						<Text fontWeight={'$medium'} fontSize={'$md'} numberOfLines={1} ellipsizeMode={'tail'}>
+							{item.name}
+						</Text>
+						<HStack space={'md'} alignItems={'center'}>
+							{item.venuesInArea && item.venuesInArea > 1 ? (
+								<VStack>
+									<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$md'} numberOfLines={1}>
+										{item.venuesInArea}
+									</Text>
+									<Text textAlign={'center'} fontWeight={'light'} fontSize={'$sm'} numberOfLines={1}>
+										Venues
+									</Text>
+								</VStack>
+							) : null}
+						</HStack>
+					</HStack>
+				</Box>
+			</Pressable>
+		)
+	}
+
+	const MemoizedItem = memo(CityItem)
+
 	return (
 		<FlashList
 			data={countryStates}
@@ -106,57 +174,8 @@ export default function SearchAreaCountryStates() {
 				return <Box my={1} />
 			}}
 			estimatedItemSize={50}
-			renderItem={({ index, item }) => {
-				return (
-					<Button
-						_stack={{
-							paddingY: 0,
-							paddingX: 2,
-							marginX: 3,
-							w: '100%',
-							justifyContent: 'space-between',
-						}}
-						h={'50px'}
-						py={3}
-						px={1}
-						mx={3}
-						_light={{
-							bg: watch('state.name') === item.isoCode ? 'primary.500' : 'light.50',
-						}}
-						_dark={{
-							bg: watch('state.name') === item.isoCode ? 'primary.500' : 'dark.50',
-						}}
-						rounded={'md'}
-						onPress={() => {
-							setValue('state', {
-								name: item.name,
-								isoCode: item.isoCode,
-								coords: {
-									latitude: Number(item.latitude),
-									longitude: Number(item.longitude),
-								},
-							})
-							router.replace({
-								pathname: '(app)/searcharea/searchstatecities',
-								params: {
-									countryIsoCode: item.countryCode,
-									stateIsoCode: item.isoCode,
-								},
-							})
-						}}
-					>
-						<Text
-							mt={-0.5}
-							textAlign={'center'}
-							fontWeight={'medium'}
-							fontSize={'lg'}
-							numberOfLines={1}
-							ellipsizeMode={'tail'}
-						>
-							{item.name}
-						</Text>
-					</Button>
-				)
+			renderItem={({ item, index }) => {
+				return <MemoizedItem index={index} item={item} />
 			}}
 		/>
 	)

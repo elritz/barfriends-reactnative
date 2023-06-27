@@ -1,9 +1,15 @@
-import { ScrollView, Text } from 'react-native'
+import { Center, Heading, Text } from '@components/core'
+import { SafeAreaView, ScrollView } from 'react-native'
 
 export default () => {
 	return (
-		<ScrollView>
-			<Text>No Network connection!!</Text>
-		</ScrollView>
+		<SafeAreaView>
+			<ScrollView>
+				<Center>
+					<Heading>No Network connection!!</Heading>
+					<Heading>Pull to refresh</Heading>
+				</Center>
+			</ScrollView>
+		</SafeAreaView>
 	)
 }

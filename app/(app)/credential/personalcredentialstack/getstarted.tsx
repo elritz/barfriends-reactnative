@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
+import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Icon, IconButton } from 'native-base'
-import { Box, Text, VStack, Pressable } from 'native-base'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
@@ -13,58 +13,68 @@ export default () => {
 
 	const { data: PTSData, loading: PTSLoading, error: PTSError } = usePrivacyTermsDocumentsQuery()
 
+	const _press = () => {
+		CredentialPersonalProfileReactiveVar({
+			...credentialPersonalProfileVar,
+			ServiceId: PTSData?.privacyTermsDocuments.termsofservice.id,
+			PrivacyId: PTSData?.privacyTermsDocuments.privacy.id,
+		})
+		router.push({
+			pathname: '(app)/credential/personalcredentialstack/phone',
+		})
+	}
+	const _pressTermsServices = tab => {
+		switch (tab) {
+			case 'terms':
+				router.push({
+					pathname: '(app)/settings/privacytermsservicetabstack',
+				})
+		}
+	}
+
 	return (
-		<VStack safeArea justifyContent={'space-between'} h={'full'} alignItems='center' mx={4}>
-			<Box justifyContent={'center'} height={'lg'}>
-				<CompanyCoasterLogoDynamic />
-				<Text testID={'title-text'} mt={4} fontWeight={'$black'} lineHeight={35} fontSize={'$4xl'}>
-					Let's Fucking Gooooooo out tonight!
-				</Text>
-				<Pressable
-					isDisabled={PTSLoading}
-					onPress={() =>
-						router.push({
-							pathname: '(app)/settings/privacytermsservicetabstack',
-						})
-					}
-				>
-					<Text fontSize={'lg'}>
-						By continuing, you agree to the
-						<Text fontSize={'lg'} fontWeight={'bold'} color={'primary.500'}>
-							{' '}
-							Term of the Services
+		<SafeAreaView>
+			<VStack justifyContent={'space-between'} h={'$full'} alignItems='center' mx={'$4'}>
+				<Box bg='transparent' justifyContent={'center'}>
+					<CompanyCoasterLogoDynamic backgroundColor='black' />
+					<Heading
+						testID={'title-text'}
+						mt={'$4'}
+						fontWeight={'$black'}
+						fontSize={'$4xl'}
+						lineHeight={'$3xl'}
+					>
+						Let's Fucking Gooooooo out tonight!
+					</Heading>
+					<Pressable disabled={PTSLoading} onPress={() => _pressTermsServices('terms')}>
+						<Text fontSize={'$lg'}>
+							By continuing, you agree to the
+							<Text fontSize={'$lg'} fontWeight={'$bold'} color={'$primary500'}>
+								{' '}
+								Term of the Services
+							</Text>
+							<Text fontSize={'$lg'}> and</Text>
+							<Text fontSize={'$lg'} fontWeight={'$bold'} color={'$primary500'}>
+								{' '}
+								Privacy Policies.
+							</Text>
 						</Text>
-						<Text fontSize={'lg'}> and</Text>
-						<Text fontSize={'lg'} fontWeight={'bold'} color={'primary.500'}>
-							{' '}
-							Privacy Policies.
-						</Text>
-					</Text>
-				</Pressable>
-			</Box>
-			<Box>
-				<IconButton
-					bg={'primary.500'}
-					isDisabled={PTSLoading}
-					onPress={() => {
-						CredentialPersonalProfileReactiveVar({
-							...credentialPersonalProfileVar,
-							ServiceId: PTSData?.privacyTermsDocuments.termsofservice.id,
-							PrivacyId: PTSData?.privacyTermsDocuments.privacy.id,
-						})
-						router.push({
-							pathname: '(app)/credential/personalcredentialstack/phone',
-						})
-					}}
-					icon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
-					variant={'solid'}
-					size={'lg'}
-					borderRadius={'full'}
-					h={60}
-					w={60}
-					fontSize={'lg'}
-				/>
-			</Box>
-		</VStack>
+					</Pressable>
+				</Box>
+				<>
+					<Button
+						bg={'$primary500'}
+						isDisabled={PTSLoading}
+						onPress={_press}
+						size='lg'
+						rounded={'$full'}
+						h={60}
+						w={60}
+					>
+						<Button.Icon color='$white' as={Feather} name='arrow-right' />
+					</Button>
+				</>
+			</VStack>
+		</SafeAreaView>
 	)
 }

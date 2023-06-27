@@ -227,6 +227,8 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 											blurhash={String(props.item.photos[0].blurhash)}
 											style={{
 												flex: 1,
+												borderRadius: 10,
+												overflow: 'hidden',
 											}}
 										/>
 									)}
@@ -237,7 +239,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						<VStack space={2}>
 							<Box>
 								<Heading
-									fontSize={'$sm'}
+									fontSize={'$lg'}
 									fontWeight={'$bold'}
 									textAlign={'left'}
 									numberOfLines={2}
@@ -247,14 +249,13 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 									{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
 								</Heading>
 								<Heading
-									fontSize={'$sm'}
+									fontSize={'$md'}
 									fontWeight={'$bold'}
 									textAlign={'left'}
 									numberOfLines={2}
 									ellipsizeMode='tail'
 								>
-									{distance}
-									{metric}
+									{distance} {metric}
 								</Heading>
 							</Box>
 							{canJoin ? (
@@ -300,5 +301,4 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 		</Pressable>
 	)
 }
-
 export default memo(VerticalVenueFeedVenueItem)

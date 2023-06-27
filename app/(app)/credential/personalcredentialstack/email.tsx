@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Heading, Text, Pressable, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Text, Icon, IconButton, Input, KeyboardAvoidingView, Box, Pressable } from 'native-base'
+import { Icon, IconButton, Input, KeyboardAvoidingView } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
@@ -117,25 +117,33 @@ export default () => {
 
 	const InnerContent = () => {
 		return (
-			<Box
+			<VStack
 				display={isFocused ? 'flex' : 'none'}
-				_light={{
-					bg: 'light.200',
-				}}
-				_dark={{
-					bg: 'dark.200',
-				}}
-				flexDir={'row'}
+				flexDirection={'row'}
 				justifyContent={'flex-end'}
 				alignContent={'space-around'}
-				height={'90px'}
-				px={'2.5%'}
+				px={'$2'}
+				sx={{
+					h: 90,
+					_dark: {
+						bg: '$black',
+					},
+					_light: {
+						bg: '$white',
+					},
+				}}
 			>
-				<Box flex={2} display={'flex'} flexDir={'column'} justifyContent={'space-around'} px={2}>
+				<VStack
+					flex={2}
+					display={'flex'}
+					flexDirection={'column'}
+					justifyContent={'space-around'}
+					px={'$2'}
+				>
 					<Text>
 						By continuing you may receive an SMS for verification. Message and data rates may apply.
 					</Text>
-				</Box>
+				</VStack>
 				<IconButton
 					disabled={!!errors?.email}
 					onPress={handleSubmit(onSubmit)}
@@ -145,21 +153,20 @@ export default () => {
 					borderRadius={'full'}
 					style={{
 						justifyContent: 'center',
-						height: 60,
-						width: 60,
-						paddingHorizontal: 20,
+						height: 50,
+						width: 50,
 						alignSelf: 'center',
 					}}
 					icon={
 						<Icon
 							as={Feather}
 							name='arrow-right'
-							size={'xl'}
+							size={'lg'}
 							color={errors?.email ? 'primary.700' : 'white'}
 						/>
 					}
 				/>
-			</Box>
+			</VStack>
 		)
 	}
 
@@ -173,66 +180,69 @@ export default () => {
 				marginHorizontal: '5%',
 			}}
 		>
-			<Box h={'110px'}>
-				<Heading mt={4} lineHeight={35} fontWeight={'$black'} fontSize={'$3xl'} >
-					Enter your email
-				</Heading>
-				<Pressable
-					onPress={() => {
-						router.back()
-					}}
-					size={'md'}
-					w={100}
-					h={'auto'}
-					pb={3}
-					variant={'link'}
-				>
-					<Text fontSize={'md'} fontWeight={'500'} color={'primary.500'}>
-						Use phone
-					</Text>
-				</Pressable>
-			</Box>
-			<View style={{ width: '100%' }}>
-				<Controller
-					name='email'
-					control={control}
-					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
-							ref={_emailRef}
-							key={'email'}
-							isFocused={isFocused}
-							variant={'underlined'}
-							autoFocus
-							returnKeyType='done'
-							autoComplete='email'
-							importantForAutofill='auto'
-							autoCorrect={true}
-							autoCapitalize='none'
-							keyboardType='email-address'
-							keyboardAppearance={colorScheme}
-							numberOfLines={1}
-							placeholder='Email'
-							_input={{
-								fontSize: '2xl',
-								fontWeight: 'medium',
-							}}
-							size={'lg'}
-							blurOnSubmit={false}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							value={value.toLowerCase()}
-							onChangeText={onChange}
-						/>
-					)}
-					rules={{
-						required: {
-							value: true,
-							message: 'Your email is required to continue.',
-						},
-						pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-					}}
-				/>
-			</View>
+			<Reanimated.View style={{ flex: 1 }}>
+				<VStack sx={{ h: 110 }}>
+					<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
+						Enter your email
+					</Heading>
+					<Pressable
+						onPress={() => {
+							router.back()
+						}}
+						sx={{
+							w: 100,
+							h: 'auto',
+						}}
+						pb={'$3'}
+					>
+						<Text fontSize={'$md'} fontWeight={'$bold'} color={'$primary500'}>
+							Use phone
+						</Text>
+					</Pressable>
+				</VStack>
+				<View style={{ width: '100%' }}>
+					<Controller
+						name='email'
+						control={control}
+						render={({ field: { onChange, onBlur, value } }) => (
+							<Input
+								ref={_emailRef}
+								key={'email'}
+								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+								isFocused={isFocused}
+								variant={'underlined'}
+								autoFocus
+								returnKeyType='done'
+								autoComplete='email'
+								importantForAutofill='auto'
+								autoCorrect={true}
+								autoCapitalize='none'
+								keyboardType='email-address'
+								keyboardAppearance={colorScheme}
+								numberOfLines={1}
+								placeholder='Email'
+								_input={{
+									fontSize: '2xl',
+									fontWeight: 'medium',
+								}}
+								size={'lg'}
+								blurOnSubmit={false}
+								onSubmitEditing={handleSubmit(onSubmit)}
+								onBlur={onBlur}
+								value={value.toLowerCase()}
+								onChangeText={onChange}
+							/>
+						)}
+						rules={{
+							required: {
+								value: true,
+								message: 'Your email is required to continue.',
+							},
+							pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+						}}
+					/>
+				</View>
+			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
 					<InnerContent />

@@ -1,11 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, Heading, Text } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, Input, useTheme, Text, Icon, Box } from 'native-base'
+import { Button, Input, useTheme, Icon } from 'native-base'
 import { useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
@@ -102,16 +103,12 @@ export default () => {
 	const InnerContent = () => {
 		return (
 			<Box
-				flexDir={'row'}
+				flexDirection={'row'}
 				justifyContent={'flex-end'}
-				height={'90px'}
-				px={'2.5%'}
-				_light={{
-					bg: theme.colors.light[100],
+				sx={{
+					h: 90,
 				}}
-				_dark={{
-					bg: theme.colors.dark[200],
-				}}
+				px={'$2'}
 			>
 				<Box
 					style={{
@@ -126,8 +123,8 @@ export default () => {
 						borderRadius={'full'}
 						style={{
 							justifyContent: 'center',
-							height: 60,
-							width: 60,
+							height: 50,
+							width: 50,
 							paddingHorizontal: 20,
 							alignSelf: 'center',
 						}}
@@ -145,10 +142,15 @@ export default () => {
 		)
 	}
 	const InputRightIcon = () => {
-		const boxDim = 35
-
 		return (
-			<Box h={`${boxDim}px`} w={`${boxDim}px`} justifyContent={'center'} alignItems={'center'}>
+			<Box
+				sx={{
+					h: 35,
+					w: 35,
+				}}
+				justifyContent={'center'}
+				alignItems={'center'}
+			>
 				{values.username.length && CUData?.checkUsername ? (
 					<Icon
 						as={Ionicons}
@@ -164,9 +166,9 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
+				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					Choose your username
-				</Text>
+				</Heading>
 				<View style={{ marginVertical: '10%', width: '100%' }}>
 					<Controller
 						name='username'
@@ -186,7 +188,7 @@ export default () => {
 								contextMenuHidden
 								spellCheck={false}
 								autoFocus
-								textContentType='username'
+								textContentType='none'
 								autoComplete='username-new'
 								returnKeyType='done'
 								variant={'underlined'}

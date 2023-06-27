@@ -1,22 +1,23 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, Heading, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Box, Input, Text, Button, Icon, IInputProps, VStack, IconButton } from 'native-base'
+import { Input, Button, Icon, IInputProps } from 'native-base'
 import { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'n-1298187263'
+	const router = useRouter()
 	const isFocused = useIsFocused()
 	const { bottom } = useSafeAreaInsets()
-	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const _firstnameRef = useRef<IInputProps | null>(null)
@@ -82,17 +83,13 @@ export default () => {
 	const InnerContent = () => {
 		return (
 			<Box
-				_light={{
-					bg: 'light.200',
-				}}
-				_dark={{
-					bg: 'dark.200',
-				}}
-				flexDir={'row'}
+				flexDirection={'row'}
 				justifyContent={'flex-end'}
 				alignItems={'center'}
-				height={'90px'}
-				px={'2.5%'}
+				sx={{
+					h: 90,
+				}}
+				px={'$2'}
 			>
 				<Button
 					onPress={handleSubmit(onSubmit)}
@@ -100,9 +97,8 @@ export default () => {
 					borderRadius={'full'}
 					style={{
 						justifyContent: 'center',
-						height: 60,
-						width: 60,
-						paddingHorizontal: 20,
+						height: 50,
+						width: 50,
 						alignSelf: 'center',
 					}}
 					rightIcon={
@@ -121,10 +117,10 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
+				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					Enter your name
-				</Text>
-				<VStack space={3} style={{ marginVertical: '10%' }}>
+				</Heading>
+				<VStack space={'md'} style={{ marginVertical: '10%' }}>
 					<Controller
 						name='firstname'
 						control={control}

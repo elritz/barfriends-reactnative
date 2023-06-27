@@ -1,5 +1,5 @@
 //TODO: Add notfication listener
-import { ApolloProvider, useReactiveVar } from '@apollo/client'
+import { useReactiveVar } from '@apollo/client'
 import { GluestackUIProvider } from '@components/core'
 import AnimatedAppLoader from '@components/screens/splash/AnimatedAppLoader'
 import {
@@ -45,7 +45,7 @@ import {
 } from '@reactive'
 import { SearchAreaReactiveVar, searchAreaInitialState } from '@reactive'
 import { ThemeReactiveVar } from '@reactive'
-import { secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
+import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
@@ -57,8 +57,7 @@ import { getBackgroundPermissionsAsync, getForegroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMeidaPermissionAsync } from 'expo-media-library'
 import * as Notifications from 'expo-notifications'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen, useRouter } from 'expo-router'
-import * as sq from 'expo-sqlite'
+import { Redirect, Slot, SplashScreen, useRouter } from 'expo-router'
 import { NativeBaseProvider } from 'native-base'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { StatusBar } from 'react-native'
@@ -120,42 +119,39 @@ export default () => {
 			}
 			// SEARCHARE_PREFERENCE ~ END
 
-			// // THEME_PREFERENCE ~ START
-			// const getLocalStorageTheme = await AsyncStorage.getItem(
-			// 	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-			// )
+			// THEME_PREFERENCE ~ START
+			const getLocalStorageTheme = await AsyncStorage.getItem(
+				LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+			)
 
-			// console.log("🚀 ~ file: _layout.tsx:128 ~ setAsyncPreferencesLocalStorageData ~ getLocalStorageTheme:", getLocalStorageTheme)
+			if (!getLocalStorageTheme) {
+				const initialThemeColorSchemeState = JSON.stringify({
+					colorScheme: 'system',
+				} as LocalStoragePreferenceThemeType)
 
+				await AsyncStorage.setItem(
+					LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
+					initialThemeColorSchemeState,
+				)
 
-			// if (!getLocalStorageTheme) {
-			// 	const initialThemeColorSchemeState = JSON.stringify({
-			// 		colorScheme: 'system',
-			// 	} as LocalStoragePreferenceThemeType)
+				ThemeReactiveVar({
+					theme: null,
+					localStorageColorScheme: 'system',
+					colorScheme: Appearance.getColorScheme(),
+				})
+			} else {
+				const localStorageTheme: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
 
-			// 	await AsyncStorage.setItem(
-			// 		LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-			// 		initialThemeColorSchemeState,
-			// 	)
-
-			// 	ThemeReactiveVar({
-			// 		theme: null,
-			// 		localStorageColorScheme: 'system',
-			// 		colorScheme: Appearance.getColorScheme(),
-			// 	})
-			// } else {
-			// 	const localStorageTheme: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
-
-			// 	ThemeReactiveVar({
-			// 		theme: null,
-			// 		localStorageColorScheme: localStorageTheme.colorScheme,
-			// 		colorScheme:
-			// 			localStorageTheme.colorScheme === 'system'
-			// 				? Appearance.getColorScheme()
-			// 				: localStorageTheme.colorScheme,
-			// 	})
-			// }
-			// // THEME_PREFERENCE ~ END
+				ThemeReactiveVar({
+					theme: null,
+					localStorageColorScheme: localStorageTheme.colorScheme,
+					colorScheme:
+						localStorageTheme.colorScheme === 'system'
+							? Appearance.getColorScheme()
+							: localStorageTheme.colorScheme,
+				})
+			}
+			// THEME_PREFERENCE ~ END
 
 			// NOTIFICATION_PREFERENCE ~ START
 			const getLocalStorageNotificationPermissionsPreference = await AsyncStorage.getItem(
@@ -266,6 +262,9 @@ export default () => {
 		// await secureStorageItemDelete({
 		// 	key: LOCAL_STORAGE_SEARCH_AREA,
 		// })
+		// await secureStorageItemDelete({
+		// 	key: AUTHORIZATION,
+		// })
 
 		const getAuthorization = (await secureStorageItemRead({
 			key: AUTHORIZATION,
@@ -275,20 +274,15 @@ export default () => {
 		if (!getAuthorization) {
 			createGuestProfileMutation()
 		} else {
-			// await secureStorageItemDelete({
-			// 	key: AUTHORIZATION,
-			// })
 			refreshDeviceManagerMutation()
 		}
 	}
+
 	const [refreshDeviceManagerMutation, { data: RDMData, loading: RDMLoading, error: RDMError }] =
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
-			onError: async error => {
-				console.log('🚀 ~ file: index.tsx:37 ~ error:', error)
-				// await secureStorageItemDelete({
-				// 	key: AUTHORIZATION,
-				// })
+			onError(error, clientOptions) {
+				console.log('REFRESH error :>> ', error)
 				router.push({
 					pathname: '(error)/network',
 				})
@@ -304,7 +298,8 @@ export default () => {
 
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
-			onError: async error => {
+			onError(error, clientOptions) {
+				console.log('GUEST === error :>> ', error)
 				router.push({
 					pathname: '(error)/network',
 				})
@@ -329,42 +324,13 @@ export default () => {
 		applicationAuthorization()
 	}, [])
 
-	// useEffect(() => {
-	// 	//NOTE: This only works if the notification happens in the foreground
-	// 	notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-	// 		if (notification.request.content.data.route) {
-	// 			router.push({
-	// 				pathname: notification.request.content.data.route,
-	// 			})
-	// 		}
-	// 	})
-
-	// 	responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {})
-
-	// 	return () => {
-	// 		Notifications.removeNotificationSubscription(notificationListener.current)
-	// 		Notifications.removeNotificationSubscription(responseListener.current)
-	// 	}
-	// 	//NOTE: This only works if the notification happens in the foreground
-	// }, [])
-
 	const setTheme = async () => {
 		const localStorageColorScheme = await AsyncStorage.getItem(
 			LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
 		)
 
-		console.log(
-			'🚀 ~ file: _layout.tsx:367 ~ setTheme ~ localStorageColorScheme:',
-			localStorageColorScheme,
-		)
-
 		const valueLocalStorageColorScheme: LocalStoragePreferenceThemeType = JSON.parse(
 			String(localStorageColorScheme),
-		)
-
-		console.log(
-			'🚀 ~ file: _layout.tsx:374 ~ setTheme ~ valueLocalStorageColorScheme:',
-			valueLocalStorageColorScheme,
 		)
 
 		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
@@ -404,11 +370,13 @@ export default () => {
 		!RDMData ||
 		RDMLoading ||
 		CGLoading ||
-		!rAuthorizationVar ||
-		RDMError?.message ||
-		CGPMError?.message
+		!rAuthorizationVar
 	) {
 		return <SplashScreen />
+	}
+
+	if (RDMError || CGPMError) {
+		return <Redirect href={'(error)/network'} />
 	}
 
 	return (

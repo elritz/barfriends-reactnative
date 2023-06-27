@@ -1,14 +1,16 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
+import { Box, Heading, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { useRouter } from 'expo-router'
-import { View, IconButton, Text, Icon, Box, VStack } from 'native-base'
+import { IconButton, Icon } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { View } from 'react-native'
 
 export default () => {
 	const router = useRouter()
@@ -103,18 +105,10 @@ export default () => {
 	}, [isFocused])
 
 	return (
-		<Box
-			style={{
-				flex: 1,
-				alignItems: 'center',
-				flexDirection: 'column',
-				justifyContent: 'space-between',
-				marginTop: 20,
-			}}
-		>
-			<Text numberOfLines={2} mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
+		<Box flex={1} alignItems='center' flexDirection='column' justifyContent='space-between' mt={10}>
+			<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 				What's your birthday
-			</Text>
+			</Heading>
 			<>
 				<Controller
 					control={control}
@@ -144,34 +138,19 @@ export default () => {
 						},
 					}}
 				/>
-				<Text color={'error.500'}>
+				<Text color={'$error500'}>
 					{errors.date && errors.date.type ? errors?.date?.message : null}
 				</Text>
 			</>
-			<Box
-				_light={{
-					bg: 'light.200',
-				}}
-				_dark={{
-					bg: 'dark.200',
-				}}
-				display={'flex'}
-				flexDir={'row-reverse'}
-				justifyContent={'space-between'}
-				w={'100%'}
-			>
+			<Box display={'flex'} flexDirection={'row-reverse'} justifyContent={'space-between'} w={'100%'}>
 				<Box
-					_light={{
-						bg: 'light.200',
-					}}
-					_dark={{
-						bg: 'dark.200',
-					}}
-					flexDir={'row'}
+					flexDirection={'row'}
 					justifyContent={'space-between'}
 					alignContent={'space-around'}
-					h={'90px'}
-					px={'2.5%'}
+					sx={{
+						h: 90,
+						px: '2.5%',
+					}}
 				>
 					<VStack justifyContent={'space-around'}>
 						<IconButton
@@ -183,8 +162,8 @@ export default () => {
 							borderRadius={'full'}
 							style={{
 								justifyContent: 'center',
-								height: 60,
-								width: 60,
+								height: 50,
+								width: 50,
 								paddingHorizontal: 20,
 								alignSelf: 'center',
 							}}

@@ -1,11 +1,8 @@
 import { ApolloProvider } from '@apollo/client'
-import gateaWayClient from '@library/gateway-apollo-server'
-import { Logs } from 'expo'
+import client from '@library/gateway-apollo-server'
 import { registerRootComponent } from 'expo'
 import { ExpoRoot } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-
-Logs.enableExpoCliLogging()
 
 SplashScreen.preventAutoHideAsync()
 
@@ -13,7 +10,7 @@ SplashScreen.preventAutoHideAsync()
 export function App() {
 	const ctx = require.context('./app')
 	return (
-		<ApolloProvider client={gateaWayClient}>
+		<ApolloProvider client={client}>
 			<ExpoRoot context={ctx} />
 		</ApolloProvider>
 	)

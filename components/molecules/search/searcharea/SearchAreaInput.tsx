@@ -1,8 +1,10 @@
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import useDebounce from '@util/hooks/useDebounce'
 import { useRouter } from 'expo-router'
 import { Box, HStack, Icon, IconButton, Input } from 'native-base'
+import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
 
@@ -12,7 +14,6 @@ type Props = {
 const SearchAreaInput = (props: Props) => {
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
-	// constSearchReactiveVar()
 
 	const {
 		control,
@@ -30,6 +31,14 @@ const SearchAreaInput = (props: Props) => {
 		shouldFocusError: true,
 		shouldUnregister: true,
 	})
+
+	const debouncedSearchResults = useDebounce(watch().searchtext, 300)
+
+	useMemo(() => {
+		router.setParams({
+			searchtext: watch().searchtext,
+		})
+	}, [debouncedSearchResults])
 
 	const goBack = () => {
 		Keyboard.dismiss()
@@ -79,6 +88,7 @@ const SearchAreaInput = (props: Props) => {
 								fontSize: 'lg',
 							}}
 							autoFocus
+							onChange={onChange}
 							onChangeText={onChange}
 							keyboardAppearance={colorScheme}
 							placeholder={props.placeholder}

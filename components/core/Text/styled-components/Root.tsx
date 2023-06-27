@@ -77,9 +77,7 @@ export default styled(
 			size: 'md',
 		},
 
-		_dark: {
-			color: '$textDark200',
-		},
+
 	},
 	{
 		ancestorStyle: ['_text'],
