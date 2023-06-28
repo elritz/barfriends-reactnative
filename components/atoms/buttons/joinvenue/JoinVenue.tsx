@@ -24,8 +24,6 @@ export default function JoinVenue() {
 			},
 			onCompleted: async data => {
 				if (data.addPersonalJoinsVenue) {
-					console.log('🚀 ~ file: JoinVenue.tsx:28 ~ JoinVenue ~ data:', data)
-
 					const profile = data.addPersonalJoinsVenue as Profile
 					const deviceManager = rAuthorizationVar as AuthorizationDeviceManager
 					const deviceprofile = rAuthorizationVar?.DeviceProfile as AuthorizationDeviceProfile

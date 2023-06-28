@@ -40,9 +40,7 @@ export default function SearchAreaStateCities() {
 			countryIsoCode: String(params.countryIsoCode),
 			stateIsoCode: String(params.stateIsoCode),
 		},
-		onError: error => {
-			console.log('error :>> ', error)
-		},
+		onError: error => {},
 		onCompleted: data => {
 			if (data.getAllCitiesByState) {
 				setPopularCities(data.getAllCitiesByState.popularCities)

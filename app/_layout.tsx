@@ -282,7 +282,6 @@ export default () => {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error, clientOptions) {
-				console.log('REFRESH error :>> ', error)
 				router.push({
 					pathname: '(error)/network',
 				})
@@ -299,7 +298,6 @@ export default () => {
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
 			onError(error, clientOptions) {
-				console.log('GUEST === error :>> ', error)
 				router.push({
 					pathname: '(error)/network',
 				})

@@ -19,7 +19,6 @@ export default function Preferences() {
 
 	const renderItem = useCallback(
 		({ item }) => {
-			console.log('item.theme.dark :>> ', JSON.stringify(item, null, 4))
 			const company = {
 				dark: [
 					item.theme.styled.dark.palette.company.primary,

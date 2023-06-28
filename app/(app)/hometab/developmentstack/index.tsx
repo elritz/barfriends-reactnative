@@ -170,12 +170,10 @@ export default () => {
 	// 	registerForPushNotificationsAsync().then(token => setPushNotificationToken(token))
 
 	// 	notificationListener?.current = Notifications.addNotificationReceivedListener(notification => {
-	// 		console.log('object :>> ', object);
 	// 		setNotification(notification)
 	// 	})
 
 	// 	responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-	// 		console.log(response)
 	// 	})
 
 	// 	return () => {
