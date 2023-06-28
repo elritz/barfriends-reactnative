@@ -1,5 +1,5 @@
+import { Box } from '@components/core'
 import { uniqueId } from 'lodash'
-import { Box } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {
@@ -17,22 +17,24 @@ export default function ActionCard({ children, numColumns, bg, h }: Props) {
 		<Box
 			key={uniqueId()}
 			width={width}
-			flexDir={'column'}
-			padding={'10px'}
+			flexDirection={'column'}
+			p={'$2'}
+			m={'$1'}
 			justifyContent={'center'}
-			shadow={5}
-			_dark={{
-				bg: bg || 'dark.100',
-			}}
-			_light={{
-				bg: bg || 'light.200',
+			sx={{
+				_dark: {
+					bg: bg || '$black',
+				},
+				_light: {
+					bg: bg || '$white',
+				},
+				h: h,
 			}}
 			style={{
 				width: (width - itemPadding) / numColumns,
 				alignItems: 'center',
 			}}
-			borderRadius={'lg'}
-			h={h}
+			rounded={'$lg'}
 		>
 			{children}
 		</Box>

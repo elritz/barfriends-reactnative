@@ -1,5 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
+import { Box, VStack } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -10,7 +11,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Button, VStack, Box, CheckCircleIcon } from 'native-base'
+import { Button, CheckCircleIcon } from 'native-base'
 import { useEffect, useState } from 'react'
 
 export default function JoinCard() {
@@ -85,9 +86,6 @@ export default function JoinCard() {
 		removePersonalJoinsVenueMutation,
 		{ data: RPJVData, loading: RPJVLoading, error: RPJVError },
 	] = useRemovePersonalJoinsVenueMutation({
-		variables: {
-			outId,
-		},
 		onCompleted: async data => {
 			if (data.removePersonalJoinsVenue) {
 				setIsJoined(false)
@@ -129,7 +127,7 @@ export default function JoinCard() {
 
 	return (
 		<VStack>
-			<Box>
+			<Box bg={'transparent'}>
 				<Button
 					onPress={() => {
 						if (rAuthorizationVar?.DeviceProfile) {

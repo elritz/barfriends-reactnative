@@ -1,6 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { HStack, Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
@@ -12,7 +12,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Button, Icon, HStack } from 'native-base'
+import { Button, Icon } from 'native-base'
 
 export default function LeaveSection() {
 	const params = useSearchParams()
@@ -63,10 +63,10 @@ export default function LeaveSection() {
 		params.profileid
 	) {
 		return (
-			<HStack px={3} mt={5} alignItems={'center'} justifyContent={'space-between'} w={'full'}>
-				<Heading fontWeight={'800'} textTransform={'uppercase'} fontSize={'md'}>
+			<HStack px={'$3'} mt={'$5'} alignItems={'center'} justifyContent={'space-between'} w={'$full'}>
+				<Heading fontWeight={'$black'} textTransform={'uppercase'} fontSize={'$md'}>
 					You're joined{'\n'}
-					<Heading color={'red.600'} fontWeight={'900'} textTransform={'uppercase'} fontSize={'lg'}>
+					<Heading color={'$red600'} fontWeight={'$black'} textTransform={'uppercase'} fontSize={'$lg'}>
 						Want to Leave?
 					</Heading>
 				</Heading>

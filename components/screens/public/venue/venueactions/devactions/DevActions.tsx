@@ -1,36 +1,40 @@
 import JoinCard from './joincard/JoinCard'
 import LeaveCard from './leavecard/LeaveCard'
 import TotalCard from './totalcard/TotalCard'
-import { Heading } from '@components/core'
-import { Text, HStack, VStack, Box, Pressable } from 'native-base'
+import { Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import { useState } from 'react'
 
 export default function DevActions() {
 	const [showDevMode, setShowDevMode] = useState(false)
 
 	return (
-		<VStack space={4} justifyContent={'space-between'}>
+		<VStack space={'md'} justifyContent={'space-between'}>
 			{showDevMode ? (
-				<Box>
+				<Box bg={'transparent'}>
 					<Pressable
 						onPress={() => {
 							setShowDevMode(!showDevMode)
 						}}
 					>
 						<Box>
-							<Heading fontSize={'lg'} fontWeight={'800'} textAlign={'center'} textTransform={'uppercase'}>
+							<Heading
+								fontSize={'$lg'}
+								fontWeight={'$800'}
+								textAlign={'center'}
+								textTransform={'uppercase'}
+							>
 								You are in {'\n'}
 								<Heading color={'green.400'} fontWeight={'$black'}>
 									Dev Mode!
 								</Heading>
 							</Heading>
-							<Text fontSize={'md'} mx={2} textAlign={'center'}>
+							<Text fontSize={'$md'} mx={'$2'} textAlign={'center'}>
 								This section is for quick actions that we may need for testing! As developers!
 							</Text>
 						</Box>
 					</Pressable>
 					<VStack>
-						<HStack space={2} pt={2} pb={2} mx={3} justifyContent={'space-around'}>
+						<HStack space={'md'} pt={'$2'} pb={'$2'} mx={'$3'} justifyContent={'space-around'}>
 							<TotalCard />
 							<JoinCard />
 							<LeaveCard />
@@ -43,7 +47,7 @@ export default function DevActions() {
 						setShowDevMode(!showDevMode)
 					}}
 				>
-					<Text fontSize={'md'} mx={2} textAlign={'center'}>
+					<Text fontSize={'$md'} mx={'$2'} textAlign={'center'}>
 						Show dev mode
 					</Text>
 				</Pressable>

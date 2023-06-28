@@ -7,11 +7,12 @@ import QuickBarfriend from './actioncards/quickbarfriendcard/QuickBarfriendCard'
 import UberCard from './actioncards/ubercard/UberCard'
 import DevActions from './devactions/DevActions'
 import { useReactiveVar } from '@apollo/client'
+import { Box, HStack, VStack } from '@components/core'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Box, HStack, VStack, useTheme } from 'native-base'
+import {  useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 
 const VenueActions = () => {
@@ -31,10 +32,10 @@ const VenueActions = () => {
 	}, [rAuthorizationVar])
 
 	return (
-		<VStack m={2} mt={1}>
+		<VStack m={'$2'} mt={'$1'}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 				{ENVIRONMENT === 'development' && (
-					<Box mt={4}>
+					<Box mt={'$4'}>
 						<ActionCard key={uniqueId()} numColumns={1}>
 							<DevActions />
 						</ActionCard>
@@ -42,7 +43,7 @@ const VenueActions = () => {
 				)}
 
 				{!isJoined && (
-					<HStack space={2} mt={5}>
+					<HStack space={'$md'} mt={'$5'}>
 						<ActionCard h={190} key={uniqueId()} numColumns={numColumns}>
 							<UberCard />
 						</ActionCard>
@@ -53,7 +54,7 @@ const VenueActions = () => {
 				)}
 
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
-					<HStack space={2} mt={5}>
+					<HStack space={'$md'} mt={'$5'}>
 						<ActionCard h={200} key={uniqueId()} bg={theme.colors.primary[500]} numColumns={numColumns}>
 							<QuickBarfriend logosize={30} qrcodesize={100} />
 						</ActionCard>

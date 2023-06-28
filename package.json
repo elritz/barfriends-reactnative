@@ -50,7 +50,7 @@
 		"@gluestack-ui/divider": "latest",
 		"@gluestack-ui/icon": "latest",
 		"@gluestack-ui/input": "latest",
-		"@gluestack-ui/pressable": "latest",
+		"@gluestack-ui/pressable": "0.1.5",
 		"@gluestack-ui/progress": "latest",
 		"@gluestack-ui/provider": "latest",
 		"@gluestack-ui/spinner": "latest",

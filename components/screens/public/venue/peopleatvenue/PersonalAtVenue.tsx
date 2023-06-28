@@ -1,10 +1,10 @@
 // TODO: FX() Need profile item id for routing
 // TODO: UX() Item need to be updated for messageboard route
 // TODO: UX() Item need to be updated for Personal data, loading, error
+import { Pressable } from '@components/core'
 import { Profile } from '@graphql/generated'
 import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Pressable } from 'native-base'
 import { View } from 'react-native'
 
 type PersonalAtVenueProps = {
@@ -16,10 +16,9 @@ const PersonalAtVenue = ({ item }: PersonalAtVenueProps) => {
 	return (
 		<Pressable
 			key={uniqueId()}
-			maxW={'1/2'}
 			flexGrow={1}
-			mx={1}
-			alignSelf={''}
+			mx={'$1'}
+			alignSelf={'center'}
 			onPress={() => {
 				router.push({
 					pathname: '(app)/public/venue',

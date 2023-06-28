@@ -1,10 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Heading, Pressable, VStack } from '@components/core'
 import CameraModal from '@components/molecules/modals/cameramodal/CameraModal'
 import { useGetSecureFriendQrCodeDataQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, PermissionCameraReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Pressable, useDisclose, VStack } from 'native-base'
+import { useDisclose } from 'native-base'
 import { useState } from 'react'
 import QRCode from 'react-native-qrcode-svg'
 
@@ -46,8 +46,8 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 					  })
 			}
 		>
-			<VStack mt={2} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
-				<Heading fontWeight={'black'} fontSize={'lg'}>
+			<VStack mt={'$2'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
+				<Heading fontWeight={'$black'} fontSize={'$lg'}>
 					Quick BFS
 				</Heading>
 				{rPermissionCamera?.granted ? (
@@ -69,7 +69,7 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 					</>
 				) : (
 					<Box flexDirection={'column'} justifyContent={'space-around'}>
-						<Box mt={2} alignItems={'center'} justifyContent={'center'}>
+						<Box mt={'$2'} alignItems={'center'} justifyContent={'center'}>
 							{dataQR && (
 								<QRCode
 									size={qrcodesize}

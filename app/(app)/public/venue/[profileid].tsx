@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Text, VStack } from '@components/core'
 import Details from '@components/screens/public/venue/details/Details'
 import PersonalAtVenue from '@components/screens/public/venue/peopleatvenue/PersonalAtVenue'
 import VenueActions from '@components/screens/public/venue/venueactions/VenueActions'
@@ -13,7 +13,7 @@ import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Text, VStack, Box, Skeleton, HStack, Icon, IconButton } from 'native-base'
+import { Skeleton, Icon, IconButton } from 'native-base'
 import { Alert, Platform, Share, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -77,7 +77,7 @@ export default () => {
 
 	if (loading || !data?.currentVenue) {
 		return (
-			<VStack flex={1} space={2}>
+			<VStack flex={1} space={'$md'}>
 				<Skeleton
 					_light={{
 						startColor: 'coolGray.100',
@@ -91,7 +91,7 @@ export default () => {
 					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
 					w={'full'}
 				/>
-				<VStack rounded='md' px={2} space={2}>
+				<VStack rounded={'$md'} px={'$2'} space={'$md'}>
 					<Skeleton
 						key={uniqueId()}
 						rounded='md'
@@ -123,7 +123,7 @@ export default () => {
 						}}
 					/>
 				</VStack>
-				<HStack rounded='md' px={2} space={2}>
+				<HStack rounded='$md' px={'$2'} space={'$md'}>
 					{[...Array(2)].map((item, index) => {
 						return (
 							<Skeleton
@@ -144,7 +144,7 @@ export default () => {
 						)
 					})}
 				</HStack>
-				<HStack rounded='md' px={2} space={2}>
+				<HStack rounded='$md' px={'$2'} space={'$2'}>
 					{[...Array(2)].map((item, index) => {
 						return (
 							<Skeleton
@@ -185,7 +185,7 @@ export default () => {
 
 	const HandleEmptyUsers = () => {
 		return (
-			<Text textAlign={'center'} fontSize={'2xl'}>
+			<Text textAlign={'center'} fontSize={'$2xl'}>
 				{' '}
 				No users present!
 			</Text>
@@ -203,28 +203,18 @@ export default () => {
 			numColumns={2}
 			showsVerticalScrollIndicator={false}
 			ListHeaderComponent={
-				<VStack mb={5}>
+				<VStack mb={'$5'}>
 					<VenueHeader key={uniqueId()} loading={loading} photos={data.currentVenue?.photos} />
-					<Box
-						key={uniqueId()}
-						_light={{
-							bg: 'light.100',
-						}}
-						_dark={{
-							bg: 'dark.100',
-						}}
-						py={4}
-						borderBottomRadius={'lg'}
-					>
-						<HStack px={2} justifyContent={'space-between'}>
-							<Box>
-								<Heading size={'lg'} fontWeight={'black'} numberOfLines={1}>
+					<Box key={uniqueId()} py={'$4'} borderBottomEndRadius={5}>
+						<HStack px={'$2'} justifyContent={'space-between'}>
+							<VStack space='xs'>
+								<Heading fontSize={'$2xl'} lineHeight={'$xl'} fontWeight={'$black'} numberOfLines={1}>
 									{name}
 								</Heading>
-								<Heading size={'sm'} fontWeight={700} numberOfLines={1}>
+								<Heading fontSize={'$lg'} fontWeight={'$black'} numberOfLines={1}>
 									@{username}
 								</Heading>
-							</Box>
+							</VStack>
 							<IconButton
 								bg={'transparent'}
 								icon={

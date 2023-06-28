@@ -1,7 +1,7 @@
-import { Heading } from '@components/core'
+import { Heading, Text, Box } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { Box, Icon, Text } from 'native-base'
+import { Icon } from 'native-base'
 import { Button, VStack } from 'native-base'
 
 export default function SignupCard() {
@@ -12,15 +12,15 @@ export default function SignupCard() {
 				<Heading
 					textTransform={'uppercase'}
 					lineHeight={'$xs'}
-					fontSize={'lg'}
-					fontWeight={'black'}
-					mt={5}
+					fontSize={'$lg'}
+					fontWeight={'$black'}
+					mt={'$5'}
 				>
 					Sign up, Join, Socialize
 				</Heading>
 				<Text>Also focused on stuff</Text>
 			</VStack>
-			<Box>
+			<Box bg={'transparent'}>
 				<Button
 					p={3.5}
 					onPress={() => {

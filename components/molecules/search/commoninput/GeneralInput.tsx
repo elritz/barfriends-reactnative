@@ -1,9 +1,10 @@
+import { Box, HStack } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useDebounce from '@util/hooks/useDebounce'
 import { useRouter, useSegments } from 'expo-router'
-import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
+import { Icon, IconButton, Input } from 'native-base'
 import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
@@ -56,7 +57,12 @@ const GeneralInput = (props: Props) => {
 	}
 
 	return (
-		<Box h={`${SEARCH_BAR_HEIGHT}px`}>
+		<Box
+			bg={'transparent'}
+			sx={{
+				h: SEARCH_BAR_HEIGHT,
+			}}
+		>
 			<HStack alignItems={'center'}>
 				<IconButton
 					isFocusVisible={false}

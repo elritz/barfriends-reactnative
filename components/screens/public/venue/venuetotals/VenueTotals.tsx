@@ -1,8 +1,7 @@
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Text } from '@components/core'
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
 import { useSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Box, HStack, Text } from 'native-base'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 
@@ -53,45 +52,33 @@ export default function VenueTotals() {
 				flexDirection: 'row',
 				justifyContent: 'space-around',
 			}}
-			mt={3}
-			mx={1}
+			mt={'$3'}
+			mx={'$1'}
 		>
 			{[friends, total, joined].map((item, index) => {
 				return (
 					<Box
 						key={uniqueId()}
-						_light={{
-							bg: item.name !== 'friends' ? 'light.200' : 'primary.600',
-							opacity: loading ? 50 : 100,
-						}}
-						_dark={{
-							bg: item.name !== 'friends' ? 'dark.50' : 'primary.600',
-							opacity: loading ? 50 : 100,
-						}}
-						borderRadius={'xl'}
-						style={{
-							height: 55,
+						sx={{
+							_light: {
+								bg: item.name !== 'friends' ? '$light200' : '$primary500',
+								opacity: loading ? 50 : 100,
+							},
+							_dark: {
+								bg: item.name !== 'friends' ? '$dark50' : '$primary500',
+								opacity: loading ? 50 : 100,
+							},
+							height: 60,
 							width: (width - itemPadding) / 3,
-							alignItems: 'center',
-							justifyContent: 'center',
 						}}
+						rounded={'$xl'}
+						alignItems='center'
+						justifyContent='center'
 					>
-						<Heading
-							numberOfLines={1}
-							allowFontScaling
-							minimumFontScale={0.5}
-							fontSize={'$lg'}
-							lineHeight={'$xs'}
-							style={{ fontWeight: '800', letterSpacing: 0.01 }}
-						>
+						<Heading numberOfLines={1} fontSize={'$3xl'} fontWeight='$black' sx={{ letterSpacing: 0.01 }}>
 							{item.value}
 						</Heading>
-						<Text
-							fontWeight={'black'}
-							lineHeight={'xs'}
-							fontSize={'xs'}
-							style={{ textTransform: 'uppercase' }}
-						>
+						<Text fontWeight={'$black'} lineHeight={'$xs'} fontSize={'$xs'} textTransform='uppercase'>
 							{item.name}
 						</Text>
 					</Box>

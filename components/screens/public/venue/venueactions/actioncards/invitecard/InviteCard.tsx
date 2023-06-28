@@ -1,17 +1,17 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Button,  Icon, IconButton } from 'native-base'
+import { Button, Icon, IconButton } from 'native-base'
 
 export default function InviteCard() {
 	const router = useRouter()
 	const rPermissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 
 	return (
-		<Box w={'full'} alignItems={'center'}>
-			<Box w={'full'} alignItems={'flex-start'}>
+		<Box w={'$full'} alignItems={'center'}>
+			<Box w={'$full'} alignItems={'flex-start'}>
 				<IconButton
 					variant={'solid'}
 					borderRadius={'md'}
@@ -35,7 +35,7 @@ export default function InviteCard() {
 				/>
 			</Box>
 			<Heading
-				mt={3}
+				mt={'$3'}
 				textTransform={'uppercase'}
 				lineHeight={'$xs'}
 				fontSize={'$lg'}

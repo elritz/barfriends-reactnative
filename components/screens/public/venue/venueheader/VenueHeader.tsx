@@ -1,6 +1,7 @@
+import { Box } from '@components/core'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { Photo } from '@graphql/generated'
-import { Box, Image } from 'native-base'
+import { Image } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {
@@ -20,12 +21,6 @@ const VenueHeader = (props: Props) => {
 					height: PUBLIC_VENUE_HEADER_IMAGE_HEIGHT,
 					overflow: 'hidden',
 				}}
-				_light={{
-					bg: 'light.100',
-				}}
-				_dark={{
-					bg: 'dark.100',
-				}}
 			/>
 		)
 	}
@@ -37,12 +32,6 @@ const VenueHeader = (props: Props) => {
 				justifyContent: 'flex-end',
 				height: PUBLIC_VENUE_HEADER_IMAGE_HEIGHT,
 				overflow: 'hidden',
-			}}
-			_light={{
-				bg: 'light.100',
-			}}
-			_dark={{
-				bg: 'dark.100',
 			}}
 		>
 			<Image

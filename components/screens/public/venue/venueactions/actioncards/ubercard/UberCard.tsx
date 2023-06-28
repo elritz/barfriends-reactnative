@@ -1,11 +1,10 @@
 import UberButton from './UberButton'
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { HStack, Heading, Text, VStack } from '@components/core'
 import { UBER_CLIENT_ID_KEY } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Box, Text, VStack } from 'native-base'
 import { useCallback } from 'react'
 import { Alert, Linking } from 'react-native'
 
@@ -50,22 +49,28 @@ export default function UberCard() {
 	}, [urlUber])
 
 	return (
-		<VStack flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
-			<VStack space={1} flex={1} justifyContent={'flex-start'}>
+		<VStack
+			flexDirection={'column'}
+			justifyContent={'space-around'}
+			sx={{
+				h: '100%',
+			}}
+		>
+			<VStack space={'md'} flex={1} justifyContent={'flex-start'}>
 				<Heading
 					textTransform={'uppercase'}
 					lineHeight={'$xs'}
-					fontSize={'lg'}
-					fontWeight={'black'}
-					mt={5}
+					fontSize={'$lg'}
+					fontWeight={'$black'}
+					mt={'$5'}
 				>
 					Request a ride now
 				</Heading>
 				<Text>Focused on safety, wherever you go</Text>
 			</VStack>
-			<Box>
+			<HStack>
 				<UberButton params={params} />
-			</Box>
+			</HStack>
 		</VStack>
 	)
 }
