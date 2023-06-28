@@ -105,7 +105,7 @@ export default () => {
 	}, [isFocused])
 
 	return (
-		<Box flex={1} alignItems='center' flexDirection='column' justifyContent='space-between' mt={10}>
+		<Box flex={1} alignItems='center' flexDirection='column' justifyContent='space-between' mt={'$10'}>
 			<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 				What's your birthday
 			</Heading>
@@ -142,7 +142,7 @@ export default () => {
 					{errors.date && errors.date.type ? errors?.date?.message : null}
 				</Text>
 			</>
-			<Box display={'flex'} flexDirection={'row-reverse'} justifyContent={'space-between'} w={'100%'}>
+			<Box display={'flex'} justifyContent={'center'} alignItems={'center'} w={'100%'} mb={'$5'}>
 				<Box
 					flexDirection={'row'}
 					justifyContent={'space-between'}
@@ -162,8 +162,8 @@ export default () => {
 							borderRadius={'full'}
 							style={{
 								justifyContent: 'center',
-								height: 50,
-								width: 50,
+								height: 60,
+								width: 60,
 								paddingHorizontal: 20,
 								alignSelf: 'center',
 							}}

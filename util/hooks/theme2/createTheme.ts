@@ -1,4 +1,4 @@
-import { Config, config } from '../../../assets/theme/default/gluestack-ui.config';
+import { Config, config } from '../../../gluestack-ui.config';
 import { defaulttheme } from '@assets/theme/default'
 import { DefaultTheme } from '@react-navigation/native';
 import { AuthorizationReactiveVar, IBFSTheme } from '@reactive';

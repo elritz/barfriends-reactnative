@@ -1,9 +1,8 @@
 import { darkCompanyColors, lightCompanyColors } from '../colors'
 import * as colors from '@assets/theme/colors'
 import { bfsCompanyColors } from '@assets/theme/default/barfriends'
-import { DefaultTheme } from 'styled-components/native'
 
-export const LightStyledTheme: DefaultTheme = {
+export const LightStyledTheme = {
 	theme: 'light',
 	palette: {
 		bfscompany: {
@@ -30,7 +29,7 @@ export const LightStyledTheme: DefaultTheme = {
 	},
 } as const
 
-export const DarkStyledTheme: DefaultTheme = {
+export const DarkStyledTheme = {
 	theme: 'dark',
 	palette: {
 		bfscompany: {

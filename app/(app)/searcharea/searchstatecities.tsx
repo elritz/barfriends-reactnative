@@ -13,7 +13,7 @@ import { filter, uniqueId } from 'lodash'
 import { Skeleton } from 'native-base'
 import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(When done save this data to the backend as recent SearchAreas)
 type CityState = {
@@ -209,7 +209,7 @@ export default function SearchAreaStateCities() {
 					keyboardDismissMode='on-drag'
 					estimatedItemSize={50}
 					keyExtractor={(item, index) => {
-						return item.name
+						return uniqueId().toString()
 					}}
 					ListHeaderComponent={() => {
 						return (
@@ -255,7 +255,7 @@ export default function SearchAreaStateCities() {
 								<Box bg={'transparent'}>
 									<Heading>Popular</Heading>
 									{popularCities.map((item, index) => {
-										return <MemoizedItem index={index} item={item} />
+										return <MemoizedItem key={uniqueId()} index={index} item={item} />
 									})}
 								</Box>
 							) : null}
@@ -270,7 +270,7 @@ export default function SearchAreaStateCities() {
 					return <Box my={1} />
 				}}
 				contentInset={{
-					top: top + SEARCH_BAR_HEIGHT + 20,
+					top: top + SEARCH_BAR_HEIGHT,
 					bottom: bottom,
 				}}
 			/>

@@ -50,7 +50,7 @@ export default (props: Props) => {
 				<Button
 					onPress={() =>
 						router.push({
-							pathname: '(app)/credential/personalcredentialstack/getstarted',
+							pathname: '(app)/credential/personalcredentialstack',
 						})
 					}
 					w={'95%'}

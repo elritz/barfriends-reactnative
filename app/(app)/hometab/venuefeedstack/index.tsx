@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, VStack, HStack, Text, Pressable } from '@components/core'
+import { Box, VStack, Text, Pressable, HStack } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'

@@ -5,6 +5,7 @@
 		"allowJs": true,
 		"isolatedModules": true,
 		"noImplicitAny": false,
+		"target": "es5",
 		"rootDirs": ["src", "stories"],
 		"declaration": true,
 		"typeRoots": ["node_modules/@types", "./types/navigation", "./types/*"],
@@ -15,6 +16,7 @@
 		"noEmit": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
+		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true,
 		"strict": true,
 		"baseUrl": "./",
@@ -55,6 +57,6 @@
 				}
 			}
 		],
-		"types": ["jest", "styled-components-react-native"]
+		"types": ["jest"]
 	}
 }

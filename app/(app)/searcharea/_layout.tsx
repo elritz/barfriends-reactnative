@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, VStack } from '@components/core'
 import SearchAreaInput from '@components/molecules/search/searcharea/SearchAreaInput'
 import SearchAreaInputDisabled from '@components/molecules/search/searcharea/SearchAreaInputDisabled'
 import { PlaceType } from '@preferences'
@@ -6,9 +7,10 @@ import { SearchAreaReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
-import { Box, Icon, VStack, useTheme } from 'native-base'
+import { useTheme } from 'native-base'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Platform, StyleSheet } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export type HorizontalCityItemProps = {
 	countryCode: string
@@ -56,6 +58,7 @@ export default function _layout() {
 	const colorScheme = useThemeColorScheme()
 	const theme = useTheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const insets = useSafeAreaInsets()
 
 	const methods = useForm<Form>({
 		defaultValues: {
@@ -75,20 +78,21 @@ export default function _layout() {
 					name={'index'}
 					options={{
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
+								<VStack
+									justifyContent={'flex-end'}
+									pb={'$3'}
+									sx={{
+										pt: insets.top + 5,
+									}}
+								>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
-										<Box
-											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.100' }}
-											style={[StyleSheet.absoluteFill]}
-											flexDirection={'row'}
-										/>
+										<Box style={[StyleSheet.absoluteFill]} flexDirection={'row'} />
 									)}
 									<SearchAreaInputDisabled
 										onPress={() =>
@@ -107,20 +111,21 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
 						},
-						headerTransparent: true,
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
+								<VStack
+									justifyContent={'flex-end'}
+									pb={'$3'}
+									sx={{
+										pt: insets.top + 5,
+									}}
+								>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
-										<Box
-											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.100' }}
-											style={[StyleSheet.absoluteFill]}
-										/>
+										<Box bg='transparent' style={[StyleSheet.absoluteFill]} />
 									)}
 									<SearchAreaInput placeholder='Search country' />
 								</VStack>
@@ -133,20 +138,21 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
 						},
-						headerTransparent: true,
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
+								<VStack
+									justifyContent={'flex-end'}
+									pb={'$3'}
+									sx={{
+										pt: insets.top + 5,
+									}}
+								>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
-										<Box
-											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.100' }}
-											style={[StyleSheet.absoluteFill]}
-										/>
+										<Box style={[StyleSheet.absoluteFill]} />
 									)}
 									<SearchAreaInput placeholder='Search states' />
 								</VStack>
@@ -158,21 +164,22 @@ export default function _layout() {
 					name={'searchstatecities'}
 					options={{
 						animation: 'fade',
-						headerTransparent: true,
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
-								<VStack justifyContent={'flex-end'} safeAreaTop pb={3}>
+								<VStack
+									justifyContent={'flex-end'}
+									pb={'$3'}
+									sx={{
+										pt: insets.top + 5,
+									}}
+								>
 									{Platform.OS === 'ios' ? (
 										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
 									) : (
-										<Box
-											_light={{ bg: 'light.100' }}
-											_dark={{ bg: 'dark.100' }}
-											style={[StyleSheet.absoluteFill]}
-										/>
+										<Box style={[StyleSheet.absoluteFill]} />
 									)}
 									<SearchAreaInput placeholder='Search cities' />
 								</VStack>

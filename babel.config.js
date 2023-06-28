@@ -34,12 +34,6 @@ module.exports = function (api) {
 					},
 				},
 			],
-			[
-				'babel-plugin-styled-components',
-				{
-					pure: true,
-				},
-			],
 			'react-native-reanimated/plugin',
 		],
 	}

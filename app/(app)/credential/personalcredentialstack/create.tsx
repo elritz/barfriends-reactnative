@@ -10,6 +10,7 @@ import {
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { Icon, IconButton } from 'native-base'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default () => {
 	const router = useRouter()
@@ -63,32 +64,35 @@ export default () => {
 	}
 
 	return (
-		<VStack justifyContent={'space-between'} h={'$full'} alignItems='center' mx={'$4'}>
-			<VStack space={'md'} alignItems={'center'} justifyContent={'center'}>
-				<CompanyCoasterLogoDynamic backgroundColor='black' />
-				<Heading fontWeight={'$black'} fontSize={'$4xl'}>
-					Welcome to Bfs
-				</Heading>
-				<Box rounded={'$md'}>
-					<Text fontSize={'$lg'}>
-						We are those we hang around. If you're not feeling it find and make new friends. We can enrich
-						your experience doing that.
-					</Text>
-				</Box>
+		<SafeAreaView style={{ flex: 1 }}>
+			<VStack justifyContent={'space-between'} flex={1} alignItems='center' mx={'$4'}>
+				<Box bg='transparent' />
+				<VStack  space={'md'} alignItems={'center'} justifyContent={'center'}>
+					<CompanyCoasterLogoDynamic backgroundColor='black' />
+					<Heading fontWeight={'$black'} lineHeight={'$3xl'} fontSize={'$4xl'}>
+						Welcome to Bfs
+					</Heading>
+					<Box bg='transparent'>
+						<Text fontSize={'$lg'}>
+							We are those we hang around. If you're not feeling it find and make new friends. We can
+							enrich your experience doing that.
+						</Text>
+					</Box>
+				</VStack>
+				<IconButton
+					bg={'primary.500'}
+					onPress={() => onSubmit()}
+					alignSelf={'center'}
+					isDisabled={CPPLoading || SDPLoading}
+					icon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
+					variant={'solid'}
+					size={'lg'}
+					borderRadius={'full'}
+					h={'60px'}
+					w={'60px'}
+					fontSize={'lg'}
+				/>
 			</VStack>
-			<IconButton
-				bg={'primary.500'}
-				onPress={() => onSubmit()}
-				alignSelf={'center'}
-				isDisabled={CPPLoading || SDPLoading}
-				icon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
-				variant={'solid'}
-				size={'lg'}
-				borderRadius={'full'}
-				h={'50px'}
-				w={'50px'}
-				fontSize={'lg'}
-			/>
-		</VStack>
+		</SafeAreaView>
 	)
 }

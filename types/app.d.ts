@@ -265,36 +265,9 @@ export type PersonalCredentialStackNavProps = CompositeNavigationProp<
 	MaterialTopTabNavigationProp<SettingsStackParamList, 'TermsServicePrivacyTabStack'>
 >
 
-/**
- * ? NavigatorType
- * Are the navigators for the entire application
- * Only able to render one of these at a time
- * AppContext is how to switch between navigators
- *
- * * CLIENT ONLY
- */
-
-/**
- * ? ProfileType
- * Is the shape of Profiles saved in SecureStorage on the client
- *
- * * CLIENT ONLY
- *
- * ? AuthorizedCredentialType
- * The client is able to store multiple Profiles
- *
- * * CLIENT ONLY
- *
- */
-
 export type Error = {
 	error: string
 	message: string
-}
-
-export type MeType = {
-	activeProfile?: Maybe<ProfileTokenType> | undefined
-	profile?: Maybe<Profile> | undefined
 }
 
 export type Phone = {
@@ -313,21 +286,6 @@ export type Code = {
 	email: string
 }
 
-export type ProfileType = {
-	isActive?: boolean | undefined
-	profileType?: string | number | undefined
-	username?: string | undefined
-	authorizationToken?: string | undefined
-	refreshToken?: string | undefined
-}
-
-export type ProfileTokenType = {
-	isActive?: boolean | undefined
-	profileType?: string | number | undefined
-	username?: string | undefined
-	authorizationToken?: string | undefined
-	refreshToken?: string | undefined
-}
 
 export type AuthorizationDeviceManager = {
 	id: string
@@ -335,81 +293,4 @@ export type AuthorizationDeviceManager = {
 	createdAt?: Date
 	updatedAt?: Date
 	DeviceProfile: DeviceProfile
-}
-
-// Managing Service types
-
-export type Device = {
-	id: string
-	deviceManagerId: number
-	deviceType: string | null
-	createdAt: Date
-	updatedAt: Date
-}
-
-export type DeviceProfile = {
-	id: number
-	AppType: AppType | null
-	deviceManagerId: string
-	isActive: boolean
-	profileId: string
-	Profile: Profile
-	accesstoken: string
-	refreshtoken: string
-}
-
-export type Profile = {
-	id: string
-}
-
-export type ProfileListRenderType = {
-	index: number
-	item: Personal | Venue
-}
-
-export type ItemRenderType<T> = {
-	onPress?: (item: T) => void
-	loading?: boolean
-	item: T
-	index: number
-}
-
-export type AuthorizedCredentialType = {
-	profiles: ProfileType[]
-}
-
-export type Maybe<T> = T | null
-
-export interface UpdateActiveProfilesProp {
-	values: ProfileType
-}
-export interface CheckProfileIdProp {
-	username: string
-}
-
-export interface AddSetActiveProfileProp {
-	username?: string | null
-}
-
-export type ReturnProfileAuthentication = {
-	success: boolean
-}
-
-export type ReturnActiveProfile = {
-	error: Maybe<string>
-	data: Maybe<ProfileType>
-}
-
-export interface AuthorizationToken {
-	profiles: Maybe<ProfileType[]>
-}
-
-export type ReturnParseTokenAuthorization = {
-	error: Maybe<string>
-	data: Maybe<AuthorizationToken>
-	activeprofile: Maybe<ProfileType> | undefined
-}
-
-interface IFinishedCallback {
-	(): void
 }

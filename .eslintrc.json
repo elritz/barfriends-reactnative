@@ -23,15 +23,7 @@
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
-	"plugins": [
-		"react",
-		"react-native",
-		"react-hooks",
-		"@typescript-eslint",
-		"prettier",
-		"import",
-		"better-styled-components"
-	],
+	"plugins": ["react", "react-native", "react-hooks", "@typescript-eslint", "prettier", "import"],
 	"rules": {
 		"react/jsx-uses-react": [true, 2],
 		"react/react-in-jsx-scope": "off",
@@ -65,8 +57,7 @@
 					"warnOnUnassignedImports": true
 				}
 			}
-		],
-		"better-styled-components/sort-declarations-alphabetically": 2
+		]
 	},
 	"settings": {
 		"react": {

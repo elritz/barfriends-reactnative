@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
+import { Icon } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default () => {
@@ -35,6 +36,7 @@ export default () => {
 	return (
 		<SafeAreaView>
 			<VStack justifyContent={'space-between'} h={'$full'} alignItems='center' mx={'$4'}>
+				<Box />
 				<Box bg='transparent' justifyContent={'center'}>
 					<CompanyCoasterLogoDynamic backgroundColor='black' />
 					<Heading
@@ -71,7 +73,7 @@ export default () => {
 						h={60}
 						w={60}
 					>
-						<Button.Icon color='$white' as={Feather} name='arrow-right' />
+						<Icon color='white' as={Feather} name='arrow-right' size={'lg'} />
 					</Button>
 				</>
 			</VStack>
