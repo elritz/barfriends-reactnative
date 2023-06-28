@@ -276,7 +276,7 @@ export default () => {
 				renderItem={({ item, index, columnIndex }) => (
 					<MemoizedVerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
 				)}
-				ItemSeparatorComponent={() => <Box h={'$12'} />}
+				ItemSeparatorComponent={() => <Box bg={'transparent'} h={'$12'} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={ListheaderComponent}
 				ListFooterComponent={listFooterComponent}

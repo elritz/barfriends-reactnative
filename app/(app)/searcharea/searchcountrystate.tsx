@@ -147,7 +147,7 @@ export default function SearchAreaCountryStates() {
 									<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$md'} numberOfLines={1}>
 										{item.venuesInArea}
 									</Text>
-									<Text textAlign={'center'} fontWeight={'light'} fontSize={'$sm'} numberOfLines={1}>
+									<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$sm'} numberOfLines={1}>
 										Venues
 									</Text>
 								</VStack>

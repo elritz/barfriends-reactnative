@@ -1,5 +1,6 @@
 // TODO: UX() location icon when searchArea is using Currently Location over preset
 import { useReactiveVar } from '@apollo/client'
+import { Box, HStack, Pressable, Text, VStack } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
@@ -9,7 +10,7 @@ import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as IntentLauncher from 'expo-intent-launcher'
-import { Pressable, HStack, Icon, IconButton, Text, VStack, Box } from 'native-base'
+import { Icon } from 'native-base'
 import { Alert, Linking, Platform } from 'react-native'
 
 const SearchAreaLocationPermissionItem = () => {
@@ -45,7 +46,7 @@ const SearchAreaLocationPermissionItem = () => {
 	}
 
 	return (
-		<VStack>
+		<Box>
 			<Pressable
 				onPress={async () => {
 					!rSearchAreaVar?.useCurrentLocation
@@ -64,42 +65,46 @@ const SearchAreaLocationPermissionItem = () => {
 				{({ isHovered, isFocused, isPressed }) => {
 					return (
 						<HStack
-							rounded={'md'}
-							_light={{
-								bg: isPressed
-									? '#ffffff40'
-									: rSearchAreaVar?.useCurrentLocation
-									? 'light.300'
-									: 'light.300',
+							rounded={'$md'}
+							sx={{
+								_light: {
+									bg: isPressed
+										? '#ffffff40'
+										: rSearchAreaVar?.useCurrentLocation
+										? 'light.300'
+										: 'light.300',
+								},
+								_dark: {
+									bg: isPressed ? '#00000040' : rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
+								},
 							}}
-							_dark={{
-								bg: isPressed ? '#00000040' : rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
-							}}
-							p={3}
+							p={'$3'}
 							justifyContent={'space-between'}
 						>
 							<Text
 								textAlign={'left'}
-								fontWeight={'medium'}
-								fontSize={'lg'}
+								fontWeight={'$medium'}
+								fontSize={'$lg'}
 								ellipsizeMode={'tail'}
 								alignSelf={'center'}
-								color={colorScheme === 'light' ? 'black' : 'white'}
+								color={colorScheme === 'light' ? '$black' : '$white'}
 							>
 								{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 							</Text>
 							<Box
-								h={'35px'}
-								w={'35px'}
+								sx={{
+									h: 35,
+									w: 35,
+									_light: {
+										bg: rSearchAreaVar?.useCurrentLocation ? '$blue400' : '$light200',
+									},
+									_dark: {
+										bg: rSearchAreaVar?.useCurrentLocation ? '$blue400' : '$light500',
+									},
+								}}
 								alignItems={'center'}
 								justifyContent={'center'}
-								rounded={'full'}
-								_light={{
-									bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.200',
-								}}
-								_dark={{
-									bg: rSearchAreaVar?.useCurrentLocation ? 'blue.400' : 'light.500',
-								}}
+								rounded={'$full'}
 							>
 								<Icon
 									size={'sm'}
@@ -118,7 +123,7 @@ const SearchAreaLocationPermissionItem = () => {
 					)
 				}}
 			</Pressable>
-		</VStack>
+		</Box>
 	)
 }
 
