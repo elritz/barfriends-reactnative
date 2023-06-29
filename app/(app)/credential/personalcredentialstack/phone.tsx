@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading, Text, Pressable, VStack } from '@components/core'
+import { Heading, Text, Pressable, VStack, Box } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
@@ -149,6 +149,7 @@ export default () => {
 				display={isFocused ? 'flex' : 'none'}
 				flexDirection={'row'}
 				justifyContent={'flex-end'}
+				alignItems='center'
 				alignContent={'space-around'}
 				px={'$2'}
 				sx={{
@@ -172,28 +173,28 @@ export default () => {
 						By continuing you may receive an SMS for verification. Message and data rates may apply.
 					</Text>
 				</VStack>
-				<IconButton
-					disabled={!!errors?.mobileNumber?.completeNumber}
+
+				<Pressable
+					disabled={!!errors.mobileNumber?.completeNumber || loading}
 					onPress={handleSubmit(onSubmit)}
-					variant={'solid'}
-					color={'primary.500'}
-					isDisabled={!!errors.mobileNumber?.completeNumber || loading}
-					borderRadius={'full'}
-					style={{
-						justifyContent: 'center',
-						height: 50,
-						width: 50,
-						alignSelf: 'center',
-					}}
-					icon={
-						<Icon
-							as={Feather}
+				>
+					<Box
+						alignItems='center'
+						justifyContent='center'
+						sx={{
+							h: 50,
+							w: 50,
+						}}
+						rounded={'$full'}
+						bg='$primary500'
+					>
+						<Feather
 							name='arrow-right'
-							size={'lg'}
-							color={errors?.mobileNumber?.completeNumber ? 'primary.700' : 'white'}
+							size={32}
+							color={errors?.mobileNumber?.completeNumber ? '#292524' : 'white'}
 						/>
-					}
-				/>
+					</Box>
+				</Pressable>
 			</VStack>
 		)
 	}

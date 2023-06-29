@@ -2066,11 +2066,11 @@
     normalize-css-color "^1.0.2"
 
 "@gluestack-ui/button@latest":
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/button/-/button-0.1.18.tgz#e7ffe81a2e2ba664b857c334a38c5fb3a687a97f"
-  integrity sha512-iNdYBL8zKllMxTmNfBSzI35jBLpC7yPQloUo+T2MB+4PfcWv/vQrFvihURA3/418CsCMhCTxl2NXTvyCIGo2gQ==
+  version "0.1.20"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/button/-/button-0.1.20.tgz#a4f842dfb6169032a2cf6d0b66fc0037b5ea999b"
+  integrity sha512-sP/zxHMunMOo2E6NTa9TSuXT8XATG2GRtHuSSZKGEtxyU/tHXDlXYijJy0e0Se6gkXESqTRgdZIdlRTOSbyrFA==
   dependencies:
-    "@gluestack-ui/utils" "0.1.5"
+    "@gluestack-ui/utils" "0.1.6"
     "@react-native-aria/focus" "^0.2.8"
     "@react-native-aria/interactions" "^0.2.10"
 
@@ -2095,12 +2095,12 @@
     "@react-native-aria/focus" "^0.2.7"
     react-native-svg "13.4.0"
 
-"@gluestack-ui/hstack@0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/hstack/-/hstack-0.1.6.tgz#d4f8bdddc79f2c45072bbc46d33777df770338b0"
-  integrity sha512-+n0Lf3FM/OnH7lbW+g+9Jf3ETuIY82O3k8kHfe2BotijdWc3fUkI+IYaNjveZG81FhkbBKipP9kUPCEnq1Pppg==
+"@gluestack-ui/hstack@latest":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/hstack/-/hstack-0.1.8.tgz#c705d1c5b821883c6502d0b3d8c9ca78600979be"
+  integrity sha512-Si/aAG/a4B8pALWAD8rmbFLutADaXc69X7XJcNLtqElz+L/Skj3aWREVuzUwNnHQf0SyEuQ1nB5sYyniR5DstA==
   dependencies:
-    "@gluestack-ui/utils" "^0.1.3"
+    "@gluestack-ui/utils" "^0.1.6"
 
 "@gluestack-ui/icon@latest":
   version "0.1.5"
@@ -2132,12 +2132,12 @@
     "@react-native-aria/interactions" "^0.2.10"
     "@react-native-aria/overlays" "^0.3.7"
 
-"@gluestack-ui/pressable@0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/pressable/-/pressable-0.1.5.tgz#a22bb93f85b30c001841de7f8affe6aab99bf514"
-  integrity sha512-9zRhzPU1nRirdomUxIcrI3ZD/zFnS4rRsNZXAEhqNReZzwd5DcS3f4L2CgTpc+vAYm963ooEeLhAT8eO9NYnFA==
+"@gluestack-ui/pressable@latest":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/pressable/-/pressable-0.1.9.tgz#f9333e51202543bcfde214bba5607ca9b233a26f"
+  integrity sha512-hWWJ+7z0g/P2nbxDr60JBnHIA676oTg7EG1FfEgd25gvyWzVJ+JjObhrxHb4V4ILK7RkaQeB1K+esAl2bSBytA==
   dependencies:
-    "@gluestack-ui/utils" "^0.1.3"
+    "@gluestack-ui/utils" "^0.1.6"
     "@react-native-aria/focus" "^0.2.8"
     "@react-native-aria/interactions" "^0.2.10"
 
@@ -2205,7 +2205,15 @@
     "@react-native-aria/focus" "^0.2.7"
     react-native-svg "13.4.0"
 
-"@gluestack-ui/utils@0.1.5", "@gluestack-ui/utils@^0.1.3", "@gluestack-ui/utils@^0.1.5":
+"@gluestack-ui/utils@0.1.6", "@gluestack-ui/utils@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/utils/-/utils-0.1.6.tgz#b6aaba1cae1e80b150da7ca02c95e20b1450bc1d"
+  integrity sha512-1Cxk7Wv3ftzZQgNu3sDBA4+fFNmPoauyCOCc0IVTn0z4DYBbAwyg4kmZozf/7XqouY7k6zs6dQG65twdeUlwzA==
+  dependencies:
+    "@react-native-aria/focus" "^0.2.7"
+    react-native-svg "13.4.0"
+
+"@gluestack-ui/utils@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@gluestack-ui/utils/-/utils-0.1.5.tgz#77df98828d5a5ae3ae3cb9624f1c02206fceaf6a"
   integrity sha512-vrrwG5OOKs1O8LhFuX+1jVCjELimhNtDcB7nMaDFGphWt/LaXUIUowpipYEgVvVTsLljPubmJcqiK2vs+qo6Rw==
@@ -2213,12 +2221,12 @@
     "@react-native-aria/focus" "^0.2.7"
     react-native-svg "13.4.0"
 
-"@gluestack-ui/vstack@0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/vstack/-/vstack-0.1.7.tgz#f5dfcdd0c1f4d4d0cccb78e62764b56bd63c6592"
-  integrity sha512-r1Vlh0Wa/+wh64LYnd3yk28ux4bIzX0QXwg4WBrBCmOlKk+Xq7t7EXDlKflFL/+EpuJPuI3L7XldEtTbv1QNlA==
+"@gluestack-ui/vstack@latest":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/vstack/-/vstack-0.1.9.tgz#1e01e50dc97e6e6776974d7bc00280ab41f3523f"
+  integrity sha512-5GGqVRU3cfODZeDGOvm45Hyg7vz5e13WMDCK9av1rvjSiq268PqCfSJ+JIYA/kez4DBJfVBBnJjF7VzeJIR0mw==
   dependencies:
-    "@gluestack-ui/utils" "^0.1.3"
+    "@gluestack-ui/utils" "^0.1.5"
 
 "@graphql-codegen/cli@2.13.11":
   version "2.13.11"

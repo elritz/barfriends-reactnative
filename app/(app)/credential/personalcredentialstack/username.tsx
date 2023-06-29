@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Text } from '@components/core'
+import { Box, Heading, Pressable, Text } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, Input, useTheme, Icon } from 'native-base'
+import { Input } from 'native-base'
 import { useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
@@ -22,7 +22,6 @@ export default () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const _usernameRef = useRef<TextInput>(null)
 	const colorScheme = useThemeColorScheme()
-	const theme = useTheme()
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
@@ -117,26 +116,20 @@ export default () => {
 						justifyContent: 'space-around',
 					}}
 				>
-					<Button
-						onPress={handleSubmit(onSubmit)}
-						isDisabled={!!errors.username}
-						borderRadius={'full'}
-						style={{
-							justifyContent: 'center',
-							height: 50,
-							width: 50,
-							paddingHorizontal: 20,
-							alignSelf: 'center',
-						}}
-						rightIcon={
-							<Icon
-								as={Feather}
-								name='arrow-right'
-								size={'xl'}
-								color={errors.username ? 'primary.700' : 'white'}
-							/>
-						}
-					/>
+					<Pressable disabled={!!errors.username || CULoading} onPress={handleSubmit(onSubmit)}>
+						<Box
+							alignItems='center'
+							justifyContent='center'
+							sx={{
+								h: 50,
+								w: 50,
+							}}
+							rounded={'$full'}
+							bg='$primary500'
+						>
+							<Feather name='arrow-right' size={32} color={errors?.username ? '#292524' : 'white'} />
+						</Box>
+					</Pressable>
 				</Box>
 			</Box>
 		)
@@ -145,18 +138,16 @@ export default () => {
 		return (
 			<Box
 				sx={{
-					h: 35,
 					w: 35,
 				}}
 				justifyContent={'center'}
 				alignItems={'center'}
 			>
 				{values.username.length && CUData?.checkUsername ? (
-					<Icon
-						as={Ionicons}
+					<Ionicons
 						name='checkmark-circle'
-						size={'lg'}
-						color={errors.username || !CUData?.checkUsername ? 'error.600' : 'success.700'}
+						size={20}
+						color={errors.username || !CUData?.checkUsername ? '#ef4444' : '#ff7000'}
 					/>
 				) : null}
 			</Box>

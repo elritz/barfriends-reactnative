@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading, Text, Pressable, VStack } from '@components/core'
+import { Heading, Text, Pressable, VStack, Box } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
@@ -120,6 +120,7 @@ export default () => {
 			<VStack
 				display={isFocused ? 'flex' : 'none'}
 				flexDirection={'row'}
+				alignItems='center'
 				justifyContent={'flex-end'}
 				alignContent={'space-around'}
 				px={'$2'}
@@ -144,28 +145,20 @@ export default () => {
 						By continuing you may receive an SMS for verification. Message and data rates may apply.
 					</Text>
 				</VStack>
-				<IconButton
-					disabled={!!errors?.email}
-					onPress={handleSubmit(onSubmit)}
-					variant={'solid'}
-					color={'primary.500'}
-					isDisabled={!!errors.email || loading}
-					borderRadius={'full'}
-					style={{
-						justifyContent: 'center',
-						height: 50,
-						width: 50,
-						alignSelf: 'center',
-					}}
-					icon={
-						<Icon
-							as={Feather}
-							name='arrow-right'
-							size={'lg'}
-							color={errors?.email ? 'primary.700' : 'white'}
-						/>
-					}
-				/>
+				<Pressable disabled={!!errors.email || loading} onPress={handleSubmit(onSubmit)}>
+					<Box
+						alignItems='center'
+						justifyContent='center'
+						sx={{
+							h: 50,
+							w: 50,
+						}}
+						rounded={'$full'}
+						bg='$primary500'
+					>
+						<Feather name='arrow-right' size={32} color={errors.email ? '#292524' : 'white'} />
+					</Box>
+				</Pressable>
 			</VStack>
 		)
 	}

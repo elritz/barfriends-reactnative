@@ -1,35 +1,29 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Heading, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import {  Button, Icon, Text, Box, VStack } from 'native-base'
+import { Button, Icon } from 'native-base'
 
 export const FriendsListEmptyState = () => {
 	const router = useRouter()
 	const permissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 	return (
 		<VStack
-			space={3}
-			my={5}
-			py={5}
+			space={'$3'}
+			my={'$5'}
+			py={'$5'}
 			justifyContent={'center'}
 			alignItems={'center'}
-			borderRadius={'md'}
-			_light={{
-				bg: 'light.100',
-			}}
-			_dark={{
-				bg: 'dark.100',
-			}}
+			rounded={'$md'}
 		>
-			<Box mb={2} alignItems={'center'}>
-				<Text fontSize={'lg'} fontWeight={'bold'}>
+			<Box mb={'$2'} alignItems={'center'}>
+				<Text fontSize={'$lg'} fontWeight={'$bold'}>
 					No barfriends
 				</Text>
-				<Heading fontSize={'2xl'}>Find your friends below</Heading>
+				<Heading fontSize={'$2xl'}>Find your friends below</Heading>
 			</Box>
-			<VStack space={3} w={'full'} alignItems={'center'}>
+			<VStack space={'$3'} w={'$full'} alignItems={'center'}>
 				<Button
 					_text={{
 						fontSize: 'lg',

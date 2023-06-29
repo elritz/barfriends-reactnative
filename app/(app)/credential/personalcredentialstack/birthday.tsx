@@ -1,13 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
-import { Box, Heading, Text, VStack } from '@components/core'
+import { Box, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { useRouter } from 'expo-router'
-import { IconButton, Icon } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
@@ -105,7 +104,13 @@ export default () => {
 	}, [isFocused])
 
 	return (
-		<Box flex={1} alignItems='center' flexDirection='column' justifyContent='space-between' mt={'$10'}>
+		<Box
+			flex={1}
+			alignItems='center'
+			flexDirection='column'
+			justifyContent='space-between'
+			mt={'$10'}
+		>
 			<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 				What's your birthday
 			</Heading>
@@ -153,29 +158,20 @@ export default () => {
 					}}
 				>
 					<VStack justifyContent={'space-around'}>
-						<IconButton
-							disabled={!!errors.date}
-							onPress={handleSubmit(onSubmit)}
-							variant={'solid'}
-							color={'primary.500'}
-							isDisabled={!!errors.date}
-							borderRadius={'full'}
-							style={{
-								justifyContent: 'center',
-								height: 60,
-								width: 60,
-								paddingHorizontal: 20,
-								alignSelf: 'center',
-							}}
-							icon={
-								<Icon
-									as={Feather}
-									name='arrow-right'
-									size={'xl'}
-									color={errors.date ? 'light.800' : 'white'}
-								/>
-							}
-						/>
+						<Pressable disabled={!!errors.date} onPress={handleSubmit(onSubmit)}>
+							<Box
+								alignItems='center'
+								justifyContent='center'
+								sx={{
+									h: 60,
+									w: 60,
+								}}
+								rounded={'$full'}
+								bg='$primary500'
+							>
+								<Feather name='arrow-right' size={32} color={errors?.date ? '#292524' : 'white'} />
+							</Box>
+						</Pressable>
 					</VStack>
 				</Box>
 			</Box>

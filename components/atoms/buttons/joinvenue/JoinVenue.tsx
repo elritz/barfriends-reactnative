@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button, Text } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -8,8 +9,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Button } from 'native-base'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function JoinVenue() {
 	const params = useSearchParams()
@@ -81,23 +81,17 @@ export default function JoinVenue() {
 
 	return (
 		<Button
-			isLoading={JVLoading}
 			onPress={() => {
 				addPersonalJoinVenueMutation()
 			}}
-			h={'45px'}
-			isDisabled={isJoined}
-			width={'full'}
-			isLoadingText={'Joining'}
-			colorScheme={'primary'}
-			borderRadius={'md'}
-			textAlign={'center'}
-			_text={{
-				fontWeight: '700',
-				fontSize: 'md',
+			sx={{
+				h: 45,
 			}}
+			isDisabled={isJoined}
+			width={'$full'}
+			rounded={'$md'}
 		>
-			Join
+			<Text>{JVLoading ? 'Joining' : 'Join'}</Text>
 		</Button>
 	)
 }

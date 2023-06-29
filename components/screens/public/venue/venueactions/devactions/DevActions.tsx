@@ -16,7 +16,7 @@ export default function DevActions() {
 							setShowDevMode(!showDevMode)
 						}}
 					>
-						<Box>
+						<>
 							<Heading
 								fontSize={'$lg'}
 								fontWeight={'$800'}
@@ -31,7 +31,7 @@ export default function DevActions() {
 							<Text fontSize={'$md'} mx={'$2'} textAlign={'center'}>
 								This section is for quick actions that we may need for testing! As developers!
 							</Text>
-						</Box>
+						</>
 					</Pressable>
 					<VStack>
 						<HStack space={'md'} pt={'$2'} pb={'$2'} mx={'$3'} justifyContent={'space-around'}>

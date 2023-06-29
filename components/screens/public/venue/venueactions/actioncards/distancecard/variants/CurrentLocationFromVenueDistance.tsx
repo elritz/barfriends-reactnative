@@ -2,7 +2,7 @@
 import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Heading } from '@components/core'
 import { FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
@@ -18,7 +18,7 @@ import { useSearchParams } from 'expo-router'
 import { getDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { MotiView } from 'moti'
-import { Box, Button, Icon, Text, View, useDisclose, useTheme } from 'native-base'
+import { Button, Icon, useDisclose, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
@@ -241,7 +241,8 @@ const CurrentLocationFromVenueDistance = () => {
 			) : (
 				<>
 					{loading || !data || isLoading ? (
-						<View
+						<Box
+							bg={'transparent'}
 							style={[
 								styles.dot,
 								{
@@ -288,9 +289,9 @@ const CurrentLocationFromVenueDistance = () => {
 								as={MaterialIcons}
 								alignSelf={'center'}
 							/>
-						</View>
+						</Box>
 					) : (
-						<Box height={'100%'} justifyContent={'center'} mb={5}>
+						<Box height={'100%'} justifyContent={'center'} mb={'$5'}>
 							<Heading
 								textAlign={'center'}
 								textTransform={'uppercase'}
@@ -301,7 +302,7 @@ const CurrentLocationFromVenueDistance = () => {
 								{metric === 'km' ? `In your area` : `You're super close!`}
 							</Heading>
 
-							<Box paddingBottom={1} alignSelf={'center'} flexDirection={'row'}>
+							<Box pb={'$1'} alignSelf={'center'} flexDirection={'row'}>
 								<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
 								<Heading fontWeight={'$black'}>
 									{distance}&nbsp;{metric}

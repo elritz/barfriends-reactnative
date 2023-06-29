@@ -1,12 +1,11 @@
 // TODO: FN(onPress(Resend Code)) - ln:162 -- when the user presses resend code need to resend and keep track of how many times
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import Countdown from '@util/hooks/useTimer'
 import { useRouter, useSearchParams } from 'expo-router'
-import { IconButton, Icon, Box, Text, VStack, Button, useDisclose } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -112,39 +111,33 @@ export default () => {
 		return (
 			<Box
 				display={isFocused ? 'flex' : 'none'}
-				_light={{
-					bg: 'light.200',
-				}}
-				_dark={{
-					bg: 'dark.200',
-				}}
-				flexDir={'row'}
+				flexDirection={'row'}
 				justifyContent={'space-between'}
 				alignContent={'space-around'}
-				h={'90px'}
-				px={'2.5%'}
+				sx={{
+					h: 90,
+				}}
+				px={'$2'}
 			>
 				<Box justifyContent={'space-around'}>
 					{complete ? (
-						<VStack space={0} justifyContent={'space-around'}>
+						<VStack space={'sm'} justifyContent={'space-around'}>
 							<Button
-								variant={'ghost'}
+								variant={'link'}
 								size={'xs'}
-								_text={{ fontSize: 'lg' }}
 								justifyContent={'flex-start'}
 								// onPress={() => navigation.goBack()}
 							>
 								{/* <Text fontSize={'lg'}>Resend code</Text> */}
-								Resend code
+								<Text>Resend code</Text>
 							</Button>
 							<Button
-								variant={'ghost'}
-								_text={{ fontSize: 'lg' }}
+								variant={'link'}
 								size={'xs'}
 								justifyContent={'flex-start'}
-								// onPress={() => navigation.goBack()}
+								onPress={() => router.back()}
 							>
-								Update phone number
+								<Text>Update phone number</Text>
 							</Button>
 						</VStack>
 					) : (
@@ -155,28 +148,20 @@ export default () => {
 					)}
 				</Box>
 				<VStack justifyContent={'space-around'}>
-					<IconButton
-						disabled={!!errors.code}
-						onPress={handleSubmit(onSubmit)}
-						variant={'solid'}
-						color={'primary.500'}
-						isDisabled={!!errors.code}
-						borderRadius={'full'}
-						style={{
-							justifyContent: 'center',
-							height: 50,
-							width: 50,
-							alignSelf: 'center',
-						}}
-						icon={
-							<Icon
-								as={Feather}
-								name='arrow-right'
-								size={'xl'}
-								color={errors.code ? 'light.800' : 'white'}
-							/>
-						}
-					/>
+					<Pressable disabled={!!errors.code} onPress={handleSubmit(onSubmit)}>
+						<Box
+							alignItems='center'
+							justifyContent='center'
+							sx={{
+								h: 50,
+								w: 50,
+							}}
+							rounded={'$full'}
+							bg='$primary500'
+						>
+							<Feather name='arrow-right' size={32} color={errors?.code ? '#292524' : 'white'} />
+						</Box>
+					</Pressable>
 				</VStack>
 			</Box>
 		)
@@ -218,12 +203,14 @@ export default () => {
 								renderCell={({ index, symbol, isFocused }) => (
 									<Box
 										key={index}
-										w={'50px'}
-										h={'60px'}
+										sx={{
+											w: 50,
+											h: 60,
+										}}
 										justifyContent={'center'}
 										alignItems={'center'}
 										borderBottomColor={!isFocused ? '#ccc' : '#007AFF'}
-										borderBottomWidth={isFocused ? '2px' : '1px'}
+										borderBottomWidth={isFocused ? '$2' : '$1'}
 										onLayout={getCellOnLayoutHandler(index)}
 									>
 										<Heading color={'$primary500'} fontSize={'$3xl'}>

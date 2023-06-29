@@ -50,6 +50,7 @@ export default function UberButton({ params }) {
 		<Button
 			size={'lg'}
 			bg={'black'}
+			w={'full'}
 			p={3.5}
 			onPress={() => {
 				!params.profileid ||

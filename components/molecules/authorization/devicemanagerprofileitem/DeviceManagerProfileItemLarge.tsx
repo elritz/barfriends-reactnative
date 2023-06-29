@@ -1,7 +1,7 @@
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Text, VStack } from '@components/core'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Box, Center, HStack, Icon, Image, Text, VStack } from 'native-base'
+import { Center, Icon, Image } from 'native-base'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {
@@ -13,20 +13,14 @@ type ProfileItemType = {
 const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemType) => {
 	return (
 		<Box
-			_light={{
-				bg: 'light.200',
-			}}
-			_dark={{
-				bg: 'dark.200',
-			}}
 			key={item?.id}
 			flex={1}
-			flexDir={'row'}
-			my={2}
+			flexDirection={'row'}
 			w={'100%'}
-			py={3}
-			px={3}
-			borderRadius={'md'}
+			my={'$2'}
+			py={'$3'}
+			px={'$3'}
+			rounded={'$md'}
 			alignItems={'center'}
 			justifyContent={'space-between'}
 		>
@@ -40,17 +34,18 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 					/>
 				) : (
 					<Box
-						w={'40px'}
-						h={'40px'}
-						_light={{
-							bg: 'light.100',
+						sx={{
+							w: 40,
+							h: 40,
 						}}
-						_dark={{
-							bg: 'dark.100',
-						}}
-						borderRadius={'md'}
+						rounded={'$md'}
 					>
-						<Box h={'100%'} justifyContent={'center'}>
+						<Box
+							sx={{
+								h: '100%',
+							}}
+							justifyContent={'center'}
+						>
 							<Center>
 								<Icon
 									_light={{
@@ -67,8 +62,8 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 						</Box>
 					</Box>
 				)}
-				<VStack mx={2}>
-					<Text fontSize={'lg'} numberOfLines={1} isTruncated>
+				<VStack mx={'$2'}>
+					<Text fontSize={'$lg'} numberOfLines={1}>
 						{item?.IdentifiableInformation?.fullname}
 					</Text>
 					<Heading fontSize={'$sm'}>{item?.IdentifiableInformation?.username}</Heading>

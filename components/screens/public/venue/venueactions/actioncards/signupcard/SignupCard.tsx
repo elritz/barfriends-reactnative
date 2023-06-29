@@ -1,14 +1,13 @@
-import { Heading, Text, Box } from '@components/core'
+import { Heading, Text, Box, Button, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { Icon } from 'native-base'
-import { Button, VStack } from 'native-base'
 
 export default function SignupCard() {
 	const router = useRouter()
 	return (
 		<VStack flexDirection={'column'} justifyContent={'space-around'} height={'100%'}>
-			<VStack space={1} flex={1} justifyContent={'flex-start'}>
+			<VStack space={'md'} flex={1} justifyContent={'flex-start'}>
 				<Heading
 					textTransform={'uppercase'}
 					lineHeight={'$xs'}
@@ -23,14 +22,15 @@ export default function SignupCard() {
 			<Box bg={'transparent'}>
 				<Button
 					p={3.5}
+					w={'$full'}
 					onPress={() => {
 						router.push({ pathname: '(app)/credential/personalcredentialstack/getstarted' })
 					}}
 					size={'lg'}
-					bg={'primary.600'}
-					rightIcon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
+					bg={'$primary600'}
 				>
-					Continue
+					<Text>Continue</Text>
+					<Icon color='white' as={Feather} name='arrow-right' size={'md'} />
 				</Button>
 			</Box>
 		</VStack>

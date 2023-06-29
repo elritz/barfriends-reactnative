@@ -1,4 +1,4 @@
-import { Heading } from '@components/core'
+import { Box, Heading, Pressable, Text } from '@components/core'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
@@ -7,8 +7,7 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter, useSearchParams } from 'expo-router'
-import { Box, Text } from 'native-base'
-import { SafeAreaView, View, ScrollView, Pressable } from 'react-native'
+import { SafeAreaView, View, ScrollView } from 'react-native'
 
 export default () => {
 	const router = useRouter()
@@ -62,7 +61,7 @@ export default () => {
 
 	if (data?.authorizedProfiles?.__typename === 'Error') {
 		return (
-			<Box safeAreaTop>
+			<Box>
 				<Heading fontSize={'$xl'}>Error finding profiles</Heading>
 			</Box>
 		)
@@ -87,7 +86,7 @@ export default () => {
 		return (
 			<SafeAreaView style={{ flex: 1, margin: 10 }}>
 				<View style={{ top: 0 }}>
-					<Text mt={4} lineHeight={35} fontWeight={'black'} fontSize={'$3xl'}>
+					<Text mt={'$4'} lineHeight={'$2xl'} fontWeight={'$black'} fontSize={'$3xl'}>
 						Your profiles
 					</Text>
 				</View>

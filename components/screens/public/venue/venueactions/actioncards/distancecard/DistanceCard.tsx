@@ -1,8 +1,8 @@
 import AskForegroundLocationPermission from './variants/AskLocationPermission'
 import CurrentLocationFromVenueDistance from './variants/CurrentLocationFromVenueDistance'
 import { useReactiveVar } from '@apollo/client'
+import { Box } from '@components/core'
 import { PermissionForegroundLocationReactiveVar } from '@reactive'
-import { Box } from 'native-base'
 
 export default function DistanceCard() {
 	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)

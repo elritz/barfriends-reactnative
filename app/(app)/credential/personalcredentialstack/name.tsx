@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Text, VStack } from '@components/core'
+import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Input, Button, Icon, IInputProps } from 'native-base'
+import { Input, IInputProps } from 'native-base'
 import { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -91,25 +91,24 @@ export default () => {
 				}}
 				px={'$2'}
 			>
-				<Button
-					onPress={handleSubmit(onSubmit)}
-					disabled={!!errors.firstname || !!errors.lastname}
-					borderRadius={'full'}
-					style={{
-						justifyContent: 'center',
-						height: 50,
-						width: 50,
-						alignSelf: 'center',
-					}}
-					rightIcon={
-						<Icon
-							as={Feather}
+				<Pressable disabled={!!errors.firstname || !!errors.lastname} onPress={handleSubmit(onSubmit)}>
+					<Box
+						alignItems='center'
+						justifyContent='center'
+						sx={{
+							h: 50,
+							w: 50,
+						}}
+						rounded={'$full'}
+						bg='$primary500'
+					>
+						<Feather
 							name='arrow-right'
-							size={'xl'}
-							color={errors.firstname || errors.lastname ? 'primary.700' : 'white'}
+							size={32}
+							color={errors?.firstname || errors.lastname ? '#292524' : 'white'}
 						/>
-					}
-				/>
+					</Box>
+				</Pressable>
 			</Box>
 		)
 	}

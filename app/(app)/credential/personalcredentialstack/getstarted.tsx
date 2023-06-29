@@ -5,7 +5,6 @@ import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Icon } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default () => {
@@ -64,17 +63,20 @@ export default () => {
 					</Pressable>
 				</Box>
 				<>
-					<Button
-						bg={'$primary500'}
-						isDisabled={PTSLoading}
-						onPress={_press}
-						size='lg'
-						rounded={'$full'}
-						h={60}
-						w={60}
-					>
-						<Icon color='white' as={Feather} name='arrow-right' size={'lg'} />
-					</Button>
+					<Pressable disabled={PTSLoading} onPress={_press}>
+						<Box
+							alignItems='center'
+							justifyContent='center'
+							sx={{
+								h: 60,
+								w: 60,
+							}}
+							rounded={'$full'}
+							bg='$primary500'
+						>
+							<Feather name='arrow-right' size={32} color={'white'} />
+						</Box>
+					</Pressable>
 				</>
 			</VStack>
 		</SafeAreaView>

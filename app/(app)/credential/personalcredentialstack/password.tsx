@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Text } from '@components/core'
+import { Box, Heading, Pressable, Text } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, Icon, Input, useTheme } from 'native-base'
+import { Input } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
@@ -84,17 +84,6 @@ export default function () {
 
 		navigateToNextScreen()
 	}
-
-	const ConfirmPasswordInputRightIcon = () => (
-		<Icon
-			name={errors.password ? 'close-circle' : 'checkmark-circle'}
-			as={Ionicons}
-			size={25}
-			mx={3}
-			colorScheme={errors?.password ? 'error' : 'transparent'}
-		/>
-	)
-
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
@@ -173,26 +162,20 @@ export default function () {
 								justifyContent: 'space-around',
 							}}
 						>
-							<Button
-								onPress={handleSubmit(onSubmit)}
-								isDisabled={!!errors.password}
-								borderRadius={'full'}
-								style={{
-									justifyContent: 'center',
-									height: 50,
-									width: 50,
-									paddingHorizontal: 20,
-									alignSelf: 'center',
-								}}
-								endIcon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'xl'}
-										color={errors.password ? 'primary.700' : 'white'}
-									/>
-								}
-							/>
+							<Pressable disabled={!!errors.password} onPress={handleSubmit(onSubmit)}>
+								<Box
+									alignItems='center'
+									justifyContent='center'
+									sx={{
+										h: 50,
+										w: 50,
+									}}
+									rounded={'$full'}
+									bg='$primary500'
+								>
+									<Feather name='arrow-right' size={32} color={errors?.password ? '#292524' : 'white'} />
+								</Box>
+							</Pressable>
 						</View>
 					</Box>
 				</InputAccessoryView>
@@ -208,6 +191,7 @@ export default function () {
 					<Box
 						flexDirection={'row'}
 						justifyContent={'flex-end'}
+						alignItems='center'
 						sx={{
 							h: 90,
 						}}
@@ -220,25 +204,20 @@ export default function () {
 								justifyContent: 'space-around',
 							}}
 						>
-							<Button
-								onPress={handleSubmit(onSubmit)}
-								isDisabled={!!errors.password}
-								borderRadius={'full'}
-								style={{
-									justifyContent: 'center',
-									height: 50,
-									width: 50,
-									alignSelf: 'center',
-								}}
-								endIcon={
-									<Icon
-										as={Feather}
-										name='arrow-right'
-										size={'xl'}
-										color={errors.password ? 'primary.700' : 'white'}
-									/>
-								}
-							/>
+							<Pressable disabled={!!errors.password} onPress={handleSubmit(onSubmit)}>
+								<Box
+									alignItems='center'
+									justifyContent='center'
+									sx={{
+										h: 50,
+										w: 50,
+									}}
+									rounded={'$full'}
+									bg='$primary500'
+								>
+									<Feather name='arrow-right' size={32} color={errors?.password ? '#292524' : 'white'} />
+								</Box>
+							</Pressable>
 						</View>
 					</Box>
 				</Reanimated.View>

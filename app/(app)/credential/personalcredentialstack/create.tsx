@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import { Box, Heading, Text, VStack } from '@components/core'
+import { Box, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -9,7 +9,6 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Icon, IconButton } from 'native-base'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default () => {
@@ -34,6 +33,9 @@ export default () => {
 				},
 			},
 		},
+		onError: error => {
+			console.log('error :>> ', error)
+		},
 		onCompleted: async data => {
 			if (data.createPersonalProfile?.__typename === 'AuthorizationDeviceManager') {
 				switchDeviceProfileMutation({
@@ -47,6 +49,9 @@ export default () => {
 
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
+			onError: error => {
+				console.log('error :>> ', error)
+			},
 			onCompleted: data => {
 				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
@@ -67,7 +72,7 @@ export default () => {
 		<SafeAreaView style={{ flex: 1 }}>
 			<VStack justifyContent={'space-between'} flex={1} alignItems='center' mx={'$4'}>
 				<Box bg='transparent' />
-				<VStack  space={'md'} alignItems={'center'} justifyContent={'center'}>
+				<VStack space={'md'} alignItems={'center'} justifyContent={'center'}>
 					<CompanyCoasterLogoDynamic backgroundColor='black' />
 					<Heading fontWeight={'$black'} lineHeight={'$3xl'} fontSize={'$4xl'}>
 						Welcome to Bfs
@@ -79,19 +84,21 @@ export default () => {
 						</Text>
 					</Box>
 				</VStack>
-				<IconButton
-					bg={'primary.500'}
-					onPress={() => onSubmit()}
-					alignSelf={'center'}
-					isDisabled={CPPLoading || SDPLoading}
-					icon={<Icon color='white' as={Feather} name='arrow-right' size={'md'} />}
-					variant={'solid'}
-					size={'lg'}
-					borderRadius={'full'}
-					h={'60px'}
-					w={'60px'}
-					fontSize={'lg'}
-				/>
+
+				<Pressable disabled={CPPLoading || SDPLoading} onPress={() => onSubmit()}>
+					<Box
+						alignItems='center'
+						justifyContent='center'
+						sx={{
+							h: 60,
+							w: 60,
+						}}
+						rounded={'$full'}
+						bg='$primary500'
+					>
+						<Feather name='arrow-right' size={32} color={'white'} />
+					</Box>
+				</Pressable>
 			</VStack>
 		</SafeAreaView>
 	)

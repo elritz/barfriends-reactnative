@@ -4,7 +4,7 @@ import { Heading, VStack } from '@components/core'
 
 export default function JoinCard() {
 	return (
-		<VStack alignItems={'center'} justifyContent={'space-around'} space={'$md'}>
+		<VStack alignItems={'center'} justifyContent={'space-around'} space={'md'}>
 			<Heading fontSize={'$md'} fontWeight={'$black'} textAlign={'center'} textTransform={'uppercase'}>
 				You've{'\n'}arrived!{'\n'}
 				<Heading color={'green.500'} fontWeight={'$black'}>

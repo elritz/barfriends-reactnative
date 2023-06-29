@@ -77,7 +77,7 @@ export default () => {
 
 	if (loading || !data?.currentVenue) {
 		return (
-			<VStack flex={1} space={'$md'}>
+			<VStack flex={1} space={'md'}>
 				<Skeleton
 					_light={{
 						startColor: 'coolGray.100',
@@ -91,7 +91,7 @@ export default () => {
 					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
 					w={'full'}
 				/>
-				<VStack rounded={'$md'} px={'$2'} space={'$md'}>
+				<VStack rounded={'$md'} px={'$2'} space={'md'}>
 					<Skeleton
 						key={uniqueId()}
 						rounded='md'
@@ -123,7 +123,7 @@ export default () => {
 						}}
 					/>
 				</VStack>
-				<HStack rounded='$md' px={'$2'} space={'$md'}>
+				<HStack rounded='$md' justifyContent='center' alignItems='center' space={'md'}>
 					{[...Array(2)].map((item, index) => {
 						return (
 							<Skeleton
@@ -144,7 +144,7 @@ export default () => {
 						)
 					})}
 				</HStack>
-				<HStack rounded='$md' px={'$2'} space={'$2'}>
+				<HStack rounded='$md' justifyContent='center' alignItems='center' space={'md'}>
 					{[...Array(2)].map((item, index) => {
 						return (
 							<Skeleton

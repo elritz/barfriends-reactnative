@@ -1,3 +1,4 @@
+import { Box, Button, Pressable, Text } from '@components/core'
 import { Entypo, Feather } from '@expo/vector-icons'
 import {
 	useAuthorizedProfilesLazyQuery,
@@ -6,8 +7,8 @@ import {
 import { useIsFocused } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, IconButton, Icon, Box, Input } from 'native-base'
-import React, { useState } from 'react'
+import { Icon, Input } from 'native-base'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, InputAccessoryView, Platform } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
@@ -220,28 +221,25 @@ export default () => {
 								pathname: '(app)/credential/personalcredentialstack/getstarted',
 							})
 						}}
-						my={3}
-						_text={{ textTransform: 'uppercase', fontWeight: '700', fontSize: 'lg' }}
-						borderRadius={'md'}
+						my={'$3'}
+						rounded={'$md'}
 					>
-						Sign up
+						<Text textTransform='uppercase' fontWeight='$black' fontSize={'$lg'}>
+							Sign up
+						</Text>
 					</Button>
 				) : null}
 			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
 					<Box
-						flexDir={'row'}
+						flexDirection={'row'}
 						justifyContent={'flex-end'}
 						alignContent={'space-around'}
-						height={'70px'}
-						px={'2.5%'}
-						_light={{
-							bg: 'light.200',
+						sx={{
+							h: 70,
 						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
+						px={'$2'}
 					>
 						<View
 							style={{
@@ -250,19 +248,24 @@ export default () => {
 								justifyContent: 'space-around',
 							}}
 						>
-							<IconButton
-								disabled={!!errors.authenticator || loading}
-								onPress={handleSubmit(onSubmit)}
-								rounded={'full'}
-								variant={'solid'}
-								color={'primary.500'}
-								isDisabled={!!errors.authenticator || loading}
-								style={{
-									height: 60,
-									width: 60,
-								}}
-								icon={<Icon as={Feather} name='arrow-right' size={'lg'} color={'white'} />}
-							/>
+							<Pressable onPress={handleSubmit(onSubmit)}>
+								<Box
+									alignItems='center'
+									justifyContent='center'
+									sx={{
+										h: 50,
+										w: 50,
+									}}
+									rounded={'$full'}
+									bg='$primary500'
+								>
+									<Feather
+										name='arrow-right'
+										size={32}
+										color={errors?.authenticator ? '#292524' : 'white'}
+									/>
+								</Box>
+							</Pressable>
 						</View>
 					</Box>
 				</InputAccessoryView>
@@ -276,17 +279,11 @@ export default () => {
 					]}
 				>
 					<Box
-						flexDir={'row'}
+						flexDirection={'row'}
 						justifyContent={'flex-end'}
 						alignContent={'space-around'}
 						height={'70px'}
-						px={'2.5%'}
-						_light={{
-							bg: 'light.200',
-						}}
-						_dark={{
-							bg: 'dark.200',
-						}}
+						px={'$2'}
 					>
 						<View
 							style={{
@@ -295,19 +292,24 @@ export default () => {
 								justifyContent: 'space-around',
 							}}
 						>
-							<IconButton
-								disabled={!!errors.authenticator || loading}
-								onPress={handleSubmit(onSubmit)}
-								rounded={'full'}
-								variant={'solid'}
-								color={'primary.500'}
-								isDisabled={!!errors.authenticator || loading}
-								size={'lg'}
-								h={60}
-								w={60}
-								fontSize={'lg'}
-								icon={<Icon as={Feather} name='arrow-right' size={'lg'} color={'white'} />}
-							/>
+							<Pressable disabled={!!errors.authenticator} onPress={handleSubmit(onSubmit)}>
+								<Box
+									alignItems='center'
+									justifyContent='center'
+									sx={{
+										h: 50,
+										w: 50,
+									}}
+									rounded={'$full'}
+									bg='$primary500'
+								>
+									<Feather
+										name='arrow-right'
+										size={32}
+										color={errors?.authenticator ? '#292524' : 'white'}
+									/>
+								</Box>
+							</Pressable>
 						</View>
 					</Box>
 				</Reanimated.View>
