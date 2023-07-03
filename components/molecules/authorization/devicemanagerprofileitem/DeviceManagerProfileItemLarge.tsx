@@ -1,7 +1,8 @@
-import { Box, HStack, Heading, Text, VStack } from '@components/core'
+import { Box, Center, HStack, Heading, Text, VStack } from '@components/core'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Center, Icon, Image } from 'native-base'
+import { Image } from 'native-base'
+import { Icon } from 'native-base'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {

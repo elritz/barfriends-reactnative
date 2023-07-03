@@ -20,7 +20,6 @@ export default function VenueTotals() {
 	const params = useSearchParams()
 	const { width } = useWindowDimensions()
 	const numColumns = 3
-	const height = width * (1.15 / numColumns)
 	const itemPadding = (width / 33.33) * numColumns
 
 	const [total, setTotal] = useState<Totals>({ name: 'total', value: 0 })

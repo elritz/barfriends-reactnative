@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Button, Text } from '@components/core'
+import { Button } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -81,17 +81,18 @@ export default function JoinVenue() {
 
 	return (
 		<Button
+			size={'lg'}
+			w={'$full'}
+			alignItems='center'
+			justifyContent='center'
 			onPress={() => {
 				addPersonalJoinVenueMutation()
-			}}
-			sx={{
-				h: 45,
 			}}
 			isDisabled={isJoined}
 			width={'$full'}
 			rounded={'$md'}
 		>
-			<Text>{JVLoading ? 'Joining' : 'Join'}</Text>
+			<Button.Text>{JVLoading ? 'Joining' : 'Join'}</Button.Text>
 		</Button>
 	)
 }

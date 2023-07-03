@@ -1,9 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button } from '@components/core'
 import { UBER_CLIENT_ID_KEY } from '@env'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Button, Icon } from 'native-base'
 import { useCallback } from 'react'
 import { Alert, Linking } from 'react-native'
 
@@ -49,9 +49,11 @@ export default function UberButton({ params }) {
 	return (
 		<Button
 			size={'lg'}
-			bg={'black'}
-			w={'full'}
-			p={3.5}
+			bg={'$black'}
+			w={'$full'}
+			alignItems='center'
+			justifyContent='center'
+			rounded={'$md'}
 			onPress={() => {
 				!params.profileid ||
 				(!PData?.currentVenue?.Venue?.Location?.Geometry?.latitude &&
@@ -59,9 +61,9 @@ export default function UberButton({ params }) {
 					? handleUberNoVenuePress()
 					: handleUberWithVenuePress()
 			}}
-			startIcon={<Icon as={FontAwesome5} name={'uber'} />}
 		>
-			{PLoading ? 'loading' : 'Open Uber'}
+			<FontAwesome5 name={'uber'} color={'white'} size={20} />
+			<Button.Text ml={'$1'}>{PLoading ? 'loading' : 'Open Uber'}</Button.Text>
 		</Button>
 	)
 }

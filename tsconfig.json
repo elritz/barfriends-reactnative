@@ -25,6 +25,7 @@
 			"@preferences": ["./types/preferences.d"],
 			"@ctypes/*": ["./types/*"],
 			"@util/*": ["./util/*"],
+			"@gluestack": ["./gluestack-ui.config"],
 			"@helpers/*": ["./helpers/*"],
 			"@screens/*": ["./screens/*"],
 			"@assets/*": ["./assets/*"],

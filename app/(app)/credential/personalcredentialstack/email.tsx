@@ -1,15 +1,21 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading, Text, Pressable, VStack, Box } from '@components/core'
+import { Heading, Text, Pressable, VStack, Box, Input } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Icon, IconButton, Input, KeyboardAvoidingView } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, View, TextInput, InteractionManager } from 'react-native'
+import {
+	InputAccessoryView,
+	Platform,
+	View,
+	TextInput,
+	InteractionManager,
+	KeyboardAvoidingView,
+} from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -199,6 +205,7 @@ export default () => {
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
+							
 								ref={_emailRef}
 								key={'email'}
 								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}

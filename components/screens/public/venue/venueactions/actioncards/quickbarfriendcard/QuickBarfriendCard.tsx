@@ -52,7 +52,7 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 				</Heading>
 				{rPermissionCamera?.granted ? (
 					<>
-						<Box alignItems={'center'} justifyContent={'center'}>
+						<VStack alignItems={'center'} justifyContent={'center'}>
 							{dataQR && (
 								<QRCode
 									size={qrcodesize}
@@ -64,12 +64,12 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 									logoBackgroundColor={'transparent'}
 								/>
 							)}
-						</Box>
+						</VStack>
 						<CameraModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 					</>
 				) : (
-					<Box flexDirection={'column'} justifyContent={'space-around'}>
-						<Box mt={'$2'} alignItems={'center'} justifyContent={'center'}>
+					<Box bg={'transparent'} flexDirection={'column'} justifyContent={'space-around'}>
+						<Box bg={'transparent'} mt={'$2'} alignItems={'center'} justifyContent={'center'}>
 							{dataQR && (
 								<QRCode
 									size={qrcodesize}

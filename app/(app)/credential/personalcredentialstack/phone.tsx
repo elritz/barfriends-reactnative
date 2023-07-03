@@ -7,10 +7,17 @@ import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { CountryCode } from 'libphonenumber-js'
-import { Input, Icon, IconButton, KeyboardAvoidingView } from 'native-base'
+import { Input } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View, TextInput, InteractionManager, InputAccessoryView, Platform } from 'react-native'
+import {
+	View,
+	TextInput,
+	InteractionManager,
+	InputAccessoryView,
+	Platform,
+	KeyboardAvoidingView,
+} from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

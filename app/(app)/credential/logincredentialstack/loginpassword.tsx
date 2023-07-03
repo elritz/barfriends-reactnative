@@ -1,30 +1,19 @@
+import { useReactiveVar } from '@apollo/client'
+import { Box, Center, HStack, Input, Spinner, Text, VStack } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
-	ProfileType,
 	useLoginPasswordLazyQuery,
-	useProfileQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter, useSearchParams } from 'expo-router'
-import {
-	Box,
-	Image,
-	Input,
-	Icon,
-	Text,
-	IconButton,
-	Spinner,
-	VStack,
-	Center,
-	HStack,
-} from 'native-base'
+import { Image, Icon, IconButton } from 'native-base'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInput, View, ViewProps } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -33,10 +22,11 @@ const IMAGE_SIZE = 85
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'lp-21565434tw'
-	const _passwordRef = useRef<TextInput>(null)
+	const _passwordRef = useRef<ViewProps>(null)
 	const router = useRouter()
 	const params = useSearchParams()
 	const colorScheme = useThemeColorScheme()
+	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [showPassword, setShowPassword] = useState<boolean>(true)
 
 	const isFocused = useIsFocused()
@@ -125,17 +115,13 @@ export default () => {
 		return (
 			<Box
 				display={isFocused ? 'flex' : 'none'}
-				_light={{
-					bg: 'light.200',
-				}}
-				_dark={{
-					bg: 'dark.200',
-				}}
-				flexDir={'row'}
+				flexDirection={'row'}
 				justifyContent={'flex-end'}
 				alignContent={'space-around'}
-				height={'70px'}
-				px={'2.5%'}
+				sx={{
+					h: 70,
+				}}
+				px={'$2'}
 			>
 				<IconButton
 					disabled={!!errors?.password}
@@ -167,7 +153,7 @@ export default () => {
 	return (
 		<Box flex={1}>
 			<Reanimated.View style={{ flex: 1, marginVertical: 15, marginHorizontal: 15 }}>
-				<VStack space={3}>
+				<VStack space={'md'}>
 					<Center>
 						{params.photo ? (
 							<Image
@@ -181,17 +167,17 @@ export default () => {
 							/>
 						) : (
 							<Box
-								w={'40px'}
-								h={'40px'}
-								_light={{
-									bg: 'light.100',
+								sx={{
+									h: 40,
+									w: 40,
 								}}
-								_dark={{
-									bg: 'dark.100',
-								}}
-								borderRadius={'md'}
+								rounded={'md'}
 							>
-								<Box h={'100%'} flex={1} justifyContent={'center'}>
+								<Box
+									sx={{
+										h: '100%',
+									}}
+								>
 									<Center>
 										<Icon
 											_light={{
@@ -215,58 +201,88 @@ export default () => {
 						defaultValue=''
 						render={({ field: { onChange, onBlur, value } }) => {
 							return (
-								<Input
-									variant={'underlined'}
-									ref={_passwordRef}
-									key='password'
-									placeholder='Password'
-									keyboardAppearance={colorScheme}
-									value={value}
-									py={2}
-									_input={{
-										fontSize: '2xl',
-										fontWeight: 'medium',
-									}}
-									size={'lg'}
-									secureTextEntry={!showPassword}
-									onChangeText={value => onChange(value)}
-									onSubmitEditing={handleSubmit(onSubmit)}
-									h={'50px'}
-									onBlur={onBlur}
-									textContentType='password'
-									blurOnSubmit={false}
-									autoComplete={'password'}
-									autoFocus
-									returnKeyType='done'
-									autoCorrect={false}
-									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-									autoCapitalize='none'
-									numberOfLines={1}
-									InputRightElement={
-										<HStack space={2}>
-											{/* {LPLoading && <Spinner size='md' accessibilityLabel={'Loading...'} />} */}
-											<Icon
-												onPress={() => {
-													setShowPassword(!showPassword)
-												}}
-												as={Ionicons}
-												name={showPassword ? 'eye-off' : 'eye'}
-												size={'md'}
-												_light={{
-													color: !showPassword ? 'primary.500' : 'light.800',
-												}}
-												_dark={{
-													color: !showPassword ? 'primary.500' : 'dark.800',
-												}}
-											/>
-										</HStack>
-									}
-								/>
+								<Input>
+									<Input.Input
+										keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+										value={value}
+										placeholder='Password'
+										type='password'
+										py={'$2'}
+										sx={{
+											h: 50,
+										}}
+										secureTextEntry={!showPassword}
+										onChangeText={value => onChange(value)}
+										onSubmitEditing={handleSubmit(onSubmit)}
+										onBlur={onBlur}
+										textContentType='password'
+										blurOnSubmit={false}
+										autoComplete={'password'}
+										autoFocus
+										returnKeyType='done'
+										autoCorrect={false}
+										inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+										autoCapitalize='none'
+										numberOfLines={1}
+									/>
+									{LPLoading && <Spinner size='large' accessibilityLabel={'Loading...'} />}
+									<Input.Input
+										fontSize={'$2xl'}
+										fontWeight='$medium'
+										type={showPassword ? 'text' : 'password'}
+									/>
+								</Input>
+								// <Input
+								// 	variant={'underlined'}
+								// 	ref={_passwordRef}
+								// 	key='password'
+								// 	keyboardAppearance={colorScheme}
+								// 	value={value}
+								// 	py={2}
+								// 	_input={{
+								// 		fontSize: '2xl',
+								// 		fontWeight: 'medium',
+								// 	}}
+								// 	size={'lg'}
+								// 	secureTextEntry={!showPassword}
+								// 	onChangeText={value => onChange(value)}
+								// 	onSubmitEditing={handleSubmit(onSubmit)}
+								// 	h={'50px'}
+								// 	onBlur={onBlur}
+								// 	textContentType='password'
+								// 	blurOnSubmit={false}
+								// 	autoComplete={'password'}
+								// 	autoFocus
+								// 	returnKeyType='done'
+								// 	autoCorrect={false}
+								// 	inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+								// 	autoCapitalize='none'
+								// 	numberOfLines={1}
+								// 	InputRightElement={
+								// 		<HStack space={'md'}>
+								// 			{/* {LPLoading && <Spinner size='md' accessibilityLabel={'Loading...'} />} */}
+								// 			<Icon
+								// 				onPress={() => {
+								// 					setShowPassword(!showPassword)
+								// 				}}
+								// 				as={Ionicons}
+								// 				name={showPassword ? 'eye-off' : 'eye'}
+								// 				size={'md'}
+								// 				_light={{
+								// 					color: !showPassword ? 'primary.500' : 'light.800',
+								// 				}}
+								// 				_dark={{
+								// 					color: !showPassword ? 'primary.500' : 'dark.800',
+								// 				}}
+								// 			/>
+								// 		</HStack>
+								// 	}
+								// />
 							)
 						}}
 					/>
 
-					<Text color={'error.500'}>
+					<Text color={'$error500'}>
 						{errors.password && errors.password ? errors?.password.message : null}
 					</Text>
 				</VStack>

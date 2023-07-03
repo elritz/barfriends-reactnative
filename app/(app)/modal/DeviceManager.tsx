@@ -1,4 +1,5 @@
 // TODO: FN(What functionality was suppose to be here)
+import { Box, Pressable, VStack } from '@components/core'
 import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
@@ -11,7 +12,6 @@ import {
 import { AuthorizationReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { Skeleton } from 'native-base'
-import { Box, Pressable, VStack } from 'native-base'
 import { useState } from 'react'
 import { SafeAreaView, View, ScrollView } from 'react-native'
 
@@ -71,12 +71,12 @@ export default function DeviceManager() {
 
 	return (
 		<SafeAreaView style={{ flex: 1, margin: 10 }}>
-			<Box>
+			<Box bg='transparent'>
 				<WithDeviceProfiles />
 			</Box>
 			<View style={{ flex: 1 }}>
 				{loading ? (
-					<VStack my={5} space={2} rounded='md' px={2}>
+					<VStack my={'$5'} px={'$2'} space={'md'} rounded='$md'>
 						{[...Array(3)].map((item, index) => {
 							return (
 								<Skeleton
@@ -106,7 +106,7 @@ export default function DeviceManager() {
 										return null
 									} else {
 										return (
-											<Pressable key={item.id} onPress={() => switchProfile(item)} w={'100%'} h={'80px'}>
+											<Pressable key={item.id} onPress={() => switchProfile(item)} w={'100%'} sx={{ h: 80 }}>
 												<DeviceManagerProfileItemLarge
 													item={item.Profile}
 													isActive={item.isActive}

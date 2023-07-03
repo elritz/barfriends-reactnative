@@ -1,17 +1,26 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import JoinVenue from '@components/atoms/buttons/joinvenue/JoinVenue'
-import { Heading, VStack } from '@components/core'
+import { HStack, Heading, Text, VStack } from '@components/core'
+import { View } from 'react-native'
 
 export default function JoinCard() {
 	return (
-		<VStack alignItems={'center'} justifyContent={'space-around'} space={'md'}>
-			<Heading fontSize={'$md'} fontWeight={'$black'} textAlign={'center'} textTransform={'uppercase'}>
-				You've{'\n'}arrived!{'\n'}
-				<Heading color={'green.500'} fontWeight={'$black'}>
-					join now
+		<VStack flex={1} justifyContent='space-between' flexDirection={'column'}>
+			<View>
+				<Heading
+					textTransform={'uppercase'}
+					lineHeight={'$xs'}
+					fontSize={'$lg'}
+					fontWeight={'$black'}
+					mt={'$5'}
+				>
+					You've{'\n'}arrived!
 				</Heading>
-			</Heading>
-			<JoinVenue />
+				<Text>Join the venue now</Text>
+			</View>
+			<HStack>
+				<JoinVenue />
+			</HStack>
 		</VStack>
 	)
 }

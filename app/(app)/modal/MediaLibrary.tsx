@@ -3,7 +3,7 @@ import { FlashList } from '@shopify/flash-list'
 import * as MediaLibrary from 'expo-media-library'
 import { Image } from 'native-base'
 import { useState } from 'react'
-import { View, FlatList, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 
 interface MediaLibraryProps {}
 

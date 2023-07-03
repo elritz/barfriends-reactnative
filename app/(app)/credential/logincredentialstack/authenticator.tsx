@@ -1,4 +1,4 @@
-import { Box, Button, Pressable, Text } from '@components/core'
+import { Box, Button, Input, Pressable, Text } from '@components/core'
 import { Entypo, Feather } from '@expo/vector-icons'
 import {
 	useAuthorizedProfilesLazyQuery,
@@ -7,7 +7,6 @@ import {
 import { useIsFocused } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Icon, Input } from 'native-base'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View, InputAccessoryView, Platform } from 'react-native'
@@ -150,62 +149,110 @@ export default () => {
 		switch (keyboardType) {
 			case 'number-pad':
 				return (
-					<Icon onPress={() => setKeyboardType('email')} size={'md'} name='email' as={Entypo} mr={4} />
+					<Entypo
+						onPress={() => setKeyboardType('email')}
+						size={25}
+						name='phone'
+						style={{ marginRight: 4 }}
+					/>
 				)
 			case 'email':
 				return (
-					<Icon
+					<Entypo
 						onPress={() => setKeyboardType('number-pad')}
-						size={'md'}
-						name='dial-pad'
-						as={Entypo}
-						mr={4}
+						size={25}
+						name='email'
+						style={{ marginRight: 4 }}
 					/>
 				)
 		}
 	}
 
 	return (
-		<Box flex={1}>
+		<Box bg='transparent' flex={1} pt={'$10'}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Controller
 					name='authenticator'
 					control={control}
 					render={({ field: { onChange, onBlur, value } }) => (
 						<Input
-							key='authenticator'
-							keyboardAppearance={colorScheme}
-							variant={'underlined'}
-							returnKeyType='done'
-							enablesReturnKeyAutomatically
-							textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
-							autoComplete={'username'}
-							keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
-							numberOfLines={1}
-							placeholder='Email, number or username '
-							inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-							rightElement={RightIcon()}
-							autoCapitalize='none'
-							autoFocus
-							mt={'1/6'}
-							py={2}
-							_input={{
-								fontSize: '2xl',
-								fontWeight: 'medium',
+							variant='underlined'
+							sx={{
+								h: 50,
 							}}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							value={value.toLowerCase()}
-							onChangeText={value => {
-								if (keyboardType === 'number-pad') {
-									onChange(value.toLowerCase())
-									setValue('authenticator', value)
-								} else {
-									onChange(value)
-									setValue('authenticator', value.trim())
-								}
-							}}
-						/>
+							alignItems='center'
+						>
+							<Input.Input
+								key={'authenticator'}
+								placeholder='Username, phone, email'
+								fontSize={'$2xl'}
+								lineHeight={'$2xl'}
+								fontWeight='$medium'
+								keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+								returnKeyType='done'
+								enablesReturnKeyAutomatically
+								textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
+								autoComplete={keyboardType === 'number-pad' ? 'cc-number' : 'email'}
+								keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
+								numberOfLines={1}
+								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+								autoCapitalize='none'
+								autoFocus
+								value={value}
+								type='text'
+								py={'$2'}
+								sx={{
+									h: 50,
+								}}
+								onSubmitEditing={handleSubmit(onSubmit)}
+								onBlur={onBlur}
+								blurOnSubmit={false}
+								autoCorrect={false}
+								onChangeText={value => {
+									if (keyboardType === 'number-pad') {
+										onChange(value.toLowerCase())
+										setValue('authenticator', value)
+									} else {
+										onChange(value)
+										setValue('authenticator', value.trim())
+									}
+								}}
+							/>
+							<RightIcon />
+						</Input>
+						// <Input
+						// 	key='authenticator'
+						// 	keyboardAppearance={colorScheme}
+						// 	variant={'underlined'}
+						// 	returnKeyType='done'
+						// 	enablesReturnKeyAutomatically
+						// 	textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
+						// 	autoComplete={'username'}
+						// 	keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
+						// 	numberOfLines={1}
+						// 	placeholder='Email, number or username '
+						// 	inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+						// 	rightElement={RightIcon()}
+						// 	autoCapitalize='none'
+						// 	autoFocus
+						// 	py={'$2'}
+						// 	_input={{
+						// 		fontSize: '2xl',
+						// 		fontWeight: 'medium',
+						// 	}}
+						// 	onSubmitEditing={handleSubmit(onSubmit)}
+						// 	onBlur={onBlur}
+						// 	value={value.toLowerCase()}
+						// 	onChangeText={value => {
+						// 		if (keyboardType === 'number-pad') {
+						// 			onChange(value.toLowerCase())
+						// 			setValue('authenticator', value)
+						// 		} else {
+						// 			onChange(value)
+						// 			setValue('authenticator', value.trim())
+						// 		}
+						// 	}}
+						// />
 					)}
 					rules={{
 						required: {

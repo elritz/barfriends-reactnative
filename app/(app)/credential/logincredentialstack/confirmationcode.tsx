@@ -6,7 +6,6 @@ import { useIsFocused } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import Countdown from '@util/hooks/useTimer'
 import { useRouter, useSearchParams } from 'expo-router'
-import { IconButton, Icon } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -33,7 +32,7 @@ export default () => {
 	const CELL_COUNT = String(params?.code).length
 	const ref = useBlurOnFulfill({ value: confirmationCode.code, cellCount: CELL_COUNT })
 
-	const { num, complete } = Countdown(9)
+	const { num, complete } = Countdown(5)
 	const [codeValue, setCodeValue] = useState('')
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -116,6 +115,7 @@ export default () => {
 	const InnerContent = () => {
 		return (
 			<Box
+			
 				display={isFocused ? 'flex' : 'none'}
 				flexDirection={'row'}
 				justifyContent={'space-between'}
@@ -130,19 +130,19 @@ export default () => {
 						<VStack space={'1'} justifyContent={'space-around'}>
 							<Button
 								variant='link'
-								size={'xs'}
+								size={'md'}
 								justifyContent={'flex-start'}
 								onPress={() => router.back()}
 							>
-								Resend code
+								<Text>Resend code</Text>
 							</Button>
 							<Button
 								variant={'link'}
-								size={'xs'}
+								size={'md'}
 								justifyContent={'flex-start'}
 								onPress={() => router.back()}
 							>
-								Update phone number
+								<Text>Update phone number</Text>
 							</Button>
 						</VStack>
 					) : (
@@ -173,7 +173,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1}>
+		<Box 	bg='transparent' flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					{`Enter the 4-diget code sent to you at ${

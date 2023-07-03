@@ -23,10 +23,10 @@ export default function ActionCard({ children, numColumns, bg, h }: Props) {
 			justifyContent={'center'}
 			sx={{
 				_dark: {
-					bg: bg || '$black',
+					bg: bg || '$dark100',
 				},
 				_light: {
-					bg: bg || '$white',
+					bg: bg || '$light50',
 				},
 				h: h,
 			}}

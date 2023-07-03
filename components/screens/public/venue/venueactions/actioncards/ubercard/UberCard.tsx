@@ -6,7 +6,7 @@ import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
 import { useCallback } from 'react'
-import { Alert, Linking } from 'react-native'
+import { Alert, Linking, View } from 'react-native'
 
 export default function UberCard() {
 	const params = useSearchParams()
@@ -49,14 +49,8 @@ export default function UberCard() {
 	}, [urlUber])
 
 	return (
-		<VStack
-			flexDirection={'column'}
-			justifyContent={'space-around'}
-			sx={{
-				h: '100%',
-			}}
-		>
-			<VStack space={'md'} flex={1} justifyContent={'flex-start'}>
+		<VStack flex={1} justifyContent='space-between' flexDirection={'column'}>
+			<View>
 				<Heading
 					textTransform={'uppercase'}
 					lineHeight={'$xs'}
@@ -67,7 +61,7 @@ export default function UberCard() {
 					Request a ride now
 				</Heading>
 				<Text>Focused on safety, wherever you go</Text>
-			</VStack>
+			</View>
 			<HStack>
 				<UberButton params={params} />
 			</HStack>

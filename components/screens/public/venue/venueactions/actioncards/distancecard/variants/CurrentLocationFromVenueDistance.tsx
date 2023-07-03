@@ -2,7 +2,7 @@
 import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading } from '@components/core'
+import { Box, Text, Heading, Button } from '@components/core'
 import { FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
@@ -12,13 +12,13 @@ import {
 	CurrentLocationReactiveVar,
 	SearchAreaReactiveVar,
 } from '@reactive'
+import { useDisclose } from '@util/hooks/useDisclose'
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
 import { useSearchParams } from 'expo-router'
 import { getDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { MotiView } from 'moti'
-import { Button, Icon, useDisclose, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
@@ -60,7 +60,6 @@ const size = 50
 
 const CurrentLocationFromVenueDistance = () => {
 	const params = useSearchParams()
-	const theme = useTheme()
 	const isFocused = useIsFocused()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
@@ -214,7 +213,7 @@ const CurrentLocationFromVenueDistance = () => {
 			height: size,
 			width: size,
 			borderRadius: size / 2,
-			backgroundColor: theme.colors.primary[500],
+			backgroundColor: '#FF7000',
 		},
 	})
 
@@ -277,7 +276,8 @@ const CurrentLocationFromVenueDistance = () => {
 									/>
 								)
 							})}
-							<Icon
+							<MaterialIcons style={{ alignSelf: 'center' }} size={30} name='location-pin' />
+							{/* <Icon
 								_light={{
 									color: 'light.50',
 								}}
@@ -288,7 +288,7 @@ const CurrentLocationFromVenueDistance = () => {
 								name='location-pin'
 								as={MaterialIcons}
 								alignSelf={'center'}
-							/>
+							/> */}
 						</Box>
 					) : (
 						<Box height={'100%'} justifyContent={'center'} mb={'$5'}>
@@ -302,9 +302,9 @@ const CurrentLocationFromVenueDistance = () => {
 								{metric === 'km' ? `In your area` : `You're super close!`}
 							</Heading>
 
-							<Box pb={'$1'} alignSelf={'center'} flexDirection={'row'}>
-								<Icon size={'xl'} name='location-pin' as={MaterialIcons} />
-								<Heading fontWeight={'$black'}>
+							<Box pb={'$1'} alignSelf={'center'} alignItems={'center'} flexDirection={'row'}>
+								<MaterialIcons name='location-pin' size={25} />
+								<Heading fontSize={'$2xl'} fontWeight={'$black'}>
 									{distance}&nbsp;{metric}
 								</Heading>
 							</Box>
@@ -312,7 +312,7 @@ const CurrentLocationFromVenueDistance = () => {
 					)}
 					{!isLoading && (
 						<Button
-							variant={'ghost'}
+							variant='link'
 							size={'xs'}
 							onPress={async () => {
 								setLoading(true)
@@ -323,7 +323,7 @@ const CurrentLocationFromVenueDistance = () => {
 							}}
 							position={'absolute'}
 							alignSelf={'center'}
-							bottom={1}
+							bottom={'$1'}
 						>
 							<Text>Tap to refresh</Text>
 						</Button>

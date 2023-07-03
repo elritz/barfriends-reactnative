@@ -1,5 +1,6 @@
 // TODO: FN()
 import { useReactiveVar } from '@apollo/client'
+import { Box, Button, Center, HStack, Text, VStack } from '@components/core'
 import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
@@ -7,18 +8,7 @@ import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploa
 import * as ImagePicker from 'expo-image-picker'
 import * as MediaLibrary from 'expo-media-library'
 import { useRouter } from 'expo-router'
-import {
-	Box,
-	Button,
-	Center,
-	HStack,
-	Icon,
-	IconButton,
-	Skeleton,
-	Text,
-	VStack,
-	Image,
-} from 'native-base'
+import { Icon, IconButton, Skeleton, Image } from 'native-base'
 import { useEffect, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import {
@@ -174,7 +164,7 @@ export default () => {
 
 	if (!photoLibrary.length) {
 		return (
-			<Box>
+			<Box bg='transparent'>
 				<VStack alignItems={'center'}>
 					<Image
 						style={{
@@ -186,16 +176,9 @@ export default () => {
 						alt={'loading image'}
 						source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 					/>
-					<Box
-						mb={2}
-						mx={2}
-						_dark={{ backgroundColor: 'dark.100' }}
-						_light={{ backgroundColor: 'light.100' }}
-						borderRadius={'md'}
-						p={5}
-					>
+					<Box mb={'$2'} mx={'$2'} rounded={'md'} p={5}>
 						<VStack my={2} alignItems={'center'}>
-							<Text px={2}>
+							<Text px={'$2'}>
 								Continue with your profile setup, use your own photos to share and create the style that
 								reflect you the best.
 							</Text>
@@ -206,20 +189,18 @@ export default () => {
 										pathname: '(app)/permission/medialibrary',
 									})
 								}
-								mt={15}
-								w={'85%'}
-								_text={{
-									fontSize: 'lg',
-									fontWeight: 'bold',
+								mt={'$10'}
+								sx={{
+									w: '85%',
 								}}
 							>
-								Continue
+								<Text fontWeight='$bold'>Continue</Text>
 							</Button>
 						</VStack>
 					</Box>
 					{[...Array(6)].map((item, index) => {
 						return (
-							<HStack key={index} space={0} overflow='hidden'>
+							<HStack key={index} space={'none'} overflow='hidden'>
 								{[...Array(3)].map((item, index) => {
 									return (
 										<Skeleton
@@ -340,16 +321,18 @@ export default () => {
 					icon={<Icon as={MaterialIcons} name='photo-library' size={29} color={'gray.800'} />}
 				/>
 				<Button
-					w={'40%'}
-					mx={'10%'}
+					mx={'$5'}
+					sx={{
+						w: '40%',
+					}}
 					onPress={handleSubmit(onSubmit)}
-					variant={'ghost'}
-					isLoading={imageUploading}
-					endIcon={<Icon name='arrow-right' size={29} as={Feather} />}
+					variant={'link'}
+					disabled={imageUploading}
 				>
-					<Text color={'primary.500'} fontSize={'xl'}>
-						Continue
+					<Text color={'$primary500'} fontSize={'$xl'}>
+						{imageUploading ? 'Continue' : 'Uploading'}
 					</Text>
+					<Feather name='arrow-right' size={29} />
 				</Button>
 			</View>
 		</SafeAreaView>

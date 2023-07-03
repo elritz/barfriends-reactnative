@@ -1,7 +1,4 @@
-import { Heading } from '@components/core'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Card,  useTheme } from 'native-base'
-
+import { Box, Heading } from '@components/core'
 
 type Props = {
 	total: number
@@ -9,29 +6,21 @@ type Props = {
 }
 
 const Total = (props: Props) => {
-	const theme = useTheme()
-	const colorScheme = useThemeColorScheme()
 	return (
-		<Card
-			style={{
-				backgroundColor: props.primary
-					? theme.colors.primary[500]
-					: colorScheme === 'light' ? theme.colors.light[900]:theme.colors.dark[900],,
-				height: 30,
-				width: 30,
-				borderRadius: 7,
-				padding: 0,
-				margin: 0,
-				marginHorizontal: 5,
-				alignItems: 'center',
-				justifyContent: 'center',
-				borderColor: 'transparent',
+		<Box
+			sx={{
+				h: 30,
+				w: 30,
 			}}
+			mx={'$5'}
+			rounded={'$lg'}
+			alignItems='center'
+			justifyContent='center'
 		>
-			<Heading fontWeight={'$black'} fontSize={14} color={'white'}>
+			<Heading fontWeight={'$black'} fontSize={'$lg'} color={'white'}>
 				{props.total}
 			</Heading>
-		</Card>
+		</Box>
 	)
 }
 
