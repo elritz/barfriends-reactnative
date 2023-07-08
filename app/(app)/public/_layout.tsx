@@ -1,17 +1,18 @@
 // TODO: FX() Settings still needs to be done
-import { Box, HStack, VStack } from '@components/core'
+import { useReactiveVar } from '@apollo/client'
+import { Box, Button, HStack, VStack } from '@components/core'
 import GeneralInput from '@components/molecules/search/commoninput/GeneralInput'
-import SearchAreaInput from '@components/molecules/search/searcharea/SearchAreaInput'
 import { Ionicons, Entypo } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
-import { Icon, IconButton, theme } from 'native-base'
 import { Platform, StyleSheet } from 'react-native'
 
 export default () => {
-	const colorScheme = useThemeColorScheme()
 	const router = useRouter()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	return (
 		<Stack>
@@ -32,21 +33,27 @@ export default () => {
 							alignItems={'center'}
 							ml={'$2'}
 						>
-							<IconButton
-								bg={colorScheme === 'light' ? 'light.50' : 'dark.50'}
-								rounded={'full'}
-								size={'xs'}
+							<Button
 								onPress={() => router.back()}
-								icon={<Icon as={Ionicons} name='md-chevron-back-outline' size={'xl'} />}
-							/>
+								rounded={'$full'}
+								size='xs'
+								bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+							>
+								<Ionicons name='md-chevron-back-outline' size={30} />
+							</Button>
 						</HStack>
 					),
 					headerRight: () => (
-						<IconButton
-							my={2}
-							mr={2}
-							icon={<Icon as={Entypo} name={'dots-three-vertical'} size={23} />}
-						/>
+						<Button
+							onPress={() => router.back()}
+							rounded={'$full'}
+							size='xs'
+							my={'$2'}
+							mr={'$2'}
+							bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+						>
+							<Entypo name='dots-three-vertical' size={23} />
+						</Button>
 					),
 					headerTitle: '',
 				}}
@@ -66,24 +73,34 @@ export default () => {
 							alignItems={'center'}
 							ml={'$2'}
 						>
-							<IconButton
-								bg={colorScheme === 'light' ? 'light.50' : 'dark.50'}
-								rounded={'full'}
-								size={'xs'}
+							<Button
 								onPress={() => router.back()}
-								icon={<Icon as={Ionicons} name='md-chevron-back-outline' size={'xl'} />}
-							/>
+								rounded={'$full'}
+								size='xs'
+								my={'$2'}
+								mr={'$2'}
+								bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+							>
+								<Ionicons name='md-chevron-back-outline' size={30} />
+							</Button>
 						</HStack>
 					),
 					contentStyle: {
-						backgroundColor: colorScheme === 'dark' ? theme.colors.dark[100] : theme.colors.light[200],
+						backgroundColor:
+							colorScheme === 'dark'
+								? rTheme.theme?.gluestack.tokens.colors.dark100
+								: rTheme.theme?.gluestack.tokens.colors.light100,
 					},
 					headerTransparent: true,
 					header: () => {
 						return (
 							<VStack justifyContent={'flex-end'} pb={'$3'}>
 								{Platform.OS === 'ios' ? (
-									<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+									<BlurView
+										style={StyleSheet.absoluteFill}
+										tint={colorScheme === 'light' ? 'light' : 'dark'}
+										intensity={80}
+									/>
 								) : (
 									<Box style={[StyleSheet.absoluteFill]} />
 								)}

@@ -1,8 +1,6 @@
 import PermissionButtonSearchAreaLocation from './PermissionButtonSearchAreaLocation'
 import { Box, Heading, Pressable, Text, VStack } from '@components/core'
-import { FontAwesome5 } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { Icon } from 'native-base'
 
 export default function VenueFeedSearchAreaEmptyState() {
 	const router = useRouter()

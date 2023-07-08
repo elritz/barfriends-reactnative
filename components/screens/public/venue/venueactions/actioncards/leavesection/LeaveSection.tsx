@@ -1,6 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
-import { HStack, Heading } from '@components/core'
+import { Button, HStack, Heading } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
@@ -12,7 +12,6 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { useSearchParams } from 'expo-router'
-import { Button, Icon } from 'native-base'
 
 export default function LeaveSection() {
 	const params = useSearchParams()
@@ -74,19 +73,13 @@ export default function LeaveSection() {
 					onPress={() => {
 						removePersonalJoinsVenueMutation()
 					}}
-					h={'45px'}
-					textAlign={'center'}
-					colorScheme={'error'}
-					borderRadius={'md'}
-					_text={{
-						fontWeight: '700',
-						fontSize: 'md',
+					sx={{
+						h: 45,
 					}}
-					leftIcon={<Icon as={Ionicons} name={'ios-exit'} size={'xl'} />}
-					isLoading={JVLoading}
-					isLoadingText='Leaving'
+					rounded={'$md'}
 				>
-					Leave
+					<Ionicons name={'ios-exit'} size={30} />
+					{JVLoading ? 'Leaving' : 'Leave'}
 				</Button>
 			</HStack>
 		)

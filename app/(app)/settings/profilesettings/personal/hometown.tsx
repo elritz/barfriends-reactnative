@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
-import { AuthorizationReactiveVar } from '@reactive'
+import { Input } from '@components/core'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Input, useTheme } from 'native-base'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { View } from 'react-native'
@@ -9,9 +9,9 @@ import { View } from 'react-native'
 interface HomeTownScreenProps {}
 
 export default ({}: HomeTownScreenProps) => {
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const colorScheme = useThemeColorScheme()
-	const theme = useTheme()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [search, setSearch] = useState<string>('')
 
 	const {
@@ -36,24 +36,32 @@ export default ({}: HomeTownScreenProps) => {
 	return (
 		<View>
 			<Input
-				placeholder='Search...'
-				onChangeText={(text: string) => setSearch(text)}
-				keyboardAppearance={colorScheme}
-				// platform='ios'
-				value={search}
 				style={{
 					backgroundColor: 'transparent',
 					width: '95%',
 					alignSelf: 'center',
 					paddingHorizontal: 10,
 				}}
-				_input={{
-					color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
-					backgroundColor: colorScheme === 'light' ? theme.colors.light[100] : theme.colors.dark[100],
-					borderBottomColor: 'transparent',
-					borderRadius: 14,
-				}}
-			/>
+			>
+				<Input.Input
+					value={search}
+					placeholder='Search...'
+					onChangeText={(text: string) => setSearch(text)}
+					borderBottomColor={'$transparent'}
+					rounded={'$4'}
+					keyboardAppearance={colorScheme == 'light' ? 'light' : 'dark'}
+					color={
+						colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+					backgroundColor={
+						colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light100
+							: rTheme.theme?.gluestack.tokens.colors.dark100
+					}
+				/>
+			</Input>
 		</View>
 	)
 }

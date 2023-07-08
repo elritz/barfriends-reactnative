@@ -1,41 +1,38 @@
 // TODO: FN(Open camera app) ln:66
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { PermissionCameraReactiveVar } from '@reactive'
+import { PermissionCameraReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useTimer2 from '@util/hooks/useTimer2'
 import { Camera, requestCameraPermissionsAsync } from 'expo-camera'
 import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import { useRouter } from 'expo-router'
-import { Box, Button, Divider, Icon, ScrollView, Text, VStack } from 'native-base'
 import { useEffect, useRef } from 'react'
-import { Alert, AppState, Platform, View } from 'react-native'
+import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 const details = [
 	{
 		title: 'How you’ll use this',
 		detail: 'To take photos, record videos from your device.',
-		iconName: 'camera',
-		iconType: AntDesign,
+		icon: <AntDesign name='camera' size={25} />,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To show you captured content of visual and audio effects.',
-		iconName: 'android-messages',
-		iconType: MaterialCommunityIcons,
+		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
 	},
 	{
 		title: 'How theses settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		iconName: 'ios-settings-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
 	},
 ]
 
@@ -44,6 +41,8 @@ export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const isFocused = useIsFocused()
 	const rPermissionCamera = useReactiveVar(PermissionCameraReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 	const { finished, start, seconds, started } = useTimer2('0:2')
 
 	// const [cameraPermission, cameraRequestPermission] = Camera.useCameraPermissions()
@@ -107,17 +106,27 @@ export default () => {
 	})
 
 	return (
-		<Box style={{ flex: 1 }}>
-			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
+		<Box bg={'$transparent'} style={{ flex: 1 }}>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<Box
-					borderRadius={'md'}
-					h={65}
-					w={65}
+					rounded={'$md'}
+					sx={{
+						h: 65,
+						w: 65,
+					}}
 					alignItems={'center'}
 					justifyContent={'center'}
 					bg={'#ff7000'}
 				>
-					<Icon as={Ionicons} color={'secondary.800'} name={'camera'} size={9} />
+					<Ionicons
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+						name='camera'
+						size={9}
+					/>
 				</Box>
 				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
@@ -135,7 +144,7 @@ export default () => {
 				</Heading>
 			</Box>
 			<ScrollView>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+				<Box style={{ width: wp(95), flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>
@@ -145,11 +154,13 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
+			<VStack space={'md'} w={'$full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
-					width={'95%'}
+					sx={{
+						w: '95%',
+					}}
 					onPress={() =>
 						!rPermissionCamera?.granted
 							? rPermissionCamera?.canAskAgain && !rPermissionCamera.granted
@@ -158,18 +169,28 @@ export default () => {
 							: createTwoButtonAlert()
 					}
 				>
-					{!rPermissionCamera?.granted
-						? rPermissionCamera?.canAskAgain && !rPermissionCamera.granted
-							? 'Continue'
-							: 'Go to Phone Settings'
-						: 'Granted'}
+					<Text>
+						{!rPermissionCamera?.granted
+							? rPermissionCamera?.canAskAgain && !rPermissionCamera.granted
+								? 'Continue'
+								: 'Go to Phone Settings'
+							: 'Granted'}
+					</Text>
 				</Button>
 				{!started && (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'link'}>
 						<Text fontWeight={'medium'}>Close</Text>
 					</Button>
 				)}
-				{started && <Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>}
+				{started && (
+					<Box
+						sx={{
+							h: 20,
+						}}
+					>
+						{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}
+					</Box>
+				)}
 			</VStack>
 		</Box>
 	)

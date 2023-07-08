@@ -4,11 +4,11 @@ import { MARGIN } from './Config'
 import Item from './Item'
 import SortableList from './SortableList'
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { AuthorizationReactiveVar } from '@reactive'
+import { Box, Button, Heading, Text, VStack } from '@components/core'
+import { MaterialIcons } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as ImagePicker from 'expo-image-picker'
-import { Box, Button, Icon, Text, VStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -30,7 +30,8 @@ const tiles = [
 
 const TonightImages = () => {
 	const window = useWindowDimensions()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	const updatePositions = async () => {}
 	const handleSelectImage = async () => {
@@ -48,33 +49,17 @@ const TonightImages = () => {
 	return (
 		<SafeAreaView style={{ paddingHorizontal: MARGIN, marginVertical: 20 }}>
 			{!tiles.length ? (
-				<Box
-					mx={2}
-					h={window.width}
-					borderRadius={'md'}
-					alignItems={'center'}
-					justifyContent={'center'}
-					_light={{
-						bg: 'light.100',
-					}}
-					_dark={{
-						bg: 'light.100',
-					}}
-				>
-					<VStack space={2} alignItems={'center'}>
-						<Icon color={'primary.600'} as={MaterialCommunityIcons} name={'sticker-plus'} size={'6xl'} />
+				<Box mx={'$2'} h={window.width} rounded={'$md'} alignItems={'center'} justifyContent={'center'}>
+					<VStack space={'md'} alignItems={'center'}>
+						{/* <Icon color={'primary.600'} as={MaterialCommunityIcons} name={'sticker-plus'} size={'6xl'} /> */}
 						<Box alignItems={'center'} mx={4}>
 							<Heading fontSize={'2xl'}>Start tonights Story</Heading>
 							<Text fontSize={'$lg'}>Ready to go out, add photos of you tonight. </Text>
 						</Box>
 						<Button
-							mt={4}
+							mt={'$4'}
 							w={window.width / 2}
-							bg={'tertiary.500'}
-							rightIcon={<Icon as={MaterialIcons} name={'photo-library'} size={'lg'} />}
-							_text={{
-								fontSize: 'lg',
-							}}
+							bg={'$tertiary50'}
 							onPress={async () => {
 								const result = await ImagePicker.launchImageLibraryAsync({
 									mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -90,7 +75,16 @@ const TonightImages = () => {
 								}
 							}}
 						>
-							Select images
+							<Text>Select images</Text>
+							<MaterialIcons
+								name={'photo-library'}
+								size={25}
+								color={
+									colorScheme === 'light'
+										? rTheme.theme?.gluestack.tokens.colors.light900
+										: rTheme.theme?.gluestack.tokens.colors.dark900
+								}
+							/>
 						</Button>
 					</VStack>
 				</Box>

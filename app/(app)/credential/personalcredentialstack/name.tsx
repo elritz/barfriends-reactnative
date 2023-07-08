@@ -1,14 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
+import { Box, Heading, Input, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Input, IInputProps } from 'native-base'
 import { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInputProps, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -20,7 +19,8 @@ export default () => {
 	const { bottom } = useSafeAreaInsets()
 	const colorScheme = useThemeColorScheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const _firstnameRef = useRef<IInputProps | null>(null)
+	// const _firstnameRef = useRef<IInputProps | null>(null)
+	const _firstnameRef = useRef<TextInputProps | null>(null)
 	const _lastnameRef = useRef(null)
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -124,32 +124,28 @@ export default () => {
 						name='firstname'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								ref={_firstnameRef}
-								keyboardAppearance={colorScheme}
-								key={'name'}
-								variant={'underlined'}
-								returnKeyType='next'
-								textContentType='givenName'
-								autoComplete={'name-given'}
-								autoCapitalize={'none'}
-								keyboardType='default'
-								numberOfLines={1}
-								autoFocus
-								placeholder='First name'
-								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								py={1}
-								_input={{
-									fontSize: '2xl',
-									fontWeight: 'medium',
-								}}
-								size={'lg'}
-								onSubmitEditing={() => _lastnameRef?.current?.focus()}
-								onBlur={onBlur}
-								blurOnSubmit={false}
-								onChangeText={onChange}
-								value={value.toLowerCase()}
-							/>
+							<Input ref={_firstnameRef} key={'name'} variant={'underlined'} py={'$1'} size={'lg'}>
+								<Input.Input
+									ref={_firstnameRef}
+									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									key={'name'}
+									returnKeyType='next'
+									textContentType='givenName'
+									autoComplete={'name-given'}
+									autoCapitalize={'none'}
+									keyboardType='default'
+									numberOfLines={1}
+									autoFocus
+									placeholder='First name'
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+									py={'$1'}
+									onSubmitEditing={() => _lastnameRef?.current?.focus()}
+									onBlur={onBlur}
+									blurOnSubmit={false}
+									onChangeText={onChange}
+									value={value.toLowerCase()}
+								/>
+							</Input>
 						)}
 						rules={{
 							required: {
@@ -164,31 +160,26 @@ export default () => {
 						name='lastname'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								keyboardAppearance={colorScheme}
-								key={'name'}
-								ref={_lastnameRef}
-								variant={'underlined'}
-								returnKeyType='done'
-								textContentType='familyName'
-								autoComplete={'name-family'}
-								autoCapitalize={'none'}
-								keyboardType='default'
-								blurOnSubmit={false}
-								numberOfLines={1}
-								placeholder='Last name'
-								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								py={1}
-								_input={{
-									fontSize: '2xl',
-									fontWeight: 'medium',
-								}}
-								size={'lg'}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								onChangeText={onChange}
-								value={value.toLowerCase()}
-							/>
+							<Input ref={_lastnameRef} key={'lname'} variant={'underlined'} py={'$1'} size={'lg'}>
+								<Input.Input
+									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									key={'lastname'}
+									returnKeyType='done'
+									textContentType='givenName'
+									autoComplete={'name-family'}
+									autoCapitalize={'none'}
+									keyboardType='default'
+									numberOfLines={1}
+									autoFocus
+									placeholder='Last name'
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+									py={'$1'}
+									onBlur={onBlur}
+									blurOnSubmit={false}
+									onChangeText={onChange}
+									value={value.toLowerCase()}
+								/>
+							</Input>
 						)}
 						rules={{
 							required: {

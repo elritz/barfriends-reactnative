@@ -1,9 +1,9 @@
+import { Box, Pressable, Text } from '@components/core'
 import { Relationship } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
-import { Box, Image, Pressable, Text } from 'native-base'
+import { Image } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 
 interface CardFullImageNameEmojiProps {
@@ -39,25 +39,27 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 			>
 				<Box
 					position={'absolute'}
-					bottom={0}
-					left={0}
-					right={0}
+					bottom={'$0'}
+					left={'$0'}
+					right={'$0'}
 					w={'100%'}
 					zIndex={10}
-					borderRadius={'md'}
+					rounded={'$md'}
 					overflow={'hidden'}
 				>
 					<LinearGradient colors={['transparent', '#000000d1']}>
 						<Box style={{ padding: 4 }}>
 							<Text
-								fontSize={'md'}
+								fontSize={'$md'}
 								textAlign={'center'}
 								fontWeight={'bold'}
-								_light={{
-									color: 'white',
-								}}
-								_dark={{
-									color: 'white',
+								sx={{
+									_light: {
+										color: 'white',
+									},
+									_dark: {
+										color: 'white',
+									},
 								}}
 								style={{
 									shadowOffset: {
@@ -74,10 +76,7 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 							<Text
 								textAlign={'center'}
 								fontWeight={'bold'}
-								_light={{
-									color: 'white',
-								}}
-								_dark={{
+								sx={{
 									color: 'white',
 								}}
 								style={{
@@ -96,12 +95,10 @@ export const CardFullImageNameEmoji = ({ item, cardWidth }: CardFullImageNameEmo
 					</LinearGradient>
 				</Box>
 				<Image
-					zIndex={1}
 					alt={'Profile image'}
 					source={{ uri: item.friendProfile?.photos?.url }}
 					resizeMode='cover'
-					style={{ height: 170, flexDirection: 'column-reverse' }}
-					borderRadius={'md'}
+					style={{ height: 170, flexDirection: 'column-reverse', borderRadius: 10 }}
 				/>
 			</Box>
 		</Pressable>

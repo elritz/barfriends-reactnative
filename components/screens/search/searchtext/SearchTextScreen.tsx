@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Center, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import SearchCard from '@components/screens/search/components/SearchCard'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
@@ -9,18 +9,8 @@ import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useSearchParams } from 'expo-router'
-import {
-	Box,
-	Text,
-	IconButton,
-	HStack,
-	Icon,
-	VStack,
-	Skeleton,
-	Pressable,
-	Center,
-} from 'native-base'
+import { useRouter, useLocalSearchParams } from 'expo-router'
+import { Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -33,7 +23,7 @@ type SearchItem = {
 }
 
 const SearchTextScreen = () => {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const insets = useSafeAreaInsets()
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -63,7 +53,7 @@ const SearchTextScreen = () => {
 
 	if (loading) {
 		return (
-			<Box px={3}>
+			<Box bg={'$transparent'} px={'$3'}>
 				<FlashList
 					scrollEnabled={false}
 					automaticallyAdjustContentInsets
@@ -76,7 +66,7 @@ const SearchTextScreen = () => {
 						return (
 							<>
 								{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-									<Box safeAreaTop>
+									<Box mt={insets.top}>
 										<Center>
 											<Heading fontSize={'$md'} fontWeight={'$medium'}>
 												No search results for
@@ -101,7 +91,13 @@ const SearchTextScreen = () => {
 					}}
 					renderItem={({ index, item }) => {
 						return (
-							<HStack px={2} h={'60px'} w='90%'>
+							<HStack
+								px={'$2'}
+								sx={{
+									h: 60,
+									w: '90%',
+								}}
+							>
 								<Skeleton
 									h='40px'
 									w={'40px'}
@@ -138,7 +134,7 @@ const SearchTextScreen = () => {
 					return (
 						<>
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-								<Box safeAreaTop>
+								<Box mt={insets.top}>
 									<Center>
 										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
@@ -172,21 +168,20 @@ const SearchTextScreen = () => {
 							}}
 						>
 							<HStack
-								h={'55px'}
-								w={'100%'}
+								sx={{
+									h: 55,
+									w: '100%',
+								}}
 								justifyContent={'flex-start'}
 								alignItems={'center'}
-								space={3}
-								px={2}
+								space={'md'}
+								px={'$2'}
 							>
-								<IconButton
-									variant={'outline'}
-									size={'sm'}
-									borderRadius={'md'}
-									icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
-								/>
+								<Button rounded={'$md'} size='sm' variant='outline'>
+									<Ionicons name={'ios-search'} size={30} />
+								</Button>
 								<VStack>
-									<Text fontSize={'md'} fontWeight={'medium'}>
+									<Text fontSize={'$md'} fontWeight={'$medium'}>
 										{item.search}
 									</Text>
 								</VStack>
@@ -199,7 +194,7 @@ const SearchTextScreen = () => {
 	}
 
 	return (
-		<Box safeAreaTop flex={1}>
+		<Box mt={insets.top} flex={1}>
 			<FlashList
 				data={[
 					{ title: 'Accounts', data: data?.exploreSearch.people },
@@ -209,7 +204,7 @@ const SearchTextScreen = () => {
 					return (
 						<>
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-								<Box safeAreaTop>
+								<Box mt={insets.top}>
 									<Center>
 										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
@@ -237,10 +232,10 @@ const SearchTextScreen = () => {
 				keyboardDismissMode='on-drag'
 				renderItem={({ index, item }) => {
 					return (
-						<Box>
+						<Box bg={'$transparent'}>
 							{item.data && item.data.length ? (
-								<Box my={1}>
-									<Heading mx={3}>{item.title}</Heading>
+								<Box my={'$1'}>
+									<Heading mx={'$3'}>{item.title}</Heading>
 									{item.data.map((item, index) => {
 										return <SearchCard key={index} item={item} />
 									})}

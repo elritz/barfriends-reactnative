@@ -1,6 +1,6 @@
 // TODO: If user is joined to the venue remove join button show joined
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -13,8 +13,8 @@ import {
 import { AuthorizationReactiveVar } from '@reactive'
 import useGetDistance from '@util/hooks/useDistance'
 import { useRouter } from 'expo-router'
-import { Image, VStack, Box, Button, Pressable } from 'native-base'
 import { useEffect, useState, memo } from 'react'
+import { Image } from 'react-native'
 import { Dimensions, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -201,7 +201,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 			{({ isPressed }) => {
 				return (
 					<VStack
-						space={2}
+						space={'md'}
 						width={width}
 						flex={1}
 						style={{
@@ -209,16 +209,19 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 							overflow: 'hidden',
 						}}
 					>
-						<Box minH={260}>
+						<Box
+							style={{
+								minHeight: 260,
+							}}
+						>
 							<Image
-								borderRadius={'xl'}
 								source={{ uri: props.item.photos[0]?.url }}
 								resizeMode='cover'
 								onLoadEnd={() => setHideBlur(true)}
 								style={{
 									...StyleSheet.absoluteFillObject,
+									borderRadius: 15,
 								}}
-								alt={'Profile Photo'}
 							/>
 							{!hideBlur && (
 								<>
@@ -236,7 +239,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 							)}
 						</Box>
 
-						<VStack space={2}>
+						<VStack space={'md'}>
 							<Box>
 								<Heading
 									fontSize={'$lg'}
@@ -263,23 +266,23 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 									<Button
 										variant={'solid'}
 										onPress={() => _pressLeave()}
-										colorScheme={isJoined ? 'error' : 'primary'}
-										borderRadius={'md'}
-										width={'full'}
-										isLoadingText={isJoined ? 'Leaving' : 'Joining'}
-										textAlign={'center'}
-										_text={{
-											fontWeight: '700',
-											fontSize: 'md',
+										bgColor={isJoined ? '$error500' : '$primary500'}
+										rounded={'$md'}
+										width={'$full'}
+										sx={{
+											h: 45,
 										}}
-										h={'45px'}
 									>
-										{isJoined ? 'Leave' : 'Join'}
+										{JVLoading || RPJVLoading ? (
+											<Text>{isJoined ? 'Leave' : 'Join'}</Text>
+										) : (
+											<Text>{isJoined ? 'Leaving' : 'Joining'}</Text>
+										)}
 									</Button>
 								</>
 							) : metric === 'm' && distance < 100 ? (
 								<Button
-									variant={'ghost'}
+									variant={'link'}
 									onPress={async () => {
 										const { distanceInM } = await refreshLocation({
 											vlat: props.item.Venue?.Location?.Geometry?.latitude,
@@ -288,10 +291,9 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 
 										setDist({ distanceInM })
 									}}
-									borderRadius={'md'}
-									textAlign={'center'}
+									rounded={'$md'}
 								>
-									Refresh distance
+									<Text>Refresh distance</Text>
 								</Button>
 							) : null}
 						</VStack>

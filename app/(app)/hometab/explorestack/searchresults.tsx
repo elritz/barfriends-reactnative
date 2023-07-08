@@ -1,11 +1,12 @@
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { useReactiveVar } from '@apollo/client'
+import { Text } from '@components/core'
 import SearchAccounts from '@components/screens/search/textsearchtabs/SearchAccounts'
-import SearchTop from '@components/screens/search/textsearchtabs/SearchTop'
 import SearchVenues from '@components/screens/search/textsearchtabs/SearchVenues'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Text, useTheme } from 'native-base'
-import { useContext, useState } from 'react'
-import { View, useWindowDimensions } from 'react-native'
+import { useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
 
@@ -18,7 +19,7 @@ const renderScene = SceneMap({
 export default function searchresulttabs() {
 	const layout = useWindowDimensions()
 	const { top } = useSafeAreaInsets()
-	const theme = useTheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
 	const [index, setIndex] = useState(0)
@@ -32,10 +33,13 @@ export default function searchresulttabs() {
 		<TabBar
 			{...props}
 			indicatorStyle={{
-				backgroundColor: theme.colors.primary[500],
+				backgroundColor: rTheme.theme?.gluestack.tokens.colors.primary500,
 			}}
 			style={{
-				backgroundColor: colorScheme === 'dark' ? theme.colors.dark[50] : theme.colors.light[50],
+				backgroundColor:
+					colorScheme === 'dark'
+						? rTheme.theme?.gluestack.tokens.colors.dark50
+						: rTheme.theme?.gluestack.tokens.colors.light50,
 			}}
 			renderLabel={({ route, focused, color }) => {
 				return <Text style={{ margin: 8 }}>{route.title}</Text>

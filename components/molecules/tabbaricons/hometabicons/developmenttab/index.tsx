@@ -1,7 +1,7 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
+import { Box } from '@components/core'
 import { Entypo } from '@expo/vector-icons'
-import { Box, Icon } from 'native-base'
 
 const DevelopmentTab = (props: TabProps) => {
 	return (
@@ -9,19 +9,25 @@ const DevelopmentTab = (props: TabProps) => {
 			<TabBarIcon
 				color={props.color}
 				icon={
-					<Icon
+					<Entypo
 						style={{
 							zIndex: 100,
 							justifyContent: 'center',
 						}}
+						size={28}
 						name='code'
-						size={'28px'}
-						as={Entypo}
 						color={props.color}
 					/>
 				}
 			/>
-			{<Box bg={false ? 'red.500' : 'transparent'} h={'4.25px'} w={'4.25px'} borderRadius={'full'} />}
+			<Box
+				bg={false ? '$red500' : 'transparent'}
+				sx={{
+					h: 4.25,
+					w: 4.25,
+				}}
+				rounded={'$full'}
+			/>
 		</>
 	)
 }

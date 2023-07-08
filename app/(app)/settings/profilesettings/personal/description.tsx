@@ -1,5 +1,6 @@
 //TODO FN(Update to change to detail information) mutation is broken here
 import { useReactiveVar } from '@apollo/client'
+import { Box, Button, Input, Text } from '@components/core'
 import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
@@ -8,8 +9,8 @@ import {
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Box, Button, Input, Text, View } from 'native-base'
 import { useForm, Controller } from 'react-hook-form'
+import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const DESCRIPTION_LENGTH = 250
@@ -78,7 +79,7 @@ export default () => {
 			updateOneProfileMutation({
 				variables: {
 					where: {
-						id: rAuthorizationVar?.DeviceProfile?.Profile.id,
+						id: rAuthorizationVar?.DeviceProfile?.Profile?.id,
 					},
 					data: {
 						DetailInformation: {
@@ -114,53 +115,58 @@ export default () => {
 				}}
 				render={({ field: { onChange, onBlur, value } }) => {
 					return (
-						<View my={2} flexDir={'column'} flex={1}>
-							<Input
-								key={'description'}
-								multiline={true}
-								maxLength={DESCRIPTION_LENGTH}
-								keyboardAppearance={colorScheme}
-								onBlur={onBlur}
-								onChangeText={onChange}
-								blurOnSubmit={true}
-								value={value}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								autoFocus
-								placeholder='Description text'
-								returnKeyType='done'
-								autoCapitalize='none'
-								autoComplete='off'
-								variant={'underlined'}
-								keyboardType='default'
-								fontSize={'lg'}
-								size={'lg'}
-								py={2}
-								_input={{
-									fontSize: 'xl',
-									fontWeight: 'medium',
-									minHeight: '100%',
-								}}
-							/>
+						<View
+							style={{
+								marginVertical: 2,
+								flexDirection: 'column',
+								flex: 1,
+							}}
+						>
+							<Input key={'description'} variant={'underlined'}>
+								<Input.Input
+									multiline={true}
+									maxLength={DESCRIPTION_LENGTH}
+									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									onBlur={onBlur}
+									onChangeText={onChange}
+									blurOnSubmit={true}
+									value={value}
+									onSubmitEditing={handleSubmit(onSubmit)}
+									autoFocus
+									placeholder='Description text'
+									returnKeyType='done'
+									autoCapitalize='none'
+									autoComplete='off'
+									keyboardType='default'
+									fontSize={'$lg'}
+									py={'$2'}
+								/>
+							</Input>
 							<Text>{errors?.description?.message}</Text>
-							<Box flexDir={'row'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-								<Text mx={3} alignSelf={'center'}>
+							<Box
+								flexDirection={'row'}
+								justifyContent={'space-between'}
+								alignItems={'center'}
+								sx={{
+									w: '100%',
+								}}
+							>
+								<Text mx={'$3'} alignSelf={'center'}>
 									{value.length} / {DESCRIPTION_LENGTH}
 								</Text>
 								{(dirtyFields.description || !!errors.description) && (
 									<Button
 										disabled={UOPLoading}
-										isLoading={UOPLoading}
-										isLoadingText={'Updating...'}
 										onPress={handleSubmit(onSubmit)}
-										borderRadius={'md'}
+										rounded={'$md'}
 										style={{
 											alignSelf: 'center',
 											width: '50%',
 										}}
-										my={5}
+										my={'$5'}
 										size={'lg'}
 									>
-										Update
+										{UOPLoading ? <Text>Updating...</Text> : <Text>Update</Text>}
 									</Button>
 								)}
 							</Box>

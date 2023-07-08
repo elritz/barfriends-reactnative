@@ -1,11 +1,12 @@
+import { Box, Button, HStack, Text, VStack } from '@components/core'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import {
 	useGetRelationshipFriendRequestStatusLazyQuery,
 	useRemoveFriendMutation,
 } from '@graphql/generated'
-import { useSearchParams } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import { DateTime } from 'luxon'
-import { Box, Button, HStack, Modal, Text, VStack } from 'native-base'
+import { Modal } from 'native-base'
 import { ReactElement, useEffect } from 'react'
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 }
 
 export default function RelationshipModal({ isOpen, onClose }: Props) {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 
 	const [
 		getRelationshipFriendStatusQuery,
@@ -48,11 +49,11 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 					GRFRSData.getRelationshipFriendRequestStatus.createdAt,
 				).toFormat('yyyy LLL dd')
 				return (
-					<Box alignItems={'center'}>
-						<Text textTransform={'uppercase'} fontSize={'sm'} fontWeight={'bold'} textAlign={'center'}>
+					<Box bg='$transparent' alignItems={'center'}>
+						<Text textTransform={'uppercase'} fontSize={'$sm'} fontWeight={'$bold'} textAlign={'center'}>
 							Friends since
 						</Text>
-						<Text textTransform={'uppercase'} fontSize={'2xl'}>
+						<Text textTransform={'uppercase'} fontSize={'$2xl'}>
 							{created}
 						</Text>
 					</Box>
@@ -71,9 +72,9 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 				</Modal.Header>
 				<Modal.Body w={'full'}>
 					<VStack>
-						<HStack mb={3}>
+						<HStack mb={'$3'}>
 							<VStack>
-								<Text flexWrap={'wrap'} mx={2}>
+								<Text flexWrap={'wrap'} mx={'$2'}>
 									Are you sure you want to remove the friend ship you have?
 								</Text>
 							</VStack>
@@ -82,14 +83,16 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 					</VStack>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant='unstyled' mr='1' onPress={onClose}>
+					<Button variant='link' mr='1' onPress={onClose}>
 						Cancel
 					</Button>
 					<Button
 						size={'sm'}
-						w={'100px'}
-						borderRadius={'sm'}
-						mx={2}
+						style={{
+							width: 100,
+						}}
+						rounded={'$sm'}
+						mx={'$2'}
 						onPress={() => {
 							if (GRFRSData.getRelationshipFriendRequestStatus?.__typename === 'Relationship') {
 								removeFriendMutation({
@@ -119,7 +122,7 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 							}
 						}}
 					>
-						Unfriend
+						<Text>Unfriend</Text>
 					</Button>
 				</Modal.Footer>
 			</Modal.Content>

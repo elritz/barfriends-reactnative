@@ -1,12 +1,19 @@
-import { useSearchParams } from 'expo-router'
-import { Box, ScrollView, Text } from 'native-base'
+import { Box, Text } from '@components/core'
+import { useLocalSearchParams } from 'expo-router'
+import { ScrollView } from 'react-native'
 
 export default () => {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	return (
 		<ScrollView>
-			<Box safeAreaTop h={200} bg={'dark.50'}>
-				<Text fontSize={'lg'} color={'warmGray.100'}>
+			<Box
+				sx={{
+					h: 200,
+				}}
+				h={200}
+				bg={'$dark50'}
+			>
+				<Text fontSize={'$lg'} color={'$warmGray50'}>
 					{params.profileid}
 				</Text>
 			</Box>

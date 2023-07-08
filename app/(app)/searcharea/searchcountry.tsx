@@ -1,11 +1,11 @@
 import { Form } from './_layout'
-import { Box, Text } from '@components/core'
+import { Box, Button, Text } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { CountryResponseObject, useGetAllCountriesQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Button, Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default function SearchCountryTextScreen() {
 	const { bottom, top } = useSafeAreaInsets()
 	const router = useRouter()
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const [countries, setCountries] = useState<CountryResponseObject[]>([])
 	const [pagination, setPagination] = useState<number>()
 
@@ -72,24 +72,7 @@ export default function SearchCountryTextScreen() {
 		return (
 			<Box flex={1} mx={'$3'} sx={{ pt: top + SEARCH_BAR_HEIGHT + 20 }}>
 				{[...Array(20)].map((item, index) => {
-					return (
-						<Skeleton
-							key={index}
-							h='50'
-							rounded='md'
-							my={1}
-							startColor='coolGray.100'
-							speed={0.95}
-							_light={{
-								startColor: 'coolGray.100',
-								endColor: 'coolGray.300',
-							}}
-							_dark={{
-								startColor: 'dark.200',
-								endColor: 'dark.300',
-							}}
-						/>
-					)
+					return <Skeleton key={index} />
 				})}
 			</Box>
 		)
@@ -112,24 +95,21 @@ export default function SearchCountryTextScreen() {
 				return (
 					<Button
 						key={index}
-						_stack={{
-							paddingY: 0,
-							paddingX: 2,
-							marginX: 3,
+						sx={{
+							py: 0,
+							px: 2,
+							mx: 3,
 							w: '100%',
 							justifyContent: 'space-between',
+							h: 50,
+							_light: {
+								bg: watch('country.name') === item.name ? 'primary.500' : 'light.50',
+							},
+							_dark: {
+								bg: watch('country.name') === item.name ? 'primary.500' : 'dark.50',
+							},
 						}}
-						h={'50px'}
-						py={3}
-						px={1}
-						mx={3}
-						_light={{
-							bg: watch('country.name') === item.name ? 'primary.500' : 'light.50',
-						}}
-						_dark={{
-							bg: watch('country.name') === item.name ? 'primary.500' : 'dark.50',
-						}}
-						rounded={'md'}
+						rounded={'$md'}
 						onPress={() => {
 							setValue('country', {
 								name: item.name,

@@ -1,5 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Divider, HStack, Heading, Pressable, Text, VStack } from '@components/core'
+import {
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+} from '@constants/ReactNavigationConstants'
 import { useGetAllThemesQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
@@ -7,11 +11,13 @@ import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { useRouter } from 'expo-router'
 import { useCallback } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Preferences() {
 	const ITEM_HEIGHT = 50
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
+	const insets = useSafeAreaInsets()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [toggleTheme] = useToggleTheme()
 
@@ -171,10 +177,20 @@ export default function Preferences() {
 			data={GATData.getAllThemes}
 			keyExtractor={(item, index) => index.toString()}
 			numColumns={2}
+			contentContainerStyle={{
+				paddingHorizontal: 10,
+			}}
+			contentInset={{
+				top: insets.top + 100,
+				bottom:
+					insets.bottom !== 0
+						? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+						: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+			}}
 			renderItem={renderItem}
 			ListHeaderComponent={() => {
 				return (
-					<HStack px={'$2'} py={'$4'} w={'$full'} space={'lg'} justifyContent={'space-around'}>
+					<HStack py={'$4'} w={'$full'} space={'lg'} justifyContent={'space-around'}>
 						<Button
 							onPress={async () => {
 								await setTheme({ colorScheme: 'light' })
@@ -182,16 +198,16 @@ export default function Preferences() {
 							bg={'$light50'}
 							flex={1}
 							borderColor={rThemeVar.localStorageColorScheme === 'light' ? '$primary300' : 'transparent'}
-							borderWidth={2}
+							borderWidth={'$2'}
 						>
 							<Text color={'$black'}>Light</Text>
 						</Button>
 						<Button
+							flex={1}
 							onPress={async () => {
 								await setTheme({ colorScheme: 'dark' })
 							}}
 							bg={'$dark100'}
-							flex={1}
 							borderColor={rThemeVar.localStorageColorScheme === 'dark' ? '$primary300' : 'transparent'}
 							borderWidth={'$2'}
 						>

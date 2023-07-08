@@ -1,5 +1,4 @@
-import { View } from 'native-base'
-import * as React from 'react'
+import { View } from 'react-native'
 
 interface OuterViewStyleProps {
 	height?: number
@@ -20,10 +19,12 @@ export interface TabProps {
 
 const TabBarIcon = ({ icon, badge, containerStyle }: TabBarIconProps) => (
 	<View
-		height={'45px'}
-		width={containerStyle?.width || '100%'}
-		alignItems={'center'}
-		justifyContent={'center'}
+		style={{
+			height: 45,
+			width: containerStyle?.width || '100%',
+			alignItems: 'center',
+			justifyContent: 'center',
+		}}
 	>
 		{/* {badge} */}
 		{icon}

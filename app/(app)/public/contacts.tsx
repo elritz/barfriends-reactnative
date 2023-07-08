@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Heading, Text, VStack } from '@components/core'
 import { APP_STORE_URL_LINK } from '@constants/App'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -9,29 +9,16 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { ContactsReactiveVar, PermissionContactsReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import { useDisclose } from '@util/hooks/useDisclose'
 import * as Contacts from 'expo-contacts'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import {
-	Box,
-	Button,
-	Text,
-	VStack,
-	HStack,
-	Skeleton,
-	IconButton,
-	Icon,
-	Checkbox,
-	Divider,
-	useDisclose,
-	Modal,
-} from 'native-base'
 import { useEffect, useState } from 'react'
 import { Alert, Platform, Share } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const insets = useSafeAreaInsets()
 	const rContactsVar = useReactiveVar(ContactsReactiveVar)
 	const rPermissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
@@ -86,10 +73,10 @@ export default () => {
 
 	if (!rPermissionContactsVar?.granted) {
 		return (
-			<Box safeArea flex={1} mx={2}>
-				<VStack space={3} mb={6} alignItems={'center'}>
+			<Box flex={1} mx={'$2'}>
+				<VStack space={'md'} mb={'$6'} alignItems={'center'}>
 					<Heading>All Contacts</Heading>
-					<Text fontSize={'lg'}>Please allow Barfriends to access your contacts.</Text>
+					<Text fontSize={'$lg'}>Please allow Barfriends to access your contacts.</Text>
 				</VStack>
 				<Button
 					onPress={() =>
@@ -98,7 +85,7 @@ export default () => {
 						})
 					}
 				>
-					Continue
+					<Text>Continue</Text>
 				</Button>
 			</Box>
 		)

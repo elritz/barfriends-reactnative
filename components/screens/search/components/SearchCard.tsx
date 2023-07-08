@@ -1,9 +1,15 @@
+import { useReactiveVar } from '@apollo/client'
+import { Box, HStack, Pressable, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Box, HStack, Icon, Pressable, Text, VStack, Image } from 'native-base'
+import { Image } from 'react-native'
 
 export default function SearchCard({ item }) {
 	const router = useRouter()
+	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	if (!item?.Profile) {
 		return null
@@ -25,8 +31,13 @@ export default function SearchCard({ item }) {
 				}
 			}}
 		>
-			<Box h={'65px'} px={3}>
-				<HStack alignItems={'center'} h={'100%'}>
+			<Box
+				sx={{
+					h: 65,
+				}}
+				px={'$3'}
+			>
+				<HStack sx={{ h: '100%' }} alignItems={'center'}>
 					{item.Profile?.photos[0]?.url ? (
 						<Image
 							style={{
@@ -34,42 +45,36 @@ export default function SearchCard({ item }) {
 								width: 45,
 								borderRadius: 8,
 							}}
-							alt={"Profile Image"}
+							alt={'Profile Image'}
 							// placeholder={item.Profile?.photos[0]?.blurhash}
 							source={{ uri: item.Profile?.photos[0]?.url }}
 						/>
 					) : (
 						<Box
-							_light={{
-								bg: 'light.100',
+							sx={{
+								h: 45,
+								w: 45,
 							}}
-							_dark={{
-								bg: 'dark.100',
-							}}
-							h={45}
-							w={45}
 							alignItems={'center'}
 							justifyContent={'center'}
-							borderRadius={'md'}
+							rounded={'$md'}
 						>
-							<Icon
-								_light={{
-									color: 'light.300',
-								}}
-								_dark={{
-									color: 'dark.300',
-								}}
-								as={Ionicons}
-								size={'lg'}
+							<Ionicons
+								size={25}
+								color={
+									colorScheme === 'light'
+										? rTheme.theme?.gluestack.tokens.colors.light900
+										: rTheme.theme?.gluestack.tokens.colors.dark900
+								}
 								name={'ios-person'}
 							/>
 						</Box>
 					)}
-					<VStack ml={2}>
-						<Text fontWeight={'medium'} textTransform={'capitalize'} lineHeight={'xs'} fontSize={'lg'}>
+					<VStack ml={'$2'}>
+						<Text fontWeight={'$medium'} textTransform={'capitalize'} lineHeight={'$xs'} fontSize={'$lg'}>
 							{item.Profile?.IdentifiableInformation.fullname}
 						</Text>
-						<Text lineHeight={'xs'} fontSize={'sm'}>
+						<Text lineHeight={'$xs'} fontSize={'$sm'}>
 							{item.Profile?.IdentifiableInformation.username}
 						</Text>
 					</VStack>

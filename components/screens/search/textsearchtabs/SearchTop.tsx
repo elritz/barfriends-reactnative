@@ -1,5 +1,5 @@
 // TODO: Choose to remove or to compelete
-import { Box, Heading } from 'native-base'
+import { Box, Heading } from '@components/core'
 
 export default function SearchTop() {
 	return (

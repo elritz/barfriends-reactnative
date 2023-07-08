@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import DatePicker from '@components/atoms/inputs/DatePicker'
+import { Box, Button, Text } from '@components/core'
 import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
@@ -10,8 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
-import { Box, Button, Text } from 'native-base'
-import {  useState } from 'react'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -157,24 +157,24 @@ export default () => {
 				/>
 			</>
 			<Text>{errors.date && errors?.date.message}</Text>
-			<Box justifyContent={'center'} py={'15px'} width={'100%'}>
+			<Box justifyContent={'center'} sx={{}} py={'15px'} width={'100%'}>
 				{dirtyFields.date && (
 					<Button
 						disabled={UOPLoading}
-						isLoading={UOPLoading}
-						isLoadingText={'Updating...'}
 						onPress={handleSubmit(onSubmit)}
-						borderRadius={'md'}
-						_dark={{
-							bg: 'dark.500',
+						rounded={'$md'}
+						sx={{
+							_dark: {
+								bg: '$dark500',
+							},
+							_light: {
+								bg: '$light500',
+							},
 						}}
-						_light={{
-							bg: 'light.500',
-						}}
-						my={5}
+						my={'$5'}
 						size={'lg'}
 					>
-						Update
+						<Text>Update</Text>
 					</Button>
 				)}
 			</Box>

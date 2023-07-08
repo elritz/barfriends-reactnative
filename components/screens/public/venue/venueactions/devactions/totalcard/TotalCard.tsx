@@ -1,6 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
-import { VStack } from '@components/core'
+import { Button, CheckCircleIcon, Text, VStack } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -11,12 +11,11 @@ import {
 	useRemovePersonalTotalsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
-import { Button, CheckCircleIcon } from 'native-base'
+import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 export default function TotalCard() {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isTotaled, setIsTotaled] = useState(false)
 
@@ -139,18 +138,15 @@ export default function TotalCard() {
 						!isTotaled ? addPersonalTotalsVenueMutation() : removePersonalTotalsVenueMutation()
 					}
 				}}
-				bg={'blue.500'}
-				width={'full'}
-				borderRadius={'md'}
-				textAlign={'center'}
-				_text={{
-					fontWeight: '700',
-					fontSize: 'md',
+				bg={'$blue500'}
+				width={'$full'}
+				rounded={'$md'}
+				sx={{
+					w: 100,
 				}}
-				w={'100'}
-				rightIcon={isTotaled && <CheckCircleIcon size='5' mt='0.5' color='white' />}
 			>
-				{!APTVLoading ? <>{isTotaled ? 'Totaled' : 'Total'}</> : 'Totaling'}
+				{isTotaled && <CheckCircleIcon size='5' mt='$1' color='$white' />}
+				<Text>{!APTVLoading ? <>{isTotaled ? 'Totaled' : 'Total'}</> : 'Totaling'}</Text>
 			</Button>
 		</VStack>
 	)

@@ -1,21 +1,20 @@
+import { useReactiveVar } from '@apollo/client'
+import { Input } from '@components/core'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Input, View, useTheme } from 'native-base'
 import { useState } from 'react'
+import { View } from 'react-native'
 
 interface CurrentPlacceScreenProps {}
 
 export default ({}: CurrentPlacceScreenProps) => {
-	const theme = useTheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const colorScheme = useThemeColorScheme()
 	const [search, setSearch] = useState<string>('')
 
 	return (
 		<View>
 			<Input
-				placeholder='Search...'
-				onChangeText={(text: string) => setSearch(text)}
-				value={search}
-				keyboardAppearance={colorScheme}
 				style={{
 					backgroundColor: 'transparent',
 					width: '95%',
@@ -23,12 +22,25 @@ export default ({}: CurrentPlacceScreenProps) => {
 					paddingHorizontal: 5,
 					borderRadius: 14,
 				}}
-				_input={{
-					color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
-					borderBottomColor: 'transparent',
-					backgroundColor: colorScheme === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
-				}}
-			/>
+			>
+				<Input.Input
+					style={{
+						color:
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900,
+						borderBottomColor: 'transparent',
+						backgroundColor:
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light50
+								: rTheme.theme?.gluestack.tokens.colors.dark50,
+					}}
+					placeholder='Search...'
+					onChangeText={(text: string) => setSearch(text)}
+					value={search}
+					keyboardAppearance={colorScheme}
+				/>
+			</Input>
 		</View>
 	)
 }

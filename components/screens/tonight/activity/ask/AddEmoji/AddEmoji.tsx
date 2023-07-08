@@ -1,13 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Heading, Pressable } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
-import { AuthorizationReactiveVar } from '@reactive'
+import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Box, IconButton, Icon, Pressable } from 'native-base'
 
 const AddEmoji = () => {
 	const router = useRouter()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 
 	return (
 		<Pressable
@@ -16,75 +17,33 @@ const AddEmoji = () => {
 					pathname: '(app)/modal/Emojimood',
 				})
 			}
+			style={{
+				alignItems: 'center',
+				justifyContent: 'center',
+				paddingVertical: 10,
+			}}
 		>
-			<Box
-				flex={1}
-				h={200}
-				justifyContent={'center'}
-				alignItems={'center'}
-				rounded='lg'
-				overflow='hidden'
-				_light={{
-					bg: 'light.100',
-				}}
-				_dark={{
-					bg: 'dark.100',
-				}}
-				px={5}
-			>
-				<Box
-					flex={1}
-					h={200}
-					justifyContent={'center'}
-					alignItems={'center'}
-					_light={{
-						bg: 'light.100',
-					}}
-					_dark={{
-						bg: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].colors[1]
-							? rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0].colors[2]
-							: 'dark.100',
-					}}
-					px={5}
-				>
-					<IconButton
-						variant={'solid'}
-						borderRadius={'md'}
-						bg={'green.400'}
-						icon={
-							<Icon
-								size={30}
-								_light={{
-									color: 'light.900',
-								}}
-								_dark={{
-									color: 'dark.900',
-								}}
-								as={MaterialIcons}
-								name='emoji-emotions'
-							/>
-						}
-						height={57}
-						width={57}
-						alignSelf={'center'}
-					/>
-
-					<Heading
-						mt={3}
-						w={'100%'}
-						textAlign={'center'}
-						fontSize={'$lg'}
-						style={{ textTransform: 'uppercase' }}
-						fontWeight={'$black'}
-						textTransform={'uppercase'}
-					>
-						Add an
-					</Heading>
-					<Heading textAlign={'center'} fontSize={'$lg'} style={{ textTransform: 'uppercase' }}>
-						emojimood
-					</Heading>
-				</Box>
+			<Box bg='$amber400' h={'$16'} w={'$16'} alignItems='center' justifyContent='center'>
+				<MaterialIcons
+					size={30}
+					name='emoji-emotions'
+					color={
+						colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
 			</Box>
+			<Heading
+				mt={'$3'}
+				textAlign={'center'}
+				fontSize={'$lg'}
+				fontWeight={'$black'}
+				textTransform={'uppercase'}
+				lineHeight={'$lg'}
+			>
+				Add an emojimood
+			</Heading>
 		</Pressable>
 	)
 }

@@ -1,8 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button } from '@components/core'
 import { PermissionNotificationReactiveVar } from '@reactive'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import { useRouter } from 'expo-router'
-import { Button } from 'native-base'
 
 export default function SearchAreaLocationPermissionButton() {
 	const router = useRouter()
@@ -17,17 +17,8 @@ export default function SearchAreaLocationPermissionButton() {
 	}
 
 	return (
-		<Button
-			variant='solid'
-			onPress={async () => _press()}
-			mt={15}
-			w={'85%'}
-			_text={{
-				fontSize: 'lg',
-				fontWeight: 'bold',
-			}}
-		>
-			Continue
+		<Button variant='solid' onPress={async () => _press()} sx={{ mt: 15, w: '85%' }}>
+			<Button.Text>Continue</Button.Text>
 		</Button>
 	)
 }

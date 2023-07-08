@@ -1,6 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
-import { Box, VStack } from '@components/core'
+import { Box, Button, CheckCircleIcon, VStack } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -10,12 +10,11 @@ import {
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
-import { Button, CheckCircleIcon } from 'native-base'
+import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 export default function JoinCard() {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')
 	const [isJoined, setIsJoined] = useState(false)
@@ -134,18 +133,14 @@ export default function JoinCard() {
 							isJoined ? removePersonalJoinsVenueMutation() : addPersonalJoinVenueMutation()
 						}
 					}}
-					isLoading={JVLoading || RPJVLoading}
-					colorScheme={'primary'}
-					borderRadius={'md'}
-					textAlign={'center'}
-					_text={{
-						fontWeight: '700',
-						fontSize: 'md',
+					isDisabled={JVLoading || RPJVLoading}
+					rounded={'$md'}
+					sx={{
+						w: 100,
 					}}
-					w={'100'}
-					rightIcon={isJoined && <CheckCircleIcon size='5' mt='0.5' color='white' />}
 				>
 					{!JVLoading ? <>{isJoined ? 'Joined' : 'Join'}</> : 'Joining'}
+					{isJoined && <CheckCircleIcon size='5' mt='0.5' color='white' />}
 				</Button>
 			</Box>
 		</VStack>

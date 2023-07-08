@@ -1,12 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Text, VStack } from '@components/core'
+import { Box, Button, Heading, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
-import { PermissionContactsReactiveVar } from '@reactive'
+import { PermissionContactsReactiveVar, ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Button, Icon } from 'native-base'
 
 export const FriendsListEmptyState = () => {
 	const router = useRouter()
+	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const permissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 	return (
 		<VStack
@@ -25,28 +27,24 @@ export const FriendsListEmptyState = () => {
 			</Box>
 			<VStack space={'$3'} w={'$full'} alignItems={'center'}>
 				<Button
-					_text={{
-						fontSize: 'lg',
-					}}
 					size={'xs'}
-					px={20}
-					borderRadius={'md'}
+					px={'$8'}
+					rounded={'$md'}
 					onPress={() =>
 						router.push({
 							pathname: '(app)/permission/contacts',
 						})
 					}
 				>
-					{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}
+					<Text>{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}</Text>
 				</Button>
 				<Button
 					variant={'link'}
-					_text={{
-						fontSize: 'lg',
-					}}
 					size={'xs'}
-					w={'55%'}
-					borderRadius={'md'}
+					sx={{
+						w: '55%',
+					}}
+					rounded={'$md'}
 					onPress={() => {
 						router.push({
 							pathname: '(app)/hometab/explorestack/searchtext',
@@ -55,9 +53,17 @@ export const FriendsListEmptyState = () => {
 							},
 						})
 					}}
-					leftIcon={<Icon as={Ionicons} name='search' size={'md'} />}
 				>
-					Search
+					<Ionicons
+						name='search'
+						size={25}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+					/>
+					<Text>Search</Text>
 				</Button>
 			</VStack>
 		</VStack>

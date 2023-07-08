@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
 import LocationPermissionItemEmptyState from '@components/organisms/list/searchareafiltering/LocationPermissionItemEmptyState'
 import SearchAreaLocationPermissionItem from '@components/organisms/list/searchareafiltering/SearchAreaLocationPermissionItem'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Box, Text, HStack, Button, ScrollView, VStack } from 'native-base'
+import { ScrollView } from 'react-native'
 
 export default () => {
 	const router = useRouter()
@@ -73,27 +73,23 @@ export default () => {
 	}
 
 	return (
-		<ScrollView mx={2} flex={1}>
-			<VStack space={3} my={4}>
+		<ScrollView
+			style={{
+				marginHorizontal: 4,
+				flex: 1,
+			}}
+		>
+			<VStack space={'md'} my={'$4'}>
 				<Box>
-					<Heading size={'lg'}>Distance</Heading>
-					<Text fontSize={'lg'}>Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away</Text>
-					<HStack space={3} justifyContent={'space-around'}>
+					<Heading fontSize={'$lg'}>Distance</Heading>
+					<Text fontSize={'$lg'}>Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away</Text>
+					<HStack space={'md'} justifyContent={'space-around'}>
 						{searchAreaDistances.map((item, index) => {
 							return (
 								<Button
 									key={index}
 									variant={rSearchAreaVar?.kRing.value === item.kRing ? 'solid' : 'outline'}
-									colorScheme={rSearchAreaVar?.kRing.value === item.kRing ? 'primary' : 'white'}
-									_text={{
-										_dark: {
-											color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'red.200',
-										},
-										_light: {
-											color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'coolGray.900',
-										},
-										fontWeight: rSearchAreaVar?.kRing.value === item.kRing ? 'medium' : 'medium',
-									}}
+									bg={rSearchAreaVar?.kRing.value === item.kRing ? '$primary500' : '$white'}
 									style={{
 										borderColor: rSearchAreaVar?.kRing.value === item.kRing ? '#ff700000' : '#ff7000',
 										borderWidth: 1,
@@ -102,27 +98,39 @@ export default () => {
 									flex={1}
 									height={50}
 								>
-									{item.distance}
+									<Text
+										sx={{
+											_dark: {
+												color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'red.200',
+											},
+											_light: {
+												color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'coolGray.900',
+											},
+											fontWeight: rSearchAreaVar?.kRing.value === item.kRing ? 'medium' : 'medium',
+										}}
+									>
+										{item.distance}
+									</Text>
 								</Button>
 							)
 						})}
 					</HStack>
 				</Box>
-				<VStack space={2}>
-					<HStack space={3}>
+				<VStack space={'md'}>
+					<HStack space={'md'}>
 						{!rSearchAreaVar?.searchArea.country.name ||
 						!rSearchAreaVar?.searchArea.state.name ||
 						!rSearchAreaVar?.searchArea.city.name ? (
-							<Box
-								p={5}
-								borderRadius={'md'}
-								_dark={{
-									bg: 'dark.100',
-								}}
-							>
-								<Box alignItems={'center'} w={'100%'} my={2}>
+							<Box p={'$5'}>
+								<Box
+									alignItems={'center'}
+									style={{
+										width: '100%',
+									}}
+									my={'$2'}
+								>
 									<Heading>Find Venues Near</Heading>
-									<Text fontSize={'lg'}>Find your area and we will show you what we have for venues.</Text>
+									<Text fontSize={'$lg'}>Find your area and we will show you what we have for venues.</Text>
 								</Box>
 								<Button
 									onPress={() => {
@@ -130,52 +138,54 @@ export default () => {
 											pathname: '(app)/searcharea/searchcountry',
 										})
 									}}
-									_text={{
-										fontSize: 'lg',
-									}}
 								>
-									Search area
+									<Text fontSize={'$lg'}>Search area</Text>
 								</Button>
 								<LocationPermissionItemEmptyState />
 							</Box>
 						) : (
-							<VStack flex={1} space={2}>
+							<VStack flex={1} space={'md'}>
 								<Heading size={'lg'}>Search area</Heading>
-								<Box h={'55px'}>
-									<Text fontSize={'lg'} numberOfLines={2}>
+								<Box sx={{ h: 55 }}>
+									<Text fontSize={'$lg'} numberOfLines={2}>
 										{rSearchAreaVar?.useCurrentLocation
 											? 'You are currently using your devices location to show you venues nearby.'
 											: 'Use your location to automatically set your area.'}
 									</Text>
 								</Box>
 
-								<HStack space={3}>
+								<HStack space={'md'}>
 									{searchAreaLocation.map((item, index) => {
 										return (
 											<Button
 												key={index}
 												bg={!rSearchAreaVar?.useCurrentLocation ? 'primary.500' : 'blue.400'}
 												variant={'solid'}
-												_text={{
-													ellipsizeMode: 'tail',
-													numberOfLines: 1,
-													_dark: {
-														color: 'white',
-													},
-													_light: {
-														color: 'white',
-													},
-													fontWeight: 'medium',
-												}}
 												// isDisabled
-												_disabled={{
-													opacity: 1,
+												sx={{
+													':disabled': {
+														opacity: 1,
+													},
 												}}
 												onPress={() => switchRouter(item.name)}
 												flex={1}
 												height={50}
 											>
-												{item.value}
+												<Text
+													ellipsizeMode={'tail'}
+													numberOfLines={1}
+													sx={{
+														_dark: {
+															color: 'white',
+														},
+														_light: {
+															color: 'white',
+														},
+														fontWeight: 'medium',
+													}}
+												>
+													{item.value}
+												</Text>
 											</Button>
 										)
 									})}

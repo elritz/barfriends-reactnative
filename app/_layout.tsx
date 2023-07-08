@@ -370,7 +370,7 @@ export default () => {
 		CGLoading ||
 		!rAuthorizationVar
 	) {
-		return <SplashScreen />
+		return null
 	}
 
 	if (RDMError || CGPMError) {

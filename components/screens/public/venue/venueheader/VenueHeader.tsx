@@ -1,7 +1,7 @@
 import { Box } from '@components/core'
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { Photo } from '@graphql/generated'
-import { Image } from 'native-base'
+import { Image } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {

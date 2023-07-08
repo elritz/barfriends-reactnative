@@ -1,14 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { GluestackUIProvider } from '@components/core'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { LocalStoragePreferenceThemeType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ThemeProvider as ReactNavigationThemeProvider } from '@react-navigation/native'
 import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { SplashScreen, Stack } from 'expo-router'
-import { NativeBaseProvider } from 'native-base'
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { AppState, useColorScheme, Appearance, StatusBar } from 'react-native'
 
@@ -65,7 +62,7 @@ export default function _layout() {
 	}, [rThemeVar, rThemeVar.colorScheme, colorScheme, deviceColorScheme])
 
 	if (!memTheme || memTheme === null || !memTheme.theme?.nativebase) {
-		return <SplashScreen />
+		return null
 	}
 	return (
 		<Stack

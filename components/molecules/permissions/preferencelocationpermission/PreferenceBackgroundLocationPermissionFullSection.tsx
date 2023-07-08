@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import BackgroundLocationNextAskModal from '@components/molecules/modals/asks/backgroundlocationnextaskmodal'
 import { LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@ctypes/preferences'
@@ -10,11 +10,11 @@ import {
 	PreferenceBackgroundLocationPermissionReactiveVar,
 	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
+import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
-import { Box, Button, Divider, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
 
 export default function PreferenceBackgroundLocationPermissionFullSection() {
 	const router = useRouter()
@@ -47,12 +47,19 @@ export default function PreferenceBackgroundLocationPermissionFullSection() {
 									scale: 0.9,
 								}}
 							>
-								<VStack my={3} space={1} alignItems={'center'}>
-									<HStack w={'95%'} justifyContent={'flex-end'}>
-										<Icon onPress={onOpen} as={EvilIcons} size={'md'} name={'close'} />
+								<VStack my={'$3'} space={'sm'} alignItems={'center'}>
+									<HStack
+										sx={{
+											w: '95%',
+										}}
+										justifyContent={'flex-end'}
+									>
+										<Pressable onPress={onOpen}>
+											<EvilIcons size={25} name='close' />
+										</Pressable>
 									</HStack>
 									<Heading
-										size={'$md'}
+										fontSize={'$md'}
 										textAlign={'center'}
 										style={{
 											width: '100%',
@@ -60,7 +67,7 @@ export default function PreferenceBackgroundLocationPermissionFullSection() {
 									>
 										Enable More Features
 									</Heading>
-									<Text textAlign={'center'} fontSize={'md'} style={{ width: '90%' }}>
+									<Text textAlign={'center'} fontSize={'$md'} sx={{ width: '90%' }}>
 										Turn on "always allow" and find better deals at venues, be notified when you can join, and
 										when friends near you are going out.
 									</Text>
@@ -71,22 +78,20 @@ export default function PreferenceBackgroundLocationPermissionFullSection() {
 											})
 										}
 										size={'sm'}
-										mt={4}
-										w={'85%'}
-										_text={{
-											fontWeight: 'bold',
-											fontSize: 'sm',
+										mt={'$4'}
+										sx={{
+											w: '85%',
 										}}
 									>
-										Use "always allow"
+										<Text fontWeight='$bold' fontSize={'$sm'}>
+											Use "always allow"
+										</Text>
 									</Button>
 									<Button
-										w={'90%'}
-										variant={'unstyled'}
-										_text={{
-											fontWeight: 'bold',
-											fontSize: 'md',
+										sx={{
+											w: '90%',
 										}}
+										variant={'link'}
 										onPress={async () => {
 											await AsyncStorage.setItem(
 												LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
@@ -99,7 +104,10 @@ export default function PreferenceBackgroundLocationPermissionFullSection() {
 											)
 										}}
 									>
-										Not now
+										_text=
+										<Text fontWeight={'$bold'} fontSize={'$md'}>
+											Not now
+										</Text>
 									</Button>
 								</VStack>
 							</MotiView>

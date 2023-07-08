@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import { Ionicons } from '@expo/vector-icons'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
@@ -8,22 +8,11 @@ import {
 	useAcceptFriendRequestMutation,
 	useDeleteFriendRequestMutation,
 } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
+import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
-import {
-	Button,
-	IconButton,
-	Icon,
-	Box,
-	HStack,
-	VStack,
-	Text,
-	Image,
-	useDisclose,
-	Pressable,
-} from 'native-base'
+import { Image } from 'react-native'
 
 interface CondensedHorizontalFriendNotifciationProps {
 	item: FriendRequestNotification
@@ -92,12 +81,14 @@ export const CondensedHorizontalFriendNotifciation = ({
 
 	return (
 		<Box
-			style={{ backgroundColor: 'transparent' }}
-			py={3}
-			my={1}
-			px={2}
-			borderBottomColor={'light.300'}
-			borderBottomWidth={0.2}
+			py={'$3'}
+			my={'$1'}
+			px={'$2'}
+			borderBottomColor={'$light300'}
+			sx={{
+				bg: 'transparent',
+				borderBottomWidth: 0.2,
+			}}
 		>
 			{isSender ? (
 				<HStack justifyContent={'space-between'} alignItems={'center'}>
@@ -111,15 +102,18 @@ export const CondensedHorizontalFriendNotifciation = ({
 							})
 						}}
 					>
-						<HStack alignItems={'flex-start'} space={2}>
+						<HStack alignItems={'flex-start'} space={'md'}>
 							<Image
 								source={{ uri: item.receiverProfile?.photos?.url }}
-								size='xs'
-								borderRadius={'md'}
+								style={{ borderRadius: 20 }}
 								alt={item.receiverProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
 							/>
-							<VStack mt={-1}>
-								<Text fontSize={'md'} numberOfLines={1} isTruncated>
+							<VStack
+								sx={{
+									mt: -1,
+								}}
+							>
+								<Text fontSize={'$md'} numberOfLines={1}>
 									{capitalizeFirstLetter(item.receiverProfile?.IdentifiableInformation?.fullname)}
 								</Text>
 								<Heading fontSize={'$sm'}>
@@ -138,26 +132,24 @@ export const CondensedHorizontalFriendNotifciation = ({
 						colorScheme={'primary'}
 						variant={'outline'}
 						size={'sm'}
-						borderRadius={'md'}
+						rounded={'$md'}
 						isDisabled={DFRLoading || AFRLoading}
-						px={3}
-						mx={2}
-						height={'30px'}
-						_disabled={{
-							opacity: '100',
-						}}
-						_text={{
-							fontSize: 11,
-							lineHeight: 'xs',
-							textTransform: 'uppercase',
-							fontWeight: '800',
+						px={'$3'}
+						mx={'$2'}
+						sx={{
+							h: 30,
+							':disabled': {
+								opacity: 100,
+							},
 						}}
 						onPress={() => {
 							isSender && onOpenCancelFriendNotification()
 						}}
 						isLoadingText={'Requested'}
 					>
-						Requested
+						<Text fontSize={'$md'} lineHeight={'$xs'} fontWeight='$black' textTransform='uppercase'>
+							Requested
+						</Text>
 					</Button>
 				</HStack>
 			) : (
@@ -172,38 +164,36 @@ export const CondensedHorizontalFriendNotifciation = ({
 							})
 						}}
 					>
-						<HStack alignItems={'flex-start'} space={2}>
+						<HStack alignItems={'flex-start'} space={'md'}>
 							<Image
 								source={{ uri: item.senderProfile?.photos?.url }}
-								size='xs'
-								borderRadius={'md'}
+								style={{
+									borderRadius: 15,
+								}}
 								alt={item.senderProfile?.IdentifiableInformation?.fullname || 'Profile photo'}
 							/>
-							<VStack mt={-1}>
-								<Text fontSize={'md'} numberOfLines={1} isTruncated>
+							<VStack
+								sx={{
+									mt: -1,
+								}}
+							>
+								<Text fontSize={'$md'} numberOfLines={1}>
 									{capitalizeFirstLetter(item.senderProfile?.IdentifiableInformation?.fullname)}
 								</Text>
-								<Heading fontSize={'$sm'} >
-									@{item.senderProfile?.IdentifiableInformation?.username}
-								</Heading>
+								<Heading fontSize={'$sm'}>@{item.senderProfile?.IdentifiableInformation?.username}</Heading>
 							</VStack>
 						</HStack>
 					</Pressable>
-					<HStack space={1} justifyContent={'space-around'} alignItems={'center'}>
+					<HStack space={'md'} justifyContent={'space-around'} alignItems={'center'}>
 						<Button
-							colorScheme={'primary'}
-							px={4}
-							py={2}
-							borderRadius={'md'}
+							px={'$4'}
+							py={'$2'}
+							rounded={'$md'}
 							isDisabled={DFRLoading || AFRLoading}
-							_disabled={{
-								opacity: '100',
-							}}
-							isLoadingText={'Accept'}
-							_text={{
-								fontSize: 11,
-								textTransform: 'uppercase',
-								fontWeight: '900',
+							sx={{
+								':disabled': {
+									opacity: 100,
+								},
 							}}
 							onPress={() =>
 								acceptFriendRequestMutation({
@@ -214,12 +204,13 @@ export const CondensedHorizontalFriendNotifciation = ({
 								})
 							}
 						>
-							Accept
+							<Text fontWeight='$black' fontSize={'$md'} textTransform='uppercase'>
+								Accept
+							</Text>
 						</Button>
-						<IconButton
-							px={2}
-							py={2}
-							icon={<Icon as={Ionicons} name='close' size={'lg'} rounded={'full'} />}
+						<Button
+							px={'$2'}
+							py={'$2'}
 							isDisabled={DFRLoading || AFRLoading}
 							onPress={() =>
 								declineFriendRequestMutation({
@@ -228,7 +219,9 @@ export const CondensedHorizontalFriendNotifciation = ({
 									},
 								})
 							}
-						/>
+						>
+							<Ionicons name='close' size={30} rounded={'$full'} />
+						</Button>
 					</HStack>
 				</HStack>
 			)}

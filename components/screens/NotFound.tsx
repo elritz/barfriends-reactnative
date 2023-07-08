@@ -1,7 +1,8 @@
-import { View, Text, Center } from 'native-base'
+import { Center, Text } from '@components/core'
+import { View } from 'react-native'
 
 const NotFound = () => (
-	<View flex={1}>
+	<View style={{ flex: 1 }}>
 		<Center>
 			<Text>Not Found</Text>
 		</Center>

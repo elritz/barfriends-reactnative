@@ -1,5 +1,6 @@
 import index from '../messagestack'
-import { Heading } from '@components/core'
+import { useReactiveVar } from '@apollo/client'
+import { Box, Divider, HStack, Heading, Pressable, Spinner, Text, VStack } from '@components/core'
 import {
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
@@ -12,29 +13,19 @@ import {
 	PreferenceBackgroundLocationPermissionReactiveVar,
 	PreferenceForegroundLocationPermissionReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
+	ThemeReactiveVar,
 	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
-import {
-	View,
-	Text,
-	Pressable,
-	Box,
-	Divider,
-	HStack,
-	Icon,
-	Spinner,
-	ScrollView,
-	VStack,
-	useToast,
-} from 'native-base'
+import { useToast } from 'native-base'
 import { useState } from 'react'
 import 'react-native'
-import { useWindowDimensions } from 'react-native'
+import { ScrollView } from 'react-native'
 
 export default function Preferences() {
-	const toast = useToast()
-	const { width } = useWindowDimensions()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [loading, setIsLoading] = useState(false)
+	const toast = useToast()
+
 	const ITEM_HEIGHT = 60
 
 	// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
@@ -42,9 +33,9 @@ export default function Preferences() {
 	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS)
 	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION)
 	return (
-		<ScrollView maxW={'100%'}>
-			<VStack mx={3} mb={5}>
-				<Text fontSize={'lg'}>
+		<ScrollView style={{ maxWidth: '100%' }}>
+			<VStack mx={'$3'} my={'$5'}>
+				<Text textAlign='center' fontSize={'$lg'}>
 					These items are for reseting/updating delete the tokens that are saved during Bfs app initial
 					render. These preferences are also set when a user interacts with components that ask them to
 					set the persisted state or dismiss the prompt.
@@ -111,23 +102,35 @@ export default function Preferences() {
 					<Pressable key={index} onPress={item.onPress}>
 						<Divider />
 						<HStack
-							mx={3}
-							space={4}
+							mx={'$3'}
+							space={'md'}
 							height={ITEM_HEIGHT}
 							alignItems={'center'}
 							justifyContent={'space-between'}
 						>
-							<HStack space={3} maxW={'80%'} alignItems={'center'} justifyContent={'flex-start'}>
-								<Icon size={'lg'} as={Ionicons} name={item.icon} />
-								<Heading sx={{ maxWidth: '275px' }} numberOfLines={2} fontSize={'$lg'}>
+							<HStack
+								space={'md'}
+								sx={{
+									maxWidth: '80%',
+								}}
+								alignItems={'center'}
+								justifyContent={'flex-start'}
+							>
+								<Ionicons size={25} name={item.icon} />
+								<Text sx={{ maxWidth: 275 }} numberOfLines={2} fontSize={'$md'}>
 									{item.title}
-								</Heading>
+								</Text>
 							</HStack>
-							<Box>
+							<Box bg={'transparent'}>
 								{loading ? (
 									<Spinner />
 								) : (
-									<Icon mr={3} size={'md'} color={'danger.500'} name={'trash'} as={Feather} />
+									<Feather
+										name={'trash'}
+										style={{ marginRight: 3 }}
+										size={20}
+										color={rTheme.theme?.gluestack.tokens.colors.danger500}
+									/>
 								)}
 							</Box>
 						</HStack>

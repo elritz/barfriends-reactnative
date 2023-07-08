@@ -1,10 +1,12 @@
 import { MARGIN, SIZE } from './Config'
 import { useReactiveVar } from '@apollo/client'
+import { Box, Text } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
-import { PermissionMediaReactiveVar } from '@reactive'
+import { PermissionMediaReactiveVar, ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Image, Box, Icon, Text } from 'native-base'
-import { StyleSheet, View, Pressable, AppState } from 'react-native'
+import { Image } from 'react-native'
+import { StyleSheet, View, Pressable } from 'react-native'
 
 const styles = StyleSheet.create({
 	container: {
@@ -21,6 +23,8 @@ interface TileProps {
 
 const Item = ({ uri, onPress }: TileProps) => {
 	const router = useRouter()
+	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rPermissionMedia = useReactiveVar(PermissionMediaReactiveVar)
 
 	return (
@@ -46,27 +50,19 @@ const Item = ({ uri, onPress }: TileProps) => {
 						alignItems={'center'}
 						justifyContent={'center'}
 						flex={1}
-						borderRadius={MARGIN * 10}
-						m={`${MARGIN * 2}px`}
-						_light={{
-							bg: 'light.100',
-						}}
-						_dark={{
-							bg: 'dark.100',
-						}}
+						rounded={MARGIN * 10}
+						m={MARGIN * 2}
 					>
-						<Icon
-							as={MaterialIcons}
+						<MaterialIcons
+							size={55}
 							name={'add-photo-alternate'}
-							size={'5xl'}
-							_light={{
-								color: 'dark.200',
-							}}
-							_dark={{
-								bg: 'light.800',
-							}}
+							color={
+								colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900
+							}
 						/>
-						<Text fontSize={'xl'}>Add photo</Text>
+						<Text fontSize={'$xl'}>Add photo</Text>
 					</Box>
 				)}
 			</View>

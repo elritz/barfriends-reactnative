@@ -1,8 +1,9 @@
-import { Skeleton, VStack } from 'native-base'
+import { VStack } from '@components/core'
+import { Skeleton } from 'native-base'
 
 export default function TermsLoadingState() {
 	return (
-		<VStack my={5} space={8} rounded='md' px={2}>
+		<VStack my={'$5'} space={'lg'} rounded={'$md'} px={'$2'}>
 			<Skeleton
 				rounded='xl'
 				h='10'

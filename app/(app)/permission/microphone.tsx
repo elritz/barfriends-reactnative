@@ -1,6 +1,7 @@
 // TODO: FN(Open camera app) ln:66
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
+import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionMicrophoneReactiveVar } from '@reactive'
@@ -11,30 +12,26 @@ import * as Device from 'expo-device'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import { useRouter } from 'expo-router'
-import { Box, Button, Divider, Icon, ScrollView, Text, VStack } from 'native-base'
 import { useEffect, useRef } from 'react'
-import { Alert, AppState, Platform, View } from 'react-native'
+import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 const details = [
 	{
 		title: 'How you’ll use this',
 		detail: 'To capture aduio with videos with your device.',
-		iconName: 'microphone',
-		iconType: FontAwesome,
+		icon: <FontAwesome name={'microphone'} size={25} />,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To show you captured content of visual and audio effects.',
-		iconName: 'android-messages',
-		iconType: MaterialCommunityIcons,
+		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
 	},
 	{
 		title: 'How theses settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		iconName: 'ios-settings-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
 	},
 ]
 
@@ -44,9 +41,6 @@ export default () => {
 	const isFocused = useIsFocused()
 	const rMicrophonePermission = useReactiveVar(PermissionMicrophoneReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')
-
-	// const [cameraPermission, cameraRequestPermission] = Camera.useCameraPermissions()
-	// const [micPermission, micRequestPermission] = Camera.useMicrophonePermissions()
 
 	const handleOpenPhoneSettings = async () => {
 		if (Platform.OS === 'ios') {
@@ -106,19 +100,21 @@ export default () => {
 	})
 
 	return (
-		<Box style={{ flex: 1 }}>
-			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
+		<Box bg={'$transparent'} style={{ flex: 1 }}>
+			<Box alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<Box
-					borderRadius={'md'}
-					h={65}
-					w={65}
+					rounded={'$md'}
+					sx={{
+						h: 65,
+						w: 65,
+					}}
 					alignItems={'center'}
 					justifyContent={'center'}
 					bg={'#ff7000'}
 				>
-					<Icon as={Ionicons} color={'secondary.800'} name={'camera'} size={9} />
+					<Ionicons name='camera' size={25} color={'black'} />
 				</Box>
-				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
+				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
 					fontWeight={'$black'}
 					style={{
@@ -134,7 +130,7 @@ export default () => {
 				</Heading>
 			</Box>
 			<ScrollView>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+				<Box style={{ w: wp(95), flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>
@@ -144,11 +140,13 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
+			<VStack space={'md'} w={'$full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
-					size={'lg'}
-					width={'95%'}
+					size={'md'}
+					sx={{
+						w: '95%',
+					}}
 					onPress={() =>
 						!rMicrophonePermission?.granted
 							? rMicrophonePermission?.canAskAgain && !rMicrophonePermission.granted
@@ -164,11 +162,19 @@ export default () => {
 						: 'Granted'}
 				</Button>
 				{!started && (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
-						<Text fontWeight={'medium'}>Close</Text>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'link'}>
+						<Text fontWeight={'$medium'}>Close</Text>
 					</Button>
 				)}
-				{started && <Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>}
+				{started && (
+					<Box
+						sx={{
+							h: 20,
+						}}
+					>
+						{<Text fontWeight={'$medium'}>Auto close in {seconds}</Text>}
+					</Box>
+				)}
 			</VStack>
 		</Box>
 	)

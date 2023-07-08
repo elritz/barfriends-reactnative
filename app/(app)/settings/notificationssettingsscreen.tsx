@@ -1,4 +1,6 @@
-import { Text, View } from 'native-base'
+import { Text } from "@components/core"
+import { View } from "react-native"
+
 
 export default () => {
 	return (

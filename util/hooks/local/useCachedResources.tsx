@@ -1,7 +1,7 @@
 import { cacheFonts, cacheImages } from './useCacheImages'
 import VectorFonts from '@helpers/VectorFonts'
 import * as Font from 'expo-font'
-import * as SplashScreen from 'expo-splash-screen'
+import { SplashScreen } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 export default function useCachedResources() {
@@ -26,7 +26,7 @@ export default function useCachedResources() {
 				console.warn(e)
 			} finally {
 				setIsCacheComplete(true)
-				await SplashScreen.hideAsync()
+				SplashScreen.hideAsync()
 			}
 		}
 		loadResourcesAndDataAsync()

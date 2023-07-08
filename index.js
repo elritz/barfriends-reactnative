@@ -1,8 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import client from '@library/gateway-apollo-server'
 import { Logs, registerRootComponent } from 'expo'
-import { ExpoRoot } from 'expo-router'
-import * as SplashScreen from 'expo-splash-screen'
+import { ExpoRoot, SplashScreen } from 'expo-router'
 import { LogBox } from 'react-native'
 
 SplashScreen.preventAutoHideAsync()

@@ -1,6 +1,6 @@
 // TODO: FN(Join a venue functionality) The join button has no ability to join a venue or track the data
 import { useReactiveVar } from '@apollo/client'
-import { VStack } from '@components/core'
+import { Button, VStack } from '@components/core'
 import { GET_LIVE_VENUE_TOTALS_QUERY } from '@graphql/DM/profiling/out/index.query'
 import {
 	AuthorizationDeviceManager,
@@ -9,12 +9,11 @@ import {
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
-import { Button } from 'native-base'
+import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 export default function LeaveCard() {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isLeaving, setIsLeaving] = useState(false)
 	const [isJoined, setIsJoined] = useState(false)
@@ -83,16 +82,12 @@ export default function LeaveCard() {
 				onPress={() => {
 					removePersonalJoinsVenueMutation()
 				}}
-				textAlign={'center'}
-				backgroundColor={'red.600'}
-				borderRadius={'md'}
-				_text={{
-					fontWeight: '700',
-					fontSize: 'md',
+				backgroundColor={'$error600'}
+				rounded={'$md'}
+				isDisabled={!isJoined || JVLoading}
+				sx={{
+					w: 100,
 				}}
-				isDisabled={!isJoined}
-				isLoading={JVLoading}
-				w={'100'}
 			>
 				{isLeaving ? 'Leaving' : 'Leave'}
 			</Button>

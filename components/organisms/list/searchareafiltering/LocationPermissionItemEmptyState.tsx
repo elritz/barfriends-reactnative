@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { HStack, Text } from '@components/core'
+import { HStack, Pressable, Text } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -7,7 +7,6 @@ import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import * as IntentLauncher from 'expo-intent-launcher'
-import { Pressable } from 'native-base'
 import { Alert, Linking, Platform } from 'react-native'
 
 // TODO: UX() location icon when searchArea is using Currently Location over preset
@@ -59,8 +58,10 @@ const LocationPermissionItemEmptyState = () => {
 					  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
 			}}
 			rounded={'xl'}
-			_pressed={{
-				bg: 'primary.500',
+			sx={{
+				':pressed': {
+					bg: '$primary500',
+				},
 			}}
 		>
 			<HStack p={'$3'} justifyContent={'space-between'}>

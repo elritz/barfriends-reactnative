@@ -2,8 +2,10 @@ import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/
 import { Box, Text } from '@components/core'
 import { ENVIRONMENT } from '@env'
 import { Stack } from 'expo-router'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
+	const insets = useSafeAreaInsets()
 	return (
 		<Stack
 			screenOptions={{
@@ -15,18 +17,21 @@ export default () => {
 				options={{
 					header: () => {
 						return (
-							<Box bg={'transparent'}>
-								<Text
-									adjustsFontSizeToFit
-									fontSize={'$3xl'}
-									textAlign={'center'}
-									textTransform={'capitalize'}
-									fontWeight={'$black'}
-								>
-									{String.fromCharCode(60)}
-									{ENVIRONMENT} {String.fromCharCode(47, 62)}
-								</Text>
-							</Box>
+							<SafeAreaView>
+								<Box bg={'transparent'}>
+									<Text
+										adjustsFontSizeToFit
+										fontSize={'$3xl'}
+										lineHeight={'$2xl'}
+										textAlign={'center'}
+										textTransform={'capitalize'}
+										fontWeight={'$black'}
+									>
+										{String.fromCharCode(60)}
+										{ENVIRONMENT} {String.fromCharCode(47, 62)}
+									</Text>
+								</Box>
+							</SafeAreaView>
 						)
 					},
 					headerShown: true,

@@ -1,21 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, HStack, Heading, Pressable, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
-import {
-	Box,
-	Button,
-	Divider,
-	HStack,
-	Icon,
-	IconButton,
-	Image,
-	Pressable,
-	useDisclose,
-} from 'native-base'
 import { useState } from 'react'
+import { Image } from 'react-native'
 import { StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -58,7 +49,15 @@ export default function CurrentVenue() {
 	}
 
 	return (
-		<Box bg={'white'} borderRadius={'md'} h={220} my={3} mx={2}>
+		<Box
+			bg={'$white'}
+			rounded={'$md'}
+			sx={{
+				h: 220,
+				my: 3,
+				mx: 2,
+			}}
+		>
 			<Pressable
 				onPress={() => {
 					router.push({
@@ -72,8 +71,8 @@ export default function CurrentVenue() {
 				}}
 			>
 				<Box
-					height={220}
-					borderRadius={'md'}
+					sx={{ h: 220 }}
+					rounded={'$md'}
 					style={{
 						// backgroundColor: themeContext.palette.secondary.background.default,
 						justifyContent: 'flex-end',
@@ -90,7 +89,6 @@ export default function CurrentVenue() {
 								width: undefined,
 								height: undefined,
 							}}
-							alt={'Profile Photo'}
 						/>
 					) : null}
 					{!hideBlur && (
@@ -103,18 +101,18 @@ export default function CurrentVenue() {
 					)}
 
 					<HStack
-						_light={{
-							bg: 'light.100',
+						sx={{
+							_light: {
+								bg: '$light100',
+							},
+							_dark: {
+								bg: '$dark100',
+							},
+							h: 75,
 						}}
-						_dark={{
-							bg: 'dark.100',
-						}}
-						style={{
-							height: 75,
-						}}
-						p={2}
+						p={'$2'}
 					>
-						<Box flex={1} alignSelf={'center'}>
+						<Box bg={'transparent'} flex={1} alignSelf={'center'}>
 							<Heading
 								fontSize={'$sm'}
 								fontWeight={'$medium'}
@@ -127,38 +125,40 @@ export default function CurrentVenue() {
 							</Heading>
 						</Box>
 						<Box alignContent={'center'} justifyContent={'center'} px={2}>
-							<Button.Group borderRadius={'md'} isAttached colorScheme={'primary'}>
+							<Button.Group rounded={'$md'} isAttached>
 								<Button
-									_light={{
-										bg: 'light.100',
+									sx={{
+										_light: {
+											bg: '$light100',
+										},
+										_dark: {
+											bg: '$dark100',
+										},
 									}}
-									_dark={{
-										bg: 'dark.100',
-									}}
-									rounded={'lg'}
-									_text={{
-										color: 'error.500',
-									}}
-									leftIcon={<Icon color={'error.500'} as={Ionicons} name={'ios-exit'} size={'xl'} />}
+									rounded={'$lg'}
 									onPress={!isOpen ? () => onToggle() : () => leaveVenue()}
 								>
-									{isOpen ? `Leave` : ''}
+									<Ionicons name={'ios-exit'} size={30} />
+									<Text color='$error500'>{isOpen ? `Leave` : ''}</Text>
 								</Button>
 								{isOpen && <Divider orientation='vertical' />}
 								{isOpen && (
-									<IconButton
-										alignSelf={'center'}
-										colorScheme={'gray'}
-										_light={{
-											bg: 'light.200',
-										}}
-										_dark={{
-											bg: 'dark.100',
-										}}
-										rounded={'lg'}
-										icon={<Icon as={Ionicons} name={'close'} size={'xl'} />}
-										onPress={onToggle}
-									/>
+									<>
+										<Icon as={Ionicons} name={'close'} size={'xl'} />
+										<Button
+											alignSelf={'center'}
+											sx={{
+												_light: {
+													bg: '$light200',
+												},
+												_dark: {
+													bg: '$dark200',
+												},
+											}}
+											rounded={'lg'}
+											onPress={onToggle}
+										/>
+									</>
 								)}
 							</Button.Group>
 						</Box>

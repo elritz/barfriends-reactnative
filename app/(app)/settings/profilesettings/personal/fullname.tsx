@@ -1,22 +1,20 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Heading, Input, Text } from '@components/core'
 import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
 	Profile,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Input, KeyboardAvoidingView, Text, useTheme } from 'native-base'
-import { Button, Box } from 'native-base'
 import { useForm, Controller } from 'react-hook-form'
-import { ActivityIndicator, Pressable } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const theme = useTheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
 	const {
@@ -154,7 +152,14 @@ export default () => {
 			keyboardShouldPersistTaps={'always'}
 			extraScrollHeight={100}
 		>
-			<KeyboardAvoidingView flexDirection={'column'} justifyContent={'flex-start'} my={2} mx={2}>
+			<KeyboardAvoidingView
+				style={{
+					flexDirection: 'column',
+					justifyContent: 'flex-start',
+					marginVertical: 2,
+					marginHorizontal: 2,
+				}}
+			>
 				<Controller
 					name='fullname'
 					control={control}
@@ -162,48 +167,63 @@ export default () => {
 						required: true,
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<Box flexDirection={'column'} alignItems={'flex-start'} width={'100%'} my={3}>
+						<Box
+							bg={'$transparent'}
+							flexDirection={'column'}
+							alignItems={'flex-start'}
+							sx={{
+								w: '100%',
+							}}
+							my={'$3'}
+						>
 							<Heading fontSize={'$lg'} style={{ marginBottom: 10 }}>
 								Full name
 							</Heading>
 							<Input
-								onBlur={onBlur}
-								keyboardAppearance={colorScheme}
-								onChangeText={onChange}
-								value={value}
-								isDisabled={UOPLoading}
-								blurOnSubmit={false}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								textContentType='name'
-								autoFocus
-								placeholder='Full name '
-								returnKeyType='done'
-								autoCapitalize='none'
-								numberOfLines={1}
-								autoComplete='name'
-								keyboardType='default'
-								variant={'filled'}
+								variant={'rounded'}
 								style={{
 									alignSelf: 'center',
 									height: 55,
 									padding: 10,
 								}}
-								fontSize={'md'}
-								borderRadius={'md'}
-								rightElement={
-									<Box mr={3}>
-										{UOPLoading && dirtyFields.fullname ? (
-											<ActivityIndicator size='small' color={theme.colors.primary[500]} />
-										) : (
-											dirtyFields.fullname && (
-												<Pressable onPress={() => resetInput('fullname')}>
-													<Text fontWeight={'bold'}>Reset</Text>
-												</Pressable>
-											)
-										)}
-									</Box>
-								}
-							/>
+								rounded={'$md'}
+							>
+								<Input.Input
+									fontSize={'$md'}
+									onBlur={onBlur}
+									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									onChangeText={onChange}
+									value={value}
+									blurOnSubmit={false}
+									onSubmitEditing={handleSubmit(onSubmit)}
+									textContentType='name'
+									autoFocus
+									placeholder='Full name '
+									returnKeyType='done'
+									autoCapitalize='none'
+									numberOfLines={1}
+									autoComplete='name'
+									keyboardType='default'
+								/>
+								<Box mr={'$3'}>
+									{UOPLoading && dirtyFields.fullname ? (
+										<ActivityIndicator
+											size='small'
+											color={
+												colorScheme === 'light'
+													? rTheme.theme?.gluestack.tokens.colors.light900
+													: rTheme.theme?.gluestack.tokens.colors.dark900
+											}
+										/>
+									) : (
+										dirtyFields.fullname && (
+											<Pressable onPress={() => resetInput('fullname')}>
+												<Text fontWeight={'$bold'}>Reset</Text>
+											</Pressable>
+										)
+									)}
+								</Box>
+							</Input>
 							<Text>{errors?.fullname?.message}</Text>
 						</Box>
 					)}
@@ -219,39 +239,43 @@ export default () => {
 							<Heading fontSize={'$lg'} style={{ marginBottom: 10 }}>
 								Nick name
 							</Heading>
-							<Input
-								onBlur={onBlur}
-								onChange={onChange}
-								value={value}
-								blurOnSubmit={false}
-								isDisabled={UOPLoading}
-								keyboardAppearance={colorScheme}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								textContentType='nickname'
-								placeholder='Nickname'
-								returnKeyType='done'
-								autoCapitalize='none'
-								variant={'filled'}
-								numberOfLines={1}
-								autoComplete='name'
-								keyboardType='default'
-								fontSize={'md'}
-								p={4}
-								borderRadius={'md'}
-								rightElement={
-									<Box mr={3}>
-										{UOPLoading && dirtyFields.nickname ? (
-											<ActivityIndicator size='small' color={theme.colors.primary[500]} />
-										) : (
-											dirtyFields.nickname && (
-												<Pressable onPress={() => resetInput('nickname')}>
-													<Text fontWeight={'bold'}>Reset</Text>
-												</Pressable>
-											)
-										)}
-									</Box>
-								}
-							/>
+							<Input variant={'rounded'} rounded={'$md'}>
+								<Input.Input
+									onBlur={onBlur}
+									onChange={onChange}
+									value={value}
+									blurOnSubmit={false}
+									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									onSubmitEditing={handleSubmit(onSubmit)}
+									textContentType='nickname'
+									placeholder='Nickname'
+									returnKeyType='done'
+									autoCapitalize='none'
+									numberOfLines={1}
+									autoComplete='name'
+									keyboardType='default'
+									fontSize={'$md'}
+									p={'$4'}
+								/>
+								<Box mr={'$3'}>
+									{UOPLoading && dirtyFields.nickname ? (
+										<ActivityIndicator
+											size='small'
+											color={
+												colorScheme === 'light'
+													? rTheme.theme?.gluestack.tokens.colors.light900
+													: rTheme.theme?.gluestack.tokens.colors.dark900
+											}
+										/>
+									) : (
+										dirtyFields.nickname && (
+											<Pressable onPress={() => resetInput('nickname')}>
+												<Text fontWeight={'bold'}>Reset</Text>
+											</Pressable>
+										)
+									)}
+								</Box>
+							</Input>
 							<Text>{errors?.nickname?.message}</Text>
 						</Box>
 					)}
@@ -259,16 +283,14 @@ export default () => {
 				{(dirtyFields.fullname || dirtyFields.nickname) && (
 					<Button
 						disabled={UOPLoading}
-						isLoading={UOPLoading}
-						isLoadingText={'Updating...'}
 						onPress={() => onSubmit()}
-						borderRadius={'md'}
+						rounded={'$md'}
+						backgroundColor='$primary500'
 						style={{
-							backgroundColor: theme.colors.primary[500],
 							alignSelf: 'center',
 							width: '50%',
 						}}
-						my={5}
+						my={'$5'}
 						size={'lg'}
 					>
 						Update

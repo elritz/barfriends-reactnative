@@ -1,6 +1,6 @@
 import { SplashVideo } from './SplashVideo'
 import Constants from 'expo-constants'
-import * as SplashScreen from 'expo-splash-screen'
+import { SplashScreen } from 'expo-router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 
@@ -22,7 +22,7 @@ function AnimatedVideoSplashScreen({ children }) {
 
 	const onImageLoaded = useCallback(async () => {
 		try {
-			await SplashScreen.hideAsync()
+			SplashScreen.hideAsync()
 			// Load stuff
 			await Promise.all([])
 		} catch (e) {

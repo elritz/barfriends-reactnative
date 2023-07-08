@@ -1,6 +1,7 @@
 import ProfilePhotoEmptyState from './ProfilePhotoEmptyState'
+import { Box } from '@components/core'
 import { Maybe, Photo } from '@graphql/generated'
-import { Box, Image } from 'native-base'
+import { Image } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 
 type Props = {
@@ -18,24 +19,18 @@ export default function ProfilePhoto({ photo }: Props) {
 
 	return (
 		<Box
-			_light={{
-				bg: 'light.100',
+			sx={{
+				h: 100,
+				w: 100,
 			}}
-			_dark={{
-				bg: 'dark.100',
-			}}
-			h={100}
-			w={100}
-			borderRadius={'md'}
+			rounded={'$md'}
 			overflow={'hidden'}
-			mb={3}
+			mb={'$3'}
 		>
 			<Image
 				source={{
 					uri: photo?.url,
 				}}
-				alt='Profile photo'
-				// placeholder={photo?.blurhash}
 				style={{
 					height: '100%',
 					width: '100%',

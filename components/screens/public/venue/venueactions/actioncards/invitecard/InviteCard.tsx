@@ -10,29 +10,22 @@ export default function InviteCard() {
 
 	return (
 		<VStack w={'$full'} justifyContent='space-between' alignItems={'center'}>
-			<Box
-				alignItems='center'
-				justifyContent='center'
-				sx={{
-					h: 57,
-					w: 57,
-				}}
-				bg='$red300'
-			>
+			<Box bg='$red400' h={'$16'} w={'$16'} alignItems='center' justifyContent='center'>
 				<Ionicons name='people' size={35} color={'black'} />
 			</Box>
-
 			<Heading
 				mt={'$3'}
 				textTransform={'uppercase'}
-				lineHeight={'$xs'}
+				lineHeight={'$md'}
 				fontSize={'$lg'}
+				textAlign='center'
 				fontWeight={'$black'}
 			>
 				Share with friends
 			</Heading>
 			<Button
-				size={'lg'}
+			mt={'$2'}
+				size={'xs'}
 				w={'$full'}
 				alignItems='center'
 				justifyContent='center'

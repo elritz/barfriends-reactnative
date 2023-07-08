@@ -1,22 +1,30 @@
-import { Heading } from '@components/core'
-import { Box, Button, VStack } from 'native-base'
+import { Box, Button, Heading, Text, VStack } from '@components/core'
 
 export default function CurrentVenue() {
 	return (
 		<VStack
-			space={1}
-			_light={{
-				bg: 'light.100',
+			space={'md'}
+			sx={{
+				_light: {
+					bg: 'light.100',
+				},
+				_dark: {
+					bg: 'light.800',
+				},
 			}}
-			_dark={{
-				bg: 'light.800',
-			}}
-			borderRadius={'xl'}
+			rounded={'$xl'}
 			flex={1}
-			p={3}
+			p={'$3'}
 		>
-			<VStack space={2} mb={2}>
-				<Box h={16} w={16} bg={'red.200'} borderRadius={'md'} />
+			<VStack space={'md'} mb={'$md'}>
+				<Box
+					sx={{
+						h: 16,
+						w: 16,
+					}}
+					bg={'$red200'}
+					rounded={'$md'}
+				/>
 				<Heading
 					numberOfLines={2}
 					fontSize={'$lg'}
@@ -27,8 +35,8 @@ export default function CurrentVenue() {
 					Current Venue relazziuf long namewlke;jbqwe qwem
 				</Heading>
 			</VStack>
-			<Button variant={'ghost'} size={'lg'}>
-				View
+			<Button variant={'link'} size={'lg'}>
+				<Text>View</Text>
 			</Button>
 		</VStack>
 	)

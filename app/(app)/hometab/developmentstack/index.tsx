@@ -1,6 +1,16 @@
 // TODO: FN(Change theme functionality with database and local storage save)
 import { useReactiveVar } from '@apollo/client'
-import { Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
+import {
+	Box,
+	Button,
+	Divider,
+	HStack,
+	Heading,
+	Pressable,
+	Spinner,
+	Text,
+	VStack,
+} from '@components/core'
 import {
 	AUTHORIZATION,
 	LOCAL_STORAGE_SEARCH_AREA,
@@ -13,8 +23,15 @@ import {
 import { ENVIRONMENT } from '@env'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { AuthorizationReactiveVar, searchAreaInitialState, SearchAreaReactiveVar } from '@reactive'
+import {
+	AuthorizationReactiveVar,
+	searchAreaInitialState,
+	SearchAreaReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useDisclose } from '@util/hooks/useDisclose'
 import * as Application from 'expo-application'
 import * as Clipboard from 'expo-clipboard'
 import * as Device from 'expo-device'
@@ -23,8 +40,8 @@ import * as Location from 'expo-location'
 import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
 import * as Updates from 'expo-updates'
-import { Icon, Button, Divider, Tooltip, useDisclose, SectionList, Spinner } from 'native-base'
-import { useEffect, useRef, useState } from 'react'
+import { Icon, Tooltip, SectionList } from 'native-base'
+import { useEffect, useState } from 'react'
 import { Platform, Linking, AppState } from 'react-native'
 
 async function registerBackgroundFetchAsync() {
@@ -69,8 +86,10 @@ async function unregisterBackgroundFetchAsync() {
 export default () => {
 	const ITEM_HEIGHT = 50
 	const router = useRouter()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [token, setToken] = useState('')
+	const colorScheme = useThemeColorScheme()
 	const [pushNotificationToken, setPushNotificationToken] = useState('')
 	const [appState, setAppState] = useState(AppState.currentState)
 	const [searchAreaDeleteLoading, setSearchAreaDeleteLoading] = useState(false)
@@ -336,7 +355,7 @@ export default () => {
 								>
 									<Divider />
 									<HStack px={'$2'} space={'md'} alignItems={'center'}>
-										<Icon size={'lg'} as={Ionicons} name={item.icon} />
+										<Ionicons size={25} name={item.icon} />
 										<Heading fontSize={'$lg'}>{item.title}</Heading>
 									</HStack>
 									<Divider />
@@ -365,10 +384,19 @@ export default () => {
 									<Divider />
 									<HStack px={'$2'} space={'md'} alignItems={'center'} justifyContent={'space-between'}>
 										<HStack space={'md'} alignItems={'center'}>
-											<Icon size={'lg'} as={Ionicons} name={item.icon} />
+											<Ionicons size={25} name={item.icon} />
 											<Heading fontSize={'$lg'}>{item.title}</Heading>
 										</HStack>
-										{loading ? <Spinner /> : <Icon mr={3} color={'danger.500'} name={'trash'} as={Feather} />}
+										{loading ? (
+											<Spinner />
+										) : (
+											<Feather
+												style={{ marginRight: 3 }}
+												name='trash'
+												size={18}
+												color={rTheme.theme?.gluestack.tokens.colors.danger500}
+											/>
+										)}
 									</HStack>
 									<Divider />
 								</Box>
@@ -422,17 +450,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1} mx={'$3'}>
-			{/* <Text fontSize={'2xl'}>Current Pos</Text>
-				<Text fontSize={'2xl'}>{currentPosition?.coords.latitude}</Text>
-				<Text fontSize={'2xl'}>{currentPosition?.coords.longitude}</Text>
-				<Text fontSize={'2xl'}>MASTER</Text>
-				<Text fontSize={'2xl'}>latitude:43.456074</Text>
-				<Text fontSize={'2xl'}>longitude: -80.483948</Text>
-				<Text fontSize={'2xl'}>OFFICE</Text>
-				<Text fontSize={'2xl'}>latitude: 43.455957, </Text>
-				<Text fontSize={'2xl'}>longitude: -80.483694</Text> */}
-
+		<Box flex={1} mx={'$3'} bg={'$transparent'}>
 			<SectionList
 				showsVerticalScrollIndicator={false}
 				contentInset={{
@@ -441,7 +459,7 @@ export default () => {
 				ListHeaderComponent={() => {
 					return (
 						<VStack>
-							<Box my={5}>
+							<Box my={5} bg={'$transparent'}>
 								<Pressable
 									onPress={async () => {
 										onToggleToken()
@@ -559,7 +577,7 @@ export default () => {
 											rounded={'$md'}
 											alignItems={'center'}
 											justifyContent={'space-around'}
-											py={3}
+											py={'$3'}
 										>
 											<Text
 												fontSize={'$md'}
@@ -587,46 +605,44 @@ export default () => {
 										await schedulePushNotification()
 									}}
 								>
-									send notification
+									<Text>send notification</Text>
 								</Button>
 								<Divider />
 							</VStack>
-							<VStack space={'$2'} w={'$full'} px={'$10'} my={'$3'}>
+							<VStack space={'md'} w={'$full'} px={'$10'} my={'$3'}>
 								<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
 									Location tracking
 								</Heading>
 								<Button
 									onPress={toggleForegroundLocationTask}
 									isDisabled={isForegroundLocationOn}
-									colorScheme={'green'}
+									bg='$green400'
 								>
-									Start in foreground
+									<Text>Start in foreground</Text>
 								</Button>
 								<Divider />
 								<Button
 									onPress={toggleForegroundLocationTask}
 									isDisabled={!isForegroundLocationOn}
-									colorScheme={'red'}
+									bg={'$red500'}
 								>
-									Stop in foreground
+									<Text>Stop in foreground</Text>
 								</Button>
 								<Divider />
 								<Button
 									onPress={onToggleBackgroundLocationOn}
 									isDisabled={isBackgroundLocationOn}
-									colorScheme={'green'}
-									color='green'
+									bg='$green400'
 								>
-									Start in background
+									<Text>Start in background</Text>
 								</Button>
 								<Divider />
 								<Button
 									onPress={onToggleBackgroundLocationOn}
 									isDisabled={!isBackgroundLocationOn}
-									colorScheme={'red'}
-									color='red'
+									bg='$red400'
 								>
-									Stop in background
+									<Text>Stop in background</Text>
 								</Button>
 							</VStack>
 						</VStack>
@@ -645,9 +661,20 @@ export default () => {
 				// keyExtractor={(item, index) => index}
 				renderItem={({ item, index }) => <Item index={index} item={item} />}
 				renderSectionHeader={({ section: { title } }) => (
-					<Heading mt={4} fontSize={'$xl'}>
-						{title}
-					</Heading>
+					<Box
+						py={'$3'}
+						rounded={'$none'}
+						bg={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light100
+								: rTheme.theme?.gluestack.tokens.colors.dark100
+						}
+						justifyContent='center'
+					>
+						<Heading mt={'$4'} fontSize={'$2xl'}>
+							{title}
+						</Heading>
+					</Box>
 				)}
 			/>
 		</Box>

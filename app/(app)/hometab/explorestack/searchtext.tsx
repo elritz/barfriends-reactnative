@@ -1,26 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Center, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import SearchCard from '@components/screens/search/components/SearchCard'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
-import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useSearchParams } from 'expo-router'
-import {
-	Box,
-	Text,
-	IconButton,
-	HStack,
-	Icon,
-	VStack,
-	Skeleton,
-	Pressable,
-	Center,
-} from 'native-base'
+import { useRouter, useLocalSearchParams } from 'expo-router'
+import { Skeleton } from 'native-base'
 import { useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -29,9 +18,9 @@ type Item = {
 }
 
 export default () => {
-	const params = useSearchParams()
-	const insets = useSafeAreaInsets()
 	const router = useRouter()
+	const params = useLocalSearchParams()
+	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
@@ -71,7 +60,13 @@ export default () => {
 				automaticallyAdjustKeyboardInsets
 				renderItem={item => {
 					return (
-						<HStack px={5} h={'60px'} w='90%'>
+						<HStack
+							px={'$5'}
+							sx={{
+								h: 60,
+								w: '90%',
+							}}
+						>
 							<Skeleton
 								speed={0.95}
 								_light={{
@@ -109,21 +104,23 @@ export default () => {
 				}}
 			>
 				<HStack
-					h={'55px'}
-					w={'100%'}
+					sx={{
+						w: '100%',
+						h: 55,
+					}}
 					justifyContent={'flex-start'}
 					alignItems={'center'}
-					space={3}
-					px={2}
+					space={'md'}
+					px={'$2'}
 				>
-					<IconButton
+					<Button
 						variant={'outline'}
 						size={'sm'}
-						borderRadius={'md'}
-						icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
+						rounded={'$md'}
+						// icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
 					/>
 					<VStack>
-						<Text fontSize={'md'} fontWeight={'medium'}>
+						<Text fontSize={'$md'} fontWeight={'$medium'}>
 							{item.search}
 						</Text>
 					</VStack>
@@ -151,7 +148,7 @@ export default () => {
 	}
 
 	return (
-		<Box safeAreaTop flex={1}>
+		<Box flex={1}>
 			<FlashList
 				scrollEnabled={true}
 				estimatedItemSize={40}
@@ -169,7 +166,7 @@ export default () => {
 					return (
 						<>
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-								<Box safeAreaTop>
+								<Box bg='$transparent'>
 									<Center>
 										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
@@ -187,10 +184,10 @@ export default () => {
 				]}
 				renderItem={({ item }) => {
 					return (
-						<Box>
+						<Box bg={'transparent'}>
 							{item.data && item.data.length ? (
-								<Box>
-									<Heading fontSize={'$lg'} mx={2}>
+								<Box bg={'transparent'}>
+									<Heading fontSize={'$lg'} mx={'$2'}>
 										{item.title}
 									</Heading>
 									{item.data?.map((item, index) => {

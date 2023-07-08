@@ -1,52 +1,55 @@
-import { Heading } from '@components/core'
+import { useReactiveVar } from '@apollo/client'
+import { Box, Heading } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Icon, IconButton, Box } from 'native-base'
-
-interface AddRelationshipProps {}
+import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 
 const AddRelationship = ({}) => {
+	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	
 	return (
 		<Box
 			flex={1}
-			h={200}
+			sx={{
+				h: 200,
+			}}
 			justifyContent={'center'}
 			alignItems={'center'}
-			rounded='lg'
-			_light={{
-				bg: 'light.100',
-			}}
-			_dark={{
-				bg: 'dark.100',
-			}}
-			px={5}
+			rounded='$lg'
+			px={'$5'}
 		>
-			<IconButton
-				disabled={true}
-				variant={'solid'}
-				borderRadius={'md'}
-				bg={'amber.200'}
-				icon={<Icon size={30} color={'darkBlue.800'} as={FontAwesome5} name='hand-holding-heart' />}
-				height={57}
-				width={57}
-				borderColor={'primary.500'}
-				borderWidth={3}
-			/>
+			<Box
+				rounded={'$md'}
+				justifyContent={'center'}
+				alignItems={'center'}
+				bg={'$amber200'}
+				sx={{
+					h: 60,
+					w: 60,
+				}}
+				borderColor={'$primary500'}
+				borderWidth={'$2'}
+			>
+				<FontAwesome5
+					name={'hand-holding-heart'}
+					size={30}
+					color={
+						colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			</Box>
 			<Heading
-				mt={3}
+				mt={'$3'}
 				textAlign={'center'}
 				fontSize={'$lg'}
 				fontWeight={'$bold'}
-				style={{ textTransform: 'uppercase' }}
+				lineHeight={'$lg'}
+				textTransform='uppercase'
 			>
-				Add a
-			</Heading>
-			<Heading
-				textAlign={'center'}
-				fontSize={'$lg'}
-				fontWeight={'$bold'}
-				style={{ textTransform: 'uppercase' }}
-			>
-				relationship
+				Add a relationship
 			</Heading>
 		</Box>
 	)

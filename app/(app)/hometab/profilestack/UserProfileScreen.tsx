@@ -1,15 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, Divider } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import PreferenceNotificationPermission from '@components/molecules/permissions/preferencenotificationpermission/PreferenceNotificationPermission'
-import { ProfileType, useGetNotificationsLazyQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
 import PersonalScreen from '@components/screens/profile/personalprofile/PersonalProfile'
 import VenueScreen from '@components/screens/profile/venueprofile/VenueProfile'
+import { ProfileType, useGetNotificationsLazyQuery } from '@graphql/generated'
+import { AuthorizationReactiveVar } from '@reactive'
 import { uniqueId } from 'lodash'
 import { AnimatePresence } from 'moti'
-import { Box, Divider, ScrollView, View } from 'native-base'
 import { useCallback, useEffect, useState } from 'react'
-import { RefreshControl } from 'react-native'
+import { RefreshControl, ScrollView, View } from 'react-native'
 
 export default () => {
 	const [refreshing, setRefreshing] = useState(false)
@@ -39,7 +39,7 @@ export default () => {
 		switch (param) {
 			case ProfileType.Guest:
 				return (
-					<Box my={10} mx={3} flex={1}>
+					<Box my={'$10'} mx={'$3'} flex={1}>
 						<View>
 							<CardPleaseSignup signupTextId={4} />
 							<Divider style={{ marginVertical: 20 }} />

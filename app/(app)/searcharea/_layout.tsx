@@ -7,7 +7,6 @@ import { SearchAreaReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
-import { useTheme } from 'native-base'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Platform, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -56,7 +55,6 @@ export type Form = {
 export default function _layout() {
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
-	const theme = useTheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const insets = useSafeAreaInsets()
 

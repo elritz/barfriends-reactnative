@@ -1,7 +1,7 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
+import { Box } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Box, Icon } from 'native-base'
 
 const TonightTab = (props: TabProps) => {
 	return (
@@ -9,25 +9,24 @@ const TonightTab = (props: TabProps) => {
 			<TabBarIcon
 				color={props.color}
 				icon={
-					<Icon
+					<FontAwesome5
 						style={{
-							justifyContent: 'center',
 							zIndex: 100,
+							justifyContent: 'center',
 						}}
+						size={23}
 						name='play'
-						size={'23px'}
-						as={FontAwesome5}
 						color={props.color}
 					/>
 				}
 			/>
 			<Box
-				// position={'absolute'}
-				// bottom={-3}
-				bg={false ? 'red.500' : 'transparent'}
-				h={'4.25px'}
-				w={'4.25px'}
-				borderRadius={'full'}
+				bg={false ? '$red500' : 'transparent'}
+				sx={{
+					h: 4.25,
+					w: 4.25,
+				}}
+				rounded={'$full'}
 			/>
 		</>
 	)

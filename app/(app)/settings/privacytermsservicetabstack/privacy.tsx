@@ -1,14 +1,15 @@
+import { useReactiveVar } from '@apollo/client'
 import TermsLoadingState from '@components/screens/settings/TermsLoadingState'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { useTheme } from 'native-base'
 import { SafeAreaView, ScrollView } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
 
 export default () => {
 	const { width } = useWindowDimensions()
-	const theme = useTheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
 	const { data, loading, error } = usePrivacyTermsDocumentsQuery()
@@ -37,15 +38,21 @@ export default () => {
 					allowedStyles={['color', 'backgroundColor']}
 					classesStyles={{
 						'body-1': {
-							color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
+							color:
+								colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900,
 							fontSize: 19,
 						},
 						'lisitem-1': {
-							color: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
+							color:
+								colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900,
 							fontSize: 19,
 						},
 						highlight: {
-							color: theme.colors.primary[500],
+							color: rTheme.theme?.gluestack.tokens.colors.primary500,
 						},
 					}}
 				/>

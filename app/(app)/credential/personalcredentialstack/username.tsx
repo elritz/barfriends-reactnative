@@ -1,15 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Pressable, Text } from '@components/core'
+import { Box, Heading, Input, Pressable, Text } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Input } from 'native-base'
 import { useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInputProps, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -20,7 +19,8 @@ export default () => {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const _usernameRef = useRef<TextInput>(null)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const _usernameRef = useRef<TextInputProps>(null)
 	const colorScheme = useThemeColorScheme()
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -166,36 +166,41 @@ export default () => {
 						control={control}
 						defaultValue=''
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								ref={_usernameRef}
-								value={value}
-								key='username'
-								placeholder='Username'
-								keyboardAppearance={colorScheme}
-								onChangeText={onChange}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								autoCorrect={false}
-								contextMenuHidden
-								spellCheck={false}
-								autoFocus
-								textContentType='none'
-								autoComplete='username-new'
-								returnKeyType='done'
-								variant={'underlined'}
-								py={2}
-								_input={{
-									fontSize: 'xl',
-									fontWeight: 'medium',
-								}}
-								size={'lg'}
-								numberOfLines={1}
-								keyboardType='default'
-								autoCapitalize='none'
-								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								blurOnSubmit={false}
-								InputRightElement={<InputRightIcon />}
-							/>
+							<Input ref={_usernameRef}>
+								<Input.Input
+									value={value}
+									key='username'
+									placeholder='Username'
+									color={
+										colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light900
+											: rTheme.theme?.gluestack.tokens.colors.dark900
+									}
+									onChangeText={onChange}
+									onSubmitEditing={handleSubmit(onSubmit)}
+									onBlur={onBlur}
+									autoCorrect={false}
+									contextMenuHidden
+									spellCheck={false}
+									autoFocus
+									textContentType='none'
+									autoComplete='username-new'
+									returnKeyType='done'
+									variant={'underlined'}
+									py={2}
+									_input={{
+										fontSize: 'xl',
+										fontWeight: 'medium',
+									}}
+									size={'lg'}
+									numberOfLines={1}
+									keyboardType='default'
+									autoCapitalize='none'
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+									blurOnSubmit={false}
+									InputRightElement={<InputRightIcon />}
+								/>
+							</Input>
 						)}
 						rules={{
 							required: {

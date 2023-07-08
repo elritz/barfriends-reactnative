@@ -1,4 +1,4 @@
-import { Box, Text } from 'native-base'
+import { Box, Text } from '@components/core'
 
 export default function index() {
 	return (

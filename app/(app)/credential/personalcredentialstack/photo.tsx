@@ -1,24 +1,22 @@
 // TODO: FN()
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Center, HStack, Text, VStack } from '@components/core'
+import { Box, Button, Center, HStack, Pressable, Text, VStack } from '@components/core'
 import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { CredentialPersonalProfileReactiveVar, PermissionMediaReactiveVar } from '@reactive'
+import {
+	CredentialPersonalProfileReactiveVar,
+	PermissionMediaReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import * as ImagePicker from 'expo-image-picker'
 import * as MediaLibrary from 'expo-media-library'
 import { useRouter } from 'expo-router'
-import { Icon, IconButton, Skeleton, Image } from 'native-base'
+import { Skeleton } from 'native-base'
 import { useEffect, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-	AppState,
-	FlatList,
-	Pressable,
-	SafeAreaView,
-	useWindowDimensions,
-	View,
-} from 'react-native'
+import { Image } from 'react-native'
+import { AppState, SafeAreaView, useWindowDimensions, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg'
 
@@ -31,6 +29,7 @@ export default () => {
 	const window = useWindowDimensions()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const rPermissionMediaReactiveVar = useReactiveVar(PermissionMediaReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [status] = MediaLibrary.usePermissions()
 	const [mediaLoading, setMediaLoading] = useState(false)
 	const [imageUploading, setImageUploading] = useState(false)
@@ -173,7 +172,6 @@ export default () => {
 							margin: 10,
 							borderRadius: 20,
 						}}
-						alt={'loading image'}
 						source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 					/>
 					<Box mb={'$2'} mx={'$2'} rounded={'md'} p={5}>
@@ -253,7 +251,6 @@ export default () => {
 						margin: 10,
 						borderRadius: 20,
 					}}
-					alt={'loading image'}
 					source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 				/>
 			</Center>
@@ -281,18 +278,18 @@ export default () => {
 									width: window.width / 3,
 									justifyContent: 'center',
 								}}
-								alt={'Image'}
 								source={{ uri: item.uri }}
 							/>
 							{watchValues?.photo?.uri === item.uri && (
-								<Icon
-									as={Ionicons}
+								<Ionicons
 									name='checkmark-circle'
-									size={'$3xl'}
-									color={'success.500'}
-									position='absolute'
-									bottom={1}
-									right={1}
+									color={rTheme.theme?.gluestack.tokens.colors.success500}
+									style={{
+										position: 'absolute',
+										bottom: 1,
+										right: 1,
+									}}
+									size={25}
 								/>
 							)}
 						</Pressable>
@@ -312,14 +309,19 @@ export default () => {
 					paddingBottom: insets.bottom,
 				}}
 			>
-				<IconButton
-					w={'40%'}
-					mx={'10%'}
-					onPress={_pickMediaPicker}
-					variant={'ghost'}
-					isDisabled={imageUploading}
-					icon={<Icon as={MaterialIcons} name='photo-library' size={29} color={'gray.800'} />}
-				/>
+				<Pressable
+					sx={{
+						mx: '10%',
+						w: '40%',
+					}}
+				>
+					<MaterialIcons
+						name={'photo-library'}
+						size={29}
+						color={rTheme.theme?.gluestack.tokens.colors.green800}
+					/>
+				</Pressable>
+
 				<Button
 					mx={'$5'}
 					sx={{
@@ -332,7 +334,11 @@ export default () => {
 					<Text color={'$primary500'} fontSize={'$xl'}>
 						{imageUploading ? 'Continue' : 'Uploading'}
 					</Text>
-					<Feather name='arrow-right' size={29} />
+					<Feather
+						name='arrow-right'
+						size={29}
+						color={rTheme.theme?.gluestack.tokens.colors.primary500}
+					/>
 				</Button>
 			</View>
 		</SafeAreaView>

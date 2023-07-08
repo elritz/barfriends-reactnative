@@ -1,11 +1,13 @@
 import Details from '../details/Details'
 import { useReactiveVar } from '@apollo/client'
+import { Box, Button, HStack, Text, VStack } from '@components/core'
 import SignupModal from '@components/molecules/modals/signupaskmodal'
 import { Ionicons } from '@expo/vector-icons'
 import { Profile, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
-import { HStack, useDisclose, IconButton, Icon, VStack, Box, Button, Text } from 'native-base'
 import { useState } from 'react'
 
 type Props = {
@@ -14,7 +16,9 @@ type Props = {
 
 export default function Actions({ profile }: Props) {
 	const router = useRouter()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const colorScheme = useThemeColorScheme()
 	const [showMore, setShowMore] = useState(false)
 	const {
 		isOpen: isOpenSignupModal,
@@ -39,45 +43,13 @@ export default function Actions({ profile }: Props) {
 	if (GRFRSLoading || !GRFRSData) return null
 
 	return (
-		<VStack
-			_light={{
-				bg: 'light.100',
-			}}
-			_dark={{
-				bg: 'dark.100',
-			}}
-			borderRadius={'xl'}
-			flex={1}
-			py={3}
-			px={2}
-			space={2}
-		>
+		<VStack rounded={'$xl'} flex={1} py={'$3'} px={'$2'} space={'md'}>
 			<HStack alignItems={'flex-start'}>
 				{/* <RelationshipModal isOpen={isOpenRelationshipModal} onClose={onCloseRelaationshipModal} /> */}
 				<SignupModal isOpen={isOpenSignupModal} onClose={onCloseSignupModal} />
 
 				<Details profile={profile} />
-				<IconButton
-					alignSelf={'center'}
-					icon={
-						<Icon
-							style={{
-								zIndex: 100,
-								justifyContent: 'center',
-							}}
-							name='chatbubble-ellipses'
-							size={'28px'}
-							as={Ionicons}
-							_light={{
-								color: 'light.900',
-							}}
-							_dark={{
-								color: 'dark.900',
-							}}
-						/>
-					}
-					borderRadius={'md'}
-					colorScheme={'primary'}
+				<Button
 					onPress={() => {
 						isGuest
 							? onOpenSignupModal()
@@ -88,26 +60,42 @@ export default function Actions({ profile }: Props) {
 									},
 							  })
 					}}
-				/>
+					rounded={'$md'}
+				>
+					<Ionicons
+						name='chatbubble-ellipses'
+						size={28}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+						style={{
+							zIndex: 100,
+							justifyContent: 'center',
+							alignSelf: 'center',
+						}}
+					/>
+				</Button>
 			</HStack>
 
-			<Box flex={1}>
+			<Box bg={'$transparent'} flex={1}>
 				{profile?.DetailInformation?.description?.length ? (
-					<Box>
+					<Box bg={'$transparent'}>
 						{!showMore ? (
-							<Text fontSize={'lg'} numberOfLines={2} isTruncated={true}>
+							<Text fontSize={'$lg'} numberOfLines={2}>
 								{profile.DetailInformation?.description}
 							</Text>
 						) : (
-							<Text fontSize={'lg'}>{profile.DetailInformation?.description}</Text>
+							<Text fontSize={'$lg'}>{profile.DetailInformation?.description}</Text>
 						)}
-						<Button my={2} onPress={() => setShowMore(!showMore)} variant={'ghost'}>
-							{showMore ? 'Show Less' : 'Show More'}
+						<Button my={'$2'} onPress={() => setShowMore(!showMore)} variant={'link'}>
+							<Text>{showMore ? 'Show Less' : 'Show More'}</Text>
 						</Button>
 					</Box>
 				) : (
 					<Box my={2}>
-						<Text h={'auto'} fontSize={'lg'} isTruncated={!showMore}>
+						<Text h={'auto'} fontSize={'$lg'}>
 							No description available
 						</Text>
 					</Box>

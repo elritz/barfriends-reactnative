@@ -1,3 +1,4 @@
+import { Center, Pressable } from '@components/core'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
 import {
 	AuthorizationDeviceManager,
@@ -8,7 +9,6 @@ import {
 } from '@graphql/generated'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Center, Pressable, Text } from 'native-base'
 import { useState } from 'react'
 
 const text = GetSignInUpText()
@@ -71,8 +71,10 @@ const DeviceManagerProfiles = () => {
 							<Pressable
 								key={item.id}
 								onPress={() => (item?.isActive ? logoutProfile() : switchProfile(item))}
-								h={'80px'}
-								w={'100%'}
+								sx={{
+									h: 80,
+									w: '100%',
+								}}
 							>
 								<DeviceManagerProfileItemLarge
 									item={item.Profile}

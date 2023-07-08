@@ -1,7 +1,6 @@
 import { Heading, Text, Box, Button, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { Icon } from 'native-base'
 
 export default function SignupCard() {
 	const router = useRouter()
@@ -30,7 +29,7 @@ export default function SignupCard() {
 					bg={'$primary600'}
 				>
 					<Text>Continue</Text>
-					<Icon color='white' as={Feather} name='arrow-right' size={'md'} />
+					<Feather name='arrow-right' size={20} color={'white'} />
 				</Button>
 			</Box>
 		</VStack>

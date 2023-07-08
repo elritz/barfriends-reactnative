@@ -1,14 +1,15 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button, HStack, Pressable, Text } from '@components/core'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as Haptics from 'expo-haptics'
 import { Stack, useRouter } from 'expo-router'
-import { HStack, Icon, Pressable, useColorMode, useTheme, Text, IconButton } from 'native-base'
 
 export default function _layout() {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const theme = useTheme()
-	const colorScheme = useColorMode()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 	const router = useRouter()
 
 	return (
@@ -17,7 +18,9 @@ export default function _layout() {
 				gestureEnabled: false,
 				headerStyle: {
 					backgroundColor:
-						colorScheme.colorMode === 'light' ? theme.colors.light[50] : theme.colors.dark[50],
+						colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light50
+							: rTheme.theme?.gluestack.tokens.colors.dark50,
 				},
 				headerTitle: '',
 				headerLeft: () => {
@@ -30,17 +33,30 @@ export default function _layout() {
 										router.push('(app)/modal/DeviceManager')
 									}}
 								>
-									<HStack ml={2} space={2} alignItems={'center'}>
-										<Text fontWeight={'medium'} fontSize={'24px'} maxW={'165px'} ellipsizeMode={'tail'}>
+									<HStack ml={'$2'} space={'md'} alignItems={'center'}>
+										<Text
+											fontWeight={'$medium'}
+											fontSize={'$2xl'}
+											sx={{
+												maxWidth: 165,
+											}}
+											ellipsizeMode={'tail'}
+										>
 											{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 										</Text>
-										<Icon
-											as={Ionicons}
+										<Ionicons
 											name={'chevron-down'}
-											size={'23px'}
-											position={'absolute'}
-											top={2}
-											right={-15}
+											size={23}
+											color={
+												colorScheme === 'light'
+													? rTheme.theme?.gluestack.tokens.colors.light900
+													: rTheme.theme?.gluestack.tokens.colors.dark900
+											}
+											style={{
+												position: 'absolute',
+												top: -2,
+												right: -15,
+											}}
 										/>
 									</HStack>
 								</Pressable>
@@ -49,17 +65,24 @@ export default function _layout() {
 					)
 				},
 				headerRight: () => (
-					<IconButton
+					<Button
+						variant='link'
 						onPress={() =>
 							router.push({
 								pathname: '(app)/settings',
 							})
 						}
-						_pressed={{
-							bg: 'transparent',
-						}}
-						icon={<Icon as={MaterialCommunityIcons} name={'dots-horizontal'} size={30} />}
-					/>
+					>
+						<MaterialCommunityIcons
+							name={'dots-horizontal'}
+							size={30}
+							color={
+								colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900
+							}
+						/>
+					</Button>
 				),
 				headerShown: true,
 			}}

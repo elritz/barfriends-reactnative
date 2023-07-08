@@ -106,7 +106,7 @@ export default function DeviceManager() {
 										return null
 									} else {
 										return (
-											<Pressable key={item.id} onPress={() => switchProfile(item)} w={'100%'} sx={{ h: 80 }}>
+											<Pressable key={item.id} onPress={() => switchProfile(item)} sx={{ w: '100%', h: 80 }}>
 												<DeviceManagerProfileItemLarge
 													item={item.Profile}
 													isActive={item.isActive}

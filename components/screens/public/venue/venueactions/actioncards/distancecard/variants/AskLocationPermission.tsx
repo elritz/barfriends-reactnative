@@ -1,6 +1,5 @@
-import { Heading, VStack } from '@components/core'
+import { Button, Heading, Text, VStack } from '@components/core'
 import { useRouter } from 'expo-router'
-import { Button } from 'native-base'
 
 export default function AskForegroundLocationPermission() {
 	const router = useRouter()
@@ -31,7 +30,7 @@ export default function AskForegroundLocationPermission() {
 					})
 				}
 			>
-				Continue
+				<Text>Continue</Text>
 			</Button>
 		</VStack>
 	)

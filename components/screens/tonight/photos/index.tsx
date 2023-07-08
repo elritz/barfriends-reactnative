@@ -1,15 +1,15 @@
 import Item from '../images/Item'
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Center, Heading, Pressable, Text } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import * as ImagePicker from 'expo-image-picker'
-import { Box, Button, Center, Icon, Image, Pressable, Text, View, useTheme } from 'native-base'
 import { useCallback } from 'react'
-import { ScrollView, StyleSheet, useWindowDimensions } from 'react-native'
+import { Image } from 'react-native'
+import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
-	Easing,
 	interpolate,
 	interpolateColor,
 	useAnimatedRef,
@@ -23,8 +23,9 @@ const size = 70
 
 export default function Photos() {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
 	const { width } = useWindowDimensions()
-	const theme = useTheme()
 	const scrollRef = useAnimatedRef<ScrollView>()
 	const translateX = useSharedValue(0)
 	const margin = 12
@@ -98,7 +99,7 @@ export default function Photos() {
 			height: size + 10,
 			width: size + 10,
 			borderRadius: size + 10 / 2,
-			backgroundColor: theme.colors.primary[400],
+			backgroundColor: rTheme.theme?.gluestack.tokens.colors.primary400,
 		},
 		dotMd: {
 			top: 10,
@@ -107,7 +108,7 @@ export default function Photos() {
 			height: size - 15,
 			width: size - 15,
 			borderRadius: size / 2,
-			backgroundColor: theme.colors.tertiary[400],
+			backgroundColor: rTheme.theme?.gluestack.tokens.colors.tertiary400,
 		},
 		dotSm: {
 			top: 20,
@@ -116,7 +117,7 @@ export default function Photos() {
 			height: size - 25,
 			width: size - 25,
 			borderRadius: size / 2,
-			backgroundColor: theme.colors.secondary[700],
+			backgroundColor: rTheme.theme?.gluestack.tokens.colors.secondary700,
 			zIndex: 3,
 		},
 	})
@@ -125,15 +126,10 @@ export default function Photos() {
 		<>
 			{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length ? (
 				<Box
-					_light={{
-						bg: 'light.100',
+					sx={{
+						h: 400,
 					}}
-					_dark={{
-						bg: 'light.800',
-					}}
-					h={400}
-					w={'100%'}
-					borderRadius={'md'}
+					rounded={'$md'}
 					overflow={'hidden'}
 				>
 					<Animated.ScrollView
@@ -182,10 +178,11 @@ export default function Photos() {
 												source={{
 													uri: item.url,
 												}}
-												height={'100%'}
-												width={'100%'}
-												rounded={'none'}
-												alt='Alternate Text'
+												style={{
+													height: '100%',
+													width: '100%',
+													borderRadius: 0,
+												}}
 											/>
 										</Box>
 									</View>
@@ -238,38 +235,33 @@ export default function Photos() {
 				</Box>
 			) : (
 				<Box
-					_light={{
-						bg: 'light.100',
+					bg={'$transparent'}
+					sx={{
+						h: 400,
+						w: '100%',
 					}}
-					_dark={{
-						bg: 'light.800',
-					}}
-					h={400}
-					w={'100%'}
-					borderRadius={'md'}
-					mb={3}
+					rounded={'$md'}
+					mb={'$3'}
 				>
-					<Box
-						_light={{
-							bg: 'light.100',
-						}}
-						_dark={{
-							bg: 'dark.100',
-						}}
-					>
+					<Box>
 						<Box h={'100%'}>
-							<Center flex={1} mx={'5'}>
-								<Box w={'100%'} alignItems={'center'} pb={5}>
-									<Icon
-										zIndex={10}
-										_light={{
-											color: 'light.50',
+							<Center flex={1} mx={'$5'}>
+								<Box
+									sx={{
+										w: '100%',
+									}}
+									alignItems={'center'}
+									pb={'$5'}
+								>
+									<MaterialIcons
+										style={{
+											zIndex: 10,
+											color:
+												colorScheme === 'light'
+													? rTheme.theme?.gluestack.tokens.colors.light900
+													: rTheme.theme?.gluestack.tokens.colors.dark900,
 										}}
-										_dark={{
-											color: 'dark.100',
-										}}
-										as={MaterialIcons}
-										size={'6xl'}
+										size={55}
 										name={'photo-size-select-actual'}
 									/>
 									<Box position={'absolute'} zIndex={5}>
@@ -305,22 +297,13 @@ export default function Photos() {
 								<Heading pb={1} fontWeight={'$black'}>
 									Start tonights story
 								</Heading>
-								<Text fontSize={'lg'} fontWeight={'medium'}>
+								<Text fontSize={'$lg'} fontWeight={'$medium'}>
 									Ready to go out? Add photos of your fit and pick your emojimood
 								</Text>
-								<Button onPress={pickImage} bg={'tertiary.400'} size={'lg'} borderRadius={'md'} mt={4}>
-									Upload images
+								<Button onPress={pickImage} bg={'$tertiary400'} rounded={'$md'} mt={'$4'}>
+									<Text>Upload images</Text>
 								</Button>
 							</Center>
-							{/* <Image
-								source={{
-									uri: item?.url,
-								}}
-								height={'100%'}
-								width={'100%'}
-								rounded={'none'}
-								alt='Alternate Text'
-							/> */}
 						</Box>
 					</Box>
 				</Box>

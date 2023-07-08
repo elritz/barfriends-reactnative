@@ -1,15 +1,14 @@
-import { Button, Center, Text } from '@components/core'
+import { Box, Button, Center, Divider, Text } from '@components/core'
 import GetSignInUpText from '@helpers/data/SignupinText'
 import { useRouter } from 'expo-router'
-import { Box, Divider } from 'native-base'
 
 export default () => {
 	const router = useRouter()
 	const text = GetSignInUpText()
 
 	return (
-		<Box>
-			<Center flexDirection='column-reverse'>
+		<Box bg='transparent'>
+			<Center flexDirection='column'>
 				<Text allowFontScaling fontWeight='$bold' alignSelf='center' textAlign='center'>
 					{text[1].subTitle}
 				</Text>
@@ -19,36 +18,37 @@ export default () => {
 							pathname: '(app)/credential/personalcredentialstack/getstarted',
 						})
 					}
-					width={'95%'}
-					my={4}
+					sx={{
+						w: '95%',
+					}}
+					my={'$4'}
 					rounded={'$md'}
 				>
-					Sign up
+					<Text
+						textTransform='uppercase'
+						fontWeight='$bold'
+						fontSize={'$lg'}
+					>
+						Sign up
+					</Text>
 				</Button>
 				<Button
+					variant='link'
 					onPress={() =>
 						router.push({
 							pathname: '(app)/credential/logincredentialstack/authenticator',
 						})
 					}
-					w={'95%'}
-					// _text={{
-					// 	textTransform: 'uppercase',
-					// 	fontWeight: '700',
-					// 	fontSize: 'lg',
-					// 	_dark: {
-					// 		color: 'light.50',
-					// 	},
-					// 	_light: {
-					// 		color: 'dark.50',
-					// 	},
-					// 	lineHeight: 'lg',
-					// }}
+					sx={{
+						w: '95%',
+					}}
 				>
-					Log in
+					<Text textTransform='uppercase' fontSize={'$lg'} fontWeight={'$bold'} alignSelf='center'>
+						Log in
+					</Text>
 				</Button>
 			</Center>
-			<Divider style={{ marginVertical: 10 }} />
+			<Divider my={'$5'} />
 		</Box>
 	)
 }

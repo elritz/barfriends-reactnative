@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -8,15 +8,16 @@ import {
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { ScrollView, Box, HStack, Icon, Text, Pressable } from 'native-base'
 import { useState } from 'react'
+import { Pressable, ScrollView } from 'react-native'
 
-interface EditableOptionsScreenProps {}
-
-export default ({}: EditableOptionsScreenProps) => {
+export default () => {
 	const router = useRouter()
+	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
@@ -57,15 +58,12 @@ export default ({}: EditableOptionsScreenProps) => {
 	const RoundedListItem = ({ children, ...props }) => (
 		<Pressable onPress={props.onPress}>
 			<Box
-				height={'58px'}
-				_light={{
-					bg: 'light.100',
+				bg={'transparent'}
+				sx={{
+					h: 60,
 				}}
-				_dark={{
-					bg: 'dark.100',
-				}}
-				px={2}
-				py={3}
+				px={'$2'}
+				py={'$3'}
 				alignItems={'flex-start'}
 				flexDirection={'column'}
 			>
@@ -76,15 +74,16 @@ export default ({}: EditableOptionsScreenProps) => {
 
 	return (
 		<ScrollView
-			_light={{
-				bg: 'light.100',
+			style={{
+				marginVertical: 4,
 			}}
-			_dark={{
-				bg: 'dark.100',
-			}}
-			py={4}
 		>
-			<Heading px={2} h={'30px'}>
+			<Heading
+				px={'$2'}
+				sx={{
+					h: 30,
+				}}
+			>
 				Account
 			</Heading>
 			{/* Edit Profile */}
@@ -99,19 +98,17 @@ export default ({}: EditableOptionsScreenProps) => {
 						  })
 				}}
 			>
-				<HStack alignItems={'center'} space={2}>
-					<Icon
-						_light={{
-							color: 'light.900',
-						}}
-						_dark={{
-							color: 'dark.900',
-						}}
-						as={Ionicons}
-						size={'30px'}
-						name={'ios-person-circle-outline'}
+				<HStack alignItems={'center'} space={'md'}>
+					<Ionicons
+						name='ios-person-circle-outline'
+						size={30}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
 					/>
-					<Text fontWeight={500} fontSize={'lg'}>
+					<Text fontWeight={'$bold'} fontSize={'$lg'}>
 						{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'PERSONAL'
 							? 'Edit Profile'
 							: 'Edit Venue'}
@@ -126,20 +123,17 @@ export default ({}: EditableOptionsScreenProps) => {
 					})
 				}}
 			>
-				<HStack alignItems={'center'} space={2}>
-					<Icon
-						_light={{
-							color: 'light.900',
-						}}
-						_dark={{
-							color: 'dark.900',
-						}}
-						as={Ionicons}
-						size={'32px'}
-						name={'notifications-circle-outline'}
+				<HStack alignItems={'center'} space={'md'}>
+					<Ionicons
+						size={30}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+						name='notifications-circle-outline'
 					/>
-					{/* <MaterialCommunityIcons name="" size={24} color="black" /> */}
-					<Text fontWeight={500} fontSize={'lg'}>
+					<Text fontWeight={'$bold'} fontSize={'$lg'}>
 						Notifications
 					</Text>
 				</HStack>
@@ -147,21 +141,21 @@ export default ({}: EditableOptionsScreenProps) => {
 			{/* QRCode */}
 			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 				<RoundedListItem>
-					<HStack alignItems={'center'} space={2}>
-						<Icon
-							_light={{
-								color: 'light.900',
+					<HStack alignItems={'center'} space={'md'}>
+						<Ionicons
+							name='qr-code'
+							size={25}
+							style={{
+								marginLeft: 2,
 							}}
-							_dark={{
-								color: 'dark.900',
-							}}
-							as={Ionicons}
-							size={'23px'}
-							ml={1}
-							name={'qr-code'}
+							color={
+								colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900
+							}
 						/>
 						{/* <MaterialCommunityIcons name="" size={24} color="black" /> */}
-						<Text fontWeight={500} fontSize={'lg'}>
+						<Text fontWeight={'$bold'} fontSize={'$lg'}>
 							QR code
 						</Text>
 					</HStack>
@@ -176,20 +170,18 @@ export default ({}: EditableOptionsScreenProps) => {
 						})
 					}}
 				>
-					<HStack alignItems={'center'} space={2}>
-						<Icon
-							_light={{
-								color: 'light.900',
-							}}
-							_dark={{
-								color: 'dark.900',
-							}}
-							as={Ionicons}
-							size={'xl'}
-							name={'shield-checkmark-outline'}
+					<HStack alignItems={'center'} space={'md'}>
+						<Ionicons
+							name='shield-checkmark-outline'
+							size={30}
+							color={
+								colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900
+							}
 						/>
-						{/* <MaterialCommunityIcons name="" size={24} color="black" /> */}
-						<Text fontWeight={500} fontSize={'lg'}>
+
+						<Text fontWeight={'$bold'} fontSize={'$lg'}>
 							Security
 						</Text>
 					</HStack>
@@ -203,30 +195,35 @@ export default ({}: EditableOptionsScreenProps) => {
 					})
 				}}
 			>
-				<HStack alignItems={'center'} space={2}>
-					<Icon
-						_light={{
-							color: 'light.900',
-						}}
-						_dark={{
-							color: 'dark.900',
-						}}
-						as={Ionicons}
-						size={'xl'}
+				<HStack alignItems={'center'} space={'md'}>
+					<Ionicons
 						name={'color-palette'}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+						size={30}
 					/>
-					<Text fontWeight={500} fontSize={'lg'}>
+					<Text fontWeight={'$bold'} fontSize={'$lg'}>
 						Appearance
 					</Text>
 				</HStack>
 			</RoundedListItem>
 			{/* Logins */}
-			<Heading px={2} h={'30px'}>
+			<Heading
+				px={'$2'}
+				sx={{
+					h: 30,
+				}}
+			>
 				Logins
 			</Heading>
 			<RoundedListItem>
 				<Pressable
-					w={'100%'}
+					style={{
+						width: '100%',
+					}}
 					onPress={() =>
 						router.replace({
 							pathname: '(app)/credential/logincredentialstack/authenticator',
@@ -235,8 +232,14 @@ export default ({}: EditableOptionsScreenProps) => {
 				>
 					{({ isHovered, isFocused, isPressed }) => {
 						return (
-							<HStack alignItems={'center'} px={2} h={'55px'}>
-								<Text fontWeight={500} fontSize={'lg'} color={isPressed ? 'gray.400' : 'primary.500'}>
+							<HStack
+								alignItems={'center'}
+								px={'$2'}
+								sx={{
+									h: 55,
+								}}
+							>
+								<Text fontWeight={'$bold'} fontSize={'$lg'} color={isPressed ? '$gray400' : '$primary500'}>
 									Add Account
 								</Text>
 							</HStack>
@@ -246,9 +249,20 @@ export default ({}: EditableOptionsScreenProps) => {
 			</RoundedListItem>
 			{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 				<RoundedListItem>
-					<Pressable w={'100%'} onPress={() => switchProfile()}>
-						<HStack alignItems={'center'} px={2} h={'55px'}>
-							<Text fontWeight={500} fontSize={'lg'} color={'primary.500'}>
+					<Pressable
+						onPress={() => switchProfile()}
+						style={{
+							width: '100%',
+						}}
+					>
+						<HStack
+							alignItems={'center'}
+							px={'$2'}
+							sx={{
+								h: 55,
+							}}
+						>
+							<Text fontWeight={'$bold'} fontSize={'$lg'} color={'$primary500'}>
 								Log Out {rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}
 							</Text>
 						</HStack>

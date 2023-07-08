@@ -54,7 +54,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 					data={notifications?.getNotifications?.friendRequestNotifications}
 				/>
 			</Box>
-			<VStack mx={'$3'} space={'md'} justifyContent={'space-around'}>
+			<VStack m={'$3'} space={'md'} justifyContent={'space-around'}>
 				<HStack space={'md'} justifyContent={'space-around'}>
 					<Box
 						flex={1}

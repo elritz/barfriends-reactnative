@@ -1,12 +1,13 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import { PermissionNotificationReactiveVar } from '@reactive'
+import { PermissionNotificationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as Application from 'expo-application'
 import * as Device from 'expo-device'
@@ -14,30 +15,26 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
-import { Box, VStack, Button, Divider, Icon, Text, ScrollView } from 'native-base'
 import { useEffect, useRef } from 'react'
-import { Alert, AppState, Platform, View } from 'react-native'
+import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 const details = [
 	{
 		title: 'How you’ll use this',
 		detail: 'To receive messages, venue and event deals around you.',
-		iconName: 'ios-location-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name={'ios-location-sharp'} size={25} />,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To create messages from you to others.',
-		iconName: 'android-messages',
-		iconType: MaterialCommunityIcons,
+		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
 	},
 	{
 		title: 'How these settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		iconName: 'ios-settings-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
 	},
 ]
 
@@ -45,6 +42,8 @@ export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
 	const isFocused = useIsFocused()
+	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')
 
@@ -177,19 +176,29 @@ export default () => {
 	})
 
 	return (
-		<Box style={{ flex: 1 }}>
-			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
+		<Box bg={'$transparent'} style={{ flex: 1 }}>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<Box
-					borderRadius={'md'}
-					h={65}
-					w={65}
+					rounded={'$md'}
+					sx={{
+						h: 65,
+						w: 65,
+					}}
 					alignItems={'center'}
 					justifyContent={'center'}
 					bg={'#ff7000'}
 				>
-					<Icon as={Ionicons} color={'secondary.800'} name={'ios-notifications'} size={9} />
+					<Ionicons
+						name='ios-notifications'
+						size={25}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+					/>
 				</Box>
-				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
+				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
 					fontWeight={'$black'}
 					fontSize={'$3xl'}
@@ -206,7 +215,12 @@ export default () => {
 				</Heading>
 			</Box>
 			<ScrollView>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+				<Box
+					sx={{
+						w: wp(95),
+					}}
+					style={{ flex: 1, alignSelf: 'center' }}
+				>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>
@@ -216,7 +230,7 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
+			<VStack space={'md'} w={'full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
@@ -236,8 +250,8 @@ export default () => {
 						: 'Granted'}
 				</Button>
 				{!started && (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
-						<Text fontWeight={'medium'}>Close</Text>
+					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'link'}>
+						<Text fontWeight={'$medium'}>Close</Text>
 					</Button>
 				)}
 				{started && <Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>}

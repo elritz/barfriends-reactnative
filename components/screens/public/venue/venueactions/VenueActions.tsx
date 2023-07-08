@@ -9,17 +9,16 @@ import DevActions from './devactions/DevActions'
 import { useReactiveVar } from '@apollo/client'
 import { Box, HStack, VStack } from '@components/core'
 import { ENVIRONMENT } from '@env'
-import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
+import { useLocalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import {  useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
 
 const VenueActions = () => {
 	const numColumns = 2
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const theme = useTheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [isJoined, setIsJoined] = useState(false)
 
 	useEffect(() => {
@@ -55,7 +54,12 @@ const VenueActions = () => {
 
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 					<HStack space={'$md'} mt={'$5'}>
-						<ActionCard h={200} key={uniqueId()} bg={theme.colors.primary[500]} numColumns={numColumns}>
+						<ActionCard
+							h={200}
+							key={uniqueId()}
+							bg={rTheme.theme?.gluestack.tokens.colors.primary500}
+							numColumns={numColumns}
+						>
 							<QuickBarfriend logosize={30} qrcodesize={100} />
 						</ActionCard>
 						<ActionCard h={200} key={uniqueId()} numColumns={numColumns}>

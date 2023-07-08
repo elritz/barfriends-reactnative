@@ -1,7 +1,7 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
@@ -12,30 +12,26 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
 import { useRouter } from 'expo-router'
-import { Box, VStack, Button, Divider, Text, ScrollView } from 'native-base'
 import React, { useEffect, useRef } from 'react'
-import { Alert, AppState, Platform, View } from 'react-native'
+import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 const details = [
 	{
 		title: 'How you’ll use this',
 		detail: 'To find venues and event deals around you.',
-		iconName: 'ios-location-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name='ios-location-sharp' size={25} />,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To create your own content and share. ',
-		iconName: 'android-messages',
-		iconType: MaterialCommunityIcons,
+		icon: <MaterialCommunityIcons name='android-messages' size={25} />,
 	},
 	{
 		title: 'How these settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		iconName: 'ios-settings-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name='ios-settings-sharp' size={25} />,
 	},
 ]
 
@@ -111,10 +107,10 @@ export default () => {
 	}
 
 	return (
-		<Box style={{ flex: 1 }}>
-			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
+		<Box flex={1}>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<IllustrationDynamicLocation width={60} height={60} />
-				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
+				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
 					fontWeight='$black'
 					fontSize={'$3xl'}
@@ -131,7 +127,13 @@ export default () => {
 				</Heading>
 			</Box>
 			<ScrollView>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+				<Box
+					sx={{
+						w: wp(95),
+					}}
+					flex={1}
+					alignSelf='center'
+				>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>
@@ -141,11 +143,13 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
+			<VStack space={'md'} w={'$full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
-					width={'95%'}
+					sx={{
+						w: '95%',
+					}}
 					onPress={() =>
 						!rBackgroundLocationPermissionVar?.granted
 							? rBackgroundLocationPermissionVar?.canAskAgain && !rBackgroundLocationPermissionVar.granted
@@ -161,14 +165,27 @@ export default () => {
 						: 'Granted'}
 				</Button>
 				{!started ? (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
-						<Text fontWeight={'medium'}>Close</Text>
+					<Button
+						sx={{
+							w: '95%',
+						}}
+						size={'lg'}
+						onPress={() => router.back()}
+						variant={'link'}
+					>
+						<Text fontWeight={'$medium'}>Close</Text>
 					</Button>
 				) : (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
-						{started && (
-							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
-						)}
+					<Button
+						sx={{
+							w: '95%',
+							h: 20,
+						}}
+						size={'lg'}
+						onPress={() => router.back()}
+						variant={'link'}
+					>
+						{started && <Text fontWeight={'$medium'}>Auto close in {seconds}</Text>}
 					</Button>
 				)}
 			</VStack>

@@ -1,7 +1,7 @@
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
+import { Box } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
-import { Box, Icon } from 'native-base'
 
 const VenueFeedTab = (props: TabProps) => {
 	return (
@@ -9,19 +9,25 @@ const VenueFeedTab = (props: TabProps) => {
 			<TabBarIcon
 				color={props.color}
 				icon={
-					<Icon
+					<Ionicons
 						style={{
 							zIndex: 100,
 							justifyContent: 'center',
 						}}
+						size={26}
 						name='md-grid'
-						size={'26px'}
-						as={Ionicons}
 						color={props.color}
 					/>
 				}
 			/>
-			<Box bg={false ? 'red.500' : 'transparent'} h={'4.25px'} w={'4.25px'} borderRadius={'full'} />
+			<Box
+				bg={false ? '$red500' : 'transparent'}
+				sx={{
+					h: 4.25,
+					w: 4.25,
+				}}
+				rounded={'$full'}
+			/>
 		</>
 	)
 }

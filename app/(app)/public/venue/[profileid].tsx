@@ -11,9 +11,9 @@ import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useSearchParams } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Skeleton, Icon, IconButton } from 'native-base'
+import { Skeleton } from 'native-base'
 import { Alert, Platform, Share, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -23,7 +23,7 @@ export default () => {
 	const { bottom } = useSafeAreaInsets()
 	const { width } = useWindowDimensions()
 	const itemPadding = (width / 33.33) * numColumns
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 

@@ -1,18 +1,19 @@
+import { Pressable } from '@components/core'
 import { useRouter } from 'expo-router'
-import { Pressable } from 'native-base'
 import * as React from 'react'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 interface ButtonProps {
 	children: React.ReactNode
-	height?: string
-	width?: string
+	height: number
+	width: number
 }
 
 const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	const rotuer = useRouter()
 	GoBack.defaultProps = {
-		width: '100%',
-		height: '100%',
+		width: wp(10),
+		height: wp(10),
 	}
 
 	const handleOnPress = () => {
@@ -20,20 +21,17 @@ const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	}
 
 	const { width, height, children } = props
+
 	return (
 		<Pressable
-			width={width || '100%'}
-			height={width || '100%'}
-			alignItems={'center'}
-			justifyContent={'center'}
+			style={{
+				width,
+				height,
+				alignItems: 'center',
+				justifyContent: 'center',
+				borderRadius: 50,
+			}}
 			onPress={() => handleOnPress()}
-			_light={{
-				bg: 'light.200',
-			}}
-			_dark={{
-				bg: 'dark.200',
-			}}
-			rounded={'full'}
 		>
 			{children}
 		</Pressable>

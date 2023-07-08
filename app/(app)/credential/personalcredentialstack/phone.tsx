@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading, Text, Pressable, VStack, Box } from '@components/core'
+import { Heading, Text, Pressable, VStack, Box, Input } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
@@ -7,7 +7,6 @@ import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { CountryCode } from 'libphonenumber-js'
-import { Input } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import {
@@ -243,34 +242,34 @@ export default () => {
 						name='mobileNumber.completeNumber'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								ref={_phonenumberRef}
-								key={'mobileNumber.completeNumber'}
-								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								textContentType='telephoneNumber'
-								autoComplete='tel'
-								keyboardType='phone-pad'
-								placeholder='Mobile Number'
-								variant={'underlined'}
-								returnKeyType={Platform.OS === 'ios' ? 'done' : 'none'}
-								numberOfLines={1}
-								keyboardAppearance={colorScheme}
-								py={2}
-								blurOnSubmit={false}
-								_input={{
-									fontSize: '2xl',
-									fontWeight: 'medium',
-								}}
-								size={'lg'}
-								enablesReturnKeyAutomatically={false}
-								// onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								onChangeText={value => {
-									onChange(value)
-									const replaced = value.replace(/\D/g, '')
-									setValue('mobileNumber.number', replaced)
-								}}
-							/>
+							<Input variant={'underlined'} size='lg'>
+								<Input.Input
+									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									value={value}
+									type='password'
+									py={'$2'}
+									sx={{
+										h: 50,
+									}}
+									key={'mobileNumber.completeNumber'}
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+									textContentType='telephoneNumber'
+									autoComplete='tel'
+									keyboardType='phone-pad'
+									placeholder='Mobile Number'
+									returnKeyType={Platform.OS === 'ios' ? 'done' : 'none'}
+									numberOfLines={1}
+									blurOnSubmit={false}
+									enablesReturnKeyAutomatically={false}
+									// onSubmitEditing={handleSubmit(onSubmit)}
+									onBlur={onBlur}
+									onChangeText={value => {
+										onChange(value)
+										const replaced = value.replace(/\D/g, '')
+										setValue('mobileNumber.number', replaced)
+									}}
+								/>
+							</Input>
 						)}
 						rules={{
 							required: {

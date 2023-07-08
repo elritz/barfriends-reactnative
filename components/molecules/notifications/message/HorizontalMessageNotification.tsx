@@ -1,6 +1,6 @@
 // TODO: Create message navigator
-import { Heading } from '@components/core'
-import { Pressable, Avatar, Text, VStack, Box, HStack, Badge, Container, Image } from 'native-base'
+import { Badge, Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
+import { Image } from 'react-native'
 
 interface HorizontalMessageNotificationProps {
 	item: {
@@ -16,16 +16,17 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 	return (
 		<Box
 			flex={1}
-			my={1}
+			my={'$1'}
 			backgroundColor={'transparent'}
 			borderBottomWidth={0.25}
-			_light={{
-				borderBottomColor: 'light.800',
+			sx={{
+				_light: {
+					borderBottomColor: '$light800',
+				},
+				_dark: {
+					borderBottomColor: '$dark500',
+				},
 			}}
-			_dark={{
-				borderBottomColor: 'dark.500',
-			}}
-			// bg={'red.600'}
 		>
 			<Pressable
 				onPress={() => {
@@ -33,25 +34,29 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 					// 	pathname: '(app)/permission/medialibrary',
 					// })
 				}}
-				h={'75px'}
+				sx={{
+					h: 75,
+				}}
 			>
 				<HStack justifyContent={'space-around'}>
-					<HStack flex={1} space={3}>
+					<HStack flex={1} space={'md'}>
 						<Image
 							alt={item.name.slice(0, 1)}
 							source={{ uri: item.avatar }}
-							rounded={'lg'}
-							h={45}
-							w={45}
-							bg={'transparent'}
+							style={{
+								borderRadius: 15,
+								height: 45,
+								width: 45,
+								backgroundColor: 'transparent',
+							}}
 						/>
-						<Container>
+						<Box>
 							<VStack>
-								<Heading fontSize={'$md'} fontWeight={'600'}>
+								<Heading fontSize={'$md'} fontWeight={'$bold'}>
 									{item.name}
 								</Heading>
 								<Text
-									fontSize={'xs'}
+									fontSize={'$xs'}
 									numberOfLines={2}
 									textBreakStrategy={'balanced'}
 									lineBreakMode={'tail'}
@@ -59,13 +64,13 @@ const HorizontalMessageNotification = ({ item }: HorizontalMessageNotificationPr
 									{item.messages[0].message}
 								</Text>
 							</VStack>
-						</Container>
+						</Box>
 					</HStack>
 					<Badge
 						h={30}
 						w={30}
-						colorScheme='primary'
-						rounded='lg'
+						bg='$primary500'
+						rounded='$lg'
 						zIndex={1}
 						variant='solid'
 						alignSelf='center'

@@ -1,8 +1,14 @@
+import { useReactiveVar } from '@apollo/client'
+import { Box, Center, Pressable } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
+import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as ImagePicker from 'expo-image-picker'
-import { Box, Center, Icon, Pressable } from 'native-base'
 
 export default function ProfilePhotoEmptyState() {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const colorScheme = useThemeColorScheme()
+
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
 		let result = await ImagePicker.launchImageLibraryAsync({
@@ -21,59 +27,66 @@ export default function ProfilePhotoEmptyState() {
 		<Pressable
 			onPress={pickImage}
 			flex={1}
-			p={4}
-			w={120}
-			h={120}
-			_light={{
-				bg: 'light.300',
+			p={'$4'}
+			sx={{
+				w: 120,
+				h: 120,
+				_light: {
+					bg: '$light300',
+				},
+				_dark: {
+					bg: '$dark100',
+				},
 			}}
-			_dark={{
-				bg: 'dark.100',
-			}}
-			borderRadius={'md'}
+			rounded={'$md'}
 		>
-			<Box h={'100%'} justifyContent={'center'}>
+			<Box
+				sx={{
+					h: '100%',
+				}}
+				justifyContent={'center'}
+			>
 				<Center>
-					<Icon
-						_light={{
-							color: 'light.50',
-						}}
-						_dark={{
-							color: 'dark.300',
-						}}
-						as={Ionicons}
-						size={'4xl'}
+					<Ionicons
+						size={40}
 						name={'ios-person'}
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
 					/>
 				</Center>
 				<Box
-					_light={{
-						borderColor: 'light.700',
+					sx={{
+						_light: {
+							borderColor: '$light700',
+						},
+						_dark: {
+							borderColor: '$dark700',
+						},
+						bottom: -25,
+						right: -25,
 					}}
-					_dark={{
-						borderColor: 'dark.700',
-					}}
-					borderWidth={2}
-					borderRadius={'full'}
+					borderWidth={'$2'}
+					rounded={'$full'}
 					alignItems={'center'}
 					justifyContent={'center'}
 					position={'absolute'}
-					bottom={-25}
-					right={-25}
 				>
-					<Icon
-						_light={{
-							color: 'light.700',
+					<Ionicons
+						name='ios-arrow-up-circle'
+						color={
+							colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
+						size={35}
+						style={{
+							borderWidth: 1,
+							borderRadius: 50,
+							zIndex: 10,
 						}}
-						_dark={{
-							color: 'dark.700',
-						}}
-						borderWidth={1}
-						borderRadius={'full'}
-						as={Ionicons}
-						name={'ios-arrow-up-circle'}
-						size={'2xl'}
-						zIndex={10}
 					/>
 				</Box>
 			</Box>

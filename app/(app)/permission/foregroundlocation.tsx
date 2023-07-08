@@ -1,7 +1,7 @@
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 import { useReactiveVar } from '@apollo/client'
 import IllustrationDynamicLocation from '@assets/images/location/IllustrationDynamicLocation'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
@@ -13,8 +13,8 @@ import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as Location from 'expo-location'
 import { useRouter } from 'expo-router'
-import { Box, VStack, Button, Divider, Text, ScrollView } from 'native-base'
 import { useEffect, useRef } from 'react'
+import { ScrollView } from 'react-native'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -22,21 +22,18 @@ const details = [
 	{
 		title: 'How you’ll use this',
 		detail: 'To find venues and event deals around you.',
-		iconName: 'ios-location-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name={'ios-location-sharp'} size={25} />,
 	},
 	{
 		title: 'How we’ll use this',
 		detail: 'To create your own content and share. ',
-		iconName: 'android-messages',
-		iconType: MaterialCommunityIcons,
+		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
 	},
 	{
 		title: 'How these settings work',
 		detail:
 			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		iconName: 'ios-settings-sharp',
-		iconType: Ionicons,
+		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
 	},
 ]
 
@@ -46,6 +43,7 @@ export default () => {
 	const isFocused = useIsFocused()
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const { start, seconds, started, finished } = useTimer2('0:2')
+
 	const createTwoButtonAlert = () =>
 		Alert.alert(
 			'Barfriends Foreground Location Permission',
@@ -118,18 +116,14 @@ export default () => {
 	})
 
 	return (
-		<Box style={{ flex: 1 }}>
-			<Box alignItems={'center'} justifyContent={'flex-start'} marginY={5}>
+		<Box bg={'$transparent'} style={{ flex: 1 }}>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<IllustrationDynamicLocation width={60} height={60} />
-				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
-				<Heading
-		
-				>
-					Allow Barfriends to Use Foreground Location
-				</Heading>
+				<Divider style={{ width: 50, marginVertical: 10 }} />
+				<Heading>Allow Barfriends to Use Foreground Location</Heading>
 			</Box>
 			<ScrollView>
-				<Box width={wp(95)} style={{ flex: 1, alignSelf: 'center' }}>
+				<Box style={{ w: wp(95), flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>
@@ -139,11 +133,17 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack safeAreaBottom space={2} w={'full'} alignItems={'center'}>
-				<Divider w={'95%'} />
+			<VStack space={'$2'} w={'$full'} alignItems={'center'}>
+				<Divider
+					style={{
+						width: '95%',
+					}}
+				/>
 				<Button
 					size={'lg'}
-					width={'95%'}
+					style={{
+						width: '95%',
+					}}
 					onPress={() =>
 						!rPermissionLocationVar?.granted
 							? rPermissionLocationVar?.canAskAgain && !rPermissionLocationVar.granted
@@ -152,20 +152,29 @@ export default () => {
 							: createTwoButtonAlert()
 					}
 				>
-					{!rPermissionLocationVar?.granted
-						? rPermissionLocationVar?.canAskAgain && !rPermissionLocationVar.granted
-							? 'Continue'
-							: 'Go to Phone Settings'
-						: 'Granted'}
+					<Text>
+						{!rPermissionLocationVar?.granted
+							? rPermissionLocationVar?.canAskAgain && !rPermissionLocationVar.granted
+								? 'Continue'
+								: 'Go to Phone Settings'
+							: 'Granted'}
+					</Text>
 				</Button>
 				{!started ? (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
-						<Text fontWeight={'medium'}>Close</Text>
+					<Button size={'lg'} sx={{ width: '95%' }} onPress={() => router.back()} variant={'link'}>
+						<Text fontWeight={'$medium'}>Close</Text>
 					</Button>
 				) : (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'ghost'}>
+					<Button size={'lg'} sx={{ width: '95%' }} onPress={() => router.back()} variant={'link'}>
 						{started && (
-							<Box h={'20px'}>{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}</Box>
+							<Box
+								bg={'$transparent'}
+								sx={{
+									h: 20,
+								}}
+							>
+								{<Text fontWeight={'$medium'}>Auto close in {seconds}</Text>}
+							</Box>
 						)}
 					</Button>
 				)}

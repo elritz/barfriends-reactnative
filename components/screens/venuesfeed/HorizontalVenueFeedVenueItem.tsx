@@ -1,9 +1,9 @@
+import { Box, Heading, VStack } from '@components/core'
 import { Profile } from '@graphql/generated'
 import { BlurView } from 'expo-blur'
 import { useRouter } from 'expo-router'
-import { Image, VStack } from 'native-base'
-import { Box, Heading } from 'native-base'
 import { useState } from 'react'
+import { Image } from 'react-native'
 import { Dimensions, Pressable, StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
 
@@ -49,17 +49,24 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 			}}
 		>
 			<VStack
-				space={2}
+				space={'md'}
 				mx={2}
 				// width={'full'}
-				borderRadius={'md'}
+				rounded={'$md'}
 				style={{
 					justifyContent: 'flex-end',
 					overflow: 'hidden',
 				}}
 			>
-				<Box minH={190} maxH={190}>
+				<Box
+					bg={'transparent'}
+					sx={{
+						minHeight: 190,
+						maxHeight: 190,
+					}}
+				>
 					<Box
+						bg={'transparent'}
 						style={{
 							height: '100%',
 							width: '100%',
@@ -72,9 +79,9 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 							intensity={50}
 						/>
 						<Heading
-							size={'$md'}
+							fontSize={'$md'}
 							fontWeight={'$black'}
-							letterSpacing={'xs'}
+							letterSpacing={'$xs'}
 							textAlign={'left'}
 							numberOfLines={2}
 							ellipsizeMode='tail'
@@ -84,17 +91,16 @@ const HorizontalVenueFeedVenueItem = (props: Props) => {
 					</Box>
 					{!props.loading ? (
 						<Image
-							position={'absolute'}
-							borderRadius={'md'}
+							style={{
+								...StyleSheet.absoluteFillObject,
+								position: 'absolute',
+								width: undefined,
+								height: undefined,
+								borderRadius: 10,
+							}}
 							source={{ uri: props.item.photos[0]?.url }}
 							resizeMode='cover'
 							onLoadEnd={() => setHideBlur(true)}
-							style={{
-								...StyleSheet.absoluteFillObject,
-								width: undefined,
-								height: undefined,
-							}}
-							alt={'Profile Photo'}
 						/>
 					) : null}
 					{!hideBlur && (

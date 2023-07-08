@@ -23,7 +23,6 @@ import {
 	SearchAreaReactiveVar,
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
-import { useRouter } from 'expo-router'
 import { Icon, Skeleton } from 'native-base'
 import { useEffect } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
@@ -142,7 +141,7 @@ export default () => {
 						/>
 					)
 				}}
-				ItemSeparatorComponent={() => <Box h={'$12'} />}
+				ItemSeparatorComponent={() => <Box bg='transparent' h={'$12'} />}
 			/>
 		)
 	}
@@ -170,13 +169,19 @@ export default () => {
 						return item.upvote
 					}).length
 					return (
-						<Box key={item.id} py={1} m={'$2'} rounded={'$xl'}>
+						<Box key={item.id} py={'$1'} m={'$2'} rounded={'$xl'}>
 							<HStack flex={1} justifyContent={'space-between'}>
 								<HStack px={'$3'} space={'md'} alignItems={'center'}>
 									<CountryFlag size={12} isoCode={String(item.Area?.Country.isoCode)} />
 									<Text fontSize={'$xl'}>{item.Area?.City.name}</Text>
 								</HStack>
-								<HStack h={'50px'} space={'md'} justifyContent={'flex-end'}>
+								<HStack
+									sx={{
+										h: 50,
+									}}
+									space={'md'}
+									justifyContent={'flex-end'}
+								>
 									<Pressable
 										onPress={() => {
 											updateH6VenueRecommendationVoteMutation({
@@ -214,8 +219,10 @@ export default () => {
 										/>
 									</Pressable>
 									<Pressable
-										px={2}
-										w={'50px'}
+										px={'$2'}
+										sx={{
+											w: 50,
+										}}
 										onPress={() => {
 											updateToBeNotifiedMutation({
 												variables: {

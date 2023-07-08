@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Center, HStack, Input, Spinner, Text, VStack } from '@components/core'
+import { Box, Button, Center, Icon, Input, Spinner, Text, VStack } from '@components/core'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -10,9 +10,9 @@ import { useIsFocused } from '@react-navigation/native'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter, useSearchParams } from 'expo-router'
-import { Image, Icon, IconButton } from 'native-base'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { Image } from 'react-native'
 import { InputAccessoryView, Platform, TextInput, View, ViewProps } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
@@ -123,13 +123,12 @@ export default () => {
 				}}
 				px={'$2'}
 			>
-				<IconButton
+				<Button
 					disabled={!!errors?.password}
 					onPress={handleSubmit(onSubmit)}
 					variant={'solid'}
-					color={'primary.500'}
 					isDisabled={!!errors.password || LPLoading || SDPLoading}
-					borderRadius={'full'}
+					rounded={'$full'}
 					style={{
 						justifyContent: 'center',
 						height: 60,
@@ -137,15 +136,14 @@ export default () => {
 						paddingHorizontal: 20,
 						alignSelf: 'center',
 					}}
-					icon={
-						<Icon
-							as={Feather}
-							name='arrow-right'
-							size={'xl'}
-							color={errors.password ? 'primary.700' : 'white'}
-						/>
-					}
-				/>
+				>
+					<Icon
+						as={Feather}
+						name='arrow-right'
+						size={'xl'}
+						color={errors.password ? 'primary.700' : 'white'}
+					/>
+				</Button>
 			</Box>
 		)
 	}
@@ -158,12 +156,13 @@ export default () => {
 						{params.photo ? (
 							<Image
 								source={{ uri: String(params.photo) }}
-								mt={5}
-								alignSelf={'center'}
-								height={`${IMAGE_SIZE}px`}
-								width={`${IMAGE_SIZE}px`}
-								borderRadius={'md'}
-								alt={'Profile photo'}
+								style={{
+									marginTop: 5,
+									height: IMAGE_SIZE,
+									width: IMAGE_SIZE,
+									alignSelf: 'center',
+									borderRadius: 10,
+								}}
 							/>
 						) : (
 							<Box
@@ -180,11 +179,13 @@ export default () => {
 								>
 									<Center>
 										<Icon
-											_light={{
-												color: 'light.300',
-											}}
-											_dark={{
-												color: 'dark.300',
+											sx={{
+												_light: {
+													color: '$light300',
+												},
+												_dark: {
+													color: '$dark300',
+												},
 											}}
 											as={Ionicons}
 											size={'lg'}

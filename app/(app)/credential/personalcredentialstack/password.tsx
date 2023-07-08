@@ -1,11 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Pressable, Text } from '@components/core'
-import { Feather, Ionicons } from '@expo/vector-icons'
+import { Box, Heading, Input, Pressable, Text } from '@components/core'
+import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
-import { Input } from 'native-base'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { InputAccessoryView, Platform, TextInput, View } from 'react-native'
@@ -99,8 +98,8 @@ export default function () {
 							return (
 								<>
 									<Input
-										variant={'underlined'}
 										ref={_passwordRef}
+										variant={'underlined'}
 										key='password'
 										keyboardAppearance={colorScheme}
 										value={value}

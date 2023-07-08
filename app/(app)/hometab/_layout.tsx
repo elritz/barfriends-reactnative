@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box } from '@components/core'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
 import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profiletab'
@@ -14,7 +15,6 @@ import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
 import { Tabs } from 'expo-router'
-import { Box } from 'native-base'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -27,13 +27,7 @@ export default () => {
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarBackground: () => (
-					<Box
-						style={[StyleSheet.absoluteFill]}
-						_light={{ bg: 'light.100' }}
-						_dark={{ bg: 'dark.50' }}
-					/>
-				),
+				tabBarBackground: () => <Box style={[StyleSheet.absoluteFill]} />,
 				tabBarStyle: {
 					height:
 						insets.bottom !== 0

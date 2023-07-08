@@ -1,11 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Heading, VStack } from '@components/core'
 import { useGetInterestsQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import useRandomNumber from '@util/hooks/useRandomNumber'
-import { Badge, Box, Pressable, Skeleton, Stack, Text, VStack, View } from 'native-base'
+import { Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
+import { View } from 'react-native'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
@@ -24,7 +25,7 @@ export default () => {
 
 	if (loading) {
 		return (
-			<Box flex={1} mt={4}>
+			<Box bg='$transparent' flex={1} mt={'$4'}>
 				<FlashList
 					numColumns={1}
 					scrollEnabled={false}
@@ -36,7 +37,7 @@ export default () => {
 						const randWidth = useRandomNumber(100, 240)
 						const randInterests = useRandomNumber(5, 15)
 						return (
-							<VStack m={2}>
+							<VStack m={'$2'}>
 								<Skeleton
 									h={'35px'}
 									mb={2}
@@ -53,7 +54,7 @@ export default () => {
 										endColor: 'dark.300',
 									}}
 								/>
-								<VStack flexWrap={'wrap'} flexDir={'row'}>
+								<VStack flexWrap={'wrap'} flexDirection={'row'}>
 									{[...Array(randInterests)].map(item => {
 										const randWidth = useRandomNumber(40, 100)
 										return (

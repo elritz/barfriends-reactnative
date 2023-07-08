@@ -1,10 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Heading, Text } from '@components/core'
 import { PermissionMediaReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { AnimatePresence, MotiView } from 'moti'
-import { Box, Button, Text } from 'native-base'
 
 export default function MediaPermissionFullSection() {
 	const router = useRouter()
@@ -28,13 +27,14 @@ export default function MediaPermissionFullSection() {
 					}}
 				>
 					<Box
+						bg='transparent'
 						style={{
 							width: '100%',
 							alignItems: 'center',
 						}}
 					>
 						<Heading
-							size={'$lg'}
+							fontSize={'$lg'}
 							style={{
 								width: '100%',
 								marginVertical: 10,
@@ -42,7 +42,7 @@ export default function MediaPermissionFullSection() {
 						>
 							Media Permission
 						</Heading>
-						<Text fontSize={'lg'} style={{ width: '100%' }}>
+						<Text fontSize={'$lg'} style={{ width: '100%' }}>
 							Using your photos on your device.
 						</Text>
 						<Button
@@ -52,14 +52,14 @@ export default function MediaPermissionFullSection() {
 								})
 							}
 							size={'sm'}
-							mt={4}
-							w={'85%'}
-							_text={{
-								fontWeight: 'bold',
-								fontSize: 'sm',
+							mt={'$4'}
+							sx={{
+								w: '85%',
 							}}
 						>
-							Use Current Location
+							<Text fontSize={'$sm'} fontWeight='$bold'>
+								Use Current Location
+							</Text>
 						</Button>
 					</Box>
 				</MotiView>

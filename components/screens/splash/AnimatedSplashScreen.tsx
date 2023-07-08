@@ -3,7 +3,7 @@ import VectorFonts from '@helpers/VectorFonts'
 import { ThemeReactiveVar } from '@reactive'
 import { cacheFonts, cacheImages } from '@util/hooks/local/useCacheImages'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import * as SplashScreen from 'expo-splash-screen'
+import { SplashScreen } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 import { View, StyleSheet, Image, useColorScheme } from 'react-native'
 

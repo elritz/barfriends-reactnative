@@ -1,8 +1,8 @@
 import { FriendsListEmptyState } from './FriendsListEmptyState'
 import { useReactiveVar } from '@apollo/client'
+import { Divider, HStack, VStack } from '@components/core'
 import { CardFullImageNameEmoji } from '@components/molecules/personal/CardFullImageNameEmoji'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Box, Divider, HStack } from 'native-base'
 import { useWindowDimensions } from 'react-native'
 
 const numColumns = 3
@@ -16,7 +16,14 @@ export const FriendsList = ({}) => {
 	if (!friendslist) return null
 
 	return (
-		<Box mx={1} flex={1}  height={'100%'} flexDirection={'column'}>
+		<VStack
+			sx={{
+				h: '100%',
+			}}
+			mx={'$1'}
+			flex={1}
+			flexDirection={'column'}
+		>
 			{friendslist.length ? (
 				<>
 					<HStack justifyContent={'flex-start'} flexWrap={'wrap'}>
@@ -29,6 +36,6 @@ export const FriendsList = ({}) => {
 			) : (
 				<FriendsListEmptyState />
 			)}
-		</Box>
+		</VStack>
 	)
 }

@@ -1,9 +1,9 @@
 // TODO: UX() Descide if we keeping this item and are using this item
 // TODO: UX() No Profile photo show empty state
-import { Heading } from '@components/core'
+import { Box, HStack, Heading, Pressable } from '@components/core'
 import { ItemRenderType } from '@ctypes/app'
 import { Personal } from '@graphql/generated'
-import { Avatar, Box, HStack, Pressable } from 'native-base'
+import { Image } from 'react-native'
 
 const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 	const profile = props.item.Profile
@@ -13,6 +13,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 	return (
 		<Pressable>
 			<Box
+				bg='transparent'
 				// ViewComponent={LinearGradient}
 				// linearGradientProps={{
 				// 	colors: [
@@ -26,22 +27,22 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 				// 	start: { x: 0.2, y: 0 },
 				// 	end: { x: 0.7, y: 1 },
 				// }}
-				borderBottomWidth={1}
-				m={'10px'}
-				borderRadius={'md'}
+				borderBottomWidth={'$1'}
+				sx={{
+					m: 10,
+				}}
+				rounded={'$md'}
 			>
 				{profile.photos && profile?.photos[0].url && (
-					<Avatar
-						borderRadius={'md'}
-						_image={{
-							resizeMode: 'cover',
+					<Image
+						style={{
+							borderRadius: 10,
+							height: 50,
+							width: 50,
 						}}
-						height={'50px'}
-						width={'50px'}
+						resizeMode={'cover'}
 						source={{ uri: profile.photos[0].url }}
-					>
-						{profile.IdentifiableInformation?.username.charAt(0)}
-					</Avatar>
+					/>
 				)}
 				<HStack>
 					<Heading>{profile?.IdentifiableInformation?.username}</Heading>

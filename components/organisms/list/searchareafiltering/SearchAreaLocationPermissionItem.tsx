@@ -5,17 +5,21 @@ import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import {
+	PermissionForegroundLocationReactiveVar,
+	SearchAreaReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as IntentLauncher from 'expo-intent-launcher'
-import { Icon } from 'native-base'
 import { Alert, Linking, Platform } from 'react-native'
 
 const SearchAreaLocationPermissionItem = () => {
 	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
 	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
@@ -106,16 +110,14 @@ const SearchAreaLocationPermissionItem = () => {
 								justifyContent={'center'}
 								rounded={'$full'}
 							>
-								<Icon
-									size={'sm'}
-									as={FontAwesome5}
+								<FontAwesome5
+									size={20}
 									name={'location-arrow'}
-									rounded={'full'}
-									_light={{
-										color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
-									}}
-									_dark={{
-										color: rSearchAreaVar?.useCurrentLocation ? 'white' : 'blue.400',
+									style={{
+										borderRadius: 25,
+										color: rSearchAreaVar?.useCurrentLocation
+											? 'white'
+											: rTheme.theme?.gluestack.tokens.colors.blue400,
 									}}
 								/>
 							</Box>

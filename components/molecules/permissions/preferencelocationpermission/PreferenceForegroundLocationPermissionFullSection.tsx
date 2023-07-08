@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, HStack, Heading, Text, VStack } from '@components/core'
 import ForegroundLocationNextAskModal from '@components/molecules/modals/asks/foregroundlocationnextaskmodal'
 import { LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskForegroundLocationPermissionType } from '@ctypes/preferences'
@@ -15,7 +15,7 @@ import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
-import { Box, Button, Divider, HStack, Icon, Text, VStack, useDisclose } from 'native-base'
+import { Pressable } from 'react-native'
 
 export default function ForegroundLocationPermissionFullSection() {
 	const router = useRouter()
@@ -46,12 +46,17 @@ export default function ForegroundLocationPermissionFullSection() {
 									scale: 0.9,
 								}}
 							>
-								<HStack w={'95%'} justifyContent={'flex-end'}>
-									<Icon onPress={onOpen} as={EvilIcons} size={'md'} name={'close'} />
+								<HStack sx={{ w: '95%' }} justifyContent={'flex-end'}>
+									<Pressable onPress={onOpen}>
+										<EvilIcons size={25} name='close' />
+									</Pressable>
+									<Pressable onPress={onOpen}>
+										<EvilIcons size={25} name={'close'} />
+									</Pressable>
 								</HStack>
-								<VStack my={3} space={1} alignItems={'center'}>
+								<VStack my={'$3'} space={'md'} alignItems={'center'}>
 									<Heading
-										size={'$md'}
+										fontSize={'$md'}
 										textAlign={'center'}
 										style={{
 											width: '100%',
@@ -59,7 +64,7 @@ export default function ForegroundLocationPermissionFullSection() {
 									>
 										Enable Location
 									</Heading>
-									<Text fontSize={'lg'} style={{ width: '100%' }}>
+									<Text fontSize={'$lg'} style={{ width: '100%' }}>
 										Using your current location will automatically show you what's near you based on where you
 										are.
 									</Text>
@@ -70,22 +75,20 @@ export default function ForegroundLocationPermissionFullSection() {
 											})
 										}
 										size={'sm'}
-										mt={4}
-										w={'85%'}
-										_text={{
-											fontWeight: 'bold',
-											fontSize: 'sm',
+										mt={'$4'}
+										sx={{
+											w: '85%',
 										}}
 									>
-										Use Current Location
+										<Text fontWeight='$bold' fontSize={'$sm'}>
+											Use Current Location
+										</Text>
 									</Button>
 									<Button
-										w={'90%'}
-										variant={'unstyled'}
-										_text={{
-											fontWeight: 'bold',
-											fontSize: 'md',
+										sx={{
+											w: '90%',
 										}}
+										variant={'link'}
 										onPress={async () => {
 											const values = {
 												...TomorrowPreferencePermissionInitialState,
@@ -102,7 +105,9 @@ export default function ForegroundLocationPermissionFullSection() {
 											})
 										}}
 									>
-										Not now
+										<Text fontWeight='$bold' fontSize={'$md'}>
+											Not now
+										</Text>
 									</Button>
 								</VStack>
 							</MotiView>

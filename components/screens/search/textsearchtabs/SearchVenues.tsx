@@ -1,13 +1,15 @@
 import SearchCard from '../components/SearchCard'
-import { Heading } from '@components/core'
+import { Box, Center, Heading } from '@components/core'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
-import { useSearchParams } from 'expo-router'
-import { Box, Center, Skeleton, View } from 'native-base'
+import { useLocalSearchParams } from 'expo-router'
+import { Skeleton } from 'native-base'
+import { View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchVenues() {
-	const params = useSearchParams()
-
+	const params = useLocalSearchParams()
+	const insets = useSafeAreaInsets()
 	const {
 		data,
 		loading: ESLoading,
@@ -55,7 +57,7 @@ export default function SearchVenues() {
 	}
 	if (!data?.exploreSearch.venues.length) {
 		return (
-			<Box safeAreaTop>
+			<Box mt={insets.top}>
 				<Center>
 					<Heading fontSize={'$md'} fontWeight={'$medium'}>
 						No search results for

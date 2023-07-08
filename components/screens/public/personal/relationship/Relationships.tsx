@@ -1,19 +1,12 @@
 import { PublicProfileRouteProp } from '../friendship/Friendship'
-import { useReactiveVar } from '@apollo/client'
-import {
-	Relationship,
-	RelationshipStatus,
-	useGetRelationshipFriendRequestStatusQuery,
-} from '@graphql/generated'
+import { Box, Text } from '@components/core'
+import { RelationshipStatus, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
 import { useRoute } from '@react-navigation/native'
-import { AuthorizationReactiveVar } from '@reactive'
 import { DateTime } from 'luxon'
-import { Box, Text } from 'native-base'
 import { ReactElement } from 'react'
 
 export default function Relationships() {
 	const route = useRoute<PublicProfileRouteProp>()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const {
 		data: GRFRSData,
@@ -49,21 +42,11 @@ export default function Relationships() {
 					return null
 				}
 				return (
-					<Box
-						_light={{
-							bg: 'light.100',
-						}}
-						_dark={{
-							bg: 'light.800',
-						}}
-						borderRadius={'xl'}
-						flex={1}
-						p={3}
-					>
-						<Text textTransform={'uppercase'} fontSize={'sm'} fontWeight={'bold'} textAlign={'center'}>
+					<Box rounded={'$xl'} flex={1} p={'$3'}>
+						<Text textTransform={'uppercase'} fontSize={'$sm'} fontWeight={'$bold'} textAlign={'center'}>
 							Friends since
 						</Text>
-						<Text textTransform={'uppercase'} fontSize={'lg'} fontWeight={'bold'}>
+						<Text textTransform={'uppercase'} fontSize={'$lg'} fontWeight={'$bold'}>
 							{created}
 						</Text>
 					</Box>

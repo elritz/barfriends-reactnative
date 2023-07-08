@@ -1,9 +1,8 @@
-import { Heading } from '@components/core'
-import { Box, Text } from 'native-base'
+import { Box, Heading, Text } from '@components/core'
 
 export default function index() {
 	return (
-		<Box flex={1} justifyContent={'center'} alignContent={'center'} mx={5}>
+		<Box flex={1} justifyContent={'center'} alignContent={'center'} mx={'5'}>
 			<Heading fontSize={'$3xl'}>Messaging</Heading>
 			<Text>Enhance User Engagement and Communication with Messaging Feature on Barfriends</Text>
 		</Box>
@@ -16,7 +15,6 @@ export default function index() {
 // import GenerateMessageData from '@helpers/generate/placeholder/GenerateMessagesData'
 // import { PermissionNotificationReactiveVar } from '@reactive'
 // import { useRouter } from 'expo-router'
-// import { Heading, HStack, Icon, FlatList, Box } from 'native-base'
 // import { useRef } from 'react'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 

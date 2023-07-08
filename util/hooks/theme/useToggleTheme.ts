@@ -1,10 +1,8 @@
 import createTheme from './createTheme'
-import { useReactiveVar } from '@apollo/client'
 import { LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME } from '@constants/StorageConstants'
 import { LocalStoragePreferenceThemeType, ThemeColorSchemeOptionsType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ThemeReactiveVar, AuthorizationReactiveVar, IBFSTheme, ThemeInterface } from '@reactive'
-import { useColorMode } from 'native-base'
+import { ThemeReactiveVar, IBFSTheme, ThemeInterface } from '@reactive'
 import { useCallback } from 'react'
 import { Appearance, ColorSchemeName } from 'react-native'
 
@@ -19,13 +17,13 @@ type ToggleThemeReturnType = {
 }
 
 export const useToggleTheme = () => {
-	const { setColorMode } = useColorMode()
+	// const { setColorMode } = useColorMode()
 
 	const setTheme = ({ colorScheme }: Props): ThemeInterface => {
 		switch (colorScheme) {
 			case 'system':
 				const deviceColorScheme = Appearance.getColorScheme()
-				setColorMode(deviceColorScheme)
+				// setColorMode(deviceColorScheme)
 				const sTheme = createTheme({ themeScheme: deviceColorScheme })
 				ThemeReactiveVar({
 					localStorageColorScheme: 'system',
@@ -34,7 +32,7 @@ export const useToggleTheme = () => {
 				})
 				return { localStorageColorScheme: 'system', colorScheme: deviceColorScheme, theme: sTheme }
 			case 'light':
-				setColorMode('light')
+				// setColorMode('light')
 				const lTheme = createTheme({ themeScheme: 'light' })
 
 				ThemeReactiveVar({
@@ -45,7 +43,7 @@ export const useToggleTheme = () => {
 
 				return { localStorageColorScheme: 'light', colorScheme: 'light', theme: lTheme }
 			case 'dark':
-				setColorMode('dark')
+				// setColorMode('dark')
 				const dTheme = createTheme({ themeScheme: 'dark' })
 				ThemeReactiveVar({
 					localStorageColorScheme: 'dark',
@@ -58,7 +56,7 @@ export const useToggleTheme = () => {
 					theme: dTheme,
 				}
 			default:
-				setColorMode('dark')
+				// setColorMode('dark')
 				const defaultTheme = createTheme({ themeScheme: 'dark' })
 				ThemeReactiveVar({
 					localStorageColorScheme: 'dark',

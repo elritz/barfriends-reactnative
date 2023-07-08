@@ -1,13 +1,13 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading, VStack, Pressable, HStack } from '@components/core'
+import { Heading, VStack, Pressable, HStack, Text } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { SearchAreaReactiveVar } from '@reactive'
+import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Icon, Text } from 'native-base'
 
 export default function SearchAreaHeader({ typename }) {
 	const router = useRouter()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const _press = () => {
 		router.push({
@@ -43,24 +43,22 @@ export default function SearchAreaHeader({ typename }) {
 								{rSearchAreaVar.searchArea.city.name}
 							</Heading>
 							{rSearchAreaVar?.useCurrentLocation && (
-								<Icon
-									size={'sm'}
-									as={FontAwesome5}
-									rounded={'full'}
-									name={'location-arrow'}
-									_light={{
-										color: 'blue.500',
-									}}
-									_dark={{
-										color: 'blue.500',
-									}}
+								<FontAwesome5
+									name='location-arrow'
+									color={rTheme.theme?.gluestack.tokens.colors.blue500}
+									size={25}
 								/>
 							)}
 						</HStack>
-						<Icon as={FontAwesome5} size={'lg'} name='chevron-up' mb={1} />
+						<FontAwesome5
+							style={{ marginBottom: 2 }}
+							name='chevron-up'
+							color={rTheme.theme?.gluestack.tokens.colors.blue500}
+							size={25}
+						/>
 					</HStack>
 					{typename === 'ComingAreaResponse' && (
-						<Text fontSize={'lg'} textAlign={'center'}>
+						<Text fontSize={'$lg'} textAlign={'center'}>
 							No venues, hamma the notification bell and we will let you know when it gets added. Upvoting
 							is huge, it lets us know where to go!
 						</Text>

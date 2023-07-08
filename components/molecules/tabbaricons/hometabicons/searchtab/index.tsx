@@ -1,6 +1,6 @@
 import TabBarIcon, { TabBarIconProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
+import { Box } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
-import { Box, Icon } from 'native-base'
 
 const SearchTab = (props: TabBarIconProps) => {
 	return (
@@ -8,25 +8,24 @@ const SearchTab = (props: TabBarIconProps) => {
 			<TabBarIcon
 				color={props.color}
 				icon={
-					<Icon
+					<Ionicons
 						style={{
 							zIndex: 100,
 							justifyContent: 'center',
 						}}
+						size={28}
 						name='search'
-						size={'28px'}
-						as={Ionicons}
 						color={props.color}
 					/>
 				}
 			/>
 			<Box
-				// position={'absolute'}
-				// bottom={-3}
-				bg={false ? 'red.500' : 'transparent'}
-				h={'4.25px'}
-				w={'4.25px'}
-				borderRadius={'full'}
+				bg={false ? '$red500' : 'transparent'}
+				sx={{
+					h: 4.25,
+					w: 4.25,
+				}}
+				rounded={'$full'}
 			/>
 		</>
 	)
