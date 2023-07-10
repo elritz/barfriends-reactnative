@@ -52,13 +52,13 @@ const TonightImages = () => {
 				<Box mx={'$2'} h={window.width} rounded={'$md'} alignItems={'center'} justifyContent={'center'}>
 					<VStack space={'md'} alignItems={'center'}>
 						{/* <Icon color={'primary.600'} as={MaterialCommunityIcons} name={'sticker-plus'} size={'6xl'} /> */}
-						<Box alignItems={'center'} mx={4}>
+						<Box bg='$transparent' alignItems={'center'} mx={'$4'}>
 							<Heading fontSize={'2xl'}>Start tonights Story</Heading>
 							<Text fontSize={'$lg'}>Ready to go out, add photos of you tonight. </Text>
 						</Box>
 						<Button
 							mt={'$4'}
-							w={window.width / 2}
+							sx={{ w: window.width / 2 }}
 							bg={'$tertiary50'}
 							onPress={async () => {
 								const result = await ImagePicker.launchImageLibraryAsync({

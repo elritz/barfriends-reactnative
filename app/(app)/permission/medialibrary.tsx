@@ -122,37 +122,34 @@ export default () => {
 
 	return (
 		<Box bg={'$transparent'} style={{ flex: 1 }}>
-			<Box bg={'$transparent'} style={{ flex: 1 }}>
-				<Box alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
-					<IllustrationDynamicMedia width={60} height={60} />
-					<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
-					<Heading
-						fontWeight={'$black'}
-						fontSize={'$3xl'}
-						style={{
-							width: wp(95),
-							maxWidth: 300,
-							textAlign: 'center',
-						}}
-						allowFontScaling
-						adjustsFontSizeToFit
-						numberOfLines={3}
-					>
-						Allow Barfriends to access your photos and videos
-					</Heading>
-				</Box>
-				<ScrollView>
-					<Box style={{ width: wp(95), flex: 1, alignSelf: 'center' }}>
-						{details.map((item, index) => {
-							return (
-								<View key={index}>
-									<PermissionDetailItem {...item} />
-								</View>
-							)
-						})}
-					</Box>
-				</ScrollView>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
+				<IllustrationDynamicMedia width={60} height={60} />
+				<Divider style={{ width: 50, marginVertical: 10 }} />
+				<Heading
+					px={'$2'}
+					fontWeight={'$black'}
+					fontSize={'$3xl'}
+					style={{
+						textAlign: 'center',
+					}}
+					allowFontScaling
+					adjustsFontSizeToFit
+					numberOfLines={3}
+				>
+					Allow Barfriends to access your photos and videos
+				</Heading>
 			</Box>
+			<ScrollView>
+				<Box bg={'$transparent'} sx={{ width: wp(95), flex: 1, alignSelf: 'center' }}>
+					{details.map((item, index) => {
+						return (
+							<View key={index}>
+								<PermissionDetailItem {...item} />
+							</View>
+						)
+					})}
+				</Box>
+			</ScrollView>
 			<VStack space={'md'} w={'$full'} alignItems={'center'}>
 				<Divider w={'95%'} />
 				<Button
@@ -174,7 +171,7 @@ export default () => {
 				</Button>
 				{!started ? (
 					<Button
-						onPress={() => navigation.goBack()}
+						onPress={() => router.back()}
 						variant={'link'}
 						size={'lg'}
 						sx={{
@@ -185,7 +182,7 @@ export default () => {
 					</Button>
 				) : (
 					<Button
-						onPress={() => navigation.goBack()}
+						onPress={() => router.back()}
 						variant={'link'}
 						size={'lg'}
 						sx={{

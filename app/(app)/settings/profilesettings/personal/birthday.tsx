@@ -7,19 +7,19 @@ import {
 	Profile,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
-import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
+import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default () => {
-	const navigation = useNavigation()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [legalAge] = useState<number>(19)
+	const router = useRouter()
 
 	const [updateOneProfilMutation, { data, loading: UOPLoading, error }] =
 		useUpdateOneProfileMutation({
@@ -38,7 +38,7 @@ export default () => {
 						Profile: profile,
 					},
 				})
-				navigation.goBack()
+				router.back()
 				// reset({ date: data.updateOneProfile.IdentifiableInformation.birthday })
 			},
 		})

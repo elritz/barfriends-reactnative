@@ -20,7 +20,7 @@ export default () => {
 						await setTheme({ colorScheme: 'light' })
 					}}
 					px={'$4'}
-					flexDir={'row'}
+					flexDirection={'row'}
 					alignItems={'center'}
 					justifyContent={'space-between'}
 				>
@@ -41,11 +41,11 @@ export default () => {
 						await setTheme({ colorScheme: 'dark' })
 					}}
 					px={'$4'}
-					flexDir={'row'}
+					flexDirection={'row'}
 					alignItems={'center'}
 					justifyContent={'space-between'}
 				>
-					<Heading fontWeight={'normal'} size={'md'}>
+					<Heading fontWeight={'normal'} fontSize={'$md'}>
 						Dark
 					</Heading>
 					{rThemeVar.localStorageColorScheme === 'dark' && (
@@ -61,8 +61,8 @@ export default () => {
 					onPress={async () => {
 						await setTheme({ colorScheme: 'system' })
 					}}
-					px={4}
-					flexDir={'row'}
+					px={'$4'}
+					flexDirection={'row'}
 					alignItems={'center'}
 					justifyContent={'space-between'}
 				>

@@ -214,8 +214,8 @@ export default () => {
 	})
 
 	return (
-		<Box flex={1} bg='transparent'>
-			<Box bg='transparent' alignItems={'center'} justifyContent={'flex-start'} my={'$2'}>
+		<Box bg={'$transparent'} style={{ flex: 1 }} mb={'$5'}>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<Box
 					bg={'#ff7000'}
 					rounded={'$md'}
@@ -228,17 +228,16 @@ export default () => {
 				>
 					<Ionicons
 						name='ios-notifications'
-						size={9}
-						color={rTheme.theme?.gluestack.tokens.colors.primary500}
+						size={30}
+						color={rTheme.theme?.gluestack.tokens.colors.secondary900 || 'black'}
 					/>
 				</Box>
 				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
+					px={'$2'}
 					fontWeight={'$black'}
 					fontSize={'$3xl'}
 					style={{
-						width: wp(95),
-						maxWidth: 300,
 						textAlign: 'center',
 					}}
 					allowFontScaling

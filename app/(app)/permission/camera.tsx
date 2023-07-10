@@ -157,21 +157,17 @@ export default () => {
 					bg={'#ff7000'}
 				>
 					<Ionicons
-						color={
-							colorScheme === 'light'
-								? rTheme.theme?.gluestack.tokens.colors.light900
-								: rTheme.theme?.gluestack.tokens.colors.dark900
-						}
+						color={rTheme.theme?.gluestack.tokens.colors.secondary900 || 'black'}
 						name='camera'
-						size={9}
+						size={30}
 					/>
 				</Box>
-				<Divider width={2} style={{ width: 50, marginVertical: 10 }} />
+				<Divider style={{ width: 50, marginVertical: 10 }} />
 				<Heading
+					px={'$2'}
 					fontWeight={'$black'}
+					fontSize={'$3xl'}
 					style={{
-						width: wp(95),
-						maxWidth: 300,
 						textAlign: 'center',
 					}}
 					allowFontScaling
@@ -217,7 +213,7 @@ export default () => {
 				</Button>
 				{!started && (
 					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'link'}>
-						<Text fontWeight={'medium'}>Close</Text>
+						<Text fontWeight={'$medium'}>Close</Text>
 					</Button>
 				)}
 				{started && (
@@ -226,7 +222,7 @@ export default () => {
 							h: 20,
 						}}
 					>
-						{<Text fontWeight={'medium'}>Auto close in {seconds}</Text>}
+						{<Text fontWeight={'$medium'}>Auto close in {seconds}</Text>}
 					</Box>
 				)}
 			</VStack>

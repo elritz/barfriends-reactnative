@@ -286,11 +286,18 @@ export type Code = {
 	email: string
 }
 
-
 export type AuthorizationDeviceManager = {
 	id: string
 	Device: Device
 	createdAt?: Date
 	updatedAt?: Date
 	DeviceProfile: DeviceProfile
+}
+
+export type DynamicIllustrationProps = {
+	width: number
+	height: number
+	primary?: string
+	secondary?: string
+	tertiary?: string
 }

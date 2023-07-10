@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, VStack } from '@components/core'
+import { Badge, Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import { useGetInterestsQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import useRandomNumber from '@util/hooks/useRandomNumber'
 import { Skeleton } from 'native-base'
@@ -10,6 +10,7 @@ import { View } from 'react-native'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [selectedTags, setSelectedTags] = useState<Array<String>>([])
 
 	const { data, loading, error } = useGetInterestsQuery()
@@ -92,7 +93,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1} mx={2} mt={4}>
+		<Box bg='$transparent' flex={1} mx={'$2'} mt={'$4'}>
 			<FlashList
 				scrollEnabled
 				data={data?.getInterests}
@@ -102,9 +103,18 @@ export default () => {
 				extraData={selectedTags}
 				renderItem={({ item, index }) => {
 					return (
-						<VStack space={2} key={item.id}>
+						<VStack key={item.id}>
 							<Heading>{item.name}</Heading>
-							<Stack flex={1} flexDir={'row'} flexWrap={'wrap'} space={2}>
+							<HStack
+								flex={1}
+								flexDirection={'row'}
+								// alignItems='center'
+								// justifyContent='center'
+								// justifyContent='space-around'
+								// alignContent='center'
+								flexWrap={'wrap'}
+								space={'sm'}
+							>
 								{item.Tags.map((tag, index) => {
 									return (
 										<Pressable
@@ -119,41 +129,46 @@ export default () => {
 											}}
 										>
 											<Badge
-												borderRadius={'lg'}
-												_light={{
-													bg:
-														selectedTags.some(e => e === tag.id) ||
-														rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.Tags.some(
-															e => e.id === item.id,
-														)
-															? 'primary.400'
-															: 'light.200',
+												rounded={'$lg'}
+												sx={{
+													_light: {
+														bg:
+															selectedTags.some(e => e === tag.id) ||
+															rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.Tags.some(
+																e => e.id === item.id,
+															)
+																? '$primary500'
+																: '$light200',
+													},
+													_dark: {
+														bg:
+															selectedTags.some(e => e === tag.id) ||
+															rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.Tags.some(
+																e => e.id === item.id,
+															)
+																? '$primary500'
+																: '$dark300',
+													},
 												}}
-												_dark={{
-													bg:
-														selectedTags.some(e => e === tag.id) ||
-														rAuthorizationVar?.DeviceProfile?.Profile?.DetailInformation?.Tags.some(
-															e => e.id === item.id,
-														)
-															? 'primary.400'
-															: 'dark.500',
-												}}
-												_text={{
-													fontWeight: '400',
-													fontSize: 'md',
-												}}
-												px={3}
-												py={2}
-												mr={2}
-												my={2}
-												startIcon={<Text>{tag.emoji}</Text>}
+												px={'$3'}
+												py={'$2'}
+												my={'$2'}
 											>
-												{tag.name}
+												<Text
+													color={
+														rTheme.colorScheme === 'light'
+															? rTheme.theme?.gluestack.tokens.colors.light900
+															: rTheme.theme?.gluestack.tokens.colors.dark900
+													}
+												>
+													{tag.emoji}
+													{tag.name}
+												</Text>
 											</Badge>
 										</Pressable>
 									)
 								})}
-							</Stack>
+							</HStack>
 						</VStack>
 					)
 				}}

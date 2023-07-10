@@ -152,11 +152,10 @@ export default () => {
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
-					fontWeight='$black'
+					px={'$2'}
+					fontWeight={'$black'}
 					fontSize={'$3xl'}
 					style={{
-						width: wp(95),
-						maxWidth: 300,
 						textAlign: 'center',
 					}}
 					allowFontScaling
@@ -199,11 +198,13 @@ export default () => {
 							: createTwoButtonAlert()
 					}
 				>
-					{!rBackgroundLocationPermissionVar?.granted
-						? rBackgroundLocationPermissionVar?.canAskAgain && !rBackgroundLocationPermissionVar.granted
-							? 'Continue'
-							: 'Go to Phone Settings'
-						: 'Granted'}
+					<Text>
+						{!rBackgroundLocationPermissionVar?.granted
+							? rBackgroundLocationPermissionVar?.canAskAgain && !rBackgroundLocationPermissionVar.granted
+								? 'Continue'
+								: 'Go to Phone Settings'
+							: 'Granted'}
+					</Text>
 				</Button>
 				{!started ? (
 					<Button

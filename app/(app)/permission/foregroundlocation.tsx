@@ -5,11 +5,7 @@ import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import {
-	PermissionForegroundLocationReactiveVar,
-	SearchAreaReactiveVar,
-	ThemeReactiveVar,
-} from '@reactive'
+import { PermissionForegroundLocationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import useTimer2 from '@util/hooks/useTimer2'
@@ -164,7 +160,19 @@ export default () => {
 			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider style={{ width: 50, marginVertical: 10 }} />
-				<Heading>Allow Barfriends to Use Foreground Location</Heading>
+				<Heading
+					px={'$2'}
+					fontWeight={'$black'}
+					fontSize={'$3xl'}
+					style={{
+						textAlign: 'center',
+					}}
+					allowFontScaling
+					adjustsFontSizeToFit
+					numberOfLines={3}
+				>
+					Allow Barfriends to Use Foreground Location
+				</Heading>
 			</Box>
 			<ScrollView>
 				<Box bg={'$transparent'} sx={{ w: wp(95) }} alignSelf='center' flex={1}>
@@ -178,11 +186,7 @@ export default () => {
 				</Box>
 			</ScrollView>
 			<VStack space={'$2'} w={'$full'} alignItems={'center'}>
-				<Divider
-					style={{
-						width: '95%',
-					}}
-				/>
+				<Divider w={'95%'} />
 				<Button
 					size={'lg'}
 					style={{

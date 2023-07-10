@@ -140,8 +140,8 @@ export default () => {
 	})
 
 	return (
-		<Box bg={'$transparent'} style={{ flex: 1 }}>
-			<Box alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
+		<Box bg={'$transparent'} style={{ flex: 1 }} mb={'$5'}>
+			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<Box
 					rounded={'$md'}
 					sx={{
@@ -152,14 +152,18 @@ export default () => {
 					justifyContent={'center'}
 					bg={'#ff7000'}
 				>
-					<Ionicons name='camera' size={25} color={'black'} />
+					<Ionicons
+						name='camera'
+						size={30}
+						color={rTheme.theme?.gluestack.tokens.colors.secondary900 || 'black'}
+					/>
 				</Box>
-				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
+				<Divider style={{ width: 50, marginVertical: 10 }} />
 				<Heading
+					px={'$2'}
 					fontWeight={'$black'}
+					fontSize={'$3xl'}
 					style={{
-						width: wp(95),
-						maxWidth: 300,
 						textAlign: 'center',
 					}}
 					allowFontScaling
@@ -170,7 +174,7 @@ export default () => {
 				</Heading>
 			</Box>
 			<ScrollView>
-				<Box style={{ w: wp(95), flex: 1, alignSelf: 'center' }}>
+				<Box bg={'$transparent'} sx={{ w: wp(95), flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>
@@ -195,11 +199,13 @@ export default () => {
 							: createTwoButtonAlert()
 					}
 				>
-					{!rMicrophonePermission?.granted
-						? rMicrophonePermission?.canAskAgain && !rMicrophonePermission.granted
-							? 'Continue'
-							: 'Go to Phone Settings'
-						: 'Granted'}
+					<Text>
+						{!rMicrophonePermission?.granted
+							? rMicrophonePermission?.canAskAgain && !rMicrophonePermission.granted
+								? 'Continue'
+								: 'Go to Phone Settings'
+							: 'Granted'}
+					</Text>
 				</Button>
 				{!started && (
 					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'link'}>
@@ -208,6 +214,7 @@ export default () => {
 				)}
 				{started && (
 					<Box
+						bg={'$transparent'}
 						sx={{
 							h: 20,
 						}}

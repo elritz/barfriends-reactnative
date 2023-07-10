@@ -97,7 +97,7 @@ export default ({}: EditableOptionsScreenProps) => {
 					justifyContent={'space-between'}
 					alignItems={'center'}
 				>
-					<Text color={'light.400'} fontSize={'$xl'}>
+					<Text color={'$light600'} fontSize={'$xl'}>
 						{date}
 					</Text>
 					<Ionicons

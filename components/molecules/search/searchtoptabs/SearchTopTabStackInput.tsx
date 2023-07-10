@@ -48,19 +48,13 @@ const SearchTopTabStackInput = () => {
 			params: {
 				searchtext: values.searchtext,
 			},
-			pathname: '(app)/hometab/searchstack/searchtext',
+			pathname: '(app)/explore/searchtext',
 		})
-	}
-
-	const goBack = () => {
-		Keyboard.dismiss()
-		_searchInputRef.current?.blur()
-		router.back()
 	}
 
 	return (
 		<HStack alignItems={'center'}>
-			<ChevronBackArrow  />
+			<ChevronBackArrow />
 			<Controller
 				control={control}
 				name='searchtext'

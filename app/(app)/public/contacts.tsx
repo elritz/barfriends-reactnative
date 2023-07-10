@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Heading, Text, VStack } from '@components/core'
+import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
 import { APP_STORE_URL_LINK } from '@constants/App'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -13,6 +13,7 @@ import { useDisclose } from '@util/hooks/useDisclose'
 import * as Contacts from 'expo-contacts'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
+import { Skeleton } from 'native-base'
 import { useEffect, useState } from 'react'
 import { Alert, Platform, Share } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -103,7 +104,15 @@ export default () => {
 					automaticallyAdjustKeyboardInsets
 					renderItem={item => {
 						return (
-							<HStack h={'65px'} flex={1} justifyContent={'space-between'} space={4} alignItems={'center'}>
+							<HStack
+								sx={{
+									h: 65,
+								}}
+								flex={1}
+								justifyContent={'space-between'}
+								space={'md'}
+								alignItems={'center'}
+							>
 								<Skeleton
 									speed={0.95}
 									_light={{

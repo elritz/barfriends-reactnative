@@ -179,17 +179,16 @@ export default () => {
 				>
 					<FontAwesome
 						name='user'
-						size={25}
-						color={rTheme.theme?.gluestack.tokens.colors.secondary800}
+						size={30}
+						color={rTheme.theme?.gluestack.tokens.colors.secondary900 || 'black'}
 					/>
 				</Box>
 				<Divider width={'$2'} style={{ width: 50, marginVertical: 10 }} />
 				<Heading
+					px={'$2'}
 					fontWeight={'$black'}
 					fontSize={'$3xl'}
 					style={{
-						width: wp(95),
-						maxWidth: 300,
 						textAlign: 'center',
 					}}
 					allowFontScaling

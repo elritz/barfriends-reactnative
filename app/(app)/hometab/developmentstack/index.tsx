@@ -355,7 +355,15 @@ export default () => {
 								>
 									<Divider />
 									<HStack px={'$2'} space={'md'} alignItems={'center'}>
-										<Ionicons size={25} name={item.icon} />
+										<Ionicons
+											size={25}
+											name={item.icon}
+											color={
+												rTheme.colorScheme === 'light'
+													? rTheme.theme?.gluestack.tokens.colors.light900
+													: rTheme.theme?.gluestack.tokens.colors.dark900
+											}
+										/>
 										<Heading fontSize={'$lg'}>{item.title}</Heading>
 									</HStack>
 									<Divider />
@@ -384,7 +392,15 @@ export default () => {
 									<Divider />
 									<HStack px={'$2'} space={'md'} alignItems={'center'} justifyContent={'space-between'}>
 										<HStack space={'md'} alignItems={'center'}>
-											<Ionicons size={25} name={item.icon} />
+											<Ionicons
+												size={25}
+												name={item.icon}
+												color={
+													rTheme.colorScheme === 'light'
+														? rTheme.theme?.gluestack.tokens.colors.light900
+														: rTheme.theme?.gluestack.tokens.colors.dark900
+												}
+											/>
 											<Heading fontSize={'$lg'}>{item.title}</Heading>
 										</HStack>
 										{loading ? (
