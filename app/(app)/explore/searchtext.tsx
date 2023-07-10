@@ -55,7 +55,7 @@ export default () => {
 				estimatedItemSize={60}
 				keyExtractor={(item, index) => index.toString()}
 				scrollEnabled={false}
-				contentInset={{ top: insets.top }}
+				// contentInset={{ top: insets.top }}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
 				renderItem={item => {
@@ -153,7 +153,7 @@ export default () => {
 				scrollEnabled={true}
 				estimatedItemSize={40}
 				contentInset={{
-					top: insets.top + 10,
+					// top: insets.top + 10,
 					bottom:
 						insets.bottom !== 0
 							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS

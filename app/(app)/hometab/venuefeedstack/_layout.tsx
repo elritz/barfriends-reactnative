@@ -20,16 +20,17 @@ export default function _layout() {
 						<VStack
 							justifyContent={'flex-end'}
 							sx={{
+								pt: insets.top,
 								h,
 								_light: { bg: '$light100' },
-								_dark: { bg: '$dark50' }
+								_dark: { bg: '$dark50' },
 							}}
 							pb={'$2'}
 						>
 							<SearchInputDisabled
 								onPress={() =>
 									router.push({
-										pathname: '(app)/hometab/explorestack/searchtext',
+										pathname: '(app)/explore/searchtext',
 										params: {
 											searchtext: '',
 										},

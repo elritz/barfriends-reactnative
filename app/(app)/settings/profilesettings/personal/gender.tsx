@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, Button, Input, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	useUpdateProfileIdentifiableInformationMutation,
@@ -6,12 +7,9 @@ import {
 	AuthorizationDeviceManager,
 	AuthorizationDeviceProfile,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Box, Input, KeyboardAvoidingView, Text, Icon, Button, useTheme } from 'native-base'
-import { useContext } from 'react'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { Controller, useForm } from 'react-hook-form'
-import { View, Pressable, ActivityIndicator, ScrollView } from 'react-native'
+import { View, Pressable, ActivityIndicator, ScrollView, KeyboardAvoidingView } from 'react-native'
 
 interface GenderScreenProps {}
 
@@ -25,9 +23,8 @@ const genderlist = [
 ]
 
 export default ({}: GenderScreenProps) => {
-	const theme = useTheme()
-	const colorScheme = useThemeColorScheme()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const [
 		updateProfileIdentifiableInfmationMutation,
@@ -133,21 +130,33 @@ export default ({}: GenderScreenProps) => {
 									}}
 								>
 									<Text>{item.gender}</Text>
-									{value === item.gender && <Icon as={Ionicons} name='checkmark-sharp' size={25} />}
+									{value === item.gender && (
+										<Ionicons
+											name='checkmark-sharp'
+											size={25}
+											color={
+												rTheme.colorScheme === 'light'
+													? rTheme.theme?.gluestack.tokens.colors.light900
+													: rTheme.theme?.gluestack.tokens.colors.dark900
+											}
+										/>
+									)}
 								</Pressable>
 							))}
 						</View>
 						<KeyboardAvoidingView
-							flexDirection={'column'}
-							alignItems={'flex-start'}
-							height={'100%'}
-							width={'100%'}
+							style={{
+								flexDirection: 'column',
+								alignItems: 'flex-start',
+								height: '100%',
+								width: '100%',
+							}}
 						>
 							<Input
 								onBlur={onBlur}
 								onChangeText={onChange}
 								value={value}
-								keyboardAppearance={colorScheme}
+								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 								blurOnSubmit={false}
 								onSubmitEditing={handleSubmit(onSubmit)}
 								autoFocus
@@ -157,12 +166,15 @@ export default ({}: GenderScreenProps) => {
 								autoComplete='off'
 								keyboardType='default'
 								fontSize={'md'}
-								p={4}
-								borderRadius={'md'}
+								p={'$4'}
+								rounded={'md'}
 								rightElement={
-									<Box ml={3}>
+									<Box ml={'$3'}>
 										{UPIILoading && dirtyFields.gender ? (
-											<ActivityIndicator size='small' color={theme.colors.primary[500]} />
+											<ActivityIndicator
+												size='small'
+												color={rTheme.theme?.gluestack.tokens.colors.primary500}
+											/>
 										) : (
 											dirtyFields.gender && (
 												<Pressable onPress={() => reset()}>
@@ -175,31 +187,33 @@ export default ({}: GenderScreenProps) => {
 							/>
 							<Text>{errors?.gender?.message}</Text>
 							<Box
-								flexDir={'row'}
+								flexDirection={'row'}
 								justifyContent={'space-between'}
 								alignItems={'center'}
-								width={'100%'}
-								padding={'10px'}
-								minHeight={'70px'}
+								sx={{
+									minHeight: 70,
+									w: '100%',
+								}}
+								p={'$5'}
 							>
 								<Text style={{ alignSelf: 'center', marginHorizontal: 10 }}>ERROR GOES HERE</Text>
 								{(dirtyFields.gender || !!errors.gender) && (
 									<Button
 										disabled={false}
 										onPress={handleSubmit(onSubmit)}
-										borderRadius={'md'}
-										_dark={{
-											bg: 'dark.500',
+										rounded={'$md'}
+										sx={{
+											_dark: {
+												bg: '$dark500',
+											},
+											_light: {
+												bg: '$light500',
+											},
 										}}
-										_light={{
-											bg: 'light.500',
-										}}
-										px={'30px'}
-										style={{
-											alignSelf: 'center',
-										}}
+										px={'$10'}
+										alignSelf={'center'}
 									>
-										Update
+										<Text>Update</Text>
 									</Button>
 								)}
 							</Box>

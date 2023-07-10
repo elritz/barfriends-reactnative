@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button, Input, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -7,18 +8,15 @@ import {
 	useCheckUsernameLazyQuery,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Icon, Input, useTheme } from 'native-base'
-import { Button, KeyboardAvoidingView } from 'native-base'
 import { useForm, Controller, ValidateResult } from 'react-hook-form'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const colorScheme = useThemeColorScheme()
-	const theme = useTheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const {
 		control,
@@ -121,15 +119,18 @@ export default () => {
 			<ActivityIndicator
 				style={{ marginRight: 4 }}
 				size='small'
-				color={colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900]}
+				color={
+					rTheme.colorScheme === 'light'
+						? rTheme.theme?.gluestack.tokens.colors.light900
+						: rTheme.theme?.gluestack.tokens.colors.dark900
+				}
 			/>
 		) : (
-			<Icon
-				as={Ionicons}
+			<Ionicons
 				name='checkmark-circle'
-				size={'lg'}
-				color={errors.username || !CUData?.checkUsername ? 'error.600' : 'success.700'}
-				mr={2}
+				size={30}
+				color={errors.username || !CUData?.checkUsername ? '$error600' : '$success700'}
+				mr={'$2'}
 			/>
 		)
 	}
@@ -141,11 +142,12 @@ export default () => {
 			extraScrollHeight={100}
 		>
 			<KeyboardAvoidingView
-				flexDir={'column'}
-				justifyContent={'space-between'}
-				alignItems={'center'}
-				my={2}
-				mx={2}
+				style={{
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					margin: 2,
+				}}
 			>
 				<Controller
 					name='username'
@@ -160,45 +162,42 @@ export default () => {
 						},
 					}}
 					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
-							key='username'
-							value={value}
-							keyboardAppearance={colorScheme}
-							variant={'filled'}
-							onChangeText={value => onChange(value)}
-							onSubmitEditing={handleSubmit(onSubmit)}
-							onBlur={onBlur}
-							autoCapitalize='none'
-							numberOfLines={1}
-							textContentType='username'
-							blurOnSubmit={false}
-							autoFocus
-							placeholder='Username'
-							returnKeyType='done'
-							autoCorrect={false}
-							fontSize={'md'}
-							p={4}
-							borderRadius={'md'}
-							InputRightElement={<InputRightIcon />}
-						/>
+						<Input variant={'rounded'}>
+							<Input
+								key='username'
+								value={value}
+								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								onChangeText={value => onChange(value)}
+								onSubmitEditing={handleSubmit(onSubmit)}
+								onBlur={onBlur}
+								autoCapitalize='none'
+								numberOfLines={1}
+								textContentType='username'
+								blurOnSubmit={false}
+								autoFocus
+								placeholder='Username'
+								returnKeyType='done'
+								autoCorrect={false}
+								fontSize={'$md'}
+								p={'$4'}
+								InputRightElement={<InputRightIcon />}
+							/>
+						</Input>
 					)}
 				/>
 			</KeyboardAvoidingView>
 			{dirtyFields.username && (
 				<Button
 					disabled={UOPLoading}
-					isLoading={UOPLoading}
-					isLoadingText={'Updating...'}
 					onPress={handleSubmit(onSubmit)}
-					borderRadius={'md'}
+					rounded={'$md'}
 					style={{
-						// backgroundColor: themeContext.palette.bfscompany.primary,
 						alignSelf: 'center',
 						width: '50%',
 					}}
 					size={'lg'}
 				>
-					Update
+					<Text>Update</Text>
 				</Button>
 			)}
 		</KeyboardAwareScrollView>

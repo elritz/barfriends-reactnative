@@ -15,7 +15,7 @@ const JoinVenue = ({}) => {
 		<Pressable
 			onPress={() => {
 				router.push({
-					pathname: '(app)/hometab/explorestack',
+					pathname: '(app)/explore',
 				})
 			}}
 			style={{

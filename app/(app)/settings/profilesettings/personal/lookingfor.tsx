@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import { Pressable, Button, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -6,11 +7,9 @@ import {
 	Profile,
 	useUpdateProfileIdentifiableInformationMutation,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { Text, Button, Icon, useTheme } from 'native-base'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { Controller, useForm } from 'react-hook-form'
-import { Pressable, View, ScrollView, SafeAreaView } from 'react-native'
+import { View, ScrollView, SafeAreaView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const relationshipstatuslist = [
@@ -28,10 +27,9 @@ const relationshipstatuslist = [
 ]
 
 export default () => {
-	const theme = useTheme()
-	const colorScheme = useThemeColorScheme()
 	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const [
 		updateProfileIdentifiableInfmationMutation,
@@ -115,7 +113,9 @@ export default () => {
 											onPress={() => onChange(item)}
 											style={{
 												backgroundColor:
-													colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
+													rTheme.colorScheme === 'light'
+														? rTheme.theme?.gluestack.tokens.colors.light900
+														: rTheme.theme?.gluestack.tokens.colors.dark900,
 												width: '95%',
 												padding: 15,
 												marginVertical: 5,
@@ -129,7 +129,17 @@ export default () => {
 										>
 											<Text>{item}</Text>
 											{(rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.lookfor === item ||
-												value === item) && <Icon as={Ionicons} name='checkmark-sharp' size={25} />}
+												value === item) && (
+												<Ionicons
+													name='checkmark-sharp'
+													size={25}
+													color={
+														rTheme.colorScheme === 'light'
+															? rTheme.theme?.gluestack.tokens.colors.light900
+															: rTheme.theme?.gluestack.tokens.colors.dark900
+													}
+												/>
+											)}
 										</Pressable>
 									)
 								})}
@@ -143,7 +153,10 @@ export default () => {
 					style={{
 						paddingHorizontal: 10,
 						paddingBottom: insets.bottom,
-						backgroundColor: colorScheme === 'light' ? theme.colors.light[900] : theme.colors.dark[900],
+						backgroundColor:
+							rTheme.colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900,
 						position: 'absolute',
 						bottom: 0,
 						flexDirection: 'row',
@@ -154,24 +167,24 @@ export default () => {
 						minHeight: 90,
 					}}
 				>
-					<Text alignSelf={'center'}></Text>
-
 					<Button
 						disabled={false}
 						onPress={handleSubmit(onSubmit)}
 						borderRadius={14}
-						_dark={{
-							bg: 'dark.500',
+						sx={{
+							_dark: {
+								bg: '$dark500',
+							},
+							_light: {
+								bg: '$light500',
+							},
 						}}
-						_light={{
-							bg: 'light.500',
-						}}
-						px={'30px'}
+						px={'$11'}
 						style={{
 							alignSelf: 'center',
 						}}
 					>
-						Update
+						<Text>Update</Text>
 					</Button>
 				</SafeAreaView>
 			)}

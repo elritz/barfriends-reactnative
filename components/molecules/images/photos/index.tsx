@@ -1,7 +1,8 @@
+import { Box, Pressable } from '@components/core'
 import { Maybe, Photo, Story } from '@graphql/generated'
-import { Box, Center, Image, Pressable, Text, View } from 'native-base'
 import { useCallback } from 'react'
-import { ScrollView, useWindowDimensions } from 'react-native'
+import { Image } from 'react-native'
+import { ScrollView, View, useWindowDimensions } from 'react-native'
 import Animated, {
 	interpolate,
 	interpolateColor,
@@ -57,15 +58,17 @@ export default function Photos({ story, photo, w, h }: Props) {
 		<>
 			{story?.photos?.length ? (
 				<Box
-					_light={{
-						bg: 'light.100',
+					sx={{
+						_light: {
+							bg: '$light100',
+						},
+						_dark: {
+							bg: 'dark.100',
+						},
+						h: h,
+						w: w,
 					}}
-					_dark={{
-						bg: 'dark.100',
-					}}
-					h={h}
-					w={w}
-					borderRadius={'md'}
+					rounded={'$md'}
 					overflow={'hidden'}
 				>
 					<Animated.ScrollView
@@ -87,10 +90,12 @@ export default function Photos({ story, photo, w, h }: Props) {
 									<Box h={'100%'} w={ITEM_WIDTH}>
 										<Pressable
 											position={'absolute'}
-											top={0}
-											bottom={0}
-											h={'100%'}
-											w={ITEM_WIDTH / 2}
+											top={'$0'}
+											bottom={'$0'}
+											sx={{
+												h: '100%',
+												w: ITEM_WIDTH / 2,
+											}}
 											opacity={20}
 											onPress={() => {
 												onPressScroll('left')
@@ -99,11 +104,13 @@ export default function Photos({ story, photo, w, h }: Props) {
 										/>
 										<Pressable
 											position={'absolute'}
-											top={0}
-											right={0}
-											bottom={0}
-											h={'100%'}
-											w={ITEM_WIDTH / 2}
+											top={'$0'}
+											right={'$0'}
+											bottom={'$0'}
+											sx={{
+												h: '100%',
+												w: ITEM_WIDTH / 2,
+											}}
 											onPress={() => {
 												onPressScroll('right')
 											}}
@@ -113,9 +120,11 @@ export default function Photos({ story, photo, w, h }: Props) {
 											source={{
 												uri: item.url,
 											}}
-											height={'100%'}
-											width={'100%'}
-											rounded={'none'}
+											style={{
+												height: '100%',
+												width: '100%',
+												borderRadius: 0,
+											}}
 											alt='Alternate Text'
 										/>
 									</Box>
@@ -168,29 +177,27 @@ export default function Photos({ story, photo, w, h }: Props) {
 				</Box>
 			) : (
 				<Box
-					_light={{
-						bg: 'light.100',
+					sx={{
+						h,
+						w,
 					}}
-					_dark={{
-						bg: 'dark.100',
-					}}
-					h={h}
-					w={w}
-					borderRadius={'md'}
 					alignItems={'center'}
 					justifyContent={'center'}
-					overflow={'hidden'}
-					m={3}
 					alignSelf={'center'}
+					m={'$3'}
+					rounded={'$md'}
+					overflow={'hidden'}
 				>
 					<Box h={'100%'} p={2} w={'100%'} borderRadius={'$3xl'}>
 						<Image
 							source={{
 								uri: photo.url,
 							}}
-							height={'100%'}
-							width={'100%'}
-							rounded={'xl'}
+							style={{
+								height: '100%',
+								width: '100%',
+								borderRadius: 15,
+							}}
 							alt='Alternate Text'
 						/>
 					</Box>

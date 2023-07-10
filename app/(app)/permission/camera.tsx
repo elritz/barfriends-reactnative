@@ -17,25 +17,6 @@ import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-const details = [
-	{
-		title: 'How you’ll use this',
-		detail: 'To take photos, record videos from your device.',
-		icon: <AntDesign name='camera' size={25} />,
-	},
-	{
-		title: 'How we’ll use this',
-		detail: 'To show you captured content of visual and audio effects.',
-		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
-	},
-	{
-		title: 'How theses settings work',
-		detail:
-			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
-	},
-]
-
 export default () => {
 	const router = useRouter()
 	const appStateRef = useRef(AppState.currentState)
@@ -45,6 +26,63 @@ export default () => {
 	const colorScheme = useThemeColorScheme()
 	const { finished, start, seconds, started } = useTimer2('0:2')
 
+	const details = [
+		{
+			title: 'How you’ll use this',
+			detail: 'To take photos, record videos from your device.',
+			icon: (
+				<AntDesign
+					name='camera'
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How we’ll use this',
+			detail: 'To show you captured content of visual and audio effects.',
+			icon: (
+				<MaterialCommunityIcons
+					name={'android-messages'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How theses settings work',
+			detail:
+				'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
+			icon: (
+				<Ionicons
+					name={'ios-settings-sharp'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+	]
 	// const [cameraPermission, cameraRequestPermission] = Camera.useCameraPermissions()
 	// const [micPermission, micRequestPermission] = Camera.useMicrophonePermissions()
 
@@ -106,7 +144,7 @@ export default () => {
 	})
 
 	return (
-		<Box bg={'$transparent'} style={{ flex: 1 }}>
+		<Box bg={'$transparent'} style={{ flex: 1 }} mb={'$5'}>
 			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<Box
 					rounded={'$md'}
@@ -144,7 +182,7 @@ export default () => {
 				</Heading>
 			</Box>
 			<ScrollView>
-				<Box style={{ width: wp(95), flex: 1, alignSelf: 'center' }}>
+				<Box bg={'$transparent'} style={{ width: wp(95), flex: 1, alignSelf: 'center' }}>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>

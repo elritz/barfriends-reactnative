@@ -1,5 +1,6 @@
+import { useReactiveVar } from '@apollo/client'
 import { DynamicIllustrationProps } from '@ctypes/styled'
-import { useTheme } from 'native-base'
+import { ThemeReactiveVar } from '@reactive'
 import Svg, { G, Path } from 'react-native-svg'
 
 const IllustrationDynamicLocation: React.FC<DynamicIllustrationProps> = ({
@@ -8,14 +9,13 @@ const IllustrationDynamicLocation: React.FC<DynamicIllustrationProps> = ({
 	primary,
 	secondary,
 }: DynamicIllustrationProps) => {
-	const theme = useTheme()
-
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	IllustrationDynamicLocation.defaultProps = {
 		width: 200,
 		height: 200,
-		primary: theme.colors.primary[500],
-		secondary: theme.colors.secondary[500],
-		tertiary: theme.colors.tertiary[500],
+		primary: rTheme.theme?.gluestack.tokens.colors.primary500,
+		secondary: rTheme.theme?.gluestack.tokens.colors.secondary500,
+		tertiary: rTheme.theme?.gluestack.tokens.colors.tertiary500,
 	}
 
 	return (

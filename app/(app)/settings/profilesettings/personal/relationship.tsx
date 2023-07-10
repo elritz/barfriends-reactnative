@@ -1,12 +1,10 @@
-import { Box, Text } from 'native-base'
+import { Box, Text } from '@components/core'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface StatusScreenProps {}
 
 export default ({}: StatusScreenProps) => {
-	const insets = useSafeAreaInsets()
-
 	// list of 30 items
 	const list = [
 		{

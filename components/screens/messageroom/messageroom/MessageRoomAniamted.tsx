@@ -1,22 +1,15 @@
 // TODO: FN() - line 83 -- MessageRoomAniamted ~ onPressIn'
 import { history } from './Message'
 import Message from './data'
-import { MessageRoomNavigatorParamList } from '@ctypes/app'
 import { Ionicons } from '@expo/vector-icons'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
-import { Input, useColorMode, Icon } from 'native-base'
 import { View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-type MessageRoomScreenRouteProp = RouteProp<MessageRoomNavigatorParamList, 'MessagingRoomScreen'>
-
 const MessageRoomAniamted = () => {
-	const navigation = useNavigation()
-	const route = useRoute<MessageRoomScreenRouteProp>()
 	const colorScheme = useThemeColorScheme()
 	const INPUT_CONTAINER_HEIGHT = 80
 	const { bottom } = useSafeAreaInsets()
@@ -72,7 +65,7 @@ const MessageRoomAniamted = () => {
 					}}
 					tint={_nbMode.colorMode === 'light' ? 'light' : 'dark'}
 				>
-					<Input
+					{/* <Input
 						bg={_nbMode.colorMode === 'light' ? 'light.100' : 'dark.100'}
 						_focus={{
 							bg: _nbMode.colorMode === 'light' ? 'light.100' : 'dark.100',
@@ -98,7 +91,7 @@ const MessageRoomAniamted = () => {
 								name={'md-send'}
 							/>
 						}
-					/>
+					/> */}
 				</BlurView>
 			</Reanimated.View>
 		</View>

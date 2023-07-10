@@ -11,6 +11,7 @@ interface ButtonProps {
 
 const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	const rotuer = useRouter()
+
 	GoBack.defaultProps = {
 		width: wp(10),
 		height: wp(10),

@@ -56,7 +56,7 @@ const SearchTextScreenInput = () => {
 	const handleSearchSubmitEditting = item => {
 		const values = getValues()
 		router.push({
-			pathname: '(app)/hometab/searchstack/searchresults',
+			pathname: '(app)/explore/searchresults',
 			params: { searchtext: String(values.searchtext) },
 		})
 	}

@@ -7,7 +7,6 @@ import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
 
 const renderScene = SceneMap({
@@ -18,7 +17,6 @@ const renderScene = SceneMap({
 
 export default function searchresulttabs() {
 	const layout = useWindowDimensions()
-	const { top } = useSafeAreaInsets()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const colorScheme = useThemeColorScheme()
 
@@ -53,9 +51,11 @@ export default function searchresulttabs() {
 			renderScene={renderScene}
 			renderTabBar={renderTabBar}
 			onIndexChange={setIndex}
-			style={{
-				top: top + SEARCH_BAR_HEIGHT + 15,
-			}}
+			style={
+				{
+					// top: top + SEARCH_BAR_HEIGHT + 15,
+				}
+			}
 			initialLayout={{ width: layout.width }}
 		/>
 	)

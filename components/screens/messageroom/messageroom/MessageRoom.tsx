@@ -1,12 +1,13 @@
+import { useReactiveVar } from '@apollo/client'
+import { Box, Input, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
-import { Icon, Box, Input, Text, useTheme, useColorMode } from 'native-base'
 import { useEffect } from 'react'
 import {
 	FlatList,
-	View,
 	TextInput as RNInput,
 	Keyboard,
 	Platform,
@@ -28,8 +29,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function MessageRoom(props) {
 	const data = [...Array(16)]
-	const colorScheme = useThemeColorScheme()
-	const _nbMode = useColorMode()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const insets = useSafeAreaInsets()
 	const _keyboard = useKeyboard()
 	const { height, progress } = useReanimatedKeyboardAnimation()
@@ -138,7 +138,7 @@ export default function MessageRoom(props) {
 				onScroll={scrollHandler}
 				renderItem={({ item, index }) => {
 					return (
-						<Text bg={'red.500'} fontSize={'4xl'}>
+						<Text bg={'$red500'} fontSize={'$4xl'}>
 							MessagesRoom{index}
 						</Text>
 					)
@@ -166,7 +166,7 @@ export default function MessageRoom(props) {
 				]}
 			> */}
 				<BlurView
-					tint={colorScheme}
+					tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 					style={{
 						minWidth: '100%',
 						height: '100%',
@@ -174,36 +174,38 @@ export default function MessageRoom(props) {
 						paddingVertical: 15,
 					}}
 				>
-					<Input
-						bg={_nbMode.colorMode === 'light' ? 'light.100' : 'dark.100'}
-						_focus={{
-							bg: _nbMode.colorMode === 'light' ? 'light.100' : 'dark.100',
-							borderColor: 'transparent',
-						}}
-						keyboardAppearance={colorScheme}
-						onPressIn={handlePressIn}
-						variant={'filled'}
-						size={'2xl'}
-						mx={2}
-						my={'auto'}
-						borderRadius={'md'}
-						multiline
-						placeholder=''
-						InputRightElement={
-							<Icon
-								size={'lg'}
-								color={_nbMode.colorMode === 'light' ? 'dark.100' : 'light.100'}
-								mx={2}
-								as={Ionicons}
-								name={'md-send'}
-							/>
-						}
-					/>
+					<Input variant={'rounded'} size={'lg'}>
+						<Input.Input
+							keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+							onPressIn={handlePressIn}
+							mx={'$2'}
+							my={'auto'}
+							rounded={'$md'}
+							multiline
+							placeholder=''
+						/>
+						<Ionicons
+							name={'md-send'}
+							size={30}
+							color={
+								rTheme.colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900
+							}
+							style={{
+								marginHorizontal: 2,
+							}}
+						/>
+					</Input>
 				</BlurView>
 				{/* </Animated.View> */}
 			</KeyboardAvoidingView>
 			<Box
-				bg={_nbMode.colorMode === 'light' ? 'light.100' : 'dark.100'}
+				bg={
+					rTheme.colorScheme === 'light'
+						? rTheme.theme?.gluestack.tokens.colors.light100
+						: rTheme.theme?.gluestack.tokens.colors.dark100
+				}
 				style={{
 					position: 'absolute',
 					height: insets.bottom,

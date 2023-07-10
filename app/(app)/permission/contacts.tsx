@@ -15,33 +15,71 @@ import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-const details = [
-	{
-		title: 'How you’ll use this',
-		detail: 'To share, friend and invite to events and venues.',
-		icon: <MaterialIcons name={'contact-page'} size={25} />,
-	},
-	{
-		title: 'How we’ll use this',
-		detail: 'To show you your contacts.',
-		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
-	},
-	{
-		title: 'How these settings work',
-		detail:
-			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
-	},
-]
-
 export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rContactPermission = useReactiveVar(PermissionContactsReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-
 	const { finished, start, seconds, started } = useTimer2('0:2')
+
+	const details = [
+		{
+			title: 'How you’ll use this',
+			detail: 'To share, friend and invite to events and venues.',
+			icon: (
+				<MaterialIcons
+					name={'contact-page'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How we’ll use this',
+			detail: 'To show you your contacts.',
+			icon: (
+				<MaterialCommunityIcons
+					name={'android-messages'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How these settings work',
+			detail:
+				'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
+			icon: (
+				<Ionicons
+					name={'ios-settings-sharp'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+	]
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(

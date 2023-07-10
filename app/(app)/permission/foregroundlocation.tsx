@@ -5,7 +5,11 @@ import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import {
+	PermissionForegroundLocationReactiveVar,
+	SearchAreaReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
 import useTimer2 from '@util/hooks/useTimer2'
@@ -18,31 +22,71 @@ import { ScrollView } from 'react-native'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-const details = [
-	{
-		title: 'How you’ll use this',
-		detail: 'To find venues and event deals around you.',
-		icon: <Ionicons name={'ios-location-sharp'} size={25} />,
-	},
-	{
-		title: 'How we’ll use this',
-		detail: 'To create your own content and share. ',
-		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
-	},
-	{
-		title: 'How these settings work',
-		detail:
-			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
-	},
-]
-
 export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { start, seconds, started, finished } = useTimer2('0:2')
+
+	const details = [
+		{
+			title: 'How you’ll use this',
+			detail: 'To find venues and event deals around you.',
+			icon: (
+				<Ionicons
+					name={'ios-location-sharp'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How we’ll use this',
+			detail: 'To create your own content and share. ',
+			icon: (
+				<MaterialCommunityIcons
+					name={'android-messages'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How these settings work',
+			detail:
+				'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
+			icon: (
+				<Ionicons
+					name={'ios-settings-sharp'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+	]
 
 	const createTwoButtonAlert = () =>
 		Alert.alert(
@@ -116,14 +160,14 @@ export default () => {
 	})
 
 	return (
-		<Box bg={'$transparent'} style={{ flex: 1 }}>
+		<Box bg={'$transparent'} style={{ flex: 1 }} mb={'$5'}>
 			<Box bg={'$transparent'} alignItems={'center'} justifyContent={'flex-start'} my={'$5'}>
 				<IllustrationDynamicLocation width={60} height={60} />
 				<Divider style={{ width: 50, marginVertical: 10 }} />
 				<Heading>Allow Barfriends to Use Foreground Location</Heading>
 			</Box>
 			<ScrollView>
-				<Box style={{ w: wp(95), flex: 1, alignSelf: 'center' }}>
+				<Box bg={'$transparent'} sx={{ w: wp(95) }} alignSelf='center' flex={1}>
 					{details.map((item, index) => {
 						return (
 							<View key={index}>

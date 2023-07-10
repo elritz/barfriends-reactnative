@@ -1,8 +1,9 @@
+import { useReactiveVar } from '@apollo/client'
 import { Box, Center, HStack, Heading, Text, VStack } from '@components/core'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Profile } from '@graphql/generated'
-import { Image } from 'native-base'
-import { Icon } from 'native-base'
+import { ThemeReactiveVar } from '@reactive'
+import { Image } from 'react-native'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {
@@ -12,6 +13,8 @@ type ProfileItemType = {
 }
 
 const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemType) => {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+
 	return (
 		<Box
 			key={item?.id}
@@ -29,8 +32,7 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 				{item?.profilePhoto ? (
 					<Image
 						source={{ uri: item.profilePhoto.url }}
-						style={{ width: 50, height: 50 }}
-						borderRadius={'md'}
+						style={{ width: 50, height: 50, borderRadius: 10 }}
 						alt={'Profile photo'}
 					/>
 				) : (
@@ -48,15 +50,19 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 							justifyContent={'center'}
 						>
 							<Center>
-								<Icon
+								<Ionicons
 									_light={{
 										color: 'light.300',
 									}}
 									_dark={{
 										color: 'dark.300',
 									}}
-									as={Ionicons}
-									size={'lg'}
+									color={
+										rTheme.colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light900
+											: rTheme.theme?.gluestack.tokens.colors.dark900
+									}
+									size={30}
 									name={'ios-person'}
 								/>
 							</Center>
@@ -73,9 +79,17 @@ const DeviceManagerProfileItemLarge = ({ item, isActive, loading }: ProfileItemT
 			{!loading ? (
 				<>
 					{isActive ? (
-						<Icon name='ios-checkmark-circle' as={Ionicons} color={'success.600'} size={'xl'} />
+						<Ionicons
+							name='ios-checkmark-circle'
+							size={30}
+							color={rTheme.theme?.gluestack.tokens.colors.success600}
+						/>
 					) : (
-						<Icon name='radio-button-unchecked' as={MaterialIcons} color={'gray.400'} size={'xl'} />
+						<MaterialIcons
+							name='radio-button-unchecked'
+							size={30}
+							color={rTheme.theme?.gluestack.tokens.colors.green400}
+						/>
 					)}
 				</>
 			) : (

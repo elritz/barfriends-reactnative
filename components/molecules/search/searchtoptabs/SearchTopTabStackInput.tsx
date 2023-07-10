@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
+import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import { HStack, Input, Pressable } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
@@ -59,80 +60,83 @@ const SearchTopTabStackInput = () => {
 
 	return (
 		<HStack alignItems={'center'}>
-			<Pressable
-				onPress={goBack}
-				sx={{
-					':hover': {
-						bg: 'transparent',
-					},
-					':pressed': {
-						bg: 'transparent',
-					},
-					':focus': {
-						bg: 'transparent',
-					},
-					w: 50,
-					h: 35,
-				}}
-			>
-				<Ionicons
-					isFocusVisible={false}
-					name='arrow-back'
-					color={
-						colorScheme === 'light'
-							? rTheme.theme?.gluestack.tokens.colors.light900
-							: rTheme.theme?.gluestack.tokens.colors.dark900
-					}
-					size={35}
-				/>
-			</Pressable>
+			<ChevronBackArrow  />
 			<Controller
 				control={control}
 				name='searchtext'
 				render={({ field: { value, onChange } }) => (
-					<Input isReadOnly ref={_searchInputRef} variant='underlined'>
-						<Ionicons
-							size={20}
-							style={{
-								marginLeft: 2,
-							}}
-							name='ios-search'
-							color={
-								colorScheme === 'light'
-									? rTheme.theme?.gluestack.tokens.colors.light900
-									: rTheme.theme?.gluestack.tokens.colors.dark900
-							}
-						/>
+					<Input
+						variant={'rounded'}
+						flex={1}
+						mr={'$2'}
+						sx={{
+							':focus': {
+								borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+							},
+							':focusVisible': {
+								borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+							},
+							borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+						}}
+					>
 						<Input.Input
-							sx={{
-								_dark: {
-									bg: '$dark200',
-								},
-								_light: {
-									bg: '$light200',
-								},
-							}}
-							rounded={'lg'}
-							flex={1}
-							value={value}
-							keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
-							placeholder='Search'
+							keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+							placeholderTextColor={rTheme.colorScheme === 'light' ? '$light900' : '$dark900'}
 							autoCorrect={false}
-							mr={'$2'}
+							autoCapitalize={'none'}
+							placeholder='Search'
+							autoFocus
+							value={value}
+							blurOnSubmit={false}
 							onChangeText={onChange}
-							onSubmitEditing={handleSearchSubmitEditting}
 							returnKeyType='search'
 							underlineColorAndroid='transparent'
-							onPressIn={() => {
-								router.replace({
-									params: {
-										searchtext: value,
-									},
-									pathname: '(app)/hometab/explorestack/searchtext',
-								})
-							}}
+							onSubmitEditing={handleSubmit(handleSearchSubmitEditting)}
 						/>
 					</Input>
+					// <Input isReadOnly ref={_searchInputRef} variant='underlined'>
+					// 	<Ionicons
+					// 		size={20}
+					// 		style={{
+					// 			marginLeft: 2,
+					// 		}}
+					// 		name='ios-search'
+					// 		color={
+					// 			colorScheme === 'light'
+					// 				? rTheme.theme?.gluestack.tokens.colors.light900
+					// 				: rTheme.theme?.gluestack.tokens.colors.dark900
+					// 		}
+					// 	/>
+					// 	<Input.Input
+					// 		sx={{
+					// 			_dark: {
+					// 				bg: '$dark200',
+					// 			},
+					// 			_light: {
+					// 				bg: '$light200',
+					// 			},
+					// 		}}
+					// 		rounded={'lg'}
+					// 		flex={1}
+					// 		value={value}
+					// 		keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+					// 		placeholder='Search'
+					// 		autoCorrect={false}
+					// 		mr={'$2'}
+					// 		onChangeText={onChange}
+					// 		onSubmitEditing={handleSearchSubmitEditting}
+					// 		returnKeyType='search'
+					// 		underlineColorAndroid='transparent'
+					// 		onPressIn={() => {
+					// 			router.replace({
+					// 				params: {
+					// 					searchtext: value,
+					// 				},
+					// 				pathname: '(app)/hometab/explorestack/searchtext',
+					// 			})
+					// 		}}
+					// 	/>
+					// </Input>
 				)}
 			/>
 		</HStack>

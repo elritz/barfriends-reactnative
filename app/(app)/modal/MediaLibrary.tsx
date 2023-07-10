@@ -1,9 +1,8 @@
 import { Heading } from '@components/core'
 import { FlashList } from '@shopify/flash-list'
 import * as MediaLibrary from 'expo-media-library'
-import { Image } from 'native-base'
 import { useState } from 'react'
-import { View, Pressable } from 'react-native'
+import { View, Pressable, Image } from 'react-native'
 
 interface MediaLibraryProps {}
 
@@ -69,7 +68,6 @@ export default ({}) => {
 								height: 50,
 							}}
 							source={{ uri: item.uri }}
-							alt={'Profile Photo'}
 						/>
 					</Pressable>
 				)}

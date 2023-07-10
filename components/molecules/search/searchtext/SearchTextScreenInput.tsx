@@ -1,12 +1,12 @@
 // TODO: UX() get the navigation route here as well default values from form
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Ionicons } from '@expo/vector-icons'
+import { useReactiveVar } from '@apollo/client'
+import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { HStack, Input } from '@components/core'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { ThemeReactiveVar } from '@reactive'
 import useDebounce from '@util/hooks/useDebounce'
-import { useRouter, useSearchParams, useSegments } from 'expo-router'
-import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
+import { useLocalSearchParams, useRouter, useSegments } from 'expo-router'
 import { useEffect, useMemo, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard, TextInput } from 'react-native'
@@ -14,10 +14,10 @@ import { Keyboard, TextInput } from 'react-native'
 const SearchTextScreenInput = () => {
 	const _searchRef = useRef<TextInput>()
 	const router = useRouter()
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const segments = useSegments()
 	const isFocused = useIsFocused()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const {
 		control,
@@ -45,7 +45,7 @@ const SearchTextScreenInput = () => {
 	useEffect(() => {
 		if (isFocused) {
 			if (_searchRef && _searchRef.current) {
-				_searchRef?.current.focus()
+				// _searchRef?.current.focus()
 			}
 		}
 	}, [isFocused])
@@ -69,14 +69,9 @@ const SearchTextScreenInput = () => {
 		})
 	}
 
-	const goBack = () => {
-		Keyboard.dismiss()
-		router.back()
-	}
-
 	const handleSearchSubmitEditting = data => {
 		router.push({
-			pathname: '(app)/hometab/explorestack/searchresults',
+			pathname: '(app)/explore/searchresults',
 			params: { searchtext: data.searchtext },
 		})
 	}
@@ -94,119 +89,98 @@ const SearchTextScreenInput = () => {
 	}, [debouncedSearchResults])
 
 	return (
-		<HStack alignItems={'center'}>
-			<IconButton
-				isFocusVisible={false}
-				_hover={{
-					bg: 'transparent',
-				}}
-				_pressed={{
-					bg: 'transparent',
-				}}
-				_focus={{
-					bg: 'transparent',
-				}}
-				icon={
-					<Icon
-						as={Ionicons}
-						size={'xl'}
-						name='arrow-back'
-						_light={{ color: 'light.700' }}
-						_dark={{ color: 'dark.900' }}
-					/>
-				}
-				w={'50px'}
-				h={35}
-				onPress={goBack}
-			/>
+		<HStack>
+			<ChevronBackArrow />
 			<Controller
 				control={control}
 				name='searchtext'
 				render={({ field: { value, onChange } }) => (
 					<Input
-						ref={_searchRef}
-						variant={'unstyled'}
-						_light={{ bgColor: 'light.200' }}
-						_dark={{ bgColor: 'dark.200' }}
-						rounded={'lg'}
-						placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
+						variant={'rounded'}
 						flex={1}
-						keyboardAppearance={colorScheme}
-						_input={{
-							fontSize: 'md',
-							fontWeight: 'medium',
+						mr={'$2'}
+						sx={{
+							':focus': {
+								borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+							},
+							':focusVisible': {
+								borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+							},
+							borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
 						}}
-						h={SEARCH_BAR_HEIGHT}
-						mr={2}
-						autoCorrect={false}
-						autoCapitalize={'none'}
-						placeholder='Search'
-						autoFocus
-						value={value}
-						blurOnSubmit={false}
-						onChangeText={onChange}
-						returnKeyType='search'
-						underlineColorAndroid='transparent'
-						onSubmitEditing={handleSubmit(handleSearchSubmitEditting)}
-						onPressIn={() => {
-							if (segments[3] !== 'searchtext') {
-								router.push({
-									pathname: '(app)/hometab/explorestack/searchtext',
-									params: { searchtext: value },
-								})
-							}
-						}}
-						leftElement={
-							<Icon
-								as={Ionicons}
-								_light={{ color: 'light.600' }}
-								_dark={{ color: 'dark.900' }}
-								name='ios-search'
-								size={'md'}
-								ml={2}
-							/>
-						}
-						rightElement={
-							<HStack alignItems={'center'}>
-								{value.length ? (
-									<IconButton
-										variant={'ghost'}
-										_pressed={{
-											bg: 'transparent',
-										}}
-										p={1}
-										py={2}
-										_focus={{
-											bg: 'transparent',
-										}}
-										icon={
-											<Icon
-												as={Ionicons}
-												_light={{ color: 'light.600' }}
-												_dark={{ color: 'dark.600' }}
-												name='close-circle'
-											/>
-										}
-										isDisabled={!value.length}
-										onPress={clearSearchInput}
-										shadow={'2'}
-									/>
-								) : null}
-								<Button
-									onPress={() => {
-										clearSearchInput()
-										router.back()
-									}}
-									_pressed={{
-										bg: 'transparent',
-									}}
-									variant={'ghost'}
-								>
-									<Text lineHeight={'xs'}>Cancel</Text>
-								</Button>
-							</HStack>
-						}
-					/>
+					>
+						<Input.Input
+							keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+							placeholderTextColor={rTheme.colorScheme === 'light' ? '$light900' : '$dark900'}
+							autoCorrect={false}
+							autoCapitalize={'none'}
+							placeholder='Search'
+							autoFocus
+							value={value}
+							blurOnSubmit={false}
+							onChangeText={onChange}
+							returnKeyType='search'
+							underlineColorAndroid='transparent'
+							onSubmitEditing={handleSubmit(handleSearchSubmitEditting)}
+							onPressIn={() => {
+								if (segments[3] !== 'searchtext') {
+									router.push({
+										pathname: '(app)/explore/searchtext',
+										params: { searchtext: value },
+									})
+								}
+							}}
+						/>
+					</Input>
+					// <Input
+					// 	ref={_searchRef}
+					// 	_light={{ bgColor: 'light.200' }}
+					// 	_dark={{ bgColor: 'dark.200' }}
+
+					// 	leftElement={
+					// 		<Ionicons
+					// 			size={25}
+					// 			ml={'$2'}
+					// 			name='ios-search'
+					// 			color={
+					// 				rTheme.colorScheme === 'light'
+					// 					? rTheme.theme?.gluestack.tokens.colors.light600
+					// 					: rTheme.theme?.gluestack.tokens.colors.dark900
+					// 			}
+					// 		/>
+					// 	}
+					// 	rightElement={
+					// 		<HStack alignItems={'center'}>
+					// 			{value.length ? (
+					// 				<Button
+					// 					variant={'link'}
+					// 					p={'$1'}
+					// 					py={'$2'}
+					// 					isDisabled={!value.length}
+					// 					onPress={clearSearchInput}
+					// 				>
+					// 					<Ionicons
+					// 						color={
+					// 							rTheme.colorScheme === 'light'
+					// 								? rTheme.theme?.gluestack.tokens.colors.light600
+					// 								: rTheme.theme?.gluestack.tokens.colors.dark600
+					// 						}
+					// 						name='close-circle'
+					// 					/>
+					// 				</Button>
+					// 			) : null}
+					// 			<Button
+					// 				onPress={() => {
+					// 					clearSearchInput()
+					// 					router.back()
+					// 				}}
+					// 				variant={'link'}
+					// 			>
+					// 				<Text lineHeight={'$xs'}>Cancel</Text>
+					// 			</Button>
+					// 		</HStack>
+					// 	}
+					// />
 				)}
 			/>
 		</HStack>

@@ -29,9 +29,6 @@ export default function SearchVenues() {
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
 				keyExtractor={(item, index) => index.toString()}
-				contentInset={{
-					top: 20,
-				}}
 				renderItem={({ item }) => {
 					return (
 						<Skeleton

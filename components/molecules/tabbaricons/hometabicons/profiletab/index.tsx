@@ -1,21 +1,19 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
+import { Box, Pressable } from '@components/core'
 import { useGetNotificationsLazyQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import * as Haptics from 'expo-haptics'
 import { useRouter } from 'expo-router'
-import { Box, Image, Pressable, useTheme } from 'native-base'
 import { useEffect, useState } from 'react'
+import { Image } from 'react-native'
 
 const HEIGHT = 25
 
 const ProfileTab = (props: TabProps) => {
-	const theme = useTheme()
-	const colorScheme = useThemeColorScheme()
-	// const navigation = useNavigation()
 	const router = useRouter()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [numNotification, setNumNotifications] = useState(0)
 
@@ -62,7 +60,11 @@ const ProfileTab = (props: TabProps) => {
 				<CompanyCoasterLogoDynamic
 					width={HEIGHT}
 					height={HEIGHT}
-					iconColor={colorScheme === 'light' ? theme.colors.light[100] : theme.colors.dark[100]}
+					iconColor={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light100
+							: rTheme.theme?.gluestack.tokens.colors.dark100
+					}
 					backgroundColor={props.color}
 				/>
 			</Pressable>
@@ -92,13 +94,16 @@ const ProfileTab = (props: TabProps) => {
 										borderColor: props.color,
 										borderWidth: 1.5,
 									}}
-									alt={'Profile Photo'}
 								/>
 							) : (
 								<CompanyCoasterLogoDynamic
 									width={HEIGHT}
 									height={HEIGHT}
-									iconColor={colorScheme === 'light' ? theme.colors.light[100] : theme.colors.dark[100]}
+									iconColor={
+										rTheme.colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light100
+											: rTheme.theme?.gluestack.tokens.colors.dark100
+									}
 									backgroundColor={props.color}
 								/>
 							)}
@@ -110,10 +115,12 @@ const ProfileTab = (props: TabProps) => {
 				<Box
 					// position={'absolute'}
 					// bottom={3}
-					bg={numNotification > 0 ? 'red.500' : 'transparent'}
-					h={'4.25px'}
-					w={'4.25px'}
-					borderRadius={'full'}
+					bg={numNotification > 0 ? '$red500' : 'transparent'}
+					sx={{
+						h: 4.25,
+						w: 4.25,
+					}}
+					rounded={'$full'}
 				/>
 			}
 		</>

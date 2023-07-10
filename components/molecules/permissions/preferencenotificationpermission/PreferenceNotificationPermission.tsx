@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Heading } from '@components/core'
+import { Box, Button, Divider, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import NotificationNextAskModal from '@components/molecules/modals/asks/notificationnextaskmodal'
 import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS } from '@constants/StorageConstants'
 import { DefaultPreferenceToPermission } from '@ctypes/preferences'
@@ -8,18 +8,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	PermissionNotificationReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
+	ThemeReactiveVar,
 	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
+import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { DateTime } from 'luxon'
 import { MotiView } from 'moti'
-import { Box, Button, Divider, HStack, Icon, Text, useDisclose, VStack } from 'native-base'
-import { useEffect } from 'react'
 
 export default function PreferenceNotificationPermission() {
 	const router = useRouter()
 	const { isOpen, onOpen, onClose } = useDisclose()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rPermissionNotificationVar = useReactiveVar(PermissionNotificationReactiveVar)
 	const rPreferenceNotificationPermission = useReactiveVar(
 		PreferencePermissionNotificationReactiveVar,
@@ -46,12 +47,28 @@ export default function PreferenceNotificationPermission() {
 									scale: 0.9,
 								}}
 							>
-								<VStack my={3} space={1} alignItems={'center'}>
-									<HStack w={'95%'} justifyContent={'flex-end'}>
-										<Icon onPress={onOpen} as={EvilIcons} size={'md'} name={'close'} />
+								<VStack my={'$3'} space={'md'} alignItems={'center'}>
+									<HStack
+										sx={{
+											w: '95%',
+										}}
+										justifyContent={'flex-end'}
+									>
+										<Pressable>
+											<EvilIcons
+												onPress={onOpen}
+												size={25}
+												name={'close'}
+												color={
+													rTheme.colorScheme === 'light'
+														? rTheme.theme?.gluestack.tokens.colors.light900
+														: rTheme.theme?.gluestack.tokens.colors.dark900
+												}
+											/>
+										</Pressable>
 									</HStack>
 									<Heading
-										size={'$md'}
+										fontSize={'$md'}
 										textAlign={'center'}
 										style={{
 											width: '100%',
@@ -59,7 +76,7 @@ export default function PreferenceNotificationPermission() {
 									>
 										Stay Up to Date
 									</Heading>
-									<Text textAlign={'center'} fontSize={'md'} style={{ width: '90%' }}>
+									<Text textAlign={'center'} fontSize={'$md'} style={{ width: '90%' }}>
 										Turn on notification to know right away when people friend you, invit you out or send you
 										a message.
 									</Text>
@@ -70,22 +87,20 @@ export default function PreferenceNotificationPermission() {
 											})
 										}
 										size={'sm'}
-										mt={4}
-										w={'85%'}
-										_text={{
-											fontWeight: 'bold',
-											fontSize: 'sm',
+										mt={'$4'}
+										sx={{
+											w: '85%',
 										}}
 									>
-										Turn on Notifications
+										<Text fontSize={'$sm'} fontWeight='$bold'>
+											Turn on Notifications
+										</Text>
 									</Button>
 									<Button
-										w={'90%'}
-										variant={'unstyled'}
-										_text={{
-											fontWeight: 'bold',
-											fontSize: 'md',
+										sx={{
+											w: '90%',
 										}}
+										variant={'link'}
 										onPress={async () => {
 											await AsyncStorage.setItem(
 												LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
@@ -101,7 +116,7 @@ export default function PreferenceNotificationPermission() {
 											})
 										}}
 									>
-										Not now
+										<Text>Not now</Text>
 									</Button>
 								</VStack>
 							</MotiView>

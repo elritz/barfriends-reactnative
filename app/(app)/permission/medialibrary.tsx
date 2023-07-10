@@ -3,41 +3,78 @@ import IllustrationDynamicMedia from '@assets/images/media/IllustrationDynamicMe
 import { Box, Button, Divider, Heading, Text, VStack } from '@components/core'
 import PermissionDetailItem from '@components/screens/permissions/PermissionDetailItem'
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import { PermissionMediaReactiveVar } from '@reactive'
+import { PermissionMediaReactiveVar, ThemeReactiveVar } from '@reactive'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Linking from 'expo-linking'
 import * as MediaLibrary from 'expo-media-library'
+import { useRouter } from 'expo-router'
 import { useEffect, useRef } from 'react'
 import { AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-const details = [
-	{
-		title: 'How you’ll use this',
-		detail: 'To access photos, record videos from your device.',
-		icon: <MaterialIcons name={'photo-size-select-actual'} />,
-	},
-	{
-		title: 'How we’ll use this',
-		detail: 'To create your content and share.',
-		icon: <MaterialCommunityIcons name={'android-messages'} />,
-	},
-	{
-		title: 'How theses settings work',
-		detail:
-			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		icon: <Ionicons name={'ios-settings-sharp'} />,
-	},
-]
-
 export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const [status, requestPermission] = MediaLibrary.usePermissions()
-	const navigation = useNavigation()
+	const router = useRouter()
 	const rPermissionMedia = useReactiveVar(PermissionMediaReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')
+
+	const details = [
+		{
+			title: 'How you’ll use this',
+			detail: 'To access photos, record videos from your device.',
+			icon: (
+				<MaterialIcons
+					name={'photo-size-select-actual'}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How we’ll use this',
+			detail: 'To create your content and share.',
+			icon: (
+				<MaterialCommunityIcons
+					name={'android-messages'}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How theses settings work',
+			detail:
+				'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
+			icon: (
+				<Ionicons
+					name={'ios-settings-sharp'}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+	]
 
 	useEffect(() => {
 		if (status) {
@@ -80,7 +117,7 @@ export default () => {
 	}
 
 	finished(() => {
-		navigation.goBack()
+		router.back()
 	})
 
 	return (

@@ -51,7 +51,7 @@ export default () => {
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,
 				}}
 			/>
-			<Tabs.Screen
+			{/* <Tabs.Screen
 				name='explorestack'
 				options={{
 					headerShown: false,
@@ -60,7 +60,7 @@ export default () => {
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
 				}}
-			/>
+			/> */}
 			<Tabs.Screen
 				name={'tonight'}
 				options={{

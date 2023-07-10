@@ -1,10 +1,11 @@
 import Actions from './actions/Actions'
+import { HStack, VStack } from '@components/core'
 import CurrentVenue from '@components/screens/public/personal/currentvenue/CurrentVenue'
 import Relationships from '@components/screens/public/personal/relationship/Relationships'
 import { PersonalProfileStackParamList } from '@ctypes/app'
 import { useProfileQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { HStack, ScrollView as NBScrollView, VStack } from 'native-base'
+import { ScrollView } from 'react-native'
 
 export type PublicPersonalRouteProp = RouteProp<
 	PersonalProfileStackParamList,
@@ -33,17 +34,29 @@ const PersonalScreen = (props: any) => {
 	if (PQLoading && !PQData?.profile) return null
 
 	return (
-		<NBScrollView pt={4} mx={3} showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
+		<ScrollView
+			style={{
+				paddingTop: 4,
+				marginHorizontal: 3,
+			}}
+			showsVerticalScrollIndicator={false}
+			scrollEventThrottle={16}
+		>
 			{/* <Photos story={PQData?.profile?.tonightStory} photo={PQData?.profile?.photos[0]} /> */}
 			{/* <ProfilePhoto /> */}
-			<VStack space={3}>
+			<VStack space={'$3'}>
 				<Actions profile={PQData?.profile} />
-				<HStack space={3} h={200}>
+				<HStack
+					space={'md'}
+					sx={{
+						h: 200,
+					}}
+				>
 					{PQData?.profile?.Personal?.LiveOutPersonal?.Out.length ? <CurrentVenue /> : null}
 					<Relationships />
 				</HStack>
 			</VStack>
-		</NBScrollView>
+		</ScrollView>
 	)
 }
 

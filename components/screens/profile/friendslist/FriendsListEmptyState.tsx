@@ -47,7 +47,7 @@ export const FriendsListEmptyState = () => {
 					rounded={'$md'}
 					onPress={() => {
 						router.push({
-							pathname: '(app)/hometab/explorestack/searchtext',
+							pathname: '(app)/explore/searchtext',
 							params: {
 								searchtext: '',
 							},

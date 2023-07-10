@@ -9,6 +9,7 @@ export default () => {
 			}}
 		>
 			<Stack.Screen name={'hometab'} />
+			<Stack.Screen name={'explore'} options={{ animation: 'fade' }} />
 			<Stack.Screen name={'modal'} />
 			<Stack.Screen name={'public'} />
 			<Stack.Screen name={'searcharea'} />

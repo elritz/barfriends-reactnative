@@ -19,25 +19,6 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 // TODO: UX(handleAppStateChange) check if location permission is enabled and go somewhere with it
 
-const details = [
-	{
-		title: 'How you’ll use this',
-		detail: 'To receive messages, venue and event deals around you.',
-		icon: <Ionicons name={'ios-location-sharp'} size={25} />,
-	},
-	{
-		title: 'How we’ll use this',
-		detail: 'To create messages from you to others.',
-		icon: <MaterialCommunityIcons name={'android-messages'} size={25} />,
-	},
-	{
-		title: 'How these settings work',
-		detail:
-			'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
-		icon: <Ionicons name={'ios-settings-sharp'} size={25} />,
-	},
-]
-
 export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
@@ -45,6 +26,64 @@ export default () => {
 	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')
+
+	const details = [
+		{
+			title: 'How you’ll use this',
+			detail: 'To receive messages, venue and event deals around you.',
+			icon: (
+				<Ionicons
+					name={'ios-location-sharp'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How we’ll use this',
+			detail: 'To create messages from you to others.',
+			icon: (
+				<MaterialCommunityIcons
+					name={'android-messages'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+		{
+			title: 'How these settings work',
+			detail:
+				'You can change your choices at any time in your device settings. If you allow access now, you wont have to again.',
+			icon: (
+				<Ionicons
+					name={'ios-settings-sharp'}
+					size={25}
+					style={{
+						marginHorizontal: 7,
+					}}
+					color={
+						rTheme.colorScheme === 'light'
+							? rTheme.theme?.gluestack.tokens.colors.light900
+							: rTheme.theme?.gluestack.tokens.colors.dark900
+					}
+				/>
+			),
+		},
+	]
 
 	const [upsertDevicePushTokenMutation, { data, loading, error }] =
 		useUpsertDevicePushTokenMutation()

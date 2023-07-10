@@ -1,4 +1,4 @@
-import { VStack } from '@components/core'
+import { Box, VStack } from '@components/core'
 import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
 import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
 import SearchTopTabStackInput from '@components/molecules/search/searchtoptabs/SearchTopTabStackInput'
@@ -17,25 +17,27 @@ export default function _layout() {
 			initialRouteName='index'
 			screenOptions={{
 				headerShown: true,
-				gestureDirection: 'horizontal',
+				animation: 'fade',
 			}}
 		>
 			<Stack.Screen
 				options={{
-					headerTransparent: true,
 					header: () => {
 						return (
 							<VStack
 								justifyContent={'flex-end'}
 								sx={{
-									h: h,
+									pt: insets.top,
+									h,
+									_light: { bg: '$light100' },
+									_dark: { bg: '$dark50' },
 								}}
 								pb={'$2'}
 							>
 								<SearchInputDisabled
 									onPress={() =>
 										router.push({
-											pathname: '(app)/hometab/explorestack/searchtext',
+											pathname: '(app)/explore/searchtext',
 											params: {
 												searchtext: '',
 											},
@@ -51,16 +53,18 @@ export default function _layout() {
 			<Stack.Screen
 				name={'searchtext'}
 				options={{
-					headerTransparent: true,
 					animation: 'fade',
 					header: () => {
 						return (
 							<VStack
 								justifyContent={'flex-end'}
-								h={h}
-								pb={2}
-								_light={{ bg: 'light.100' }}
-								_dark={{ bg: 'dark.50' }}
+								sx={{
+									pt: insets.top,
+									h,
+									_light: { bg: '$light100' },
+									_dark: { bg: '$dark50' },
+								}}
+								pb={'$2'}
 							>
 								<SearchTextScreenInput />
 							</VStack>
@@ -71,13 +75,15 @@ export default function _layout() {
 			<Stack.Screen
 				name={'searchresults'}
 				options={{
-					headerTransparent: true,
 					header: () => {
 						return (
 							<VStack
 								justifyContent={'flex-end'}
 								sx={{
-									h: h,
+									pt: insets.top,
+									h,
+									_light: { bg: '$light100' },
+									_dark: { bg: '$dark50' },
 								}}
 								pb={'$2'}
 							>

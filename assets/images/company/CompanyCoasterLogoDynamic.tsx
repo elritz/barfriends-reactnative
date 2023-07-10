@@ -1,6 +1,7 @@
+import { useReactiveVar } from '@apollo/client'
 import { defaulttheme } from '@assets/theme/default'
+import { ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { useTheme } from 'native-base'
 import { Ellipse, Path, Rect, Svg, Defs, G } from 'react-native-svg'
 
 interface Props {
@@ -16,13 +17,12 @@ const CompanyCoasterLogoDynamic: React.FC<Props> = ({
 	backgroundColor,
 	iconColor,
 }: Props) => {
-	const theme = useTheme()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	CompanyCoasterLogoDynamic.defaultProps = {
 		width: 100,
 		height: 100,
-		backgroundColor: colorScheme === 'light' ? 'white' : 'black',
+		backgroundColor: rTheme.colorScheme === 'light' ? 'white' : 'black',
 		iconColor: defaulttheme.barfriends.dark.primary,
 	}
 
