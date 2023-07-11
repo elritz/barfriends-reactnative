@@ -8,6 +8,7 @@ export * from './Heading';
 export * from './Hstack';
 export * from './Icons';
 export * from './Input';
+export * from './Modal';
 export * from './Pressable';
 export * from './Progress';
 export * from './Spinner';

@@ -1,5 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button, Center, Divider, HStack, Heading, Modal, Text, VStack } from '@components/core'
 import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS } from '@constants/StorageConstants'
+import { Ionicons } from '@expo/vector-icons'
 import { LocalStoragePreferenceAskNotificationPermissionType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
@@ -7,7 +9,6 @@ import {
 	PreferencePermissionNotificationReactiveVar,
 } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
 const NotificationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	const router = useRouter()
@@ -17,59 +18,55 @@ const NotificationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	return (
 		<Center>
 			<Modal isOpen={isOpen} onClose={onClose}>
-				<Modal.Content w={'95%'}>
-					<Modal.Header>Notifications</Modal.Header>
-					<Modal.CloseButton />
-					<Modal.Body
-						mt={2}
-						_scrollview={{
-							scrollEnabled: false,
-						}}
-					>
-						<Text fontSize={'lg'} pb={3}>
-							Allow notifications, get notified when your friends invite you out, join bars and events in
-							your area.
-						</Text>
-						<VStack space={2}>
-							<Button
-								onPress={async () => {
-									await AsyncStorage.setItem(
-										LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
-										JSON.stringify({
-											...DaysPreferencePermissionInitialState,
-											numberOfTimesDismissed: rPreferenceNotificationPermission?.numberOfTimesDismissed
-												? rPreferenceNotificationPermission.numberOfTimesDismissed + 1
-												: 1,
-										} as LocalStoragePreferenceAskNotificationPermissionType),
-									)
-									onClose()
-								}}
-								variant={'ghost'}
-								size={'lg'}
-								_text={{
-									fontSize: 'xl',
-								}}
-							>
-								Ask later
-							</Button>
-							<Divider />
-							<Button
-								onPress={() =>
-									router.push({
-										pathname: '(app)/permission/notifications',
-									})
-								}
-								variant={'ghost'}
-								size={'lg'}
-								_text={{
-									fontSize: 'xl',
-								}}
-							>
-								Allow
-							</Button>
-						</VStack>
-					</Modal.Body>
-				</Modal.Content>
+				<Modal.Header>
+					<HStack justifyContent='space-between'>
+						<Heading>Notifications</Heading>
+						<Ionicons name='close' size={20} />
+					</HStack>
+				</Modal.Header>
+				<Modal.Body
+					mt={'$2'}
+					// _scrollview={{
+					// 	scrollEnabled: false,
+					// }}
+				>
+					<Text fontSize={'$lg'} pb={'$3'}>
+						Allow notifications, get notified when your friends invite you out, join bars and events in
+						your area.
+					</Text>
+					<VStack space={'md'}>
+						<Button
+							onPress={async () => {
+								await AsyncStorage.setItem(
+									LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
+									JSON.stringify({
+										...DaysPreferencePermissionInitialState,
+										numberOfTimesDismissed: rPreferenceNotificationPermission?.numberOfTimesDismissed
+											? rPreferenceNotificationPermission.numberOfTimesDismissed + 1
+											: 1,
+									} as LocalStoragePreferenceAskNotificationPermissionType),
+								)
+								onClose()
+							}}
+							variant={'link'}
+							size={'lg'}
+						>
+							<Text>Ask later</Text>
+						</Button>
+						<Divider />
+						<Button
+							onPress={() =>
+								router.push({
+									pathname: '(app)/permission/notifications',
+								})
+							}
+							variant={'link'}
+							size={'lg'}
+						>
+							<Text>Allow</Text>
+						</Button>
+					</VStack>
+				</Modal.Body>
 			</Modal>
 		</Center>
 	)

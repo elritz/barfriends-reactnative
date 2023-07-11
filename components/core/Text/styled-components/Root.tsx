@@ -1,85 +1,82 @@
-import { styled } from '../../styled'
-import { Text } from 'react-native'
+import { Text } from 'react-native';
+import { styled } from '../../styled';
 
 export default styled(
-	Text,
-	{
-		color: '$textLight700',
-		fontWeight: '$normal',
-		fontFamily: '$body',
-		fontStyle: 'normal',
-		letterSpacing: '$md',
-		_dark: {
-			color: '$textDark0',
-		},
-		_light: {
-			color: '$textLight950',
-		},
-		variants: {
-			size: {
-				'2xs': {
-					fontSize: '$2xs',
-					lineHeight: '$2xs',
-				},
-				xs: {
-					fontSize: '$xs',
-					lineHeight: '$sm',
-				},
+  Text,
+  {
+    color: '$textLight700',
+    fontWeight: '$normal',
+    fontFamily: '$body',
+    fontStyle: 'normal',
+    letterSpacing: '$md',
 
-				sm: {
-					fontSize: '$sm',
-					lineHeight: '$sm',
-				},
+    variants: {
+      size: {
+        '2xs': {
+          fontSize: '$2xs',
+          lineHeight: '$2xs',
+        },
+        'xs': {
+          fontSize: '$xs',
+          lineHeight: '$sm',
+        },
 
-				md: {
-					fontSize: '$md',
-					lineHeight: '$md',
-				},
+        'sm': {
+          fontSize: '$sm',
+          lineHeight: '$sm',
+        },
 
-				lg: {
-					fontSize: '$lg',
-					lineHeight: '$xl',
-				},
+        'md': {
+          fontSize: '$md',
+          lineHeight: '$md',
+        },
 
-				xl: {
-					fontSize: '$xl',
-					lineHeight: '$xl',
-				},
+        'lg': {
+          fontSize: '$lg',
+          lineHeight: '$xl',
+        },
 
-				'2xl': {
-					fontSize: '$2xl',
-					lineHeight: '$2xl',
-				},
+        'xl': {
+          fontSize: '$xl',
+          lineHeight: '$xl',
+        },
 
-				$3xl: {
-					fontSize: '$3xl',
-					lineHeight: '$3xl',
-				},
+        '2xl': {
+          fontSize: '$2xl',
+          lineHeight: '$2xl',
+        },
 
-				'4xl': {
-					fontSize: '$4xl',
-					lineHeight: '$4xl',
-				},
+        '3xl': {
+          fontSize: '$3xl',
+          lineHeight: '$3xl',
+        },
 
-				'5xl': {
-					fontSize: '$5xl',
-					lineHeight: '$6xl',
-				},
+        '4xl': {
+          fontSize: '$4xl',
+          lineHeight: '$4xl',
+        },
 
-				'6xl': {
-					fontSize: '$6xl',
-					lineHeight: '$7xl',
-				},
-			},
-		},
+        '5xl': {
+          fontSize: '$5xl',
+          lineHeight: '$6xl',
+        },
 
-		defaultProps: {
-			size: 'md',
-		},
+        '6xl': {
+          fontSize: '$6xl',
+          lineHeight: '$7xl',
+        },
+      },
+    },
 
+    defaultProps: {
+      size: 'md',
+    },
 
-	},
-	{
-		ancestorStyle: ['_text'],
-	},
-)
+    _dark: {
+      color: '$textDark200',
+    },
+  },
+  {
+    ancestorStyle: ['_text'],
+  }
+);

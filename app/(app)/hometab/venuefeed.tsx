@@ -25,7 +25,7 @@ import {
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import { Icon, Skeleton } from 'native-base'
 import { useEffect } from 'react'
-import { Dimensions, ScrollView } from 'react-native'
+import { Dimensions, ScrollView, View } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

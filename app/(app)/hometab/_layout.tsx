@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box } from '@components/core'
+import { Box, VStack } from '@components/core'
+import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
 import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profiletab'
@@ -8,17 +9,21 @@ import VenueFeedTab from '@components/molecules/tabbaricons/hometabicons/venuefe
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
+	SEARCH_BAR_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Tabs } from 'expo-router'
+import { Tabs, useRouter } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
+	const router = useRouter()
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const h = insets.top + HEADER_HEIGHT
 
 	return (
 		<Tabs
@@ -36,12 +41,37 @@ export default () => {
 				},
 				tabBarShowLabel: false,
 			}}
-			initialRouteName='venuefeedstack'
+			initialRouteName='venuefeed'
 		>
 			<Tabs.Screen
-				name='venuefeedstack'
+				name='venuefeed'
 				options={{
-					headerShown: false,
+					headerShown: true,
+					header: () => {
+						return (
+							<VStack
+								justifyContent={'flex-end'}
+								sx={{
+									pt: insets.top,
+									h,
+									_light: { bg: '$light100' },
+									_dark: { bg: '$dark50' },
+								}}
+								pb={'$2'}
+							>
+								<SearchInputDisabled
+									onPress={() =>
+										router.push({
+											pathname: '(app)/explore/searchtext',
+											params: {
+												searchtext: '',
+											},
+										})
+									}
+								/>
+							</VStack>
+						)
+					},
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,

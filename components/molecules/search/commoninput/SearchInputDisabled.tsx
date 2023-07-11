@@ -1,7 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Icon, Input, Pressable } from '@components/core'
-import { SearchIcon } from '@components/core/Icons/Icons'
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Box, Icon, Input, Pressable, SearchIcon } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
 
@@ -45,7 +43,6 @@ const SearchInputDisabled = (props: Props) => {
 						name='ios-search'
 						size={23}
 					/>
-					{/* <Icon as={SearchIcon} color='$darkBlue500' /> */}
 				</Input.Icon>
 				<Input.Input
 					alignSelf={'center'}

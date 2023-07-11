@@ -1,6 +1,5 @@
-import index from '../messagestack'
 import { useReactiveVar } from '@apollo/client'
-import { Box, Divider, HStack, Heading, Pressable, Spinner, Text, VStack } from '@components/core'
+import { Box, Divider, HStack, Pressable, Spinner, Text, VStack } from '@components/core'
 import {
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
@@ -16,22 +15,15 @@ import {
 	ThemeReactiveVar,
 	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
-import { useToast } from 'native-base'
 import { useState } from 'react'
-import 'react-native'
-import { ScrollView } from 'react-native'
+import { ScrollView, Alert } from 'react-native'
 
 export default function Preferences() {
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [loading, setIsLoading] = useState(false)
-	const toast = useToast()
-
+	const [isVisible, setIsVisiable] = useState(false)
 	const ITEM_HEIGHT = 60
 
-	// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
-	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS)
-	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS)
-	// await AsyncStorage.removeItem(LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION)
 	return (
 		<ScrollView style={{ maxWidth: '100%' }}>
 			<VStack mx={'$3'} my={'$5'}>
@@ -47,16 +39,26 @@ export default function Preferences() {
 					title: 'Notification Permission Preference',
 					icon: 'notifications',
 					onPress: async () => {
-						await AsyncStorage.setItem(
-							LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
-							JSON.stringify(NowPreferencePermissionInitialState),
-						)
-						PreferencePermissionNotificationReactiveVar({
-							...TomorrowPreferencePermissionInitialState,
-						})
-						toast.show({
-							description: 'Deleted Notification Permission Preference',
-						})
+						Alert.alert('Reset Notifications', 'To reset is to set back to default settings', [
+							{
+								text: 'Reset',
+								onPress: async () => {
+									setIsLoading(true)
+									await AsyncStorage.setItem(
+										LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
+										JSON.stringify(NowPreferencePermissionInitialState),
+									)
+									PreferencePermissionNotificationReactiveVar({
+										...TomorrowPreferencePermissionInitialState,
+									})
+								},
+								style: 'cancel',
+							},
+							{
+								text: 'Cancel',
+								style: 'cancel',
+							},
+						])
 					},
 				},
 				{
@@ -64,16 +66,26 @@ export default function Preferences() {
 					title: 'Foreground location Permission Ask Preference',
 					icon: 'location',
 					onPress: async () => {
-						await AsyncStorage.setItem(
-							LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-							JSON.stringify(NowPreferencePermissionInitialState),
-						)
-						PreferenceForegroundLocationPermissionReactiveVar({
-							...TomorrowPreferencePermissionInitialState,
-						})
-						toast.show({
-							description: 'Deleted Foreground Permission Preference',
-						})
+						Alert.alert('Reset Foreground Location', 'To reset is to set back to default settings', [
+							{
+								text: 'Reset',
+								onPress: async () => {
+									setIsLoading(true)
+									await AsyncStorage.setItem(
+										LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
+										JSON.stringify(NowPreferencePermissionInitialState),
+									)
+									PreferenceForegroundLocationPermissionReactiveVar({
+										...TomorrowPreferencePermissionInitialState,
+									})
+								},
+								style: 'cancel',
+							},
+							{
+								text: 'Cancel',
+								style: 'cancel',
+							},
+						])
 					},
 				},
 				{
@@ -81,17 +93,26 @@ export default function Preferences() {
 					title: 'Background location Permission Ask Preference',
 					icon: 'map-sharp',
 					onPress: async () => {
-						setIsLoading(true)
-						await AsyncStorage.setItem(
-							LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
-							JSON.stringify(NowPreferencePermissionInitialState),
-						)
-						PreferenceBackgroundLocationPermissionReactiveVar({
-							...TomorrowPreferencePermissionInitialState,
-						})
-						toast.show({
-							description: 'Deleted Background Permission Preference',
-						})
+						Alert.alert('Reset Background Location', 'To reset is to set back to default settings', [
+							{
+								text: 'Reset',
+								onPress: async () => {
+									setIsLoading(true)
+									await AsyncStorage.setItem(
+										LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
+										JSON.stringify(NowPreferencePermissionInitialState),
+									)
+									PreferenceBackgroundLocationPermissionReactiveVar({
+										...TomorrowPreferencePermissionInitialState,
+									})
+								},
+								style: 'cancel',
+							},
+							{
+								text: 'Cancel',
+								style: 'cancel',
+							},
+						])
 						setTimeout(() => {
 							setIsLoading(false)
 						}, 2000)
@@ -116,7 +137,15 @@ export default function Preferences() {
 								alignItems={'center'}
 								justifyContent={'flex-start'}
 							>
-								<Ionicons size={25} name={item.icon} />
+								<Ionicons
+									size={25}
+									name={item.icon}
+									color={
+										rTheme.colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light900
+											: rTheme.theme?.gluestack.tokens.colors.dark900
+									}
+								/>
 								<Text sx={{ maxWidth: 275 }} numberOfLines={2} fontSize={'$md'}>
 									{item.title}
 								</Text>
@@ -126,7 +155,7 @@ export default function Preferences() {
 									<Spinner />
 								) : (
 									<Feather
-										name={'trash'}
+										name={'trash-2'}
 										style={{ marginRight: 3 }}
 										size={20}
 										color={rTheme.theme?.gluestack.tokens.colors.danger500}

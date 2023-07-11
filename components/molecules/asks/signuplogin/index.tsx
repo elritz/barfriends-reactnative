@@ -19,7 +19,7 @@ export default (props: Props) => {
 
 	return (
 		<VStack space='lg'>
-			<Box bg='transparent'>
+			<Box bg='$transparent'>
 				<Heading
 					numberOfLines={3}
 					ellipsizeMode='tail'
@@ -53,7 +53,9 @@ export default (props: Props) => {
 							pathname: '(app)/credential/personalcredentialstack',
 						})
 					}
-					w={'95%'}
+					sx={{
+						w: '95%',
+					}}
 					rounded={'$md'}
 				>
 					<Text

@@ -12,7 +12,7 @@ module.exports = function (api) {
 		],
 		plugins: [
 			// ['transform-remove-console'],
-			require.resolve('expo-router/babel'),
+			'expo-router/babel',
 			'module:react-native-dotenv',
 			[
 				'module-resolver',

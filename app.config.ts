@@ -14,6 +14,8 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				userInterfaceStyle: 'automatic',
 				primaryColor: '#FF7000',
 				plugins: [
+					'expo-router',
+					'sentry-expo',
 					'expo-build-properties',
 					[
 						'expo-contacts',
@@ -137,6 +139,8 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				scheme: 'barfriends-staging',
 				orientation: 'portrait',
 				plugins: [
+					'expo-router',
+					'sentry-expo',
 					['expo-build-properties'],
 					'expo-localization',
 					[
@@ -264,6 +268,8 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				plugins: [
+					'expo-router',
+					'sentry-expo',
 					[
 						'expo-build-properties',
 						{

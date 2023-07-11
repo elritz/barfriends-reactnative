@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Divider } from '@components/core'
+import { Box } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import PreferenceNotificationPermission from '@components/molecules/permissions/preferencenotificationpermission/PreferenceNotificationPermission'
 import PersonalScreen from '@components/screens/profile/personalprofile/PersonalProfile'
@@ -39,11 +39,8 @@ export default () => {
 		switch (param) {
 			case ProfileType.Guest:
 				return (
-					<Box my={'$10'} mx={'$3'} flex={1}>
-						<View>
-							<CardPleaseSignup signupTextId={4} />
-							<Divider style={{ marginVertical: 20 }} />
-						</View>
+					<Box m={'$2'} p={'$5'} pt={'$10'}>
+						<CardPleaseSignup signupTextId={4} />
 					</Box>
 				)
 			case ProfileType.Personal:
