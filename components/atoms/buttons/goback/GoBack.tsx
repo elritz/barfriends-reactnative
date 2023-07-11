@@ -6,15 +6,15 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 interface ButtonProps {
 	children: React.ReactNode
 	height: number
-	width: number
+	width?: number
 }
 
 const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	const rotuer = useRouter()
 
 	GoBack.defaultProps = {
-		width: wp(10),
-		height: wp(10),
+		width: 40,
+		height: wp(15),
 	}
 
 	const handleOnPress = () => {
@@ -26,11 +26,12 @@ const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	return (
 		<Pressable
 			style={{
-				width,
+				// backgroundColor: 'red',
+				flex: 1,
+				maxWidth: width,
 				height,
 				alignItems: 'center',
 				justifyContent: 'center',
-				borderRadius: 50,
 			}}
 			onPress={() => handleOnPress()}
 		>

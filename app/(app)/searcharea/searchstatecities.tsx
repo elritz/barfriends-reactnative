@@ -6,14 +6,15 @@ import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/generated'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { SearchAreaReactiveVar } from '@reactive'
+import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter, uniqueId } from 'lodash'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // TODO: FN(When done save this data to the backend as recent SearchAreas)
 type CityState = {
@@ -22,10 +23,10 @@ type CityState = {
 }
 export default function SearchAreaStateCities() {
 	const router = useRouter()
-	const params = useSearchParams()
-
+	const params = useLocalSearchParams()
 	const { top, bottom } = useSafeAreaInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const [popularCities, setPopularCities] = useState<CityResponseObject[] | undefined | null>([])
 	const [allCities, setAllCities] = useState<CityResponseObject[] | undefined | null>([])
@@ -101,20 +102,26 @@ export default function SearchAreaStateCities() {
 					}}
 					renderItem={({ index, item }) => {
 						return (
-							<Skeleton
-								h='50'
-								rounded='md'
-								my={1}
-								speed={0.95}
-								_light={{
-									startColor: 'coolGray.100',
-									endColor: 'coolGray.300',
-								}}
-								_dark={{
-									startColor: 'dark.200',
-									endColor: 'dark.300',
-								}}
-							/>
+							<View style={{ marginVertical: 2 }}>
+								<Skeleton
+									key={uniqueId()}
+									height={50}
+									width={'100%'}
+									radius={15}
+									colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
+								/>
+							</View>
 						)
 					}}
 				/>

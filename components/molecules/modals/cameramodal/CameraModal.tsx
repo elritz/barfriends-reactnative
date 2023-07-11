@@ -1,9 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
+import { Box, Button, Center, Modal, Text } from '@components/core'
 import { useGetSecureFriendQrCodeDataQuery, useQrAddFriendMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar, PermissionCameraReactiveVar } from '@reactive'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as Haptics from 'expo-haptics'
-import { Box, Button, Center, Modal } from 'native-base'
 import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
@@ -85,8 +85,14 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 							style={StyleSheet.absoluteFillObject}
 						/>
 					)}
-					<Box h={'100%'} alignItems={'center'} justifyContent={'flex-end'} pb={10}>
-						<Box p={3} borderRadius={'md'} bg={'dark.50'}>
+					<Box
+						bg='$transparent'
+						sx={{ h: '100%' }}
+						alignItems={'center'}
+						justifyContent={'flex-end'}
+						pb={'$4'}
+					>
+						<Box p={'$3'} borderRadius={'$md'} bg={'$dark50'}>
 							{dataQR && (
 								<QRCode
 									size={120}
@@ -101,11 +107,11 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 						</Box>
 					</Box>
 					<Modal.Footer>
-						<Button variant='unstyled' mr='1' onPress={onClose}>
-							Cancel
+						<Button variant='link' mr='$1' onPress={onClose}>
+							<Text>Cancel</Text>
 						</Button>
-						<Button colorScheme='error' onPress={onClose}>
-							Delete
+						<Button bg='$error500' onPress={onClose}>
+							<Text>Delete</Text>
 						</Button>
 					</Modal.Footer>
 				</Modal.Content>

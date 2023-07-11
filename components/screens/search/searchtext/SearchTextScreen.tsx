@@ -7,18 +7,14 @@ import {
 } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useLocalSearchParams } from 'expo-router'
-import { Skeleton } from 'native-base'
-import { useEffect, useState } from 'react'
+import { Skeleton } from 'moti/skeleton'
+import { useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type HItem = {
-	search: string
-}
-
-type SearchItem = {
 	search: string
 }
 
@@ -27,6 +23,7 @@ const SearchTextScreen = () => {
 	const insets = useSafeAreaInsets()
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
 		onCompleted: data => {},
@@ -99,20 +96,58 @@ const SearchTextScreen = () => {
 								}}
 							>
 								<Skeleton
-									h='40px'
-									w={'40px'}
-									borderRadius={'md'}
-									speed={0.95}
-									_light={{
-										startColor: 'coolGray.100',
-										endColor: 'coolGray.300',
-									}}
-									_dark={{
-										startColor: 'dark.200',
-										endColor: 'dark.300',
-									}}
+									height={40}
+									width={40}
+									radius={15}
+									colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
 								/>
-								<Skeleton.Text px='4' lines={2} />
+								<VStack px={'$2'}>
+									<Skeleton
+										height={40}
+										width={'100%'}
+										radius={15}
+										colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+										colors={
+											rTheme.colorScheme === 'light'
+												? [
+														String(rTheme.theme?.gluestack.tokens.colors.light100),
+														String(rTheme.theme?.gluestack.tokens.colors.light300),
+												  ]
+												: [
+														String(rTheme.theme?.gluestack.tokens.colors.dark100),
+														String(rTheme.theme?.gluestack.tokens.colors.dark300),
+												  ]
+										}
+									/>
+									<Skeleton
+										height={40}
+										width={'100%'}
+										radius={15}
+										colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+										colors={
+											rTheme.colorScheme === 'light'
+												? [
+														String(rTheme.theme?.gluestack.tokens.colors.light100),
+														String(rTheme.theme?.gluestack.tokens.colors.light300),
+												  ]
+												: [
+														String(rTheme.theme?.gluestack.tokens.colors.dark100),
+														String(rTheme.theme?.gluestack.tokens.colors.dark300),
+												  ]
+										}
+									/>
+								</VStack>
 							</HStack>
 						)
 					}}

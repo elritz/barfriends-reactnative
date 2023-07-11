@@ -1,28 +1,27 @@
+import { Button, Modal, Text } from '@components/core'
 import { useRouter } from 'expo-router'
-import { Button, Modal } from 'native-base'
 
 type Props = {
 	isOpen: boolean
 	onClose: () => void
 }
+
 export default function SignupAskModal({ isOpen, onClose }: Props) {
 	const router = useRouter()
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
-			<Modal.Content w={'95%'}>
+			<Modal.Content sx={{ w: '95%' }}>
 				<Modal.CloseButton />
-				<Modal.Header fontSize='4xl' fontWeight='bold'>
-					Account Sign up
-				</Modal.Header>
+				<Modal.Header>Account Sign up</Modal.Header>
 				<Modal.Body>
 					To do cool things. You'll need to be cool and create an account for yourself.
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant='unstyled' mr='1' onPress={onClose}>
-						Later
+					<Button variant='link' mr='$1' onPress={onClose}>
+						<Text>Later</Text>
 					</Button>
 					<Button
-						colorScheme='primary'
+						bg='$primary500'
 						onPress={() => {
 							onClose()
 							router.push({
@@ -30,7 +29,7 @@ export default function SignupAskModal({ isOpen, onClose }: Props) {
 							})
 						}}
 					>
-						Continue
+						<Text>Continue</Text>
 					</Button>
 				</Modal.Footer>
 			</Modal.Content>

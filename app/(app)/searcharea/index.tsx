@@ -80,7 +80,7 @@ export default () => {
 			}}
 		>
 			<VStack space={'md'} my={'$4'}>
-				<Box>
+				<Box bg={'$transparent'}>
 					<Heading fontSize={'$lg'}>Distance</Heading>
 					<Text fontSize={'$lg'}>Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away</Text>
 					<HStack space={'md'} justifyContent={'space-around'}>

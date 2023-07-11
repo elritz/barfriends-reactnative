@@ -6,10 +6,10 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useRouter, useLocalSearchParams } from 'expo-router'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -22,6 +22,7 @@ export default () => {
 	const params = useLocalSearchParams()
 	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
 		fetchPolicy: 'cache-first',
@@ -68,20 +69,24 @@ export default () => {
 							}}
 						>
 							<Skeleton
-								speed={0.95}
-								_light={{
-									startColor: 'coolGray.100',
-									endColor: 'coolGray.300',
-								}}
-								_dark={{
-									startColor: 'dark.200',
-									endColor: 'dark.300',
-								}}
-								h='40px'
-								w={'40px'}
-								borderRadius={'md'}
+								height={40}
+								width={40}
+								radius={15}
+								colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								colors={
+									rTheme.colorScheme === 'light'
+										? [
+												String(rTheme.theme?.gluestack.tokens.colors.light100),
+												String(rTheme.theme?.gluestack.tokens.colors.light300),
+										  ]
+										: [
+												String(rTheme.theme?.gluestack.tokens.colors.dark100),
+												String(rTheme.theme?.gluestack.tokens.colors.dark300),
+										  ]
+								}
 							/>
-							<Skeleton.Text px='4' lines={2}></Skeleton.Text>
+							<Skeleton width={'100%'} height={20} />
+							<Skeleton width={'100%'} height={20} />
 						</HStack>
 					)
 				}}

@@ -7,6 +7,8 @@ export enum SystemsOfUnits {
 	Metric = 'Metric',
 }
 
+
+
 export type DefaultPreferenceToPermission = {
 	dateToShowAgain: DateTime
 	numberOfTimesDismissed: number

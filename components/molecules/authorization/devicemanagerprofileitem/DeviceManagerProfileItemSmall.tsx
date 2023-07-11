@@ -1,6 +1,8 @@
-import { Heading } from '@components/core'
+import { useReactiveVar } from '@apollo/client'
+import { Box, HStack, Heading, Text, VStack } from '@components/core'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { Text, Icon, Image, Box, HStack, VStack } from 'native-base'
+import { ThemeReactiveVar } from '@reactive'
+import { Image } from 'react-native'
 import { ActivityIndicator } from 'react-native'
 
 type ProfileItemType = {
@@ -11,16 +13,16 @@ type ProfileItemType = {
 }
 
 const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: ProfileItemType) => {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	return (
-		<Box key={item.id} my={2} p={2} px={3} borderRadius={'md'}>
+		<Box key={item.id} my={'$2'} p={'$2'} px={'$3'} rounded={'$md'}>
 			<Image
-				alt={'Profile photo'}
 				source={{ uri: item.Profile.photos[0].url }}
 				style={{ width: 40, height: 40, borderRadius: 4 }}
 			/>
 			<HStack style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-				<VStack mx={2}>
-					<Text fontSize={'lg'} numberOfLines={1} isTruncated>
+				<VStack mx={'$2'}>
+					<Text fontSize={'$lg'} numberOfLines={1}>
 						{item?.IdentifiableInformation?.fullname}
 					</Text>
 					<Heading fontSize={'$sm'}>{item?.IdentifiableInformation?.username}</Heading>
@@ -29,9 +31,17 @@ const ProfileItemSmall = ({ item, loading, isActive, selectedProfileId }: Profil
 			{!loading ? (
 				<>
 					{isActive ? (
-						<Icon name='ios-checkmark-circle' as={Ionicons} colorScheme={'primary'} size={'xl'} />
+						<Ionicons
+							name='ios-checkmark-circle'
+							color={rTheme.theme?.gluestack.tokens.colors.primary500}
+							size={30}
+						/>
 					) : (
-						<Icon name='radio-button-unchecked' as={MaterialIcons} colorScheme={'danger'} size={'xl'} />
+						<MaterialIcons
+							name='radio-button-unchecked'
+							color={rTheme.theme?.gluestack.tokens.colors.error500}
+							size={30}
+						/>
 					)}
 				</>
 			) : (

@@ -205,7 +205,6 @@ export default () => {
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input
-							
 								ref={_emailRef}
 								key={'email'}
 								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}

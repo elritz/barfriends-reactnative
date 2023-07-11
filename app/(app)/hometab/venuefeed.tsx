@@ -21,9 +21,10 @@ import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
 	SearchAreaReactiveVar,
+	ThemeReactiveVar,
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
-import { Icon, Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
 import { Dimensions, ScrollView, View } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
@@ -32,6 +33,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default () => {
 	const insets = useSafeAreaInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 	const width = Dimensions.get('window').width / 2.15
@@ -121,24 +123,25 @@ export default () => {
 				ListHeaderComponent={<ListheaderComponent typename={data?.venuesNearby.__typename} />}
 				renderItem={({ item }) => {
 					return (
-						<Skeleton
-							h={'260'}
-							w={width}
-							rounded={'md'}
-							style={{
-								alignSelf: 'center',
-								overflow: 'hidden',
-							}}
-							speed={0.95}
-							_light={{
-								startColor: 'coolGray.100',
-								endColor: 'coolGray.300',
-							}}
-							_dark={{
-								startColor: 'dark.200',
-								endColor: 'dark.300',
-							}}
-						/>
+						<View style={{ alignSelf: 'center' }}>
+							<Skeleton
+								height={260}
+								width={width}
+								radius={15}
+								colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								colors={
+									rTheme.colorScheme === 'light'
+										? [
+												String(rTheme.theme?.gluestack.tokens.colors.light100),
+												String(rTheme.theme?.gluestack.tokens.colors.light300),
+										  ]
+										: [
+												String(rTheme.theme?.gluestack.tokens.colors.dark100),
+												String(rTheme.theme?.gluestack.tokens.colors.dark300),
+										  ]
+								}
+							/>
+						</View>
 					)
 				}}
 				ItemSeparatorComponent={() => <Box bg='transparent' h={'$12'} />}

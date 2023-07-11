@@ -2,6 +2,7 @@
 import { useReactiveVar } from '@apollo/client'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import { HStack, Input } from '@components/core'
+import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { ThemeReactiveVar } from '@reactive'
@@ -9,7 +10,7 @@ import useDebounce from '@util/hooks/useDebounce'
 import { useLocalSearchParams, useRouter, useSegments } from 'expo-router'
 import { useEffect, useMemo, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard, TextInput } from 'react-native'
+import { TextInput } from 'react-native'
 
 const SearchTextScreenInput = () => {
 	const _searchRef = useRef<TextInput>()
@@ -89,7 +90,7 @@ const SearchTextScreenInput = () => {
 	}, [debouncedSearchResults])
 
 	return (
-		<HStack>
+		<HStack position={'relative'} flex={1}>
 			<ChevronBackArrow />
 			<Controller
 				control={control}
@@ -132,55 +133,6 @@ const SearchTextScreenInput = () => {
 							}}
 						/>
 					</Input>
-					// <Input
-					// 	ref={_searchRef}
-					// 	_light={{ bgColor: 'light.200' }}
-					// 	_dark={{ bgColor: 'dark.200' }}
-
-					// 	leftElement={
-					// 		<Ionicons
-					// 			size={25}
-					// 			ml={'$2'}
-					// 			name='ios-search'
-					// 			color={
-					// 				rTheme.colorScheme === 'light'
-					// 					? rTheme.theme?.gluestack.tokens.colors.light600
-					// 					: rTheme.theme?.gluestack.tokens.colors.dark900
-					// 			}
-					// 		/>
-					// 	}
-					// 	rightElement={
-					// 		<HStack alignItems={'center'}>
-					// 			{value.length ? (
-					// 				<Button
-					// 					variant={'link'}
-					// 					p={'$1'}
-					// 					py={'$2'}
-					// 					isDisabled={!value.length}
-					// 					onPress={clearSearchInput}
-					// 				>
-					// 					<Ionicons
-					// 						color={
-					// 							rTheme.colorScheme === 'light'
-					// 								? rTheme.theme?.gluestack.tokens.colors.light600
-					// 								: rTheme.theme?.gluestack.tokens.colors.dark600
-					// 						}
-					// 						name='close-circle'
-					// 					/>
-					// 				</Button>
-					// 			) : null}
-					// 			<Button
-					// 				onPress={() => {
-					// 					clearSearchInput()
-					// 					router.back()
-					// 				}}
-					// 				variant={'link'}
-					// 			>
-					// 				<Text lineHeight={'$xs'}>Cancel</Text>
-					// 			</Button>
-					// 		</HStack>
-					// 	}
-					// />
 				)}
 			/>
 		</HStack>

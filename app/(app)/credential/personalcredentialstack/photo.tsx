@@ -12,7 +12,7 @@ import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploa
 import * as ImagePicker from 'expo-image-picker'
 import * as MediaLibrary from 'expo-media-library'
 import { useRouter } from 'expo-router'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useEffect, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Image } from 'react-native'
@@ -174,8 +174,8 @@ export default () => {
 						}}
 						source={watchValues?.photo?.uri ? { uri: watchValues.photo.uri } : UserFemaleIllustration}
 					/>
-					<Box mb={'$2'} mx={'$2'} rounded={'md'} p={5}>
-						<VStack my={2} alignItems={'center'}>
+					<Box mb={'$2'} mx={'$2'} rounded={'$md'} p={'$5'}>
+						<VStack my={'$2'} alignItems={'center'}>
 							<Text px={'$2'}>
 								Continue with your profile setup, use your own photos to share and create the style that
 								reflect you the best.
@@ -202,19 +202,21 @@ export default () => {
 								{[...Array(3)].map((item, index) => {
 									return (
 										<Skeleton
-											m={0.27}
-											key={index}
-											speed={0.95}
-											_light={{
-												startColor: 'coolGray.100',
-												endColor: 'coolGray.300',
-											}}
-											_dark={{
-												startColor: 'dark.200',
-												endColor: 'dark.300',
-											}}
-											h={window.width / 3}
-											w={window.width / 3}
+											height={window.width / 3}
+											width={window.width / 3}
+											radius={15}
+											colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+											colors={
+												rTheme.colorScheme === 'light'
+													? [
+															String(rTheme.theme?.gluestack.tokens.colors.light100),
+															String(rTheme.theme?.gluestack.tokens.colors.light300),
+													  ]
+													: [
+															String(rTheme.theme?.gluestack.tokens.colors.dark100),
+															String(rTheme.theme?.gluestack.tokens.colors.dark300),
+													  ]
+											}
 										/>
 									)
 								})}

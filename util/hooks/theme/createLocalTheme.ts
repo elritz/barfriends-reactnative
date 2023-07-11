@@ -1,8 +1,7 @@
 import { defaulttheme } from '@assets/theme/default'
-import { config, Config } from 'gluestack-ui.config'
 import { DefaultTheme as ReactNavigationDefaultTheme } from '@react-navigation/native'
 import { IBFSTheme } from '@reactive'
-import { extendTheme } from 'native-base'
+import { config, Config } from 'gluestack-ui.config'
 import { ColorSchemeName } from 'react-native'
 
 type Props = {
@@ -10,17 +9,6 @@ type Props = {
 }
 
 const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
-	const createNewNativeBaseTheme = () => {
-		return extendTheme({
-			colors: themeScheme === 'dark' ? defaulttheme.nativebase : defaulttheme.nativebase,
-
-			config: {
-				useSystemColorMode: themeScheme !== 'dark' && themeScheme !== 'light' ? true : false,
-				initialColorMode: themeScheme,
-			},
-		})
-	}
-
 	const reactNavigationTheme =
 		themeScheme === 'dark' ? defaulttheme.reactnavigation.dark : defaulttheme.reactnavigation.light
 
@@ -48,7 +36,6 @@ const createLocalDefaultTheme = ({ themeScheme }: Props): IBFSTheme => {
 			},
 		},
 		gluestack: createGlueStackTheme,
-		nativebase: { ...createNewNativeBaseTheme() },
 	}
 }
 

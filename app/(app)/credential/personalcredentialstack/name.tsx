@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Heading, Input, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
@@ -17,7 +17,7 @@ export default () => {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const { bottom } = useSafeAreaInsets()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	// const _firstnameRef = useRef<IInputProps | null>(null)
 	const _firstnameRef = useRef<TextInputProps | null>(null)
@@ -127,7 +127,7 @@ export default () => {
 							<Input ref={_firstnameRef} key={'name'} variant={'underlined'} py={'$1'} size={'lg'}>
 								<Input.Input
 									ref={_firstnameRef}
-									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									key={'name'}
 									returnKeyType='next'
 									textContentType='givenName'
@@ -162,7 +162,7 @@ export default () => {
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input ref={_lastnameRef} key={'lname'} variant={'underlined'} py={'$1'} size={'lg'}>
 								<Input.Input
-									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									key={'lastname'}
 									returnKeyType='done'
 									textContentType='givenName'

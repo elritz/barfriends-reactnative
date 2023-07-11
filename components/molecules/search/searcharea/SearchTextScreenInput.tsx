@@ -1,11 +1,12 @@
 // TODO: UX() get the navigation route here as well default values from form
+import { useReactiveVar } from '@apollo/client'
+import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { Box, HStack, Input } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
-import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { ThemeReactiveVar } from '@reactive'
 import useDebounce from '@util/hooks/useDebounce'
 import { useRouter, useSegments } from 'expo-router'
-import { Box, Button, HStack, Icon, IconButton, Input, Text } from 'native-base'
 import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
@@ -13,7 +14,7 @@ import { Keyboard } from 'react-native'
 const SearchTextScreenInput = () => {
 	const router = useRouter()
 	const segments = useSegments()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const {
 		control,
@@ -79,65 +80,31 @@ const SearchTextScreenInput = () => {
 	}
 
 	return (
-		<Box h={`${SEARCH_BAR_HEIGHT}px`}>
+		<Box
+			bg='$transparent'
+			sx={{
+				h: SEARCH_BAR_HEIGHT,
+			}}
+		>
 			<HStack alignItems={'center'}>
-				<IconButton
-					isFocusVisible={false}
-					_hover={{
-						bg: 'transparent',
-					}}
-					_pressed={{
-						bg: 'transparent',
-					}}
-					_focus={{
-						bg: 'transparent',
-					}}
-					icon={
-						<Icon
-							as={Ionicons}
-							size={'xl'}
-							name='arrow-back'
-							_light={{ color: 'light.600' }}
-							_dark={{ color: 'dark.400' }}
-						/>
-					}
-					w={'50px'}
-					h={45}
-					onPress={goBack}
-				/>
+				<ChevronBackArrow />
 				<Controller
 					control={control}
 					name='searchtext'
 					render={({ field: { value, onChange } }) => (
-						<Input
-							variant={'unstyled'}
-							_light={{ bgColor: 'light.200' }}
-							_dark={{ bgColor: 'dark.200' }}
-							flex={1}
-							mr={2}
-							rounded={'lg'}
-							h={SEARCH_BAR_HEIGHT}
-							_input={{
-								fontSize: 'lg',
-							}}
-							autoFocus
-							onChangeText={onChange}
-							keyboardAppearance={colorScheme}
-							placeholder={props.placeholder}
-							returnKeyType='search'
-							underlineColorAndroid='transparent'
-							placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
-							InputLeftElement={
-								<Icon
-									as={Ionicons}
-									_light={{ color: 'light.600' }}
-									_dark={{ color: 'dark.900' }}
-									name='ios-search'
-									size={'md'}
-									ml={2}
-								/>
-							}
-						/>
+						<Input variant={'rounded'} alignSelf={'center'} h={SEARCH_BAR_HEIGHT}>
+							<Input.Input
+								placeholder={'Search'}
+								returnKeyType='search'
+								underlineColorAndroid='transparent'
+								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								flex={1}
+								mr={'$2'}
+								autoFocus
+								onChangeText={onChange}
+								placeholderTextColor={rTheme.colorScheme === 'light' ? '$light900' : '$dark900'}
+							/>
+						</Input>
 					)}
 				/>
 			</HStack>

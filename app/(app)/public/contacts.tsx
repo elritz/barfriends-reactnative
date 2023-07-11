@@ -7,13 +7,13 @@ import {
 	SEARCH_BAR_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
-import { ContactsReactiveVar, PermissionContactsReactiveVar } from '@reactive'
+import { ContactsReactiveVar, PermissionContactsReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useDisclose } from '@util/hooks/useDisclose'
 import * as Contacts from 'expo-contacts'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useEffect, useState } from 'react'
 import { Alert, Platform, Share } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -22,6 +22,7 @@ export default () => {
 	const params = useLocalSearchParams()
 	const insets = useSafeAreaInsets()
 	const rContactsVar = useReactiveVar(ContactsReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rPermissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(true)
@@ -114,33 +115,24 @@ export default () => {
 								alignItems={'center'}
 							>
 								<Skeleton
-									speed={0.95}
-									_light={{
-										startColor: 'coolGray.100',
-										endColor: 'coolGray.200',
-									}}
-									_dark={{
-										startColor: 'dark.200',
-										endColor: 'dark.300',
-									}}
-									h='40px'
-									flex={1}
-									borderRadius={'md'}
+									height={40}
+									width={'100%'}
+									radius={15}
+									colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
 								/>
-								<Skeleton
-									speed={0.95}
-									_light={{
-										startColor: 'coolGray.100',
-										endColor: 'coolGray.200',
-									}}
-									_dark={{
-										startColor: 'dark.200',
-										endColor: 'dark.300',
-									}}
-									h='40px'
-									w={'70px'}
-									borderRadius={'md'}
-								/>
+
+								<Skeleton height='40px' width={'70px'} radius={15} />
 							</HStack>
 						)
 					}}

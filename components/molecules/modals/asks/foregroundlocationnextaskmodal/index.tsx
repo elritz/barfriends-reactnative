@@ -1,15 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button, Center, Divider, Modal, Text, VStack } from '@components/core'
+import { DaysPreferencePermissionInitialState } from '@constants/Preferences'
 import { LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskForegroundLocationPermissionType } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-	DaysFuturePreferenceForegroundLocationPermissionInitialState,
-	DaysPreferencePermissionInitialState,
-	PreferenceForegroundLocationPermissionReactiveVar,
-	TomorrowPreferencePermissionInitialState,
-} from '@reactive'
+import { PreferenceForegroundLocationPermissionReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
 const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	const router = useRouter()
@@ -24,16 +20,16 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 					<Modal.Header>Foreground location</Modal.Header>
 					<Modal.CloseButton />
 					<Modal.Body
-						mt={2}
+						mt={'$2'}
 						_scrollview={{
 							scrollEnabled: false,
 						}}
 					>
-						<Text fontSize={'lg'} pb={3}>
+						<Text fontSize={'$lg'} pb={'$3'}>
 							By enabling foreground location, it helps you to go out, find events and it allows you to
 							join bars.
 						</Text>
-						<VStack space={2}>
+						<VStack space={'md'}>
 							<Button
 								onPress={async () => {
 									const values = {
@@ -51,14 +47,10 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 									})
 									onClose()
 								}}
-								variant={'ghost'}
+								variant={'link'}
 								size={'lg'}
-								_text={{
-									fontWeight: 'bold',
-									fontSize: 'md',
-								}}
 							>
-								Not now
+								<Text>Not now</Text>
 							</Button>
 							<Divider />
 							<Button
@@ -67,13 +59,10 @@ const ForegroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 										pathname: '(app)/permission/foregroundlocation',
 									})
 								}
-								variant={'ghost'}
+								variant={'link'}
 								size={'lg'}
-								_text={{
-									fontSize: 'md',
-								}}
 							>
-								Continue
+								<Text>Continue</Text>
 							</Button>
 						</VStack>
 					</Modal.Body>

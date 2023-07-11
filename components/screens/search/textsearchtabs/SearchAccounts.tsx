@@ -1,15 +1,19 @@
 import SearchCard from '../components/SearchCard'
+import { useReactiveVar } from '@apollo/client'
 import { Box, Center, Heading } from '@components/core'
 import { useExploreSearchQuery } from '@graphql/generated'
+import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useLocalSearchParams } from 'expo-router'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchAccounts() {
 	const params = useLocalSearchParams()
 	const insets = useSafeAreaInsets()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+
 	const {
 		data,
 		loading: ESLoading,
@@ -32,19 +36,21 @@ export default function SearchAccounts() {
 				renderItem={({ item }) => {
 					return (
 						<Skeleton
-							h={'65px'}
-							w={'95%'}
-							rounded={'md'}
-							alignSelf={'center'}
-							speed={0.95}
-							_light={{
-								startColor: 'coolGray.100',
-								endColor: 'coolGray.300',
-							}}
-							_dark={{
-								startColor: 'dark.200',
-								endColor: 'dark.300',
-							}}
+							height={65}
+							width={'95%'}
+							radius={15}
+							colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+							colors={
+								rTheme.colorScheme === 'light'
+									? [
+											String(rTheme.theme?.gluestack.tokens.colors.light100),
+											String(rTheme.theme?.gluestack.tokens.colors.light300),
+									  ]
+									: [
+											String(rTheme.theme?.gluestack.tokens.colors.dark100),
+											String(rTheme.theme?.gluestack.tokens.colors.dark300),
+									  ]
+							}
 						/>
 					)
 				}}

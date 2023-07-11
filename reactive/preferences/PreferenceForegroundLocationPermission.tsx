@@ -1,6 +1,6 @@
 import { makeVar } from '@apollo/client'
-import { LocalStoragePreferenceAskForegroundLocationPermissionType } from '@preferences'
-import { NowPreferencePermissionInitialState } from './index'
+import { NowPreferencePermissionInitialState } from '@constants/Preferences'
+import { LocalStoragePreferenceAskForegroundLocationPermissionType } from '@ctypes/preferences'
 
 export const PreferenceForegroundLocationPermissionReactiveVar =
 	makeVar<LocalStoragePreferenceAskForegroundLocationPermissionType | null>(

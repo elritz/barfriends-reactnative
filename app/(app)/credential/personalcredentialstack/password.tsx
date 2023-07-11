@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Heading, Input, Pressable, Text } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { useEffect, useRef } from 'react'
@@ -18,7 +18,7 @@ export default function () {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const { bottom } = useSafeAreaInsets()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
@@ -101,7 +101,7 @@ export default function () {
 										ref={_passwordRef}
 										variant={'underlined'}
 										key='password'
-										keyboardAppearance={colorScheme}
+										keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 										value={value}
 										py={2}
 										_input={{

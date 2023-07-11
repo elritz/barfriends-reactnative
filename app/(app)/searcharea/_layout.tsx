@@ -1,9 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, VStack } from '@components/core'
+import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
 import SearchAreaInput from '@components/molecules/search/searcharea/SearchAreaInput'
-import SearchAreaInputDisabled from '@components/molecules/search/searcharea/SearchAreaInputDisabled'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { PlaceType } from '@preferences'
-import { SearchAreaReactiveVar } from '@reactive'
+import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
@@ -56,7 +57,10 @@ export default function _layout() {
 	const router = useRouter()
 	const colorScheme = useThemeColorScheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const insets = useSafeAreaInsets()
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const h = insets.top + HEADER_HEIGHT
 
 	const methods = useForm<Form>({
 		defaultValues: {
@@ -82,20 +86,23 @@ export default function _layout() {
 							return (
 								<VStack
 									justifyContent={'flex-end'}
-									pb={'$3'}
 									sx={{
-										pt: insets.top + 5,
+										pt: insets.top,
+										h,
+										_light: { bg: '$light100' },
+										_dark: { bg: '$dark50' },
 									}}
+									pb={'$2'}
 								>
-									{Platform.OS === 'ios' ? (
-										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
-									) : (
-										<Box style={[StyleSheet.absoluteFill]} flexDirection={'row'} />
-									)}
-									<SearchAreaInputDisabled
+									<SearchInputDisabled
+										withBack
+										placeholder='Search areas'
 										onPress={() =>
 											router.push({
 												pathname: '(app)/searcharea/searchcountry',
+												params: {
+													searchtext: '',
+												},
 											})
 										}
 									/>
@@ -115,13 +122,20 @@ export default function _layout() {
 							return (
 								<VStack
 									justifyContent={'flex-end'}
-									pb={'$3'}
 									sx={{
-										pt: insets.top + 5,
+										pt: insets.top,
+										h,
+										_light: { bg: '$light100' },
+										_dark: { bg: '$dark50' },
 									}}
+									pb={'$2'}
 								>
 									{Platform.OS === 'ios' ? (
-										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+										<BlurView
+											style={StyleSheet.absoluteFill}
+											tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+											intensity={80}
+										/>
 									) : (
 										<Box bg='transparent' style={[StyleSheet.absoluteFill]} />
 									)}
@@ -142,13 +156,20 @@ export default function _layout() {
 							return (
 								<VStack
 									justifyContent={'flex-end'}
-									pb={'$3'}
 									sx={{
-										pt: insets.top + 5,
+										pt: insets.top,
+										h,
+										_light: { bg: '$light100' },
+										_dark: { bg: '$dark50' },
 									}}
+									pb={'$2'}
 								>
 									{Platform.OS === 'ios' ? (
-										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+										<BlurView
+											style={StyleSheet.absoluteFill}
+											tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+											intensity={80}
+										/>
 									) : (
 										<Box style={[StyleSheet.absoluteFill]} />
 									)}

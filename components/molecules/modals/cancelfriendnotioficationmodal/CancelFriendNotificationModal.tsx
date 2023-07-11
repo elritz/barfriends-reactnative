@@ -1,7 +1,7 @@
+import { Button, Modal, Text } from '@components/core'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
 import { useDeleteFriendRequestMutation } from '@graphql/generated'
-import { Button, Modal } from 'native-base'
 
 type Props = {
 	isOpen: boolean
@@ -67,25 +67,23 @@ export default function CancelFriendNotificationModal({
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<Modal.Content w={'95%'}>
 				<Modal.CloseButton />
-				<Modal.Header fontSize='4xl' fontWeight='bold'>
+				<Modal.Header fontSize='$4xl' fontWeight='bold'>
 					Cancel Friend Notification
 				</Modal.Header>
 				<Modal.Body>
 					You can always request to be friends again. Continuing will cancel this friend request
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant='unstyled' mr='1' onPress={onClose}>
-						Back
+					<Button variant='link' mr='$1' onPress={onClose}>
+						<Text>Back</Text>
 					</Button>
 					<Button
-						colorScheme='primary'
 						onPress={() => {
 							deleteFriendRequestMutation()
 						}}
-						isLoading={loading}
-						isLoadingText={'Continue'}
+						disabled={loading}
 					>
-						Cancel
+						<Text>Cancel</Text>
 					</Button>
 				</Modal.Footer>
 			</Modal.Content>

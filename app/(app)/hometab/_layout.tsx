@@ -20,8 +20,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const insets = useSafeAreaInsets()
 	const router = useRouter()
+	const insets = useSafeAreaInsets()
 	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
 	const h = insets.top + HEADER_HEIGHT
 

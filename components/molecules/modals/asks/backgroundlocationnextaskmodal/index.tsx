@@ -1,13 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
+import { Button, Center, Divider, Modal, Text, VStack } from '@components/core'
+import { DaysPreferencePermissionInitialState } from '@constants/Preferences'
 import { LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION } from '@constants/StorageConstants'
 import { LocalStoragePreferenceAskBackgroundLocationPermissionType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-	DaysPreferencePermissionInitialState,
-	PreferenceBackgroundLocationPermissionReactiveVar,
-} from '@reactive'
+import { PreferenceBackgroundLocationPermissionReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Button, Center, Divider, Modal, Text, VStack } from 'native-base'
 
 const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	const router = useRouter()
@@ -18,19 +16,14 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 	return (
 		<Center>
 			<Modal isOpen={isOpen} onClose={onClose}>
-				<Modal.Content w={'95%'}>
+				<Modal.Content sx={{ w: '95%' }}>
 					<Modal.Header>Background location</Modal.Header>
 					<Modal.CloseButton />
-					<Modal.Body
-						mt={2}
-						_scrollview={{
-							scrollEnabled: false,
-						}}
-					>
-						<Text fontSize={'lg'} pb={3}>
+					<Modal.Body mt={'$2'}>
+						<Text fontSize={'$lg'} pb={'$3'}>
 							By enabling background location, it helps you to go out, join bars and find events.
 						</Text>
-						<VStack space={2}>
+						<VStack space={'md'}>
 							<Button
 								onPress={async () => {
 									await AsyncStorage.setItem(
@@ -44,20 +37,21 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 									)
 									onClose()
 								}}
-								variant={'ghost'}
-								_dark={{
-									color: 'dark.900',
-								}}
-								_light={{
-									color: 'dark.900',
-								}}
+								variant={'link'}
 								size={'lg'}
-								_text={{
-									fontWeight: 'bold',
-									fontSize: 'md',
-								}}
 							>
-								Not now
+								<Text
+									sx={{
+										_dark: {
+											color: '$dark900',
+										},
+										_light: {
+											color: '$dark900',
+										},
+									}}
+								>
+									Not now
+								</Text>
 							</Button>
 							<Divider />
 							<Button
@@ -66,13 +60,10 @@ const BackgroundLocationNextAskModal = ({ isOpen, onOpen, onClose }) => {
 										pathname: '(app)/permission/backgroundlocation',
 									})
 								}
-								variant={'ghost'}
+								variant={'link'}
 								size={'lg'}
-								_text={{
-									fontSize: 'md',
-								}}
 							>
-								Continue
+								<Text>Continue</Text>
 							</Button>
 						</VStack>
 					</Modal.Body>

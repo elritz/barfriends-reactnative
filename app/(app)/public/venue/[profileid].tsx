@@ -9,11 +9,11 @@ import VenueTotals from '@components/screens/public/venue/venuetotals/VenueTotal
 import { PUBLIC_VENUE_HEADER_IMAGE_HEIGHT } from '@constants/Layout'
 import { Ionicons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
-import { CurrentLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
+import { CurrentLocationReactiveVar, SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { useLocalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { Alert, Platform, Share, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -26,6 +26,7 @@ export default () => {
 	const params = useLocalSearchParams()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const link = `https://barfriends.com/(app)/public/venue?profileid=${params.profileid}`
 
@@ -79,48 +80,59 @@ export default () => {
 		return (
 			<VStack flex={1} space={'md'}>
 				<Skeleton
-					_light={{
-						startColor: 'coolGray.100',
-						endColor: 'coolGray.300',
-					}}
-					_dark={{
-						startColor: 'dark.200',
-						endColor: 'dark.300',
-					}}
 					key={uniqueId()}
-					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
-					w={'full'}
+					height={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
+					width={'100%'}
+					radius={15}
+					colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+					colors={
+						rTheme.colorScheme === 'light'
+							? [
+									String(rTheme.theme?.gluestack.tokens.colors.light100),
+									String(rTheme.theme?.gluestack.tokens.colors.light300),
+							  ]
+							: [
+									String(rTheme.theme?.gluestack.tokens.colors.dark100),
+									String(rTheme.theme?.gluestack.tokens.colors.dark300),
+							  ]
+					}
 				/>
 				<VStack rounded={'$md'} px={'$2'} space={'md'}>
 					<Skeleton
 						key={uniqueId()}
-						rounded='md'
-						h={'30px'}
-						width={'3/4'}
-						speed={0.95}
-						_light={{
-							startColor: 'coolGray.100',
-							endColor: 'coolGray.300',
-						}}
-						_dark={{
-							startColor: 'dark.200',
-							endColor: 'dark.300',
-						}}
+						height={30}
+						width={'75%'}
+						radius={15}
+						colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+						colors={
+							rTheme.colorScheme === 'light'
+								? [
+										String(rTheme.theme?.gluestack.tokens.colors.light100),
+										String(rTheme.theme?.gluestack.tokens.colors.light300),
+								  ]
+								: [
+										String(rTheme.theme?.gluestack.tokens.colors.dark100),
+										String(rTheme.theme?.gluestack.tokens.colors.dark300),
+								  ]
+						}
 					/>
 					<Skeleton
 						key={uniqueId()}
-						rounded='md'
-						h={'30px'}
-						width={'1/4'}
-						speed={0.95}
-						_light={{
-							startColor: 'coolGray.100',
-							endColor: 'coolGray.300',
-						}}
-						_dark={{
-							startColor: 'dark.200',
-							endColor: 'dark.300',
-						}}
+						height={30}
+						width={'25%'}
+						radius={15}
+						colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+						colors={
+							rTheme.colorScheme === 'light'
+								? [
+										String(rTheme.theme?.gluestack.tokens.colors.light100),
+										String(rTheme.theme?.gluestack.tokens.colors.light300),
+								  ]
+								: [
+										String(rTheme.theme?.gluestack.tokens.colors.dark100),
+										String(rTheme.theme?.gluestack.tokens.colors.dark300),
+								  ]
+						}
 					/>
 				</VStack>
 				<HStack rounded='$md' justifyContent='center' alignItems='center' space={'md'}>
@@ -128,18 +140,21 @@ export default () => {
 						return (
 							<Skeleton
 								key={uniqueId()}
-								rounded='xl'
-								h={'200px'}
+								height={30}
 								width={(width - itemPadding) / numColumns}
-								speed={0.95}
-								_light={{
-									startColor: 'coolGray.100',
-									endColor: 'coolGray.300',
-								}}
-								_dark={{
-									startColor: 'dark.200',
-									endColor: 'dark.300',
-								}}
+								radius={15}
+								colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								colors={
+									rTheme.colorScheme === 'light'
+										? [
+												String(rTheme.theme?.gluestack.tokens.colors.light100),
+												String(rTheme.theme?.gluestack.tokens.colors.light300),
+										  ]
+										: [
+												String(rTheme.theme?.gluestack.tokens.colors.dark100),
+												String(rTheme.theme?.gluestack.tokens.colors.dark300),
+										  ]
+								}
 							/>
 						)
 					})}
@@ -149,35 +164,42 @@ export default () => {
 						return (
 							<Skeleton
 								key={uniqueId()}
-								rounded='xl'
-								h={'220px'}
+								height={220}
 								width={(width - itemPadding) / numColumns}
-								speed={0.95}
-								_light={{
-									startColor: 'coolGray.100',
-									endColor: 'coolGray.300',
-								}}
-								_dark={{
-									startColor: 'dark.200',
-									endColor: 'dark.300',
-								}}
+								radius={15}
+								colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								colors={
+									rTheme.colorScheme === 'light'
+										? [
+												String(rTheme.theme?.gluestack.tokens.colors.light100),
+												String(rTheme.theme?.gluestack.tokens.colors.light300),
+										  ]
+										: [
+												String(rTheme.theme?.gluestack.tokens.colors.dark100),
+												String(rTheme.theme?.gluestack.tokens.colors.dark300),
+										  ]
+								}
 							/>
 						)
 					})}
 				</HStack>
 				<Skeleton
 					key={uniqueId()}
-					h={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
-					w={'full'}
-					speed={0.95}
-					_light={{
-						startColor: 'coolGray.100',
-						endColor: 'coolGray.300',
-					}}
-					_dark={{
-						startColor: 'dark.200',
-						endColor: 'dark.300',
-					}}
+					height={PUBLIC_VENUE_HEADER_IMAGE_HEIGHT}
+					width={'100%'}
+					radius={15}
+					colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+					colors={
+						rTheme.colorScheme === 'light'
+							? [
+									String(rTheme.theme?.gluestack.tokens.colors.light100),
+									String(rTheme.theme?.gluestack.tokens.colors.light300),
+							  ]
+							: [
+									String(rTheme.theme?.gluestack.tokens.colors.dark100),
+									String(rTheme.theme?.gluestack.tokens.colors.dark300),
+							  ]
+					}
 				/>
 			</VStack>
 		)

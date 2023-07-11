@@ -1,11 +1,13 @@
 import { Form } from './_layout'
+import { useReactiveVar } from '@apollo/client'
 import { Box, Center, HStack, Pressable, Text, VStack } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
+import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -13,7 +15,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default function SearchAreaCountryStates() {
 	const { top, bottom } = useSafeAreaInsets()
 	const router = useRouter()
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const [countryStates, setCountryStates] = useState<Array<StateResponseObject>>([])
 	const [pagination, setPagination] = useState<number>()
@@ -81,18 +84,21 @@ export default function SearchAreaCountryStates() {
 					return (
 						<Skeleton
 							key={index}
-							h='50'
-							rounded='md'
-							my={1}
-							speed={0.95}
-							_light={{
-								startColor: 'coolGray.100',
-								endColor: 'coolGray.300',
-							}}
-							_dark={{
-								startColor: 'dark.200',
-								endColor: 'dark.300',
-							}}
+							height={50}
+							width={'100%'}
+							radius={15}
+							colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+							colors={
+								rTheme.colorScheme === 'light'
+									? [
+											String(rTheme.theme?.gluestack.tokens.colors.light100),
+											String(rTheme.theme?.gluestack.tokens.colors.light300),
+									  ]
+									: [
+											String(rTheme.theme?.gluestack.tokens.colors.dark100),
+											String(rTheme.theme?.gluestack.tokens.colors.dark300),
+									  ]
+							}
 						/>
 					)
 				})}

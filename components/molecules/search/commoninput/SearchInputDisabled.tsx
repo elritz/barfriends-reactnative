@@ -1,30 +1,28 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Icon, Input, Pressable, SearchIcon } from '@components/core'
+import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { Box, HStack, Input, Pressable } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
 
 type Props = {
 	onPress: () => void
+	placeholder?: string
+	withBack?: boolean
 }
 
 const SearchInputDisabled = (props: Props) => {
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	return (
-		<Box bg='$transparent' position={'relative'} flex={1}>
-			<Pressable
-				position={'absolute'}
-				top={'$0'}
-				bottom={'$0'}
-				left={'$0'}
-				right={'$0'}
-				zIndex={10}
-				onPressIn={props.onPress}
-			></Pressable>
+		<HStack position={'relative'} flex={1}>
+			{props.withBack && <ChevronBackArrow />}
 			<Input
-				mx={'$3'}
+				flex={1}
 				variant='rounded'
-				isDisabled
+				mr={'$2'}
+				ml={!props.withBack ? '$2' : '$0'}
+				focusable={false}
+				isReadOnly
 				bg={
 					rTheme.colorScheme === 'light'
 						? rTheme.theme?.gluestack.tokens.colors.light100
@@ -33,26 +31,26 @@ const SearchInputDisabled = (props: Props) => {
 			>
 				<Input.Icon ml={'$2'}>
 					<Ionicons
-						_light={{ color: '$light600' }}
-						_dark={{ color: '$dark900' }}
 						color={
 							rTheme.colorScheme === 'light'
-								? rTheme.theme?.gluestack.tokens.colors.light600
-								: rTheme.theme?.gluestack.tokens.colors.dark800
+								? rTheme.theme?.gluestack.tokens.colors.light700
+								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}
 						name='ios-search'
 						size={23}
 					/>
 				</Input.Icon>
 				<Input.Input
+					focusable={false}
+					onPressIn={props.onPress}
 					alignSelf={'center'}
-					placeholder={'Search'}
+					placeholder={props.placeholder || 'Search'}
 					returnKeyType='search'
 					underlineColorAndroid='transparent'
 					keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 				/>
 			</Input>
-		</Box>
+		</HStack>
 	)
 }
 

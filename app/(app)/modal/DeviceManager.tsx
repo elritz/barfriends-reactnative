@@ -1,4 +1,5 @@
 // TODO: FN(What functionality was suppose to be here)
+import { useReactiveVar } from '@apollo/client'
 import { Box, Pressable, VStack } from '@components/core'
 import WithDeviceProfiles from '@components/molecules/asks/signinup'
 import DeviceManagerProfileItemLarge from '@components/molecules/authorization/devicemanagerprofileitem/DeviceManagerProfileItemLarge'
@@ -9,9 +10,9 @@ import {
 	useGetADeviceManagerQuery,
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useState } from 'react'
 import { SafeAreaView, View, ScrollView } from 'react-native'
 
@@ -19,6 +20,7 @@ export default function DeviceManager() {
 	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
 	const [selectedProfileId, setSelectedProfileId] = useState('')
 	const router = useRouter()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const { loading } = useGetADeviceManagerQuery({
 		fetchPolicy: 'network-only',
@@ -80,19 +82,22 @@ export default function DeviceManager() {
 						{[...Array(3)].map((item, index) => {
 							return (
 								<Skeleton
-									speed={0.95}
-									_light={{
-										startColor: 'coolGray.100',
-										endColor: 'coolGray.300',
-									}}
-									_dark={{
-										startColor: 'dark.200',
-										endColor: 'dark.300',
-									}}
 									key={index}
-									rounded='xl'
-									h='80px'
-									w={'100%'}
+									height={80}
+									width={'100%'}
+									radius={15}
+									colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
 								/>
 							)
 						})}

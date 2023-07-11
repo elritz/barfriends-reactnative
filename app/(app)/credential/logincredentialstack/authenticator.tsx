@@ -220,39 +220,6 @@ export default () => {
 							/>
 							<RightIcon />
 						</Input>
-						// <Input
-						// 	key='authenticator'
-						// 	keyboardAppearance={colorScheme}
-						// 	variant={'underlined'}
-						// 	returnKeyType='done'
-						// 	enablesReturnKeyAutomatically
-						// 	textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
-						// 	autoComplete={'username'}
-						// 	keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
-						// 	numberOfLines={1}
-						// 	placeholder='Email, number or username '
-						// 	inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-						// 	rightElement={RightIcon()}
-						// 	autoCapitalize='none'
-						// 	autoFocus
-						// 	py={'$2'}
-						// 	_input={{
-						// 		fontSize: '2xl',
-						// 		fontWeight: 'medium',
-						// 	}}
-						// 	onSubmitEditing={handleSubmit(onSubmit)}
-						// 	onBlur={onBlur}
-						// 	value={value.toLowerCase()}
-						// 	onChangeText={value => {
-						// 		if (keyboardType === 'number-pad') {
-						// 			onChange(value.toLowerCase())
-						// 			setValue('authenticator', value)
-						// 		} else {
-						// 			onChange(value)
-						// 			setValue('authenticator', value.trim())
-						// 		}
-						// 	}}
-						// />
 					)}
 					rules={{
 						required: {

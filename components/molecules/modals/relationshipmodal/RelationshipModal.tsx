@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Text, VStack } from '@components/core'
+import { Box, Button, HStack, Modal, Text, VStack } from '@components/core'
 import { GET_RELATIONSHIP_FRIENDREQUESTSTATUS_QUERY } from '@graphql/DM/profiling/friending/index.query'
 import {
 	useGetRelationshipFriendRequestStatusLazyQuery,
@@ -6,7 +6,6 @@ import {
 } from '@graphql/generated'
 import { useLocalSearchParams } from 'expo-router'
 import { DateTime } from 'luxon'
-import { Modal } from 'native-base'
 import { ReactElement, useEffect } from 'react'
 
 type Props = {
@@ -65,12 +64,17 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 	}
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
-			<Modal.Content h={'auto'} w={'94%'}>
+			<Modal.Content
+				sx={{
+					h: 'auto',
+					w: '94%',
+				}}
+			>
 				<Modal.CloseButton />
-				<Modal.Header fontSize='4xl' fontWeight='bold'>
-					Remove friend
+				<Modal.Header>
+					<Text>Remove friend</Text>
 				</Modal.Header>
-				<Modal.Body w={'full'}>
+				<Modal.Body w={'$full'}>
 					<VStack>
 						<HStack mb={'$3'}>
 							<VStack>
@@ -83,8 +87,8 @@ export default function RelationshipModal({ isOpen, onClose }: Props) {
 					</VStack>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant='link' mr='1' onPress={onClose}>
-						Cancel
+					<Button variant='link' mr='$1' onPress={onClose}>
+						<Text>Cancel</Text>
 					</Button>
 					<Button
 						size={'sm'}

@@ -9,6 +9,7 @@ import {
 	Pressable,
 	Spinner,
 	Text,
+	Tooltip,
 	VStack,
 } from '@components/core'
 import {
@@ -40,9 +41,9 @@ import * as Location from 'expo-location'
 import * as Notifications from 'expo-notifications'
 import { useRouter } from 'expo-router'
 import * as Updates from 'expo-updates'
-import { Icon, Tooltip, SectionList } from 'native-base'
 import { useEffect, useState } from 'react'
-import { Platform, Linking, AppState } from 'react-native'
+import { SectionList } from 'react-native'
+import { Platform, Linking, AppState, View } from 'react-native'
 
 async function registerBackgroundFetchAsync() {
 	await Location.startLocationUpdatesAsync(DEVELOPMENT_BACKGROUND_LOCATION_TASK_NAME, {
@@ -165,7 +166,7 @@ export default () => {
 		const IOSenv = await Application.getIosPushNotificationServiceEnvironmentAsync()
 
 		const expoToken = await Notifications.getExpoPushTokenAsync({
-			experienceId: '@barfriends/barfriends',
+			// experienceId: '@barfriends/barfriends',
 			applicationId: String(Application.applicationId),
 			development: IOSenv === 'development' ? true : false,
 		})
@@ -476,140 +477,171 @@ export default () => {
 					return (
 						<VStack>
 							<Box my={5} bg={'$transparent'}>
-								<Pressable
-									onPress={async () => {
-										onToggleToken()
-										await Clipboard.setStringAsync(token)
-										setTimeout(() => onCloseToken(), 500)
-									}}
-								>
-									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
-										Token
-									</Heading>
-									<Tooltip placement='top' isOpen={isOpenToken} label='Copied Authorization' openDelay={500}>
-										<HStack
-											sx={{
-												_light: {
-													bg: '$light100',
-												},
-												_dark: {
-													bg: '$dark100',
-												},
-											}}
-											rounded={'$md'}
-											alignItems={'center'}
-											justifyContent={'space-around'}
-											py={'$3'}
-										>
-											<Text
-												fontSize={'$md'}
-												textTransform={'capitalize'}
-												fontWeight={'$black'}
-												ellipsizeMode={'tail'}
-												flex={1}
-												marginLeft={'$5'}
-												numberOfLines={1}
+								<Tooltip
+									trigger={() => {
+										return (
+											<Pressable
+												onPress={async () => {
+													onToggleToken()
+													await Clipboard.setStringAsync(token)
+													setTimeout(() => onCloseToken(), 500)
+												}}
 											>
-												{token}
-											</Text>
-											<Icon mx={2} color={'primary.500'} size={'lg'} as={Feather} name='copy' />
-										</HStack>
-									</Tooltip>
-								</Pressable>
-								<Divider my={3} />
-								<Pressable
-									onPress={async () => {
-										onToggleProfileId()
-										await Clipboard.setStringAsync(String(rAuthorizationVar?.DeviceProfile?.Profile?.id))
-										setTimeout(() => onCloseProfileId(), 500)
+												<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
+													Token
+												</Heading>
+											</Pressable>
+										)
 									}}
+									placement='top'
+									isOpen={isOpenToken}
+									openDelay={500}
 								>
-									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
-										Profile ID
-									</Heading>
-
-									<Tooltip
-										placement='top'
-										isOpen={isOpenProfileId}
-										label='Copied Profile Id'
-										openDelay={500}
+									<HStack
+										sx={{
+											_light: {
+												bg: '$light100',
+											},
+											_dark: {
+												bg: '$dark100',
+											},
+										}}
+										rounded={'$md'}
+										alignItems={'center'}
+										justifyContent={'space-around'}
+										py={'$3'}
 									>
-										<HStack
-											sx={{
-												_light: {
-													bg: '$light100',
-												},
-												_dark: {
-													bg: '$dark100',
-												},
-											}}
-											rounded={'$md'}
-											alignItems={'center'}
-											justifyContent={'space-around'}
-											py={'$3'}
+										<Text
+											fontSize={'$md'}
+											textTransform={'capitalize'}
+											fontWeight={'$black'}
+											ellipsizeMode={'tail'}
+											flex={1}
+											marginLeft={'$5'}
+											numberOfLines={1}
 										>
-											<Text
-												fontSize={'$md'}
-												textTransform={'capitalize'}
-												fontWeight={'$black'}
-												ellipsizeMode={'tail'}
-												flex={1}
-												marginLeft={'$5'}
-												numberOfLines={1}
-											>
-												{rAuthorizationVar?.DeviceProfile?.Profile?.id}
-											</Text>
-											<Icon mx={2} color={'primary.500'} size={'lg'} as={Feather} name='copy' />
-										</HStack>
-									</Tooltip>
-								</Pressable>
+											{token}
+										</Text>
+										<View style={{ marginHorizontal: 2 }}>
+											<Feather
+												color={rTheme.theme?.gluestack.tokens.colors.primary500}
+												size={30}
+												name='copy'
+											/>
+										</View>
+									</HStack>
+								</Tooltip>
 								<Divider my={3} />
-								<Pressable
-									onPress={async () => {
-										onTogglePushNotif()
-										await Clipboard.setStringAsync(String(pushNotificationToken))
-										setTimeout(() => onClosePushNotif(), 500)
+								<Tooltip
+									placement='top'
+									isOpen={isOpenProfileId}
+									trigger={() => {
+										return (
+											<Pressable
+												onPress={async () => {
+													onToggleProfileId()
+													await Clipboard.setStringAsync(String(rAuthorizationVar?.DeviceProfile?.Profile?.id))
+													setTimeout(() => onCloseProfileId(), 500)
+												}}
+											>
+												<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
+													Profile ID
+												</Heading>
+											</Pressable>
+										)
+									}}
+									openDelay={500}
+								>
+									<HStack
+										sx={{
+											_light: {
+												bg: '$light100',
+											},
+											_dark: {
+												bg: '$dark100',
+											},
+										}}
+										rounded={'$md'}
+										alignItems={'center'}
+										justifyContent={'space-around'}
+										py={'$3'}
+									>
+										<Text
+											fontSize={'$md'}
+											textTransform={'capitalize'}
+											fontWeight={'$black'}
+											ellipsizeMode={'tail'}
+											flex={1}
+											marginLeft={'$5'}
+											numberOfLines={1}
+										>
+											{rAuthorizationVar?.DeviceProfile?.Profile?.id}
+										</Text>
+										<View style={{ marginHorizontal: 2 }}>
+											<Feather
+												color={rTheme.theme?.gluestack.tokens.colors.primary500}
+												size={30}
+												name='copy'
+											/>
+										</View>
+									</HStack>
+								</Tooltip>
+								<Divider my={3} />
+
+								<Tooltip
+									placement='top'
+									isOpen={isOpenPushNotif}
+									openDelay={500}
+									trigger={() => {
+										return (
+											<Pressable
+												onPress={async () => {
+													onTogglePushNotif()
+													await Clipboard.setStringAsync(String(pushNotificationToken))
+													setTimeout(() => onClosePushNotif(), 500)
+												}}
+											>
+												<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
+													Expo Push Token
+												</Heading>
+											</Pressable>
+										)
 									}}
 								>
-									<Heading textAlign={'center'} textTransform={'capitalize'} numberOfLines={1} my={'$2'}>
-										Expo Push Token
-									</Heading>
-
-									<Tooltip
-										placement='top'
-										isOpen={isOpenPushNotif}
-										label='Copied Profile Id'
-										openDelay={500}
+									<HStack
+										sx={{
+											_light: {
+												bg: '$light100',
+											},
+											_dark: {
+												bg: '$dark100',
+											},
+										}}
+										rounded={'$md'}
+										alignItems={'center'}
+										justifyContent={'space-around'}
+										py={'$3'}
 									>
-										<HStack
-											sx={{
-												_light: {
-													bg: '$light100',
-												},
-												_dark: {
-													bg: '$dark100',
-												},
-											}}
-											rounded={'$md'}
-											alignItems={'center'}
-											justifyContent={'space-around'}
-											py={'$3'}
+										<Text
+											fontSize={'$md'}
+											textTransform={'capitalize'}
+											fontWeight={'$black'}
+											ellipsizeMode={'tail'}
+											flex={1}
+											marginLeft={'$5'}
+											numberOfLines={1}
 										>
-											<Text
-												fontSize={'$md'}
-												textTransform={'capitalize'}
-												fontWeight={'$black'}
-												ellipsizeMode={'tail'}
-												flex={1}
-												marginLeft={'$5'}
-												numberOfLines={1}
-											>
-												{pushNotificationToken}
-											</Text>
-											<Icon mx={2} color={'primary.500'} size={'lg'} as={Feather} name='copy' />
-										</HStack>
-									</Tooltip>
-								</Pressable>
+											{pushNotificationToken}
+										</Text>
+										<View style={{ marginHorizontal: 2 }}>
+											<Feather
+												color={rTheme.theme?.gluestack.tokens.colors.primary500}
+												size={30}
+												name='copy'
+											/>
+										</View>
+									</HStack>
+								</Tooltip>
 								<Divider my={3} />
 							</Box>
 							<VStack space={'md'} w={'$full'} px={'$10'} my={'$3'}>

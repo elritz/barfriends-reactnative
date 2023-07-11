@@ -14,5 +14,6 @@ export * from './Progress';
 export * from './Spinner';
 export * from './Switch';
 export * from './Text';
+export * from './Tooltip';
 export * from './Vstack';
 export * from './styled';

@@ -1,5 +1,5 @@
 import { makeVar } from '@apollo/client'
-import { LocalStoragePreferenceSystemsOfUnitsType } from '@preferences'
+import { LocalStoragePreferenceSystemsOfUnitsType } from '@ctypes/preferences'
 import { DateTime } from 'luxon'
 
 export enum SystemsOfUnits {

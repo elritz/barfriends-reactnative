@@ -1,10 +1,11 @@
-import {  HStack } from '@components/core'
+import { useReactiveVar } from '@apollo/client'
+import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
+import { Button, HStack, Input, Pressable } from '@components/core'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { ThemeReactiveVar } from '@reactive'
 import useDebounce from '@util/hooks/useDebounce'
 import { useRouter } from 'expo-router'
-import { Icon, IconButton, Input } from 'native-base'
 import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Keyboard } from 'react-native'
@@ -14,7 +15,7 @@ type Props = {
 }
 const SearchAreaInput = (props: Props) => {
 	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	const {
 		control,
@@ -47,70 +48,54 @@ const SearchAreaInput = (props: Props) => {
 	}
 
 	return (
-		<HStack
-			alignItems={'center'}
-			sx={{
-				h: SEARCH_BAR_HEIGHT,
-			}}
-		>
-			<IconButton
-				isFocusVisible={false}
-				_hover={{
-					bg: 'transparent',
-				}}
-				_pressed={{
-					bg: 'transparent',
-				}}
-				_focus={{
-					bg: 'transparent',
-				}}
-				icon={
-					<Icon
-						as={Ionicons}
-						size={'xl'}
-						name='arrow-back'
-						_light={{ color: 'light.600' }}
-						_dark={{ color: 'dark.400' }}
-					/>
-				}
-				w={'50px'}
-				h={45}
-				onPress={goBack}
-			/>
+		<HStack position={'relative'} flex={1}>
+			<ChevronBackArrow />
 			<Controller
 				control={control}
 				name='searchtext'
 				render={({ field: { value, onChange } }) => (
 					<Input
-						variant={'unstyled'}
-						_light={{ bgColor: 'light.200' }}
-						_dark={{ bgColor: 'dark.200' }}
+						variant={'rounded'}
 						flex={1}
-						mr={2}
-						rounded={'lg'}
-						h={SEARCH_BAR_HEIGHT}
-						_input={{
-							fontSize: 'lg',
+						mr={'$2'}
+						sx={{
+							':focus': {
+								borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+							},
+							':focusVisible': {
+								borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
+							},
+							borderColor: rTheme.colorScheme === 'light' ? '$light700' : '$dark400',
 						}}
-						autoFocus
-						onChange={onChange}
-						onChangeText={onChange}
-						keyboardAppearance={colorScheme}
-						placeholder={props.placeholder}
-						returnKeyType='search'
-						underlineColorAndroid='transparent'
-						placeholderTextColor={colorScheme === 'dark' ? 'dark.900' : 'light.900'}
-						InputLeftElement={
-							<Icon
-								as={Ionicons}
-								_light={{ color: 'light.600' }}
-								_dark={{ color: 'dark.900' }}
-								name='ios-search'
-								size={'md'}
-								ml={2}
-							/>
+						bg={
+							rTheme.colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light100
+								: rTheme.theme?.gluestack.tokens.colors.dark100
 						}
-					/>
+					>
+						<Input.Icon ml={'$2'}>
+							<Ionicons
+								color={
+									rTheme.colorScheme === 'light'
+										? rTheme.theme?.gluestack.tokens.colors.light700
+										: rTheme.theme?.gluestack.tokens.colors.dark900
+								}
+								name='ios-search'
+								size={23}
+							/>
+						</Input.Icon>
+						<Input.Input
+							autoFocus
+							alignSelf={'center'}
+							placeholder={props.placeholder || 'Search'}
+							returnKeyType='search'
+							underlineColorAndroid='transparent'
+							keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+							onChange={onChange}
+							onChangeText={onChange}
+							placeholderTextColor={rTheme.colorScheme === 'light' ? '$light600' : '$dark900'}
+						/>
+					</Input>
 				)}
 			/>
 		</HStack>

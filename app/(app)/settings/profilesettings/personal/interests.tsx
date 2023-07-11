@@ -4,7 +4,7 @@ import { useGetInterestsQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import useRandomNumber from '@util/hooks/useRandomNumber'
-import { Skeleton } from 'native-base'
+import { Skeleton } from 'moti/skeleton'
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
@@ -40,45 +40,42 @@ export default () => {
 						return (
 							<VStack m={'$2'}>
 								<Skeleton
-									h={'35px'}
-									mb={2}
-									minW={`${randWidth}px`}
-									maxW={`${randWidth}px`}
-									rounded={'md'}
-									speed={0.95}
-									_light={{
-										startColor: 'coolGray.100',
-										endColor: 'coolGray.300',
-									}}
-									_dark={{
-										startColor: 'dark.200',
-										endColor: 'dark.300',
-									}}
+									height={35}
+									width={Number(randWidth)}
+									radius={15}
+									colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
 								/>
 								<VStack flexWrap={'wrap'} flexDirection={'row'}>
 									{[...Array(randInterests)].map(item => {
 										const randWidth = useRandomNumber(40, 100)
 										return (
 											<Skeleton
-												h={'35'}
-												flex={1}
-												minW={`${randWidth}px`}
-												mr={1}
-												my={1}
-												rounded={'md'}
-												style={{
-													alignSelf: 'center',
-													overflow: 'hidden',
-												}}
-												speed={0.95}
-												_light={{
-													startColor: 'coolGray.100',
-													endColor: 'coolGray.300',
-												}}
-												_dark={{
-													startColor: 'dark.200',
-													endColor: 'dark.300',
-												}}
+												height={35}
+												width={Number(randWidth)}
+												radius={15}
+												colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+												colors={
+													rTheme.colorScheme === 'light'
+														? [
+																String(rTheme.theme?.gluestack.tokens.colors.light100),
+																String(rTheme.theme?.gluestack.tokens.colors.light300),
+														  ]
+														: [
+																String(rTheme.theme?.gluestack.tokens.colors.dark100),
+																String(rTheme.theme?.gluestack.tokens.colors.dark300),
+														  ]
+												}
 											/>
 										)
 									})}

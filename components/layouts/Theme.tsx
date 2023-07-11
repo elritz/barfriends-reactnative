@@ -21,17 +21,14 @@ import { secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { useAssets } from 'expo-asset'
-import { useRouter } from 'expo-router'
-import { NativeBaseProvider } from 'native-base'
+import { Redirect, useRouter } from 'expo-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, Appearance, StatusBar, useColorScheme } from 'react-native'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export default function Theme({ children }) {
-	const router = useRouter()
 	const appState = useRef(AppState.currentState)
-	const [appStateVisible, setAppStateVisible] = useState(appState.current)
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [toggleThemes] = useToggleTheme()
 	const colorScheme = useThemeColorScheme()
@@ -47,9 +44,11 @@ export default function Theme({ children }) {
 		useRefreshDeviceManagerMutation({
 			fetchPolicy: 'network-only',
 			onError(error, clientOptions) {
-				router.push({
-					pathname: '(error)/network',
-				})
+				console.log('🚀 ~ file: Theme.tsx:51 ~ onError ~ error:', error)
+
+				// router.push({
+				// 	pathname: '(error)/network',
+				// })
 			},
 			onCompleted: data => {
 				if (data.refreshDeviceManager?.__typename === 'AuthorizationDeviceManager') {
@@ -63,9 +62,11 @@ export default function Theme({ children }) {
 	const [createGuestProfileMutation, { data, loading: CGLoading, error: CGPMError }] =
 		useCreateGuestProfileMutation({
 			onError(error, clientOptions) {
-				router.push({
-					pathname: '(error)/network',
-				})
+				console.log('🚀 ~ file: Theme.tsx:70 ~ onError ~ error:', error)
+
+				// router.push({
+				// 	pathname: '(error)/network',
+				// })
 			},
 			onCompleted: async data => {
 				if (data?.createGuestProfile.__typename === 'AuthorizationDeviceManager') {
@@ -143,38 +144,28 @@ export default function Theme({ children }) {
 	if (
 		!assets ||
 		!memTheme ||
-		memTheme === null ||
-		!memTheme.theme?.nativebase ||
+		!memTheme.theme ||
+		!memTheme.theme.gluestack ||
+		!memTheme.theme.reactnavigation ||
 		!rAuthorizationVar
 	) {
 		return null
 	}
 
-	// if (RDMError || CGPMError) {
-	// 	return <Redirect href={'(error)/network'} />
-	// }
-
-	console.log(
-		'🚀 ~ file: index.tsx:384 ~ memTheme:',
-		JSON.stringify(memTheme.theme.gluestack.tokens.colors.primary500, null, 4),
-	)
-
 	return (
 		<AnimatedAppLoader assets={assets}>
-			<ReactNavigationThemeProvider value={memTheme.theme?.reactnavigation}>
+			<ReactNavigationThemeProvider value={memTheme.theme.reactnavigation}>
 				<StyledProvider
 					config={memTheme.theme.gluestack || config}
 					colorMode={memTheme.colorScheme === 'light' ? 'light' : 'dark'}
 				>
-					<NativeBaseProvider theme={memTheme.theme.nativebase}>
-						<StatusBar
-							animated
-							barStyle={memTheme.colorScheme === 'light' ? 'dark-content' : 'light-content'}
-						/>
-						<SafeAreaProvider>
-							<KeyboardProvider statusBarTranslucent>{children}</KeyboardProvider>
-						</SafeAreaProvider>
-					</NativeBaseProvider>
+					<StatusBar
+						animated
+						barStyle={memTheme.colorScheme === 'light' ? 'dark-content' : 'light-content'}
+					/>
+					<SafeAreaProvider>
+						<KeyboardProvider statusBarTranslucent>{children}</KeyboardProvider>
+					</SafeAreaProvider>
 				</StyledProvider>
 			</ReactNavigationThemeProvider>
 		</AnimatedAppLoader>

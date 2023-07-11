@@ -1,6 +1,6 @@
 import { makeVar } from '@apollo/client'
-import { LocalStoragePreferenceAskNotificationPermissionType } from '@preferences'
-import { NowPreferencePermissionInitialState } from './index'
+import { NowPreferencePermissionInitialState } from '@constants/Preferences'
+import { LocalStoragePreferenceAskNotificationPermissionType } from '@ctypes/preferences'
 
 export const PreferencePermissionNotificationReactiveVar =
 	makeVar<LocalStoragePreferenceAskNotificationPermissionType | null>(
