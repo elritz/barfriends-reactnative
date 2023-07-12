@@ -29,7 +29,6 @@ export const useToggleTheme = () => {
 		}
 		switch (props.colorScheme) {
 			case 'system':
-				console.log('SYSTEM :>> ')
 				const deviceColorScheme = Appearance.getColorScheme()
 				createTheme({
 					themeScheme: deviceColorScheme,
@@ -37,16 +36,13 @@ export const useToggleTheme = () => {
 				})
 				break
 			case 'light':
-				console.log('LIGHT :>> ')
 				createTheme({ themeScheme: 'light', localStorageColorScheme: 'light' })
 				break
 
 			case 'dark':
-				console.log('DARK :>> ')
 				createTheme({ themeScheme: 'dark', localStorageColorScheme: 'dark' })
 				break
 			default:
-				console.log('DEFAULT :>> ')
 				createTheme({ themeScheme: 'dark', localStorageColorScheme: 'dark' })
 		}
 	}, [])

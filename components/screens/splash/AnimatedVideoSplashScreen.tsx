@@ -22,7 +22,10 @@ function AnimatedVideoSplashScreen({ children }) {
 
 	const onImageLoaded = useCallback(async () => {
 		try {
-			SplashScreen.hideAsync()
+			setTimeout(() => {
+				SplashScreen.hideAsync()
+			}, 2000)
+
 			// Load stuff
 			await Promise.all([])
 		} catch (e) {

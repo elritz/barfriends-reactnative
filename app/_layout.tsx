@@ -10,6 +10,7 @@ import {
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 } from '@constants/StorageConstants'
+import AuthProvider from '@context/auth'
 import {
 	LocalStoragePreferenceSearchAreaType2,
 	LocalStoragePreferenceThemeType,
@@ -43,7 +44,7 @@ import 'expo-dev-client'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
 import { getPermissionsAsync as getMediaPermissionAsync } from 'expo-media-library'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen } from 'expo-router'
+import { Slot, SplashScreen, Stack } from 'expo-router'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'
@@ -57,12 +58,12 @@ export {
 
 export const unstable_settings = {
 	// Ensure that reloading on `/modal` keeps a back button present.
-	initialRouteName: '(app)',
+	initialRouteName: '(app)/hometab',
 }
 
 SplashScreen.preventAutoHideAsync()
 
-export default () => {
+export default function Root() {
 	const setAsyncPreferencesLocalStorageData = async () => {
 		try {
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
@@ -98,11 +99,6 @@ export default () => {
 			)
 
 			if (!getLocalStorageTheme) {
-				console.log(
-					'🚀 ~ file: _layout.tsx:107 ~ setAsyncPreferencesLocalStorageData ~ getLocalStorageTheme:',
-					getLocalStorageTheme,
-				)
-
 				const initialThemeColorSchemeState = JSON.stringify({
 					colorScheme: 'system',
 				} as LocalStoragePreferenceThemeType)
@@ -251,7 +247,18 @@ export default () => {
 			<SafeAreaProvider>
 				<KeyboardProvider statusBarTranslucent>
 					<Theme>
-						<Slot />
+						<AuthProvider>
+							<Slot initialRouteName='(app)/hometab' />
+							{/* <Stack
+								initialRouteName='(app)'
+								screenOptions={{
+									headerShown: false,
+								}}
+							>
+								<Stack.Screen name='(app)' />
+								<Stack.Screen name='(error)' />
+							</Stack> */}
+						</AuthProvider>
 					</Theme>
 				</KeyboardProvider>
 			</SafeAreaProvider>

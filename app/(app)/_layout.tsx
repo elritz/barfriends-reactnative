@@ -10,11 +10,18 @@ export default () => {
 	const h = insets.top + HEADER_HEIGHT
 	const segments = useSegments()
 
+
 	return (
 		<Stack
 			initialRouteName='hometab'
 			screenOptions={{
-				headerShown: !segments.includes('profilestack' || 'developmentstack'),
+				headerShown: segments.includes('messagestack') || segments.includes('venuefeed'),
+				// headerShown: segments.some(i => {
+				// 	if (i === 'messagestack' || i === 'venuefeed') {
+				// 		return true
+				// 	}
+				// 	return false
+				// }),
 				header: () => {
 					return (
 						<VStack

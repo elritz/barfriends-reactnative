@@ -1,4 +1,4 @@
-import { Center, Heading, Text } from '@components/core'
+import { Center, Heading } from '@components/core'
 import { SafeAreaView, ScrollView } from 'react-native'
 
 export default () => {
