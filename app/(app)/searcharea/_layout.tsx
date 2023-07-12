@@ -1,13 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, VStack } from '@components/core'
-import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
-import SearchAreaInput from '@components/molecules/search/searcharea/SearchAreaInput'
+import SearchInput from '@components/molecules/search/searchinput/SearchInput'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { PlaceType } from '@preferences'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
-import { Stack, useRouter } from 'expo-router'
+import { Stack } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Platform, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -54,8 +52,6 @@ export type Form = {
 }
 
 export default function _layout() {
-	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const insets = useSafeAreaInsets()
@@ -73,41 +69,14 @@ export default function _layout() {
 		<FormProvider {...methods}>
 			<Stack
 				screenOptions={{
-					headerShown: true,
+					headerShown: false,
 				}}
 			>
 				<Stack.Screen
 					name={'index'}
 					options={{
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
-						},
-						header: () => {
-							return (
-								<VStack
-									justifyContent={'flex-end'}
-									sx={{
-										pt: insets.top,
-										h,
-										_light: { bg: '$light100' },
-										_dark: { bg: '$dark50' },
-									}}
-									pb={'$2'}
-								>
-									<SearchInputDisabled
-										withBack
-										placeholder='Search areas'
-										onPress={() =>
-											router.push({
-												pathname: '(app)/searcharea/searchcountry',
-												params: {
-													searchtext: '',
-												},
-											})
-										}
-									/>
-								</VStack>
-							)
+							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 					}}
 				/>
@@ -116,7 +85,7 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
@@ -137,9 +106,9 @@ export default function _layout() {
 											intensity={80}
 										/>
 									) : (
-										<Box bg='transparent' style={[StyleSheet.absoluteFill]} />
+										<Box bg='$transparent' style={[StyleSheet.absoluteFill]} />
 									)}
-									<SearchAreaInput placeholder='Search country' />
+									<SearchInput placeholder='Search country' />
 								</VStack>
 							)
 						},
@@ -150,7 +119,7 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
@@ -171,9 +140,9 @@ export default function _layout() {
 											intensity={80}
 										/>
 									) : (
-										<Box style={[StyleSheet.absoluteFill]} />
+										<Box bg='$transparent' style={[StyleSheet.absoluteFill]} />
 									)}
-									<SearchAreaInput placeholder='Search states' />
+									<SearchInput placeholder='Search states' />
 								</VStack>
 							)
 						},
@@ -184,7 +153,7 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
@@ -196,11 +165,15 @@ export default function _layout() {
 									}}
 								>
 									{Platform.OS === 'ios' ? (
-										<BlurView style={StyleSheet.absoluteFill} tint={colorScheme} intensity={80} />
+										<BlurView
+											style={StyleSheet.absoluteFill}
+											tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+											intensity={80}
+										/>
 									) : (
-										<Box style={[StyleSheet.absoluteFill]} />
+										<Box bg='$transparent' style={[StyleSheet.absoluteFill]} />
 									)}
-									<SearchAreaInput placeholder='Search cities' />
+									<SearchInput placeholder='Search cities' />
 								</VStack>
 							)
 						},

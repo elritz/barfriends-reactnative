@@ -71,13 +71,13 @@ export default () => {
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<VStack justifyContent={'space-between'} flex={1} alignItems='center' mx={'$4'}>
-				<Box bg='transparent' />
+				<Box bg='$transparent' />
 				<VStack space={'md'} alignItems={'center'} justifyContent={'center'}>
 					<CompanyCoasterLogoDynamic backgroundColor='black' />
 					<Heading fontWeight={'$black'} lineHeight={'$3xl'} fontSize={'$4xl'}>
 						Welcome to Bfs
 					</Heading>
-					<Box bg='transparent'>
+					<Box bg='$transparent'>
 						<Text fontSize={'$lg'}>
 							We are those we hang around. If you're not feeling it find and make new friends. We can
 							enrich your experience doing that.

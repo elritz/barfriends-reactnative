@@ -5,7 +5,6 @@ import SignupModal from '@components/molecules/modals/signupaskmodal'
 import { Ionicons } from '@expo/vector-icons'
 import { Profile, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
@@ -18,7 +17,6 @@ export default function Actions({ profile }: Props) {
 	const router = useRouter()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const colorScheme = useThemeColorScheme()
 	const [showMore, setShowMore] = useState(false)
 	const {
 		isOpen: isOpenSignupModal,
@@ -66,7 +64,7 @@ export default function Actions({ profile }: Props) {
 						name='chatbubble-ellipses'
 						size={28}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}

@@ -29,7 +29,7 @@ export default () => {
 	})
 
 	return (
-		<Box bg='transparent' style={{ flex: 1 }}>
+		<Box bg='$transparent' style={{ flex: 1 }}>
 			<FlashList
 				data={loading ? [] : data?.profiles}
 				numColumns={2}

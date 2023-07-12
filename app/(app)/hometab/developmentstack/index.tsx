@@ -31,7 +31,6 @@ import {
 	ThemeReactiveVar,
 } from '@reactive'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useDisclose } from '@util/hooks/useDisclose'
 import * as Application from 'expo-application'
 import * as Clipboard from 'expo-clipboard'
@@ -90,7 +89,6 @@ export default () => {
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [token, setToken] = useState('')
-	const colorScheme = useThemeColorScheme()
 	const [pushNotificationToken, setPushNotificationToken] = useState('')
 	const [appState, setAppState] = useState(AppState.currentState)
 	const [searchAreaDeleteLoading, setSearchAreaDeleteLoading] = useState(false)
@@ -713,7 +711,7 @@ export default () => {
 						py={'$3'}
 						rounded={'$none'}
 						bg={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light100
 								: rTheme.theme?.gluestack.tokens.colors.dark100
 						}

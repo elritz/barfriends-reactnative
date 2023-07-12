@@ -7,7 +7,7 @@ export default () => {
 	const text = GetSignInUpText()
 
 	return (
-		<Box bg='transparent'>
+		<Box bg='$transparent'>
 			<Center flexDirection='column'>
 				<Text allowFontScaling fontWeight='$bold' alignSelf='center' textAlign='center'>
 					{text[1].subTitle}

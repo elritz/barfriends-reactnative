@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, VStack, Text, Pressable, HStack } from '@components/core'
+import { Box, VStack, Text, Pressable, HStack, Heading } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
 import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'
@@ -25,6 +25,7 @@ import {
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import { Skeleton } from 'moti/skeleton'
+// import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
 import { Dimensions, ScrollView, View } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
@@ -144,7 +145,7 @@ export default () => {
 						</View>
 					)
 				}}
-				ItemSeparatorComponent={() => <Box bg='transparent' h={'$12'} />}
+				ItemSeparatorComponent={() => <Box bg='$transparent' h={'$12'} />}
 			/>
 		)
 	}
@@ -199,26 +200,22 @@ export default () => {
 										<Text fontWeight={'$medium'} fontSize={'$xl'} mx={'$2'} textAlign={'right'}>
 											{lengthOfUpvote}
 										</Text>
-										<Icon
+										<Ionicons
 											name='md-caret-up'
-											as={Ionicons}
-											size={'lg'}
-											_light={{
-												color: item.Vote.some(
-													item =>
-														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
-												)
-													? 'blue.500'
-													: 'light.500',
-											}}
-											_dark={{
-												color: item.Vote.some(
-													item =>
-														item.profileId === rAuthorizationVar?.DeviceProfile?.Profile?.id && item.upvote,
-												)
-													? 'blue.500'
-													: 'dark.500',
-											}}
+											size={30}
+											color={
+												rTheme.colorScheme === 'light'
+													? item.toBeNotifiedProfileIds.some(
+															item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
+													  )
+														? rTheme.theme?.gluestack.tokens.colors.blue500
+														: rTheme.theme?.gluestack.tokens.colors.light700
+													: item.toBeNotifiedProfileIds.some(
+															item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
+													  )
+													? rTheme.theme?.gluestack.tokens.colors.blue500
+													: rTheme.theme?.gluestack.tokens.colors.dark700
+											}
 										/>
 									</Pressable>
 									<Pressable
@@ -236,24 +233,22 @@ export default () => {
 										alignItems={'center'}
 										justifyContent={'center'}
 									>
-										<Icon
+										<Ionicons
 											name='ios-notifications-sharp'
-											as={Ionicons}
-											size={'md'}
-											_light={{
-												color: item.toBeNotifiedProfileIds.some(
-													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
-												)
-													? 'primary.500'
-													: 'light.700',
-											}}
-											_dark={{
-												color: item.toBeNotifiedProfileIds.some(
-													item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
-												)
-													? 'primary.500'
-													: 'dark.700',
-											}}
+											size={25}
+											color={
+												rTheme.colorScheme === 'light'
+													? item.toBeNotifiedProfileIds.some(
+															item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
+													  )
+														? rTheme.theme?.gluestack.tokens.colors.primary500
+														: rTheme.theme?.gluestack.tokens.colors.light700
+													: item.toBeNotifiedProfileIds.some(
+															item => item === rAuthorizationVar?.DeviceProfile?.Profile?.id,
+													  )
+													? rTheme.theme?.gluestack.tokens.colors.primary500
+													: rTheme.theme?.gluestack.tokens.colors.dark700
+											}
 										/>
 									</Pressable>
 								</HStack>
@@ -276,7 +271,6 @@ export default () => {
 				estimatedItemSize={100}
 				scrollEnabled
 				contentInset={{
-					top: insets.top + 10,
 					bottom:
 						insets.bottom !== 0
 							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS

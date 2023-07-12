@@ -2,15 +2,12 @@ import { useReactiveVar } from '@apollo/client'
 import { Text } from '@components/core'
 import SearchAccounts from '@components/screens/search/textsearchtabs/SearchAccounts'
 import SearchVenues from '@components/screens/search/textsearchtabs/SearchVenues'
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
 
 const renderScene = SceneMap({
-	// first: SearchTop,
 	second: SearchAccounts,
 	third: SearchVenues,
 })
@@ -18,7 +15,6 @@ const renderScene = SceneMap({
 export default function searchresulttabs() {
 	const layout = useWindowDimensions()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	const [index, setIndex] = useState(0)
 	const [routes] = useState([
@@ -35,7 +31,7 @@ export default function searchresulttabs() {
 			}}
 			style={{
 				backgroundColor:
-					colorScheme === 'dark'
+					rTheme.colorScheme === 'dark'
 						? rTheme.theme?.gluestack.tokens.colors.dark50
 						: rTheme.theme?.gluestack.tokens.colors.light50,
 			}}

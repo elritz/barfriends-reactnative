@@ -4,14 +4,14 @@ import { Box, Center, Heading } from '@components/core'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useLocalSearchParams } from 'expo-router'
+import { useGlobalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchVenues() {
-	const params = useLocalSearchParams()
+	const params = useGlobalSearchParams()
 	const insets = useSafeAreaInsets()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 

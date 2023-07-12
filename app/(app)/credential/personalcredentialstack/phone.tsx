@@ -3,8 +3,7 @@ import { Heading, Text, Pressable, VStack, Box, Input } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { CountryCode } from 'libphonenumber-js'
 import { useEffect, useRef } from 'react'
@@ -40,8 +39,8 @@ export default () => {
 	const { bottom } = useSafeAreaInsets()
 	const isFocused = useIsFocused()
 	const _phonenumberRef = useRef<TextInput>()
-	const colorScheme = useThemeColorScheme()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
 
@@ -244,7 +243,7 @@ export default () => {
 						render={({ field: { onChange, onBlur, value } }) => (
 							<Input variant={'underlined'} size='lg'>
 								<Input.Input
-									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									value={value}
 									type='password'
 									py={'$2'}

@@ -27,7 +27,7 @@ export default function MediaPermissionFullSection() {
 					}}
 				>
 					<Box
-						bg='transparent'
+						bg='$transparent'
 						style={{
 							width: '100%',
 							alignItems: 'center',

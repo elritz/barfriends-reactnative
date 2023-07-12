@@ -7,8 +7,7 @@ import {
 	Profile,
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
-import { AuthorizationReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useForm, Controller } from 'react-hook-form'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -16,7 +15,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const DESCRIPTION_LENGTH = 250
 
 export default () => {
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const {
@@ -126,7 +125,7 @@ export default () => {
 								<Input.Input
 									multiline={true}
 									maxLength={DESCRIPTION_LENGTH}
-									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									onBlur={onBlur}
 									onChangeText={onChange}
 									blurOnSubmit={true}

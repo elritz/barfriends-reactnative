@@ -163,7 +163,7 @@ export default () => {
 
 	if (!photoLibrary.length) {
 		return (
-			<Box bg='transparent'>
+			<Box bg='$transparent'>
 				<VStack alignItems={'center'}>
 					<Image
 						style={{

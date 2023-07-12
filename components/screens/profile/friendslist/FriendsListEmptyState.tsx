@@ -2,12 +2,10 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Heading, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 
 export const FriendsListEmptyState = () => {
 	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const permissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 	return (
@@ -58,7 +56,7 @@ export const FriendsListEmptyState = () => {
 						name='search'
 						size={25}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}

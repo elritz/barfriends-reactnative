@@ -2,15 +2,13 @@ import { useReactiveVar } from '@apollo/client'
 import { Button, HStack, Pressable, Text } from '@components/core'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as Haptics from 'expo-haptics'
 import { Stack, useRouter } from 'expo-router'
 
 export default function _layout() {
+	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
-	const router = useRouter()
 
 	return (
 		<Stack
@@ -18,7 +16,7 @@ export default function _layout() {
 				gestureEnabled: false,
 				headerStyle: {
 					backgroundColor:
-						colorScheme === 'light'
+						rTheme.localStorageColorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light50
 							: rTheme.theme?.gluestack.tokens.colors.dark50,
 				},
@@ -48,7 +46,7 @@ export default function _layout() {
 											name={'chevron-down'}
 											size={23}
 											color={
-												colorScheme === 'light'
+												rTheme.localStorageColorScheme === 'light'
 													? rTheme.theme?.gluestack.tokens.colors.light900
 													: rTheme.theme?.gluestack.tokens.colors.dark900
 											}
@@ -77,7 +75,7 @@ export default function _layout() {
 							name={'dots-horizontal'}
 							size={30}
 							color={
-								colorScheme === 'light'
+								rTheme.colorScheme === 'light'
 									? rTheme.theme?.gluestack.tokens.colors.light900
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}

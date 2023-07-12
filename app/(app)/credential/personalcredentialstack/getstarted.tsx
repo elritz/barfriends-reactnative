@@ -36,7 +36,7 @@ export default () => {
 		<SafeAreaView>
 			<VStack justifyContent={'space-between'} h={'$full'} alignItems='center' mx={'$4'}>
 				<Box />
-				<Box bg='transparent' justifyContent={'center'}>
+				<Box bg='$transparent' justifyContent={'center'}>
 					<CompanyCoasterLogoDynamic backgroundColor='black' />
 					<Heading
 						testID={'title-text'}

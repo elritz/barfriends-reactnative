@@ -1,3 +1,4 @@
+import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Input, Pressable, Text } from '@components/core'
 import { Entypo, Feather } from '@expo/vector-icons'
 import {
@@ -5,7 +6,7 @@ import {
 	useSendAuthenticatorDeviceOwnerCodeMutation,
 } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -21,7 +22,7 @@ export type FormType = {
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'a-213123w'
 	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const isFocused = useIsFocused()
 	const { bottom } = useSafeAreaInsets()
 	const [keyboardType, setKeyboardType] = useState('number-pad')
@@ -169,7 +170,7 @@ export default () => {
 	}
 
 	return (
-		<Box bg='transparent' flex={1} pt={'$10'}>
+		<Box bg='$transparent' flex={1} pt={'$10'}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Controller
 					name='authenticator'
@@ -188,7 +189,7 @@ export default () => {
 								fontSize={'$2xl'}
 								lineHeight={'$2xl'}
 								fontWeight='$medium'
-								keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 								returnKeyType='done'
 								enablesReturnKeyAutomatically
 								textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
@@ -296,7 +297,9 @@ export default () => {
 						flexDirection={'row'}
 						justifyContent={'flex-end'}
 						alignContent={'space-around'}
-						height={'70px'}
+						sx={{
+							h: 70,
+						}}
 						px={'$2'}
 					>
 						<View

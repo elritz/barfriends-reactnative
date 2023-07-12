@@ -8,8 +8,7 @@ import {
 } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter, useSearchParams } from 'expo-router'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Image } from 'react-native'
@@ -22,11 +21,9 @@ const IMAGE_SIZE = 85
 
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'lp-21565434tw'
-	const _passwordRef = useRef<ViewProps>(null)
 	const router = useRouter()
-	const params = useSearchParams()
-	const colorScheme = useThemeColorScheme()
-	const rThemeVar = useReactiveVar(ThemeReactiveVar)
+	const params = useLocalSearchParams()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [showPassword, setShowPassword] = useState<boolean>(true)
 
 	const isFocused = useIsFocused()
@@ -204,7 +201,7 @@ export default () => {
 							return (
 								<Input>
 									<Input.Input
-										keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+										keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 										value={value}
 										placeholder='Password'
 										type='password'
@@ -237,7 +234,7 @@ export default () => {
 								// 	variant={'underlined'}
 								// 	ref={_passwordRef}
 								// 	key='password'
-								// 	keyboardAppearance={colorScheme}
+								// 	keyboardAppearance={rTheme.colorScheme}
 								// 	value={value}
 								// 	py={2}
 								// 	_input={{

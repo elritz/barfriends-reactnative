@@ -73,7 +73,7 @@ export default function DeviceManager() {
 
 	return (
 		<SafeAreaView style={{ flex: 1, margin: 10 }}>
-			<Box bg='transparent'>
+			<Box bg='$transparent'>
 				<WithDeviceProfiles />
 			</Box>
 			<View style={{ flex: 1 }}>

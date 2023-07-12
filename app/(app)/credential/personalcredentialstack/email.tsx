@@ -3,8 +3,7 @@ import { Heading, Text, Pressable, VStack, Box, Input } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useSendAuthenticatorDeviceOwnerCodeMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -24,9 +23,9 @@ export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'e-129818723433'
 	const router = useRouter()
 	const { bottom } = useSafeAreaInsets()
-	const colorScheme = useThemeColorScheme()
 	const _emailRef = useRef<TextInput>()
 	const isFocused = useIsFocused()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
@@ -217,7 +216,7 @@ export default () => {
 								autoCorrect={true}
 								autoCapitalize='none'
 								keyboardType='email-address'
-								keyboardAppearance={colorScheme}
+								keyboardAppearance={rTheme.colorScheme}
 								numberOfLines={1}
 								placeholder='Email'
 								_input={{

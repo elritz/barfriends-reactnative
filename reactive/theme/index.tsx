@@ -12,11 +12,13 @@ export type IBFSTheme = {
 export interface ThemeInterface {
 	localStorageColorScheme: ThemeColorSchemeOptionsType | null
 	colorScheme: ColorSchemeName
+	deviceColorScheme: ColorSchemeName
 	theme: IBFSTheme | null
 }
 
 export const ThemeEmptyState: ThemeInterface = {
 	localStorageColorScheme: 'system',
+	deviceColorScheme: 'dark',
 	colorScheme: 'dark',
 	theme: null,
 }

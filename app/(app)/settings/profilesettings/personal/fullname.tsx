@@ -7,7 +7,6 @@ import {
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useForm, Controller } from 'react-hook-form'
 import { ActivityIndicator, KeyboardAvoidingView, Pressable } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -15,7 +14,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	const {
 		control,
@@ -191,7 +189,7 @@ export default () => {
 								<Input.Input
 									fontSize={'$md'}
 									onBlur={onBlur}
-									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									onChangeText={onChange}
 									value={value}
 									blurOnSubmit={false}
@@ -210,7 +208,7 @@ export default () => {
 										<ActivityIndicator
 											size='small'
 											color={
-												colorScheme === 'light'
+												rTheme.colorScheme === 'light'
 													? rTheme.theme?.gluestack.tokens.colors.light900
 													: rTheme.theme?.gluestack.tokens.colors.dark900
 											}
@@ -245,7 +243,7 @@ export default () => {
 									onChange={onChange}
 									value={value}
 									blurOnSubmit={false}
-									keyboardAppearance={colorScheme === 'light' ? 'light' : 'dark'}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									onSubmitEditing={handleSubmit(onSubmit)}
 									textContentType='nickname'
 									placeholder='Nickname'
@@ -262,7 +260,7 @@ export default () => {
 										<ActivityIndicator
 											size='small'
 											color={
-												colorScheme === 'light'
+												rTheme.colorScheme === 'light'
 													? rTheme.theme?.gluestack.tokens.colors.light900
 													: rTheme.theme?.gluestack.tokens.colors.dark900
 											}

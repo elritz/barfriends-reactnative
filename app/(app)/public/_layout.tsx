@@ -1,18 +1,19 @@
 // TODO: FX() Settings still needs to be done
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, HStack, VStack } from '@components/core'
-import GeneralInput from '@components/molecules/search/commoninput/GeneralInput'
+import { Button, HStack, VStack } from '@components/core'
+import SearchInput from '@components/molecules/search/searchinput/SearchInput'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
-import { BlurView } from 'expo-blur'
 import { Stack, useRouter } from 'expo-router'
-import { Platform, StyleSheet } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const router = useRouter()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
+	const insets = useSafeAreaInsets()
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const h = insets.top + HEADER_HEIGHT
 
 	return (
 		<Stack>
@@ -37,7 +38,7 @@ export default () => {
 								onPress={() => router.back()}
 								rounded={'$full'}
 								size='xs'
-								bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+								bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
 							>
 								<Ionicons name='md-chevron-back-outline' size={30} />
 							</Button>
@@ -50,7 +51,7 @@ export default () => {
 							size='xs'
 							my={'$2'}
 							mr={'$2'}
-							bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+							bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
 						>
 							<Entypo name='dots-three-vertical' size={23} />
 						</Button>
@@ -79,7 +80,7 @@ export default () => {
 								size='xs'
 								my={'$2'}
 								mr={'$2'}
-								bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+								bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
 							>
 								<Ionicons name='md-chevron-back-outline' size={30} />
 							</Button>
@@ -87,24 +88,24 @@ export default () => {
 					),
 					contentStyle: {
 						backgroundColor:
-							colorScheme === 'dark'
-								? rTheme.theme?.gluestack.tokens.colors.dark100
-								: rTheme.theme?.gluestack.tokens.colors.light100,
+							rTheme.colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light100
+								: rTheme.theme?.gluestack.tokens.colors.dark100,
 					},
 					headerTransparent: true,
 					header: () => {
 						return (
-							<VStack justifyContent={'flex-end'} pb={'$3'}>
-								{Platform.OS === 'ios' ? (
-									<BlurView
-										style={StyleSheet.absoluteFill}
-										tint={colorScheme === 'light' ? 'light' : 'dark'}
-										intensity={80}
-									/>
-								) : (
-									<Box style={[StyleSheet.absoluteFill]} />
-								)}
-								<GeneralInput placeholder='Search contacts' />
+							<VStack
+								justifyContent={'flex-end'}
+								sx={{
+									pt: insets.top,
+									h,
+									_light: { bg: '$light100' },
+									_dark: { bg: '$dark50' },
+								}}
+								pb={'$2'}
+							>
+								<SearchInput />
 							</VStack>
 						)
 					},

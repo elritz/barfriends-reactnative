@@ -2,12 +2,10 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Center, Pressable } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as ImagePicker from 'expo-image-picker'
 
 export default function ProfilePhotoEmptyState() {
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
@@ -51,7 +49,7 @@ export default function ProfilePhotoEmptyState() {
 						size={40}
 						name={'ios-person'}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}
@@ -77,7 +75,7 @@ export default function ProfilePhotoEmptyState() {
 					<Ionicons
 						name='ios-arrow-up-circle'
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}

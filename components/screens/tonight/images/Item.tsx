@@ -3,7 +3,6 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Text } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { PermissionMediaReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { Image } from 'react-native'
 import { StyleSheet, View, Pressable } from 'react-native'
@@ -23,7 +22,6 @@ interface TileProps {
 
 const Item = ({ uri, onPress }: TileProps) => {
 	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rPermissionMedia = useReactiveVar(PermissionMediaReactiveVar)
 
@@ -57,7 +55,7 @@ const Item = ({ uri, onPress }: TileProps) => {
 							size={55}
 							name={'add-photo-alternate'}
 							color={
-								colorScheme === 'light'
+								rTheme.colorScheme === 'light'
 									? rTheme.theme?.gluestack.tokens.colors.light900
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}

@@ -3,12 +3,10 @@ import { HorizontalCityItemProps } from '@app/(app)/searcharea/_layout'
 import { HStack, Text } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useFormContext } from 'react-hook-form'
 import { ListRenderItemInfo } from 'react-native'
 
 const HorizontalCityItem = ({ index, item }: ListRenderItemInfo<HorizontalCityItemProps>) => {
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const formContext = useFormContext()
 	const { watch } = formContext
@@ -17,7 +15,7 @@ const HorizontalCityItem = ({ index, item }: ListRenderItemInfo<HorizontalCityIt
 		<HStack
 			key={index}
 			bg={
-				colorScheme === 'light'
+				rTheme.colorScheme === 'light'
 					? rTheme.theme?.gluestack.tokens.colors.light100
 					: rTheme.theme?.gluestack.tokens.colors.dark100
 			}

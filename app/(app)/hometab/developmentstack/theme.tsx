@@ -4,22 +4,21 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
-import { useGetAllThemesQuery } from '@graphql/generated'
+import { useGetAllThemesQuery, useUpdateThemeManagerSwitchThemeMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
-import { useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Preferences() {
-	const ITEM_HEIGHT = 50
-	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
 	const insets = useSafeAreaInsets()
-	const rThemeVar = useReactiveVar(ThemeReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+
 	const [toggleTheme] = useToggleTheme()
+
+	const [updateTHemeManagerSwitchThemeMutation, { data, loading }] =
+		useUpdateThemeManagerSwitchThemeMutation()
 
 	const { data: GATData, loading: GATLoading, error } = useGetAllThemesQuery()
 
@@ -49,32 +48,37 @@ export default function Preferences() {
 					item.theme.styled.light.palette.bfscompany.tertiary,
 				],
 			}
-
+			console.log('item.id :>> ', item.id)
 			return (
-				<Box
-					key={item.id}
-					m={3}
-					style={{
-						flex: 1,
-					}}
-					py={'$4'}
-					px={'$2'}
-					rounded={'$md'}
-					borderWidth={2}
-					borderColor={
-						AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0]?.Theme
-							.id === item.id
-							? 'primary.400'
-							: 'transparent'
-					}
+				<Pressable
+				// onPress={async () => {
+				// 	updateTHemeManagerSwitchThemeMutation({
+				// 		variables: {
+				// 			id: item.id,
+				// 			themeId: item.id,
+				// 		},
+				// 	})
+				// }}
 				>
-					<Pressable
-						onPress={async () => {
-							router.back()
+					<Box
+						key={item.id}
+						m={'$3'}
+						style={{
+							flex: 1,
 						}}
+						py={'$4'}
+						px={'$2'}
+						rounded={'$md'}
+						borderWidth={'$2'}
+						borderColor={
+							AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0]?.Theme
+								.id === item.id
+								? 'primary.400'
+								: 'transparent'
+						}
 					>
 						<VStack flexDirection={'row'} flexWrap={'wrap'} justifyContent='space-around' space={'md'}>
-							{rThemeVar.colorScheme === 'light' ? (
+							{rTheme.colorScheme === 'light' ? (
 								<>
 									{bfs.light.map((item, index) => {
 										return (
@@ -113,7 +117,7 @@ export default function Preferences() {
 
 						<Divider my={'$3'} />
 						<VStack flexDirection={'row'} flexWrap={'wrap'} justifyContent='space-around' space={'$md'}>
-							{rThemeVar.colorScheme === 'light' ? (
+							{rTheme.colorScheme === 'light' ? (
 								<>
 									{company.light.map((item, index) => {
 										return (
@@ -125,7 +129,7 @@ export default function Preferences() {
 													width: 40,
 													height: 40,
 												}}
-												m={2}
+												m={'$2'}
 											/>
 										)
 									})}
@@ -142,7 +146,7 @@ export default function Preferences() {
 													width: 30,
 													height: 30,
 												}}
-												m={2}
+												m={'$2'}
 											/>
 										)
 									})}
@@ -158,11 +162,11 @@ export default function Preferences() {
 						>
 							{item.name}
 						</Heading>
-					</Pressable>
-				</Box>
+					</Box>
+				</Pressable>
 			)
 		},
-		[rThemeVar.colorScheme],
+		[rTheme.colorScheme],
 	)
 
 	if (GATLoading || !GATData?.getAllThemes) return null
@@ -181,7 +185,6 @@ export default function Preferences() {
 				paddingHorizontal: 10,
 			}}
 			contentInset={{
-				top: insets.top + 100,
 				bottom:
 					insets.bottom !== 0
 						? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
@@ -197,7 +200,7 @@ export default function Preferences() {
 							}}
 							bg={'$light50'}
 							flex={1}
-							borderColor={rThemeVar.localStorageColorScheme === 'light' ? '$primary300' : 'transparent'}
+							borderColor={rTheme.localStorageColorScheme === 'light' ? '$primary300' : 'transparent'}
 							borderWidth={'$2'}
 						>
 							<Text color={'$black'}>Light</Text>
@@ -208,7 +211,7 @@ export default function Preferences() {
 								await setTheme({ colorScheme: 'dark' })
 							}}
 							bg={'$dark100'}
-							borderColor={rThemeVar.localStorageColorScheme === 'dark' ? '$primary300' : 'transparent'}
+							borderColor={rTheme.localStorageColorScheme === 'dark' ? '$primary300' : 'transparent'}
 							borderWidth={'$2'}
 						>
 							<Text color={'$white'}>Dark</Text>
@@ -217,12 +220,12 @@ export default function Preferences() {
 							onPress={async () => {
 								await setTheme({ colorScheme: 'system' })
 							}}
-							bg={colorScheme === 'light' ? '$light100' : '$dark100'}
+							bg={rTheme.colorScheme === 'light' ? '$light100' : '$dark100'}
 							flex={1}
-							borderColor={rThemeVar.localStorageColorScheme === 'system' ? '$primary300' : 'transparent'}
+							borderColor={rTheme.localStorageColorScheme === 'system' ? '$primary300' : 'transparent'}
 							borderWidth={'$2'}
 						>
-							<Text color={colorScheme === 'light' ? '$black' : '$white'}>System</Text>
+							<Text color={rTheme.colorScheme === 'light' ? '$black' : '$white'}>System</Text>
 						</Button>
 					</HStack>
 				)

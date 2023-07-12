@@ -7,7 +7,6 @@ import { useUpsertDevicePushTokenMutation } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionNotificationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useTimer2 from '@util/hooks/useTimer2'
 import * as Application from 'expo-application'
 import * as Device from 'expo-device'
@@ -23,7 +22,6 @@ export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
 	const isFocused = useIsFocused()
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rNotificationsPermission = useReactiveVar(PermissionNotificationReactiveVar)
 	const { finished, start, seconds, started } = useTimer2('0:2')

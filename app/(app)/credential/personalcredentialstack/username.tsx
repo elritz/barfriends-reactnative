@@ -4,7 +4,6 @@ import { Feather, Ionicons } from '@expo/vector-icons'
 import { useCheckUsernameLazyQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
@@ -21,7 +20,6 @@ export default () => {
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const _usernameRef = useRef<TextInputProps>(null)
-	const colorScheme = useThemeColorScheme()
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
@@ -172,7 +170,7 @@ export default () => {
 									key='username'
 									placeholder='Username'
 									color={
-										colorScheme === 'light'
+										rTheme.colorScheme === 'light'
 											? rTheme.theme?.gluestack.tokens.colors.light900
 											: rTheme.theme?.gluestack.tokens.colors.dark900
 									}

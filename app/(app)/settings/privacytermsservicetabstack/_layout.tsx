@@ -6,14 +6,12 @@ import {
 import { IColor } from '@ctypes/app'
 import { MaterialIcons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Tabs } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function _layout() {
 	const insets = useSafeAreaInsets()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	return (
 		<Tabs
@@ -23,7 +21,7 @@ export default function _layout() {
 
 				tabBarStyle: {
 					backgroundColor:
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light50
 							: rTheme.theme?.gluestack.tokens.colors.dark50,
 					height:

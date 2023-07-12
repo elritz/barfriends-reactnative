@@ -12,7 +12,6 @@ import {
 } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as IntentLauncher from 'expo-intent-launcher'
 import { Alert, Linking, Platform } from 'react-native'
 
@@ -20,7 +19,6 @@ const SearchAreaLocationPermissionItem = () => {
 	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
 		...rSearchAreaVar,
@@ -91,7 +89,7 @@ const SearchAreaLocationPermissionItem = () => {
 								fontSize={'$lg'}
 								ellipsizeMode={'tail'}
 								alignSelf={'center'}
-								color={colorScheme === 'light' ? '$black' : '$white'}
+								color={rTheme.colorScheme === 'light' ? '$black' : '$white'}
 							>
 								{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
 							</Text>

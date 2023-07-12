@@ -9,7 +9,6 @@ import {
 	useUpdateOneProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useForm, Controller, ValidateResult } from 'react-hook-form'
 import { ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'

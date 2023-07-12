@@ -1,13 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import { config } from '@gluestack'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Stack } from 'expo-router'
 
 export default function _layout() {
-	// const colorScheme = useThemeColorScheme()
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	return (
 		<Stack

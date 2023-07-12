@@ -1,7 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { Input } from '@components/core'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { View } from 'react-native'
@@ -9,7 +8,6 @@ import { View } from 'react-native'
 interface HomeTownScreenProps {}
 
 export default ({}: HomeTownScreenProps) => {
-	const colorScheme = useThemeColorScheme()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [search, setSearch] = useState<string>('')
@@ -48,15 +46,15 @@ export default ({}: HomeTownScreenProps) => {
 					placeholder='Search...'
 					onChangeText={(text: string) => setSearch(text)}
 					borderBottomColor={'$transparent'}
-					rounded={'$4'}
-					keyboardAppearance={colorScheme == 'light' ? 'light' : 'dark'}
+					rounded={'$md'}
+					keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 					color={
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light900
 							: rTheme.theme?.gluestack.tokens.colors.dark900
 					}
 					backgroundColor={
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light100
 							: rTheme.theme?.gluestack.tokens.colors.dark100
 					}

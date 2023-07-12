@@ -2,13 +2,11 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Heading, Pressable } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 
 const AddEmoji = () => {
 	const router = useRouter()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	return (
 		<Pressable
@@ -28,7 +26,7 @@ const AddEmoji = () => {
 					size={30}
 					name='emoji-emotions'
 					color={
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light900
 							: rTheme.theme?.gluestack.tokens.colors.dark900
 					}

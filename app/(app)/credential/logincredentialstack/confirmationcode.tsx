@@ -173,7 +173,7 @@ export default () => {
 	}
 
 	return (
-		<Box 	bg='transparent' flex={1}>
+		<Box 	bg='$transparent' flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					{`Enter the 4-diget code sent to you at ${
@@ -206,7 +206,7 @@ export default () => {
 								onEndEditing={handleSubmit(onSubmit)}
 								renderCell={({ index, symbol, isFocused }) => (
 									<Box
-										bg='transparent'
+										bg='$transparent'
 										key={index}
 										sx={{
 											h: 50,

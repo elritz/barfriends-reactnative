@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, VStack } from '@components/core'
 import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
+import SearchInput from '@components/molecules/search/searchinput/SearchInput'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
 import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profiletab'
@@ -20,13 +21,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
-	const router = useRouter()
 	const insets = useSafeAreaInsets()
-	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
-	const h = insets.top + HEADER_HEIGHT
-
+	
 	return (
 		<Tabs
+			initialRouteName='venuefeed'
 			screenOptions={{
 				tabBarBackground: () => <Box style={[StyleSheet.absoluteFill]} />,
 				tabBarStyle: {
@@ -39,39 +38,14 @@ export default () => {
 					elevation: 0, // for Android
 					borderTopWidth: 0,
 				},
+				headerShown: false,
 				tabBarShowLabel: false,
 			}}
-			initialRouteName='venuefeed'
 		>
 			<Tabs.Screen
 				name='venuefeed'
 				options={{
-					headerShown: true,
-					header: () => {
-						return (
-							<VStack
-								justifyContent={'flex-end'}
-								sx={{
-									pt: insets.top,
-									h,
-									_light: { bg: '$light100' },
-									_dark: { bg: '$dark50' },
-								}}
-								pb={'$2'}
-							>
-								<SearchInputDisabled
-									onPress={() =>
-										router.push({
-											pathname: '(app)/explore/searchtext',
-											params: {
-												searchtext: '',
-											},
-										})
-									}
-								/>
-							</VStack>
-						)
-					},
+					headerShown: false,
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,

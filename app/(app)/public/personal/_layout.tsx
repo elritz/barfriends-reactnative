@@ -3,7 +3,6 @@ import { useReactiveVar } from '@apollo/client'
 import { Button, HStack } from '@components/core'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Stack, useRouter } from 'expo-router'
 
 export default () => {

@@ -9,14 +9,12 @@ import {
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Pressable, ScrollView } from 'react-native'
 
 export default () => {
 	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [profiles, setProfiles] = useState<Array<AuthorizationDeviceProfile>>([])
@@ -103,7 +101,7 @@ export default () => {
 						name='ios-person-circle-outline'
 						size={30}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}
@@ -127,7 +125,7 @@ export default () => {
 					<Ionicons
 						size={30}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}
@@ -149,7 +147,7 @@ export default () => {
 								marginLeft: 2,
 							}}
 							color={
-								colorScheme === 'light'
+								rTheme.colorScheme === 'light'
 									? rTheme.theme?.gluestack.tokens.colors.light900
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}
@@ -175,7 +173,7 @@ export default () => {
 							name='shield-checkmark-outline'
 							size={30}
 							color={
-								colorScheme === 'light'
+								rTheme.colorScheme === 'light'
 									? rTheme.theme?.gluestack.tokens.colors.light900
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}
@@ -199,7 +197,7 @@ export default () => {
 					<Ionicons
 						name={'color-palette'}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}

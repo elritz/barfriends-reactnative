@@ -2,14 +2,12 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Heading } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { Pressable } from 'react-native'
 
 const JoinVenue = ({}) => {
 	const router = useRouter()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	return (
 		<Pressable
@@ -31,7 +29,7 @@ const JoinVenue = ({}) => {
 					}}
 					size={30}
 					color={
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light900
 							: rTheme.theme?.gluestack.tokens.colors.dark900
 					}

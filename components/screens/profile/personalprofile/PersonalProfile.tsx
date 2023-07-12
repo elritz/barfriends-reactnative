@@ -20,7 +20,7 @@ const PersonalScreen = ({ notifications }: Props) => {
 
 	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest) {
 		return (
-			<Box bg='transparent' my={'$10'} mx={'$3'} flex={1}>
+			<Box bg='$transparent' my={'$10'} mx={'$3'} flex={1}>
 				<View>
 					<CardPleaseSignup signupTextId={4} />
 					<Divider style={{ marginVertical: 20 }} />

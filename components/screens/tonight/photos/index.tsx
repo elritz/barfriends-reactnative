@@ -3,7 +3,6 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Center, Heading, Pressable, Text } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import * as ImagePicker from 'expo-image-picker'
 import { useCallback } from 'react'
@@ -24,7 +23,6 @@ const size = 70
 export default function Photos() {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 	const { width } = useWindowDimensions()
 	const scrollRef = useAnimatedRef<ScrollView>()
 	const translateX = useSharedValue(0)
@@ -257,7 +255,7 @@ export default function Photos() {
 										style={{
 											zIndex: 10,
 											color:
-												colorScheme === 'light'
+												rTheme.colorScheme === 'light'
 													? rTheme.theme?.gluestack.tokens.colors.light900
 													: rTheme.theme?.gluestack.tokens.colors.dark900,
 										}}

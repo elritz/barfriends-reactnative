@@ -7,7 +7,6 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Heading, Text, VStack } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import * as ImagePicker from 'expo-image-picker'
 import { useWindowDimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -31,7 +30,6 @@ const tiles = [
 const TonightImages = () => {
 	const window = useWindowDimensions()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 
 	const updatePositions = async () => {}
 	const handleSelectImage = async () => {
@@ -80,7 +78,7 @@ const TonightImages = () => {
 								name={'photo-library'}
 								size={25}
 								color={
-									colorScheme === 'light'
+									rTheme.colorScheme === 'light'
 										? rTheme.theme?.gluestack.tokens.colors.light900
 										: rTheme.theme?.gluestack.tokens.colors.dark900
 								}

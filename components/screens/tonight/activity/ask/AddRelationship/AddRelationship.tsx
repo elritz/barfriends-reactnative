@@ -2,10 +2,8 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Heading } from '@components/core'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 
 const AddRelationship = ({}) => {
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	
 	return (
@@ -35,7 +33,7 @@ const AddRelationship = ({}) => {
 					name={'hand-holding-heart'}
 					size={30}
 					color={
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light900
 							: rTheme.theme?.gluestack.tokens.colors.dark900
 					}

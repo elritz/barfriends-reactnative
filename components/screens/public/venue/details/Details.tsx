@@ -51,7 +51,7 @@ export default function Details(props) {
 	return (
 		<Box py={'$4'} px={'$2'} mt={'$5'} rounded={'$xl'}>
 			<VStack space={'lg'} flex={1}>
-				<Box bg='transparent'>
+				<Box bg='$transparent'>
 					<DetailTitle title={'Address'} />
 					<Text fontSize={'$xl'} fontWeight={'$medium'}>
 						{data?.currentVenue?.Venue?.Location?.Address?.formattedAddress}

@@ -2,11 +2,9 @@ import { useReactiveVar } from '@apollo/client'
 import LogoTransparent from '@assets/images/company/LogoTransparent'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { Stack } from 'expo-router'
 
 export default function _layout() {
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	return (
@@ -14,7 +12,7 @@ export default function _layout() {
 			screenOptions={{
 				headerStyle: {
 					backgroundColor:
-						colorScheme === 'light'
+						rTheme.colorScheme === 'light'
 							? rTheme.theme?.gluestack.tokens.colors.light50
 							: rTheme.theme?.gluestack.tokens.colors.dark50,
 				},

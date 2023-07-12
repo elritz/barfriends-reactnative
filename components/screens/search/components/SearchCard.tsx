@@ -2,13 +2,11 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, HStack, Pressable, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { Image } from 'react-native'
 
 export default function SearchCard({ item }) {
 	const router = useRouter()
-	const colorScheme = useThemeColorScheme()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
 	if (!item?.Profile) {
@@ -62,7 +60,7 @@ export default function SearchCard({ item }) {
 							<Ionicons
 								size={25}
 								color={
-									colorScheme === 'light'
+									rTheme.colorScheme === 'light'
 										? rTheme.theme?.gluestack.tokens.colors.light900
 										: rTheme.theme?.gluestack.tokens.colors.dark900
 								}

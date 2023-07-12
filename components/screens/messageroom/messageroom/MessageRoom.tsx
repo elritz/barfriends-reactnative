@@ -3,21 +3,12 @@ import { Box, Input, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
 import { ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { BlurView } from 'expo-blur'
 import { useEffect } from 'react'
-import {
-	FlatList,
-	TextInput as RNInput,
-	Keyboard,
-	Platform,
-	KeyboardAvoidingView,
-} from 'react-native'
-import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
+import { FlatList, Keyboard, Platform, KeyboardAvoidingView } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Animated, {
 	Easing,
-	Extrapolate,
 	interpolate,
 	useAnimatedRef,
 	useAnimatedScrollHandler,
@@ -25,7 +16,7 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function MessageRoom(props) {
 	const data = [...Array(16)]

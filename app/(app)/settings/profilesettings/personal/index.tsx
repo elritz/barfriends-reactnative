@@ -3,7 +3,6 @@ import { Badge, Box, HStack, Heading, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { useProfileQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import { useRouter } from 'expo-router'
 import { ScrollView, Pressable } from 'react-native'
 
@@ -13,7 +12,6 @@ export default ({}: EditableOptionsScreenProps) => {
 	const router = useRouter()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 	const rIdentifiableInformation = rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation
 	const date = new Date(
 		rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.birthday,
@@ -103,7 +101,7 @@ export default ({}: EditableOptionsScreenProps) => {
 					<Ionicons
 						name={'md-lock-closed'}
 						color={
-							colorScheme === 'light'
+							rTheme.colorScheme === 'light'
 								? rTheme.theme?.gluestack.tokens.colors.light400
 								: rTheme.theme?.gluestack.tokens.colors.dark400
 						}
@@ -143,7 +141,7 @@ export default ({}: EditableOptionsScreenProps) => {
 											fontWeight='$bold'
 											fontSize={'$md'}
 											color={
-												colorScheme === 'light'
+												rTheme.colorScheme === 'light'
 													? rTheme.theme?.gluestack.tokens.colors.light100
 													: rTheme.theme?.gluestack.tokens.colors.dark100
 											}

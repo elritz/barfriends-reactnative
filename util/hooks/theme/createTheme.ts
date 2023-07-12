@@ -1,14 +1,18 @@
 import { Config, config } from '../../../gluestack-ui.config'
 import { defaulttheme } from '@assets/theme/default'
+import { ThemeColorSchemeOptionsType } from '@ctypes/preferences'
 import { DefaultTheme } from '@react-navigation/native'
-import { AuthorizationReactiveVar, IBFSTheme } from '@reactive'
-import { ColorSchemeName } from 'react-native'
+import { AuthorizationReactiveVar, IBFSTheme, ThemeReactiveVar } from '@reactive'
+import { Appearance, ColorSchemeName } from 'react-native'
 
 type Props = {
 	themeScheme: ColorSchemeName
+	localStorageColorScheme: ThemeColorSchemeOptionsType
 }
 
-const createTheme = ({ themeScheme }: Props): IBFSTheme => {
+const createTheme = ({ themeScheme, localStorageColorScheme }: Props) => {
+	const deviceColorScheme = Appearance.getColorScheme()
+
 	const theme =
 		AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].Theme.theme ||
 		defaulttheme
@@ -26,16 +30,15 @@ const createTheme = ({ themeScheme }: Props): IBFSTheme => {
 		tokens: {
 			...config.theme.tokens,
 			colors: {
+				...theme.gluestack,
 				...config.theme.tokens.colors,
-				...defaulttheme.gluestack,
 			},
 		},
 	}
-
-	const newTheme = {
+	const _newtheme = {
 		reactnavigation: {
 			...DefaultTheme,
-			dark: themeScheme === 'dark' ? true : false,
+			dark: themeScheme === 'light' ? false : true,
 			colors: {
 				...DefaultTheme.colors,
 				...rnColors(),
@@ -44,7 +47,19 @@ const createTheme = ({ themeScheme }: Props): IBFSTheme => {
 		gluestack: createGlueStackTheme,
 	}
 
-	return newTheme
+	const colorScheme = () => {
+		if (localStorageColorScheme === 'system') {
+			return deviceColorScheme
+		}
+		return localStorageColorScheme
+	}
+
+	ThemeReactiveVar({
+		localStorageColorScheme: localStorageColorScheme,
+		deviceColorScheme: deviceColorScheme,
+		colorScheme: colorScheme(),
+		theme: _newtheme,
+	})
 }
 
 export default createTheme

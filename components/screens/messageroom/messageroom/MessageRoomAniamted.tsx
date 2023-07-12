@@ -1,8 +1,8 @@
 // TODO: FN() - line 83 -- MessageRoomAniamted ~ onPressIn'
 import { history } from './Message'
 import Message from './data'
-import { Ionicons } from '@expo/vector-icons'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
+import { useReactiveVar } from '@apollo/client'
+import { ThemeReactiveVar } from '@reactive'
 import { BlurView } from 'expo-blur'
 import { View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
@@ -10,10 +10,9 @@ import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-rean
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const MessageRoomAniamted = () => {
-	const colorScheme = useThemeColorScheme()
 	const INPUT_CONTAINER_HEIGHT = 80
 	const { bottom } = useSafeAreaInsets()
-	const _nbMode = useColorMode()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { height: platform, progress } = useReanimatedKeyboardAnimation()
 	const height = useDerivedValue(() => platform.value)
 
@@ -63,7 +62,7 @@ const MessageRoomAniamted = () => {
 						height: INPUT_CONTAINER_HEIGHT,
 						backgroundColor: 'transparent',
 					}}
-					tint={_nbMode.colorMode === 'light' ? 'light' : 'dark'}
+					tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 				>
 					{/* <Input
 						bg={_nbMode.colorMode === 'light' ? 'light.100' : 'dark.100'}

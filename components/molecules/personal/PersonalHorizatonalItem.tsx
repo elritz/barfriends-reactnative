@@ -13,7 +13,7 @@ const PersonalHorizatonalItem = (props: ItemRenderType<Personal>) => {
 	return (
 		<Pressable>
 			<Box
-				bg='transparent'
+				bg='$transparent'
 				// ViewComponent={LinearGradient}
 				// linearGradientProps={{
 				// 	colors: [

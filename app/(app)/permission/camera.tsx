@@ -6,7 +6,6 @@ import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { PermissionCameraReactiveVar, ThemeReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
-import useThemeColorScheme from '@util/hooks/theme/useThemeColorScheme'
 import useTimer2 from '@util/hooks/useTimer2'
 import { Camera, requestCameraPermissionsAsync } from 'expo-camera'
 import * as Device from 'expo-device'
@@ -23,7 +22,6 @@ export default () => {
 	const isFocused = useIsFocused()
 	const rPermissionCamera = useReactiveVar(PermissionCameraReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const colorScheme = useThemeColorScheme()
 	const { finished, start, seconds, started } = useTimer2('0:2')
 
 	const details = [
