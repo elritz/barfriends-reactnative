@@ -1,9 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import DatePicker from '@components/atoms/inputs/DatePicker'
 import { Box, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import { useIsFocused } from '@react-navigation/native'
-import { CredentialPersonalProfileReactiveVar } from '@reactive'
+import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactive'
 import diffNow from '@util/@fn/luxon'
 import { secureStorageItemCreate } from '@util/hooks/local/useSecureStorage'
 import { useRouter } from 'expo-router'
@@ -15,6 +15,7 @@ export default () => {
 	const router = useRouter()
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [legalAge] = useState<number>(19)
 
 	const {
@@ -109,7 +110,8 @@ export default () => {
 			alignItems='center'
 			flexDirection='column'
 			justifyContent='space-between'
-			mt={'$10'}
+			mt={'$5'}
+			bg='$transparent'
 		>
 			<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 				What's your birthday
@@ -120,11 +122,12 @@ export default () => {
 					name='date'
 					render={({ field: { value } }) => (
 						<View style={{ width: '100%', height: '70%' }}>
-							<DatePicker
+							<DateTimePicker
 								display='spinner'
+								themeVariant={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 								mode='date'
 								value={value}
-								maxDate={new Date()}
+								maximumDate={new Date()}
 								onChange={(e, selectedDate) => onDateChange(selectedDate)}
 								style={{
 									width: '100%',
@@ -147,11 +150,22 @@ export default () => {
 					{errors.date && errors.date.type ? errors?.date?.message : null}
 				</Text>
 			</>
-			<Box display={'flex'} justifyContent={'center'} alignItems={'center'} w={'100%'} mb={'$5'}>
+			<Box
+				bg='$transparent'
+				sx={{
+					h: 90,
+				}}
+				display={'flex'}
+				justifyContent={'center'}
+				alignItems={'center'}
+				w={'100%'}
+				mb={'$5'}
+			>
 				<Box
 					flexDirection={'row'}
 					justifyContent={'space-between'}
 					alignContent={'space-around'}
+					bg='$transparent'
 					sx={{
 						h: 90,
 						px: '2.5%',

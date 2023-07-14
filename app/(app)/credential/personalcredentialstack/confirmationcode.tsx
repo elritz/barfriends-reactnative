@@ -3,9 +3,13 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
+import {
+	ConfirmationCodeReactiveVar,
+	CredentialPersonalProfileReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import Countdown from '@util/hooks/useTimer'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -22,9 +26,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default () => {
 	const INPUT_ACCESSORY_VIEW_ID = 'cc-1298187263'
 	const router = useRouter()
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const { bottom } = useSafeAreaInsets()
 	const isFocused = useIsFocused()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const CELL_COUNT = String(params?.code).length
@@ -116,15 +121,21 @@ export default () => {
 				alignContent={'space-around'}
 				sx={{
 					h: 90,
+					_dark: {
+						bg: '$black',
+					},
+					_light: {
+						bg: '$white',
+					},
 				}}
 				px={'$2'}
 			>
-				<Box justifyContent={'space-around'}>
+				<Box bg={'$transparent'} justifyContent={'space-around'}>
 					{complete ? (
 						<VStack space={'sm'} justifyContent={'space-around'}>
 							<Button
 								variant={'link'}
-								size={'xs'}
+								size={'md'}
 								justifyContent={'flex-start'}
 								// onPress={() => navigation.goBack()}
 							>
@@ -133,7 +144,7 @@ export default () => {
 							</Button>
 							<Button
 								variant={'link'}
-								size={'xs'}
+								size={'md'}
 								justifyContent={'flex-start'}
 								onPress={() => router.back()}
 							>
@@ -168,7 +179,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1}>
+		<Box bg='$transparent' flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'} sx={{ minHeight: 70 }}>
 					{`Enter the 4-diget code sent to you at ${
@@ -197,16 +208,19 @@ export default () => {
 								textContentType='oneTimeCode'
 								onSubmitEditing={handleSubmit(onSubmit)}
 								onBlur={onBlur}
+								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 								blurOnSubmit={false}
 								autoFocus
 								onEndEditing={handleSubmit(onSubmit)}
 								renderCell={({ index, symbol, isFocused }) => (
 									<Box
+										bg='$transparent'
 										key={index}
 										sx={{
 											w: 50,
 											h: 60,
 										}}
+										rounded={'$none'}
 										justifyContent={'center'}
 										alignItems={'center'}
 										borderBottomColor={!isFocused ? '#ccc' : '#007AFF'}

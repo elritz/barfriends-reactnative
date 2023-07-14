@@ -10,12 +10,16 @@ export default () => {
 	const h = insets.top + HEADER_HEIGHT
 	const segments = useSegments()
 
-
 	return (
 		<Stack
-			initialRouteName='hometab'
+			initialRouteName='hometab/venuefeed'
 			screenOptions={{
-				headerShown: segments.includes('messagestack') || segments.includes('venuefeed'),
+				headerShown:
+					segments.includes('messagestack') ||
+					segments.includes('hometab' && 'venuefeed') ||
+					segments.includes('searcharea') ||
+					segments.includes('tonight') ||
+					segments.includes('explore'),
 				// headerShown: segments.some(i => {
 				// 	if (i === 'messagestack' || i === 'venuefeed') {
 				// 		return true

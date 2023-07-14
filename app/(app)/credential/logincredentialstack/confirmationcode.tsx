@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
 import Countdown from '@util/hooks/useTimer'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
 import { InputAccessoryView, Platform, View } from 'react-native'
@@ -24,7 +24,9 @@ export default () => {
 	const { bottom } = useSafeAreaInsets()
 	const isFocused = useIsFocused()
 	const router = useRouter()
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
+
+	console.log('🚀 ~ file: confirmationcode.tsx:29 ~ params:', params)
 
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
@@ -115,7 +117,6 @@ export default () => {
 	const InnerContent = () => {
 		return (
 			<Box
-			
 				display={isFocused ? 'flex' : 'none'}
 				flexDirection={'row'}
 				justifyContent={'space-between'}
@@ -173,7 +174,7 @@ export default () => {
 	}
 
 	return (
-		<Box 	bg='$transparent' flex={1}>
+		<Box bg='$transparent' flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					{`Enter the 4-diget code sent to you at ${

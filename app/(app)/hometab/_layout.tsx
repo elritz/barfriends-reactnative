@@ -1,6 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, VStack } from '@components/core'
-import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
 import SearchInput from '@components/molecules/search/searchinput/SearchInput'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
@@ -22,7 +21,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
-	
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const h = insets.top + HEADER_HEIGHT
 	return (
 		<Tabs
 			initialRouteName='venuefeed'
@@ -39,13 +39,29 @@ export default () => {
 					borderTopWidth: 0,
 				},
 				headerShown: false,
+				header: () => {
+					return (
+						<VStack
+							justifyContent={'flex-end'}
+							sx={{
+								pt: insets.top,
+								h,
+								_light: { bg: '$light100' },
+								_dark: { bg: '$dark50' },
+							}}
+							pb={'$2'}
+						>
+							<SearchInput />
+						</VStack>
+					)
+				},
 				tabBarShowLabel: false,
 			}}
 		>
 			<Tabs.Screen
 				name='venuefeed'
 				options={{
-					headerShown: false,
+					// headerShown: false,
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
 					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,

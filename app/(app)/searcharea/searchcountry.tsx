@@ -1,21 +1,21 @@
 import { Form } from './_layout'
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Text } from '@components/core'
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Button } from '@components/core'
 import { CountryResponseObject, useGetAllCountriesQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useLocalSearchParams } from 'expo-router'
+import { useRouter, useGlobalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchCountryTextScreen() {
 	const { bottom, top } = useSafeAreaInsets()
 	const router = useRouter()
-	const params = useLocalSearchParams()
+	const params = useGlobalSearchParams()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [countries, setCountries] = useState<CountryResponseObject[]>([])
 	const [pagination, setPagination] = useState<number>()
@@ -73,14 +73,34 @@ export default function SearchCountryTextScreen() {
 
 	if (loading) {
 		return (
-			<Box flex={1} mx={'$3'} sx={{ pt: top + SEARCH_BAR_HEIGHT + 20 }}>
-				{[...Array(20)].map((item, index) => {
+			<FlashList
+				data={[...Array(20)]}
+				contentInset={{
+					top: 5,
+					bottom: bottom,
+				}}
+				contentContainerStyle={{
+					paddingHorizontal: 10,
+				}}
+				keyExtractor={(item, index) => 'key' + index}
+				estimatedItemSize={50}
+				keyboardDismissMode={'on-drag'}
+				ItemSeparatorComponent={() => {
+					return (
+						<View
+							style={{
+								marginVertical: 4,
+							}}
+						/>
+					)
+				}}
+				renderItem={({ index, item }) => {
 					return (
 						<Skeleton
 							key={index}
-							height={80}
+							height={50}
 							width={'100%'}
-							radius={15}
+							radius={10}
 							colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 							colors={
 								rTheme.colorScheme === 'light'
@@ -95,74 +115,103 @@ export default function SearchCountryTextScreen() {
 							}
 						/>
 					)
-				})}
-			</Box>
+				}}
+			/>
 		)
 	}
+
+	function CountryItem({ index, item }) {
+		const _pressItem = async item => {
+			setValue('country', {
+				name: item.name,
+				isoCode: item.isoCode,
+				coords: {
+					latitude: Number(item.latitude),
+					longitude: Number(item.longitude),
+				},
+			})
+			router.push({
+				pathname: '(app)/searcharea/searchcountrystate',
+				params: {
+					countryIsoCode: item.isoCode,
+				},
+			})
+			router.setParams({
+				searchtext: '',
+			})
+		}
+
+		return (
+			<Button
+				onPress={() => _pressItem(item)}
+				key={index}
+				w={'$full'}
+				isFocused
+				sx={{
+					h: 50,
+					py: 0,
+					px: 2,
+					justifyContent: 'space-between',
+					_light: {
+						bg: watch('country.name') === item.name ? '$primary500' : '$dark50',
+					},
+					_dark: {
+						bg: watch('country.name') === item.name ? '$primary500' : '$dark50',
+					},
+				}}
+				rounded={'$md'}
+				justifyContent='flex-start'
+			>
+				<Button.Text
+					mt={'$0.5'}
+					ml={'$3'}
+					textAlign={'center'}
+					fontWeight={'$medium'}
+					fontSize={'$xl'}
+					numberOfLines={1}
+					ellipsizeMode={'tail'}
+				>
+					{item?.flag}
+					{` `}
+					<Button.Text fontWeight={'$medium'} fontSize={'$lg'} numberOfLines={1} ellipsizeMode={'tail'}>
+						{item.name}
+					</Button.Text>
+				</Button.Text>
+				{watch('country.name') === item.name ? (
+					<Button onPress={() => _pressItem(item)} rounded={'$full'} bg='$blue500' size='xs' mr={'$3'}>
+						<Button.Text fontSize={'$xs'}>Continue</Button.Text>
+					</Button>
+				) : null}
+			</Button>
+		)
+	}
+
+	const MemoizedItem = memo(CountryItem)
 
 	return (
 		<FlashList
 			data={countries}
 			contentInset={{
-				top: top + SEARCH_BAR_HEIGHT + 20,
+				top: 5,
 				bottom: bottom,
+			}}
+			contentContainerStyle={{
+				paddingHorizontal: 10,
 			}}
 			keyExtractor={(item, index) => 'key' + index}
 			estimatedItemSize={50}
 			keyboardDismissMode={'on-drag'}
 			ItemSeparatorComponent={() => {
-				return <Box my={'$1'} />
+				return (
+					<View
+						style={{
+							marginVertical: 4,
+						}}
+					/>
+				)
 			}}
 			renderItem={({ index, item }) => {
-				return (
-					<Button
-						key={index}
-						w={'$full'}
-						sx={{
-							py: 0,
-							px: 2,
-							mx: 3,
-							justifyContent: 'space-between',
-							h: 50,
-							_light: {
-								bg: watch('country.name') === item.name ? '$primary500' : '$light50',
-							},
-							_dark: {
-								bg: watch('country.name') === item.name ? '$primary500' : '$dark50',
-							},
-						}}
-						rounded={'$md'}
-						onPress={() => {
-							setValue('country', {
-								name: item.name,
-								isoCode: item.isoCode,
-								coords: {
-									latitude: Number(item.latitude),
-									longitude: Number(item.longitude),
-								},
-							})
-							router.push({
-								pathname: '(app)/searcharea/searchcountrystate',
-								params: {
-									countryIsoCode: item.isoCode,
-								},
-							})
-						}}
-					>
-						<Button.Text
-							mt={'$0.5'}
-							textAlign={'center'}
-							fontWeight={'$medium'}
-							fontSize={'$lg'}
-							numberOfLines={1}
-							ellipsizeMode={'tail'}
-						>
-							{item.flag}
-							{` `}
-							{item.name}
-						</Button.Text>
-					</Button>
-				)
+				return <MemoizedItem index={index} item={item} />
 			}}
 		/>
 	)

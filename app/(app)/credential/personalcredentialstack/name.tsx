@@ -6,7 +6,14 @@ import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactiv
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { InputAccessoryView, Platform, TextInputProps, View } from 'react-native'
+import {
+	InputAccessoryView,
+	Platform,
+	TextInput,
+	TextInputProps,
+	TextProps,
+	View,
+} from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -18,8 +25,8 @@ export default () => {
 	const { bottom } = useSafeAreaInsets()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
-	const _firstnameRef = useRef<TextInputProps | null>(null)
-	const _lastnameRef = useRef(null)
+	const _firstnameRef = useRef<TextInput | null>(null)
+	const _lastnameRef = useRef<TextInput | null>(null)
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
@@ -86,6 +93,12 @@ export default () => {
 				alignItems={'center'}
 				sx={{
 					h: 90,
+					_dark: {
+						bg: '$black',
+					},
+					_light: {
+						bg: '$white',
+					},
 				}}
 				px={'$2'}
 			>
@@ -112,7 +125,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1}>
+		<Box bg='$transparent' flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					Enter your name
@@ -122,7 +135,7 @@ export default () => {
 						name='firstname'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input ref={_firstnameRef} key={'name'} variant={'underlined'} py={'$1'} size={'lg'}>
+							<Input key={'name'} variant={'underlined'} py={'$1'} size={'lg'}>
 								<Input.Input
 									ref={_firstnameRef}
 									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
@@ -158,21 +171,22 @@ export default () => {
 						name='lastname'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input ref={_lastnameRef} key={'lname'} variant={'underlined'} py={'$1'} size={'lg'}>
+							<Input key={'lname'} variant={'underlined'} py={'$1'} size={'lg'}>
 								<Input.Input
+									ref={_lastnameRef}
 									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									key={'lastname'}
 									returnKeyType='done'
-									textContentType='givenName'
+									textContentType='familyName'
 									autoComplete={'name-family'}
 									autoCapitalize={'none'}
 									keyboardType='default'
 									numberOfLines={1}
-									autoFocus
 									placeholder='Last name'
 									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
 									py={'$1'}
 									onBlur={onBlur}
+									onSubmitEditing={handleSubmit(onSubmit)}
 									blurOnSubmit={false}
 									onChangeText={onChange}
 									value={value.toLowerCase()}

@@ -6,12 +6,12 @@ import {
 	useSwitchDeviceProfileMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useRouter, useSearchParams } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { SafeAreaView, View, ScrollView } from 'react-native'
 
 export default () => {
 	const router = useRouter()
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 
 	const { data, loading, error } = useAuthorizedProfilesQuery({
 		skip: !params.authenticator && !params.authenticator,

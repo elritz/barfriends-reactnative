@@ -90,7 +90,7 @@ input AddressComponentCreateManyInput {
 input AddressComponentCreateNestedManyWithoutAddressInput {
   connect: [AddressComponentWhereUniqueInput!]
   connectOrCreate: [AddressComponentCreateOrConnectWithoutAddressInput!]
-  create: AddressComponentCreateWithoutAddressInput
+  create: [AddressComponentCreateWithoutAddressInput!]
   createMany: AddressComponentCreateManyAddressInputEnvelope
 }
 
@@ -215,7 +215,7 @@ input AddressComponentUpdateManyMutationInput {
 input AddressComponentUpdateManyWithoutAddressNestedInput {
   connect: [AddressComponentWhereUniqueInput!]
   connectOrCreate: [AddressComponentCreateOrConnectWithoutAddressInput!]
-  create: AddressComponentCreateWithoutAddressInput
+  create: [AddressComponentCreateWithoutAddressInput!]
   createMany: AddressComponentCreateManyAddressInputEnvelope
   delete: [AddressComponentWhereUniqueInput!]
   deleteMany: [AddressComponentScalarWhereInput!]
@@ -627,21 +627,21 @@ input AreaCreateManyStateInputEnvelope {
 input AreaCreateNestedManyWithoutCityInput {
   connect: [AreaWhereUniqueInput!]
   connectOrCreate: [AreaCreateOrConnectWithoutCityInput!]
-  create: AreaCreateWithoutCityInput
+  create: [AreaCreateWithoutCityInput!]
   createMany: AreaCreateManyCityInputEnvelope
 }
 
 input AreaCreateNestedManyWithoutCountryInput {
   connect: [AreaWhereUniqueInput!]
   connectOrCreate: [AreaCreateOrConnectWithoutCountryInput!]
-  create: AreaCreateWithoutCountryInput
+  create: [AreaCreateWithoutCountryInput!]
   createMany: AreaCreateManyCountryInputEnvelope
 }
 
 input AreaCreateNestedManyWithoutStateInput {
   connect: [AreaWhereUniqueInput!]
   connectOrCreate: [AreaCreateOrConnectWithoutStateInput!]
-  create: AreaCreateWithoutStateInput
+  create: [AreaCreateWithoutStateInput!]
   createMany: AreaCreateManyStateInputEnvelope
 }
 
@@ -901,7 +901,7 @@ input AreaUpdateManyMutationInput {
 input AreaUpdateManyWithoutCityNestedInput {
   connect: [AreaWhereUniqueInput!]
   connectOrCreate: [AreaCreateOrConnectWithoutCityInput!]
-  create: AreaCreateWithoutCityInput
+  create: [AreaCreateWithoutCityInput!]
   createMany: AreaCreateManyCityInputEnvelope
   delete: [AreaWhereUniqueInput!]
   deleteMany: [AreaScalarWhereInput!]
@@ -915,7 +915,7 @@ input AreaUpdateManyWithoutCityNestedInput {
 input AreaUpdateManyWithoutCountryNestedInput {
   connect: [AreaWhereUniqueInput!]
   connectOrCreate: [AreaCreateOrConnectWithoutCountryInput!]
-  create: AreaCreateWithoutCountryInput
+  create: [AreaCreateWithoutCountryInput!]
   createMany: AreaCreateManyCountryInputEnvelope
   delete: [AreaWhereUniqueInput!]
   deleteMany: [AreaScalarWhereInput!]
@@ -929,7 +929,7 @@ input AreaUpdateManyWithoutCountryNestedInput {
 input AreaUpdateManyWithoutStateNestedInput {
   connect: [AreaWhereUniqueInput!]
   connectOrCreate: [AreaCreateOrConnectWithoutStateInput!]
-  create: AreaCreateWithoutStateInput
+  create: [AreaCreateWithoutStateInput!]
   createMany: AreaCreateManyStateInputEnvelope
   delete: [AreaWhereUniqueInput!]
   deleteMany: [AreaScalarWhereInput!]
@@ -1176,13 +1176,13 @@ input AuthenticationProviderCreateManyInput {
 input AuthenticationProviderCreateNestedManyWithoutEmailsInput {
   connect: [AuthenticationProviderWhereUniqueInput!]
   connectOrCreate: [AuthenticationProviderCreateOrConnectWithoutEmailsInput!]
-  create: AuthenticationProviderCreateWithoutEmailsInput
+  create: [AuthenticationProviderCreateWithoutEmailsInput!]
 }
 
 input AuthenticationProviderCreateNestedManyWithoutPhonesInput {
   connect: [AuthenticationProviderWhereUniqueInput!]
   connectOrCreate: [AuthenticationProviderCreateOrConnectWithoutPhonesInput!]
-  create: AuthenticationProviderCreateWithoutPhonesInput
+  create: [AuthenticationProviderCreateWithoutPhonesInput!]
 }
 
 input AuthenticationProviderCreateNestedOneWithoutCodepasswordInput {
@@ -1341,7 +1341,7 @@ input AuthenticationProviderUpdateManyMutationInput {
 input AuthenticationProviderUpdateManyWithoutEmailsNestedInput {
   connect: [AuthenticationProviderWhereUniqueInput!]
   connectOrCreate: [AuthenticationProviderCreateOrConnectWithoutEmailsInput!]
-  create: AuthenticationProviderCreateWithoutEmailsInput
+  create: [AuthenticationProviderCreateWithoutEmailsInput!]
   delete: [AuthenticationProviderWhereUniqueInput!]
   deleteMany: [AuthenticationProviderScalarWhereInput!]
   disconnect: [AuthenticationProviderWhereUniqueInput!]
@@ -1354,7 +1354,7 @@ input AuthenticationProviderUpdateManyWithoutEmailsNestedInput {
 input AuthenticationProviderUpdateManyWithoutPhonesNestedInput {
   connect: [AuthenticationProviderWhereUniqueInput!]
   connectOrCreate: [AuthenticationProviderCreateOrConnectWithoutPhonesInput!]
-  create: AuthenticationProviderCreateWithoutPhonesInput
+  create: [AuthenticationProviderCreateWithoutPhonesInput!]
   delete: [AuthenticationProviderWhereUniqueInput!]
   deleteMany: [AuthenticationProviderScalarWhereInput!]
   disconnect: [AuthenticationProviderWhereUniqueInput!]
@@ -1708,7 +1708,7 @@ input ChatroomCreateManyInput {
 input ChatroomCreateNestedManyWithoutProfilesInput {
   connect: [ChatroomWhereUniqueInput!]
   connectOrCreate: [ChatroomCreateOrConnectWithoutProfilesInput!]
-  create: ChatroomCreateWithoutProfilesInput
+  create: [ChatroomCreateWithoutProfilesInput!]
 }
 
 input ChatroomCreateNestedOneWithoutMessagesInput {
@@ -1804,7 +1804,7 @@ input ChatroomUpdateManyMutationInput {
 input ChatroomUpdateManyWithoutProfilesNestedInput {
   connect: [ChatroomWhereUniqueInput!]
   connectOrCreate: [ChatroomCreateOrConnectWithoutProfilesInput!]
-  create: ChatroomCreateWithoutProfilesInput
+  create: [ChatroomCreateWithoutProfilesInput!]
   delete: [ChatroomWhereUniqueInput!]
   deleteMany: [ChatroomScalarWhereInput!]
   disconnect: [ChatroomWhereUniqueInput!]
@@ -3190,7 +3190,7 @@ input DetailInformationCreateManyInput {
 input DetailInformationCreateNestedManyWithoutTagsInput {
   connect: [DetailInformationWhereUniqueInput!]
   connectOrCreate: [DetailInformationCreateOrConnectWithoutTagsInput!]
-  create: DetailInformationCreateWithoutTagsInput
+  create: [DetailInformationCreateWithoutTagsInput!]
 }
 
 input DetailInformationCreateNestedOneWithoutProfileInput {
@@ -3332,7 +3332,7 @@ input DetailInformationUpdateManyMutationInput {
 input DetailInformationUpdateManyWithoutTagsNestedInput {
   connect: [DetailInformationWhereUniqueInput!]
   connectOrCreate: [DetailInformationCreateOrConnectWithoutTagsInput!]
-  create: DetailInformationCreateWithoutTagsInput
+  create: [DetailInformationCreateWithoutTagsInput!]
   delete: [DetailInformationWhereUniqueInput!]
   deleteMany: [DetailInformationScalarWhereInput!]
   disconnect: [DetailInformationWhereUniqueInput!]
@@ -3768,7 +3768,7 @@ input DeviceProfileCreateManyInput {
 input DeviceProfileCreateNestedManyWithoutDeviceManagerInput {
   connect: [DeviceProfileWhereUniqueInput!]
   connectOrCreate: [DeviceProfileCreateOrConnectWithoutDeviceManagerInput!]
-  create: DeviceProfileCreateWithoutDeviceManagerInput
+  create: [DeviceProfileCreateWithoutDeviceManagerInput!]
   createMany: DeviceProfileCreateManyDeviceManagerInputEnvelope
 }
 
@@ -3949,7 +3949,7 @@ input DeviceProfileUpdateManyMutationInput {
 input DeviceProfileUpdateManyWithoutDeviceManagerNestedInput {
   connect: [DeviceProfileWhereUniqueInput!]
   connectOrCreate: [DeviceProfileCreateOrConnectWithoutDeviceManagerInput!]
-  create: DeviceProfileCreateWithoutDeviceManagerInput
+  create: [DeviceProfileCreateWithoutDeviceManagerInput!]
   createMany: DeviceProfileCreateManyDeviceManagerInputEnvelope
   delete: [DeviceProfileWhereUniqueInput!]
   deleteMany: [DeviceProfileScalarWhereInput!]
@@ -4356,7 +4356,7 @@ input EmailCreateManyInput {
 input EmailCreateNestedManyWithoutAuthenticationProviderInput {
   connect: [EmailWhereUniqueInput!]
   connectOrCreate: [EmailCreateOrConnectWithoutAuthenticationProviderInput!]
-  create: EmailCreateWithoutAuthenticationProviderInput
+  create: [EmailCreateWithoutAuthenticationProviderInput!]
 }
 
 input EmailCreateOrConnectWithoutAuthenticationProviderInput {
@@ -4475,7 +4475,7 @@ input EmailUpdateManyMutationInput {
 input EmailUpdateManyWithoutAuthenticationProviderNestedInput {
   connect: [EmailWhereUniqueInput!]
   connectOrCreate: [EmailCreateOrConnectWithoutAuthenticationProviderInput!]
-  create: EmailCreateWithoutAuthenticationProviderInput
+  create: [EmailCreateWithoutAuthenticationProviderInput!]
   delete: [EmailWhereUniqueInput!]
   deleteMany: [EmailScalarWhereInput!]
   disconnect: [EmailWhereUniqueInput!]
@@ -4563,7 +4563,7 @@ input EmojimoodCreateManyInput {
 input EmojimoodCreateNestedManyWithoutStoryInput {
   connect: [EmojimoodWhereUniqueInput!]
   connectOrCreate: [EmojimoodCreateOrConnectWithoutStoryInput!]
-  create: EmojimoodCreateWithoutStoryInput
+  create: [EmojimoodCreateWithoutStoryInput!]
 }
 
 input EmojimoodCreateOrConnectWithoutStoryInput {
@@ -4671,7 +4671,7 @@ input EmojimoodUpdateManyMutationInput {
 input EmojimoodUpdateManyWithoutStoryNestedInput {
   connect: [EmojimoodWhereUniqueInput!]
   connectOrCreate: [EmojimoodCreateOrConnectWithoutStoryInput!]
-  create: EmojimoodCreateWithoutStoryInput
+  create: [EmojimoodCreateWithoutStoryInput!]
   delete: [EmojimoodWhereUniqueInput!]
   deleteMany: [EmojimoodScalarWhereInput!]
   disconnect: [EmojimoodWhereUniqueInput!]
@@ -4939,7 +4939,7 @@ input FriendRequestCreateManyInput {
 input FriendRequestCreateNestedManyWithoutNotificationsInput {
   connect: [FriendRequestWhereUniqueInput!]
   connectOrCreate: [FriendRequestCreateOrConnectWithoutNotificationsInput!]
-  create: FriendRequestCreateWithoutNotificationsInput
+  create: [FriendRequestCreateWithoutNotificationsInput!]
 }
 
 input FriendRequestCreateNestedOneWithoutNotificationStatusInput {
@@ -5086,7 +5086,7 @@ input FriendRequestUpdateManyMutationInput {
 input FriendRequestUpdateManyWithoutNotificationsNestedInput {
   connect: [FriendRequestWhereUniqueInput!]
   connectOrCreate: [FriendRequestCreateOrConnectWithoutNotificationsInput!]
-  create: FriendRequestCreateWithoutNotificationsInput
+  create: [FriendRequestCreateWithoutNotificationsInput!]
   delete: [FriendRequestWhereUniqueInput!]
   deleteMany: [FriendRequestScalarWhereInput!]
   disconnect: [FriendRequestWhereUniqueInput!]
@@ -5509,7 +5509,7 @@ input GroupCreateManyInput {
 input GroupCreateNestedManyWithoutProfileInput {
   connect: [GroupWhereUniqueInput!]
   connectOrCreate: [GroupCreateOrConnectWithoutProfileInput!]
-  create: GroupCreateWithoutProfileInput
+  create: [GroupCreateWithoutProfileInput!]
 }
 
 input GroupCreateNestedOneWithoutPhotosInput {
@@ -5638,7 +5638,7 @@ input GroupUpdateManyMutationInput {
 input GroupUpdateManyWithoutProfileNestedInput {
   connect: [GroupWhereUniqueInput!]
   connectOrCreate: [GroupCreateOrConnectWithoutProfileInput!]
-  create: GroupCreateWithoutProfileInput
+  create: [GroupCreateWithoutProfileInput!]
   delete: [GroupWhereUniqueInput!]
   deleteMany: [GroupScalarWhereInput!]
   disconnect: [GroupWhereUniqueInput!]
@@ -6928,14 +6928,14 @@ input LegalAgreementCreateManyInput {
 input LegalAgreementCreateNestedManyWithoutCredentialsInput {
   connect: [LegalAgreementWhereUniqueInput!]
   connectOrCreate: [LegalAgreementCreateOrConnectWithoutCredentialsInput!]
-  create: LegalAgreementCreateWithoutCredentialsInput
+  create: [LegalAgreementCreateWithoutCredentialsInput!]
   createMany: LegalAgreementCreateManyCredentialsInputEnvelope
 }
 
 input LegalAgreementCreateNestedManyWithoutDocumentInput {
   connect: [LegalAgreementWhereUniqueInput!]
   connectOrCreate: [LegalAgreementCreateOrConnectWithoutDocumentInput!]
-  create: LegalAgreementCreateWithoutDocumentInput
+  create: [LegalAgreementCreateWithoutDocumentInput!]
   createMany: LegalAgreementCreateManyDocumentInputEnvelope
 }
 
@@ -7074,7 +7074,7 @@ input LegalAgreementUpdateManyMutationInput {
 input LegalAgreementUpdateManyWithoutCredentialsNestedInput {
   connect: [LegalAgreementWhereUniqueInput!]
   connectOrCreate: [LegalAgreementCreateOrConnectWithoutCredentialsInput!]
-  create: LegalAgreementCreateWithoutCredentialsInput
+  create: [LegalAgreementCreateWithoutCredentialsInput!]
   createMany: LegalAgreementCreateManyCredentialsInputEnvelope
   delete: [LegalAgreementWhereUniqueInput!]
   deleteMany: [LegalAgreementScalarWhereInput!]
@@ -7088,7 +7088,7 @@ input LegalAgreementUpdateManyWithoutCredentialsNestedInput {
 input LegalAgreementUpdateManyWithoutDocumentNestedInput {
   connect: [LegalAgreementWhereUniqueInput!]
   connectOrCreate: [LegalAgreementCreateOrConnectWithoutDocumentInput!]
-  create: LegalAgreementCreateWithoutDocumentInput
+  create: [LegalAgreementCreateWithoutDocumentInput!]
   createMany: LegalAgreementCreateManyDocumentInputEnvelope
   delete: [LegalAgreementWhereUniqueInput!]
   deleteMany: [LegalAgreementScalarWhereInput!]
@@ -7640,7 +7640,7 @@ input LocationCreateManyInput {
 input LocationCreateNestedManyWithoutAddressInput {
   connect: [LocationWhereUniqueInput!]
   connectOrCreate: [LocationCreateOrConnectWithoutAddressInput!]
-  create: LocationCreateWithoutAddressInput
+  create: [LocationCreateWithoutAddressInput!]
   createMany: LocationCreateManyAddressInputEnvelope
 }
 
@@ -7889,7 +7889,7 @@ input LocationUpdateManyMutationInput {
 input LocationUpdateManyWithoutAddressNestedInput {
   connect: [LocationWhereUniqueInput!]
   connectOrCreate: [LocationCreateOrConnectWithoutAddressInput!]
-  create: LocationCreateWithoutAddressInput
+  create: [LocationCreateWithoutAddressInput!]
   createMany: LocationCreateManyAddressInputEnvelope
   delete: [LocationWhereUniqueInput!]
   deleteMany: [LocationScalarWhereInput!]
@@ -8111,14 +8111,14 @@ input MessageCreateManyResponseInputEnvelope {
 input MessageCreateNestedManyWithoutChatroomInput {
   connect: [MessageWhereUniqueInput!]
   connectOrCreate: [MessageCreateOrConnectWithoutChatroomInput!]
-  create: MessageCreateWithoutChatroomInput
+  create: [MessageCreateWithoutChatroomInput!]
   createMany: MessageCreateManyChatroomInputEnvelope
 }
 
 input MessageCreateNestedManyWithoutResponseInput {
   connect: [MessageWhereUniqueInput!]
   connectOrCreate: [MessageCreateOrConnectWithoutResponseInput!]
-  create: MessageCreateWithoutResponseInput
+  create: [MessageCreateWithoutResponseInput!]
   createMany: MessageCreateManyResponseInputEnvelope
 }
 
@@ -8268,7 +8268,7 @@ input MessageUpdateManyMutationInput {
 input MessageUpdateManyWithoutChatroomNestedInput {
   connect: [MessageWhereUniqueInput!]
   connectOrCreate: [MessageCreateOrConnectWithoutChatroomInput!]
-  create: MessageCreateWithoutChatroomInput
+  create: [MessageCreateWithoutChatroomInput!]
   createMany: MessageCreateManyChatroomInputEnvelope
   delete: [MessageWhereUniqueInput!]
   deleteMany: [MessageScalarWhereInput!]
@@ -8282,7 +8282,7 @@ input MessageUpdateManyWithoutChatroomNestedInput {
 input MessageUpdateManyWithoutResponseNestedInput {
   connect: [MessageWhereUniqueInput!]
   connectOrCreate: [MessageCreateOrConnectWithoutResponseInput!]
-  create: MessageCreateWithoutResponseInput
+  create: [MessageCreateWithoutResponseInput!]
   createMany: MessageCreateManyResponseInputEnvelope
   delete: [MessageWhereUniqueInput!]
   deleteMany: [MessageScalarWhereInput!]
@@ -8802,7 +8802,7 @@ input NotificationsCreateManyInput {
 input NotificationsCreateNestedManyWithoutFriendRequestsInput {
   connect: [NotificationsWhereUniqueInput!]
   connectOrCreate: [NotificationsCreateOrConnectWithoutFriendRequestsInput!]
-  create: NotificationsCreateWithoutFriendRequestsInput
+  create: [NotificationsCreateWithoutFriendRequestsInput!]
 }
 
 input NotificationsCreateNestedOneWithoutProfileInput {
@@ -9102,7 +9102,7 @@ input NotificationsUpdateManyMutationInput {
 input NotificationsUpdateManyWithoutFriendRequestsNestedInput {
   connect: [NotificationsWhereUniqueInput!]
   connectOrCreate: [NotificationsCreateOrConnectWithoutFriendRequestsInput!]
-  create: NotificationsCreateWithoutFriendRequestsInput
+  create: [NotificationsCreateWithoutFriendRequestsInput!]
   delete: [NotificationsWhereUniqueInput!]
   deleteMany: [NotificationsScalarWhereInput!]
   disconnect: [NotificationsWhereUniqueInput!]
@@ -9332,28 +9332,28 @@ input OutCreateManyVenueStatsInputEnvelope {
 input OutCreateNestedManyWithoutLiveOutPersonalInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutLiveOutPersonalInput!]
-  create: OutCreateWithoutLiveOutPersonalInput
+  create: [OutCreateWithoutLiveOutPersonalInput!]
   createMany: OutCreateManyLiveOutPersonalInputEnvelope
 }
 
 input OutCreateNestedManyWithoutLiveOutVenueInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutLiveOutVenueInput!]
-  create: OutCreateWithoutLiveOutVenueInput
+  create: [OutCreateWithoutLiveOutVenueInput!]
   createMany: OutCreateManyLiveOutVenueInputEnvelope
 }
 
 input OutCreateNestedManyWithoutPersonalStatsInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutPersonalStatsInput!]
-  create: OutCreateWithoutPersonalStatsInput
+  create: [OutCreateWithoutPersonalStatsInput!]
   createMany: OutCreateManyPersonalStatsInputEnvelope
 }
 
 input OutCreateNestedManyWithoutVenueStatsInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutVenueStatsInput!]
-  create: OutCreateWithoutVenueStatsInput
+  create: [OutCreateWithoutVenueStatsInput!]
   createMany: OutCreateManyVenueStatsInputEnvelope
 }
 
@@ -9582,7 +9582,7 @@ input OutUpdateManyMutationInput {
 input OutUpdateManyWithoutLiveOutPersonalNestedInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutLiveOutPersonalInput!]
-  create: OutCreateWithoutLiveOutPersonalInput
+  create: [OutCreateWithoutLiveOutPersonalInput!]
   createMany: OutCreateManyLiveOutPersonalInputEnvelope
   delete: [OutWhereUniqueInput!]
   deleteMany: [OutScalarWhereInput!]
@@ -9596,7 +9596,7 @@ input OutUpdateManyWithoutLiveOutPersonalNestedInput {
 input OutUpdateManyWithoutLiveOutVenueNestedInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutLiveOutVenueInput!]
-  create: OutCreateWithoutLiveOutVenueInput
+  create: [OutCreateWithoutLiveOutVenueInput!]
   createMany: OutCreateManyLiveOutVenueInputEnvelope
   delete: [OutWhereUniqueInput!]
   deleteMany: [OutScalarWhereInput!]
@@ -9610,7 +9610,7 @@ input OutUpdateManyWithoutLiveOutVenueNestedInput {
 input OutUpdateManyWithoutPersonalStatsNestedInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutPersonalStatsInput!]
-  create: OutCreateWithoutPersonalStatsInput
+  create: [OutCreateWithoutPersonalStatsInput!]
   createMany: OutCreateManyPersonalStatsInputEnvelope
   delete: [OutWhereUniqueInput!]
   deleteMany: [OutScalarWhereInput!]
@@ -9624,7 +9624,7 @@ input OutUpdateManyWithoutPersonalStatsNestedInput {
 input OutUpdateManyWithoutVenueStatsNestedInput {
   connect: [OutWhereUniqueInput!]
   connectOrCreate: [OutCreateOrConnectWithoutVenueStatsInput!]
-  create: OutCreateWithoutVenueStatsInput
+  create: [OutCreateWithoutVenueStatsInput!]
   createMany: OutCreateManyVenueStatsInputEnvelope
   delete: [OutWhereUniqueInput!]
   deleteMany: [OutScalarWhereInput!]
@@ -9985,7 +9985,7 @@ input PathCreateManyTonightPathInputEnvelope {
 input PathCreateNestedManyWithoutTonightPathInput {
   connect: [PathWhereUniqueInput!]
   connectOrCreate: [PathCreateOrConnectWithoutTonightPathInput!]
-  create: PathCreateWithoutTonightPathInput
+  create: [PathCreateWithoutTonightPathInput!]
   createMany: PathCreateManyTonightPathInputEnvelope
 }
 
@@ -10102,7 +10102,7 @@ input PathUpdateManyMutationInput {
 input PathUpdateManyWithoutTonightPathNestedInput {
   connect: [PathWhereUniqueInput!]
   connectOrCreate: [PathCreateOrConnectWithoutTonightPathInput!]
-  create: PathCreateWithoutTonightPathInput
+  create: [PathCreateWithoutTonightPathInput!]
   createMany: PathCreateManyTonightPathInputEnvelope
   delete: [PathWhereUniqueInput!]
   deleteMany: [PathScalarWhereInput!]
@@ -10653,7 +10653,7 @@ input PhoneCreateManyInput {
 input PhoneCreateNestedManyWithoutAuthenticationProviderInput {
   connect: [PhoneWhereUniqueInput!]
   connectOrCreate: [PhoneCreateOrConnectWithoutAuthenticationProviderInput!]
-  create: PhoneCreateWithoutAuthenticationProviderInput
+  create: [PhoneCreateWithoutAuthenticationProviderInput!]
 }
 
 input PhoneCreateOrConnectWithoutAuthenticationProviderInput {
@@ -10807,7 +10807,7 @@ input PhoneUpdateManyMutationInput {
 input PhoneUpdateManyWithoutAuthenticationProviderNestedInput {
   connect: [PhoneWhereUniqueInput!]
   connectOrCreate: [PhoneCreateOrConnectWithoutAuthenticationProviderInput!]
-  create: PhoneCreateWithoutAuthenticationProviderInput
+  create: [PhoneCreateWithoutAuthenticationProviderInput!]
   delete: [PhoneWhereUniqueInput!]
   deleteMany: [PhoneScalarWhereInput!]
   disconnect: [PhoneWhereUniqueInput!]
@@ -11005,21 +11005,21 @@ input PhotoCreateManyStoryInputEnvelope {
 input PhotoCreateNestedManyWithoutGroupInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutGroupInput!]
-  create: PhotoCreateWithoutGroupInput
+  create: [PhotoCreateWithoutGroupInput!]
   createMany: PhotoCreateManyGroupInputEnvelope
 }
 
 input PhotoCreateNestedManyWithoutProfileInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutProfileInput!]
-  create: PhotoCreateWithoutProfileInput
+  create: [PhotoCreateWithoutProfileInput!]
   createMany: PhotoCreateManyProfileInputEnvelope
 }
 
 input PhotoCreateNestedManyWithoutStoryInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutStoryInput!]
-  create: PhotoCreateWithoutStoryInput
+  create: [PhotoCreateWithoutStoryInput!]
   createMany: PhotoCreateManyStoryInputEnvelope
 }
 
@@ -11274,7 +11274,7 @@ input PhotoUpdateManyMutationInput {
 input PhotoUpdateManyWithoutGroupNestedInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutGroupInput!]
-  create: PhotoCreateWithoutGroupInput
+  create: [PhotoCreateWithoutGroupInput!]
   createMany: PhotoCreateManyGroupInputEnvelope
   delete: [PhotoWhereUniqueInput!]
   deleteMany: [PhotoScalarWhereInput!]
@@ -11288,7 +11288,7 @@ input PhotoUpdateManyWithoutGroupNestedInput {
 input PhotoUpdateManyWithoutProfileNestedInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutProfileInput!]
-  create: PhotoCreateWithoutProfileInput
+  create: [PhotoCreateWithoutProfileInput!]
   createMany: PhotoCreateManyProfileInputEnvelope
   delete: [PhotoWhereUniqueInput!]
   deleteMany: [PhotoScalarWhereInput!]
@@ -11302,7 +11302,7 @@ input PhotoUpdateManyWithoutProfileNestedInput {
 input PhotoUpdateManyWithoutStoryNestedInput {
   connect: [PhotoWhereUniqueInput!]
   connectOrCreate: [PhotoCreateOrConnectWithoutStoryInput!]
-  create: PhotoCreateWithoutStoryInput
+  create: [PhotoCreateWithoutStoryInput!]
   createMany: PhotoCreateManyStoryInputEnvelope
   delete: [PhotoWhereUniqueInput!]
   deleteMany: [PhotoScalarWhereInput!]
@@ -11757,13 +11757,13 @@ input ProfileCreateManyInput {
 input ProfileCreateNestedManyWithoutChatroomInput {
   connect: [ProfileWhereUniqueInput!]
   connectOrCreate: [ProfileCreateOrConnectWithoutChatroomInput!]
-  create: ProfileCreateWithoutChatroomInput
+  create: [ProfileCreateWithoutChatroomInput!]
 }
 
 input ProfileCreateNestedManyWithoutGroupsInput {
   connect: [ProfileWhereUniqueInput!]
   connectOrCreate: [ProfileCreateOrConnectWithoutGroupsInput!]
-  create: ProfileCreateWithoutGroupsInput
+  create: [ProfileCreateWithoutGroupsInput!]
 }
 
 input ProfileCreateNestedOneWithoutCredentialsInput {
@@ -12505,14 +12505,14 @@ input ProfileThemeCreateManyThemeManagerInputEnvelope {
 input ProfileThemeCreateNestedManyWithoutThemeInput {
   connect: [ProfileThemeWhereUniqueInput!]
   connectOrCreate: [ProfileThemeCreateOrConnectWithoutThemeInput!]
-  create: ProfileThemeCreateWithoutThemeInput
+  create: [ProfileThemeCreateWithoutThemeInput!]
   createMany: ProfileThemeCreateManyThemeInputEnvelope
 }
 
 input ProfileThemeCreateNestedManyWithoutThemeManagerInput {
   connect: [ProfileThemeWhereUniqueInput!]
   connectOrCreate: [ProfileThemeCreateOrConnectWithoutThemeManagerInput!]
-  create: ProfileThemeCreateWithoutThemeManagerInput
+  create: [ProfileThemeCreateWithoutThemeManagerInput!]
   createMany: ProfileThemeCreateManyThemeManagerInputEnvelope
 }
 
@@ -12645,7 +12645,7 @@ input ProfileThemeUpdateManyMutationInput {
 input ProfileThemeUpdateManyWithoutThemeManagerNestedInput {
   connect: [ProfileThemeWhereUniqueInput!]
   connectOrCreate: [ProfileThemeCreateOrConnectWithoutThemeManagerInput!]
-  create: ProfileThemeCreateWithoutThemeManagerInput
+  create: [ProfileThemeCreateWithoutThemeManagerInput!]
   createMany: ProfileThemeCreateManyThemeManagerInputEnvelope
   delete: [ProfileThemeWhereUniqueInput!]
   deleteMany: [ProfileThemeScalarWhereInput!]
@@ -12659,7 +12659,7 @@ input ProfileThemeUpdateManyWithoutThemeManagerNestedInput {
 input ProfileThemeUpdateManyWithoutThemeNestedInput {
   connect: [ProfileThemeWhereUniqueInput!]
   connectOrCreate: [ProfileThemeCreateOrConnectWithoutThemeInput!]
-  create: ProfileThemeCreateWithoutThemeInput
+  create: [ProfileThemeCreateWithoutThemeInput!]
   createMany: ProfileThemeCreateManyThemeInputEnvelope
   delete: [ProfileThemeWhereUniqueInput!]
   deleteMany: [ProfileThemeScalarWhereInput!]
@@ -12784,7 +12784,7 @@ input ProfileUpdateManyMutationInput {
 input ProfileUpdateManyWithoutChatroomNestedInput {
   connect: [ProfileWhereUniqueInput!]
   connectOrCreate: [ProfileCreateOrConnectWithoutChatroomInput!]
-  create: ProfileCreateWithoutChatroomInput
+  create: [ProfileCreateWithoutChatroomInput!]
   delete: [ProfileWhereUniqueInput!]
   deleteMany: [ProfileScalarWhereInput!]
   disconnect: [ProfileWhereUniqueInput!]
@@ -12797,7 +12797,7 @@ input ProfileUpdateManyWithoutChatroomNestedInput {
 input ProfileUpdateManyWithoutGroupsNestedInput {
   connect: [ProfileWhereUniqueInput!]
   connectOrCreate: [ProfileCreateOrConnectWithoutGroupsInput!]
-  create: ProfileCreateWithoutGroupsInput
+  create: [ProfileCreateWithoutGroupsInput!]
   delete: [ProfileWhereUniqueInput!]
   deleteMany: [ProfileScalarWhereInput!]
   disconnect: [ProfileWhereUniqueInput!]
@@ -13960,7 +13960,7 @@ input RelationshipCreateManyProfileInputEnvelope {
 input RelationshipCreateNestedManyWithoutProfileInput {
   connect: [RelationshipWhereUniqueInput!]
   connectOrCreate: [RelationshipCreateOrConnectWithoutProfileInput!]
-  create: RelationshipCreateWithoutProfileInput
+  create: [RelationshipCreateWithoutProfileInput!]
   createMany: RelationshipCreateManyProfileInputEnvelope
 }
 
@@ -14097,7 +14097,7 @@ input RelationshipUpdateManyMutationInput {
 input RelationshipUpdateManyWithoutProfileNestedInput {
   connect: [RelationshipWhereUniqueInput!]
   connectOrCreate: [RelationshipCreateOrConnectWithoutProfileInput!]
-  create: RelationshipCreateWithoutProfileInput
+  create: [RelationshipCreateWithoutProfileInput!]
   createMany: RelationshipCreateManyProfileInputEnvelope
   delete: [RelationshipWhereUniqueInput!]
   deleteMany: [RelationshipScalarWhereInput!]
@@ -14255,21 +14255,21 @@ input SearchAreaMetricsCreateManySearchesServiceInputEnvelope {
 input SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput {
   connect: [SearchAreaMetricsWhereUniqueInput!]
   connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
-  create: SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput
+  create: [SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput!]
   createMany: SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope
 }
 
 input SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput {
   connect: [SearchAreaMetricsWhereUniqueInput!]
   connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
-  create: SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput
+  create: [SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput!]
   createMany: SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope
 }
 
 input SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput {
   connect: [SearchAreaMetricsWhereUniqueInput!]
   connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput!]
-  create: SearchAreaMetricsCreateWithoutSearchesServiceInput
+  create: [SearchAreaMetricsCreateWithoutSearchesServiceInput!]
   createMany: SearchAreaMetricsCreateManySearchesServiceInputEnvelope
 }
 
@@ -14441,7 +14441,7 @@ input SearchAreaMetricsUpdateManyMutationInput {
 input SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
   connect: [SearchAreaMetricsWhereUniqueInput!]
   connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
-  create: SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput
+  create: [SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput!]
   createMany: SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope
   delete: [SearchAreaMetricsWhereUniqueInput!]
   deleteMany: [SearchAreaMetricsScalarWhereInput!]
@@ -14455,7 +14455,7 @@ input SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
 input SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
   connect: [SearchAreaMetricsWhereUniqueInput!]
   connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
-  create: SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput
+  create: [SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput!]
   createMany: SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope
   delete: [SearchAreaMetricsWhereUniqueInput!]
   deleteMany: [SearchAreaMetricsScalarWhereInput!]
@@ -14469,7 +14469,7 @@ input SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
 input SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput {
   connect: [SearchAreaMetricsWhereUniqueInput!]
   connectOrCreate: [SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput!]
-  create: SearchAreaMetricsCreateWithoutSearchesServiceInput
+  create: [SearchAreaMetricsCreateWithoutSearchesServiceInput!]
   createMany: SearchAreaMetricsCreateManySearchesServiceInputEnvelope
   delete: [SearchAreaMetricsWhereUniqueInput!]
   deleteMany: [SearchAreaMetricsScalarWhereInput!]
@@ -14853,7 +14853,7 @@ input SecuredDataKeysCreateManyProfileInputEnvelope {
 input SecuredDataKeysCreateNestedManyWithoutProfileInput {
   connect: [SecuredDataKeysWhereUniqueInput!]
   connectOrCreate: [SecuredDataKeysCreateOrConnectWithoutProfileInput!]
-  create: SecuredDataKeysCreateWithoutProfileInput
+  create: [SecuredDataKeysCreateWithoutProfileInput!]
   createMany: SecuredDataKeysCreateManyProfileInputEnvelope
 }
 
@@ -14989,7 +14989,7 @@ input SecuredDataKeysUpdateManyMutationInput {
 input SecuredDataKeysUpdateManyWithoutProfileNestedInput {
   connect: [SecuredDataKeysWhereUniqueInput!]
   connectOrCreate: [SecuredDataKeysCreateOrConnectWithoutProfileInput!]
-  create: SecuredDataKeysCreateWithoutProfileInput
+  create: [SecuredDataKeysCreateWithoutProfileInput!]
   createMany: SecuredDataKeysCreateManyProfileInputEnvelope
   delete: [SecuredDataKeysWhereUniqueInput!]
   deleteMany: [SecuredDataKeysScalarWhereInput!]
@@ -15472,13 +15472,13 @@ input StoryCreateManyProfileInputEnvelope {
 input StoryCreateNestedManyWithoutEmojimoodInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutEmojimoodInput!]
-  create: StoryCreateWithoutEmojimoodInput
+  create: [StoryCreateWithoutEmojimoodInput!]
 }
 
 input StoryCreateNestedManyWithoutProfileInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutProfileInput!]
-  create: StoryCreateWithoutProfileInput
+  create: [StoryCreateWithoutProfileInput!]
   createMany: StoryCreateManyProfileInputEnvelope
 }
 
@@ -15633,7 +15633,7 @@ input StoryUpdateManyMutationInput {
 input StoryUpdateManyWithoutEmojimoodNestedInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutEmojimoodInput!]
-  create: StoryCreateWithoutEmojimoodInput
+  create: [StoryCreateWithoutEmojimoodInput!]
   delete: [StoryWhereUniqueInput!]
   deleteMany: [StoryScalarWhereInput!]
   disconnect: [StoryWhereUniqueInput!]
@@ -15646,7 +15646,7 @@ input StoryUpdateManyWithoutEmojimoodNestedInput {
 input StoryUpdateManyWithoutProfileNestedInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutProfileInput!]
-  create: StoryCreateWithoutProfileInput
+  create: [StoryCreateWithoutProfileInput!]
   createMany: StoryCreateManyProfileInputEnvelope
   delete: [StoryWhereUniqueInput!]
   deleteMany: [StoryScalarWhereInput!]
@@ -15875,14 +15875,14 @@ input TagCreateManyInput {
 input TagCreateNestedManyWithoutCategoryInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutCategoryInput!]
-  create: TagCreateWithoutCategoryInput
+  create: [TagCreateWithoutCategoryInput!]
   createMany: TagCreateManyCategoryInputEnvelope
 }
 
 input TagCreateNestedManyWithoutDetailInformationInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutDetailInformationInput!]
-  create: TagCreateWithoutDetailInformationInput
+  create: [TagCreateWithoutDetailInformationInput!]
 }
 
 input TagCreateOrConnectWithoutCategoryInput {
@@ -15998,7 +15998,7 @@ input TagUpdateManyMutationInput {
 input TagUpdateManyWithoutCategoryNestedInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutCategoryInput!]
-  create: TagCreateWithoutCategoryInput
+  create: [TagCreateWithoutCategoryInput!]
   createMany: TagCreateManyCategoryInputEnvelope
   delete: [TagWhereUniqueInput!]
   deleteMany: [TagScalarWhereInput!]
@@ -16012,7 +16012,7 @@ input TagUpdateManyWithoutCategoryNestedInput {
 input TagUpdateManyWithoutDetailInformationNestedInput {
   connect: [TagWhereUniqueInput!]
   connectOrCreate: [TagCreateOrConnectWithoutDetailInformationInput!]
-  create: TagCreateWithoutDetailInformationInput
+  create: [TagCreateWithoutDetailInformationInput!]
   delete: [TagWhereUniqueInput!]
   deleteMany: [TagScalarWhereInput!]
   disconnect: [TagWhereUniqueInput!]
@@ -17330,28 +17330,28 @@ input VoteCreateManyProfileInputEnvelope {
 input VoteCreateNestedManyWithoutComingAreaInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutComingAreaInput!]
-  create: VoteCreateWithoutComingAreaInput
+  create: [VoteCreateWithoutComingAreaInput!]
   createMany: VoteCreateManyComingAreaInputEnvelope
 }
 
 input VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
-  create: VoteCreateWithoutH3Index5VenueRecommendationInput
+  create: [VoteCreateWithoutH3Index5VenueRecommendationInput!]
   createMany: VoteCreateManyH3Index5VenueRecommendationInputEnvelope
 }
 
 input VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
-  create: VoteCreateWithoutH3Index6VenueRecommendationInput
+  create: [VoteCreateWithoutH3Index6VenueRecommendationInput!]
   createMany: VoteCreateManyH3Index6VenueRecommendationInputEnvelope
 }
 
 input VoteCreateNestedManyWithoutProfileInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutProfileInput!]
-  create: VoteCreateWithoutProfileInput
+  create: [VoteCreateWithoutProfileInput!]
   createMany: VoteCreateManyProfileInputEnvelope
 }
 
@@ -17536,7 +17536,7 @@ input VoteUpdateManyMutationInput {
 input VoteUpdateManyWithoutComingAreaNestedInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutComingAreaInput!]
-  create: VoteCreateWithoutComingAreaInput
+  create: [VoteCreateWithoutComingAreaInput!]
   createMany: VoteCreateManyComingAreaInputEnvelope
   delete: [VoteWhereUniqueInput!]
   deleteMany: [VoteScalarWhereInput!]
@@ -17550,7 +17550,7 @@ input VoteUpdateManyWithoutComingAreaNestedInput {
 input VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput!]
-  create: VoteCreateWithoutH3Index5VenueRecommendationInput
+  create: [VoteCreateWithoutH3Index5VenueRecommendationInput!]
   createMany: VoteCreateManyH3Index5VenueRecommendationInputEnvelope
   delete: [VoteWhereUniqueInput!]
   deleteMany: [VoteScalarWhereInput!]
@@ -17564,7 +17564,7 @@ input VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput {
 input VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput!]
-  create: VoteCreateWithoutH3Index6VenueRecommendationInput
+  create: [VoteCreateWithoutH3Index6VenueRecommendationInput!]
   createMany: VoteCreateManyH3Index6VenueRecommendationInputEnvelope
   delete: [VoteWhereUniqueInput!]
   deleteMany: [VoteScalarWhereInput!]
@@ -17578,7 +17578,7 @@ input VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput {
 input VoteUpdateManyWithoutProfileNestedInput {
   connect: [VoteWhereUniqueInput!]
   connectOrCreate: [VoteCreateOrConnectWithoutProfileInput!]
-  create: VoteCreateWithoutProfileInput
+  create: [VoteCreateWithoutProfileInput!]
   createMany: VoteCreateManyProfileInputEnvelope
   delete: [VoteWhereUniqueInput!]
   deleteMany: [VoteScalarWhereInput!]

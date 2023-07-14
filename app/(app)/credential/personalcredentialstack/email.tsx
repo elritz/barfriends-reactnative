@@ -203,33 +203,35 @@ export default () => {
 						name='email'
 						control={control}
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								ref={_emailRef}
-								key={'email'}
-								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								isFocused={isFocused}
-								variant={'underlined'}
-								autoFocus
-								returnKeyType='done'
-								autoComplete='email'
-								importantForAutofill='auto'
-								autoCorrect={true}
-								autoCapitalize='none'
-								keyboardType='email-address'
-								keyboardAppearance={rTheme.colorScheme}
-								numberOfLines={1}
-								placeholder='Email'
-								_input={{
-									fontSize: '2xl',
-									fontWeight: 'medium',
-								}}
-								size={'lg'}
-								blurOnSubmit={false}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								value={value.toLowerCase()}
-								onChangeText={onChange}
-							/>
+							<Input variant={'underlined'} size='lg'>
+								<Input.Input
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									type='password'
+									py={'$2'}
+									autoFocus
+									sx={{
+										h: 50,
+									}}
+									key={'email'}
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+									textContentType='emailAddress'
+									placeholder='Email'
+									returnKeyType={Platform.OS === 'ios' ? 'done' : 'none'}
+									numberOfLines={1}
+									blurOnSubmit={false}
+									enablesReturnKeyAutomatically={false}
+									// onSubmitEditing={handleSubmit(onSubmit)}
+									onBlur={onBlur}
+									autoComplete='email'
+									importantForAutofill='auto'
+									autoCorrect={true}
+									autoCapitalize='none'
+									keyboardType='email-address'
+									onSubmitEditing={handleSubmit(onSubmit)}
+									value={value.toLowerCase()}
+									onChangeText={onChange}
+								/>
+							</Input>
 						)}
 						rules={{
 							required: {

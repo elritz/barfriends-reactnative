@@ -2,13 +2,14 @@ import { useReactiveVar } from '@apollo/client'
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
 import { HStack, Input } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import useDebounce from '@util/hooks/useDebounce'
 import { useGlobalSearchParams, useLocalSearchParams, useRouter, useSegments } from 'expo-router'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard, TextInput, TextInputProps } from 'react-native'
+import { Keyboard, TextInput } from 'react-native'
 
 type Props = {
 	// onPressIn?: () => void
@@ -22,13 +23,14 @@ type Props = {
 }
 
 const SearchInput = (props: Props) => {
-	const _inputRef = useRef<TextInputProps | undefined>()
+	const _inputRef = useRef<TextInput | undefined>()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const router = useRouter()
 	const segments = useSegments()
 	const params = useGlobalSearchParams()
 	const [showBack, setShowBack] = useState(false)
 	const [autoFucus, setAutoFocus] = useState(false)
+
 	const {
 		control,
 		setError,
@@ -52,27 +54,27 @@ const SearchInput = (props: Props) => {
 		shouldUnregister: true,
 	})
 
-	useEffect(() => {
-		const showSubscription = Keyboard.addListener('keyboardDidShow', () => {})
-		const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {})
+	// useEffect(() => {
+	// 	const showSubscription = Keyboard.addListener('keyboardDidShow', () => {})
+	// 	const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {})
 
-		return () => {
-			showSubscription.remove()
-			hideSubscription.remove()
-		}
-	}, [])
+	// 	return () => {
+	// 		showSubscription.remove()
+	// 		hideSubscription.remove()
+	// 	}
+	// }, [])
 
 	useLayoutEffect(() => {
 		setShowBack(!segments.includes('hometab'))
 		if (!segments.includes('hometab')) {
 			if (segments.includes('explore')) {
-				setAutoFocus(true)
+				_inputRef.current?.focus()
 			}
 			if (
 				segments.includes('searcharea') &&
 				segments.includes('searchcountry' || 'searchstate' || 'searchstatecities')
 			) {
-				setAutoFocus(true)
+				_inputRef.current?.focus()
 			}
 		}
 	}, [segments])
@@ -90,6 +92,7 @@ const SearchInput = (props: Props) => {
 	})
 
 	const clearSearchInput = () => {
+		_inputRef.current?.clear()
 		setValue('searchtext', '')
 		router.setParams({
 			searchtext: '',
@@ -97,10 +100,34 @@ const SearchInput = (props: Props) => {
 	}
 
 	const handleSearchSubmitEditting = data => {
-		router.push({
-			pathname: '(app)/explore/searchresults',
-			params: { searchtext: data.searchtext },
-		})
+		// if (segments.includes('searcharea')) {
+		// 	if (segments.includes('searcharea')) {
+		// 		router.push({
+		// 			pathname: '(app)/searcharea/searchcountrystate',
+		// 			params: {
+		// 				searchtext: '',
+		// 			},
+		// 		})
+		// 	}
+		// 	if (segments.includes('searcharea') && segments.includes('searchcountrystates')) {
+		// 		router.push({
+		// 			pathname: '(app)/searcharea/searchstatecities',
+		// 			params: {
+		// 				searchtext: '',
+		// 			},
+		// 		})
+		// 	}
+		// } else {
+		if (
+			segments.includes('venufeed') ||
+			segments.includes('messagestack') ||
+			segments.includes('tonight')
+		) {
+			router.push({
+				pathname: '(app)/explore/searchresults',
+				params: { searchtext: data.searchtext },
+			})
+		}
 	}
 
 	const debouncedSearchResults = useDebounce(watch().searchtext, 700)
@@ -148,20 +175,13 @@ const SearchInput = (props: Props) => {
 						</Input.Icon>
 						<Input.Input
 							ref={_inputRef}
-							autoFocus={autoFucus}
+							// autoFocus={autoFucus}
 							placeholderTextColor={
 								rTheme.colorScheme === 'light'
 									? rTheme.theme?.gluestack.tokens.colors.light700
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}
 							onPressIn={() => {
-								if (segments.includes('explore') && segments.includes('searchtext'))
-									router.replace({
-										params: {
-											searchtext: watch('searchtext'),
-										},
-										pathname: '(app)/explore/searchtext',
-									})
 								if (segments.includes('hometab')) {
 									router.push({
 										pathname: '(app)/explore/searchtext',
@@ -170,13 +190,30 @@ const SearchInput = (props: Props) => {
 										},
 									})
 								}
-								if (segments.includes('searcharea')) {
-									router.push({
-										pathname: '(app)/searcharea/searchcountry',
+
+								if (segments.includes('explore') && segments.includes('searchtext')) {
+									router.replace({
 										params: {
-											searchtext: '',
+											searchtext: watch('searchtext'),
 										},
+										pathname: '(app)/explore/searchtext',
 									})
+								}
+
+								if (segments.includes('searcharea')) {
+									if (
+										!segments.includes('searchcountry') ||
+										!segments.includes('searchcountrystates') ||
+										!segments.includes('searchstatecities')
+									) {
+										router.push({
+											pathname: '(app)/searcharea/searchcountry',
+											params: {
+												searchtext: '',
+											},
+										})
+									} else {
+									}
 								}
 							}}
 							alignSelf={'center'}
@@ -185,8 +222,17 @@ const SearchInput = (props: Props) => {
 							returnKeyType='search'
 							underlineColorAndroid='transparent'
 							onSubmitEditing={handleSubmit(handleSearchSubmitEditting)}
-							keyboardAppearance={rTheme.localStorageColorScheme === 'light' ? 'light' : 'dark'}
+							keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 						/>
+						{watch('searchtext')?.length || value.length ? (
+							<Input.Icon mr={'$3'} onPress={() => clearSearchInput()}>
+								<AntDesign
+									name='closecircle'
+									size={20}
+									color={rTheme.colorScheme === 'light' ? 'black' : 'white'}
+								/>
+							</Input.Icon>
+						) : null}
 					</Input>
 				)}
 			/>

@@ -8,11 +8,11 @@ import {
 	useAddPersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 export default function JoinVenue() {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [outId, setOutId] = useState('')
 	const [isJoined, setIsJoined] = useState(false)

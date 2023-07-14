@@ -125,7 +125,7 @@ export type AddressComponentCreateManyInput = {
 export type AddressComponentCreateNestedManyWithoutAddressInput = {
   connect?: InputMaybe<Array<AddressComponentWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AddressComponentCreateOrConnectWithoutAddressInput>>;
-  create?: InputMaybe<AddressComponentCreateWithoutAddressInput>;
+  create?: InputMaybe<Array<AddressComponentCreateWithoutAddressInput>>;
   createMany?: InputMaybe<AddressComponentCreateManyAddressInputEnvelope>;
 };
 
@@ -250,7 +250,7 @@ export type AddressComponentUpdateManyMutationInput = {
 export type AddressComponentUpdateManyWithoutAddressNestedInput = {
   connect?: InputMaybe<Array<AddressComponentWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AddressComponentCreateOrConnectWithoutAddressInput>>;
-  create?: InputMaybe<AddressComponentCreateWithoutAddressInput>;
+  create?: InputMaybe<Array<AddressComponentCreateWithoutAddressInput>>;
   createMany?: InputMaybe<AddressComponentCreateManyAddressInputEnvelope>;
   delete?: InputMaybe<Array<AddressComponentWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<AddressComponentScalarWhereInput>>;
@@ -663,21 +663,21 @@ export type AreaCreateManyStateInputEnvelope = {
 export type AreaCreateNestedManyWithoutCityInput = {
   connect?: InputMaybe<Array<AreaWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AreaCreateOrConnectWithoutCityInput>>;
-  create?: InputMaybe<AreaCreateWithoutCityInput>;
+  create?: InputMaybe<Array<AreaCreateWithoutCityInput>>;
   createMany?: InputMaybe<AreaCreateManyCityInputEnvelope>;
 };
 
 export type AreaCreateNestedManyWithoutCountryInput = {
   connect?: InputMaybe<Array<AreaWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AreaCreateOrConnectWithoutCountryInput>>;
-  create?: InputMaybe<AreaCreateWithoutCountryInput>;
+  create?: InputMaybe<Array<AreaCreateWithoutCountryInput>>;
   createMany?: InputMaybe<AreaCreateManyCountryInputEnvelope>;
 };
 
 export type AreaCreateNestedManyWithoutStateInput = {
   connect?: InputMaybe<Array<AreaWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AreaCreateOrConnectWithoutStateInput>>;
-  create?: InputMaybe<AreaCreateWithoutStateInput>;
+  create?: InputMaybe<Array<AreaCreateWithoutStateInput>>;
   createMany?: InputMaybe<AreaCreateManyStateInputEnvelope>;
 };
 
@@ -938,7 +938,7 @@ export type AreaUpdateManyMutationInput = {
 export type AreaUpdateManyWithoutCityNestedInput = {
   connect?: InputMaybe<Array<AreaWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AreaCreateOrConnectWithoutCityInput>>;
-  create?: InputMaybe<AreaCreateWithoutCityInput>;
+  create?: InputMaybe<Array<AreaCreateWithoutCityInput>>;
   createMany?: InputMaybe<AreaCreateManyCityInputEnvelope>;
   delete?: InputMaybe<Array<AreaWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<AreaScalarWhereInput>>;
@@ -952,7 +952,7 @@ export type AreaUpdateManyWithoutCityNestedInput = {
 export type AreaUpdateManyWithoutCountryNestedInput = {
   connect?: InputMaybe<Array<AreaWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AreaCreateOrConnectWithoutCountryInput>>;
-  create?: InputMaybe<AreaCreateWithoutCountryInput>;
+  create?: InputMaybe<Array<AreaCreateWithoutCountryInput>>;
   createMany?: InputMaybe<AreaCreateManyCountryInputEnvelope>;
   delete?: InputMaybe<Array<AreaWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<AreaScalarWhereInput>>;
@@ -966,7 +966,7 @@ export type AreaUpdateManyWithoutCountryNestedInput = {
 export type AreaUpdateManyWithoutStateNestedInput = {
   connect?: InputMaybe<Array<AreaWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AreaCreateOrConnectWithoutStateInput>>;
-  create?: InputMaybe<AreaCreateWithoutStateInput>;
+  create?: InputMaybe<Array<AreaCreateWithoutStateInput>>;
   createMany?: InputMaybe<AreaCreateManyStateInputEnvelope>;
   delete?: InputMaybe<Array<AreaWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<AreaScalarWhereInput>>;
@@ -1234,13 +1234,13 @@ export type AuthenticationProviderCreateManyInput = {
 export type AuthenticationProviderCreateNestedManyWithoutEmailsInput = {
   connect?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AuthenticationProviderCreateOrConnectWithoutEmailsInput>>;
-  create?: InputMaybe<AuthenticationProviderCreateWithoutEmailsInput>;
+  create?: InputMaybe<Array<AuthenticationProviderCreateWithoutEmailsInput>>;
 };
 
 export type AuthenticationProviderCreateNestedManyWithoutPhonesInput = {
   connect?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AuthenticationProviderCreateOrConnectWithoutPhonesInput>>;
-  create?: InputMaybe<AuthenticationProviderCreateWithoutPhonesInput>;
+  create?: InputMaybe<Array<AuthenticationProviderCreateWithoutPhonesInput>>;
 };
 
 export type AuthenticationProviderCreateNestedOneWithoutCodepasswordInput = {
@@ -1399,7 +1399,7 @@ export type AuthenticationProviderUpdateManyMutationInput = {
 export type AuthenticationProviderUpdateManyWithoutEmailsNestedInput = {
   connect?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AuthenticationProviderCreateOrConnectWithoutEmailsInput>>;
-  create?: InputMaybe<AuthenticationProviderCreateWithoutEmailsInput>;
+  create?: InputMaybe<Array<AuthenticationProviderCreateWithoutEmailsInput>>;
   delete?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<AuthenticationProviderScalarWhereInput>>;
   disconnect?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
@@ -1412,7 +1412,7 @@ export type AuthenticationProviderUpdateManyWithoutEmailsNestedInput = {
 export type AuthenticationProviderUpdateManyWithoutPhonesNestedInput = {
   connect?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<AuthenticationProviderCreateOrConnectWithoutPhonesInput>>;
-  create?: InputMaybe<AuthenticationProviderCreateWithoutPhonesInput>;
+  create?: InputMaybe<Array<AuthenticationProviderCreateWithoutPhonesInput>>;
   delete?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<AuthenticationProviderScalarWhereInput>>;
   disconnect?: InputMaybe<Array<AuthenticationProviderWhereUniqueInput>>;
@@ -1780,7 +1780,7 @@ export type ChatroomCreateManyInput = {
 export type ChatroomCreateNestedManyWithoutProfilesInput = {
   connect?: InputMaybe<Array<ChatroomWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ChatroomCreateOrConnectWithoutProfilesInput>>;
-  create?: InputMaybe<ChatroomCreateWithoutProfilesInput>;
+  create?: InputMaybe<Array<ChatroomCreateWithoutProfilesInput>>;
 };
 
 export type ChatroomCreateNestedOneWithoutMessagesInput = {
@@ -1876,7 +1876,7 @@ export type ChatroomUpdateManyMutationInput = {
 export type ChatroomUpdateManyWithoutProfilesNestedInput = {
   connect?: InputMaybe<Array<ChatroomWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ChatroomCreateOrConnectWithoutProfilesInput>>;
-  create?: InputMaybe<ChatroomCreateWithoutProfilesInput>;
+  create?: InputMaybe<Array<ChatroomCreateWithoutProfilesInput>>;
   delete?: InputMaybe<Array<ChatroomWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<ChatroomScalarWhereInput>>;
   disconnect?: InputMaybe<Array<ChatroomWhereUniqueInput>>;
@@ -3320,7 +3320,7 @@ export type DetailInformationCreateManyInput = {
 export type DetailInformationCreateNestedManyWithoutTagsInput = {
   connect?: InputMaybe<Array<DetailInformationWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<DetailInformationCreateOrConnectWithoutTagsInput>>;
-  create?: InputMaybe<DetailInformationCreateWithoutTagsInput>;
+  create?: InputMaybe<Array<DetailInformationCreateWithoutTagsInput>>;
 };
 
 export type DetailInformationCreateNestedOneWithoutProfileInput = {
@@ -3462,7 +3462,7 @@ export type DetailInformationUpdateManyMutationInput = {
 export type DetailInformationUpdateManyWithoutTagsNestedInput = {
   connect?: InputMaybe<Array<DetailInformationWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<DetailInformationCreateOrConnectWithoutTagsInput>>;
-  create?: InputMaybe<DetailInformationCreateWithoutTagsInput>;
+  create?: InputMaybe<Array<DetailInformationCreateWithoutTagsInput>>;
   delete?: InputMaybe<Array<DetailInformationWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<DetailInformationScalarWhereInput>>;
   disconnect?: InputMaybe<Array<DetailInformationWhereUniqueInput>>;
@@ -3911,7 +3911,7 @@ export type DeviceProfileCreateManyInput = {
 export type DeviceProfileCreateNestedManyWithoutDeviceManagerInput = {
   connect?: InputMaybe<Array<DeviceProfileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<DeviceProfileCreateOrConnectWithoutDeviceManagerInput>>;
-  create?: InputMaybe<DeviceProfileCreateWithoutDeviceManagerInput>;
+  create?: InputMaybe<Array<DeviceProfileCreateWithoutDeviceManagerInput>>;
   createMany?: InputMaybe<DeviceProfileCreateManyDeviceManagerInputEnvelope>;
 };
 
@@ -4092,7 +4092,7 @@ export type DeviceProfileUpdateManyMutationInput = {
 export type DeviceProfileUpdateManyWithoutDeviceManagerNestedInput = {
   connect?: InputMaybe<Array<DeviceProfileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<DeviceProfileCreateOrConnectWithoutDeviceManagerInput>>;
-  create?: InputMaybe<DeviceProfileCreateWithoutDeviceManagerInput>;
+  create?: InputMaybe<Array<DeviceProfileCreateWithoutDeviceManagerInput>>;
   createMany?: InputMaybe<DeviceProfileCreateManyDeviceManagerInputEnvelope>;
   delete?: InputMaybe<Array<DeviceProfileWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<DeviceProfileScalarWhereInput>>;
@@ -4511,7 +4511,7 @@ export type EmailCreateManyInput = {
 export type EmailCreateNestedManyWithoutAuthenticationProviderInput = {
   connect?: InputMaybe<Array<EmailWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<EmailCreateOrConnectWithoutAuthenticationProviderInput>>;
-  create?: InputMaybe<EmailCreateWithoutAuthenticationProviderInput>;
+  create?: InputMaybe<Array<EmailCreateWithoutAuthenticationProviderInput>>;
 };
 
 export type EmailCreateOrConnectWithoutAuthenticationProviderInput = {
@@ -4630,7 +4630,7 @@ export type EmailUpdateManyMutationInput = {
 export type EmailUpdateManyWithoutAuthenticationProviderNestedInput = {
   connect?: InputMaybe<Array<EmailWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<EmailCreateOrConnectWithoutAuthenticationProviderInput>>;
-  create?: InputMaybe<EmailCreateWithoutAuthenticationProviderInput>;
+  create?: InputMaybe<Array<EmailCreateWithoutAuthenticationProviderInput>>;
   delete?: InputMaybe<Array<EmailWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<EmailScalarWhereInput>>;
   disconnect?: InputMaybe<Array<EmailWhereUniqueInput>>;
@@ -4719,7 +4719,7 @@ export type EmojimoodCreateManyInput = {
 export type EmojimoodCreateNestedManyWithoutStoryInput = {
   connect?: InputMaybe<Array<EmojimoodWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<EmojimoodCreateOrConnectWithoutStoryInput>>;
-  create?: InputMaybe<EmojimoodCreateWithoutStoryInput>;
+  create?: InputMaybe<Array<EmojimoodCreateWithoutStoryInput>>;
 };
 
 export type EmojimoodCreateOrConnectWithoutStoryInput = {
@@ -4827,7 +4827,7 @@ export type EmojimoodUpdateManyMutationInput = {
 export type EmojimoodUpdateManyWithoutStoryNestedInput = {
   connect?: InputMaybe<Array<EmojimoodWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<EmojimoodCreateOrConnectWithoutStoryInput>>;
-  create?: InputMaybe<EmojimoodCreateWithoutStoryInput>;
+  create?: InputMaybe<Array<EmojimoodCreateWithoutStoryInput>>;
   delete?: InputMaybe<Array<EmojimoodWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<EmojimoodScalarWhereInput>>;
   disconnect?: InputMaybe<Array<EmojimoodWhereUniqueInput>>;
@@ -5098,7 +5098,7 @@ export type FriendRequestCreateManyInput = {
 export type FriendRequestCreateNestedManyWithoutNotificationsInput = {
   connect?: InputMaybe<Array<FriendRequestWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<FriendRequestCreateOrConnectWithoutNotificationsInput>>;
-  create?: InputMaybe<FriendRequestCreateWithoutNotificationsInput>;
+  create?: InputMaybe<Array<FriendRequestCreateWithoutNotificationsInput>>;
 };
 
 export type FriendRequestCreateNestedOneWithoutNotificationStatusInput = {
@@ -5245,7 +5245,7 @@ export type FriendRequestUpdateManyMutationInput = {
 export type FriendRequestUpdateManyWithoutNotificationsNestedInput = {
   connect?: InputMaybe<Array<FriendRequestWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<FriendRequestCreateOrConnectWithoutNotificationsInput>>;
-  create?: InputMaybe<FriendRequestCreateWithoutNotificationsInput>;
+  create?: InputMaybe<Array<FriendRequestCreateWithoutNotificationsInput>>;
   delete?: InputMaybe<Array<FriendRequestWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<FriendRequestScalarWhereInput>>;
   disconnect?: InputMaybe<Array<FriendRequestWhereUniqueInput>>;
@@ -5690,7 +5690,7 @@ export type GroupCreateManyInput = {
 export type GroupCreateNestedManyWithoutProfileInput = {
   connect?: InputMaybe<Array<GroupWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<GroupCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<GroupCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<GroupCreateWithoutProfileInput>>;
 };
 
 export type GroupCreateNestedOneWithoutPhotosInput = {
@@ -5819,7 +5819,7 @@ export type GroupUpdateManyMutationInput = {
 export type GroupUpdateManyWithoutProfileNestedInput = {
   connect?: InputMaybe<Array<GroupWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<GroupCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<GroupCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<GroupCreateWithoutProfileInput>>;
   delete?: InputMaybe<Array<GroupWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<GroupScalarWhereInput>>;
   disconnect?: InputMaybe<Array<GroupWhereUniqueInput>>;
@@ -7151,14 +7151,14 @@ export type LegalAgreementCreateManyInput = {
 export type LegalAgreementCreateNestedManyWithoutCredentialsInput = {
   connect?: InputMaybe<Array<LegalAgreementWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LegalAgreementCreateOrConnectWithoutCredentialsInput>>;
-  create?: InputMaybe<LegalAgreementCreateWithoutCredentialsInput>;
+  create?: InputMaybe<Array<LegalAgreementCreateWithoutCredentialsInput>>;
   createMany?: InputMaybe<LegalAgreementCreateManyCredentialsInputEnvelope>;
 };
 
 export type LegalAgreementCreateNestedManyWithoutDocumentInput = {
   connect?: InputMaybe<Array<LegalAgreementWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LegalAgreementCreateOrConnectWithoutDocumentInput>>;
-  create?: InputMaybe<LegalAgreementCreateWithoutDocumentInput>;
+  create?: InputMaybe<Array<LegalAgreementCreateWithoutDocumentInput>>;
   createMany?: InputMaybe<LegalAgreementCreateManyDocumentInputEnvelope>;
 };
 
@@ -7297,7 +7297,7 @@ export type LegalAgreementUpdateManyMutationInput = {
 export type LegalAgreementUpdateManyWithoutCredentialsNestedInput = {
   connect?: InputMaybe<Array<LegalAgreementWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LegalAgreementCreateOrConnectWithoutCredentialsInput>>;
-  create?: InputMaybe<LegalAgreementCreateWithoutCredentialsInput>;
+  create?: InputMaybe<Array<LegalAgreementCreateWithoutCredentialsInput>>;
   createMany?: InputMaybe<LegalAgreementCreateManyCredentialsInputEnvelope>;
   delete?: InputMaybe<Array<LegalAgreementWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<LegalAgreementScalarWhereInput>>;
@@ -7311,7 +7311,7 @@ export type LegalAgreementUpdateManyWithoutCredentialsNestedInput = {
 export type LegalAgreementUpdateManyWithoutDocumentNestedInput = {
   connect?: InputMaybe<Array<LegalAgreementWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LegalAgreementCreateOrConnectWithoutDocumentInput>>;
-  create?: InputMaybe<LegalAgreementCreateWithoutDocumentInput>;
+  create?: InputMaybe<Array<LegalAgreementCreateWithoutDocumentInput>>;
   createMany?: InputMaybe<LegalAgreementCreateManyDocumentInputEnvelope>;
   delete?: InputMaybe<Array<LegalAgreementWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<LegalAgreementScalarWhereInput>>;
@@ -7887,7 +7887,7 @@ export type LocationCreateManyInput = {
 export type LocationCreateNestedManyWithoutAddressInput = {
   connect?: InputMaybe<Array<LocationWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LocationCreateOrConnectWithoutAddressInput>>;
-  create?: InputMaybe<LocationCreateWithoutAddressInput>;
+  create?: InputMaybe<Array<LocationCreateWithoutAddressInput>>;
   createMany?: InputMaybe<LocationCreateManyAddressInputEnvelope>;
 };
 
@@ -8136,7 +8136,7 @@ export type LocationUpdateManyMutationInput = {
 export type LocationUpdateManyWithoutAddressNestedInput = {
   connect?: InputMaybe<Array<LocationWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<LocationCreateOrConnectWithoutAddressInput>>;
-  create?: InputMaybe<LocationCreateWithoutAddressInput>;
+  create?: InputMaybe<Array<LocationCreateWithoutAddressInput>>;
   createMany?: InputMaybe<LocationCreateManyAddressInputEnvelope>;
   delete?: InputMaybe<Array<LocationWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<LocationScalarWhereInput>>;
@@ -8358,14 +8358,14 @@ export type MessageCreateManyResponseInputEnvelope = {
 export type MessageCreateNestedManyWithoutChatroomInput = {
   connect?: InputMaybe<Array<MessageWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<MessageCreateOrConnectWithoutChatroomInput>>;
-  create?: InputMaybe<MessageCreateWithoutChatroomInput>;
+  create?: InputMaybe<Array<MessageCreateWithoutChatroomInput>>;
   createMany?: InputMaybe<MessageCreateManyChatroomInputEnvelope>;
 };
 
 export type MessageCreateNestedManyWithoutResponseInput = {
   connect?: InputMaybe<Array<MessageWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<MessageCreateOrConnectWithoutResponseInput>>;
-  create?: InputMaybe<MessageCreateWithoutResponseInput>;
+  create?: InputMaybe<Array<MessageCreateWithoutResponseInput>>;
   createMany?: InputMaybe<MessageCreateManyResponseInputEnvelope>;
 };
 
@@ -8515,7 +8515,7 @@ export type MessageUpdateManyMutationInput = {
 export type MessageUpdateManyWithoutChatroomNestedInput = {
   connect?: InputMaybe<Array<MessageWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<MessageCreateOrConnectWithoutChatroomInput>>;
-  create?: InputMaybe<MessageCreateWithoutChatroomInput>;
+  create?: InputMaybe<Array<MessageCreateWithoutChatroomInput>>;
   createMany?: InputMaybe<MessageCreateManyChatroomInputEnvelope>;
   delete?: InputMaybe<Array<MessageWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<MessageScalarWhereInput>>;
@@ -8529,7 +8529,7 @@ export type MessageUpdateManyWithoutChatroomNestedInput = {
 export type MessageUpdateManyWithoutResponseNestedInput = {
   connect?: InputMaybe<Array<MessageWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<MessageCreateOrConnectWithoutResponseInput>>;
-  create?: InputMaybe<MessageCreateWithoutResponseInput>;
+  create?: InputMaybe<Array<MessageCreateWithoutResponseInput>>;
   createMany?: InputMaybe<MessageCreateManyResponseInputEnvelope>;
   delete?: InputMaybe<Array<MessageWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<MessageScalarWhereInput>>;
@@ -9201,7 +9201,7 @@ export type NotificationsCreateManyInput = {
 export type NotificationsCreateNestedManyWithoutFriendRequestsInput = {
   connect?: InputMaybe<Array<NotificationsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<NotificationsCreateOrConnectWithoutFriendRequestsInput>>;
-  create?: InputMaybe<NotificationsCreateWithoutFriendRequestsInput>;
+  create?: InputMaybe<Array<NotificationsCreateWithoutFriendRequestsInput>>;
 };
 
 export type NotificationsCreateNestedOneWithoutProfileInput = {
@@ -9502,7 +9502,7 @@ export type NotificationsUpdateManyMutationInput = {
 export type NotificationsUpdateManyWithoutFriendRequestsNestedInput = {
   connect?: InputMaybe<Array<NotificationsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<NotificationsCreateOrConnectWithoutFriendRequestsInput>>;
-  create?: InputMaybe<NotificationsCreateWithoutFriendRequestsInput>;
+  create?: InputMaybe<Array<NotificationsCreateWithoutFriendRequestsInput>>;
   delete?: InputMaybe<Array<NotificationsWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<NotificationsScalarWhereInput>>;
   disconnect?: InputMaybe<Array<NotificationsWhereUniqueInput>>;
@@ -9734,28 +9734,28 @@ export type OutCreateManyVenueStatsInputEnvelope = {
 export type OutCreateNestedManyWithoutLiveOutPersonalInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutLiveOutPersonalInput>>;
-  create?: InputMaybe<OutCreateWithoutLiveOutPersonalInput>;
+  create?: InputMaybe<Array<OutCreateWithoutLiveOutPersonalInput>>;
   createMany?: InputMaybe<OutCreateManyLiveOutPersonalInputEnvelope>;
 };
 
 export type OutCreateNestedManyWithoutLiveOutVenueInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutLiveOutVenueInput>>;
-  create?: InputMaybe<OutCreateWithoutLiveOutVenueInput>;
+  create?: InputMaybe<Array<OutCreateWithoutLiveOutVenueInput>>;
   createMany?: InputMaybe<OutCreateManyLiveOutVenueInputEnvelope>;
 };
 
 export type OutCreateNestedManyWithoutPersonalStatsInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutPersonalStatsInput>>;
-  create?: InputMaybe<OutCreateWithoutPersonalStatsInput>;
+  create?: InputMaybe<Array<OutCreateWithoutPersonalStatsInput>>;
   createMany?: InputMaybe<OutCreateManyPersonalStatsInputEnvelope>;
 };
 
 export type OutCreateNestedManyWithoutVenueStatsInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutVenueStatsInput>>;
-  create?: InputMaybe<OutCreateWithoutVenueStatsInput>;
+  create?: InputMaybe<Array<OutCreateWithoutVenueStatsInput>>;
   createMany?: InputMaybe<OutCreateManyVenueStatsInputEnvelope>;
 };
 
@@ -9984,7 +9984,7 @@ export type OutUpdateManyMutationInput = {
 export type OutUpdateManyWithoutLiveOutPersonalNestedInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutLiveOutPersonalInput>>;
-  create?: InputMaybe<OutCreateWithoutLiveOutPersonalInput>;
+  create?: InputMaybe<Array<OutCreateWithoutLiveOutPersonalInput>>;
   createMany?: InputMaybe<OutCreateManyLiveOutPersonalInputEnvelope>;
   delete?: InputMaybe<Array<OutWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<OutScalarWhereInput>>;
@@ -9998,7 +9998,7 @@ export type OutUpdateManyWithoutLiveOutPersonalNestedInput = {
 export type OutUpdateManyWithoutLiveOutVenueNestedInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutLiveOutVenueInput>>;
-  create?: InputMaybe<OutCreateWithoutLiveOutVenueInput>;
+  create?: InputMaybe<Array<OutCreateWithoutLiveOutVenueInput>>;
   createMany?: InputMaybe<OutCreateManyLiveOutVenueInputEnvelope>;
   delete?: InputMaybe<Array<OutWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<OutScalarWhereInput>>;
@@ -10012,7 +10012,7 @@ export type OutUpdateManyWithoutLiveOutVenueNestedInput = {
 export type OutUpdateManyWithoutPersonalStatsNestedInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutPersonalStatsInput>>;
-  create?: InputMaybe<OutCreateWithoutPersonalStatsInput>;
+  create?: InputMaybe<Array<OutCreateWithoutPersonalStatsInput>>;
   createMany?: InputMaybe<OutCreateManyPersonalStatsInputEnvelope>;
   delete?: InputMaybe<Array<OutWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<OutScalarWhereInput>>;
@@ -10026,7 +10026,7 @@ export type OutUpdateManyWithoutPersonalStatsNestedInput = {
 export type OutUpdateManyWithoutVenueStatsNestedInput = {
   connect?: InputMaybe<Array<OutWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OutCreateOrConnectWithoutVenueStatsInput>>;
-  create?: InputMaybe<OutCreateWithoutVenueStatsInput>;
+  create?: InputMaybe<Array<OutCreateWithoutVenueStatsInput>>;
   createMany?: InputMaybe<OutCreateManyVenueStatsInputEnvelope>;
   delete?: InputMaybe<Array<OutWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<OutScalarWhereInput>>;
@@ -10388,7 +10388,7 @@ export type PathCreateManyTonightPathInputEnvelope = {
 export type PathCreateNestedManyWithoutTonightPathInput = {
   connect?: InputMaybe<Array<PathWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PathCreateOrConnectWithoutTonightPathInput>>;
-  create?: InputMaybe<PathCreateWithoutTonightPathInput>;
+  create?: InputMaybe<Array<PathCreateWithoutTonightPathInput>>;
   createMany?: InputMaybe<PathCreateManyTonightPathInputEnvelope>;
 };
 
@@ -10505,7 +10505,7 @@ export type PathUpdateManyMutationInput = {
 export type PathUpdateManyWithoutTonightPathNestedInput = {
   connect?: InputMaybe<Array<PathWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PathCreateOrConnectWithoutTonightPathInput>>;
-  create?: InputMaybe<PathCreateWithoutTonightPathInput>;
+  create?: InputMaybe<Array<PathCreateWithoutTonightPathInput>>;
   createMany?: InputMaybe<PathCreateManyTonightPathInputEnvelope>;
   delete?: InputMaybe<Array<PathWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<PathScalarWhereInput>>;
@@ -11079,7 +11079,7 @@ export type PhoneCreateManyInput = {
 export type PhoneCreateNestedManyWithoutAuthenticationProviderInput = {
   connect?: InputMaybe<Array<PhoneWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhoneCreateOrConnectWithoutAuthenticationProviderInput>>;
-  create?: InputMaybe<PhoneCreateWithoutAuthenticationProviderInput>;
+  create?: InputMaybe<Array<PhoneCreateWithoutAuthenticationProviderInput>>;
 };
 
 export type PhoneCreateOrConnectWithoutAuthenticationProviderInput = {
@@ -11232,7 +11232,7 @@ export type PhoneUpdateManyMutationInput = {
 export type PhoneUpdateManyWithoutAuthenticationProviderNestedInput = {
   connect?: InputMaybe<Array<PhoneWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhoneCreateOrConnectWithoutAuthenticationProviderInput>>;
-  create?: InputMaybe<PhoneCreateWithoutAuthenticationProviderInput>;
+  create?: InputMaybe<Array<PhoneCreateWithoutAuthenticationProviderInput>>;
   delete?: InputMaybe<Array<PhoneWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<PhoneScalarWhereInput>>;
   disconnect?: InputMaybe<Array<PhoneWhereUniqueInput>>;
@@ -11431,21 +11431,21 @@ export type PhotoCreateManyStoryInputEnvelope = {
 export type PhotoCreateNestedManyWithoutGroupInput = {
   connect?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhotoCreateOrConnectWithoutGroupInput>>;
-  create?: InputMaybe<PhotoCreateWithoutGroupInput>;
+  create?: InputMaybe<Array<PhotoCreateWithoutGroupInput>>;
   createMany?: InputMaybe<PhotoCreateManyGroupInputEnvelope>;
 };
 
 export type PhotoCreateNestedManyWithoutProfileInput = {
   connect?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhotoCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<PhotoCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<PhotoCreateWithoutProfileInput>>;
   createMany?: InputMaybe<PhotoCreateManyProfileInputEnvelope>;
 };
 
 export type PhotoCreateNestedManyWithoutStoryInput = {
   connect?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhotoCreateOrConnectWithoutStoryInput>>;
-  create?: InputMaybe<PhotoCreateWithoutStoryInput>;
+  create?: InputMaybe<Array<PhotoCreateWithoutStoryInput>>;
   createMany?: InputMaybe<PhotoCreateManyStoryInputEnvelope>;
 };
 
@@ -11700,7 +11700,7 @@ export type PhotoUpdateManyMutationInput = {
 export type PhotoUpdateManyWithoutGroupNestedInput = {
   connect?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhotoCreateOrConnectWithoutGroupInput>>;
-  create?: InputMaybe<PhotoCreateWithoutGroupInput>;
+  create?: InputMaybe<Array<PhotoCreateWithoutGroupInput>>;
   createMany?: InputMaybe<PhotoCreateManyGroupInputEnvelope>;
   delete?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<PhotoScalarWhereInput>>;
@@ -11714,7 +11714,7 @@ export type PhotoUpdateManyWithoutGroupNestedInput = {
 export type PhotoUpdateManyWithoutProfileNestedInput = {
   connect?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhotoCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<PhotoCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<PhotoCreateWithoutProfileInput>>;
   createMany?: InputMaybe<PhotoCreateManyProfileInputEnvelope>;
   delete?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<PhotoScalarWhereInput>>;
@@ -11728,7 +11728,7 @@ export type PhotoUpdateManyWithoutProfileNestedInput = {
 export type PhotoUpdateManyWithoutStoryNestedInput = {
   connect?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<PhotoCreateOrConnectWithoutStoryInput>>;
-  create?: InputMaybe<PhotoCreateWithoutStoryInput>;
+  create?: InputMaybe<Array<PhotoCreateWithoutStoryInput>>;
   createMany?: InputMaybe<PhotoCreateManyStoryInputEnvelope>;
   delete?: InputMaybe<Array<PhotoWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<PhotoScalarWhereInput>>;
@@ -12185,13 +12185,13 @@ export type ProfileCreateManyInput = {
 export type ProfileCreateNestedManyWithoutChatroomInput = {
   connect?: InputMaybe<Array<ProfileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileCreateOrConnectWithoutChatroomInput>>;
-  create?: InputMaybe<ProfileCreateWithoutChatroomInput>;
+  create?: InputMaybe<Array<ProfileCreateWithoutChatroomInput>>;
 };
 
 export type ProfileCreateNestedManyWithoutGroupsInput = {
   connect?: InputMaybe<Array<ProfileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileCreateOrConnectWithoutGroupsInput>>;
-  create?: InputMaybe<ProfileCreateWithoutGroupsInput>;
+  create?: InputMaybe<Array<ProfileCreateWithoutGroupsInput>>;
 };
 
 export type ProfileCreateNestedOneWithoutCredentialsInput = {
@@ -12936,14 +12936,14 @@ export type ProfileThemeCreateManyThemeManagerInputEnvelope = {
 export type ProfileThemeCreateNestedManyWithoutThemeInput = {
   connect?: InputMaybe<Array<ProfileThemeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileThemeCreateOrConnectWithoutThemeInput>>;
-  create?: InputMaybe<ProfileThemeCreateWithoutThemeInput>;
+  create?: InputMaybe<Array<ProfileThemeCreateWithoutThemeInput>>;
   createMany?: InputMaybe<ProfileThemeCreateManyThemeInputEnvelope>;
 };
 
 export type ProfileThemeCreateNestedManyWithoutThemeManagerInput = {
   connect?: InputMaybe<Array<ProfileThemeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileThemeCreateOrConnectWithoutThemeManagerInput>>;
-  create?: InputMaybe<ProfileThemeCreateWithoutThemeManagerInput>;
+  create?: InputMaybe<Array<ProfileThemeCreateWithoutThemeManagerInput>>;
   createMany?: InputMaybe<ProfileThemeCreateManyThemeManagerInputEnvelope>;
 };
 
@@ -13076,7 +13076,7 @@ export type ProfileThemeUpdateManyMutationInput = {
 export type ProfileThemeUpdateManyWithoutThemeManagerNestedInput = {
   connect?: InputMaybe<Array<ProfileThemeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileThemeCreateOrConnectWithoutThemeManagerInput>>;
-  create?: InputMaybe<ProfileThemeCreateWithoutThemeManagerInput>;
+  create?: InputMaybe<Array<ProfileThemeCreateWithoutThemeManagerInput>>;
   createMany?: InputMaybe<ProfileThemeCreateManyThemeManagerInputEnvelope>;
   delete?: InputMaybe<Array<ProfileThemeWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<ProfileThemeScalarWhereInput>>;
@@ -13090,7 +13090,7 @@ export type ProfileThemeUpdateManyWithoutThemeManagerNestedInput = {
 export type ProfileThemeUpdateManyWithoutThemeNestedInput = {
   connect?: InputMaybe<Array<ProfileThemeWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileThemeCreateOrConnectWithoutThemeInput>>;
-  create?: InputMaybe<ProfileThemeCreateWithoutThemeInput>;
+  create?: InputMaybe<Array<ProfileThemeCreateWithoutThemeInput>>;
   createMany?: InputMaybe<ProfileThemeCreateManyThemeInputEnvelope>;
   delete?: InputMaybe<Array<ProfileThemeWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<ProfileThemeScalarWhereInput>>;
@@ -13215,7 +13215,7 @@ export type ProfileUpdateManyMutationInput = {
 export type ProfileUpdateManyWithoutChatroomNestedInput = {
   connect?: InputMaybe<Array<ProfileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileCreateOrConnectWithoutChatroomInput>>;
-  create?: InputMaybe<ProfileCreateWithoutChatroomInput>;
+  create?: InputMaybe<Array<ProfileCreateWithoutChatroomInput>>;
   delete?: InputMaybe<Array<ProfileWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<ProfileScalarWhereInput>>;
   disconnect?: InputMaybe<Array<ProfileWhereUniqueInput>>;
@@ -13228,7 +13228,7 @@ export type ProfileUpdateManyWithoutChatroomNestedInput = {
 export type ProfileUpdateManyWithoutGroupsNestedInput = {
   connect?: InputMaybe<Array<ProfileWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<ProfileCreateOrConnectWithoutGroupsInput>>;
-  create?: InputMaybe<ProfileCreateWithoutGroupsInput>;
+  create?: InputMaybe<Array<ProfileCreateWithoutGroupsInput>>;
   delete?: InputMaybe<Array<ProfileWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<ProfileScalarWhereInput>>;
   disconnect?: InputMaybe<Array<ProfileWhereUniqueInput>>;
@@ -14521,7 +14521,7 @@ export type RelationshipCreateManyProfileInputEnvelope = {
 export type RelationshipCreateNestedManyWithoutProfileInput = {
   connect?: InputMaybe<Array<RelationshipWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<RelationshipCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<RelationshipCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<RelationshipCreateWithoutProfileInput>>;
   createMany?: InputMaybe<RelationshipCreateManyProfileInputEnvelope>;
 };
 
@@ -14658,7 +14658,7 @@ export type RelationshipUpdateManyMutationInput = {
 export type RelationshipUpdateManyWithoutProfileNestedInput = {
   connect?: InputMaybe<Array<RelationshipWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<RelationshipCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<RelationshipCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<RelationshipCreateWithoutProfileInput>>;
   createMany?: InputMaybe<RelationshipCreateManyProfileInputEnvelope>;
   delete?: InputMaybe<Array<RelationshipWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<RelationshipScalarWhereInput>>;
@@ -14817,21 +14817,21 @@ export type SearchAreaMetricsCreateManySearchesServiceInputEnvelope = {
 export type SearchAreaMetricsCreateNestedManyWithoutH3Index5VenueRecommendationInput = {
   connect?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput>>;
-  create?: InputMaybe<SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput>;
+  create?: InputMaybe<Array<SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput>>;
   createMany?: InputMaybe<SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope>;
 };
 
 export type SearchAreaMetricsCreateNestedManyWithoutH3Index6VenueRecommendationInput = {
   connect?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput>>;
-  create?: InputMaybe<SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput>;
+  create?: InputMaybe<Array<SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput>>;
   createMany?: InputMaybe<SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope>;
 };
 
 export type SearchAreaMetricsCreateNestedManyWithoutSearchesServiceInput = {
   connect?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput>>;
-  create?: InputMaybe<SearchAreaMetricsCreateWithoutSearchesServiceInput>;
+  create?: InputMaybe<Array<SearchAreaMetricsCreateWithoutSearchesServiceInput>>;
   createMany?: InputMaybe<SearchAreaMetricsCreateManySearchesServiceInputEnvelope>;
 };
 
@@ -15003,7 +15003,7 @@ export type SearchAreaMetricsUpdateManyMutationInput = {
 export type SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedInput = {
   connect?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SearchAreaMetricsCreateOrConnectWithoutH3Index5VenueRecommendationInput>>;
-  create?: InputMaybe<SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput>;
+  create?: InputMaybe<Array<SearchAreaMetricsCreateWithoutH3Index5VenueRecommendationInput>>;
   createMany?: InputMaybe<SearchAreaMetricsCreateManyH3Index5VenueRecommendationInputEnvelope>;
   delete?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<SearchAreaMetricsScalarWhereInput>>;
@@ -15017,7 +15017,7 @@ export type SearchAreaMetricsUpdateManyWithoutH3Index5VenueRecommendationNestedI
 export type SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedInput = {
   connect?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SearchAreaMetricsCreateOrConnectWithoutH3Index6VenueRecommendationInput>>;
-  create?: InputMaybe<SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput>;
+  create?: InputMaybe<Array<SearchAreaMetricsCreateWithoutH3Index6VenueRecommendationInput>>;
   createMany?: InputMaybe<SearchAreaMetricsCreateManyH3Index6VenueRecommendationInputEnvelope>;
   delete?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<SearchAreaMetricsScalarWhereInput>>;
@@ -15031,7 +15031,7 @@ export type SearchAreaMetricsUpdateManyWithoutH3Index6VenueRecommendationNestedI
 export type SearchAreaMetricsUpdateManyWithoutSearchesServiceNestedInput = {
   connect?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SearchAreaMetricsCreateOrConnectWithoutSearchesServiceInput>>;
-  create?: InputMaybe<SearchAreaMetricsCreateWithoutSearchesServiceInput>;
+  create?: InputMaybe<Array<SearchAreaMetricsCreateWithoutSearchesServiceInput>>;
   createMany?: InputMaybe<SearchAreaMetricsCreateManySearchesServiceInputEnvelope>;
   delete?: InputMaybe<Array<SearchAreaMetricsWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<SearchAreaMetricsScalarWhereInput>>;
@@ -15426,7 +15426,7 @@ export type SecuredDataKeysCreateManyProfileInputEnvelope = {
 export type SecuredDataKeysCreateNestedManyWithoutProfileInput = {
   connect?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SecuredDataKeysCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<SecuredDataKeysCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<SecuredDataKeysCreateWithoutProfileInput>>;
   createMany?: InputMaybe<SecuredDataKeysCreateManyProfileInputEnvelope>;
 };
 
@@ -15562,7 +15562,7 @@ export type SecuredDataKeysUpdateManyMutationInput = {
 export type SecuredDataKeysUpdateManyWithoutProfileNestedInput = {
   connect?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<SecuredDataKeysCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<SecuredDataKeysCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<SecuredDataKeysCreateWithoutProfileInput>>;
   createMany?: InputMaybe<SecuredDataKeysCreateManyProfileInputEnvelope>;
   delete?: InputMaybe<Array<SecuredDataKeysWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<SecuredDataKeysScalarWhereInput>>;
@@ -16058,13 +16058,13 @@ export type StoryCreateManyProfileInputEnvelope = {
 export type StoryCreateNestedManyWithoutEmojimoodInput = {
   connect?: InputMaybe<Array<StoryWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<StoryCreateOrConnectWithoutEmojimoodInput>>;
-  create?: InputMaybe<StoryCreateWithoutEmojimoodInput>;
+  create?: InputMaybe<Array<StoryCreateWithoutEmojimoodInput>>;
 };
 
 export type StoryCreateNestedManyWithoutProfileInput = {
   connect?: InputMaybe<Array<StoryWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<StoryCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<StoryCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<StoryCreateWithoutProfileInput>>;
   createMany?: InputMaybe<StoryCreateManyProfileInputEnvelope>;
 };
 
@@ -16219,7 +16219,7 @@ export type StoryUpdateManyMutationInput = {
 export type StoryUpdateManyWithoutEmojimoodNestedInput = {
   connect?: InputMaybe<Array<StoryWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<StoryCreateOrConnectWithoutEmojimoodInput>>;
-  create?: InputMaybe<StoryCreateWithoutEmojimoodInput>;
+  create?: InputMaybe<Array<StoryCreateWithoutEmojimoodInput>>;
   delete?: InputMaybe<Array<StoryWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<StoryScalarWhereInput>>;
   disconnect?: InputMaybe<Array<StoryWhereUniqueInput>>;
@@ -16232,7 +16232,7 @@ export type StoryUpdateManyWithoutEmojimoodNestedInput = {
 export type StoryUpdateManyWithoutProfileNestedInput = {
   connect?: InputMaybe<Array<StoryWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<StoryCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<StoryCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<StoryCreateWithoutProfileInput>>;
   createMany?: InputMaybe<StoryCreateManyProfileInputEnvelope>;
   delete?: InputMaybe<Array<StoryWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<StoryScalarWhereInput>>;
@@ -16472,14 +16472,14 @@ export type TagCreateManyInput = {
 export type TagCreateNestedManyWithoutCategoryInput = {
   connect?: InputMaybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutCategoryInput>>;
-  create?: InputMaybe<TagCreateWithoutCategoryInput>;
+  create?: InputMaybe<Array<TagCreateWithoutCategoryInput>>;
   createMany?: InputMaybe<TagCreateManyCategoryInputEnvelope>;
 };
 
 export type TagCreateNestedManyWithoutDetailInformationInput = {
   connect?: InputMaybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutDetailInformationInput>>;
-  create?: InputMaybe<TagCreateWithoutDetailInformationInput>;
+  create?: InputMaybe<Array<TagCreateWithoutDetailInformationInput>>;
 };
 
 export type TagCreateOrConnectWithoutCategoryInput = {
@@ -16595,7 +16595,7 @@ export type TagUpdateManyMutationInput = {
 export type TagUpdateManyWithoutCategoryNestedInput = {
   connect?: InputMaybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutCategoryInput>>;
-  create?: InputMaybe<TagCreateWithoutCategoryInput>;
+  create?: InputMaybe<Array<TagCreateWithoutCategoryInput>>;
   createMany?: InputMaybe<TagCreateManyCategoryInputEnvelope>;
   delete?: InputMaybe<Array<TagWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<TagScalarWhereInput>>;
@@ -16609,7 +16609,7 @@ export type TagUpdateManyWithoutCategoryNestedInput = {
 export type TagUpdateManyWithoutDetailInformationNestedInput = {
   connect?: InputMaybe<Array<TagWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<TagCreateOrConnectWithoutDetailInformationInput>>;
-  create?: InputMaybe<TagCreateWithoutDetailInformationInput>;
+  create?: InputMaybe<Array<TagCreateWithoutDetailInformationInput>>;
   delete?: InputMaybe<Array<TagWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<TagScalarWhereInput>>;
   disconnect?: InputMaybe<Array<TagWhereUniqueInput>>;
@@ -17954,28 +17954,28 @@ export type VoteCreateManyProfileInputEnvelope = {
 export type VoteCreateNestedManyWithoutComingAreaInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutComingAreaInput>>;
-  create?: InputMaybe<VoteCreateWithoutComingAreaInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutComingAreaInput>>;
   createMany?: InputMaybe<VoteCreateManyComingAreaInputEnvelope>;
 };
 
 export type VoteCreateNestedManyWithoutH3Index5VenueRecommendationInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput>>;
-  create?: InputMaybe<VoteCreateWithoutH3Index5VenueRecommendationInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutH3Index5VenueRecommendationInput>>;
   createMany?: InputMaybe<VoteCreateManyH3Index5VenueRecommendationInputEnvelope>;
 };
 
 export type VoteCreateNestedManyWithoutH3Index6VenueRecommendationInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput>>;
-  create?: InputMaybe<VoteCreateWithoutH3Index6VenueRecommendationInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutH3Index6VenueRecommendationInput>>;
   createMany?: InputMaybe<VoteCreateManyH3Index6VenueRecommendationInputEnvelope>;
 };
 
 export type VoteCreateNestedManyWithoutProfileInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<VoteCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutProfileInput>>;
   createMany?: InputMaybe<VoteCreateManyProfileInputEnvelope>;
 };
 
@@ -18160,7 +18160,7 @@ export type VoteUpdateManyMutationInput = {
 export type VoteUpdateManyWithoutComingAreaNestedInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutComingAreaInput>>;
-  create?: InputMaybe<VoteCreateWithoutComingAreaInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutComingAreaInput>>;
   createMany?: InputMaybe<VoteCreateManyComingAreaInputEnvelope>;
   delete?: InputMaybe<Array<VoteWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<VoteScalarWhereInput>>;
@@ -18174,7 +18174,7 @@ export type VoteUpdateManyWithoutComingAreaNestedInput = {
 export type VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutH3Index5VenueRecommendationInput>>;
-  create?: InputMaybe<VoteCreateWithoutH3Index5VenueRecommendationInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutH3Index5VenueRecommendationInput>>;
   createMany?: InputMaybe<VoteCreateManyH3Index5VenueRecommendationInputEnvelope>;
   delete?: InputMaybe<Array<VoteWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<VoteScalarWhereInput>>;
@@ -18188,7 +18188,7 @@ export type VoteUpdateManyWithoutH3Index5VenueRecommendationNestedInput = {
 export type VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutH3Index6VenueRecommendationInput>>;
-  create?: InputMaybe<VoteCreateWithoutH3Index6VenueRecommendationInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutH3Index6VenueRecommendationInput>>;
   createMany?: InputMaybe<VoteCreateManyH3Index6VenueRecommendationInputEnvelope>;
   delete?: InputMaybe<Array<VoteWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<VoteScalarWhereInput>>;
@@ -18202,7 +18202,7 @@ export type VoteUpdateManyWithoutH3Index6VenueRecommendationNestedInput = {
 export type VoteUpdateManyWithoutProfileNestedInput = {
   connect?: InputMaybe<Array<VoteWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<VoteCreateOrConnectWithoutProfileInput>>;
-  create?: InputMaybe<VoteCreateWithoutProfileInput>;
+  create?: InputMaybe<Array<VoteCreateWithoutProfileInput>>;
   createMany?: InputMaybe<VoteCreateManyProfileInputEnvelope>;
   delete?: InputMaybe<Array<VoteWhereUniqueInput>>;
   deleteMany?: InputMaybe<Array<VoteScalarWhereInput>>;

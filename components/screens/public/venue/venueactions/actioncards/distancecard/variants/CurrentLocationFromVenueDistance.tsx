@@ -15,7 +15,7 @@ import {
 import { useDisclose } from '@util/hooks/useDisclose'
 import * as Location from 'expo-location'
 import { LocationAccuracy } from 'expo-location'
-import { useSearchParams } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import { getDistance } from 'geolib'
 import { uniqueId } from 'lodash'
 import { MotiView } from 'moti'
@@ -59,7 +59,7 @@ async function unregisterForegroundFetchAsync() {
 const size = 50
 
 const CurrentLocationFromVenueDistance = () => {
-	const params = useSearchParams()
+	const params = useLocalSearchParams()
 	const isFocused = useIsFocused()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)

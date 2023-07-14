@@ -1,6 +1,6 @@
 import { Box, HStack, Heading, Text } from '@components/core'
 import { useGetLiveVenueTotalsQuery } from '@graphql/generated'
-import { useSearchParams } from 'expo-router'
+import { useGlobalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -17,7 +17,7 @@ type Totals = {
 }
 
 export default function VenueTotals() {
-	const params = useSearchParams()
+	const params = useGlobalSearchParams()
 	const { width } = useWindowDimensions()
 	const numColumns = 3
 	const itemPadding = (width / 33.33) * numColumns

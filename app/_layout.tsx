@@ -249,15 +249,6 @@ export default function Root() {
 					<Theme>
 						<AuthProvider>
 							<Slot initialRouteName='(app)/hometab' />
-							{/* <Stack
-								initialRouteName='(app)'
-								screenOptions={{
-									headerShown: false,
-								}}
-							>
-								<Stack.Screen name='(app)' />
-								<Stack.Screen name='(error)' />
-							</Stack> */}
 						</AuthProvider>
 					</Theme>
 				</KeyboardProvider>

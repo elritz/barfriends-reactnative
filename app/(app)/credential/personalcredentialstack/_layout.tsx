@@ -69,7 +69,9 @@ export default function _layout() {
 			<Stack.Screen
 				name={'create'}
 				options={{
-					headerTitle: () => <LogoTransparent height={30} width={192} />,
+					animation: 'fade',
+					// headerTitle: () => <LogoTransparent height={30} width={192} />,
+					headerTitle: '',
 					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>

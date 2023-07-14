@@ -48,82 +48,84 @@ const SearchAreaLocationPermissionItem = () => {
 	}
 
 	return (
-		<Box>
-			<Pressable
-				onPress={async () => {
-					!rSearchAreaVar?.useCurrentLocation
-						? !rPermissionForegroundLocationVar?.granted
-							? rPermissionForegroundLocationVar?.canAskAgain && !rPermissionForegroundLocationVar.granted
-								? await useSetSearchAreaWithLocation()
-								: createTwoButtonAlert()
-							: await useSetSearchAreaWithLocation()
-						: (SearchAreaReactiveVar({
-								...newSearchArea,
-								useCurrentLocation: false,
-						  }),
-						  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
-				}}
-			>
-				{({ isHovered, isFocused, isPressed }) => {
-					return (
-						<HStack
-							rounded={'$md'}
+		<Pressable
+			onPress={async () => {
+				!rSearchAreaVar?.useCurrentLocation
+					? !rPermissionForegroundLocationVar?.granted
+						? rPermissionForegroundLocationVar?.canAskAgain && !rPermissionForegroundLocationVar.granted
+							? await useSetSearchAreaWithLocation()
+							: createTwoButtonAlert()
+						: await useSetSearchAreaWithLocation()
+					: (SearchAreaReactiveVar({
+							...newSearchArea,
+							useCurrentLocation: false,
+					  }),
+					  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
+			}}
+		>
+			{({ isHovered, isFocused, isPressed }) => {
+				return (
+					<HStack
+						bg='$transparent'
+						rounded={'$full'}
+						overflow='hidden'
+						sx={{
+							h: 50,
+							_light: {
+								bg: isPressed
+									? '#ffffff40'
+									: rSearchAreaVar?.useCurrentLocation
+									? '$light300'
+									: '$light300',
+							},
+							_dark: {
+								bg: isPressed ? '#00000040' : rSearchAreaVar?.useCurrentLocation ? '$blue500' : '$dark200',
+							},
+						}}
+						p={'$3'}
+						justifyContent={'space-between'}
+					>
+						<Text
+							textAlign={'left'}
+							fontWeight={'$medium'}
+							fontSize={'$lg'}
+							ellipsizeMode={'tail'}
+							alignSelf={'center'}
+							color={rTheme.colorScheme === 'light' ? '$black' : '$white'}
+						>
+							{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
+						</Text>
+						<Box
 							sx={{
+								h: 35,
+								w: 35,
 								_light: {
-									bg: isPressed
-										? '#ffffff40'
-										: rSearchAreaVar?.useCurrentLocation
-										? 'light.300'
-										: 'light.300',
+									bg: rSearchAreaVar?.useCurrentLocation ? '$dark100' : '$light200',
 								},
 								_dark: {
-									bg: isPressed ? '#00000040' : rSearchAreaVar?.useCurrentLocation ? 'dark.200' : 'dark.200',
+									bg: rSearchAreaVar?.useCurrentLocation ? '$dark100' : '$light500',
 								},
 							}}
-							p={'$3'}
-							justifyContent={'space-between'}
+							alignSelf={'center'}
+							alignItems={'center'}
+							justifyContent={'center'}
+							rounded={'$full'}
 						>
-							<Text
-								textAlign={'left'}
-								fontWeight={'$medium'}
-								fontSize={'$lg'}
-								ellipsizeMode={'tail'}
-								alignSelf={'center'}
-								color={rTheme.colorScheme === 'light' ? '$black' : '$white'}
-							>
-								{rSearchAreaVar?.useCurrentLocation ? 'Using current location' : 'Use current location'}
-							</Text>
-							<Box
-								sx={{
-									h: 35,
-									w: 35,
-									_light: {
-										bg: rSearchAreaVar?.useCurrentLocation ? '$blue400' : '$light200',
-									},
-									_dark: {
-										bg: rSearchAreaVar?.useCurrentLocation ? '$blue400' : '$light500',
-									},
+							<FontAwesome5
+								size={14}
+								name={'location-arrow'}
+								style={{
+									borderRadius: 25,
+									color: rSearchAreaVar?.useCurrentLocation
+										? 'white'
+										: rTheme.theme?.gluestack.tokens.colors.blue500,
 								}}
-								alignItems={'center'}
-								justifyContent={'center'}
-								rounded={'$full'}
-							>
-								<FontAwesome5
-									size={20}
-									name={'location-arrow'}
-									style={{
-										borderRadius: 25,
-										color: rSearchAreaVar?.useCurrentLocation
-											? 'white'
-											: rTheme.theme?.gluestack.tokens.colors.blue400,
-									}}
-								/>
-							</Box>
-						</HStack>
-					)
-				}}
-			</Pressable>
-		</Box>
+							/>
+						</Box>
+					</HStack>
+				)
+			}}
+		</Pressable>
 	)
 }
 

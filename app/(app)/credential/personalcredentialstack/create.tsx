@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import { Box, Heading, Pressable, Text, VStack } from '@components/core'
+import { Box, Heading, Pressable, Spinner, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import {
 	AuthorizationDeviceManager,
@@ -15,7 +15,7 @@ export default () => {
 	const router = useRouter()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
-	const [createProfilePersonal, { loading: CPPLoading }] = useCreatePersonalProfileMutation({
+	const [createProfilePersonalMutation, { loading: CPPLoading }] = useCreatePersonalProfileMutation({
 		variables: {
 			data: {
 				PrivacyPolicyId: String(credentialPersonalProfileVar.PrivacyId),
@@ -37,11 +37,13 @@ export default () => {
 			console.log('error :>> ', error)
 		},
 		onCompleted: async data => {
+			console.log('🚀 ~ file: create.tsx:41 ~ data:', data)
+
 			if (data.createPersonalProfile?.__typename === 'AuthorizationDeviceManager') {
-				switchDeviceProfileMutation({
-					variables: {
-						profileId: String(data?.createPersonalProfile.DeviceProfile?.Profile?.id),
-					},
+				const deviceManager = data.createPersonalProfile as AuthorizationDeviceManager
+				AuthorizationReactiveVar(deviceManager)
+				router.push({
+					pathname: '(app)/hometab',
 				})
 			}
 		},
@@ -53,9 +55,10 @@ export default () => {
 				console.log('error :>> ', error)
 			},
 			onCompleted: data => {
+				console.log('🚀 ~ file: create.tsx:57 ~ data:', data)
+
 				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
-
 					AuthorizationReactiveVar(deviceManager)
 					router.push({
 						pathname: '(app)/hometab',
@@ -65,7 +68,11 @@ export default () => {
 		})
 
 	const onSubmit = async () => {
-		createProfilePersonal()
+		createProfilePersonalMutation()
+		// console.log(
+		// 	'credentialPersonalProfileVar :>> ',
+		// 	JSON.stringify(credentialPersonalProfileVar, null, 4),
+		// )
 	}
 
 	return (
@@ -96,7 +103,11 @@ export default () => {
 						rounded={'$full'}
 						bg='$primary500'
 					>
-						<Feather name='arrow-right' size={32} color={'white'} />
+						{CPPLoading || SDPLoading ? (
+							<Spinner color={'black'} size='large' />
+						) : (
+							<Feather name='arrow-right' size={32} color={'white'} />
+						)}
 					</Box>
 				</Pressable>
 			</VStack>

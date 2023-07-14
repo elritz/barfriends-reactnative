@@ -79,42 +79,49 @@ export default () => {
 				flex: 1,
 			}}
 		>
-			<VStack space={'md'} my={'$4'}>
+			<VStack space={'md'} my={'$4'} mx={'$2'}>
 				<Box bg={'$transparent'}>
-					<Heading fontSize={'$lg'}>Distance</Heading>
-					<Text fontSize={'$lg'}>Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away</Text>
-					<HStack space={'md'} justifyContent={'space-around'}>
-						{searchAreaDistances.map((item, index) => {
-							return (
-								<Button
-									key={index}
-									variant={rSearchAreaVar?.kRing.value === item.kRing ? 'solid' : 'outline'}
-									bg={rSearchAreaVar?.kRing.value === item.kRing ? '$primary500' : '$white'}
-									style={{
-										borderColor: rSearchAreaVar?.kRing.value === item.kRing ? '#ff700000' : '#ff7000',
-										borderWidth: 1,
-									}}
-									onPress={() => handleSearchAreaKRing(item)}
-									flex={1}
-									height={50}
-								>
-									<Text
-										sx={{
-											_dark: {
-												color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'red.200',
-											},
-											_light: {
-												color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : 'coolGray.900',
-											},
-											fontWeight: rSearchAreaVar?.kRing.value === item.kRing ? 'medium' : 'medium',
+					<VStack space='sm'>
+						<Heading fontSize={'$lg'} lineHeight={'$sm'}>
+							Distance{`\n`}
+							<Text fontSize={'$md'} lineHeight={'$sm'}>
+								Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away
+							</Text>
+						</Heading>
+
+						<HStack space={'md'} justifyContent={'space-around'}>
+							{searchAreaDistances.map((item, index) => {
+								return (
+									<Button
+										key={index}
+										variant={rSearchAreaVar?.kRing.value === item.kRing ? 'solid' : 'outline'}
+										bg={rSearchAreaVar?.kRing.value === item.kRing ? '$primary500' : '$white'}
+										style={{
+											borderColor: rSearchAreaVar?.kRing.value === item.kRing ? '#ff700000' : '#ff7000',
+											borderWidth: 1,
 										}}
+										onPress={() => handleSearchAreaKRing(item)}
+										flex={1}
+										height={50}
 									>
-										{item.distance}
-									</Text>
-								</Button>
-							)
-						})}
-					</HStack>
+										<Text
+											sx={{
+												_dark: {
+													color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : '$red200',
+												},
+												_light: {
+													color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : '$coolGray900',
+												},
+												fontWeight: rSearchAreaVar?.kRing.value === item.kRing ? '$medium' : '$medium',
+											}}
+										>
+											{item.distance}
+										</Text>
+									</Button>
+								)
+							})}
+						</HStack>
+					</VStack>
 				</Box>
 				<VStack space={'md'}>
 					<HStack space={'md'}>
@@ -129,8 +136,12 @@ export default () => {
 									}}
 									my={'$2'}
 								>
-									<Heading>Find Venues Near</Heading>
-									<Text fontSize={'$lg'}>Find your area and we will show you what we have for venues.</Text>
+									<Heading fontSize={'$lg'} lineHeight={'$sm'}>
+										Find Venues Near{`\n`}
+										<Text fontSize={'$md'} lineHeight={'$sm'}>
+											Find your area and we will show you what we have for venues.
+										</Text>
+									</Heading>
 								</Box>
 								<Button
 									onPress={() => {
@@ -145,21 +156,21 @@ export default () => {
 							</Box>
 						) : (
 							<VStack flex={1} space={'md'}>
-								<Heading size={'lg'}>Search area</Heading>
-								<Box sx={{ h: 55 }}>
-									<Text fontSize={'$lg'} numberOfLines={2}>
+								<Heading fontSize={'$lg'} lineHeight={'$sm'}>
+									Search area{`\n`}
+									<Text fontSize={'$md'} lineHeight={'$sm'}>
 										{rSearchAreaVar?.useCurrentLocation
 											? 'You are currently using your devices location to show you venues nearby.'
 											: 'Use your location to automatically set your area.'}
 									</Text>
-								</Box>
+								</Heading>
 
 								<HStack space={'md'}>
 									{searchAreaLocation.map((item, index) => {
 										return (
 											<Button
 												key={index}
-												bg={!rSearchAreaVar?.useCurrentLocation ? 'primary.500' : 'blue.400'}
+												bg={!rSearchAreaVar?.useCurrentLocation ? '$primary500' : '$blue500'}
 												variant={'solid'}
 												// isDisabled
 												sx={{
@@ -190,9 +201,7 @@ export default () => {
 										)
 									})}
 								</HStack>
-								<Box>
-									<SearchAreaLocationPermissionItem />
-								</Box>
+								<SearchAreaLocationPermissionItem />
 							</VStack>
 						)}
 					</HStack>

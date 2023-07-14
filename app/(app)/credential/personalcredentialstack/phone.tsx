@@ -245,8 +245,9 @@ export default () => {
 								<Input.Input
 									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									value={value}
-									type='password'
+									type='text'
 									py={'$2'}
+									autoFocus
 									sx={{
 										h: 50,
 									}}

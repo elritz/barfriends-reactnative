@@ -11,10 +11,10 @@ import {
 	useRemovePersonalJoinsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
+import { useGlobalSearchParams } from 'expo-router'
 
 export default function LeaveSection() {
-	const params = useSearchParams()
+	const params = useGlobalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const [removePersonalJoinsVenueMutation, { data: JVData, loading: JVLoading, error: JVError }] =

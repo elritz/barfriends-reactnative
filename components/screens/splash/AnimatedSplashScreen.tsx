@@ -47,9 +47,7 @@ function AnimatedSplashScreen({ children }) {
 			setAppReady(true)
 		}
 	}, [])
-	// console.log('🚀 ~ 1', JSON.stringify(assets[0], null, 4))
-	// console.log('🚀 ~ 2', isAppReady)
-	// console.log('🚀 ~ 3', !isSplashAnimationComplete)
+
 	if (!assets) {
 		return null
 	}

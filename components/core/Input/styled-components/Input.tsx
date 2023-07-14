@@ -7,10 +7,16 @@ export default styled(
 	{
 		flex: 1,
     _light:{
-      color: '$textLight900',
+      color: '$textLight100',
+			props: {
+				placeholderTextColor: 'black'
+			}
     },
 		_dark: {
-			color: '$textDark900',
+			color: '$textDark100',
+			props: {
+				placeholderTextColor: 'white'
+			}
 		},
 		_web: {
 			cursor: 'text',

@@ -240,27 +240,28 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						</Box>
 
 						<VStack space={'md'}>
-							<Box>
-								<Heading
-									fontSize={'$lg'}
-									fontWeight={'$bold'}
-									textAlign={'left'}
-									numberOfLines={2}
-									ellipsizeMode='tail'
-									// underline={isPressed}
+							<Heading
+								fontSize={'$lg'}
+								fontWeight={'$bold'}
+								textAlign={'left'}
+								numberOfLines={2}
+								lineHeight={'$xs'}
+								ellipsizeMode='tail'
+								// underline={isPressed}
 								>
-									{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
-								</Heading>
-								<Heading
-									fontSize={'$md'}
-									fontWeight={'$bold'}
-									textAlign={'left'}
-									numberOfLines={2}
-									ellipsizeMode='tail'
-								>
-									{distance} {metric}
-								</Heading>
-							</Box>
+								{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
+							</Heading>
+							<Heading
+								fontSize={'$md'}
+								fontWeight={'$bold'}
+								lineHeight={'$xs'}
+								textAlign={'left'}
+								numberOfLines={2}
+								ellipsizeMode='tail'
+							>
+								{distance} {metric}
+							</Heading>
+
 							{canJoin ? (
 								<>
 									<Button

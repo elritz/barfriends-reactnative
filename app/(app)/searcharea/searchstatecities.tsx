@@ -1,14 +1,13 @@
 import { Form } from './_layout'
 import { useReactiveVar } from '@apollo/client'
-import { Box, HStack, Heading, Pressable, Text, VStack } from '@components/core'
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/generated'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
-import { useRouter, useLocalSearchParams } from 'expo-router'
+import { useRouter, useGlobalSearchParams } from 'expo-router'
 import { filter, uniqueId } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
 import { memo, useEffect, useState } from 'react'
@@ -23,7 +22,7 @@ type CityState = {
 }
 export default function SearchAreaStateCities() {
 	const router = useRouter()
-	const params = useLocalSearchParams()
+	const params = useGlobalSearchParams()
 	const { top, bottom } = useSafeAreaInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
@@ -91,37 +90,48 @@ export default function SearchAreaStateCities() {
 
 	if (loading || !allCities) {
 		return (
-			<Box bg={'transparent'} mx={'$3'} flex={1}>
+			<Box bg={'$transparent'} flex={1}>
 				<FlashList
 					data={[...Array(20)]}
+					contentInset={{
+						top: 5,
+						bottom: bottom,
+					}}
+					contentContainerStyle={{
+						paddingHorizontal: 10,
+					}}
+					keyExtractor={(item, index) => 'key' + index}
 					estimatedItemSize={50}
-					scrollEnabled={false}
-					showsVerticalScrollIndicator={false}
-					keyExtractor={(item, index) => {
-						return uniqueId().toString()
+					keyboardDismissMode={'on-drag'}
+					ItemSeparatorComponent={() => {
+						return (
+							<View
+								style={{
+									marginVertical: 4,
+								}}
+							/>
+						)
 					}}
 					renderItem={({ index, item }) => {
 						return (
-							<View style={{ marginVertical: 2 }}>
-								<Skeleton
-									key={uniqueId()}
-									height={50}
-									width={'100%'}
-									radius={15}
-									colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
-									colors={
-										rTheme.colorScheme === 'light'
-											? [
-													String(rTheme.theme?.gluestack.tokens.colors.light100),
-													String(rTheme.theme?.gluestack.tokens.colors.light300),
-											  ]
-											: [
-													String(rTheme.theme?.gluestack.tokens.colors.dark100),
-													String(rTheme.theme?.gluestack.tokens.colors.dark300),
-											  ]
-									}
-								/>
-							</View>
+							<Skeleton
+								key={index}
+								height={50}
+								width={'100%'}
+								radius={10}
+								colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+								colors={
+									rTheme.colorScheme === 'light'
+										? [
+												String(rTheme.theme?.gluestack.tokens.colors.light100),
+												String(rTheme.theme?.gluestack.tokens.colors.light300),
+										  ]
+										: [
+												String(rTheme.theme?.gluestack.tokens.colors.dark100),
+												String(rTheme.theme?.gluestack.tokens.colors.dark300),
+										  ]
+								}
+							/>
 						)
 					}}
 				/>
@@ -131,6 +141,7 @@ export default function SearchAreaStateCities() {
 
 	function CityItem({ index, item }) {
 		const _pressItem = async item => {
+			console.log('item :>> ', item)
 			setValue('city', {
 				name: item.name,
 				isoCode: '',
@@ -164,42 +175,54 @@ export default function SearchAreaStateCities() {
 		}
 
 		return (
-			<Pressable onPress={() => _pressItem(item)}>
-				<Box
-					sx={{
-						h: 50,
-						_light: {
-							bg: watch('city.name') === item.name ? '$primary500' : '$light100',
-						},
-						_dark: {
-							bg: watch('city.name') === item.name ? '$primary500' : '$dark50',
-						},
-					}}
-					py={'$3'}
-					px={'$3'}
-					mx={'$3'}
-					my={'$1'}
-					rounded={'$md'}
+			<Button
+				onPress={() => _pressItem(item)}
+				key={index}
+				w={'$full'}
+				isFocused
+				sx={{
+					h: 50,
+					my: 4,
+					py: 0,
+					px: 2,
+					justifyContent: 'space-between',
+					_light: {
+						bg: watch('state.name') === item.name ? '$primary500' : '$dark50',
+					},
+					_dark: {
+						bg: watch('state.name') === item.name ? '$primary500' : '$dark50',
+					},
+				}}
+				rounded={'$md'}
+				justifyContent='flex-start'
+			>
+				<Button.Text
+					fontWeight={'$medium'}
+					fontSize={'$lg'}
+					numberOfLines={1}
+					ellipsizeMode={'tail'}
+					ml={'$3'}
 				>
-					<HStack justifyContent='space-between'>
-						<Text fontWeight={'$medium'} fontSize={'$md'} numberOfLines={1} ellipsizeMode={'tail'}>
-							{item.name}
-						</Text>
-						<HStack space={'md'} alignItems={'center'}>
-							{item.venuesInArea && item.venuesInArea > 1 ? (
-								<VStack>
-									<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$md'} numberOfLines={1}>
-										{item.venuesInArea}
-									</Text>
-									<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$sm'} numberOfLines={1}>
-										Venues
-									</Text>
-								</VStack>
-							) : null}
-						</HStack>
-					</HStack>
-				</Box>
-			</Pressable>
+					{item.name}
+				</Button.Text>
+				<HStack space={'md'} alignItems={'center'} mr={'$3'}>
+					{item.venuesInArea && item.venuesInArea > 1 ? (
+						<VStack>
+							<Text textAlign={'center'} fontWeight={'$bold'} fontSize={'$md'} numberOfLines={1}>
+								{item.venuesInArea}
+							</Text>
+							<Text textAlign={'center'} fontWeight={'$light'} fontSize={'$sm'} numberOfLines={1}>
+								Venues
+							</Text>
+						</VStack>
+					) : null}
+				</HStack>
+				{watch('city.name') === item.name ? (
+					<Button onPress={() => _pressItem(item)} rounded={'$full'} bg='$blue500' size='xs' mr={'$3'}>
+						<Button.Text fontSize={'$xs'}>Continue</Button.Text>
+					</Button>
+				) : null}
+			</Button>
 		)
 	}
 
@@ -207,7 +230,7 @@ export default function SearchAreaStateCities() {
 
 	if (searchCities && searchCities.title && searchCities.cities) {
 		return (
-			<Box flex={1}>
+			<Box bg={'$transparent'} flex={1}>
 				<FlashList
 					data={searchCities.cities}
 					scrollEnabled={true}
@@ -218,7 +241,7 @@ export default function SearchAreaStateCities() {
 					}}
 					ListHeaderComponent={() => {
 						return (
-							<Box bg={'transparent'} mb={'$2'} mx={'$3'}>
+							<Box bg={'transparent'} mb={'$4'} mx={'$3'}>
 								<Heading mx={'$3'} fontSize={'$2xl'}>
 									{searchCities.title}
 								</Heading>
@@ -229,10 +252,16 @@ export default function SearchAreaStateCities() {
 						return <MemoizedItem index={index} item={item} />
 					}}
 					ItemSeparatorComponent={() => {
-						return <Box my={1} />
+						return (
+							<View
+								style={{
+									marginVertical: 4,
+								}}
+							/>
+						)
 					}}
 					contentInset={{
-						top: top + SEARCH_BAR_HEIGHT + 20,
+						top: 5,
 						bottom: bottom,
 					}}
 				/>
@@ -241,7 +270,7 @@ export default function SearchAreaStateCities() {
 	}
 
 	return (
-		<Box flex={1} px={'$3'}>
+		<Box bg={'$transparent'} flex={1}>
 			<FlashList
 				data={allCities}
 				scrollEnabled={true}
@@ -250,15 +279,13 @@ export default function SearchAreaStateCities() {
 				automaticallyAdjustsScrollIndicatorInsets
 				keyboardDismissMode='on-drag'
 				estimatedItemSize={50}
-				keyExtractor={(item, index) => {
-					return item.name
-				}}
+				keyExtractor={(item, index) => 'key' + index}
 				ListHeaderComponent={() => {
 					return (
-						<Box bg={'transparent'}>
+						<Box bg={'transparent'} mb={'$4'}>
 							{popularCities && popularCities.length ? (
-								<Box bg={'transparent'}>
-									<Heading>Popular</Heading>
+								<Box bg={'$transparent'} mb={'$4'}>
+									<Heading mb={'$4'}>Popular</Heading>
 									{popularCities.map((item, index) => {
 										return <MemoizedItem key={uniqueId()} index={index} item={item} />
 									})}
@@ -272,11 +299,20 @@ export default function SearchAreaStateCities() {
 					return <MemoizedItem index={index} item={item} />
 				}}
 				ItemSeparatorComponent={() => {
-					return <Box my={1} />
+					return (
+						<View
+							style={{
+								marginVertical: 4,
+							}}
+						/>
+					)
 				}}
 				contentInset={{
-					top: top + SEARCH_BAR_HEIGHT,
+					top: 5,
 					bottom: bottom,
+				}}
+				contentContainerStyle={{
+					paddingHorizontal: 10,
 				}}
 			/>
 		</Box>

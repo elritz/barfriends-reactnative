@@ -34,10 +34,11 @@ export default function _layout() {
 									<HStack ml={'$2'} space={'md'} alignItems={'center'}>
 										<Text
 											fontWeight={'$medium'}
-											fontSize={'$2xl'}
+											fontSize={'$xl'}
 											sx={{
 												maxWidth: 165,
 											}}
+											adjustsFontSizeToFit
 											ellipsizeMode={'tail'}
 										>
 											{rAuthorizationVar?.DeviceProfile?.Profile?.IdentifiableInformation?.username}

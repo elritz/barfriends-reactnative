@@ -57,6 +57,7 @@
     "@gluestack-ui/provider": "latest",
     "@gluestack-ui/spinner": "latest",
     "@gluestack-ui/switch": "latest",
+    "@gluestack-ui/tooltip": "latest",
     "@gluestack-ui/vstack": "latest",
     "@hookform/resolvers": "3.1.1",
     "@legendapp/motion": "latest",
@@ -145,6 +146,7 @@
     "react-native-gesture-handler": "~2.12.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-keyboard-controller": "^1.4.0",
+    "react-native-keychain": "^8.1.1",
     "react-native-maps": "1.7.1",
     "react-native-pager-view": "6.2.0",
     "react-native-qrcode-svg": "^6.1.2",
@@ -169,8 +171,7 @@
     "stylelint-config-standard": "29.0.0",
     "stylelint-order": "^5.0.0",
     "ts-node": "10.4.0",
-    "webpack": "^5.72.0",
-    "@gluestack-ui/tooltip": "latest"
+    "webpack": "^5.72.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

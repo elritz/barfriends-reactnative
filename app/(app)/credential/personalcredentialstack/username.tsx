@@ -7,7 +7,7 @@ import { CredentialPersonalProfileReactiveVar, ThemeReactiveVar } from '@reactiv
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
 import { Controller, useForm, ValidateResult } from 'react-hook-form'
-import { InputAccessoryView, Platform, TextInputProps, View } from 'react-native'
+import { InputAccessoryView, Platform, TextInput, TextInputProps, View } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -19,7 +19,7 @@ export default () => {
 	const isFocused = useIsFocused()
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	const _usernameRef = useRef<TextInputProps>(null)
+	const _usernameRef = useRef<TextInput>(null)
 
 	const { height: platform } = useReanimatedKeyboardAnimation()
 	const INPUT_CONTAINER_HEIGHT = 90
@@ -104,10 +104,17 @@ export default () => {
 				justifyContent={'flex-end'}
 				sx={{
 					h: 90,
+					_dark: {
+						bg: '$black',
+					},
+					_light: {
+						bg: '$white',
+					},
 				}}
 				px={'$2'}
 			>
 				<Box
+					bg='$transparent'
 					style={{
 						display: 'flex',
 						flexDirection: 'column',
@@ -135,6 +142,7 @@ export default () => {
 	const InputRightIcon = () => {
 		return (
 			<Box
+				bg='$transparent'
 				sx={{
 					w: 35,
 				}}
@@ -153,7 +161,7 @@ export default () => {
 	}
 
 	return (
-		<Box flex={1}>
+		<Box bg='$transparent' flex={1}>
 			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
 				<Heading mt={'$4'} fontWeight={'$black'} fontSize={'$3xl'}>
 					Choose your username
@@ -164,16 +172,14 @@ export default () => {
 						control={control}
 						defaultValue=''
 						render={({ field: { onChange, onBlur, value } }) => (
-							<Input ref={_usernameRef}>
+							<Input key={'username'} variant={'underlined'} py={'$1'} size={'lg'}>
 								<Input.Input
+									ref={_usernameRef}
+									type='text'
 									value={value}
 									key='username'
 									placeholder='Username'
-									color={
-										rTheme.colorScheme === 'light'
-											? rTheme.theme?.gluestack.tokens.colors.light900
-											: rTheme.theme?.gluestack.tokens.colors.dark900
-									}
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 									onChangeText={onChange}
 									onSubmitEditing={handleSubmit(onSubmit)}
 									onBlur={onBlur}
@@ -181,23 +187,19 @@ export default () => {
 									contextMenuHidden
 									spellCheck={false}
 									autoFocus
-									textContentType='none'
+									textContentType='nickname'
 									autoComplete='username-new'
 									returnKeyType='done'
-									variant={'underlined'}
-									py={2}
-									_input={{
-										fontSize: 'xl',
-										fontWeight: 'medium',
-									}}
-									size={'lg'}
+									py={'$1'}
 									numberOfLines={1}
 									keyboardType='default'
 									autoCapitalize='none'
 									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
 									blurOnSubmit={false}
-									InputRightElement={<InputRightIcon />}
 								/>
+								<Input.Icon>
+									<InputRightIcon />
+								</Input.Icon>
 							</Input>
 						)}
 						rules={{

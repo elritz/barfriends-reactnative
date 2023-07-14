@@ -4,12 +4,12 @@ import { HStack, Heading, Text, VStack } from '@components/core'
 import { UBER_CLIENT_ID_KEY } from '@env'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useSearchParams } from 'expo-router'
+import { useGlobalSearchParams } from 'expo-router'
 import { useCallback } from 'react'
 import { Alert, Linking, View } from 'react-native'
 
 export default function UberCard() {
-	const params = useSearchParams()
+	const params = useGlobalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const {
 		data: PData,

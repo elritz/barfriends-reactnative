@@ -8,11 +8,11 @@ import {
 } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
-import { useLocalSearchParams, useRouter, useSearchParams } from 'expo-router'
-import { useRef, useState } from 'react'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Image } from 'react-native'
-import { InputAccessoryView, Platform, TextInput, View, ViewProps } from 'react-native'
+import { InputAccessoryView, Platform } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -99,14 +99,6 @@ export default () => {
 			},
 		})
 	}
-
-	// if (!PQData) {
-	// 	return (
-	// 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	// 			<Spinner size='large' accessibilityLabel={'Loading...'} />
-	// 		</View>
-	// 	)
-	// }
 
 	const InnerContent = () => {
 		return (

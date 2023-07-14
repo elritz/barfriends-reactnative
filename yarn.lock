@@ -13695,6 +13695,11 @@ react-native-keyboard-controller@^1.4.0:
   resolved "https://registry.yarnpkg.com/react-native-keyboard-controller/-/react-native-keyboard-controller-1.5.8.tgz#c18ecc25a08c8dc50a9d3e10882e5b20e4efbbe2"
   integrity sha512-m82SxT8uPwnk77E67yYIP2RZPXuIFjNyvm0si0wL6zrfpaxHHWr6TFBkdv+n2gubna0i3JXzVzOCimq0ka1aWQ==
 
+react-native-keychain@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-8.1.1.tgz#3bb5e37946b964a7bcf7df2fe470dd244e01a340"
+  integrity sha512-8fxgeHKwGcL657eAYpdBTkDIxNhbIHI+kyyO0Yac2dgVAN184JoIwQcW2z6snahwDaCObQOu0biLFHnsH+4KSg==
+
 react-native-known-styling-properties@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-known-styling-properties/-/react-native-known-styling-properties-1.2.0.tgz#5370f87af605c6c516178bac4eb1493cdf160f36"

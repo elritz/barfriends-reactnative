@@ -79,9 +79,9 @@ export default function ProfilePhotoEmptyState() {
 								? rTheme.theme?.gluestack.tokens.colors.light900
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}
-						size={35}
+						size={32}
 						style={{
-							borderWidth: 1,
+							marginLeft: 2,
 							borderRadius: 50,
 							zIndex: 10,
 						}}

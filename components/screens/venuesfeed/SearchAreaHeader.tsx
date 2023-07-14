@@ -46,7 +46,7 @@ export default function SearchAreaHeader({ typename }) {
 								<FontAwesome5
 									name='location-arrow'
 									color={rTheme.theme?.gluestack.tokens.colors.blue500}
-									size={25}
+									size={20}
 								/>
 							)}
 						</HStack>
