@@ -11,11 +11,11 @@ import {
 	useRemovePersonalTotalsVenueMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
-import { useLocalSearchParams } from 'expo-router'
+import { useGlobalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 export default function TotalCard() {
-	const params = useLocalSearchParams()
+	const params = useGlobalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const [isTotaled, setIsTotaled] = useState(false)
 

@@ -3,7 +3,6 @@ import JoinCard from '../../joincard/JoinCard'
 import SignupCard from '../../signupcard/SignupCard'
 import { useReactiveVar } from '@apollo/client'
 import { Box, Text, Heading, Button } from '@components/core'
-import { FOREGROUND_LOCATION_TASK_NAME } from '@constants/TaskManagerConstants'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useCurrentVenueQuery } from '@graphql/generated'
 import { useIsFocused } from '@react-navigation/native'
@@ -11,6 +10,7 @@ import {
 	AuthorizationReactiveVar,
 	CurrentLocationReactiveVar,
 	SearchAreaReactiveVar,
+	ThemeReactiveVar,
 } from '@reactive'
 import { useDisclose } from '@util/hooks/useDisclose'
 import * as Location from 'expo-location'
@@ -23,44 +23,12 @@ import { useEffect, useState } from 'react'
 import { AppState, StyleSheet } from 'react-native'
 import { Easing } from 'react-native-reanimated'
 
-// TaskManager.defineTask(FOREGROUND_LOCATION_TASK_NAME, async ({ data }: any) => {
-// 	const now = Date.now()
-
-// 	if (data) {
-// 		if (data.locations) {
-// 		}
-// 	}
-// 	return now
-// })
-
-// async function registerForegroundFetchAsync() {
-// 	await Location.startLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME, {
-// 		accuracy: Location.Accuracy.Balanced,
-// 		deferredUpdatesDistance: 25,
-// 		timeInterval: 60000,
-// 		showsBackgroundLocationIndicator: false,
-// 		deferredUpdatesInterval: ENVIRONMENT === 'development' ? 1000 : 5000,
-// 		distanceInterval: ENVIRONMENT === 'development' ? 0 : 20,
-// 		foregroundService: {
-// 			notificationTitle: 'Location',
-// 			notificationBody: 'Location tracking in foreground',
-// 			notificationColor: '#fff',
-// 		},
-// 	})
-// }
-
-async function unregisterForegroundFetchAsync() {
-	const hasStarted = await Location.hasStartedLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
-	if (hasStarted) {
-		return Location.stopLocationUpdatesAsync(FOREGROUND_LOCATION_TASK_NAME)
-	}
-}
-
 const size = 50
 
 const CurrentLocationFromVenueDistance = () => {
 	const params = useLocalSearchParams()
 	const isFocused = useIsFocused()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rCurrentLocationVar = useReactiveVar(CurrentLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
@@ -276,7 +244,16 @@ const CurrentLocationFromVenueDistance = () => {
 									/>
 								)
 							})}
-							<MaterialIcons style={{ alignSelf: 'center' }} size={30} name='location-pin' />
+							<MaterialIcons
+								style={{ alignSelf: 'center' }}
+								size={30}
+								name='location-pin'
+								color={
+									rTheme.colorScheme === 'light'
+										? rTheme.theme?.gluestack.tokens.colors.light900
+										: rTheme.theme?.gluestack.tokens.colors.dark900
+								}
+							/>
 							{/* <Icon
 								_light={{
 									color: 'light.50',

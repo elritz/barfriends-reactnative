@@ -85,7 +85,7 @@ export default () => {
 						<Heading fontSize={'$lg'} lineHeight={'$sm'}>
 							Distance{`\n`}
 							<Text fontSize={'$md'} lineHeight={'$sm'}>
-								Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away
+								Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away. 
 							</Text>
 						</Heading>
 
@@ -95,7 +95,14 @@ export default () => {
 									<Button
 										key={index}
 										variant={rSearchAreaVar?.kRing.value === item.kRing ? 'solid' : 'outline'}
-										bg={rSearchAreaVar?.kRing.value === item.kRing ? '$primary500' : '$white'}
+										sx={{
+											_light: {
+												bg: rSearchAreaVar?.kRing.value === item.kRing ? '$primary500' : '$white',
+											},
+											_dark: {
+												bg: rSearchAreaVar?.kRing.value === item.kRing ? '$primary500' : '$black',
+											},
+										}}
 										style={{
 											borderColor: rSearchAreaVar?.kRing.value === item.kRing ? '#ff700000' : '#ff7000',
 											borderWidth: 1,
@@ -107,7 +114,7 @@ export default () => {
 										<Text
 											sx={{
 												_dark: {
-													color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : '$red200',
+													color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : '$white',
 												},
 												_light: {
 													color: rSearchAreaVar?.kRing.value === item.kRing ? 'white' : '$coolGray900',

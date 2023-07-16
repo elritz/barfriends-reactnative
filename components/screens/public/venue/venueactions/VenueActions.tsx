@@ -13,9 +13,13 @@ import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useLocalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { useEffect, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 
 const VenueActions = () => {
 	const numColumns = 2
+	const { width } = useWindowDimensions()
+	const itemPadding = width / numColumns - 50
+
 	const params = useLocalSearchParams()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
@@ -54,13 +58,8 @@ const VenueActions = () => {
 
 				{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType !== 'GUEST' && (
 					<HStack space={'$md'} mt={'$5'}>
-						<ActionCard
-							h={200}
-							key={uniqueId()}
-							bg={rTheme.theme?.gluestack.tokens.colors.primary500}
-							numColumns={numColumns}
-						>
-							<QuickBarfriend logosize={30} qrcodesize={100} />
+						<ActionCard h={200} key={uniqueId()} numColumns={numColumns}>
+							<QuickBarfriend logosize={30} qrcodesize={itemPadding || 130} />
 						</ActionCard>
 						<ActionCard h={200} key={uniqueId()} numColumns={numColumns}>
 							<InviteCard />

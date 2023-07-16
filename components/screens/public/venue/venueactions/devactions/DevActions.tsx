@@ -24,9 +24,9 @@ export default function DevActions() {
 								textTransform={'uppercase'}
 							>
 								You are in {'\n'}
-								<Heading color={'green.400'} fontWeight={'$black'}>
-									Dev Mode!
-								</Heading>
+							</Heading>
+							<Heading color={'green.400'} fontWeight={'$black'}>
+								Dev Mode!
 							</Heading>
 							<Text fontSize={'$md'} mx={'$2'} textAlign={'center'}>
 								This section is for quick actions that we may need for testing! As developers!

@@ -159,7 +159,7 @@ export default () => {
 									h: 40,
 									w: 40,
 								}}
-								rounded={'md'}
+								rounded={'$md'}
 							>
 								<Box
 									sx={{

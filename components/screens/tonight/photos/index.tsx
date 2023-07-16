@@ -1,9 +1,9 @@
-import Item from '../images/Item'
 import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Center, Heading, Pressable, Text } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
+import { BlurView } from 'expo-blur'
 import * as ImagePicker from 'expo-image-picker'
 import { useCallback } from 'react'
 import { Image } from 'react-native'
@@ -26,6 +26,7 @@ export default function Photos() {
 	const { width } = useWindowDimensions()
 	const scrollRef = useAnimatedRef<ScrollView>()
 	const translateX = useSharedValue(0)
+	const containerHeight = 400
 	const margin = 12
 	const DOT_SIZE = 8
 	const ITEM_WIDTH = width - margin * 2
@@ -62,8 +63,6 @@ export default function Photos() {
 			})
 		}
 	}
-
-	const getGitHubUser = async (usernames: []) => {}
 
 	const scrollHandler = useAnimatedScrollHandler({
 		onScroll: event => {
@@ -119,16 +118,14 @@ export default function Photos() {
 			zIndex: 3,
 		},
 	})
-
 	return (
-		<>
+		<Box bg={'$transparent'}>
 			{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length ? (
 				<Box
 					sx={{
-						h: 400,
+						h: containerHeight,
 					}}
 					rounded={'$md'}
-					overflow={'hidden'}
 				>
 					<Animated.ScrollView
 						ref={scrollRef as any}
@@ -143,50 +140,48 @@ export default function Photos() {
 						bounces={false}
 						style={{ overflow: 'hidden' }}
 					>
-						{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.photos.map(
-							(item, index) => {
-								return (
-									<View key={index}>
-										<Box h={'100%'} w={ITEM_WIDTH}>
-											<Pressable
-												position={'absolute'}
-												top={0}
-												bottom={0}
-												h={'100%'}
-												w={ITEM_WIDTH / 2}
-												opacity={20}
-												onPress={() => {
-													onPressScroll('left')
-												}}
-												zIndex={10}
-											/>
-											<Pressable
-												position={'absolute'}
-												top={0}
-												right={0}
-												bottom={0}
-												h={'100%'}
-												w={ITEM_WIDTH / 2}
-												onPress={() => {
-													onPressScroll('right')
-												}}
-												zIndex={10}
-											/>
-											<Image
-												source={{
-													uri: item.url,
-												}}
-												style={{
-													height: '100%',
-													width: '100%',
-													borderRadius: 0,
-												}}
-											/>
-										</Box>
-									</View>
-								)
-							},
-						)}
+						{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.map((item, index) => {
+							return (
+								<View key={index}>
+									<Box h={'100%'} w={ITEM_WIDTH}>
+										<Pressable
+											position={'absolute'}
+											top={0}
+											bottom={0}
+											h={'100%'}
+											w={ITEM_WIDTH / 2}
+											opacity={20}
+											onPress={() => {
+												onPressScroll('left')
+											}}
+											zIndex={10}
+										/>
+										<Pressable
+											position={'absolute'}
+											top={0}
+											right={0}
+											bottom={0}
+											h={'100%'}
+											w={ITEM_WIDTH / 2}
+											onPress={() => {
+												onPressScroll('right')
+											}}
+											zIndex={10}
+										/>
+										<Image
+											source={{
+												uri: item.url,
+											}}
+											style={{
+												height: '100%',
+												width: '100%',
+												borderRadius: 0,
+											}}
+										/>
+									</Box>
+								</View>
+							)
+						})}
 					</Animated.ScrollView>
 
 					<View
@@ -232,80 +227,83 @@ export default function Photos() {
 					</View>
 				</Box>
 			) : (
-				<Box
-					bg={'$transparent'}
-					sx={{
-						h: 400,
-						w: '100%',
-					}}
-					rounded={'$md'}
-					mb={'$3'}
+				<BlurView
+					tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+					intensity={70}
+					style={{ borderRadius: 15, overflow: 'hidden' }}
 				>
-					<Box>
-						<Box h={'100%'}>
-							<Center flex={1} mx={'$5'}>
-								<Box
-									sx={{
-										w: '100%',
+					<Box
+						bg={'$transparent'}
+						sx={{
+							h: containerHeight,
+							w: '100%',
+						}}
+						rounded={'$md'}
+					>
+						<Center flex={1} mx={'$5'}>
+							<Box
+								sx={{
+									w: '100%',
+									mb: 25,
+								}}
+								bg='$transparent'
+								alignItems={'center'}
+							>
+								<MaterialIcons
+									style={{
+										zIndex: 10,
+										marginTop: 10,
+										color:
+											rTheme.colorScheme === 'light'
+												? rTheme.theme?.gluestack.tokens.colors.light100
+												: rTheme.theme?.gluestack.tokens.colors.dark900,
 									}}
-									alignItems={'center'}
-									pb={'$5'}
-								>
-									<MaterialIcons
-										style={{
-											zIndex: 10,
-											color:
-												rTheme.colorScheme === 'light'
-													? rTheme.theme?.gluestack.tokens.colors.light900
-													: rTheme.theme?.gluestack.tokens.colors.dark900,
-										}}
-										size={55}
-										name={'photo-size-select-actual'}
+									size={40}
+									name={'photo-size-select-actual'}
+								/>
+								<Box bg='$transparent' position={'absolute'} zIndex={5}>
+									<View
+										style={[
+											styles.dotSm,
+											{
+												alignContent: 'center',
+												justifyContent: 'center',
+											},
+										]}
 									/>
-									<Box position={'absolute'} zIndex={5}>
-										<View
-											style={[
-												styles.dotSm,
-												{
-													alignContent: 'center',
-													justifyContent: 'center',
-												},
-											]}
-										/>
-										<View
-											style={[
-												styles.dotMd,
-												{
-													alignContent: 'center',
-													justifyContent: 'center',
-												},
-											]}
-										/>
-										<View
-											style={[
-												styles.dotLg,
-												{
-													alignContent: 'center',
-													justifyContent: 'center',
-												},
-											]}
-										/>
-									</Box>
+									<View
+										style={[
+											styles.dotMd,
+											{
+												alignContent: 'center',
+												justifyContent: 'center',
+											},
+										]}
+									/>
+									<View
+										style={[
+											styles.dotLg,
+											{
+												alignContent: 'center',
+												justifyContent: 'center',
+											},
+										]}
+									/>
 								</Box>
-								<Heading pb={1} fontWeight={'$black'}>
-									Start tonights story
-								</Heading>
-								<Text fontSize={'$lg'} fontWeight={'$medium'}>
-									Ready to go out? Add photos of your fit and pick your emojimood
-								</Text>
-								<Button onPress={pickImage} bg={'$tertiary400'} rounded={'$md'} mt={'$4'}>
-									<Text>Upload images</Text>
-								</Button>
-							</Center>
-						</Box>
+							</Box>
+							<Heading pb={1} fontWeight={'$black'}>
+								Start tonights story
+							</Heading>
+							<Text fontSize={'$lg'} fontWeight={'$medium'}>
+								Ready to go out? Add photos of your fit and pick your emojimood
+							</Text>
+							<Button onPress={pickImage} bg={'$tertiary400'} rounded={'$md'} mt={'$4'}>
+								<Text>Upload images</Text>
+							</Button>
+						</Center>
 					</Box>
-				</Box>
+				</BlurView>
 			)}
-		</>
+		</Box>
 	)
 }

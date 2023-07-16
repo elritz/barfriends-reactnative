@@ -53,7 +53,7 @@ export default function SearchAreaHeader({ typename }) {
 						<FontAwesome5
 							style={{ marginBottom: 2 }}
 							name='chevron-up'
-							color={rTheme.theme?.gluestack.tokens.colors.blue500}
+							color={rTheme.colorScheme === 'light' ? 'black' : 'white'}
 							size={25}
 						/>
 					</HStack>

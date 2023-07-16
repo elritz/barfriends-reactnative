@@ -54,7 +54,7 @@ export default function PreferenceNotificationPermission() {
 										}}
 										justifyContent={'flex-end'}
 									>
-										<Pressable>
+										{/* <Pressable>
 											<EvilIcons
 												onPress={onOpen}
 												size={25}
@@ -65,7 +65,7 @@ export default function PreferenceNotificationPermission() {
 														: rTheme.theme?.gluestack.tokens.colors.dark900
 												}
 											/>
-										</Pressable>
+										</Pressable> */}
 									</HStack>
 									<Heading
 										fontSize={'$md'}

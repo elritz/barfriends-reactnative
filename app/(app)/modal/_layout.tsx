@@ -16,9 +16,6 @@ export default () => {
 					backgroundColor: 'transparent',
 				},
 				headerShown: false,
-				// headerTitle: () => <NavigationDragIcon />,
-				// headerLeft: () => null,
-				// headerTransparent: true,
 			}}
 		>
 			<Stack.Screen
@@ -35,26 +32,7 @@ export default () => {
 					headerTransparent: true,
 					headerShown: true,
 					title: '',
-					headerLeft: () => (
-						<HStack
-							justifyContent={'flex-start'}
-							sx={{
-								maxWidth: '90%',
-							}}
-							space={'md'}
-							alignItems={'center'}
-							ml={'$2'}
-						>
-							<Button
-								bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
-								rounded={'$full'}
-								size={'xs'}
-								onPress={() => router.back()}
-							>
-								<Ionicons name='md-chevron-back-outline' size={35} />
-							</Button>
-						</HStack>
-					),
+					headerLeft: () => <ChevronBackArrow />,
 				}}
 			/>
 		</Stack>

@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Heading, Pressable, VStack } from '@components/core'
-import CameraModal from '@components/molecules/modals/cameramodal/CameraModal'
+import { Box, Heading, Pressable, Text, VStack } from '@components/core'
 import { useGetSecureFriendQrCodeDataQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, PermissionCameraReactiveVar } from '@reactive'
 import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
+import { View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 
 const LOGO_COASTER = require('../../../../../../../assets/images/company/company_coaster.png')
@@ -37,54 +37,62 @@ export default function QuickBarfriendCard({ qrcodesize, logosize, showIcon, col
 	if (loading || !data || !dataQR) return null
 
 	return (
-		<Pressable
-			onPress={() =>
-				rPermissionCamera?.granted
-					? onOpen()
-					: router.push({
-							pathname: '(app)/permission/camera',
-					  })
-			}
-		>
-			<VStack mt={'$2'} flexDirection={'column'} justifyContent={'space-around'} alignItems={'center'}>
-				<Heading fontWeight={'$black'} fontSize={'$lg'}>
-					Quick BFS
-				</Heading>
-				{rPermissionCamera?.granted ? (
-					<>
-						<VStack alignItems={'center'} justifyContent={'center'}>
-							{dataQR && (
-								<QRCode
-									size={qrcodesize}
-									value={dataQR}
-									color={color}
-									backgroundColor={'transparent'}
-									logo={showIcon && LOGO_COASTER}
-									logoSize={logosize}
-									logoBackgroundColor={'transparent'}
-								/>
-							)}
-						</VStack>
-						<CameraModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-					</>
-				) : (
-					<Box bg={'transparent'} flexDirection={'column'} justifyContent={'space-around'}>
-						<Box bg={'transparent'} mt={'$2'} alignItems={'center'} justifyContent={'center'}>
-							{dataQR && (
-								<QRCode
-									size={qrcodesize}
-									value={dataQR}
-									color={color}
-									backgroundColor={'transparent'}
-									logo={showIcon && LOGO_COASTER}
-									logoSize={logosize}
-									logoBackgroundColor={'transparent'}
-								/>
-							)}
+		<View style={{ flex: 1 }}>
+			<Heading fontWeight={'$black'} fontSize={'$lg'}>
+				Add Bfs
+			</Heading>
+			<Pressable
+				onPress={() =>
+					rPermissionCamera?.granted
+						? onOpen()
+						: router.push({
+								pathname: '(app)/permission/camera',
+						  })
+				}
+			>
+				<VStack
+					mt={'$2'}
+					flexDirection={'column'}
+					justifyContent={'space-around'}
+					alignItems={'center'}
+				>
+					{rPermissionCamera?.granted ? (
+						<View>
+							<VStack alignItems={'center'} justifyContent={'center'}>
+								{dataQR && (
+									<QRCode
+										size={qrcodesize}
+										value={dataQR}
+										color={color}
+										backgroundColor={'transparent'}
+										logo={showIcon && LOGO_COASTER}
+										logoSize={logosize}
+										logoBackgroundColor={'transparent'}
+									/>
+								)}
+							</VStack>
+						</View>
+					) : (
+						<Box bg={'transparent'} flexDirection={'column'} justifyContent={'space-around'}>
+							<Box bg={'transparent'}  alignItems={'center'} justifyContent={'center'}>
+								<View>
+									{dataQR && (
+										<QRCode
+											size={qrcodesize}
+											value={dataQR}
+											color={'#ff7000'}
+											backgroundColor={'transparent'}
+											logo={showIcon && LOGO_COASTER}
+											logoSize={logosize}
+											logoBackgroundColor={'transparent'}
+										/>
+									)}
+								</View>
+							</Box>
 						</Box>
-					</Box>
-				)}
-			</VStack>
-		</Pressable>
+					)}
+				</VStack>
+			</Pressable>
+		</View>
 	)
 }

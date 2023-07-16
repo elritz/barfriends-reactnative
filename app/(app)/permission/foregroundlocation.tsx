@@ -17,11 +17,13 @@ import { useEffect, useRef } from 'react'
 import { ScrollView } from 'react-native'
 import { Alert, AppState, Platform, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const appStateRef = useRef(AppState.currentState)
 	const router = useRouter()
 	const isFocused = useIsFocused()
+	const insets = useSafeAreaInsets()
 	const rPermissionLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { start, seconds, started, finished } = useTimer2('0:2')
@@ -185,7 +187,14 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack space={'$2'} w={'$full'} alignItems={'center'}>
+			<VStack
+				space={'$2'}
+				w={'$full'}
+				alignItems={'center'}
+				sx={{
+					mb: insets.bottom,
+				}}
+			>
 				<Divider w={'95%'} />
 				<Button
 					size={'lg'}

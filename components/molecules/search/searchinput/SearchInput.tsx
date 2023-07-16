@@ -9,7 +9,8 @@ import useDebounce from '@util/hooks/useDebounce'
 import { useGlobalSearchParams, useLocalSearchParams, useRouter, useSegments } from 'expo-router'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard, TextInput } from 'react-native'
+import { TextInput } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type Props = {
 	// onPressIn?: () => void
@@ -23,13 +24,13 @@ type Props = {
 }
 
 const SearchInput = (props: Props) => {
+	const insets = useSafeAreaInsets()
 	const _inputRef = useRef<TextInput | undefined>()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const router = useRouter()
 	const segments = useSegments()
 	const params = useGlobalSearchParams()
 	const [showBack, setShowBack] = useState(false)
-	const [autoFucus, setAutoFocus] = useState(false)
 
 	const {
 		control,
@@ -43,7 +44,7 @@ const SearchInput = (props: Props) => {
 		setFocus,
 	} = useForm({
 		defaultValues: {
-			searchtext: String(params.searchtext) || '',
+			searchtext: params.searchtext === undefined ? '' : String(params.searchtext),
 		},
 		mode: 'onChange',
 		reValidateMode: 'onChange',
@@ -54,18 +55,11 @@ const SearchInput = (props: Props) => {
 		shouldUnregister: true,
 	})
 
-	// useEffect(() => {
-	// 	const showSubscription = Keyboard.addListener('keyboardDidShow', () => {})
-	// 	const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {})
-
-	// 	return () => {
-	// 		showSubscription.remove()
-	// 		hideSubscription.remove()
-	// 	}
-	// }, [])
+	console.log('watch ', watch('searchtext')?.length)
 
 	useLayoutEffect(() => {
 		setShowBack(!segments.includes('hometab'))
+
 		if (!segments.includes('hometab')) {
 			if (segments.includes('explore')) {
 				_inputRef.current?.focus()
@@ -77,10 +71,14 @@ const SearchInput = (props: Props) => {
 				_inputRef.current?.focus()
 			}
 		}
-	}, [segments])
+	}, [])
 
 	useEffect(() => {
-		setValue('searchtext', params.searchtext as string)
+		if (params.searchtext?.length || params.searchtext !== undefined) {
+			setValue('searchtext', params.searchtext as string)
+		} else {
+			setValue('searchtext', '')
+		}
 	}, [params.searchtext])
 
 	const [exploreSearchQuery, { data, loading, error }] = useExploreSearchLazyQuery({
@@ -143,7 +141,7 @@ const SearchInput = (props: Props) => {
 	}, [debouncedSearchResults])
 
 	return (
-		<HStack position={'relative'} flex={1} alignItems='center'>
+		<HStack position={'relative'} flex={1} sx={{ mt: insets.top }} pb={'$2'}>
 			{showBack && <ChevronBackArrow />}
 			<Controller
 				control={control}
@@ -224,7 +222,7 @@ const SearchInput = (props: Props) => {
 							onSubmitEditing={handleSubmit(handleSearchSubmitEditting)}
 							keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 						/>
-						{watch('searchtext')?.length || value.length ? (
+						{watch('searchtext')?.length ? (
 							<Input.Icon mr={'$3'} onPress={() => clearSearchInput()}>
 								<AntDesign
 									name='closecircle'

@@ -127,15 +127,17 @@ export default function Theme({ children }) {
 	) {
 		return null
 	}
+
+
 	return (
 		<ReactNavigationThemeProvider value={rThemeVar.theme.reactnavigation}>
 			<StyledProvider
 				config={rThemeVar.theme?.gluestack}
-				colorMode={rThemeVar.localStorageColorScheme === 'light' ? 'light' : 'dark'}
+				colorMode={rThemeVar.colorScheme === 'light' ? 'light' : 'dark'}
 			>
 				<StatusBar
 					animated
-					barStyle={rThemeVar.localStorageColorScheme === 'light' ? 'dark-content' : 'light-content'}
+					barStyle={rThemeVar.colorScheme === 'light' ? 'dark-content' : 'light-content'}
 				/>
 				<AnimatedSplashScreen>{children}</AnimatedSplashScreen>
 			</StyledProvider>

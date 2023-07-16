@@ -39,22 +39,6 @@ export default () => {
 					borderTopWidth: 0,
 				},
 				headerShown: false,
-				header: () => {
-					return (
-						<VStack
-							justifyContent={'flex-end'}
-							sx={{
-								pt: insets.top,
-								h,
-								_light: { bg: '$light100' },
-								_dark: { bg: '$dark50' },
-							}}
-							pb={'$2'}
-						>
-							<SearchInput />
-						</VStack>
-					)
-				},
 				tabBarShowLabel: false,
 			}}
 		>

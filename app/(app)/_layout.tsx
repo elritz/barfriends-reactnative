@@ -1,45 +1,62 @@
+import { useReactiveVar } from '@apollo/client'
 import { VStack } from '@components/core'
 import SearchInput from '@components/molecules/search/searchinput/SearchInput'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { ThemeReactiveVar } from '@reactive'
+import { BlurView } from 'expo-blur'
 import { Stack, useSegments } from 'expo-router'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
-	const insets = useSafeAreaInsets()
-	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
-	const h = insets.top + HEADER_HEIGHT
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const segments = useSegments()
-
+	
 	return (
 		<Stack
 			initialRouteName='hometab/venuefeed'
 			screenOptions={{
 				headerShown:
 					segments.includes('messagestack') ||
-					segments.includes('hometab' && 'venuefeed') ||
+					segments.includes('venuefeed') ||
 					segments.includes('searcharea') ||
 					segments.includes('tonight') ||
 					segments.includes('explore'),
 				// headerShown: segments.some(i => {
-				// 	if (i === 'messagestack' || i === 'venuefeed') {
-				// 		return true
+				// 	switch (i) {
+				// 		case 'messagestack':
+				// 			return true
+				// 		case 'venuefeed':
+				// 			return true
 				// 	}
-				// 	return false
+				// if (i === 'messagestack' || i === 'venuefeed') {
+				// 	return true
+				// }
+				// return false
 				// }),
+				headerTransparent: true,
 				header: () => {
 					return (
-						<VStack
-							justifyContent={'flex-end'}
-							sx={{
-								pt: insets.top,
-								h,
-								_light: { bg: '$light100' },
-								_dark: { bg: '$dark50' },
+						<BlurView
+							style={{
+								backgroundColor: segments.includes('tonight')
+									? 'transparent'
+									: rTheme.colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light100
+									: rTheme.theme?.gluestack.tokens.colors.dark50,
 							}}
-							pb={'$2'}
+							intensity={segments.includes('tonight') ? 70 : 0}
+							tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 						>
-							<SearchInput />
-						</VStack>
+							<VStack
+								justifyContent={'flex-start'}
+								sx={{
+									_light: { bg: !segments.includes('tonight') ? '$light100' : 'transparent' },
+									_dark: { bg: !segments.includes('tonight') ? '$dark50' : 'transparent' },
+								}}
+							>
+								<SearchInput />
+							</VStack>
+						</BlurView>
 					)
 				},
 			}}

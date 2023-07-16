@@ -75,7 +75,7 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 
 	return (
 		<Center>
-			<Modal isOpen={isOpen} onClose={onClose}>
+			{/* <Modal isOpen={isOpen} onClose={onClose}>
 				<Modal.Content h={'70%'} w={'95%'}>
 					<Modal.CloseButton />
 					{rPermissionCamera?.granted && (
@@ -115,7 +115,7 @@ const CameraModal = ({ isOpen, onOpen, onClose }) => {
 						</Button>
 					</Modal.Footer>
 				</Modal.Content>
-			</Modal>
+			</Modal> */}
 		</Center>
 	)
 }

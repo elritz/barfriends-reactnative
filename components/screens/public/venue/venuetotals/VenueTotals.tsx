@@ -5,12 +5,6 @@ import { uniqueId } from 'lodash'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 
-interface PeopleAtVenueType {
-	friends: number
-	joined: number
-	total: number
-}
-
 type Totals = {
 	name: 'friends' | 'total' | 'joined'
 	value: number

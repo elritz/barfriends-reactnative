@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, HStack, Heading, Text, VStack } from '@components/core'
+import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
 import Details from '@components/screens/public/venue/details/Details'
 import PersonalAtVenue from '@components/screens/public/venue/peopleatvenue/PersonalAtVenue'
 import VenueActions from '@components/screens/public/venue/venueactions/VenueActions'
@@ -230,35 +230,42 @@ export default () => {
 					<Box key={uniqueId()} py={'$4'} borderBottomEndRadius={5}>
 						<HStack px={'$2'} justifyContent={'space-between'}>
 							<VStack space='xs'>
-								<Heading fontSize={'$2xl'} lineHeight={'$xl'} fontWeight={'$black'} numberOfLines={1}>
+								<Heading fontSize={'$2xl'} lineHeight={'$lg'} fontWeight={'$black'} numberOfLines={1}>
 									{name}
 								</Heading>
-								<Heading fontSize={'$lg'} fontWeight={'$black'} numberOfLines={1}>
+								<Heading
+									fontSize={'$sm'}
+									sx={{
+										_light: {
+											color: '$light600',
+										},
+										_dark: {
+											color: '$dark600',
+										},
+									}}
+									lineHeight={'$sm'}
+									numberOfLines={1}
+								>
 									@{username}
 								</Heading>
 							</VStack>
-							<IconButton
+							<Button
 								bg={'transparent'}
-								icon={
-									<Icon
-										as={Ionicons}
-										name={'share'}
-										_light={{
-											color: 'light.700',
-										}}
-										_dark={{
-											color: 'dark.700',
-										}}
-									/>
-								}
 								onPress={onShare}
 								alignSelf={'center'}
 								variant={'solid'}
 								size={'lg'}
-								h={'40px'}
-								w={'40px'}
-								fontSize={'lg'}
-							/>
+							>
+								<Ionicons
+									name={'share'}
+									size={23}
+									color={
+										rTheme.colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light900
+											: rTheme.theme?.gluestack.tokens.colors.dark900
+									}
+								/>
+							</Button>
 						</HStack>
 						<VenueTotals />
 						<LeaveSection />

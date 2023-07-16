@@ -1,11 +1,15 @@
 import ChevronBackArrow from '@components/atoms/buttons/goback/ChevronBackArrow/ChevronBackArrow'
-import { Box, Text } from '@components/core'
+import { Box, Text, VStack } from '@components/core'
+import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ENVIRONMENT } from '@env'
 import { Stack } from 'expo-router'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const insets = useSafeAreaInsets()
+	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
+	const h = insets.top + HEADER_HEIGHT
+
 	return (
 		<Stack
 			screenOptions={{
@@ -17,7 +21,16 @@ export default () => {
 				options={{
 					header: () => {
 						return (
-							<SafeAreaView>
+							<VStack
+								justifyContent={'flex-end'}
+								sx={{
+									pt: insets.top,
+									h,
+									_light: { bg: '$light100' },
+									_dark: { bg: '$dark50' },
+								}}
+								pb={'$2'}
+							>
 								<Box bg={'transparent'}>
 									<Text
 										adjustsFontSizeToFit
@@ -31,7 +44,7 @@ export default () => {
 										{ENVIRONMENT} {String.fromCharCode(47, 62)}
 									</Text>
 								</Box>
-							</SafeAreaView>
+							</VStack>
 						)
 					},
 					headerShown: true,

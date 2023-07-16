@@ -40,7 +40,15 @@ export default () => {
 								size='xs'
 								bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
 							>
-								<Ionicons name='md-chevron-back-outline' size={30} />
+								<Ionicons
+									name='md-chevron-back-outline'
+									size={30}
+									color={
+										rTheme.colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light900
+											: rTheme.theme?.gluestack.tokens.colors.dark900
+									}
+								/>
 							</Button>
 						</HStack>
 					),
@@ -53,7 +61,11 @@ export default () => {
 							mr={'$2'}
 							bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
 						>
-							<Entypo name='dots-three-vertical' size={23} />
+							<Entypo name='dots-three-vertical' size={23} 			color={
+										rTheme.colorScheme === 'light'
+											? rTheme.theme?.gluestack.tokens.colors.light900
+											: rTheme.theme?.gluestack.tokens.colors.dark900
+									} />
 						</Button>
 					),
 					headerTitle: '',

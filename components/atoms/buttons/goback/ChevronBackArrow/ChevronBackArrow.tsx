@@ -13,7 +13,7 @@ const ChevronBackArrow = () => {
 				name='md-chevron-back-outline'
 				size={35}
 				color={
-					rTheme.localStorageColorScheme === 'light'
+					rTheme.colorScheme === 'light'
 						? rTheme.theme?.gluestack.tokens.colors.light900
 						: rTheme.theme?.gluestack.tokens.colors.dark900
 				}

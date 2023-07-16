@@ -222,11 +222,11 @@ export default () => {
 						<>
 							<HStack my={2} h={'50px'}>
 								<HStack flex={1} alignItems={'center'} justifyContent={'flex-start'}>
-									<Text fontSize={'lg'} textTransform={'capitalize'}>
+									<Text fontSize={'$lg'} textTransform={'capitalize'}>
 										{item.firstName}&nbsp;{item.lastName}
 									</Text>
 								</HStack>
-								<HStack flex={1} space={3} justifyContent={'flex-end'} alignItems={'center'}>
+								<HStack flex={1} space={'md'} justifyContent={'flex-end'} alignItems={'center'}>
 									<IconButton
 										bg={'transparent'}
 										icon={

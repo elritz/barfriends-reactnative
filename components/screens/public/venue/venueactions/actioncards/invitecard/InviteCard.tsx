@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Button, Heading, VStack, Box } from '@components/core'
+import { Button, Heading, VStack, Box, Text } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
@@ -9,23 +9,25 @@ export default function InviteCard() {
 	const rPermissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 
 	return (
-		<VStack w={'$full'} justifyContent='space-between' alignItems={'center'}>
-			<Box bg='$red400' h={'$16'} w={'$16'} alignItems='center' justifyContent='center'>
-				<Ionicons name='people' size={35} color={'black'} />
-			</Box>
-			<Heading
-				mt={'$3'}
-				textTransform={'uppercase'}
-				lineHeight={'$md'}
-				fontSize={'$lg'}
-				textAlign='center'
-				fontWeight={'$black'}
-			>
-				Share with friends
-			</Heading>
+		<VStack w={'$full'} justifyContent='space-between' flex={1}>
+			<VStack mt={'$4'} w={'$full'} alignItems={'flex-start'}>
+				<Box bg='$red400' h={'$10'} w={'$10'} alignItems='center' justifyContent='center'>
+					<Ionicons name='people' size={23} color={'black'} />
+				</Box>
+				<Heading
+					mt={'$1'}
+					textTransform={'uppercase'}
+					lineHeight={'$xs'}
+					fontSize={'$lg'}
+					fontWeight={'$black'}
+				>
+					Share
+				</Heading>
+				<Text>Invite to bfs and to this venue</Text>
+			</VStack>
 			<Button
-			mt={'$2'}
-				size={'xs'}
+				mt={'$2'}
+				size={'lg'}
 				w={'$full'}
 				alignItems='center'
 				justifyContent='center'

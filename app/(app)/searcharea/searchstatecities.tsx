@@ -187,10 +187,10 @@ export default function SearchAreaStateCities() {
 					px: 2,
 					justifyContent: 'space-between',
 					_light: {
-						bg: watch('state.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('city') === item.name ? '$primary500' : '$dark50',
 					},
 					_dark: {
-						bg: watch('state.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('city.name') === item.name ? '$primary500' : '$dark50',
 					},
 				}}
 				rounded={'$md'}
@@ -205,7 +205,7 @@ export default function SearchAreaStateCities() {
 				>
 					{item.name}
 				</Button.Text>
-				<HStack space={'md'} alignItems={'center'} mr={'$3'}>
+				<HStack justifyContent='flex-end' space={'md'} alignItems={'center'} mr={'$2'}>
 					{item.venuesInArea && item.venuesInArea > 1 ? (
 						<VStack>
 							<Text textAlign={'center'} fontWeight={'$bold'} fontSize={'$md'} numberOfLines={1}>
@@ -216,12 +216,12 @@ export default function SearchAreaStateCities() {
 							</Text>
 						</VStack>
 					) : null}
+					{watch('city.name') === item.name ? (
+						<Button onPress={() => _pressItem(item)} rounded={'$full'} bg='$blue500' size='xs'>
+							<Button.Text fontSize={'$xs'}>Continue</Button.Text>
+						</Button>
+					) : null}
 				</HStack>
-				{watch('city.name') === item.name ? (
-					<Button onPress={() => _pressItem(item)} rounded={'$full'} bg='$blue500' size='xs' mr={'$3'}>
-						<Button.Text fontSize={'$xs'}>Continue</Button.Text>
-					</Button>
-				) : null}
 			</Button>
 		)
 	}

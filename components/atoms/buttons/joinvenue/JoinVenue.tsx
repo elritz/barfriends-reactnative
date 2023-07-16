@@ -89,7 +89,6 @@ export default function JoinVenue() {
 				addPersonalJoinVenueMutation()
 			}}
 			isDisabled={isJoined}
-			width={'$full'}
 			rounded={'$md'}
 		>
 			<Button.Text>{JVLoading ? 'Joining' : 'Join'}</Button.Text>

@@ -17,6 +17,8 @@ const createTheme = ({ themeScheme, localStorageColorScheme }: Props) => {
 		AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].Theme.theme ||
 		defaulttheme
 
+	console.log('defaulttheme :>> ', JSON.stringify(defaulttheme, null, 2))
+
 	const rnColors = () => {
 		const rn = themeScheme === 'dark' ? theme.reactnavigation.dark : theme.reactnavigation.light
 		return rn
@@ -30,8 +32,8 @@ const createTheme = ({ themeScheme, localStorageColorScheme }: Props) => {
 		tokens: {
 			...config.theme.tokens,
 			colors: {
-				...theme.gluestack,
 				...config.theme.tokens.colors,
+				...theme.gluestack,
 			},
 		},
 	}

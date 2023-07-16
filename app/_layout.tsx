@@ -58,7 +58,7 @@ export {
 
 export const unstable_settings = {
 	// Ensure that reloading on `/modal` keeps a back button present.
-	initialRouteName: '(app)/hometab',
+	initialRouteName: '(app)/hometab/venuefeed',
 }
 
 SplashScreen.preventAutoHideAsync()
@@ -248,7 +248,7 @@ export default function Root() {
 				<KeyboardProvider statusBarTranslucent>
 					<Theme>
 						<AuthProvider>
-							<Slot initialRouteName='(app)/hometab' />
+							<Slot initialRouteName='(app)/hometab/venuefeed' />
 						</AuthProvider>
 					</Theme>
 				</KeyboardProvider>

@@ -40,7 +40,7 @@ export default () => {
 				if (data?.switchDeviceProfile?.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
-					setTimeout(() => router.replace('(app)/hometab'), 1000)
+					setTimeout(() => router.replace('(app)/hometab/venufeed'), 1000)
 				} else if (data.switchDeviceProfile.__typename === 'Error') {
 					router.push({
 						pathname: '(app)/credential/logincredentialstack/loginpassword',

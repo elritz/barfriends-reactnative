@@ -1,6 +1,6 @@
 // TODO: UX() location icon when searchArea is using Currently Location over preset
 import { useReactiveVar } from '@apollo/client'
-import { Box, HStack, Pressable, Text, VStack } from '@components/core'
+import { Box, HStack, Pressable, Text } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
@@ -67,7 +67,7 @@ const SearchAreaLocationPermissionItem = () => {
 				return (
 					<HStack
 						bg='$transparent'
-						rounded={'$full'}
+						rounded={'$lg'}
 						overflow='hidden'
 						sx={{
 							h: 50,

@@ -5,7 +5,7 @@ const AuthProvider = props => {
 	useEffect(() => {
 		setTimeout(() => {
 			router.push({
-				pathname: '(app)/hometab',
+				pathname: '(app)/hometab/venuefeed',
 			})
 		}, 1)
 	}, [])

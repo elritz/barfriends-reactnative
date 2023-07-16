@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
-	const rotuer = useRouter()
+	const router = useRouter()
 
 	GoBack.defaultProps = {
 		width: 40,
@@ -18,7 +18,10 @@ const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	}
 
 	const handleOnPress = () => {
-		rotuer.back()
+		router.back()
+		// router.setParams({
+		// 	searchtext: '',
+		// })
 	}
 
 	const { width, height, children } = props

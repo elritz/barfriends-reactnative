@@ -6,17 +6,17 @@ export default styled(
 	TextInput,
 	{
 		flex: 1,
-    _light:{
-      color: '$textLight100',
+		_light: {
+			color: '$textLight100',
 			props: {
-				placeholderTextColor: 'black'
-			}
-    },
+				placeholderTextColor: 'black',
+			},
+		},
 		_dark: {
 			color: '$textDark100',
 			props: {
-				placeholderTextColor: 'white'
-			}
+				placeholderTextColor: 'white',
+			},
 		},
 		_web: {
 			cursor: 'text',

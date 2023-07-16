@@ -1,3 +1,4 @@
+import { useReactiveVar } from '@apollo/client'
 import { Box } from '@components/core'
 import InviteCard from '@components/screens/public/venue/venueactions/actioncards/invitecard/InviteCard'
 import QuickBarfriendCard from '@components/screens/public/venue/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
@@ -8,7 +9,9 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
+import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import { LinearGradient } from 'expo-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Wrapper = ({ children }) => {
@@ -32,46 +35,58 @@ const Wrapper = ({ children }) => {
 }
 
 export default () => {
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
 	return (
-		<FlashList
-			showsVerticalScrollIndicator={false}
-			contentContainerStyle={{
-				paddingHorizontal: 5,
-			}}
-			ListHeaderComponent={() => {
-				return <Photos />
-			}}
-			data={[
-				{
-					_typename: 'addemoji',
-					item: <AddEmoji />,
-				},
-				{
-					_typename: 'joinvenue',
-					item: <JoinVenue />,
-				},
-				{
-					_typename: 'quickbarfriend',
-					item: <QuickBarfriendCard color={'#ff7000'} showIcon={false} logosize={40} qrcodesize={140} />,
-				},
-				{
-					_typename: 'invite',
-					item: <InviteCard />,
-				},
-			]}
-			numColumns={2}
-			estimatedItemSize={200}
-			contentInset={{
-				top: insets.top + 10,
-				bottom:
-					insets.bottom !== 0
-						? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-						: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-			}}
-			renderItem={({ index, item }) => {
-				return <Wrapper>{item.item}</Wrapper>
-			}}
-		/>
+		<LinearGradient
+			style={{ flex: 1 }}
+			colors={
+				rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood.length
+					? [...rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood]
+					: []
+			}
+		>
+			<FlashList
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{
+					paddingHorizontal: 5,
+				}}
+				contentInset={{
+					top: insets.top + 60,
+					bottom:
+						insets.bottom !== 0
+							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
+							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+				}}
+				ListHeaderComponent={() => {
+					return <Photos />
+				}}
+				data={[
+					{
+						_typename: 'addemoji',
+						item: <AddEmoji />,
+					},
+					{
+						_typename: 'joinvenue',
+						item: <JoinVenue />,
+					},
+					{
+						_typename: 'quickbarfriend',
+						item: (
+							<QuickBarfriendCard color={'#ff7000'} showIcon={false} logosize={40} qrcodesize={140} />
+						),
+					},
+					{
+						_typename: 'invite',
+						item: <InviteCard />,
+					},
+				]}
+				numColumns={2}
+				estimatedItemSize={200}
+				renderItem={({ index, item }) => {
+					return <Wrapper>{item.item}</Wrapper>
+				}}
+			/>
+		</LinearGradient>
 	)
 }

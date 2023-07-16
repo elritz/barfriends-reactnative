@@ -15,9 +15,11 @@ import { useRouter } from 'expo-router'
 import { useEffect, useRef } from 'react'
 import { Alert, AppState, Platform, ScrollView, View } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const router = useRouter()
+	const insets = useSafeAreaInsets()
 	const appStateRef = useRef(AppState.currentState)
 	const isFocused = useIsFocused()
 	const rMicrophonePermission = useReactiveVar(PermissionMicrophoneReactiveVar)
@@ -184,7 +186,14 @@ export default () => {
 					})}
 				</Box>
 			</ScrollView>
-			<VStack space={'md'} w={'$full'} alignItems={'center'}>
+			<VStack
+				space={'md'}
+				w={'$full'}
+				alignItems={'center'}
+				sx={{
+					mb: insets.bottom,
+				}}
+			>
 				<Divider w={'95%'} />
 				<Button
 					size={'md'}
@@ -207,20 +216,23 @@ export default () => {
 							: 'Granted'}
 					</Text>
 				</Button>
-				{!started && (
-					<Button size={'lg'} width={'95%'} onPress={() => router.back()} variant={'link'}>
+				{!started ? (
+					<Button size={'lg'} sx={{ width: '95%' }} onPress={() => router.back()} variant={'link'}>
 						<Text fontWeight={'$medium'}>Close</Text>
 					</Button>
-				)}
-				{started && (
-					<Box
-						bg={'$transparent'}
-						sx={{
-							h: 20,
-						}}
-					>
-						{<Text fontWeight={'$medium'}>Auto close in {seconds}</Text>}
-					</Box>
+				) : (
+					<Button size={'lg'} sx={{ width: '95%' }} onPress={() => router.back()} variant={'link'}>
+						{started && (
+							<Box
+								bg={'$transparent'}
+								sx={{
+									h: 20,
+								}}
+							>
+								{<Text fontWeight={'$medium'}>Auto close in {seconds}</Text>}
+							</Box>
+						)}
+					</Button>
 				)}
 			</VStack>
 		</Box>
