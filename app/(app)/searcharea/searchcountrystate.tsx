@@ -1,8 +1,6 @@
 import { Form } from './_layout'
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Center, HStack, Pressable, Text, VStack } from '@components/core'
-import PlaceItem from '@components/screens/searcharea/PlaceItem'
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
+import { Button, Center, Text } from '@components/core'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
@@ -15,7 +13,7 @@ import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchAreaCountryStates() {
-	const { top, bottom } = useSafeAreaInsets()
+	const { bottom } = useSafeAreaInsets()
 	const router = useRouter()
 	const params = useLocalSearchParams()
 	const rTheme = useReactiveVar(ThemeReactiveVar)

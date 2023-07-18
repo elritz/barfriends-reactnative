@@ -1,6 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, VStack } from '@components/core'
-import SearchInput from '@components/molecules/search/searchinput/SearchInput'
+import { Box } from '@components/core'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
 import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profiletab'
@@ -9,20 +8,17 @@ import VenueFeedTab from '@components/molecules/tabbaricons/hometabicons/venuefe
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
-	SEARCH_BAR_HEIGHT,
 } from '@constants/ReactNavigationConstants'
 import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { AuthorizationReactiveVar } from '@reactive'
-import { Tabs, useRouter } from 'expo-router'
+import { Tabs } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
-	const HEADER_HEIGHT = SEARCH_BAR_HEIGHT + 15
-	const h = insets.top + HEADER_HEIGHT
 	return (
 		<Tabs
 			initialRouteName='venuefeed'

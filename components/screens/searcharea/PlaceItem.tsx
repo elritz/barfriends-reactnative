@@ -5,8 +5,7 @@ import { useFormContext } from 'react-hook-form'
 export default function PlaceItem({ item, onPress, index, itemType }) {
 	const formContext = useFormContext<Form>()
 	const { watch } = formContext
-	console.log('watchcountry.name>> ', watch('country.name'))
-
+	
 	return (
 		<Button
 			key={index}

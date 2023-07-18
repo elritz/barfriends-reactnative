@@ -126,12 +126,8 @@ export default () => {
 
 	const [authorizedProfilesV2Query, { data, loading, error }] = useAuthorizedProfilesLazyQuery({
 		fetchPolicy: 'network-only',
-		onError: error => {
-			console.log('error :>> ', error)
-		},
+		onError: error => {},
 		onCompleted: data => {
-			console.log('🚀 ~ file: authenticator.tsx:131 ~ data:', data)
-
 			const formValues = getValues()
 			const replaced = formValues.authenticator.replace(/\D/g, '')
 
@@ -179,15 +175,8 @@ export default () => {
 	})
 
 	const onSubmit = data => {
-		console.log('🚀 ~ file: authenticator.tsx:178 ~ onSubmit ~ data:', data)
-
 		const username = data.authenticator.replace(/[^a-zA-Z0-9]/g, '')
-
-		console.log('🚀 ~ file: authenticator.tsx:182 ~ onSubmit ~ username:', username)
-
 		const numberOnly = data.authenticator.replace(/\D/g, '')
-
-		console.log('🚀 ~ file: authenticator.tsx:183 ~ onSubmit ~ numberOnly:', numberOnly)
 
 		authorizedProfilesV2Query({
 			variables: {

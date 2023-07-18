@@ -1,6 +1,10 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box, Divider, HStack, Pressable, Spinner, Text, VStack } from '@components/core'
 import {
+	TomorrowPreferencePermissionInitialState,
+	NowPreferencePermissionInitialState,
+} from '@constants/Preferences'
+import {
 	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
@@ -8,12 +12,10 @@ import {
 import { Ionicons, Feather } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
-	NowPreferencePermissionInitialState,
 	PreferenceBackgroundLocationPermissionReactiveVar,
 	PreferenceForegroundLocationPermissionReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
 	ThemeReactiveVar,
-	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
 import { useState } from 'react'
 import { ScrollView, Alert } from 'react-native'
@@ -21,7 +23,6 @@ import { ScrollView, Alert } from 'react-native'
 export default function Preferences() {
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [loading, setIsLoading] = useState(false)
-	const [isVisible, setIsVisiable] = useState(false)
 	const ITEM_HEIGHT = 60
 
 	return (

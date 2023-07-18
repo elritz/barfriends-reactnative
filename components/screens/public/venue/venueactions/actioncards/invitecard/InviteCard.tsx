@@ -15,7 +15,7 @@ export default function InviteCard() {
 					<Ionicons name='people' size={23} color={'black'} />
 				</Box>
 				<Heading
-					mt={'$1'}
+					mt={'$2'}
 					textTransform={'uppercase'}
 					lineHeight={'$xs'}
 					fontSize={'$lg'}

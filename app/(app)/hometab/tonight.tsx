@@ -35,13 +35,9 @@ const Wrapper = ({ children }) => {
 }
 
 export default () => {
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
+	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
-	console.log(
-		'rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood[0] :>> ',
-		JSON.stringify(rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory, null, 4),
-	)
 	return (
 		<LinearGradient
 			style={{ flex: 1 }}

@@ -1,7 +1,3 @@
-import { Box, VStack } from '@components/core'
-import SearchInputDisabled from '@components/molecules/search/commoninput/SearchInputDisabled'
-import SearchTextScreenInput from '@components/molecules/search/searchtext/SearchTextScreenInput'
-import SearchTopTabStackInput from '@components/molecules/search/searchtoptabs/SearchTopTabStackInput'
 import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { Stack, useRouter } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

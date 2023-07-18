@@ -141,7 +141,6 @@ export default function SearchAreaStateCities() {
 
 	function CityItem({ index, item }) {
 		const _pressItem = async item => {
-			console.log('item :>> ', item)
 			setValue('city', {
 				name: item.name,
 				isoCode: '',

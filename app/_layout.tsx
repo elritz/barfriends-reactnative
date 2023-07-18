@@ -10,7 +10,6 @@ import {
 	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
 	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
 } from '@constants/StorageConstants'
-import AuthProvider from '@context/auth'
 import {
 	LocalStoragePreferenceSearchAreaType2,
 	LocalStoragePreferenceThemeType,
@@ -44,7 +43,7 @@ import 'expo-dev-client'
 import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
 import { getPermissionsAsync as getMediaPermissionAsync } from 'expo-media-library'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen, Stack } from 'expo-router'
+import { Slot, SplashScreen } from 'expo-router'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
@@ -253,9 +252,7 @@ export default function Root() {
 			<SafeAreaProvider>
 				<KeyboardProvider statusBarTranslucent>
 					<Theme>
-						<AuthProvider>
-							<Slot initialRouteName='(app)/hometab/venuefeed' />
-						</AuthProvider>
+						<Slot initialRouteName='(app)/hometab/venuefeed' />
 					</Theme>
 				</KeyboardProvider>
 			</SafeAreaProvider>

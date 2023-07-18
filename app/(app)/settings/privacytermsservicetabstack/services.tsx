@@ -2,7 +2,7 @@ import { useReactiveVar } from '@apollo/client'
 import TermsLoadingState from '@components/screens/settings/TermsLoadingState'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
-import { SafeAreaView, ScrollView, useWindowDimensions, View } from 'react-native'
+import { SafeAreaView, ScrollView, useWindowDimensions } from 'react-native'
 import RenderHTML from 'react-native-render-html'
 
 export default () => {

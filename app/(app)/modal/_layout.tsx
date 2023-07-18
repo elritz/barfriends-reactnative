@@ -25,7 +25,7 @@ export default () => {
 			emojimood: {
 				id: '',
 				emojiname: '',
-				colors: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood.colors || [''],
+				colors: rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood?.colors || [''],
 				emoji: '',
 			},
 		},

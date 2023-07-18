@@ -55,8 +55,6 @@ const SearchInput = (props: Props) => {
 		shouldUnregister: true,
 	})
 
-	console.log('watch ', watch('searchtext')?.length)
-
 	useLayoutEffect(() => {
 		setShowBack(!segments.includes('hometab'))
 

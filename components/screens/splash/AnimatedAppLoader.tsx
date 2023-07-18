@@ -18,7 +18,6 @@ function AnimatedAppLoader({ children, assets }) {
 	if (!isAppSplashIsReady) {
 		return null
 	}
-	console.log('here AnimatedSpash screen :>> ')
 
 	return <AnimatedSplashScreen assets={assets}>{children}</AnimatedSplashScreen>
 }

@@ -33,12 +33,8 @@ export default () => {
 				},
 			},
 		},
-		onError: error => {
-			console.log('error :>> ', error)
-		},
+		onError: error => {},
 		onCompleted: async data => {
-			console.log('🚀 ~ file: create.tsx:41 ~ data:', data)
-
 			if (data.createPersonalProfile?.__typename === 'AuthorizationDeviceManager') {
 				const deviceManager = data.createPersonalProfile as AuthorizationDeviceManager
 				AuthorizationReactiveVar(deviceManager)
@@ -51,12 +47,8 @@ export default () => {
 
 	const [switchDeviceProfileMutation, { data: SDPData, loading: SDPLoading, error: SDPError }] =
 		useSwitchDeviceProfileMutation({
-			onError: error => {
-				console.log('error :>> ', error)
-			},
+			onError: error => {},
 			onCompleted: data => {
-				console.log('🚀 ~ file: create.tsx:57 ~ data:', data)
-
 				if (data.switchDeviceProfile.__typename === 'AuthorizationDeviceManager') {
 					const deviceManager = data.switchDeviceProfile as AuthorizationDeviceManager
 					AuthorizationReactiveVar(deviceManager)
@@ -69,10 +61,6 @@ export default () => {
 
 	const onSubmit = async () => {
 		createProfilePersonalMutation()
-		// console.log(
-		// 	'credentialPersonalProfileVar :>> ',
-		// 	JSON.stringify(credentialPersonalProfileVar, null, 4),
-		// )
 	}
 
 	return (

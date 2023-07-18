@@ -1,13 +1,16 @@
+import Auth from '@components/layouts/Auth'
 import { Stack } from 'expo-router'
 
 export default function _layout() {
 	return (
-		<Stack
-			screenOptions={{
-				headerShown: false,
-			}}
-		>
-			<Stack.Screen name={'index'} />
-		</Stack>
+		<Auth>
+			<Stack
+				screenOptions={{
+					headerShown: false,
+				}}
+			>
+				<Stack.Screen name={'index'} />
+			</Stack>
+		</Auth>
 	)
 }

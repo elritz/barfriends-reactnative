@@ -1,5 +1,5 @@
 // TODO: FX() Settings still needs to be done
-import { Stack, useRouter } from 'expo-router'
+import { Stack } from 'expo-router'
 
 export default () => {
 	return (

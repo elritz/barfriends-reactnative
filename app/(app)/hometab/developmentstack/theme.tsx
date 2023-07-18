@@ -48,7 +48,7 @@ export default function Preferences() {
 					item.theme.styled.light.palette.bfscompany.tertiary,
 				],
 			}
-			console.log('item.id :>> ', item.id)
+
 			return (
 				<Pressable
 				// onPress={async () => {

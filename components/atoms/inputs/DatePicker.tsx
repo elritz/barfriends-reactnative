@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import DateTimePicker, { AndroidEvent, Event } from '@react-native-community/datetimepicker'
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import * as React from 'react'
 import { ViewStyle } from 'react-native'
 
@@ -13,7 +13,7 @@ export interface DatePickerProps {
 	display?: DisplayType | undefined
 	mode?: ModeType
 	style?: ViewStyle
-	onChange: (event: AndroidEvent | Event | unknown, selectedDate: Date | undefined) => void
+	onChange: (event: DateTimePickerEvent, selectedDate: Date | undefined) => void
 }
 
 // const MODE_VALUES = Platform.select({
@@ -48,7 +48,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 			mode={mode}
 			is24Hour
 			display={display}
-			onChange={(event: AndroidEvent | Event, selectedDate: Date | undefined): void =>
+			onChange={(event: DateTimePickerEvent, selectedDate: Date | undefined): void =>
 				onChange(event, selectedDate)
 			}
 			style={style}
