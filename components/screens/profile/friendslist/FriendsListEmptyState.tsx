@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Heading, Text, VStack } from '@components/core'
+import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
 import { PermissionContactsReactiveVar, ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
@@ -12,37 +12,35 @@ export const FriendsListEmptyState = () => {
 		<VStack
 			space={'$3'}
 			my={'$5'}
-			py={'$5'}
+			p={'$5'}
 			justifyContent={'center'}
 			alignItems={'center'}
 			rounded={'$md'}
 		>
-			<Box mb={'$2'} alignItems={'center'}>
-				<Text fontSize={'$lg'} fontWeight={'$bold'}>
-					No barfriends
-				</Text>
-				<Heading fontSize={'$2xl'}>Find your friends below</Heading>
+			<Box bg='$transparent' alignItems={'center'}>
+				<Heading lineHeight={'$xl'} px={'$2'} textAlign='center' fontSize={'$2xl'}>
+					{`No barfriends\n Find your friends below`}
+				</Heading>
 			</Box>
-			<VStack space={'$3'} w={'$full'} alignItems={'center'}>
+			<VStack space={'md'} w={'$full'} alignItems={'center'} mt={'$4'}>
 				<Button
-					size={'xs'}
-					px={'$8'}
-					rounded={'$md'}
+					w={'100%'}
+					size={'lg'}
 					onPress={() =>
 						router.push({
 							pathname: '(app)/permission/contacts',
 						})
 					}
 				>
-					<Text>{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}</Text>
+					<Button.Text fontSize={'$lg'} fontWeight={'$bold'}>
+						{permissionContactsVar?.granted ? 'All Contacts' : 'Use Contacts'}
+					</Button.Text>
 				</Button>
-				<Button
-					variant={'link'}
-					size={'xs'}
-					sx={{
-						w: '55%',
-					}}
-					rounded={'$md'}
+				<Pressable
+					w={'100%'}
+					alignItems='center'
+					flexDirection='row'
+					justifyContent='center'
 					onPress={() => {
 						router.push({
 							pathname: '(app)/explore/searchtext',
@@ -61,8 +59,16 @@ export const FriendsListEmptyState = () => {
 								: rTheme.theme?.gluestack.tokens.colors.dark900
 						}
 					/>
-					<Text>Search</Text>
-				</Button>
+					<Text
+						ml='$2'
+						textTransform='uppercase'
+						fontSize={'$lg'}
+						fontWeight={'$bold'}
+						alignSelf='center'
+					>
+						search
+					</Text>
+				</Pressable>
 			</VStack>
 		</VStack>
 	)
