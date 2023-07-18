@@ -1,59 +1,29 @@
+import { FormType } from './_layout'
 import { useReactiveVar } from '@apollo/client'
 import { Box, Heading, Pressable, Text } from '@components/core'
 import Photos from '@components/screens/tonight/photos'
-import { Emojimood, useEmojimoodsQuery } from '@graphql/generated'
+import { useEmojimoodsQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
 import { BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
-import { watch } from 'fs'
-import { Controller, useForm } from 'react-hook-form'
-import { Image, View } from 'react-native'
+import { Controller, useFormContext } from 'react-hook-form'
+import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-export type FormType = {
-	emojimood: Emojimood
-}
 
 export default () => {
 	const ITEM_WIDTH = 70
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const insets = useSafeAreaInsets()
-	const { data, loading, error } = useEmojimoodsQuery({})
+	const { watch, setValue, control, reset } = useFormContext<FormType>()
 
-	const {
-		control,
-		handleSubmit,
-		setValue,
-		getValues,
-		reset,
-		setError,
-		watch,
-		formState: { errors },
-	} = useForm<FormType>({
-		mode: 'onChange',
-		reValidateMode: 'onChange',
-		defaultValues: {
-			emojimood: {
-				id: '',
-				emojiname: '',
-				colors: [''],
-				emoji: '',
-			},
-		},
-		resolver: undefined,
-		context: undefined,
-		criteriaMode: 'firstError',
-		shouldFocusError: true,
-		shouldUnregister: true,
-	})
+	const { data, loading, error } = useEmojimoodsQuery({})
 
 	if (loading) {
 		return <Heading>EmojiMoods</Heading>
 	}
 
-	console.log('watch', watch('emojimood'))
 	return (
 		<LinearGradient colors={watch('emojimood.colors') || ['']}>
 			<Box
@@ -85,8 +55,9 @@ export default () => {
 								estimatedItemSize={50}
 								numColumns={3}
 								contentContainerStyle={{}}
+								extraData={watch('emojimood')}
 								contentInset={{
-									top: insets.top + 400 + 10,
+									top: insets.top + 400 + 60,
 									bottom: insets.bottom,
 								}}
 								ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
@@ -97,22 +68,51 @@ export default () => {
 											alignItems='center'
 											alignSelf={'center'}
 											flex={1}
-											onPress={() => setValue('emojimood', item)}
+											onPress={() => {
+												rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.id === watch('emojimood').id ||
+												watch('emojimood').id === item.id ||
+												rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood.id === item.id
+													? reset()
+													: setValue('emojimood', item)
+											}}
 										>
-											<LinearGradient
+											<BlurView
+												tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+												intensity={70}
 												style={{
-													borderRadius: ITEM_WIDTH / 2,
-													height: ITEM_WIDTH,
-													width: ITEM_WIDTH,
+													width: '100%',
+													maxWidth: '90%',
+													overflow: 'hidden',
+													borderRadius: 10,
+													marginTop: 5,
+													marginHorizontal: 10,
+													paddingVertical: 10,
 													alignItems: 'center',
-													justifyContent: 'center',
 													alignSelf: 'center',
 												}}
-												colors={item.colors.length ? [...item.colors] : ['#ff7000', '#567000']}
 											>
-												<Text>{item.emoji}</Text>
-											</LinearGradient>
-											<BlurView
+												<LinearGradient
+													style={{
+														borderRadius: ITEM_WIDTH / 2,
+														height: ITEM_WIDTH,
+														width: ITEM_WIDTH,
+														alignItems: 'center',
+														justifyContent: 'center',
+														alignSelf: 'center',
+														borderWidth: 2,
+														borderColor:
+															rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.id === watch('emojimood').id
+																? 'white'
+																: watch('emojimood').id === item.id ||
+																  rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood.id === item.id
+																? 'white'
+																: 'transparent',
+													}}
+													colors={item.colors.length ? [...item.colors] : ['#ff7000', '#567000']}
+												>
+													<Text>{item.emoji}</Text>
+												</LinearGradient>
+												{/* <BlurView
 												tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 												intensity={70}
 												style={{
@@ -122,8 +122,11 @@ export default () => {
 													paddingHorizontal: 10,
 													paddingVertical: 5,
 												}}
-											>
-												<Text>{item.emojiname}</Text>
+											> */}
+												<Text mt={'$3'} fontWeight='$bold'>
+													{item.emojiname}
+												</Text>
+												{/* </BlurView> */}
 											</BlurView>
 										</Pressable>
 									)
@@ -132,7 +135,7 @@ export default () => {
 						)}
 					/>
 				</Box>
-				<View style={{ marginTop: insets.top }}>
+				<View style={{ marginTop: insets.top + 50 }}>
 					<Photos />
 				</View>
 			</Box>

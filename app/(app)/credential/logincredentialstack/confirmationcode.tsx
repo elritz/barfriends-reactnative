@@ -3,7 +3,11 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { ConfirmationCodeReactiveVar, CredentialPersonalProfileReactiveVar } from '@reactive'
+import {
+	ConfirmationCodeReactiveVar,
+	CredentialPersonalProfileReactiveVar,
+	ThemeReactiveVar,
+} from '@reactive'
 import Countdown from '@util/hooks/useTimer'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
@@ -20,14 +24,13 @@ import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-rean
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
+	const router = useRouter()
 	const INPUT_ACCESSORY_VIEW_ID = 'cc-12981123123263'
 	const { bottom } = useSafeAreaInsets()
 	const isFocused = useIsFocused()
-	const router = useRouter()
 	const params = useLocalSearchParams()
 
-	console.log('🚀 ~ file: confirmationcode.tsx:29 ~ params:', params)
-
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const confirmationCode = useReactiveVar(ConfirmationCodeReactiveVar)
 	const credentialPersonalProfileVar = useReactiveVar(CredentialPersonalProfileReactiveVar)
 
@@ -205,6 +208,7 @@ export default () => {
 								blurOnSubmit={false}
 								autoFocus
 								onEndEditing={handleSubmit(onSubmit)}
+								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 								renderCell={({ index, symbol, isFocused }) => (
 									<Box
 										bg='$transparent'
@@ -219,7 +223,7 @@ export default () => {
 										borderBottomWidth={isFocused ? '$2' : '$1'}
 										onLayout={getCellOnLayoutHandler(index)}
 									>
-										<Heading color={'primary.500'} fontSize={'$3xl'}>
+										<Heading color={'$primary500'} fontSize={'$3xl'}>
 											{symbol || (isFocused ? <Cursor /> : null)}
 										</Heading>
 									</Box>

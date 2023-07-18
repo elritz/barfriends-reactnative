@@ -7,7 +7,7 @@ export default styled(
 	{
 		flex: 1,
 		_light: {
-			color: '$textLight100',
+			color: '$textLight900',
 			props: {
 				placeholderTextColor: 'black',
 			},

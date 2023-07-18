@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Input, Pressable, Text } from '@components/core'
+import { Box, Button, Input, Pressable, Text, VStack } from '@components/core'
 import { Entypo, Feather } from '@expo/vector-icons'
 import {
 	useAuthorizedProfilesLazyQuery,
@@ -10,7 +10,7 @@ import { ThemeReactiveVar } from '@reactive'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { View, InputAccessoryView, Platform } from 'react-native'
+import { View, InputAccessoryView, Platform, KeyboardAvoidingView } from 'react-native'
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller'
 import Reanimated, { useAnimatedStyle, useDerivedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -42,6 +42,51 @@ export default () => {
 		}),
 		[],
 	)
+
+	const InnerContent = () => {
+		return (
+			<Box
+				display={isFocused ? 'flex' : 'none'}
+				flexDirection={'row'}
+				justifyContent={'flex-end'}
+				alignItems='center'
+				alignContent={'space-around'}
+				px={'$2'}
+				sx={{
+					h: 90,
+					_dark: {
+						bg: '$black',
+					},
+					_light: {
+						bg: '$white',
+					},
+				}}
+			>
+				<View
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'space-around',
+					}}
+				>
+					<Pressable onPress={handleSubmit(onSubmit)}>
+						<Box
+							alignItems='center'
+							justifyContent='center'
+							sx={{
+								h: 50,
+								w: 50,
+							}}
+							rounded={'$full'}
+							bg='$primary500'
+						>
+							<Feather name='arrow-right' size={32} color={errors?.authenticator ? '#292524' : 'white'} />
+						</Box>
+					</Pressable>
+				</View>
+			</Box>
+		)
+	}
 
 	const {
 		control,
@@ -81,7 +126,12 @@ export default () => {
 
 	const [authorizedProfilesV2Query, { data, loading, error }] = useAuthorizedProfilesLazyQuery({
 		fetchPolicy: 'network-only',
+		onError: error => {
+			console.log('error :>> ', error)
+		},
 		onCompleted: data => {
+			console.log('🚀 ~ file: authenticator.tsx:131 ~ data:', data)
+
 			const formValues = getValues()
 			const replaced = formValues.authenticator.replace(/\D/g, '')
 
@@ -129,8 +179,16 @@ export default () => {
 	})
 
 	const onSubmit = data => {
+		console.log('🚀 ~ file: authenticator.tsx:178 ~ onSubmit ~ data:', data)
+
 		const username = data.authenticator.replace(/[^a-zA-Z0-9]/g, '')
+
+		console.log('🚀 ~ file: authenticator.tsx:182 ~ onSubmit ~ username:', username)
+
 		const numberOnly = data.authenticator.replace(/\D/g, '')
+
+		console.log('🚀 ~ file: authenticator.tsx:183 ~ onSubmit ~ numberOnly:', numberOnly)
+
 		authorizedProfilesV2Query({
 			variables: {
 				where: {
@@ -155,6 +213,11 @@ export default () => {
 						size={25}
 						name='phone'
 						style={{ marginRight: 4 }}
+						color={
+							rTheme.colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
 					/>
 				)
 			case 'email':
@@ -164,125 +227,99 @@ export default () => {
 						size={25}
 						name='email'
 						style={{ marginRight: 4 }}
+						color={
+							rTheme.colorScheme === 'light'
+								? rTheme.theme?.gluestack.tokens.colors.light900
+								: rTheme.theme?.gluestack.tokens.colors.dark900
+						}
 					/>
 				)
 		}
 	}
 
 	return (
-		<Box bg='$transparent' flex={1} pt={'$10'}>
-			<Reanimated.View style={{ flex: 1, marginHorizontal: 15 }}>
-				<Controller
-					name='authenticator'
-					control={control}
-					render={({ field: { onChange, onBlur, value } }) => (
-						<Input
-							variant='underlined'
-							sx={{
-								h: 50,
-							}}
-							alignItems='center'
-						>
-							<Input.Input
-								key={'authenticator'}
-								placeholder='Username, phone, email'
-								fontSize={'$2xl'}
-								lineHeight={'$2xl'}
-								fontWeight='$medium'
-								keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
-								returnKeyType='done'
-								enablesReturnKeyAutomatically
-								textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
-								autoComplete={keyboardType === 'number-pad' ? 'cc-number' : 'email'}
-								keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
-								numberOfLines={1}
-								inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
-								autoCapitalize='none'
-								autoFocus
-								value={value}
-								type='text'
-								py={'$2'}
-								sx={{
-									h: 50,
-								}}
-								onSubmitEditing={handleSubmit(onSubmit)}
-								onBlur={onBlur}
-								blurOnSubmit={false}
-								autoCorrect={false}
-								onChangeText={value => {
-									if (keyboardType === 'number-pad') {
-										onChange(value.toLowerCase())
-										setValue('authenticator', value)
-									} else {
-										onChange(value)
-										setValue('authenticator', value.trim())
-									}
-								}}
-							/>
-							<RightIcon />
-						</Input>
-					)}
-					rules={{
-						required: {
-							value: true,
-							message: '',
-						},
-					}}
-				/>
-				{errors?.authenticator?.message ? (
-					<Button
-						onPress={() => {
-							router.replace({
-								pathname: '(app)/credential/personalcredentialstack/getstarted',
-							})
+		<KeyboardAvoidingView
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			style={{
+				flex: 1,
+				height: 'auto',
+				flexDirection: 'column',
+				marginHorizontal: '5%',
+			}}
+		>
+			<Reanimated.View style={{ flex: 1 }}>
+				<VStack sx={{ h: 110 }} mt={'$4'}>
+					<Controller
+						name='authenticator'
+						control={control}
+						render={({ field: { onChange, onBlur, value } }) => (
+							<Input variant={'underlined'} size='lg' alignItems='center'>
+								<Input.Input
+									key={'authenticator'}
+									placeholder='Username, phone, email'
+									fontSize={'$2xl'}
+									lineHeight={'$2xl'}
+									fontWeight='$medium'
+									keyboardAppearance={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
+									returnKeyType='done'
+									enablesReturnKeyAutomatically
+									textContentType={keyboardType === 'number-pad' ? 'telephoneNumber' : 'emailAddress'}
+									autoComplete={keyboardType === 'number-pad' ? 'cc-number' : 'email'}
+									keyboardType={keyboardType === 'number-pad' ? 'number-pad' : 'email-address'}
+									numberOfLines={1}
+									inputAccessoryViewID={INPUT_ACCESSORY_VIEW_ID}
+									autoCapitalize='none'
+									autoFocus
+									value={value}
+									type='text'
+									py={'$2'}
+									sx={{
+										h: 50,
+									}}
+									onSubmitEditing={handleSubmit(onSubmit)}
+									onBlur={onBlur}
+									blurOnSubmit={false}
+									autoCorrect={false}
+									onChangeText={value => {
+										if (keyboardType === 'number-pad') {
+											onChange(value.toLowerCase())
+											setValue('authenticator', value)
+										} else {
+											onChange(value)
+											setValue('authenticator', value.trim())
+										}
+									}}
+								/>
+								<RightIcon />
+							</Input>
+						)}
+						rules={{
+							required: {
+								value: true,
+								message: '',
+							},
 						}}
-						my={'$3'}
-						rounded={'$md'}
-					>
-						<Text textTransform='uppercase' fontWeight='$black' fontSize={'$lg'}>
-							Sign up
-						</Text>
-					</Button>
-				) : null}
+					/>
+					{errors?.authenticator?.message ? (
+						<Button
+							onPress={() => {
+								router.replace({
+									pathname: '(app)/credential/personalcredentialstack/getstarted',
+								})
+							}}
+							my={'$3'}
+							rounded={'$md'}
+						>
+							<Text textTransform='uppercase' fontWeight='$black' fontSize={'$lg'}>
+								Sign up
+							</Text>
+						</Button>
+					) : null}
+				</VStack>
 			</Reanimated.View>
 			{Platform.OS === 'ios' ? (
 				<InputAccessoryView nativeID={INPUT_ACCESSORY_VIEW_ID}>
-					<Box
-						flexDirection={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						sx={{
-							h: 70,
-						}}
-						px={'$2'}
-					>
-						<View
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-							}}
-						>
-							<Pressable onPress={handleSubmit(onSubmit)}>
-								<Box
-									alignItems='center'
-									justifyContent='center'
-									sx={{
-										h: 50,
-										w: 50,
-									}}
-									rounded={'$full'}
-									bg='$primary500'
-								>
-									<Feather
-										name='arrow-right'
-										size={32}
-										color={errors?.authenticator ? '#292524' : 'white'}
-									/>
-								</Box>
-							</Pressable>
-						</View>
-					</Box>
+					<InnerContent />
 				</InputAccessoryView>
 			) : (
 				<Reanimated.View
@@ -293,44 +330,9 @@ export default () => {
 						textInputContainerStyle,
 					]}
 				>
-					<Box
-						flexDirection={'row'}
-						justifyContent={'flex-end'}
-						alignContent={'space-around'}
-						sx={{
-							h: 70,
-						}}
-						px={'$2'}
-					>
-						<View
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'space-around',
-							}}
-						>
-							<Pressable disabled={!!errors.authenticator} onPress={handleSubmit(onSubmit)}>
-								<Box
-									alignItems='center'
-									justifyContent='center'
-									sx={{
-										h: 50,
-										w: 50,
-									}}
-									rounded={'$full'}
-									bg='$primary500'
-								>
-									<Feather
-										name='arrow-right'
-										size={32}
-										color={errors?.authenticator ? '#292524' : 'white'}
-									/>
-								</Box>
-							</Pressable>
-						</View>
-					</Box>
+					<InnerContent />
 				</Reanimated.View>
 			)}
-		</Box>
+		</KeyboardAvoidingView>
 	)
 }

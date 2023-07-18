@@ -10,6 +10,7 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				slug: 'barfriends',
 				owner: 'barfriends',
 				scheme: 'barfriends',
+
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				primaryColor: '#FF7000',
@@ -17,6 +18,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					'expo-router',
 					'sentry-expo',
 					'expo-build-properties',
+					[
+						'expo-screen-orientation',
+						{
+							initialOrientation: 'PORTRAIT_UP',
+						},
+					],
 					[
 						'expo-contacts',
 						{
@@ -142,6 +149,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 					'expo-router',
 					'sentry-expo',
 					['expo-build-properties'],
+					[
+						'expo-screen-orientation',
+						{
+							initialOrientation: 'PORTRAIT_UP',
+						},
+					],
 					'expo-localization',
 					[
 						'expo-contacts',
@@ -276,6 +289,12 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 							ios: {
 								flipper: true,
 							},
+						},
+					],
+					[
+						'expo-screen-orientation',
+						{
+							initialOrientation: 'PORTRAIT_UP',
 						},
 					],
 					'expo-localization',

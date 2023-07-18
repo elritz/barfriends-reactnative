@@ -9,7 +9,7 @@ export default function InviteCard() {
 	const rPermissionContactsVar = useReactiveVar(PermissionContactsReactiveVar)
 
 	return (
-		<VStack w={'$full'} justifyContent='space-between' flex={1}>
+		<VStack w={'$full'} justifyContent='space-between' flex={1} mb={'$2'}>
 			<VStack mt={'$4'} w={'$full'} alignItems={'flex-start'}>
 				<Box bg='$red400' h={'$10'} w={'$10'} alignItems='center' justifyContent='center'>
 					<Ionicons name='people' size={23} color={'black'} />

@@ -4560,10 +4560,10 @@ input EmojimoodCreateManyInput {
   id: Int
 }
 
-input EmojimoodCreateNestedManyWithoutStoryInput {
-  connect: [EmojimoodWhereUniqueInput!]
-  connectOrCreate: [EmojimoodCreateOrConnectWithoutStoryInput!]
-  create: [EmojimoodCreateWithoutStoryInput!]
+input EmojimoodCreateNestedOneWithoutStoryInput {
+  connect: EmojimoodWhereUniqueInput
+  connectOrCreate: EmojimoodCreateOrConnectWithoutStoryInput
+  create: EmojimoodCreateWithoutStoryInput
 }
 
 input EmojimoodCreateOrConnectWithoutStoryInput {
@@ -4577,12 +4577,6 @@ input EmojimoodCreateWithoutStoryInput {
   emojiname: String
 }
 
-input EmojimoodListRelationFilter {
-  every: EmojimoodWhereInput
-  none: EmojimoodWhereInput
-  some: EmojimoodWhereInput
-}
-
 input EmojimoodMaxOrderByAggregateInput {
   emoji: SortOrder
   emojiname: SortOrder
@@ -4593,10 +4587,6 @@ input EmojimoodMinOrderByAggregateInput {
   emoji: SortOrder
   emojiname: SortOrder
   id: SortOrder
-}
-
-input EmojimoodOrderByRelationAggregateInput {
-  _count: SortOrder
 }
 
 input EmojimoodOrderByWithAggregationInput {
@@ -4619,21 +4609,16 @@ input EmojimoodOrderByWithRelationInput {
   Story: StoryOrderByRelationAggregateInput
 }
 
+input EmojimoodRelationFilter {
+  is: EmojimoodWhereInput
+  isNot: EmojimoodWhereInput
+}
+
 enum EmojimoodScalarFieldEnum {
   colors
   emoji
   emojiname
   id
-}
-
-input EmojimoodScalarWhereInput {
-  AND: [EmojimoodScalarWhereInput!]
-  colors: StringNullableListFilter
-  emoji: StringNullableFilter
-  emojiname: StringNullableFilter
-  id: IntFilter
-  NOT: [EmojimoodScalarWhereInput!]
-  OR: [EmojimoodScalarWhereInput!]
 }
 
 input EmojimoodScalarWhereWithAggregatesInput {
@@ -4668,22 +4653,14 @@ input EmojimoodUpdateManyMutationInput {
   emojiname: NullableStringFieldUpdateOperationsInput
 }
 
-input EmojimoodUpdateManyWithoutStoryNestedInput {
-  connect: [EmojimoodWhereUniqueInput!]
-  connectOrCreate: [EmojimoodCreateOrConnectWithoutStoryInput!]
-  create: [EmojimoodCreateWithoutStoryInput!]
-  delete: [EmojimoodWhereUniqueInput!]
-  deleteMany: [EmojimoodScalarWhereInput!]
-  disconnect: [EmojimoodWhereUniqueInput!]
-  set: [EmojimoodWhereUniqueInput!]
-  update: [EmojimoodUpdateWithWhereUniqueWithoutStoryInput!]
-  updateMany: [EmojimoodUpdateManyWithWhereWithoutStoryInput!]
-  upsert: [EmojimoodUpsertWithWhereUniqueWithoutStoryInput!]
-}
-
-input EmojimoodUpdateManyWithWhereWithoutStoryInput {
-  data: EmojimoodUpdateManyMutationInput!
-  where: EmojimoodScalarWhereInput!
+input EmojimoodUpdateOneWithoutStoryNestedInput {
+  connect: EmojimoodWhereUniqueInput
+  connectOrCreate: EmojimoodCreateOrConnectWithoutStoryInput
+  create: EmojimoodCreateWithoutStoryInput
+  delete: Boolean
+  disconnect: Boolean
+  update: EmojimoodUpdateWithoutStoryInput
+  upsert: EmojimoodUpsertWithoutStoryInput
 }
 
 input EmojimoodUpdateWithoutStoryInput {
@@ -4692,15 +4669,9 @@ input EmojimoodUpdateWithoutStoryInput {
   emojiname: NullableStringFieldUpdateOperationsInput
 }
 
-input EmojimoodUpdateWithWhereUniqueWithoutStoryInput {
-  data: EmojimoodUpdateWithoutStoryInput!
-  where: EmojimoodWhereUniqueInput!
-}
-
-input EmojimoodUpsertWithWhereUniqueWithoutStoryInput {
+input EmojimoodUpsertWithoutStoryInput {
   create: EmojimoodCreateWithoutStoryInput!
   update: EmojimoodUpdateWithoutStoryInput!
-  where: EmojimoodWhereUniqueInput!
 }
 
 input EmojimoodWhereInput {
@@ -8416,8 +8387,8 @@ type Mutation {
   updateH6VenueRemmendation(venueRecommendationId: String!): H3Index6VenueRecommendation!
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateInput!): AuthenticationResponseUnion!
-  updateStoryEmojimood(emojimoodId: Int!, storyId: String): Boolean!
-  updateStoryPhotos(disconnectId: String, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Boolean!
+  updateStoryEmojimood(emojimoodId: Int!, storyId: String): Story!
+  updateStoryPhotos(disconnectId: String, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Story!
   updateThemeManagerSwitchTheme(id: String!, themeId: String!): ProfileTheme!
   upsertDevicePushToken(androidToken: String, appleToken: String, expoToken: String): Boolean!
 }
@@ -15423,7 +15394,7 @@ input StateWhereUniqueInput {
 type Story {
   createdAt: DateTime!
   date: DateTime!
-  emojimood: [Emojimood!]!
+  emojimood: Emojimood
   id: ID!
   photos: [Photo!]!
   Profile: Profile!
@@ -15431,9 +15402,14 @@ type Story {
   updatedAt: DateTime
 }
 
+input StoryAvgOrderByAggregateInput {
+  emojimoodId: SortOrder
+}
+
 input StoryCountOrderByAggregateInput {
   createdAt: SortOrder
   date: SortOrder
+  emojimoodId: SortOrder
   id: SortOrder
   profileId: SortOrder
   updatedAt: SortOrder
@@ -15442,16 +15418,30 @@ input StoryCountOrderByAggregateInput {
 input StoryCreateInput {
   createdAt: DateTime
   date: DateTime!
-  emojimood: EmojimoodCreateNestedManyWithoutStoryInput
+  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
   id: String
   Photos: PhotoCreateNestedManyWithoutStoryInput
   Profile: ProfileCreateNestedOneWithoutStorysInput
   updatedAt: DateTime
 }
 
+input StoryCreateManyEmojimoodInput {
+  createdAt: DateTime
+  date: DateTime!
+  id: String
+  profileId: String
+  updatedAt: DateTime
+}
+
+input StoryCreateManyEmojimoodInputEnvelope {
+  data: [StoryCreateManyEmojimoodInput!]!
+  skipDuplicates: Boolean
+}
+
 input StoryCreateManyInput {
   createdAt: DateTime
   date: DateTime!
+  emojimoodId: Int
   id: String
   profileId: String
   updatedAt: DateTime
@@ -15460,6 +15450,7 @@ input StoryCreateManyInput {
 input StoryCreateManyProfileInput {
   createdAt: DateTime
   date: DateTime!
+  emojimoodId: Int
   id: String
   updatedAt: DateTime
 }
@@ -15473,6 +15464,7 @@ input StoryCreateNestedManyWithoutEmojimoodInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutEmojimoodInput!]
   create: [StoryCreateWithoutEmojimoodInput!]
+  createMany: StoryCreateManyEmojimoodInputEnvelope
 }
 
 input StoryCreateNestedManyWithoutProfileInput {
@@ -15515,7 +15507,7 @@ input StoryCreateWithoutEmojimoodInput {
 input StoryCreateWithoutPhotosInput {
   createdAt: DateTime
   date: DateTime!
-  emojimood: EmojimoodCreateNestedManyWithoutStoryInput
+  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
   id: String
   Profile: ProfileCreateNestedOneWithoutStorysInput
   updatedAt: DateTime
@@ -15524,7 +15516,7 @@ input StoryCreateWithoutPhotosInput {
 input StoryCreateWithoutProfileInput {
   createdAt: DateTime
   date: DateTime!
-  emojimood: EmojimoodCreateNestedManyWithoutStoryInput
+  emojimood: EmojimoodCreateNestedOneWithoutStoryInput
   id: String
   Photos: PhotoCreateNestedManyWithoutStoryInput
   updatedAt: DateTime
@@ -15539,6 +15531,7 @@ input StoryListRelationFilter {
 input StoryMaxOrderByAggregateInput {
   createdAt: SortOrder
   date: SortOrder
+  emojimoodId: SortOrder
   id: SortOrder
   profileId: SortOrder
   updatedAt: SortOrder
@@ -15547,6 +15540,7 @@ input StoryMaxOrderByAggregateInput {
 input StoryMinOrderByAggregateInput {
   createdAt: SortOrder
   date: SortOrder
+  emojimoodId: SortOrder
   id: SortOrder
   profileId: SortOrder
   updatedAt: SortOrder
@@ -15557,11 +15551,14 @@ input StoryOrderByRelationAggregateInput {
 }
 
 input StoryOrderByWithAggregationInput {
+  _avg: StoryAvgOrderByAggregateInput
   _count: StoryCountOrderByAggregateInput
   _max: StoryMaxOrderByAggregateInput
   _min: StoryMinOrderByAggregateInput
+  _sum: StorySumOrderByAggregateInput
   createdAt: SortOrder
   date: SortOrder
+  emojimoodId: SortOrder
   id: SortOrder
   profileId: SortOrder
   updatedAt: SortOrder
@@ -15570,7 +15567,8 @@ input StoryOrderByWithAggregationInput {
 input StoryOrderByWithRelationInput {
   createdAt: SortOrder
   date: SortOrder
-  emojimood: EmojimoodOrderByRelationAggregateInput
+  emojimood: EmojimoodOrderByWithRelationInput
+  emojimoodId: SortOrder
   id: SortOrder
   Photos: PhotoOrderByRelationAggregateInput
   Profile: ProfileOrderByWithRelationInput
@@ -15586,6 +15584,7 @@ input StoryRelationFilter {
 enum StoryScalarFieldEnum {
   createdAt
   date
+  emojimoodId
   id
   profileId
   updatedAt
@@ -15595,6 +15594,7 @@ input StoryScalarWhereInput {
   AND: [StoryScalarWhereInput!]
   createdAt: DateTimeFilter
   date: DateTimeFilter
+  emojimoodId: IntNullableFilter
   id: StringFilter
   NOT: [StoryScalarWhereInput!]
   OR: [StoryScalarWhereInput!]
@@ -15606,6 +15606,7 @@ input StoryScalarWhereWithAggregatesInput {
   AND: [StoryScalarWhereWithAggregatesInput!]
   createdAt: DateTimeWithAggregatesFilter
   date: DateTimeWithAggregatesFilter
+  emojimoodId: IntNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
   NOT: [StoryScalarWhereWithAggregatesInput!]
   OR: [StoryScalarWhereWithAggregatesInput!]
@@ -15613,10 +15614,14 @@ input StoryScalarWhereWithAggregatesInput {
   updatedAt: DateTimeWithAggregatesFilter
 }
 
+input StorySumOrderByAggregateInput {
+  emojimoodId: SortOrder
+}
+
 input StoryUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   date: DateTimeFieldUpdateOperationsInput
-  emojimood: EmojimoodUpdateManyWithoutStoryNestedInput
+  emojimood: EmojimoodUpdateOneWithoutStoryNestedInput
   id: StringFieldUpdateOperationsInput
   Photos: PhotoUpdateManyWithoutStoryNestedInput
   Profile: ProfileUpdateOneWithoutStorysNestedInput
@@ -15634,6 +15639,7 @@ input StoryUpdateManyWithoutEmojimoodNestedInput {
   connect: [StoryWhereUniqueInput!]
   connectOrCreate: [StoryCreateOrConnectWithoutEmojimoodInput!]
   create: [StoryCreateWithoutEmojimoodInput!]
+  createMany: StoryCreateManyEmojimoodInputEnvelope
   delete: [StoryWhereUniqueInput!]
   deleteMany: [StoryScalarWhereInput!]
   disconnect: [StoryWhereUniqueInput!]
@@ -15689,7 +15695,7 @@ input StoryUpdateWithoutEmojimoodInput {
 input StoryUpdateWithoutPhotosInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   date: DateTimeFieldUpdateOperationsInput
-  emojimood: EmojimoodUpdateManyWithoutStoryNestedInput
+  emojimood: EmojimoodUpdateOneWithoutStoryNestedInput
   id: StringFieldUpdateOperationsInput
   Profile: ProfileUpdateOneWithoutStorysNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -15698,7 +15704,7 @@ input StoryUpdateWithoutPhotosInput {
 input StoryUpdateWithoutProfileInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   date: DateTimeFieldUpdateOperationsInput
-  emojimood: EmojimoodUpdateManyWithoutStoryNestedInput
+  emojimood: EmojimoodUpdateOneWithoutStoryNestedInput
   id: StringFieldUpdateOperationsInput
   Photos: PhotoUpdateManyWithoutStoryNestedInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -15735,7 +15741,8 @@ input StoryWhereInput {
   AND: [StoryWhereInput!]
   createdAt: DateTimeFilter
   date: DateTimeFilter
-  emojimood: EmojimoodListRelationFilter
+  emojimood: EmojimoodWhereInput
+  emojimoodId: IntNullableFilter
   id: StringFilter
   NOT: [StoryWhereInput!]
   OR: [StoryWhereInput!]

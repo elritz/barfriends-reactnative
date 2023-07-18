@@ -1,16 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
 import { VStack } from '@components/core'
 import SearchInput from '@components/molecules/search/searchinput/SearchInput'
-import { SEARCH_BAR_HEIGHT } from '@constants/ReactNavigationConstants'
 import { ThemeReactiveVar } from '@reactive'
 import { BlurView } from 'expo-blur'
 import { Stack, useSegments } from 'expo-router'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const segments = useSegments()
-	
+
 	return (
 		<Stack
 			initialRouteName='hometab/venuefeed'
@@ -21,18 +19,6 @@ export default () => {
 					segments.includes('searcharea') ||
 					segments.includes('tonight') ||
 					segments.includes('explore'),
-				// headerShown: segments.some(i => {
-				// 	switch (i) {
-				// 		case 'messagestack':
-				// 			return true
-				// 		case 'venuefeed':
-				// 			return true
-				// 	}
-				// if (i === 'messagestack' || i === 'venuefeed') {
-				// 	return true
-				// }
-				// return false
-				// }),
 				headerTransparent: true,
 				header: () => {
 					return (

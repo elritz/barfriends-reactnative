@@ -45,6 +45,7 @@ import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'ex
 import { getPermissionsAsync as getMediaPermissionAsync } from 'expo-media-library'
 import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
 import { Slot, SplashScreen, Stack } from 'expo-router'
+import * as ScreenOrientation from 'expo-screen-orientation'
 import { useEffect } from 'react'
 import { Appearance } from 'react-native'
 import 'react-native-gesture-handler'
@@ -64,6 +65,10 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync()
 
 export default function Root() {
+	async function changeScreenOrientation() {
+		await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+	}
+
 	const setAsyncPreferencesLocalStorageData = async () => {
 		try {
 			// await AsyncStorage.removeItem(LOCAL_STORAGE_SEARCH_AREA)
@@ -238,6 +243,7 @@ export default function Root() {
 	}
 
 	useEffect(() => {
+		changeScreenOrientation()
 		setAsyncPreferencesLocalStorageData()
 		setPermissions()
 	}, [])

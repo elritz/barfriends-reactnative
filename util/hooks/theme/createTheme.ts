@@ -2,7 +2,7 @@ import { Config, config } from '../../../gluestack-ui.config'
 import { defaulttheme } from '@assets/theme/default'
 import { ThemeColorSchemeOptionsType } from '@ctypes/preferences'
 import { DefaultTheme } from '@react-navigation/native'
-import { AuthorizationReactiveVar, IBFSTheme, ThemeReactiveVar } from '@reactive'
+import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { Appearance, ColorSchemeName } from 'react-native'
 
 type Props = {
@@ -16,8 +16,6 @@ const createTheme = ({ themeScheme, localStorageColorScheme }: Props) => {
 	const theme =
 		AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].Theme.theme ||
 		defaulttheme
-
-	console.log('defaulttheme :>> ', JSON.stringify(defaulttheme, null, 2))
 
 	const rnColors = () => {
 		const rn = themeScheme === 'dark' ? theme.reactnavigation.dark : theme.reactnavigation.light
