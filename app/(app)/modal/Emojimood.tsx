@@ -21,7 +21,7 @@ export default () => {
 	const { data, loading, error } = useEmojimoodsQuery({})
 
 	if (loading) {
-		return <Heading>EmojiMoods</Heading>
+		return null
 	}
 
 	return (

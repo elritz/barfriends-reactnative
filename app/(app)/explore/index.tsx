@@ -1,22 +1,18 @@
 import { Box, Pressable, Text } from '@components/core'
 import ShowCaseScroll from '@components/screens/explore/ShowCaseScroll'
-import {
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
-} from '@constants/ReactNavigationConstants'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter } from 'expo-router'
 import { Image } from 'react-native'
 import { View, useWindowDimensions } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const { width } = useWindowDimensions()
 	const router = useRouter()
 	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
 	const height = width * (1.25 / numColumns)
-	const insets = useSafeAreaInsets()
+	const contentInsets = useContentInsets()
 	const { data, loading, error } = useProfilesQuery({
 		variables: {
 			where: {
@@ -39,10 +35,7 @@ export default () => {
 					return <ShowCaseScroll />
 				}}
 				contentInset={{
-					bottom:
-						insets.bottom !== 0
-							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+					...contentInsets,
 				}}
 				renderItem={({ item }) => {
 					return (

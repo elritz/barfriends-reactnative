@@ -64,6 +64,7 @@ export default () => {
 						backgroundColor: 'transparent',
 					},
 					headerShown: false,
+					animation: 'fade',
 				}}
 			>
 				<Stack.Screen
@@ -72,6 +73,7 @@ export default () => {
 						headerShown: true,
 						headerTitle: () => <LogoTransparent height={30} width={192} />,
 						headerLeft: () => <ChevronBackArrow />,
+						animation: 'fade',
 					}}
 				/>
 				<Stack.Screen
@@ -80,6 +82,7 @@ export default () => {
 						headerShown: true,
 						title: '',
 						headerTransparent: true,
+						presentation: 'fullScreenModal',
 						header: () => {
 							return (
 								<HStack

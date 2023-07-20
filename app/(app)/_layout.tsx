@@ -61,7 +61,7 @@ export default () => {
 						animation: 'fade',
 					}}
 				/>
-				<Stack.Screen name={'modal'} />
+				<Stack.Screen name={'modal'} options={{ animation: 'fade' }} />
 				<Stack.Screen name={'public'} />
 				<Stack.Screen
 					name={'searcharea'}

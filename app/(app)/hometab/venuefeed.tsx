@@ -24,6 +24,7 @@ import {
 	ThemeReactiveVar,
 } from '@reactive'
 import { FlashList, MasonryFlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
 import { Dimensions, ScrollView, View } from 'react-native'
@@ -32,6 +33,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const insets = useSafeAreaInsets()
+	const contentInsets = useContentInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
@@ -118,6 +120,9 @@ export default () => {
 				onRefresh={onPullRefresh}
 				refreshing={loading}
 				estimatedItemSize={260}
+				contentInset={{
+					...contentInsets,
+				}}
 				data={[...Array(6)]}
 				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={<ListheaderComponent typename={data?.venuesNearby.__typename} />}
@@ -144,7 +149,7 @@ export default () => {
 						</View>
 					)
 				}}
-				ItemSeparatorComponent={() => <Box bg='$transparent' h={'$12'} />}
+				ItemSeparatorComponent={() => <Box bg='$transparent' h={'$5'} />}
 			/>
 		)
 	}
@@ -164,6 +169,9 @@ export default () => {
 				overScrollMode='always'
 				keyExtractor={(item, index) => index.toString()}
 				onRefresh={onPullRefresh}
+				contentInset={{
+					...contentInsets,
+				}}
 				refreshing={loading}
 				estimatedItemSize={30}
 				ListHeaderComponent={<ListheaderComponent typename={data.venuesNearby.__typename} />}
@@ -270,16 +278,13 @@ export default () => {
 				estimatedItemSize={100}
 				scrollEnabled
 				contentInset={{
-					bottom:
-						insets.bottom !== 0
-							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+					...contentInsets,
 				}}
 				data={data?.venuesNearby.venuesNearby}
 				renderItem={({ item, index, columnIndex }) => (
 					<MemoizedVerticalVenueFeedVenueItem index={index} item={item} columnIndex={columnIndex} />
 				)}
-				ItemSeparatorComponent={() => <Box bg={'transparent'} h={'$12'} />}
+				ItemSeparatorComponent={() => <Box bg={'transparent'} h={'$5'} />}
 				keyExtractor={item => item.id}
 				ListHeaderComponent={ListheaderComponent}
 				ListFooterComponent={listFooterComponent}

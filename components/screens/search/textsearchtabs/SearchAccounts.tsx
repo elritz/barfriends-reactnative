@@ -4,6 +4,7 @@ import { Box, Center, Heading } from '@components/core'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useGlobalSearchParams } from 'expo-router'
 import { Skeleton } from 'moti/skeleton'
 import { View } from 'react-native'
@@ -12,8 +13,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 export default function SearchAccounts() {
 	const params = useGlobalSearchParams()
 	const insets = useSafeAreaInsets()
+	const contentInsets = useContentInsets()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
-	
+
 	const {
 		data,
 		loading: ESLoading,
@@ -32,6 +34,9 @@ export default function SearchAccounts() {
 				estimatedItemSize={65}
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
+				contentInset={{
+					...contentInsets,
+				}}
 				keyExtractor={(item, index) => index.toString()}
 				renderItem={({ item }) => {
 					return (
@@ -61,7 +66,11 @@ export default function SearchAccounts() {
 
 	if (!data?.exploreSearch.people.length) {
 		return (
-			<Box mt={insets.top}>
+			<Box
+				sx={{
+					mt: contentInsets.top,
+				}}
+			>
 				<Center>
 					<Heading fontSize={'$md'} fontWeight={'$medium'}>
 						No search results for
@@ -75,6 +84,9 @@ export default function SearchAccounts() {
 	return (
 		<Box bg={'$transparent'} style={{ flex: 1 }}>
 			<FlashList
+				contentInset={{
+					...contentInsets,
+				}}
 				data={data?.exploreSearch.people}
 				estimatedItemSize={55}
 				keyExtractor={({ id }: { id: string }) => id.toString()}

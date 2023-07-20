@@ -5,14 +5,10 @@ import QuickBarfriendCard from '@components/screens/public/venue/venueactions/ac
 import AddEmoji from '@components/screens/tonight/activity/ask/AddEmoji/AddEmoji'
 import JoinVenue from '@components/screens/tonight/activity/ask/JoinVenue/JoinVenue'
 import Photos from '@components/screens/tonight/photos'
-import {
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
-} from '@constants/ReactNavigationConstants'
 import { AuthorizationReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Wrapper = ({ children }) => {
 	return (
@@ -35,7 +31,7 @@ const Wrapper = ({ children }) => {
 }
 
 export default () => {
-	const insets = useSafeAreaInsets()
+	const contentInsets = useContentInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	return (
@@ -53,11 +49,7 @@ export default () => {
 					paddingHorizontal: 5,
 				}}
 				contentInset={{
-					top: insets.top + 60,
-					bottom:
-						insets.bottom !== 0
-							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+					...contentInsets,
 				}}
 				ListHeaderComponent={() => {
 					return <Photos />

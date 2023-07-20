@@ -10,7 +10,7 @@ export default function DevActions() {
 	return (
 		<VStack space={'$4'} justifyContent={'space-between'}>
 			{showDevMode ? (
-				<Box py={'$10'} my={'$10'}>
+				<Box py={'$10'} my={'$5'}>
 					<Pressable
 						onPress={() => {
 							setShowDevMode(!showDevMode)
@@ -44,7 +44,7 @@ export default function DevActions() {
 					</VStack>
 				</Box>
 			) : (
-				<Box py={'$10'} my={'$10'}>
+				<Box py={'$10'} my={'$5'}>
 					<Pressable
 						onPress={() => {
 							setShowDevMode(!showDevMode)

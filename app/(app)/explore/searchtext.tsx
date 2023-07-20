@@ -5,13 +5,14 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
+import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type Item = {
 	search: string
@@ -20,7 +21,7 @@ type Item = {
 export default () => {
 	const router = useRouter()
 	const params = useLocalSearchParams()
-	const insets = useSafeAreaInsets()
+	const contentInsets = useContentInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
@@ -56,7 +57,9 @@ export default () => {
 				estimatedItemSize={60}
 				keyExtractor={(item, index) => index.toString()}
 				scrollEnabled={false}
-				// contentInset={{ top: insets.top }}
+				contentInset={{
+					...contentInsets,
+				}}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
 				renderItem={item => {
@@ -97,6 +100,7 @@ export default () => {
 	const PastSearchItem = (item: Item) => {
 		return (
 			<Pressable
+				px={'$2'}
 				onPress={() => {
 					router.setParams({
 						searchtext: item.search,
@@ -116,14 +120,29 @@ export default () => {
 					justifyContent={'flex-start'}
 					alignItems={'center'}
 					space={'md'}
-					px={'$2'}
 				>
 					<Button
+						sx={{
+							w: 35,
+							h: 35,
+						}}
 						variant={'outline'}
 						size={'sm'}
 						rounded={'$md'}
 						// icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
-					/>
+					>
+						<Button.Icon>
+							<Ionicons
+								name='ios-search'
+								size={20}
+								color={
+									rTheme.colorScheme === 'light'
+										? rTheme.theme?.gluestack.tokens.colors.light900
+										: rTheme.theme?.gluestack.tokens.colors.dark900
+								}
+							/>
+						</Button.Icon>
+					</Button>
 					<VStack>
 						<Text fontSize={'$md'} fontWeight={'$medium'}>
 							{item.search}
@@ -136,19 +155,24 @@ export default () => {
 
 	if (!params?.searchtext?.length) {
 		return (
-			<FlashList
-				data={filteredRecentSearches as Array<Item>}
-				numColumns={1}
-				estimatedItemSize={55}
-				keyExtractor={(item, index) => index.toString()}
-				scrollEnabled={true}
-				renderItem={item => <PastSearchItem search={item.item.search} />}
-				contentInset={{ top: insets.top }}
-				automaticallyAdjustContentInsets
-				automaticallyAdjustsScrollIndicatorInsets
-				contentInsetAdjustmentBehavior={'automatic'}
-				keyboardDismissMode='on-drag'
-			/>
+			<>
+				<Heading>SEARCHTEXT</Heading>
+				<FlashList
+					data={filteredRecentSearches as Array<Item>}
+					numColumns={1}
+					estimatedItemSize={55}
+					keyExtractor={(item, index) => index.toString()}
+					scrollEnabled={true}
+					renderItem={item => <PastSearchItem search={item.item.search} />}
+					contentInset={{
+						...contentInsets,
+					}}
+					automaticallyAdjustContentInsets
+					automaticallyAdjustsScrollIndicatorInsets
+					contentInsetAdjustmentBehavior={'automatic'}
+					keyboardDismissMode='on-drag'
+				/>
+			</>
 		)
 	}
 
@@ -158,11 +182,7 @@ export default () => {
 				scrollEnabled={true}
 				estimatedItemSize={40}
 				contentInset={{
-					// top: insets.top + 10,
-					bottom:
-						insets.bottom !== 0
-							? HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS
-							: HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
+					...contentInsets,
 				}}
 				automaticallyAdjustKeyboardInsets
 				automaticallyAdjustContentInsets

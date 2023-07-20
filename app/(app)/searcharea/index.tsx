@@ -5,11 +5,14 @@ import SearchAreaLocationPermissionItem from '@components/organisms/list/searcha
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar } from '@reactive'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter } from 'expo-router'
 import { ScrollView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const router = useRouter()
+	const contentInsets = useContentInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
 	const searchAreaLocation = [
@@ -78,6 +81,9 @@ export default () => {
 				marginHorizontal: 4,
 				flex: 1,
 			}}
+			contentInset={{
+				...contentInsets,
+			}}
 		>
 			<VStack space={'md'} my={'$4'} mx={'$2'}>
 				<Box bg={'$transparent'}>
@@ -85,7 +91,7 @@ export default () => {
 						<Heading fontSize={'$lg'} lineHeight={'$sm'}>
 							Distance{`\n`}
 							<Text fontSize={'$md'} lineHeight={'$sm'}>
-								Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away. 
+								Around&nbsp;{rSearchAreaVar.kRing.distance}&nbsp;km away.
 							</Text>
 						</Heading>
 

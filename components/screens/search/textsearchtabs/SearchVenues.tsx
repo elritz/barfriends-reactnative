@@ -4,6 +4,7 @@ import { Box, Center, Heading } from '@components/core'
 import { useExploreSearchQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useGlobalSearchParams } from 'expo-router'
 import { uniqueId } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
@@ -12,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchVenues() {
 	const params = useGlobalSearchParams()
+	const contentInsets = useContentInsets()
 	const insets = useSafeAreaInsets()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
@@ -33,6 +35,9 @@ export default function SearchVenues() {
 				estimatedItemSize={65}
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
+				contentInset={{
+					...contentInsets,
+				}}
 				keyExtractor={(item, index) => index.toString()}
 				renderItem={({ item }) => {
 					return (
@@ -62,7 +67,11 @@ export default function SearchVenues() {
 	}
 	if (!data?.exploreSearch.venues.length) {
 		return (
-			<Box mt={insets.top}>
+			<Box
+				sx={{
+					mt: contentInsets.top,
+				}}
+			>
 				<Center>
 					<Heading fontSize={'$md'} fontWeight={'$medium'}>
 						No search results for
@@ -76,6 +85,9 @@ export default function SearchVenues() {
 	return (
 		<Box style={{ flex: 1 }}>
 			<FlashList
+				contentInset={{
+					...contentInsets,
+				}}
 				data={data?.exploreSearch.venues}
 				estimatedItemSize={55}
 				keyExtractor={({ id }: { id: string }) => id.toString()}

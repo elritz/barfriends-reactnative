@@ -55,6 +55,7 @@ const SearchInput = (props: Props) => {
 		shouldUnregister: true,
 	})
 
+	console.log('🚀 ~ file: SearchInput.tsx:64 ~ useLayoutEffect ~ segments:', segments)
 	useLayoutEffect(() => {
 		setShowBack(!segments.includes('hometab'))
 
@@ -114,13 +115,19 @@ const SearchInput = (props: Props) => {
 		// 		})
 		// 	}
 		// } else {
+		if (segments.includes('searchtext')) {
+			router.push({
+				pathname: '(app)/explore/searchresults',
+				params: { searchtext: data.searchtext },
+			})
+		}
 		if (
 			segments.includes('venufeed') ||
 			segments.includes('messagestack') ||
 			segments.includes('tonight')
 		) {
 			router.push({
-				pathname: '(app)/explore/searchresults',
+				pathname: '(app)/explore/searchtext',
 				params: { searchtext: data.searchtext },
 			})
 		}
