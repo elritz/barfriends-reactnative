@@ -15,10 +15,8 @@ import useGetDistance from '@util/hooks/useDistance'
 import { useRouter } from 'expo-router'
 import { useEffect, useState, memo } from 'react'
 import { Image } from 'react-native'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Blurhash } from 'react-native-blurhash'
-
-const width = Dimensions.get('window').width / 2.15
 
 type Props = {
 	item: ProfileVenue
@@ -202,7 +200,9 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 				return (
 					<VStack
 						space={'md'}
-						width={width}
+						// width={width}
+						w={'100%'}
+						p={'$1.5'}
 						flex={1}
 						style={{
 							alignSelf: 'center',
@@ -210,6 +210,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 						}}
 					>
 						<Box
+							bg='$transparent'
 							style={{
 								minHeight: 260,
 							}}
@@ -248,7 +249,7 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 								lineHeight={'$xs'}
 								ellipsizeMode='tail'
 								// underline={isPressed}
-								>
+							>
 								{getTitleCase(props?.item?.IdentifiableInformation?.fullname)}
 							</Heading>
 							<Heading
@@ -275,9 +276,9 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 										}}
 									>
 										{JVLoading || RPJVLoading ? (
-											<Text>{isJoined ? 'Leave' : 'Join'}</Text>
-										) : (
 											<Text>{isJoined ? 'Leaving' : 'Joining'}</Text>
+										) : (
+											<Text>{isJoined ? 'Leave' : 'Join'}</Text>
 										)}
 									</Button>
 								</>

@@ -1,7 +1,8 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, VStack, Text, Pressable, HStack } from '@components/core'
+import { Box, VStack, Text, Pressable, HStack, Heading } from '@components/core'
 import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import SearchAreaHeader from '@components/screens/venuesfeed/SearchAreaHeader'
+import ShowCaseScroll from '@components/screens/venuesfeed/ShowCaseScroll'
 import VenueFeedSearchAreaEmptyState from '@components/screens/venuesfeed/VenueFeedSearchAreaEmptyState'
 import MemoizedVerticalVenueFeedVenueItem from '@components/screens/venuesfeed/VerticalVenueFeedVenueItem'
 import DevActions from '@components/screens/venuesfeed/devactions'
@@ -27,7 +28,7 @@ import { FlashList, MasonryFlashList } from '@shopify/flash-list'
 import useContentInsets from '@util/hooks/useContentInsets'
 import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
-import { Dimensions, ScrollView, View } from 'react-native'
+import { Dimensions, NativeScrollEvent, ScrollView, View } from 'react-native'
 import CountryFlag from 'react-native-country-flag'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -93,8 +94,8 @@ export default () => {
 
 	const ListheaderComponent = ({ typename }) => {
 		return (
-			<Box bg={'transparent'} p={'$2'}>
-				{ENVIRONMENT === 'development' && <DevActions />}
+			<Box bg={'transparent'} py={'$2'}>
+				{/* {ENVIRONMENT === 'development' && <DevActions />} */}
 
 				<VStack bg={'transparent'} space={'md'}>
 					{rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === ProfileType.Guest && (
@@ -104,6 +105,10 @@ export default () => {
 					)}
 					{!rSearchAreaVar.searchArea.city.name && !typename && <VenueFeedSearchAreaEmptyState />}
 					{rSearchAreaVar.searchArea.city.name && <SearchAreaHeader typename={typename || null} />}
+					{/* <Box sx={{ h: 150 }}>
+						<Heading>Ad</Heading>
+					</Box> */}
+					<ShowCaseScroll />
 				</VStack>
 			</Box>
 		)
@@ -128,10 +133,10 @@ export default () => {
 				ListHeaderComponent={<ListheaderComponent typename={data?.venuesNearby.__typename} />}
 				renderItem={({ item }) => {
 					return (
-						<View style={{ alignSelf: 'center' }}>
+						<View style={{ alignSelf: 'center', padding: 5 }}>
 							<Skeleton
 								height={260}
-								width={width}
+								width={'100%'}
 								radius={15}
 								colorMode={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 								colors={
