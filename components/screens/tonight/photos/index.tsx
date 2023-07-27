@@ -1,11 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Center, Heading, Pressable, Text } from '@components/core'
+import { AddIcon, Box, Button, Center, Heading, Pressable, Text } from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
+import { PhotoCreateManyProfileInput, useAddStoryPhotosMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import useCloudinaryImageUploading from '@util/uploading/useCloudinaryImageUploading'
 import { BlurView } from 'expo-blur'
 import * as ImagePicker from 'expo-image-picker'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { Image } from 'react-native'
 import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
 import Animated, {
@@ -21,6 +22,7 @@ import Animated, {
 const size = 70
 
 export default function Photos() {
+	const [isLoading, setLoading] = useState(false)
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const { width } = useWindowDimensions()
@@ -36,8 +38,13 @@ export default function Photos() {
 		return Math.round(translateX.value / ITEM_WIDTH)
 	})
 
+	const [addPhotosMutation, { data, loading, error }] = useAddStoryPhotosMutation()
+
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
+		setTimeout(() => {
+			setLoading(true)
+		}, 1500)
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			presentationStyle: ImagePicker.UIImagePickerPresentationStyle.FULL_SCREEN,
@@ -47,20 +54,33 @@ export default function Photos() {
 			quality: 1,
 		})
 
+		console.log('result', JSON.stringify(result, null, 2))
+
 		if (result.assets) {
 			const resultSettled = await Promise.allSettled(
 				result.assets.map(async item => {
-					const { secure_url } = await useCloudinaryImageUploading(item.uri)
-
-					return secure_url
+					const data = await useCloudinaryImageUploading(item.uri)
+					return data.secure_url
 				}),
 			)
+			// console.log('resultSettled', JSON.stringify(resultSettled, null, 2))
 
-			resultSettled.map((item, index) => {
-				if (item.status === 'fulfilled') {
-					return item.value
+			const images: PhotoCreateManyProfileInput[] = resultSettled.map((item, index) => {
+				if (item.status === 'fulfilled' && item.value) {
+					return { url: item.value }
 				}
 			})
+
+			addPhotosMutation({
+				variables: {
+					photos: {
+						data: [...images],
+					},
+				},
+			})
+			setLoading(false)
+		} else {
+			setLoading(false)
 		}
 	}
 
@@ -118,6 +138,7 @@ export default function Photos() {
 			zIndex: 3,
 		},
 	})
+
 	return (
 		<Box bg={'$transparent'}>
 			{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length ? (
@@ -143,13 +164,28 @@ export default function Photos() {
 						{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.map((item, index) => {
 							return (
 								<View key={index}>
-									<Box h={'100%'} w={ITEM_WIDTH}>
+									<Box h={'100%'} w={ITEM_WIDTH} bg='$green300' rounded={'$md'} overflow='hidden'>
+										<Button
+											onPress={pickImage}
+											bg={'$tertiary400'}
+											rounded={'$md'}
+											position={'absolute'}
+											right={0}
+											top={10}
+											zIndex={20}
+										>
+											<Button.Icon>
+												<AddIcon />
+											</Button.Icon>
+										</Button>
 										<Pressable
 											position={'absolute'}
+											// bg='$amber800'
 											top={0}
+											left={0}
 											bottom={0}
-											h={'100%'}
 											w={ITEM_WIDTH / 2}
+											h={'100%'}
 											opacity={20}
 											onPress={() => {
 												onPressScroll('left')
@@ -158,6 +194,7 @@ export default function Photos() {
 										/>
 										<Pressable
 											position={'absolute'}
+											// bg='$yellow500'
 											top={0}
 											right={0}
 											bottom={0}
@@ -172,10 +209,12 @@ export default function Photos() {
 											source={{
 												uri: item.url,
 											}}
+											resizeMode='cover'
 											style={{
 												height: '100%',
 												width: '100%',
 												borderRadius: 0,
+												overflow: 'hidden',
 											}}
 										/>
 									</Box>
@@ -192,7 +231,6 @@ export default function Photos() {
 							flexDirection: 'row',
 						}}
 					>
-						<View>
 							{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos.map((_, i) => {
 								const rDotStyle = useAnimatedStyle(() => {
 									const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
@@ -223,17 +261,16 @@ export default function Photos() {
 									/>
 								)
 							})}
-						</View>
 					</View>
 				</Box>
 			) : (
 				<BlurView
 					tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
 					intensity={70}
-					style={{ borderRadius: 15, overflow: 'hidden' }}
+					style={{ borderRadius: 15, overflow: 'hidden', marginHorizontal: 7 }}
 				>
 					<Box
-						bg={'$transparent'}
+						// bg={'$transparent'}
 						sx={{
 							h: containerHeight,
 							w: '100%',
@@ -298,7 +335,7 @@ export default function Photos() {
 								Ready to go out? Add photos of your fit and pick your emojimood
 							</Text>
 							<Button onPress={pickImage} bg={'$tertiary400'} rounded={'$md'} mt={'$4'}>
-								<Text>Upload images</Text>
+								<Text>Upload{loading ? 'ing' : ''} images</Text>
 							</Button>
 						</Center>
 					</Box>

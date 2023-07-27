@@ -71,7 +71,7 @@ export default () => {
 											onPress={() => {
 												rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.id === watch('emojimood').id ||
 												watch('emojimood').id === item.id ||
-												rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood.id === item.id
+												rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood?.id === item.id
 													? reset()
 													: setValue('emojimood', item)
 											}}
@@ -104,7 +104,7 @@ export default () => {
 															rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.id === watch('emojimood').id
 																? 'white'
 																: watch('emojimood').id === item.id ||
-																  rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood.id === item.id
+																  rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.emojimood?.id === item.id
 																? 'white'
 																: 'transparent',
 													}}

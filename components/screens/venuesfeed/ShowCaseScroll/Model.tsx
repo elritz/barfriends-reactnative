@@ -17,7 +17,7 @@ export interface Product {
 	route: string
 }
 
-export const products = [
+export const products: Product[] = [
 	{
 		type: '_ad1',
 		title: `This buds \non us.`,

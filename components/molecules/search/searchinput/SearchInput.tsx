@@ -55,7 +55,6 @@ const SearchInput = (props: Props) => {
 		shouldUnregister: true,
 	})
 
-	console.log('🚀 ~ file: SearchInput.tsx:64 ~ useLayoutEffect ~ segments:', segments)
 	useLayoutEffect(() => {
 		setShowBack(!segments.includes('hometab'))
 
@@ -158,6 +157,7 @@ const SearchInput = (props: Props) => {
 						mr={'$2'}
 						ml={!showBack ? '$2' : '$0'}
 						zIndex={0}
+						hitSlop={{ top: 12, bottom: 12, left: 0, right: 15 }}
 						isReadOnly={!showBack}
 						bg={
 							rTheme.colorScheme === 'light'
@@ -185,6 +185,7 @@ const SearchInput = (props: Props) => {
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}
 							onPressIn={() => {
+								console.log('pressed :>> ')
 								if (segments.includes('hometab')) {
 									router.push({
 										pathname: '(app)/explore/searchtext',

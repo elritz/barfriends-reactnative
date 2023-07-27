@@ -306,10 +306,10 @@ const Card = ({
 							style={{ width: 150, height: 150, borderRadius: 15 }}
 						/>
 						<Heading
-							numberOfLines={1}
 							fontSize={'$2xl'}
 							fontWeight={'$extrabold'}
 							textTransform='uppercase'
+							// lineHeight={'$6xl'}
 							allowFontScaling
 							adjustsFontSizeToFit
 							textAlign='center'
@@ -320,6 +320,7 @@ const Card = ({
 							{title}
 						</Heading>
 						<Text
+							// bg='$green300'
 							fontSize={'$lg'}
 							sx={{
 								color: secondaryTextColor,

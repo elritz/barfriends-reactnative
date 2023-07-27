@@ -48,6 +48,7 @@ export default () => {
 									mx={'$1'}
 									my={'$2'}
 									flex={1}
+									overflow='hidden'
 									alignSelf={'center'}
 									onPress={() => {
 										router.push({
@@ -64,6 +65,8 @@ export default () => {
 												width: '100%',
 												height,
 												borderWidth: 3,
+												borderRadius: 10,
+												overflow: 'hidden',
 												borderColor: 'white',
 											}}
 											source={{ uri: item.photos[0].url }}

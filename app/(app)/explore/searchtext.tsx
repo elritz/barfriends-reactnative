@@ -62,14 +62,16 @@ export default () => {
 				}}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
+				ItemSeparatorComponent={() => <Box bg='$transparent' h={'$3'} />}
 				renderItem={item => {
 					return (
 						<HStack
 							px={'$5'}
 							sx={{
 								h: 60,
-								w: '90%',
 							}}
+							space='md'
+							flex={1}
 						>
 							<Skeleton
 								height={40}
@@ -88,8 +90,38 @@ export default () => {
 										  ]
 								}
 							/>
-							<Skeleton width={'100%'} height={20} />
-							<Skeleton width={'100%'} height={20} />
+							<VStack space='md'>
+								<Skeleton
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
+									width={200}
+									height={20}
+								/>
+								<Skeleton
+									colors={
+										rTheme.colorScheme === 'light'
+											? [
+													String(rTheme.theme?.gluestack.tokens.colors.light100),
+													String(rTheme.theme?.gluestack.tokens.colors.light300),
+											  ]
+											: [
+													String(rTheme.theme?.gluestack.tokens.colors.dark100),
+													String(rTheme.theme?.gluestack.tokens.colors.dark300),
+											  ]
+									}
+									width={100}
+									height={20}
+								/>
+							</VStack>
 						</HStack>
 					)
 				}}
@@ -121,7 +153,7 @@ export default () => {
 					alignItems={'center'}
 					space={'md'}
 				>
-					<Button
+					{/* <Button
 						sx={{
 							w: 35,
 							h: 35,
@@ -130,19 +162,30 @@ export default () => {
 						size={'sm'}
 						rounded={'$md'}
 						// icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
+					> */}
+					<Box
+						alignContent='center'
+						justifyContent='center'
+						alignItems='center'
+						borderWidth={'$2'}
+						// borderColor='$primary500'
+						rounded={'$md'}
+						sx={{
+							h: 35,
+							w: 35,
+						}}
 					>
-						<Button.Icon>
-							<Ionicons
-								name='ios-search'
-								size={20}
-								color={
-									rTheme.colorScheme === 'light'
-										? rTheme.theme?.gluestack.tokens.colors.light900
-										: rTheme.theme?.gluestack.tokens.colors.dark900
-								}
-							/>
-						</Button.Icon>
-					</Button>
+						<Ionicons
+							name='ios-search'
+							size={18}
+							color={
+								rTheme.colorScheme === 'light'
+									? rTheme.theme?.gluestack.tokens.colors.light900
+									: rTheme.theme?.gluestack.tokens.colors.dark900
+							}
+						/>
+					</Box>
+					{/* </Button> */}
 					<VStack>
 						<Text fontSize={'$md'} fontWeight={'$medium'}>
 							{item.search}
@@ -155,10 +198,12 @@ export default () => {
 
 	if (!params?.searchtext?.length) {
 		return (
-			<>
-				<Heading>SEARCHTEXT</Heading>
+			<Box flex={1} px={'$2'}>
 				<FlashList
 					data={filteredRecentSearches as Array<Item>}
+					ListHeaderComponent={() => {
+						return <Heading>Recent</Heading>
+					}}
 					numColumns={1}
 					estimatedItemSize={55}
 					keyExtractor={(item, index) => index.toString()}
@@ -167,17 +212,16 @@ export default () => {
 					contentInset={{
 						...contentInsets,
 					}}
-					automaticallyAdjustContentInsets
 					automaticallyAdjustsScrollIndicatorInsets
-					contentInsetAdjustmentBehavior={'automatic'}
 					keyboardDismissMode='on-drag'
+					ItemSeparatorComponent={() => <Box bg='$transparent' h={'$5'} />}
 				/>
-			</>
+			</Box>
 		)
 	}
 
 	return (
-		<Box flex={1}>
+		<Box flex={1} px={'$2'}>
 			<FlashList
 				scrollEnabled={true}
 				estimatedItemSize={40}
@@ -187,6 +231,7 @@ export default () => {
 				automaticallyAdjustKeyboardInsets
 				automaticallyAdjustContentInsets
 				keyboardDismissMode='on-drag'
+				ItemSeparatorComponent={() => <Box bg='$transparent' h={'$5'} />}
 				ListHeaderComponent={() => {
 					return (
 						<>
