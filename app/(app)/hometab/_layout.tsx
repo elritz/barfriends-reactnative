@@ -1,9 +1,7 @@
-import { useReactiveVar } from '@apollo/client'
 import { Box } from '@components/core'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
 import ProfileTab from '@components/molecules/tabbaricons/hometabicons/profiletab'
-import SearchTab from '@components/molecules/tabbaricons/hometabicons/searchtab'
 import TonightTab from '@components/molecules/tabbaricons/hometabicons/tonighttab'
 import VenueFeedTab from '@components/molecules/tabbaricons/hometabicons/venuefeedtab'
 import {
@@ -12,13 +10,11 @@ import {
 } from '@constants/ReactNavigationConstants'
 import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
-import { AuthorizationReactiveVar } from '@reactive'
 import { Tabs } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 	const insets = useSafeAreaInsets()
 	return (
 		<Tabs
@@ -49,21 +45,9 @@ export default () => {
 				}}
 			/>
 			<Tabs.Screen
-				name='explore'
-				options={{
-					headerShown: false,
-					tabBarLabel: 'search',
-					tabBarShowLabel: false,
-					tabBarIcon: ({ color }: IColor) => <SearchTab color={color} />,
-				}}
-			/>
-			<Tabs.Screen
 				name={'tonight'}
 				options={{
-					href:
-						rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'PERSONAL'
-							? '(app)/hometab/tonight'
-							: null,
+					href: '(app)/hometab/tonight',
 					headerShown: false,
 					tabBarLabel: 'tonight',
 					tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,

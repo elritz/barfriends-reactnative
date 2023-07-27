@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
+import { Box, Button, Divider, HStack, Heading, Text, VStack } from '@components/core'
 import { APP_STORE_URL_LINK } from '@constants/App'
 import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
@@ -177,7 +177,7 @@ export default () => {
 
 	return (
 		<Box flex={1} mx={2}>
-			<Modal isOpen={isOpen} onClose={onClose}>
+			{/* <Modal isOpen={isOpen} onClose={onClose}>
 				<Modal.Content>
 					<Modal.CloseButton />
 					<Modal.Header fontSize='4xl' fontWeight='bold'>
@@ -196,7 +196,7 @@ export default () => {
 						</Button>
 					</Modal.Footer>
 				</Modal.Content>
-			</Modal>
+			</Modal> */}
 			<Box>
 				<Heading>Contacts</Heading>
 			</Box>
@@ -227,7 +227,7 @@ export default () => {
 									</Text>
 								</HStack>
 								<HStack flex={1} space={'md'} justifyContent={'flex-end'} alignItems={'center'}>
-									<IconButton
+									{/* <IconButton
 										bg={'transparent'}
 										icon={
 											<Icon
@@ -248,7 +248,7 @@ export default () => {
 										h={'40px'}
 										w={'40px'}
 										fontSize={'lg'}
-									/>
+									/> */}
 								</HStack>
 							</HStack>
 							<Divider />

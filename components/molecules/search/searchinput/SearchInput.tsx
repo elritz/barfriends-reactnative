@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import useDebounce from '@util/hooks/useDebounce'
-import { useGlobalSearchParams, useLocalSearchParams, useRouter, useSegments } from 'expo-router'
+import { useGlobalSearchParams, useRouter, useSegments } from 'expo-router'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { TextInput } from 'react-native'
@@ -72,7 +72,7 @@ const SearchInput = (props: Props) => {
 	}, [])
 
 	useEffect(() => {
-		if (params.searchtext?.length || params.searchtext !== undefined) {
+		if (params.searchtext || params.searchtext !== undefined) {
 			setValue('searchtext', params.searchtext as string)
 		} else {
 			setValue('searchtext', '')
@@ -96,24 +96,6 @@ const SearchInput = (props: Props) => {
 	}
 
 	const handleSearchSubmitEditting = data => {
-		// if (segments.includes('searcharea')) {
-		// 	if (segments.includes('searcharea')) {
-		// 		router.push({
-		// 			pathname: '(app)/searcharea/searchcountrystate',
-		// 			params: {
-		// 				searchtext: '',
-		// 			},
-		// 		})
-		// 	}
-		// 	if (segments.includes('searcharea') && segments.includes('searchcountrystates')) {
-		// 		router.push({
-		// 			pathname: '(app)/searcharea/searchstatecities',
-		// 			params: {
-		// 				searchtext: '',
-		// 			},
-		// 		})
-		// 	}
-		// } else {
 		if (segments.includes('searchtext')) {
 			router.push({
 				pathname: '(app)/explore/searchresults',
@@ -184,8 +166,8 @@ const SearchInput = (props: Props) => {
 									? rTheme.theme?.gluestack.tokens.colors.light700
 									: rTheme.theme?.gluestack.tokens.colors.dark900
 							}
+							value={value}
 							onPressIn={() => {
-								console.log('pressed :>> ')
 								if (segments.includes('hometab')) {
 									router.push({
 										pathname: '(app)/explore/searchtext',

@@ -46,7 +46,7 @@ export default () => {
 				),
 				headerRight: () => (
 					<Button
-						bg={colorScheme === 'light' ? '$light50' : '$dark50'}
+						bg={rTheme.colorScheme === 'light' ? '$light50' : '$dark50'}
 						rounded={'$full'}
 						onPress={() => router.back()}
 						my={'$2'}

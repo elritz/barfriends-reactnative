@@ -250,7 +250,7 @@ const CurrentLocationFromVenueDistance = () => {
 								name='location-pin'
 								color={
 									rTheme.colorScheme === 'light'
-										? rTheme.theme?.gluestack.tokens.colors.light900
+										? rTheme.theme?.gluestack.tokens.colors.light200
 										: rTheme.theme?.gluestack.tokens.colors.dark900
 								}
 							/>

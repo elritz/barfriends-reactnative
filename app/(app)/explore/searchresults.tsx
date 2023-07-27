@@ -3,6 +3,7 @@ import { Text } from '@components/core'
 import SearchAccounts from '@components/screens/search/textsearchtabs/SearchAccounts'
 import SearchVenues from '@components/screens/search/textsearchtabs/SearchVenues'
 import { ThemeReactiveVar } from '@reactive'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view'
@@ -13,6 +14,7 @@ const renderScene = SceneMap({
 })
 
 export default function searchresulttabs() {
+	const contentInsets = useContentInsets()
 	const layout = useWindowDimensions()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
@@ -47,11 +49,9 @@ export default function searchresulttabs() {
 			renderScene={renderScene}
 			renderTabBar={renderTabBar}
 			onIndexChange={setIndex}
-			style={
-				{
-					// top: top + SEARCH_BAR_HEIGHT + 15,
-				}
-			}
+			style={{
+				top: contentInsets.top,
+			}}
 			initialLayout={{ width: layout.width }}
 		/>
 	)

@@ -89,7 +89,7 @@ export default function LeaveCard() {
 					w: 100,
 				}}
 			>
-				{isLeaving ? 'Leaving' : 'Leave'}
+				<Button.Text>{isLeaving ? 'Leaving' : 'Leave'}</Button.Text>
 			</Button>
 		</VStack>
 	)

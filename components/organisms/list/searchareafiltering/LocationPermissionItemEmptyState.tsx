@@ -57,7 +57,7 @@ const LocationPermissionItemEmptyState = () => {
 					  }),
 					  await AsyncStorage.setItem(LOCAL_STORAGE_SEARCH_AREA, JSON.stringify(newSearchArea)))
 			}}
-			rounded={'xl'}
+			rounded={'$xl'}
 			sx={{
 				':pressed': {
 					bg: '$primary500',

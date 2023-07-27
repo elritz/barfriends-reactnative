@@ -12,7 +12,7 @@ type Props = {
 
 const createTheme = ({ themeScheme, localStorageColorScheme }: Props) => {
 	const deviceColorScheme = Appearance.getColorScheme()
-
+	
 	const theme =
 		AuthorizationReactiveVar()?.DeviceProfile?.Profile?.ThemeManager?.ProfileTheme[0].Theme.theme ||
 		defaulttheme

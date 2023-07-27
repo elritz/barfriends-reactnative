@@ -7,6 +7,7 @@ import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter, useGlobalSearchParams } from 'expo-router'
 import { filter, uniqueId } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
@@ -23,7 +24,7 @@ type CityState = {
 export default function SearchAreaStateCities() {
 	const router = useRouter()
 	const params = useGlobalSearchParams()
-	const { top, bottom } = useSafeAreaInsets()
+	const contentInsets = useContentInsets()
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
@@ -94,8 +95,7 @@ export default function SearchAreaStateCities() {
 				<FlashList
 					data={[...Array(20)]}
 					contentInset={{
-						top: 5,
-						bottom: bottom,
+						...contentInsets,
 					}}
 					contentContainerStyle={{
 						paddingHorizontal: 10,
@@ -186,16 +186,16 @@ export default function SearchAreaStateCities() {
 					px: 2,
 					justifyContent: 'space-between',
 					_light: {
-						bg: watch('city') === item.name ? '$primary500' : '$dark50',
+						bg: watch('city.name') === item.name ? '$primary500' : '$light50',
 					},
 					_dark: {
-						bg: watch('city.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('city.name') === item.name ? '$primary500' : '$dark100',
 					},
 				}}
 				rounded={'$md'}
 				justifyContent='flex-start'
 			>
-				<Button.Text
+				<Text
 					fontWeight={'$medium'}
 					fontSize={'$lg'}
 					numberOfLines={1}
@@ -203,7 +203,7 @@ export default function SearchAreaStateCities() {
 					ml={'$3'}
 				>
 					{item.name}
-				</Button.Text>
+				</Text>
 				<HStack justifyContent='flex-end' space={'md'} alignItems={'center'} mr={'$2'}>
 					{item.venuesInArea && item.venuesInArea > 1 ? (
 						<VStack>
@@ -260,8 +260,7 @@ export default function SearchAreaStateCities() {
 						)
 					}}
 					contentInset={{
-						top: 5,
-						bottom: bottom,
+						...contentInsets,
 					}}
 				/>
 			</Box>
@@ -307,8 +306,7 @@ export default function SearchAreaStateCities() {
 					)
 				}}
 				contentInset={{
-					top: 5,
-					bottom: bottom,
+					...contentInsets,
 				}}
 				contentContainerStyle={{
 					paddingHorizontal: 10,

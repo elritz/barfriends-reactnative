@@ -5,7 +5,7 @@ import { LocalStoragePreferenceThemeType } from '@ctypes/preferences'
 import { StyledProvider } from '@gluestack-style/react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ThemeProvider as ReactNavigationThemeProvider } from '@react-navigation/native'
-import { ThemeReactiveVar, AuthorizationReactiveVar } from '@reactive'
+import { ThemeReactiveVar } from '@reactive'
 import { useToggleTheme } from '@util/hooks/theme/useToggleTheme'
 import { useEffect, useRef } from 'react'
 import { AppState, Appearance, StatusBar } from 'react-native'
@@ -14,7 +14,6 @@ export default function Theme({ children }) {
 	const appState = useRef(AppState.currentState)
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
 	const [toggleThemes] = useToggleTheme()
-	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
 
 	const setTheme = async () => {
 		const localStorageColorScheme = await AsyncStorage.getItem(
@@ -26,6 +25,12 @@ export default function Theme({ children }) {
 
 		await toggleThemes({ colorScheme: valueLocalStorageColorScheme.colorScheme })
 	}
+
+	useEffect(() => {
+		if (!rThemeVar.theme) {
+			setTheme()
+		}
+	}, [rThemeVar])
 
 	useEffect(() => {
 		const subscription = AppState.addEventListener('change', nextAppState => {
@@ -49,26 +54,20 @@ export default function Theme({ children }) {
 		}
 	}, [])
 
-	if (
-		!rThemeVar ||
-		!rThemeVar.theme ||
-		(!rThemeVar.theme.gluestack && !rThemeVar.theme.reactnavigation)
-	) {
-		return null
-	}
-
 	return (
-		<ReactNavigationThemeProvider value={rThemeVar.theme.reactnavigation}>
-			<StyledProvider
-				config={rThemeVar.theme?.gluestack}
-				colorMode={rThemeVar.colorScheme === 'light' ? 'light' : 'dark'}
-			>
-				<StatusBar
-					animated
-					barStyle={rThemeVar.colorScheme === 'light' ? 'dark-content' : 'light-content'}
-				/>
-				<AnimatedSplashScreen>{children}</AnimatedSplashScreen>
-			</StyledProvider>
-		</ReactNavigationThemeProvider>
+		<AnimatedSplashScreen>
+			<ReactNavigationThemeProvider value={rThemeVar.theme.reactnavigation}>
+				<StyledProvider
+					config={rThemeVar.theme.gluestack}
+					colorMode={rThemeVar.colorScheme === 'light' ? 'light' : 'dark'}
+				>
+					<StatusBar
+						animated
+						barStyle={rThemeVar.colorScheme === 'light' ? 'dark-content' : 'light-content'}
+					/>
+					{children}
+				</StyledProvider>
+			</ReactNavigationThemeProvider>
+		</AnimatedSplashScreen>
 	)
 }

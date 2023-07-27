@@ -1,5 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import { Box } from '@components/core'
+import CardPleaseSignup from '@components/molecules/asks/signuplogin'
 import InviteCard from '@components/screens/public/venue/venueactions/actioncards/invitecard/InviteCard'
 import QuickBarfriendCard from '@components/screens/public/venue/venueactions/actioncards/quickbarfriendcard/QuickBarfriendCard'
 import AddEmoji from '@components/screens/tonight/activity/ask/AddEmoji/AddEmoji'
@@ -33,6 +34,14 @@ const Wrapper = ({ children }) => {
 export default () => {
 	const contentInsets = useContentInsets()
 	const rAuthorizationVar = useReactiveVar(AuthorizationReactiveVar)
+
+	if (rAuthorizationVar?.DeviceProfile?.Profile?.ProfileType === 'GUEST') {
+		return (
+			<Box my={'$2'} p={'$5'} pt={'$10'}>
+				<CardPleaseSignup signupTextId={1} />
+			</Box>
+		)
+	}
 
 	return (
 		<LinearGradient

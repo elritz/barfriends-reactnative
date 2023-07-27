@@ -1,21 +1,22 @@
 import { Form } from './_layout'
 import { useReactiveVar } from '@apollo/client'
-import { Button } from '@components/core'
+import { Button, Text } from '@components/core'
 import { CountryResponseObject, useGetAllCountriesQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter, useGlobalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
 import { memo, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchCountryTextScreen() {
-	const { bottom, top } = useSafeAreaInsets()
 	const router = useRouter()
 	const params = useGlobalSearchParams()
+	const contentInsets = useContentInsets()
+
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 	const [countries, setCountries] = useState<CountryResponseObject[]>([])
 	const [pagination, setPagination] = useState<number>()
@@ -76,8 +77,7 @@ export default function SearchCountryTextScreen() {
 			<FlashList
 				data={[...Array(20)]}
 				contentInset={{
-					top: 5,
-					bottom: bottom,
+					...contentInsets,
 				}}
 				contentContainerStyle={{
 					paddingHorizontal: 10,
@@ -153,10 +153,10 @@ export default function SearchCountryTextScreen() {
 					px: 2,
 					justifyContent: 'space-between',
 					_light: {
-						bg: watch('country.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('country.name') === item.name ? '$primary500' : '$light100',
 					},
 					_dark: {
-						bg: watch('country.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('country.name') === item.name ? '$primary500' : '$dark100',
 					},
 				}}
 				rounded={'$md'}
@@ -173,9 +173,9 @@ export default function SearchCountryTextScreen() {
 				>
 					{item?.flag}
 					{` `}
-					<Button.Text fontWeight={'$medium'} fontSize={'$lg'} numberOfLines={1} ellipsizeMode={'tail'}>
+					<Text fontWeight={'$medium'} fontSize={'$lg'} numberOfLines={1} ellipsizeMode={'tail'}>
 						{item.name}
-					</Button.Text>
+					</Text>
 				</Button.Text>
 				{watch('country.name') === item.name ? (
 					<Button onPress={() => _pressItem(item)} rounded={'$full'} bg='$blue500' size='xs' mr={'$3'}>
@@ -192,8 +192,7 @@ export default function SearchCountryTextScreen() {
 		<FlashList
 			data={countries}
 			contentInset={{
-				top: 5,
-				bottom: bottom,
+				...contentInsets,
 			}}
 			contentContainerStyle={{
 				paddingHorizontal: 10,

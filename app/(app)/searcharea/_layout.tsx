@@ -76,7 +76,7 @@ export default function _layout() {
 					name={'index'}
 					options={{
 						contentStyle: {
-							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
+							// backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 					}}
 				/>
@@ -85,7 +85,7 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
+							// backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
@@ -119,7 +119,7 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
+							// backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (
@@ -153,7 +153,7 @@ export default function _layout() {
 					options={{
 						animation: 'fade',
 						contentStyle: {
-							backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
+							// backgroundColor: rTheme.colorScheme === 'dark' ? 'black' : 'white',
 						},
 						header: () => {
 							return (

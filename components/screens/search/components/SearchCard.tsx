@@ -30,9 +30,17 @@ export default function SearchCard({ item }) {
 			}}
 		>
 			<Box
+				my={'$1'}
 				sx={{
 					h: 65,
+					_dark: {
+						bg: '$dark50'
+					},
+					_light: {
+						bg: '$light50'
+					}
 				}}
+
 				px={'$3'}
 			>
 				<HStack sx={{ h: '100%' }} alignItems={'center'}>

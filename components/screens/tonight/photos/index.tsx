@@ -95,16 +95,17 @@ export default function Photos() {
 			if (activeIndex.value === 0) return
 			scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value - 1), animated: false })
 		}
-
 		if (side == 'right') {
-			if (
-				activeIndex.value ===
-				rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length - 1
-			) {
-				scrollRef.current?.scrollTo({ x: ITEM_WIDTH * 0, animated: false })
-				return
+			if (rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos) {
+				if (
+					activeIndex.value ===
+					rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length - 1
+				) {
+					scrollRef.current?.scrollTo({ x: ITEM_WIDTH * 0, animated: false })
+					return
+				}
+				scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value + 1), animated: false })
 			}
-			scrollRef.current?.scrollTo({ x: ITEM_WIDTH * (activeIndex.value + 1), animated: false })
 		}
 	}, [])
 
@@ -231,36 +232,36 @@ export default function Photos() {
 							flexDirection: 'row',
 						}}
 					>
-							{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos.map((_, i) => {
-								const rDotStyle = useAnimatedStyle(() => {
-									const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
-									const dotWidth = interpolate(translateX.value, inputRange, [11, 20, 11], 'clamp')
-									const dotColor = interpolateColor(translateX.value, inputRange, [
-										'#1d1d1d',
-										'#ff7000',
-										'#1d1d1d',
-									])
+						{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos.map((_, i) => {
+							const rDotStyle = useAnimatedStyle(() => {
+								const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
+								const dotWidth = interpolate(translateX.value, inputRange, [11, 20, 11], 'clamp')
+								const dotColor = interpolateColor(translateX.value, inputRange, [
+									'#1d1d1d',
+									'#ff7000',
+									'#1d1d1d',
+								])
 
-									return {
-										width: dotWidth,
-										backgroundColor: dotColor,
-									}
-								})
+								return {
+									width: dotWidth,
+									backgroundColor: dotColor,
+								}
+							})
 
-								return (
-									<Animated.View
-										key={i.toString()}
-										style={[
-											rDotStyle,
-											{
-												marginHorizontal: 3,
-												height: DOT_SIZE,
-												borderRadius: DOT_SIZE / 2,
-											},
-										]}
-									/>
-								)
-							})}
+							return (
+								<Animated.View
+									key={i.toString()}
+									style={[
+										rDotStyle,
+										{
+											marginHorizontal: 3,
+											height: DOT_SIZE,
+											borderRadius: DOT_SIZE / 2,
+										},
+									]}
+								/>
+							)
+						})}
 					</View>
 				</Box>
 			) : (
@@ -335,7 +336,7 @@ export default function Photos() {
 								Ready to go out? Add photos of your fit and pick your emojimood
 							</Text>
 							<Button onPress={pickImage} bg={'$tertiary400'} rounded={'$md'} mt={'$4'}>
-								<Text>Upload{loading ? 'ing' : ''} images</Text>
+								<Button.Text>Upload{loading ? 'ing' : ''} images</Button.Text>
 							</Button>
 						</Center>
 					</Box>

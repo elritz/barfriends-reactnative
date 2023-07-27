@@ -63,14 +63,14 @@ const SearchTextScreen = () => {
 						return (
 							<>
 								{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-									<Box mt={insets.top}>
-										<Center>
-											<Heading fontSize={'$md'} fontWeight={'$medium'}>
-												No search results for
-											</Heading>
-											<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
-										</Center>
-									</Box>
+									// <Box mt={insets.top}>
+									<Center>
+										<Heading fontSize={'$md'} fontWeight={'$medium'}>
+											No search results for
+										</Heading>
+										<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
+									</Center>
+									// </Box>
 								)}
 							</>
 						)
@@ -169,14 +169,14 @@ const SearchTextScreen = () => {
 					return (
 						<>
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-								<Box mt={insets.top}>
-									<Center>
-										<Heading fontSize={'$md'} fontWeight={'$medium'}>
-											No search results for
-										</Heading>
-										<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
-									</Center>
-								</Box>
+								// <Box mt={insets.top}>
+								<Center>
+									<Heading fontSize={'$md'} fontWeight={'$medium'}>
+										No search results for
+									</Heading>
+									<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
+								</Center>
+								// </Box>
 							)}
 						</>
 					)
@@ -239,14 +239,14 @@ const SearchTextScreen = () => {
 					return (
 						<>
 							{!data?.exploreSearch.venues?.length && !data?.exploreSearch.people?.length && (
-								<Box mt={insets.top}>
+								// <Box mt={insets.top}>
 									<Center>
 										<Heading fontSize={'$md'} fontWeight={'$medium'}>
 											No search results for
 										</Heading>
 										<Heading fontSize={'$3xl'}>"{params.searchtext}"</Heading>
 									</Center>
-								</Box>
+								// </Box>
 							)}
 						</>
 					)

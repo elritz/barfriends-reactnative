@@ -18,7 +18,9 @@ const GoBack: React.FC<ButtonProps> = (props: ButtonProps) => {
 	}
 
 	const handleOnPress = () => {
-		router.back()
+		if (router.canGoBack()) {
+			router.back()
+		}
 		// router.setParams({
 		// 	searchtext: '',
 		// })

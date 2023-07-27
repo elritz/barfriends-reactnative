@@ -8,9 +8,8 @@ export default styled(
 		fontWeight: '$normal',
 		fontFamily: '$body',
 		fontStyle: 'normal',
-		letterSpacing: '$md',
 		_dark: {
-			color: '$textDark0',
+			color: '$textDark200',
 		},
 		_light: {
 			color: '$textLight950',
@@ -75,10 +74,6 @@ export default styled(
 
 		defaultProps: {
 			size: 'md',
-		},
-
-		_dark: {
-			color: '$textDark200',
 		},
 	},
 	{},

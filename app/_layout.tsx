@@ -1,55 +1,29 @@
 //TODO: Add notfication listener
-import { ApolloProvider } from '@apollo/client'
-import Theme from '@components/layouts/Theme'
-import { NowPreferencePermissionInitialState } from '@constants/Preferences'
-import {
-	LOCAL_STORAGE_SEARCH_AREA,
-	LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME,
-	LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS,
-	LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION,
-	LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION,
-	LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS,
-} from '@constants/StorageConstants'
-import {
-	LocalStoragePreferenceSearchAreaType2,
-	LocalStoragePreferenceThemeType,
-	LocalStoragePreferenceAskNotificationPermissionType,
-	LocalStoragePreferenceAskBackgroundLocationPermissionType,
-	LocalStoragePreferenceSystemsOfUnitsType,
-} from '@ctypes/preferences'
-import client from '@library/gateway-apollo-server'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-	SearchAreaReactiveVar,
-	searchAreaInitialState,
-	ThemeReactiveVar,
-	PreferencePermissionNotificationReactiveVar,
-	PreferenceBackgroundLocationPermissionReactiveVar,
-	PreferenceForegroundLocationPermissionReactiveVar,
-	PreferenceSystemsOfUnitsInitialState,
-	PreferenceSystemsOfUnitsReactiveVar,
-	PermissionContactsReactiveVar,
-	PermissionCameraReactiveVar,
-	PermissionMicrophoneReactiveVar,
-	PermissionForegroundLocationReactiveVar,
-	PermissionBackgroundLocationReactiveVar,
-	PermissionMediaReactiveVar,
-	PermissionNotificationReactiveVar,
-} from '@reactive'
-import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation'
-import { Camera } from 'expo-camera'
-import * as Contacts from 'expo-contacts'
-import 'expo-dev-client'
-import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location'
-import { getPermissionsAsync as getMediaPermissionAsync } from 'expo-media-library'
-import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications'
-import { Slot, SplashScreen } from 'expo-router'
-import * as ScreenOrientation from 'expo-screen-orientation'
-import { useEffect } from 'react'
-import { Appearance } from 'react-native'
-import 'react-native-gesture-handler'
-import { KeyboardProvider } from 'react-native-keyboard-controller'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { ApolloProvider } from '@apollo/client';
+import { defaulttheme } from '@assets/theme/default';
+import Theme from '@components/layouts/Theme';
+import { NowPreferencePermissionInitialState } from '@constants/Preferences';
+import { LOCAL_STORAGE_SEARCH_AREA, LOCAL_STORAGE_PREFERENCE_THEME_COLOR_SCHEME, LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS, LOCAL_STORAGE_PREFERENCE_BACKGROUND_LOCATION, LOCAL_STORAGE_PREFERENCE_FOREGROUND_LOCATION, LOCAL_STORAGE_PREFERENCE_SYSTEM_OF_UNITS } from '@constants/StorageConstants';
+import { LocalStoragePreferenceSearchAreaType2, LocalStoragePreferenceThemeType, LocalStoragePreferenceAskNotificationPermissionType, LocalStoragePreferenceAskBackgroundLocationPermissionType, LocalStoragePreferenceSystemsOfUnitsType } from '@ctypes/preferences';
+import { config } from '@gluestack';
+import client from '@library/gateway-apollo-server';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SearchAreaReactiveVar, searchAreaInitialState, ThemeReactiveVar, PreferencePermissionNotificationReactiveVar, PreferenceBackgroundLocationPermissionReactiveVar, PreferenceForegroundLocationPermissionReactiveVar, PreferenceSystemsOfUnitsInitialState, PreferenceSystemsOfUnitsReactiveVar, PermissionContactsReactiveVar, PermissionCameraReactiveVar, PermissionMicrophoneReactiveVar, PermissionForegroundLocationReactiveVar, PermissionBackgroundLocationReactiveVar, PermissionMediaReactiveVar, PermissionNotificationReactiveVar } from '@reactive';
+import useSetSearchAreaWithLocation from '@util/hooks/searcharea/useSetSearchAreaWithLocation';
+import { Camera } from 'expo-camera';
+import * as Contacts from 'expo-contacts';
+import 'expo-dev-client';
+import { getForegroundPermissionsAsync, getBackgroundPermissionsAsync } from 'expo-location';
+import { getPermissionsAsync as getMediaPermissionAsync } from 'expo-media-library';
+import { getPermissionsAsync as getNotificiationPermissionAsync } from 'expo-notifications';
+import { Slot, SplashScreen } from 'expo-router';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { useEffect } from 'react';
+import { Appearance } from 'react-native';
+import 'react-native-gesture-handler';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -113,7 +87,16 @@ export default function Root() {
 				)
 
 				ThemeReactiveVar({
-					theme: null,
+					theme:
+						Appearance.getColorScheme() === 'light'
+							? {
+									gluestack: defaulttheme.gluestack,
+									reactnavigation: defaulttheme.reactnavigation.light,
+							  }
+							: {
+									gluestack: defaulttheme.gluestack,
+									reactnavigation: defaulttheme.reactnavigation.dark,
+							  },
 					localStorageColorScheme: 'system',
 					deviceColorScheme: Appearance.getColorScheme(),
 					colorScheme: Appearance.getColorScheme(),
@@ -122,7 +105,7 @@ export default function Root() {
 				const localStorageTheme: LocalStoragePreferenceThemeType = JSON.parse(getLocalStorageTheme)
 
 				ThemeReactiveVar({
-					theme: null,
+					theme: ThemeReactiveVar().theme,
 					localStorageColorScheme: localStorageTheme.colorScheme,
 					deviceColorScheme:
 						localStorageTheme.colorScheme === 'system'

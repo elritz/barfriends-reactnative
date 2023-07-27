@@ -34,9 +34,6 @@ export default function SearchAccounts() {
 				estimatedItemSize={65}
 				data={[...Array(15)]}
 				showsVerticalScrollIndicator={false}
-				contentInset={{
-					...contentInsets,
-				}}
 				keyExtractor={(item, index) => index.toString()}
 				renderItem={({ item }) => {
 					return (
@@ -67,6 +64,7 @@ export default function SearchAccounts() {
 	if (!data?.exploreSearch.people.length) {
 		return (
 			<Box
+				bg='$transparent'
 				sx={{
 					mt: contentInsets.top,
 				}}
@@ -84,9 +82,6 @@ export default function SearchAccounts() {
 	return (
 		<Box bg={'$transparent'} style={{ flex: 1 }}>
 			<FlashList
-				contentInset={{
-					...contentInsets,
-				}}
 				data={data?.exploreSearch.people}
 				estimatedItemSize={55}
 				keyExtractor={({ id }: { id: string }) => id.toString()}

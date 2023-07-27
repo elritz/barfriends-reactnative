@@ -1,10 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Center, HStack, Heading, Pressable, Text, VStack } from '@components/core'
+import { Box, Center, HStack, Heading, Pressable, Text, VStack } from '@components/core'
 import SearchCard from '@components/screens/search/components/SearchCard'
-import {
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
-	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
-} from '@constants/ReactNavigationConstants'
 import { Ionicons } from '@expo/vector-icons'
 import { useExploreSearchLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
@@ -13,6 +9,7 @@ import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { Skeleton } from 'moti/skeleton'
 import { useEffect } from 'react'
+import { View } from 'react-native'
 
 type Item = {
 	search: string
@@ -62,7 +59,7 @@ export default () => {
 				}}
 				keyboardDismissMode='on-drag'
 				automaticallyAdjustKeyboardInsets
-				ItemSeparatorComponent={() => <Box bg='$transparent' h={'$3'} />}
+				ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
 				renderItem={item => {
 					return (
 						<HStack
@@ -134,12 +131,14 @@ export default () => {
 			<Pressable
 				px={'$2'}
 				onPress={() => {
-					router.setParams({
-						searchtext: item.search,
-					})
 					exploreSearchQuery({
 						variables: {
 							search: item.search,
+						},
+						onCompleted: data => {
+							router.setParams({
+								searchtext: item.search,
+							})
 						},
 					})
 				}}
@@ -153,16 +152,6 @@ export default () => {
 					alignItems={'center'}
 					space={'md'}
 				>
-					{/* <Button
-						sx={{
-							w: 35,
-							h: 35,
-						}}
-						variant={'outline'}
-						size={'sm'}
-						rounded={'$md'}
-						// icon={<Icon as={Ionicons} name='ios-search' size={'lg'} />}
-					> */}
 					<Box
 						alignContent='center'
 						justifyContent='center'
@@ -185,7 +174,6 @@ export default () => {
 							}
 						/>
 					</Box>
-					{/* </Button> */}
 					<VStack>
 						<Text fontSize={'$md'} fontWeight={'$medium'}>
 							{item.search}
@@ -198,7 +186,7 @@ export default () => {
 
 	if (!params?.searchtext?.length) {
 		return (
-			<Box flex={1} px={'$2'}>
+			<Box bg={'$transparent'} flex={1} px={'$2'}>
 				<FlashList
 					data={filteredRecentSearches as Array<Item>}
 					ListHeaderComponent={() => {
@@ -206,7 +194,6 @@ export default () => {
 					}}
 					numColumns={1}
 					estimatedItemSize={55}
-					keyExtractor={(item, index) => index.toString()}
 					scrollEnabled={true}
 					renderItem={item => <PastSearchItem search={item.item.search} />}
 					contentInset={{
@@ -214,14 +201,14 @@ export default () => {
 					}}
 					automaticallyAdjustsScrollIndicatorInsets
 					keyboardDismissMode='on-drag'
-					ItemSeparatorComponent={() => <Box bg='$transparent' h={'$5'} />}
+					ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
 				/>
 			</Box>
 		)
 	}
 
 	return (
-		<Box flex={1} px={'$2'}>
+		<Box bg={'$transparent'} flex={1} px={'$2'}>
 			<FlashList
 				scrollEnabled={true}
 				estimatedItemSize={40}

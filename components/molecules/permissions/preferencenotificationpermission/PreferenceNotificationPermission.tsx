@@ -1,15 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, Divider, HStack, Heading, Pressable, Text, VStack } from '@components/core'
+import { Box, Button, Divider, HStack, Heading, Text, VStack } from '@components/core'
 import NotificationNextAskModal from '@components/molecules/modals/asks/notificationnextaskmodal'
+import { TomorrowPreferencePermissionInitialState } from '@constants/Preferences'
 import { LOCAL_STORAGE_PREFERENCE_NOTIFICATIONS } from '@constants/StorageConstants'
 import { DefaultPreferenceToPermission } from '@ctypes/preferences'
-import { EvilIcons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	PermissionNotificationReactiveVar,
 	PreferencePermissionNotificationReactiveVar,
 	ThemeReactiveVar,
-	TomorrowPreferencePermissionInitialState,
 } from '@reactive'
 import { useDisclose } from '@util/hooks/useDisclose'
 import { useRouter } from 'expo-router'
@@ -30,7 +29,8 @@ export default function PreferenceNotificationPermission() {
 		<>
 			<NotificationNextAskModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 			{rPreferenceNotificationPermission?.canShowAgain &&
-				DateTime.fromISO(rPreferenceNotificationPermission?.dateToShowAgain) <= DateTime.now() && (
+				DateTime.fromISO(rPreferenceNotificationPermission?.dateToShowAgain.toString()) <=
+					DateTime.now() && (
 					<Box key={uniqueId()}>
 						{!rPermissionNotificationVar?.granted && (
 							<MotiView
@@ -92,9 +92,9 @@ export default function PreferenceNotificationPermission() {
 											w: '85%',
 										}}
 									>
-										<Text fontSize={'$sm'} fontWeight='$bold'>
+										<Button.Text fontSize={'$sm'} fontWeight='$bold'>
 											Turn on Notifications
-										</Text>
+										</Button.Text>
 									</Button>
 									<Button
 										sx={{

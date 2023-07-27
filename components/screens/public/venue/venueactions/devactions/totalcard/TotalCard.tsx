@@ -67,6 +67,7 @@ export default function TotalCard() {
 			},
 		],
 	})
+
 	const [
 		removePersonalTotalsVenueMutation,
 		{ data: RPTVData, loading: RPTVLoading, error: RPTVError },
@@ -146,7 +147,7 @@ export default function TotalCard() {
 				}}
 			>
 				{isTotaled && <CheckCircleIcon size='5' mt='$1' color='$white' />}
-				<Text>{!APTVLoading ? <>{isTotaled ? 'Totaled' : 'Total'}</> : 'Totaling'}</Text>
+				<Text>{!APTVLoading ? <Text>{isTotaled ? 'Totaled' : 'Total'}</Text> : 'Totaling'}</Text>
 			</Button>
 		</VStack>
 	)

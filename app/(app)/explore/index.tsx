@@ -1,5 +1,4 @@
 import { Box, Pressable, Text } from '@components/core'
-import ShowCaseScroll from '@components/screens/explore/ShowCaseScroll'
 import { ProfileType, useProfilesQuery } from '@graphql/generated'
 import { FlashList } from '@shopify/flash-list'
 import useContentInsets from '@util/hooks/useContentInsets'
@@ -13,6 +12,7 @@ export default () => {
 	const numColumns = 2 // 2.5 if numColumns from flatlist is 3
 	const height = width * (1.25 / numColumns)
 	const contentInsets = useContentInsets()
+
 	const { data, loading, error } = useProfilesQuery({
 		variables: {
 			where: {

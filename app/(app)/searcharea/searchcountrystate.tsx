@@ -4,6 +4,7 @@ import { Button, Center, Text } from '@components/core'
 import { StateResponseObject, useGetAllStatesByCountryQuery } from '@graphql/generated'
 import { ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
+import useContentInsets from '@util/hooks/useContentInsets'
 import { useRouter, useLocalSearchParams } from 'expo-router'
 import { filter } from 'lodash'
 import { Skeleton } from 'moti/skeleton'
@@ -13,10 +14,10 @@ import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function SearchAreaCountryStates() {
-	const { bottom } = useSafeAreaInsets()
 	const router = useRouter()
 	const params = useLocalSearchParams()
 	const rTheme = useReactiveVar(ThemeReactiveVar)
+	const contentInsets = useContentInsets()
 
 	const [countryStates, setCountryStates] = useState<Array<StateResponseObject>>([])
 	const [pagination, setPagination] = useState<number>()
@@ -76,8 +77,7 @@ export default function SearchAreaCountryStates() {
 			<FlashList
 				data={[...Array(20)]}
 				contentInset={{
-					top: 5,
-					bottom: bottom,
+					...contentInsets,
 				}}
 				contentContainerStyle={{
 					paddingHorizontal: 10,
@@ -151,16 +151,16 @@ export default function SearchAreaCountryStates() {
 					px: 2,
 					justifyContent: 'space-between',
 					_light: {
-						bg: watch('state.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('state.name') === item.name ? '$primary500' : '$light50',
 					},
 					_dark: {
-						bg: watch('state.name') === item.name ? '$primary500' : '$dark50',
+						bg: watch('state.name') === item.name ? '$primary500' : '$dark100',
 					},
 				}}
 				rounded={'$md'}
 				justifyContent='flex-start'
 			>
-				<Button.Text
+				<Text
 					mt={'$0.5'}
 					ml={'$3'}
 					textAlign={'center'}
@@ -169,12 +169,10 @@ export default function SearchAreaCountryStates() {
 					numberOfLines={1}
 					ellipsizeMode={'tail'}
 				>
-					{item?.flag}
-					{` `}
-					<Button.Text fontWeight={'$medium'} fontSize={'$lg'} numberOfLines={1} ellipsizeMode={'tail'}>
+					<Text fontWeight={'$medium'} fontSize={'$lg'} numberOfLines={1} ellipsizeMode={'tail'}>
 						{item.name}
-					</Button.Text>
-				</Button.Text>
+					</Text>
+				</Text>
 				{watch('state.name') === item.name ? (
 					<Button onPress={() => _pressItem(item)} rounded={'$full'} bg='$blue500' size='xs' mr={'$3'}>
 						<Button.Text fontSize={'$xs'}>Continue</Button.Text>
@@ -192,8 +190,7 @@ export default function SearchAreaCountryStates() {
 			keyboardDismissMode={'on-drag'}
 			keyExtractor={(item, index) => 'key' + index}
 			contentInset={{
-				top: 5,
-				bottom: bottom,
+				...contentInsets,
 			}}
 			contentContainerStyle={{
 				paddingHorizontal: 10,

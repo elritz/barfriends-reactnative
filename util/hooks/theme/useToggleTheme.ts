@@ -27,6 +27,7 @@ export const useToggleTheme = () => {
 				initialThemeColorSchemeState,
 			)
 		}
+
 		switch (props.colorScheme) {
 			case 'system':
 				const deviceColorScheme = Appearance.getColorScheme()

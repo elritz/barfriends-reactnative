@@ -139,7 +139,7 @@ export default function JoinCard() {
 						w: 100,
 					}}
 				>
-					{!JVLoading ? <>{isJoined ? 'Joined' : 'Join'}</> : 'Joining'}
+					<Button.Text>{!JVLoading ? (isJoined ? 'Joined' : 'Join') : 'Joining'}</Button.Text>
 					{isJoined && <CheckCircleIcon size='5' mt='0.5' color='white' />}
 				</Button>
 			</Box>

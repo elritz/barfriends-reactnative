@@ -6,7 +6,7 @@ import { cacheFonts, cacheImages } from '@util/hooks/local/useCacheImages'
 import { useAssets } from 'expo-asset'
 import { SplashScreen } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
-import { View, StyleSheet, Image, useColorScheme } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 
 function AnimatedSplashScreen({ children }) {
 	const rThemeVar = useReactiveVar(ThemeReactiveVar)
@@ -20,7 +20,7 @@ function AnimatedSplashScreen({ children }) {
 
 	useEffect(() => {
 		if (isAppReady) {
-			setTimeout(() => setAnimationComplete(true), 0)
+			setTimeout(() => setAnimationComplete(true), 1)
 			SplashScreen.hideAsync()
 		}
 	}, [isAppReady])
@@ -39,7 +39,6 @@ function AnimatedSplashScreen({ children }) {
 			const fontAssets = cacheFonts([...VectorFonts])
 
 			await Promise.all([...imageAssets, ...fontAssets])
-			SplashScreen.hideAsync()
 		} catch (e) {
 			console.warn(e)
 			// handle errors

@@ -10,7 +10,7 @@ export default function DevActions() {
 	return (
 		<VStack space={'md'} justifyContent={'space-between'}>
 			{showDevMode ? (
-				<Box bg={'transparent'}>
+				<Box bg={'$transparent'}>
 					<Pressable
 						onPress={() => {
 							setShowDevMode(!showDevMode)
@@ -24,9 +24,9 @@ export default function DevActions() {
 								textTransform={'uppercase'}
 							>
 								You are in {'\n'}
-							</Heading>
-							<Heading color={'green.400'} fontWeight={'$black'}>
-								Dev Mode!
+								<Heading color={'$green400'} fontWeight={'$black'} textAlign='center'>
+									Dev Mode!
+								</Heading>
 							</Heading>
 							<Text fontSize={'$md'} mx={'$2'} textAlign={'center'}>
 								This section is for quick actions that we may need for testing! As developers!

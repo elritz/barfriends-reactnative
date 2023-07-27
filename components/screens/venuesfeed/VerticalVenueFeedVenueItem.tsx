@@ -276,9 +276,9 @@ const VerticalVenueFeedVenueItem = (props: Props) => {
 										}}
 									>
 										{JVLoading || RPJVLoading ? (
-											<Text>{isJoined ? 'Leaving' : 'Joining'}</Text>
+											<Button.Text>{isJoined ? 'Leaving' : 'Joining'}</Button.Text>
 										) : (
-											<Text>{isJoined ? 'Leave' : 'Join'}</Text>
+											<Button.Text>{isJoined ? 'Leave' : 'Join'}</Button.Text>
 										)}
 									</Button>
 								</>

@@ -38,7 +38,7 @@ const VenueActions = () => {
 		<VStack m={'$2'} mt={'$1'}>
 			<HStack style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 				{ENVIRONMENT === 'development' && (
-					<Box mt={'$4'}>
+					<Box bg='$transparent' mt={'$4'}>
 						<ActionCard key={uniqueId()} numColumns={1}>
 							<DevActions />
 						</ActionCard>
