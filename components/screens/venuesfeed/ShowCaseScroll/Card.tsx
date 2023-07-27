@@ -2,7 +2,7 @@
 import { Product } from './Model'
 import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
 import { Image } from 'react-native'
-import { Dimensions, View, StyleSheet } from 'react-native'
+import { Dimensions, View } from 'react-native'
 
 const { width } = Dimensions.get('window')
 export const CARD_HEIGHT = (width * 1564) / 1600
@@ -11,24 +11,8 @@ interface CardProps {
 	product: Product
 }
 
-const Card = ({
-	product: {
-		logo,
-		cover,
-		color1,
-		color2,
-		title,
-		subtitle,
-		buttoncta,
-		route,
-		type,
-		primaryTextColor,
-		secondaryTextColor,
-		buttonColor,
-		buttonTextColor,
-	},
-}: CardProps) => {
-	switch (type) {
+const Card = ({ product }: CardProps) => {
+	switch (product.type) {
 		case '_ad1':
 			return (
 				<Box
@@ -43,7 +27,7 @@ const Card = ({
 							borderRadius: 16,
 							margin: 19,
 							flex: 1,
-							backgroundColor: color1,
+							backgroundColor: product.color1,
 							padding: 16,
 							justifyContent: 'space-between',
 						}}
@@ -58,19 +42,19 @@ const Card = ({
 								textAlign='left'
 								sx={{
 									lineHeight: 60,
-									color: primaryTextColor,
+									color: product.primaryTextColor,
 								}}
 							>
-								{title}
+								{product.title}
 							</Heading>
 							<Text
 								fontWeight={'$bold'}
 								fontSize={'$xl'}
 								sx={{
-									color: secondaryTextColor,
+									color: product.secondaryTextColor,
 								}}
 							>
-								{subtitle}
+								{product.subtitle}
 							</Text>
 						</VStack>
 						<HStack>
@@ -78,25 +62,24 @@ const Card = ({
 								rounded={'$full'}
 								w={'auto'}
 								alignSelf='center'
-								onPress={() => console.log('route', route)}
+								onPress={() => console.log('route', product.route)}
 								sx={{
-									bg: buttonColor,
+									bg: product.buttonColor,
 								}}
 							>
 								<Button.Text
 									px={'$2'}
 									sx={{
-										color: buttonTextColor,
+										color: product.buttonTextColor,
 									}}
 								>
-									{buttoncta}
+									{product.buttoncta}
 								</Button.Text>
 							</Button>
 						</HStack>
 					</VStack>
 				</Box>
 			)
-
 		case '_ad2':
 			return (
 				<Box
@@ -111,7 +94,7 @@ const Card = ({
 							borderRadius: 16,
 							margin: 19,
 							flex: 1,
-							backgroundColor: color1,
+							backgroundColor: product.color1,
 							padding: 16,
 							justifyContent: 'space-between',
 						}}
@@ -120,35 +103,35 @@ const Card = ({
 							<Heading
 								fontSize={'$2xl'}
 								sx={{
-									color: primaryTextColor,
+									color: product.primaryTextColor,
 								}}
 							>
-								{title}
+								{product.title}
 							</Heading>
 							<Text
 								sx={{
-									color: secondaryTextColor,
+									color: product.secondaryTextColor,
 								}}
 							>
-								{subtitle}
+								{product.subtitle}
 							</Text>
 						</View>
 						<Button
 							rounded={'$full'}
 							w={'auto'}
 							alignSelf='center'
-							onPress={() => console.log('route', route)}
+							onPress={() => console.log('route', product.route)}
 							sx={{
-								bg: buttonColor,
+								bg: product.buttonColor,
 							}}
 						>
 							<Button.Text
 								px={'$2'}
 								sx={{
-									color: buttonTextColor,
+									color: product.buttonTextColor,
 								}}
 							>
-								{buttoncta}
+								{product.buttoncta}
 							</Button.Text>
 						</Button>
 					</View>
@@ -168,37 +151,34 @@ const Card = ({
 							borderRadius: 16,
 							margin: 19,
 							flex: 1,
-							backgroundColor: color1,
+							backgroundColor: product.color1,
 							padding: 16,
 							justifyContent: 'space-between',
 						}}
 					>
 						<VStack>
 							<Heading
-								bg='$green300'
 								fontSize={'$6xl'}
 								fontWeight={'$extrabold'}
 								textTransform='uppercase'
-								// lineHeight={'$6xl'}
 								allowFontScaling
 								adjustsFontSizeToFit
 								textAlign='left'
 								sx={{
 									lineHeight: 60,
-									color: primaryTextColor,
+									color: product.primaryTextColor,
 								}}
 							>
-								{title}
+								{product.title}
 							</Heading>
 							<Text
-								// bg='$green300'
 								fontWeight={'$bold'}
 								fontSize={'$xl'}
 								sx={{
-									color: secondaryTextColor,
+									color: product.secondaryTextColor,
 								}}
 							>
-								{subtitle}
+								{product.subtitle}
 							</Text>
 						</VStack>
 						<HStack>
@@ -206,18 +186,18 @@ const Card = ({
 								rounded={'$full'}
 								w={'auto'}
 								alignSelf='center'
-								onPress={() => console.log('route', route)}
+								onPress={() => console.log('route', product.route)}
 								sx={{
-									bg: buttonColor,
+									bg: product.buttonColor,
 								}}
 							>
 								<Button.Text
 									px={'$2'}
 									sx={{
-										color: buttonTextColor,
+										color: product.buttonTextColor,
 									}}
 								>
-									{buttoncta}
+									{product.buttoncta}
 								</Button.Text>
 							</Button>
 						</HStack>
@@ -240,12 +220,12 @@ const Card = ({
 							borderRadius: 16,
 							margin: 19,
 							flex: 1,
-							backgroundColor: color1,
+							backgroundColor: product.color1,
 							justifyContent: 'space-between',
 							overflow: 'hidden',
 						}}
 					>
-						<Image source={cover} resizeMode='cover' style={{ width: '100%', height: '100%' }} />
+						<Image source={product.cover} style={{ width: '100%', height: '100%' }} resizeMode='cover' />
 						<HStack
 							position='absolute'
 							left={0}
@@ -259,18 +239,18 @@ const Card = ({
 								w={'auto'}
 								alignSelf='center'
 								zIndex={10}
-								onPress={() => console.log('route', route)}
+								onPress={() => console.log('route', product.route)}
 								sx={{
-									bg: buttonColor,
+									bg: product.buttonColor,
 								}}
 							>
 								<Button.Text
 									px={'$2'}
 									sx={{
-										color: buttonTextColor,
+										color: product.buttonTextColor,
 									}}
 								>
-									{buttoncta}
+									{product.buttoncta}
 								</Button.Text>
 							</Button>
 						</HStack>
@@ -294,15 +274,15 @@ const Card = ({
 							borderRadius: 16,
 							margin: 19,
 							flex: 1,
-							backgroundColor: color1,
+							backgroundColor: product.color1,
 							justifyContent: 'space-between',
 							alignItems: 'center',
 							overflow: 'hidden',
 						}}
 					>
 						<Image
-							source={logo}
-							resizeMode='cover'
+							source={product.logo}
+							resizeMode='contain'
 							style={{ width: 150, height: 150, borderRadius: 15 }}
 						/>
 						<Heading
@@ -314,19 +294,19 @@ const Card = ({
 							adjustsFontSizeToFit
 							textAlign='center'
 							sx={{
-								color: primaryTextColor,
+								color: product.primaryTextColor,
 							}}
 						>
-							{title}
+							{product.title}
 						</Heading>
 						<Text
 							// bg='$green300'
 							fontSize={'$lg'}
 							sx={{
-								color: secondaryTextColor,
+								color: product.secondaryTextColor,
 							}}
 						>
-							{subtitle}
+							{product.subtitle}
 						</Text>
 						<HStack
 							// position='absolute'
@@ -341,18 +321,18 @@ const Card = ({
 								w={'auto'}
 								alignSelf='center'
 								zIndex={10}
-								onPress={() => console.log('route', route)}
+								onPress={() => console.log('route', product.route)}
 								sx={{
-									bg: buttonColor,
+									bg: product.buttonColor,
 								}}
 							>
 								<Button.Text
 									px={'$2'}
 									sx={{
-										color: buttonTextColor,
+										color: product.buttonTextColor,
 									}}
 								>
-									{buttoncta}
+									{product.buttoncta}
 								</Button.Text>
 							</Button>
 						</HStack>
