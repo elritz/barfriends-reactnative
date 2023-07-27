@@ -5,9 +5,10 @@
 		"allowJs": true,
 		"isolatedModules": true,
 		"noImplicitAny": false,
+		"target": "es5",
 		"rootDirs": ["src", "stories"],
 		"declaration": true,
-		"typeRoots": ["node_modules/@types", "./src/types/navigation", "./src/types/*"],
+		"typeRoots": ["node_modules/@types", "./types/navigation", "./types/*"],
 		"jsx": "react-native",
 		"lib": ["dom", "esnext"],
 		"moduleResolution": "node",
@@ -15,22 +16,25 @@
 		"noEmit": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
+		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true,
 		"strict": true,
 		"baseUrl": "./",
 		"paths": {
-			"@preferences": ["./src/types/preferences.d.ts"],
-			"@ctypes/*": ["./src/types/*"],
-			"@util/*": ["./src/util/*"],
-			"@helpers/*": ["./src/helpers/*"],
-			"@navigation/*": ["./src/navigation/*"],
-			"@assets/*": ["./src/assets/*"],
-			"@components/*": ["./src/components/*"],
-			"@graphql/*": ["./src/graphql/*"],
-			"@library/*": ["./src/library/*"],
-			"@context/*": ["./src/context/*"],
-			"@constants/*": ["./src/constants/*"],
-			"@reactive": ["./src/reactive/index.tsx"]
+			"@app/*": ["./app/*"],
+			"@preferences": ["./types/preferences.d"],
+			"@ctypes/*": ["./types/*"],
+			"@util/*": ["./util/*"],
+			"@gluestack": ["./gluestack-ui.config"],
+			"@helpers/*": ["./helpers/*"],
+			"@screens/*": ["./screens/*"],
+			"@assets/*": ["./assets/*"],
+			"@components/*": ["./components/*"],
+			"@graphql/*": ["./graphql/*"],
+			"@library/*": ["./library/*"],
+			"@context/*": ["./context/*"],
+			"@constants/*": ["./constants/*"],
+			"@reactive": ["./reactive/index.tsx"]
 		},
 		"plugins": [
 			{
@@ -54,6 +58,6 @@
 				}
 			}
 		],
-		"types": ["jest", "styled-components-react-native"]
+		"types": ["jest"]
 	}
 }

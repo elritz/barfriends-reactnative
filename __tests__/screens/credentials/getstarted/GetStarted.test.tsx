@@ -1,4 +1,4 @@
-import GetStartedScreen from '@navigation/screens/credential/getstarted/GetStartedScreen'
+import GetStartedScreen from '@screens/credential/getstarted/GetStartedScreen'
 import { render, screen, fireEvent, within } from '@testing-library/react-native'
 
 test('examples of some things', async () => {
