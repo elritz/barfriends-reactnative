@@ -43,11 +43,13 @@ const Products = ({ x }: ProductsProps) => (
 			})
 			return (
 				<Animated.View key={index} style={[styles.container, style]}>
-					<Image
-						source={product.picture}
-						resizeMode='contain'
-						style={{ width: SIZE, height: SIZE * product.aspectRatio }}
-					/>
+					{product.type === '_ad2' && (
+						<Image
+							source={product.picture}
+							resizeMode='contain'
+							style={{ width: SIZE, height: SIZE * product.aspectRatio }}
+						/>
+					)}
 				</Animated.View>
 			)
 		})}

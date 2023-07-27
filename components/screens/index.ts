@@ -6,6 +6,7 @@ export * from './permissions';
 export * from './profile';
 export * from './public';
 export * from './search';
+export * from './searcharea';
 export * from './settings';
 export * from './splash';
 export * from './tonight';

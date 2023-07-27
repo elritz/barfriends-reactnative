@@ -8357,6 +8357,7 @@ type Mutation {
   acceptFriendRequest(friendRequestId: String!, venueIdMetAt: String): Relationship!
   addPersonalJoinsVenue(profileIdVenue: String): Profile!
   addPersonalTotalsVenue(profileIdPersonal: String, profileIdVenue: String): Boolean!
+  addStoryPhotos(photos: PhotoCreateManyProfileInputEnvelope): Story!
   createFriendRequest(receiversProfileId: [String!]!, senderProfileId: String!): Boolean!
   createGuestProfile: AuthenticationResponseUnion!
   createPersonalProfile(data: CreatePersonalDataInput): AuthenticationResponseUnion!
@@ -8370,6 +8371,7 @@ type Mutation {
   removeFriend(relationshipId: String!): Boolean!
   removePersonalJoinsVenue: Profile!
   removePersonalTotalsVenue(profileIdVenue: String): Boolean!
+  removeStoryPhotos(photoId: String!): Story!
   sendAuthenticatorDeviceOwnerCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   sendAuthenticatorForgotPasswordCode(data: CodeDataInput, where: CustomCodeWhereInput): CodeResponse!
   switchDeviceProfile(profileId: String!): AuthenticationResponseUnion!
@@ -8388,7 +8390,6 @@ type Mutation {
   updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateProfileIdentifiableInformation(data: IdentifiableInformationUpdateInput!): AuthenticationResponseUnion!
   updateStoryEmojimood(emojimoodId: Int!, storyId: String): Story!
-  updateStoryPhotos(disconnectId: String, photos: PhotoCreateManyProfileInputEnvelope, storyId: String): Story!
   updateThemeManagerSwitchTheme(id: String!, themeId: String!): ProfileTheme!
   upsertDevicePushToken(androidToken: String, appleToken: String, expoToken: String): Boolean!
 }

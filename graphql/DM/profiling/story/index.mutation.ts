@@ -1,10 +1,18 @@
 import { gql } from '@apollo/client'
 import { STORY_FRAGMENT } from '@graphql/DM/fragments/story.fragments'
 
-export const UPDATE_STORY_PHOTOS_MUTATION = gql`
+export const ADD_STORY_PHOTOS_MUTATION = gql`
 	${STORY_FRAGMENT}
-	mutation updateStoryPhotos($disconnectId: String!, $photos: PhotoCreateManyProfileInputEnvelope) {
-		updateStoryPhotos(disconnectId: $disconnectId, photos: $photos) {
+	mutation addStoryPhotos($photos: PhotoCreateManyProfileInputEnvelope) {
+		addStoryPhotos(photos: $photos) {
+			...STORY_FRAGMENT
+		}
+	}
+`
+export const REMOVE_STORY_PHOTOS_MUTATION = gql`
+	${STORY_FRAGMENT}
+	mutation removeStoryPhotos($photoId: String!) {
+		removeStoryPhotos(photoId: $photoId) {
 			...STORY_FRAGMENT
 		}
 	}

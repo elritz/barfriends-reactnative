@@ -8605,6 +8605,7 @@ export type Mutation = {
   acceptFriendRequest: Relationship;
   addPersonalJoinsVenue: Profile;
   addPersonalTotalsVenue: Scalars['Boolean'];
+  addStoryPhotos: Story;
   createFriendRequest: Scalars['Boolean'];
   createGuestProfile: AuthenticationResponseUnion;
   createPersonalProfile: AuthenticationResponseUnion;
@@ -8618,6 +8619,7 @@ export type Mutation = {
   removeFriend: Scalars['Boolean'];
   removePersonalJoinsVenue: Profile;
   removePersonalTotalsVenue: Scalars['Boolean'];
+  removeStoryPhotos: Story;
   sendAuthenticatorDeviceOwnerCode: CodeResponse;
   sendAuthenticatorForgotPasswordCode: CodeResponse;
   switchDeviceProfile: AuthenticationResponseUnion;
@@ -8631,7 +8633,6 @@ export type Mutation = {
   updateOneProfile?: Maybe<Profile>;
   updateProfileIdentifiableInformation: AuthenticationResponseUnion;
   updateStoryEmojimood: Story;
-  updateStoryPhotos: Story;
   updateThemeManagerSwitchTheme: ProfileTheme;
   upsertDevicePushToken: Scalars['Boolean'];
 };
@@ -8651,6 +8652,11 @@ export type MutationAddPersonalJoinsVenueArgs = {
 export type MutationAddPersonalTotalsVenueArgs = {
   profileIdPersonal?: InputMaybe<Scalars['String']>;
   profileIdVenue?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationAddStoryPhotosArgs = {
+  photos?: InputMaybe<PhotoCreateManyProfileInputEnvelope>;
 };
 
 
@@ -8707,6 +8713,11 @@ export type MutationRemovePersonalTotalsVenueArgs = {
 };
 
 
+export type MutationRemoveStoryPhotosArgs = {
+  photoId: Scalars['String'];
+};
+
+
 export type MutationSendAuthenticatorDeviceOwnerCodeArgs = {
   data?: InputMaybe<CodeDataInput>;
   where?: InputMaybe<CustomCodeWhereInput>;
@@ -8757,13 +8768,6 @@ export type MutationUpdateProfileIdentifiableInformationArgs = {
 
 export type MutationUpdateStoryEmojimoodArgs = {
   emojimoodId: Scalars['Int'];
-  storyId?: InputMaybe<Scalars['String']>;
-};
-
-
-export type MutationUpdateStoryPhotosArgs = {
-  disconnectId?: InputMaybe<Scalars['String']>;
-  photos?: InputMaybe<PhotoCreateManyProfileInputEnvelope>;
   storyId?: InputMaybe<Scalars['String']>;
 };
 
@@ -18702,13 +18706,19 @@ export type GetAllCitiesByStateQueryVariables = Exact<{
 
 export type GetAllCitiesByStateQuery = { __typename?: 'Query', getAllCitiesByState: { __typename?: 'OrganizedCityResponseObject', popularCities?: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, venuesInArea?: number | null, countryCode: string, latitude?: string | null, longitude?: string | null }> | null, allCities?: Array<{ __typename?: 'CityResponseObject', name: string, stateCode: string, venuesInArea?: number | null, countryCode: string, latitude?: string | null, longitude?: string | null }> | null } };
 
-export type UpdateStoryPhotosMutationVariables = Exact<{
-  disconnectId: Scalars['String'];
+export type AddStoryPhotosMutationVariables = Exact<{
   photos?: InputMaybe<PhotoCreateManyProfileInputEnvelope>;
 }>;
 
 
-export type UpdateStoryPhotosMutation = { __typename?: 'Mutation', updateStoryPhotos: { __typename?: 'Story', id: string, date: any, startDate: any, createdAt: any, updatedAt?: any | null, emojimood?: { __typename?: 'Emojimood', colors: Array<string>, emoji?: string | null, emojiname?: string | null, id: string } | null, photos: Array<{ __typename?: 'Photo', active: boolean, blurhash?: string | null, createdAt: any, groupId?: string | null, height?: number | null, id: string, position?: number | null, profileId?: string | null, ratio?: string | null, storyId?: string | null, type?: PhotoType | null, updatedAt: any, url: string, width?: number | null, Group?: { __typename?: 'Group', id: string } | null, Profile?: { __typename?: 'Profile', id: string } | null, Story?: { __typename?: 'Story', id: string } | null }> } };
+export type AddStoryPhotosMutation = { __typename?: 'Mutation', addStoryPhotos: { __typename?: 'Story', id: string, date: any, startDate: any, createdAt: any, updatedAt?: any | null, emojimood?: { __typename?: 'Emojimood', colors: Array<string>, emoji?: string | null, emojiname?: string | null, id: string } | null, photos: Array<{ __typename?: 'Photo', active: boolean, blurhash?: string | null, createdAt: any, groupId?: string | null, height?: number | null, id: string, position?: number | null, profileId?: string | null, ratio?: string | null, storyId?: string | null, type?: PhotoType | null, updatedAt: any, url: string, width?: number | null, Group?: { __typename?: 'Group', id: string } | null, Profile?: { __typename?: 'Profile', id: string } | null, Story?: { __typename?: 'Story', id: string } | null }> } };
+
+export type RemoveStoryPhotosMutationVariables = Exact<{
+  photoId: Scalars['String'];
+}>;
+
+
+export type RemoveStoryPhotosMutation = { __typename?: 'Mutation', removeStoryPhotos: { __typename?: 'Story', id: string, date: any, startDate: any, createdAt: any, updatedAt?: any | null, emojimood?: { __typename?: 'Emojimood', colors: Array<string>, emoji?: string | null, emojiname?: string | null, id: string } | null, photos: Array<{ __typename?: 'Photo', active: boolean, blurhash?: string | null, createdAt: any, groupId?: string | null, height?: number | null, id: string, position?: number | null, profileId?: string | null, ratio?: string | null, storyId?: string | null, type?: PhotoType | null, updatedAt: any, url: string, width?: number | null, Group?: { __typename?: 'Group', id: string } | null, Profile?: { __typename?: 'Profile', id: string } | null, Story?: { __typename?: 'Story', id: string } | null }> } };
 
 export type UpdateStoryEmojimoodMutationVariables = Exact<{
   emojimoodId: Scalars['Int'];
@@ -21410,40 +21420,72 @@ export function useGetAllCitiesByStateLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetAllCitiesByStateQueryHookResult = ReturnType<typeof useGetAllCitiesByStateQuery>;
 export type GetAllCitiesByStateLazyQueryHookResult = ReturnType<typeof useGetAllCitiesByStateLazyQuery>;
 export type GetAllCitiesByStateQueryResult = Apollo.QueryResult<GetAllCitiesByStateQuery, GetAllCitiesByStateQueryVariables>;
-export const UpdateStoryPhotosDocument = gql`
-    mutation updateStoryPhotos($disconnectId: String!, $photos: PhotoCreateManyProfileInputEnvelope) {
-  updateStoryPhotos(disconnectId: $disconnectId, photos: $photos) {
+export const AddStoryPhotosDocument = gql`
+    mutation addStoryPhotos($photos: PhotoCreateManyProfileInputEnvelope) {
+  addStoryPhotos(photos: $photos) {
     ...STORY_FRAGMENT
   }
 }
     ${Story_FragmentFragmentDoc}`;
-export type UpdateStoryPhotosMutationFn = Apollo.MutationFunction<UpdateStoryPhotosMutation, UpdateStoryPhotosMutationVariables>;
+export type AddStoryPhotosMutationFn = Apollo.MutationFunction<AddStoryPhotosMutation, AddStoryPhotosMutationVariables>;
 
 /**
- * __useUpdateStoryPhotosMutation__
+ * __useAddStoryPhotosMutation__
  *
- * To run a mutation, you first call `useUpdateStoryPhotosMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateStoryPhotosMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddStoryPhotosMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddStoryPhotosMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateStoryPhotosMutation, { data, loading, error }] = useUpdateStoryPhotosMutation({
+ * const [addStoryPhotosMutation, { data, loading, error }] = useAddStoryPhotosMutation({
  *   variables: {
- *      disconnectId: // value for 'disconnectId'
  *      photos: // value for 'photos'
  *   },
  * });
  */
-export function useUpdateStoryPhotosMutation(baseOptions?: Apollo.MutationHookOptions<UpdateStoryPhotosMutation, UpdateStoryPhotosMutationVariables>) {
+export function useAddStoryPhotosMutation(baseOptions?: Apollo.MutationHookOptions<AddStoryPhotosMutation, AddStoryPhotosMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateStoryPhotosMutation, UpdateStoryPhotosMutationVariables>(UpdateStoryPhotosDocument, options);
+        return Apollo.useMutation<AddStoryPhotosMutation, AddStoryPhotosMutationVariables>(AddStoryPhotosDocument, options);
       }
-export type UpdateStoryPhotosMutationHookResult = ReturnType<typeof useUpdateStoryPhotosMutation>;
-export type UpdateStoryPhotosMutationResult = Apollo.MutationResult<UpdateStoryPhotosMutation>;
-export type UpdateStoryPhotosMutationOptions = Apollo.BaseMutationOptions<UpdateStoryPhotosMutation, UpdateStoryPhotosMutationVariables>;
+export type AddStoryPhotosMutationHookResult = ReturnType<typeof useAddStoryPhotosMutation>;
+export type AddStoryPhotosMutationResult = Apollo.MutationResult<AddStoryPhotosMutation>;
+export type AddStoryPhotosMutationOptions = Apollo.BaseMutationOptions<AddStoryPhotosMutation, AddStoryPhotosMutationVariables>;
+export const RemoveStoryPhotosDocument = gql`
+    mutation removeStoryPhotos($photoId: String!) {
+  removeStoryPhotos(photoId: $photoId) {
+    ...STORY_FRAGMENT
+  }
+}
+    ${Story_FragmentFragmentDoc}`;
+export type RemoveStoryPhotosMutationFn = Apollo.MutationFunction<RemoveStoryPhotosMutation, RemoveStoryPhotosMutationVariables>;
+
+/**
+ * __useRemoveStoryPhotosMutation__
+ *
+ * To run a mutation, you first call `useRemoveStoryPhotosMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveStoryPhotosMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeStoryPhotosMutation, { data, loading, error }] = useRemoveStoryPhotosMutation({
+ *   variables: {
+ *      photoId: // value for 'photoId'
+ *   },
+ * });
+ */
+export function useRemoveStoryPhotosMutation(baseOptions?: Apollo.MutationHookOptions<RemoveStoryPhotosMutation, RemoveStoryPhotosMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveStoryPhotosMutation, RemoveStoryPhotosMutationVariables>(RemoveStoryPhotosDocument, options);
+      }
+export type RemoveStoryPhotosMutationHookResult = ReturnType<typeof useRemoveStoryPhotosMutation>;
+export type RemoveStoryPhotosMutationResult = Apollo.MutationResult<RemoveStoryPhotosMutation>;
+export type RemoveStoryPhotosMutationOptions = Apollo.BaseMutationOptions<RemoveStoryPhotosMutation, RemoveStoryPhotosMutationVariables>;
 export const UpdateStoryEmojimoodDocument = gql`
     mutation updateStoryEmojimood($emojimoodId: Int!) {
   updateStoryEmojimood(emojimoodId: $emojimoodId) {
