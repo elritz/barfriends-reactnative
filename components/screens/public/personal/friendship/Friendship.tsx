@@ -1,11 +1,11 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Text } from '@components/core'
-import { PersonalProfileStackParamList } from '@ctypes/app'
-import { Ionicons } from '@expo/vector-icons'
-import { useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
+import { Feather, Ionicons } from '@expo/vector-icons'
+import { Relationship, useGetRelationshipFriendRequestStatusQuery } from '@graphql/generated'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
+import { PersonalProfileStackParamList } from '@types'
 import { DateTime } from 'luxon'
+import { Box, Heading, Icon, Text } from 'native-base'
 import { ReactElement } from 'react'
 
 export type PublicProfileRouteProp = RouteProp<
@@ -44,10 +44,10 @@ export default function Friendship() {
 				).toFormat('yyyy LLL dd')
 				return (
 					<Box>
-						<Text textTransform={'uppercase'} fontSize={'$sm'} fontWeight={'$bold'} textAlign={'center'}>
+						<Text textTransform={'uppercase'} fontSize={'sm'} fontWeight={'bold'} textAlign={'center'}>
 							Friends since
 						</Text>
-						<Text textTransform={'uppercase'} fontSize={'$lg'} fontWeight={'$bold'}>
+						<Text textTransform={'uppercase'} fontSize={'lg'} fontWeight={'bold'}>
 							{created}
 						</Text>
 					</Box>
@@ -59,8 +59,19 @@ export default function Friendship() {
 	}
 
 	return (
-		<Box rounded={'$xl'} flex={1} p={'$3'} alignItems={'center'}>
-			<Ionicons name='person' size={30} style={{ marginVertical: 3 }} />
+		<Box
+			_light={{
+				bg: 'light.50',
+			}}
+			_dark={{
+				bg: 'light.800',
+			}}
+			borderRadius={'xl'}
+			flex={1}
+			p={3}
+			alignItems={'center'}
+		>
+			<Icon as={Ionicons} size={'xl'} name={'person'} my={3} />
 			<Friends />
 		</Box>
 	)

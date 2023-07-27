@@ -1,13 +1,9 @@
 import { useReactiveVar } from '@apollo/client'
-import { Box, Button, HStack, Heading, Pressable, Text, VStack } from '@components/core'
-import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
+// import CancelFriendNotificationModal from '@components/molecules/modals/cancelfriendnotioficationmodal/CancelFriendNotificationModal'
 import { Ionicons } from '@expo/vector-icons'
 import { NOTIFICATIONS_QUERY } from '@graphql/DM/profiling/notifications/index.query'
-import {
-	FriendRequestNotification,
-	useAcceptFriendRequestMutation,
-	useDeleteFriendRequestMutation,
-} from '@graphql/generated'
+import { useAcceptFriendRequestMutation, useDeleteFriendRequestMutation } from '@graphql/generated'
+import { useNavigation } from '@react-navigation/native'
 import { AuthorizationReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
 import { useDisclose } from '@util/hooks/useDisclose'
@@ -15,7 +11,8 @@ import { useRouter } from 'expo-router'
 import { Image } from 'react-native'
 
 interface CondensedHorizontalFriendNotifciationProps {
-	item: FriendRequestNotification
+	// item: FriendRequestNotification
+	item: any
 }
 
 export const CondensedHorizontalFriendNotifciation = ({
@@ -122,12 +119,12 @@ export const CondensedHorizontalFriendNotifciation = ({
 							</VStack>
 						</HStack>
 					</Pressable>
-					<CancelFriendNotificationModal
+					{/* <CancelFriendNotificationModal
 						profileId={String(item.id)}
 						friendRequestId={String(item.id)}
 						isOpen={isOpenCancelFriendNotification}
 						onClose={onCloseCancelFriendNotification}
-					/>
+					/> */}
 					<Button
 						colorScheme={'primary'}
 						variant={'outline'}

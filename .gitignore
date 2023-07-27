@@ -1,12 +1,9 @@
-
-
 node_modules/**/*
 *.generated.*
 *.schema.*
 .env*
 config
 app.json
-eas.json
 schema.json
 graphql.schema.json
 .expo/*

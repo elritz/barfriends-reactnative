@@ -56,6 +56,6 @@ export const products = [
     subtitle: "32oz bottle now available",
     color1: "#FEAC00",
     color2: "#FDC946",
-    picture: require("./assets/coldbrew2.png"),
+    picture: require("./src/assets/coldbrew2.png"),
     aspectRatio: 719 / 277,
   }, */

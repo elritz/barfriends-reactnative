@@ -10,7 +10,6 @@ module.exports = (context: ConfigContext): ExpoConfig | null => {
 				slug: 'barfriends',
 				owner: 'barfriends',
 				scheme: 'barfriends',
-
 				orientation: 'portrait',
 				userInterfaceStyle: 'automatic',
 				primaryColor: '#FF7000',
