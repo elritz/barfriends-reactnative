@@ -6,6 +6,8 @@ import { Float } from 'react-native/Libraries/Types/CodegenTypes'
 
 export interface IColor {
 	color: string
+	focused: boolean
+	size: number
 }
 
 export type AuthorizationDecoded =

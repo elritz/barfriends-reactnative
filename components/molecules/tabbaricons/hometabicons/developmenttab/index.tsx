@@ -1,34 +1,44 @@
+import { useReactiveVar } from '@apollo/client'
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
-import { Box } from '@components/core'
-import { Entypo } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
+import { MotiPressable } from 'moti/interactions'
+import { useMemo } from 'react'
 
 const DevelopmentTab = (props: TabProps) => {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	return (
-		<>
-			<TabBarIcon
-				color={props.color}
-				icon={
-					<Entypo
+		<TabBarIcon
+			color='transparent'
+			icon={
+				<MotiPressable
+					animate={useMemo(
+						() =>
+							({ hovered, pressed }) => {
+								'worklet'
+
+								return {
+									scale: hovered || pressed ? 0.75 : 1,
+								}
+							},
+						[],
+					)}
+				>
+					<MaterialCommunityIcons
 						style={{
 							zIndex: 100,
 							justifyContent: 'center',
 						}}
-						size={28}
-						name='code'
-						color={props.color}
+						size={38}
+						name='dev-to'
+						color={
+							!props.focused ? (rTheme.deviceColorScheme === 'dark' ? 'white' : 'black') : props.color
+						}
 					/>
-				}
-			/>
-			<Box
-				bg={false ? '$red500' : 'transparent'}
-				sx={{
-					h: 4.25,
-					w: 4.25,
-				}}
-				rounded={'$full'}
-			/>
-		</>
+				</MotiPressable>
+			}
+		/>
 	)
 }
 

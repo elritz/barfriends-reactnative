@@ -1,5 +1,14 @@
 import { useReactiveVar } from '@apollo/client'
-import { AddIcon, Box, Button, Center, Heading, Pressable, Text } from '@components/core'
+import {
+	AddIcon,
+	Box,
+	Button,
+	Center,
+	Heading,
+	Pressable,
+	RemoveIcon,
+	Text,
+} from '@components/core'
 import { MaterialIcons } from '@expo/vector-icons'
 import { PhotoCreateManyProfileInput, useAddStoryPhotosMutation } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
@@ -162,26 +171,89 @@ export default function Photos() {
 						bounces={false}
 						style={{ overflow: 'hidden' }}
 					>
-						{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.map((item, index) => {
+						{[
+							...rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos,
+							{ __typename: 'upload' },
+						]?.map((item, index) => {
+							if (item?.__typename === 'upload') {
+								return (
+									<Box
+										// bg={'$transparent'}
+										sx={{
+											h: containerHeight,
+											w: ITEM_WIDTH,
+										}}
+										rounded={'$md'}
+									>
+										<Center flex={1} mx={'$5'}>
+											<Box
+												sx={{
+													w: '100%',
+													mb: 25,
+												}}
+												bg='$transparent'
+												alignItems={'center'}
+											>
+												<MaterialIcons
+													style={{
+														zIndex: 10,
+														marginTop: 10,
+														color:
+															rTheme.colorScheme === 'light'
+																? rTheme.theme?.gluestack.tokens.colors.light100
+																: rTheme.theme?.gluestack.tokens.colors.dark900,
+													}}
+													size={40}
+													name={'photo-size-select-actual'}
+												/>
+												<Box bg='$transparent' position={'absolute'} zIndex={5}>
+													<View
+														style={[
+															styles.dotSm,
+															{
+																alignContent: 'center',
+																justifyContent: 'center',
+															},
+														]}
+													/>
+													<View
+														style={[
+															styles.dotMd,
+															{
+																alignContent: 'center',
+																justifyContent: 'center',
+															},
+														]}
+													/>
+													<View
+														style={[
+															styles.dotLg,
+															{
+																alignContent: 'center',
+																justifyContent: 'center',
+															},
+														]}
+													/>
+												</Box>
+											</Box>
+											<Heading pb={1} fontWeight={'$black'}>
+												Upload another image
+											</Heading>
+											<Button onPress={pickImage} bg={'$tertiary400'} rounded={'$md'} zIndex={20}>
+												<Button.Icon>
+													<AddIcon />
+												</Button.Icon>
+											</Button>
+										</Center>
+									</Box>
+								)
+							}
+
 							return (
 								<View key={index}>
-									<Box h={'100%'} w={ITEM_WIDTH} bg='$green300' rounded={'$md'} overflow='hidden'>
-										<Button
-											onPress={pickImage}
-											bg={'$tertiary400'}
-											rounded={'$md'}
-											position={'absolute'}
-											right={0}
-											top={10}
-											zIndex={20}
-										>
-											<Button.Icon>
-												<AddIcon />
-											</Button.Icon>
-										</Button>
+									<Box h={'100%'} w={ITEM_WIDTH} rounded={'$md'} overflow='hidden'>
 										<Pressable
 											position={'absolute'}
-											// bg='$amber800'
 											top={0}
 											left={0}
 											bottom={0}
@@ -195,7 +267,6 @@ export default function Photos() {
 										/>
 										<Pressable
 											position={'absolute'}
-											// bg='$yellow500'
 											top={0}
 											right={0}
 											bottom={0}
@@ -206,6 +277,20 @@ export default function Photos() {
 											}}
 											zIndex={10}
 										/>
+										<Button
+											position={'absolute'}
+											bg='$danger600'
+											rounded={'$full'}
+											right={10}
+											top={10}
+											size='xs'
+											onPress={() => {
+												onPressScroll('right')
+											}}
+											zIndex={20}
+										>
+											<RemoveIcon />
+										</Button>
 										<Image
 											source={{
 												uri: item.url,
@@ -232,7 +317,10 @@ export default function Photos() {
 							flexDirection: 'row',
 						}}
 					>
-						{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos.map((_, i) => {
+						{[
+							rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos,
+							{ __typename: 'upload' },
+						].map((item, i) => {
 							const rDotStyle = useAnimatedStyle(() => {
 								const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
 								const dotWidth = interpolate(translateX.value, inputRange, [11, 20, 11], 'clamp')

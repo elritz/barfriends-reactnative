@@ -707,16 +707,7 @@ export default () => {
 				// keyExtractor={(item, index) => index}
 				renderItem={({ item, index }) => <Item index={index} item={item} />}
 				renderSectionHeader={({ section: { title } }) => (
-					<Box
-						py={'$3'}
-						rounded={'$none'}
-						bg={
-							rTheme.colorScheme === 'light'
-								? rTheme.theme?.gluestack.tokens.colors.light100
-								: rTheme.theme?.gluestack.tokens.colors.dark100
-						}
-						justifyContent='center'
-					>
+					<Box py={'$3'} rounded={'$none'} bg={'transparent'} justifyContent='center'>
 						<Heading mt={'$4'} fontSize={'$2xl'}>
 							{title}
 						</Heading>

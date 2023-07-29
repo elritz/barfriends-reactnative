@@ -1,3 +1,4 @@
+import { useReactiveVar } from '@apollo/client'
 import { Box } from '@components/core'
 import DevelopmentTab from '@components/molecules/tabbaricons/hometabicons/developmenttab'
 import MessageTab from '@components/molecules/tabbaricons/hometabicons/messagestab'
@@ -10,17 +11,27 @@ import {
 } from '@constants/ReactNavigationConstants'
 import { IColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
+import { ThemeReactiveVar } from '@reactive'
+import { BlurView } from 'expo-blur'
 import { Tabs } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default () => {
 	const insets = useSafeAreaInsets()
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	return (
 		<Tabs
 			initialRouteName='venuefeed'
 			screenOptions={{
-				tabBarBackground: () => <Box style={[StyleSheet.absoluteFill]} />,
+				// tabBarBackground: () => <Box style={[StyleSheet.absoluteFill]} />,
+				tabBarBackground: () => (
+					<BlurView
+						tint={rTheme.deviceColorScheme === 'light' ? 'light' : 'dark'}
+						intensity={70}
+						style={[StyleSheet.absoluteFill]}
+					/>
+				),
 				tabBarStyle: {
 					height:
 						insets.bottom !== 0
@@ -41,7 +52,7 @@ export default () => {
 					// headerShown: false,
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
-					tabBarIcon: ({ color }: IColor) => <VenueFeedTab color={color} />,
+					tabBarIcon: ({ color, focused }: IColor) => <VenueFeedTab color={color} focused={focused} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -50,7 +61,7 @@ export default () => {
 					href: '(app)/hometab/tonight',
 					headerShown: false,
 					tabBarLabel: 'tonight',
-					tabBarIcon: ({ color }: IColor) => <TonightTab color={color} />,
+					tabBarIcon: ({ color, focused }: IColor) => <TonightTab color={color} focused={focused} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -59,7 +70,7 @@ export default () => {
 					headerShown: false,
 					tabBarLabel: 'messages',
 					tabBarShowLabel: false,
-					tabBarIcon: ({ color }: IColor) => <MessageTab color={color} />,
+					tabBarIcon: ({ color, focused }: IColor) => <MessageTab color={color} focused={focused} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -68,18 +79,19 @@ export default () => {
 					headerShown: false,
 					tabBarLabel: 'profile',
 					tabBarShowLabel: false,
-					tabBarIcon: ({ color }: IColor) => <ProfileTab color={color} />,
+					tabBarIcon: ({ color, focused }: IColor) => <ProfileTab color={color} focused={focused} />,
 				}}
 			/>
 			{ENVIRONMENT === 'development' && (
 				<Tabs.Screen
 					name='developmentstack'
 					options={{
-						// href: null,
 						headerShown: false,
 						tabBarLabel: 'development',
 						tabBarShowLabel: false,
-						tabBarIcon: ({ color }: IColor) => <DevelopmentTab color={color} />,
+						tabBarIcon: ({ color, focused }: IColor) => (
+							<DevelopmentTab color={color} focused={focused} />
+						),
 					}}
 				/>
 			)}

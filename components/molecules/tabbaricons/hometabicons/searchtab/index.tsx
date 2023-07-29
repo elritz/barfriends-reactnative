@@ -1,12 +1,14 @@
-import TabBarIcon, { TabBarIconProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
+import { useReactiveVar } from '@apollo/client'
+import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { Box } from '@components/core'
 import { Ionicons } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
 
-const SearchTab = (props: TabBarIconProps) => {
+const SearchTab = (props: TabProps) => {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	return (
 		<>
 			<TabBarIcon
-				color={props.color}
 				icon={
 					<Ionicons
 						style={{
@@ -15,7 +17,9 @@ const SearchTab = (props: TabBarIconProps) => {
 						}}
 						size={28}
 						name='search'
-						color={props.color}
+						color={
+							!props.focused ? (rTheme.deviceColorScheme === 'dark' ? 'white' : 'black') : props.color
+						}
 					/>
 				}
 			/>

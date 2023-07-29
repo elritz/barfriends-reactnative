@@ -155,7 +155,7 @@ const SearchInput = (props: Props) => {
 										: rTheme.theme?.gluestack.tokens.colors.dark900
 								}
 								name='ios-search'
-								size={23}
+								size={20}
 							/>
 						</Input.Icon>
 						<Input.Input
@@ -202,7 +202,6 @@ const SearchInput = (props: Props) => {
 									}
 								}
 							}}
-							alignSelf={'center'}
 							onChangeText={onChange}
 							placeholder={props.placeholder || 'Search'}
 							returnKeyType='search'

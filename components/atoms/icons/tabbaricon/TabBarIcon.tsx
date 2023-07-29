@@ -1,3 +1,5 @@
+import { MotiPressable } from 'moti/interactions'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 interface OuterViewStyleProps {
@@ -15,6 +17,7 @@ export interface TabBarIconProps {
 
 export interface TabProps {
 	color: string
+	focused: boolean
 }
 
 const TabBarIcon = ({ icon, badge, containerStyle }: TabBarIconProps) => (

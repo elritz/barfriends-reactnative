@@ -1,13 +1,15 @@
+import { useReactiveVar } from '@apollo/client'
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { Box } from '@components/core'
 import { Entypo } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
 
 const HomeTab = (props: TabProps) => {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
 	return (
 		<>
 			<TabBarIcon
-				color={props.color}
 				icon={
 					<Entypo
 						style={{
@@ -16,7 +18,9 @@ const HomeTab = (props: TabProps) => {
 						}}
 						size={26}
 						name='home'
-						color={props.color}
+						color={
+							!props.focused ? (rTheme.deviceColorScheme === 'dark' ? 'white' : 'black') : props.color
+						}
 					/>
 				}
 			/>

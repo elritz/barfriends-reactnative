@@ -1,23 +1,44 @@
+import { useReactiveVar } from '@apollo/client'
 import TabBarIcon from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { Box } from '@components/core'
-import { FontAwesome5 } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
+import { ThemeReactiveVar } from '@reactive'
+import { MotiPressable } from 'moti/interactions'
+import { useMemo } from 'react'
 
 const TonightTab = (props: TabProps) => {
+	const rTheme = useReactiveVar(ThemeReactiveVar)
+
 	return (
 		<>
 			<TabBarIcon
-				color={props.color}
 				icon={
-					<FontAwesome5
-						style={{
-							zIndex: 100,
-							justifyContent: 'center',
-						}}
-						size={23}
-						name='play'
-						color={props.color}
-					/>
+					<MotiPressable
+						animate={useMemo(
+							() =>
+								({ hovered, pressed }) => {
+									'worklet'
+
+									return {
+										scale: hovered || pressed ? 0.75 : 1,
+									}
+								},
+							[],
+						)}
+					>
+						<Ionicons
+							style={{
+								zIndex: 100,
+								justifyContent: 'center',
+							}}
+							size={28}
+							name={!props.focused ? 'md-play-outline' : 'md-play'}
+							color={
+								!props.focused ? (rTheme.deviceColorScheme === 'dark' ? 'white' : 'black') : props.color
+							}
+						/>
+					</MotiPressable>
 				}
 			/>
 			<Box

@@ -1,15 +1,18 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
+import CompanyCoasterLogoDynamicInverse from '@assets/images/company/CompanyCoasterLogoDynamicInverse'
+import CompanyCoasterLogoDynamicOutline from '@assets/images/company/CompanyCoasterLogoDynamicOutline'
 import TabBarIcon, { TabProps } from '@components/atoms/icons/tabbaricon/TabBarIcon'
 import { Box, Pressable } from '@components/core'
 import { useGetNotificationsLazyQuery } from '@graphql/generated'
 import { AuthorizationReactiveVar, ThemeReactiveVar } from '@reactive'
 import * as Haptics from 'expo-haptics'
 import { useRouter } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { MotiPressable } from 'moti/interactions'
+import { useEffect, useMemo, useState } from 'react'
 import { Image } from 'react-native'
 
-const HEIGHT = 25
+const HEIGHT = 22
 
 const ProfileTab = (props: TabProps) => {
 	const router = useRouter()
@@ -57,26 +60,44 @@ const ProfileTab = (props: TabProps) => {
 				}}
 				onLongPress={() => onLongPressProfileIcon()}
 			>
-				<CompanyCoasterLogoDynamic
-					width={HEIGHT}
-					height={HEIGHT}
-					iconColor={
-						rTheme.colorScheme === 'light'
-							? rTheme.theme?.gluestack.tokens.colors.light100
-							: rTheme.theme?.gluestack.tokens.colors.dark100
-					}
-					backgroundColor={props.color}
-				/>
+				<>
+					{props.focused ? (
+						<CompanyCoasterLogoDynamic
+							width={HEIGHT}
+							height={HEIGHT}
+							backgroundColor={
+								!props.focused ? (rTheme.deviceColorScheme === 'dark' ? 'white' : 'black') : props.color
+							}
+						/>
+					) : (
+						<CompanyCoasterLogoDynamicOutline
+							width={HEIGHT}
+							height={HEIGHT}
+							backgroundColor={
+								!props.focused ? (rTheme.deviceColorScheme === 'dark' ? 'white' : 'black') : props.color
+							}
+						/>
+					)}
+				</>
 			</Pressable>
 		)
 	}
 	return (
 		<>
 			<TabBarIcon
-				color={props.color}
 				icon={
-					<Pressable
-						delayLongPress={200}
+					<MotiPressable
+						animate={useMemo(
+							() =>
+								({ hovered, pressed }) => {
+									'worklet'
+
+									return {
+										scale: hovered || pressed ? 0.75 : 1,
+									}
+								},
+							[],
+						)}
 						style={{ zIndex: 100 }}
 						onPress={() => {
 							router.push('hometab/profilestack')
@@ -96,19 +117,36 @@ const ProfileTab = (props: TabProps) => {
 									}}
 								/>
 							) : (
-								<CompanyCoasterLogoDynamic
-									width={HEIGHT}
-									height={HEIGHT}
-									iconColor={
-										rTheme.colorScheme === 'light'
-											? rTheme.theme?.gluestack.tokens.colors.light100
-											: rTheme.theme?.gluestack.tokens.colors.dark100
-									}
-									backgroundColor={props.color}
-								/>
+								<MotiPressable
+									animate={useMemo(
+										() =>
+											({ hovered, pressed }) => {
+												'worklet'
+
+												return {
+													scale: hovered || pressed ? 0.75 : 1,
+												}
+											},
+										[],
+									)}
+								>
+									{!props.focused ? (
+										<CompanyCoasterLogoDynamicOutline
+											width={HEIGHT}
+											height={HEIGHT}
+											backgroundColor={rTheme.deviceColorScheme === 'dark' ? 'white' : 'black'}
+										/>
+									) : (
+										<CompanyCoasterLogoDynamicInverse
+											width={HEIGHT}
+											height={HEIGHT}
+											backgroundColor={props.color}
+										/>
+									)}
+								</MotiPressable>
 							)}
 						</>
-					</Pressable>
+					</MotiPressable>
 				}
 			/>
 			{
