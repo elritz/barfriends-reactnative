@@ -1,14 +1,15 @@
 import { DateTime } from 'luxon'
-import { ColorSchemeName } from 'react-native'
 
 export type ThemeColorSchemeOptionsType = 'light' | 'dark' | 'system'
+
+export type LocalStoragePreferenceThemeType = {
+	colorScheme: ThemeColorSchemeOptionsType
+}
 
 export enum SystemsOfUnits {
 	Imperial = 'Imperial',
 	Metric = 'Metric',
 }
-
-
 
 export type DefaultPreferenceToPermission = {
 	dateToShowAgain: DateTime
@@ -21,30 +22,18 @@ export interface LocalStoragePreferenceAskNotificationPermissionType
 
 export interface LocalStoragePreferenceAskBackgroundLocationPermissionType
 	extends DefaultPreferenceToPermission {}
+
 export interface LocalStoragePreferenceAskNotificationPermissionType
 	extends DefaultPreferenceToPermission {}
+
 export interface LocalStoragePreferenceAskForegroundLocationPermissionType
 	extends DefaultPreferenceToPermission {}
 
 export interface LocalStoragePreferenceAskSystemOfUnitsPermissionType
 	extends DefaultPreferenceToPermission {}
 
-export type LocalStoragePreferenceThemeType = {
-	colorScheme: ThemeColorSchemeOptionsType
-}
-
-export type LocalStoragePreferenceSearchAreaType = {
-	useCurrentLocation: boolean
-	country: string
-	state: string
-	city: string
-	isoCode: string
-	coords: {
-		latitude: number | null
-		longitude: number | null
-	}
-	kRing: number
-	distance: number
+export interface LocalStoragePreferenceSystemsOfUnitsType extends DefaultPreferenceToPermission {
+	system: SystemsOfUnits
 }
 
 export type Coords = {
@@ -58,7 +47,7 @@ export type PlaceType = {
 	coords: Coords
 }
 
-export type LocalStoragePreferenceSearchAreaType2 = {
+export type LocalStoragePreferenceSearchAreaType = {
 	useCurrentLocation: boolean
 	searchArea: {
 		country: PlaceType
@@ -70,8 +59,4 @@ export type LocalStoragePreferenceSearchAreaType2 = {
 		value: number
 		distance: number
 	}
-}
-
-export interface LocalStoragePreferenceSystemsOfUnitsType extends DefaultPreferenceToPermission {
-	system: SystemsOfUnits
 }

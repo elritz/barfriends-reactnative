@@ -1,7 +1,7 @@
 import { makeVar } from '@apollo/client'
-import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
+import { LocalStoragePreferenceSearchAreaType } from '@ctypes/preferences'
 
-export const searchAreaInitialState: LocalStoragePreferenceSearchAreaType2 = {
+export const searchAreaInitialState: LocalStoragePreferenceSearchAreaType = {
 	useCurrentLocation: false,
 	searchArea: {
 		country: {
@@ -40,4 +40,4 @@ export const searchAreaInitialState: LocalStoragePreferenceSearchAreaType2 = {
 }
 
 export const SearchAreaReactiveVar =
-	makeVar<LocalStoragePreferenceSearchAreaType2>(searchAreaInitialState)
+	makeVar<LocalStoragePreferenceSearchAreaType>(searchAreaInitialState)

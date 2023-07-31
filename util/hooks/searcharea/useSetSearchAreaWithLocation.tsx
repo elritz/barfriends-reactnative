@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
-import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
+import { LocalStoragePreferenceSearchAreaType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	CurrentLocationReactiveVar,
@@ -27,7 +27,7 @@ const useSetSearchAreaWithLocation = async () => {
 				longitude: getLastKnowPosition.coords.longitude,
 			})
 
-			const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
+			const valueSearchArea: LocalStoragePreferenceSearchAreaType = {
 				...rSearchAreaVar,
 				useCurrentLocation: true,
 				searchArea: {
@@ -90,7 +90,7 @@ const useSetSearchAreaWithLocation = async () => {
 				longitude: currentLocation.coords.longitude,
 			})
 
-			const valueSearchArea: LocalStoragePreferenceSearchAreaType2 = {
+			const valueSearchArea: LocalStoragePreferenceSearchAreaType = {
 				...rSearchAreaVar,
 				useCurrentLocation: true,
 				searchArea: {

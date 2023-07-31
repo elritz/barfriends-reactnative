@@ -3,7 +3,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, Button, HStack, Heading, Text, VStack } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { CityResponseObject, useGetAllCitiesByStateQuery } from '@graphql/generated'
-import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
+import { LocalStoragePreferenceSearchAreaType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SearchAreaReactiveVar, ThemeReactiveVar } from '@reactive'
 import { FlashList } from '@shopify/flash-list'
@@ -150,7 +150,7 @@ export default function SearchAreaStateCities() {
 				},
 			})
 			const { country, state, city } = getValues()
-			const newSearchAreaValue: LocalStoragePreferenceSearchAreaType2 = {
+			const newSearchAreaValue: LocalStoragePreferenceSearchAreaType = {
 				...rSearchAreaVar,
 				useCurrentLocation: false,
 				searchArea: {

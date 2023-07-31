@@ -3,7 +3,7 @@ import { useReactiveVar } from '@apollo/client'
 import { Box, HStack, Pressable, Text } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
+import { LocalStoragePreferenceSearchAreaType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
 	PermissionForegroundLocationReactiveVar,
@@ -20,7 +20,7 @@ const SearchAreaLocationPermissionItem = () => {
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 	const rTheme = useReactiveVar(ThemeReactiveVar)
 
-	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
+	const newSearchArea: LocalStoragePreferenceSearchAreaType = {
 		...rSearchAreaVar,
 		useCurrentLocation: false,
 	}

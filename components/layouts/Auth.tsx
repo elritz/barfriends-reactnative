@@ -1,12 +1,12 @@
 import { useReactiveVar } from '@apollo/client'
 import { AUTHORIZATION } from '@constants/StorageConstants'
-import { AuthorizationDecoded } from '@ctypes/app'
 import {
 	AuthorizationDeviceManager,
 	useCreateGuestProfileMutation,
 	useRefreshDeviceManagerMutation,
 } from '@graphql/generated'
 import { AuthorizationReactiveVar } from '@reactive'
+import { AuthorizationDecoded } from '@util/hooks/auth/useCheckLocalStorageForAuthorizationToken'
 import { secureStorageItemDelete, secureStorageItemRead } from '@util/hooks/local/useSecureStorage'
 import { router, useRouter } from 'expo-router'
 import { useEffect, useRef } from 'react'

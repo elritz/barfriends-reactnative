@@ -1,11 +1,11 @@
-import { cache } from './apollo/cache'
-import link from './apollo/link'
+import { cache } from './cache'
+import link from './link'
 import { ApolloClient } from '@apollo/client'
 
-const client = new ApolloClient({
+const profilingclient = new ApolloClient({
 	link,
 	cache,
 	defaultOptions: { watchQuery: { fetchPolicy: 'cache-and-network' } },
 })
 
-export default client
+export default profilingclient

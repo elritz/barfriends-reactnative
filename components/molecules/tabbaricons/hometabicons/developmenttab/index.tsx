@@ -28,6 +28,7 @@ const DevelopmentTab = (props: TabProps) => {
 					<MaterialCommunityIcons
 						style={{
 							zIndex: 100,
+							marginTop: -4,
 							justifyContent: 'center',
 						}}
 						size={38}

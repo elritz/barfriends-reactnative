@@ -52,7 +52,7 @@ const ProfileTab = (props: TabProps) => {
 		return (
 			<Pressable
 				delayLongPress={200}
-				style={{ zIndex: 100, marginTop: -5 }}
+				style={{ zIndex: 100 }}
 				onPress={() => {
 					router.push({
 						pathname: '(app)/hometab/profilestack',
@@ -102,50 +102,60 @@ const ProfileTab = (props: TabProps) => {
 						onPress={() => {
 							router.push('hometab/profilestack')
 						}}
-						onLongPress={() => onLongPressProfileIcon()}
 					>
-						<>
-							{rAuthorizationVar?.DeviceProfile?.Profile?.photos?.length ? (
-								<Image
-									source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
-									style={{
-										width: HEIGHT,
-										height: HEIGHT,
-										borderRadius: 4,
-										borderColor: props.color,
-										borderWidth: 1.5,
-									}}
-								/>
-							) : (
-								<MotiPressable
-									animate={useMemo(
-										() =>
-											({ hovered, pressed }) => {
-												'worklet'
+						<Pressable
+							delayLongPress={200}
+							style={{ zIndex: 100 }}
+							onPress={() => {
+								router.push({
+									pathname: '(app)/hometab/profilestack',
+								})
+							}}
+							onLongPress={() => onLongPressProfileIcon()}
+						>
+							<>
+								{rAuthorizationVar?.DeviceProfile?.Profile?.photos?.length ? (
+									<Image
+										source={{ uri: rAuthorizationVar.DeviceProfile.Profile.photos[0].url }}
+										style={{
+											width: HEIGHT,
+											height: HEIGHT,
+											borderRadius: 4,
+											borderColor: props.color,
+											borderWidth: 1.5,
+										}}
+									/>
+								) : (
+									<MotiPressable
+										animate={useMemo(
+											() =>
+												({ hovered, pressed }) => {
+													'worklet'
 
-												return {
-													scale: hovered || pressed ? 0.75 : 1,
-												}
-											},
-										[],
-									)}
-								>
-									{!props.focused ? (
-										<CompanyCoasterLogoDynamicOutline
-											width={HEIGHT}
-											height={HEIGHT}
-											backgroundColor={rTheme.deviceColorScheme === 'dark' ? 'white' : 'black'}
-										/>
-									) : (
-										<CompanyCoasterLogoDynamicInverse
-											width={HEIGHT}
-											height={HEIGHT}
-											backgroundColor={props.color}
-										/>
-									)}
-								</MotiPressable>
-							)}
-						</>
+													return {
+														scale: hovered || pressed ? 0.75 : 1,
+													}
+												},
+											[],
+										)}
+									>
+										{!props.focused ? (
+											<CompanyCoasterLogoDynamicOutline
+												width={HEIGHT}
+												height={HEIGHT}
+												backgroundColor={rTheme.deviceColorScheme === 'dark' ? 'white' : 'black'}
+											/>
+										) : (
+											<CompanyCoasterLogoDynamicInverse
+												width={HEIGHT}
+												height={HEIGHT}
+												backgroundColor={props.color}
+											/>
+										)}
+									</MotiPressable>
+								)}
+							</>
+						</Pressable>
 					</MotiPressable>
 				}
 			/>

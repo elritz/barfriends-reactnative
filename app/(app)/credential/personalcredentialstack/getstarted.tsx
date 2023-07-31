@@ -1,6 +1,6 @@
 import { useReactiveVar } from '@apollo/client'
 import CompanyCoasterLogoDynamic from '@assets/images/company/CompanyCoasterLogoDynamic'
-import { Box, Button, Heading, Pressable, Text, VStack } from '@components/core'
+import { Box, Heading, Pressable, Text, VStack } from '@components/core'
 import { Feather } from '@expo/vector-icons'
 import { usePrivacyTermsDocumentsQuery } from '@graphql/generated'
 import { CredentialPersonalProfileReactiveVar } from '@reactive'

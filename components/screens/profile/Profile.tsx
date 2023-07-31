@@ -5,12 +5,10 @@ import PreferenceNotificationPermission from '@components/molecules/permissions/
 import PersonalScreen from '@components/screens/profile/personalprofile/PersonalProfile'
 import VenueScreen from '@components/screens/profile/venueprofile/VenueProfile'
 import { ProfileType, useGetNotificationsLazyQuery } from '@graphql/generated'
-import PersonalScreen from '@navigation/screens/hometabs/profile/PersonalProfile/PersonalProfile'
-import VenueScreen from '@navigation/screens/hometabs/profile/VenueProfile/VenueProfile'
+'
 import {
 	AuthorizationReactiveVar,
 	PermissionNotificationReactiveVar,
-	PreferencePermissionNotificationInitialState,
 	PreferencePermissionNotificationReactiveVar,
 } from '@reactive'
 import { uniqueId } from 'lodash'

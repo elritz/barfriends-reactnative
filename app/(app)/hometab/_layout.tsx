@@ -9,13 +9,14 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 } from '@constants/ReactNavigationConstants'
-import { IColor } from '@ctypes/app'
+import { ITabColor } from '@ctypes/app'
 import { ENVIRONMENT } from '@env'
 import { ThemeReactiveVar } from '@reactive'
 import { BlurView } from 'expo-blur'
 import { Tabs } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
 
 export default () => {
 	const insets = useSafeAreaInsets()
@@ -52,7 +53,7 @@ export default () => {
 					// headerShown: false,
 					tabBarLabel: 'outaboot',
 					tabBarShowLabel: false,
-					tabBarIcon: ({ color, focused }: IColor) => <VenueFeedTab color={color} focused={focused} />,
+					tabBarIcon: ({ color, focused }: ITabColor) => <VenueFeedTab color={color} focused={focused} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -61,7 +62,7 @@ export default () => {
 					href: '(app)/hometab/tonight',
 					headerShown: false,
 					tabBarLabel: 'tonight',
-					tabBarIcon: ({ color, focused }: IColor) => <TonightTab color={color} focused={focused} />,
+					tabBarIcon: ({ color, focused }: ITabColor) => <TonightTab color={color} focused={focused} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -70,7 +71,7 @@ export default () => {
 					headerShown: false,
 					tabBarLabel: 'messages',
 					tabBarShowLabel: false,
-					tabBarIcon: ({ color, focused }: IColor) => <MessageTab color={color} focused={focused} />,
+					tabBarIcon: ({ color, focused }: ITabColor) => <MessageTab color={color} focused={focused} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -79,7 +80,7 @@ export default () => {
 					headerShown: false,
 					tabBarLabel: 'profile',
 					tabBarShowLabel: false,
-					tabBarIcon: ({ color, focused }: IColor) => <ProfileTab color={color} focused={focused} />,
+					tabBarIcon: ({ color, focused }: ITabColor) => <ProfileTab color={color} focused={focused} />,
 				}}
 			/>
 			{ENVIRONMENT === 'development' && (
@@ -89,7 +90,7 @@ export default () => {
 						headerShown: false,
 						tabBarLabel: 'development',
 						tabBarShowLabel: false,
-						tabBarIcon: ({ color, focused }: IColor) => (
+						tabBarIcon: ({ color, focused }: ITabColor) => (
 							<DevelopmentTab color={color} focused={focused} />
 						),
 					}}

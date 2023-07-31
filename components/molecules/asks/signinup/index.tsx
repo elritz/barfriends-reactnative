@@ -24,13 +24,9 @@ export default () => {
 					my={'$4'}
 					rounded={'$md'}
 				>
-					<Text
-						textTransform='uppercase'
-						fontWeight='$bold'
-						fontSize={'$lg'}
-					>
+					<Button.Text textTransform='uppercase' fontWeight='$bold' fontSize={'$lg'}>
 						Sign up
-					</Text>
+					</Button.Text>
 				</Button>
 				<Button
 					variant='link'

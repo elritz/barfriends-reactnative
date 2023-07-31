@@ -83,10 +83,10 @@ export default function Details(props) {
 										fontSize={'$md'}
 										sx={{
 											_dark: {
-												color: '$white',
+												color: '$white100',
 											},
 											_light: {
-												color: '$dark',
+												color: '$dark100',
 											},
 										}}
 									>{`${item.emoji} ${item.name}`}</Badge.Text>

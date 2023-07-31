@@ -3,7 +3,7 @@ import {
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT_WITH_INSETS,
 	HOME_TAB_BOTTOM_NAVIGATION_HEIGHT,
 } from '@constants/ReactNavigationConstants'
-import { IColor } from '@ctypes/app'
+import { ITabColor } from '@ctypes/app'
 import { MaterialIcons } from '@expo/vector-icons'
 import { ThemeReactiveVar } from '@reactive'
 import { Tabs } from 'expo-router'
@@ -38,7 +38,7 @@ export default function _layout() {
 			<Tabs.Screen
 				name={'privacy'}
 				options={{
-					tabBarIcon: ({ color }: IColor) => (
+					tabBarIcon: ({ color }: ITabColor) => (
 						<MaterialIcons size={30} name='privacy-tip' color={color} />
 					),
 					tabBarLabelStyle: {
@@ -50,7 +50,7 @@ export default function _layout() {
 			<Tabs.Screen
 				name={'services'}
 				options={{
-					tabBarIcon: ({ color }: IColor) => (
+					tabBarIcon: ({ color }: ITabColor) => (
 						<MaterialIcons size={30} name='room-service' color={color} />
 					),
 					tabBarLabelStyle: {

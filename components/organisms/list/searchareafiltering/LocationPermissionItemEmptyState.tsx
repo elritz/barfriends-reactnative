@@ -1,7 +1,7 @@
 import { useReactiveVar } from '@apollo/client'
 import { HStack, Pressable, Text } from '@components/core'
 import { LOCAL_STORAGE_SEARCH_AREA } from '@constants/StorageConstants'
-import { LocalStoragePreferenceSearchAreaType2 } from '@preferences'
+import { LocalStoragePreferenceSearchAreaType } from '@ctypes/preferences'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { PermissionForegroundLocationReactiveVar, SearchAreaReactiveVar } from '@reactive'
 import { capitalizeFirstLetter } from '@util/@fn/capitalizeFirstLetter'
@@ -15,7 +15,7 @@ const LocationPermissionItemEmptyState = () => {
 	const rPermissionForegroundLocationVar = useReactiveVar(PermissionForegroundLocationReactiveVar)
 	const rSearchAreaVar = useReactiveVar(SearchAreaReactiveVar)
 
-	const newSearchArea: LocalStoragePreferenceSearchAreaType2 = {
+	const newSearchArea: LocalStoragePreferenceSearchAreaType = {
 		...rSearchAreaVar,
 		useCurrentLocation: false,
 	}
