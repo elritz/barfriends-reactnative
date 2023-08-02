@@ -153,6 +153,7 @@ export default function Photos() {
 		<Box bg={'$transparent'}>
 			{rAuthorizationVar?.DeviceProfile?.Profile?.tonightStory?.photos?.length ? (
 				<Box
+					bg='$transparent'
 					sx={{
 						h: containerHeight,
 					}}
@@ -178,7 +179,7 @@ export default function Photos() {
 							if (item?.__typename === 'upload') {
 								return (
 									<Box
-										// bg={'$transparent'}
+										bg={'$transparent'}
 										sx={{
 											h: containerHeight,
 											w: ITEM_WIDTH,
@@ -251,7 +252,7 @@ export default function Photos() {
 
 							return (
 								<View key={index}>
-									<Box h={'100%'} w={ITEM_WIDTH} rounded={'$md'} overflow='hidden'>
+									<Box h={'100%'} w={ITEM_WIDTH} rounded={'$md'} overflow='hidden' bg='$transparent'>
 										<Pressable
 											position={'absolute'}
 											top={0}
@@ -355,11 +356,11 @@ export default function Photos() {
 			) : (
 				<BlurView
 					tint={rTheme.colorScheme === 'light' ? 'light' : 'dark'}
-					intensity={70}
+					intensity={40}
 					style={{ borderRadius: 15, overflow: 'hidden', marginHorizontal: 7 }}
 				>
 					<Box
-						// bg={'$transparent'}
+						bg={'$transparent'}
 						sx={{
 							h: containerHeight,
 							w: '100%',
@@ -372,7 +373,7 @@ export default function Photos() {
 									w: '100%',
 									mb: 25,
 								}}
-								bg='$transparent'
+								bg={'$transparent'}
 								alignItems={'center'}
 							>
 								<MaterialIcons
@@ -387,7 +388,7 @@ export default function Photos() {
 									size={40}
 									name={'photo-size-select-actual'}
 								/>
-								<Box bg='$transparent' position={'absolute'} zIndex={5}>
+								<Box bg={'$transparent'} position={'absolute'} zIndex={5}>
 									<View
 										style={[
 											styles.dotSm,

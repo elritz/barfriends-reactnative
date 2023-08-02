@@ -54,7 +54,6 @@ export default () => {
 								data={data?.emojimoods}
 								estimatedItemSize={50}
 								numColumns={3}
-								contentContainerStyle={{}}
 								extraData={watch('emojimood')}
 								contentInset={{
 									top: insets.top + 400 + 60,
@@ -135,7 +134,7 @@ export default () => {
 						)}
 					/>
 				</Box>
-				<View style={{ marginTop: insets.top + 50 }}>
+				<View style={{ marginTop: insets.top + 60, marginBottom: 10 }}>
 					<Photos />
 				</View>
 			</Box>
