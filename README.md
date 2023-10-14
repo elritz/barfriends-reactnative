@@ -1,7 +1,7 @@
 # barfriends-reactnative
 Discover and explore the best of your local area with our going-out app. Find nearby restaurants, bars, events, and activities to make the most of your time right in your neighborhood. From hidden gems to popular hotspots, we've got you covered for a fun and memorable local experience.
 
-🚀 Welcome to Barfriends!
+### 🚀 Welcome to Barfriends!
 This project aims to be a strong foundation for react-native applications. It provides a clear and organized structure, core dependencies.
 
 Date : 2023-10-14 16:07:15
@@ -22,8 +22,9 @@ Total : 541 files, 73801 codes, 3440 comments, 7688 blanks, all 84929 lines
 |**XML** |7| 155| 0 |7| 162|
 |**YAML**| 3| 36| 39| 11| 86|
 
-Folder structure
+### Folder structure
 This template follows a very simple project structure:
+
 ```
 app: This folder is your navigation structure and screens.
 reactive: This folder contains all global and specialized state can be stored.
@@ -34,10 +35,9 @@ localization: Folder to store the languages files. Na
 graphql: Folder to write and generate react hooks. 
 util: Folder that contains logic function and hooks.
 types: Folder to put any types.
-
 ```
 
-Setup environments
+### Setup environments
 Using scripts from console The template already has scripts to execute the project calling a specific environment defined into the package.json file. Keep in mind that if you are going to create new envs you have to define the script to build the project properly.
 
 To define which env you want to use, just keep the structure yarn [platform]: [environment]
