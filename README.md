@@ -24,7 +24,7 @@ Total : 541 files, 73801 codes, 3440 comments, 7688 blanks, all 84929 lines
 
 Folder structure
 This template follows a very simple project structure:
-
+```
 app: This folder is your navigation structure and screens.
 reactive: This folder contains all global and specialized state can be stored.
 assets: Asset folder to store all images, vectors, etc.
@@ -34,6 +34,8 @@ localization: Folder to store the languages files. Na
 graphql: Folder to write and generate react hooks. 
 util: Folder that contains logic function and hooks.
 types: Folder to put any types.
+
+```
 
 Setup environments
 Using scripts from console The template already has scripts to execute the project calling a specific environment defined into the package.json file. Keep in mind that if you are going to create new envs you have to define the script to build the project properly.
